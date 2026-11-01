@@ -230,7 +230,7 @@ async function main(){
   }catch(e){ KAR = null; }
 
   renderCol('L', LEFT); renderCol('R', RIGHT);
-  if(RIGHT==='none') $('#colR').classList.add('hidden');
+  if(RIGHT==='none'){ const t = $('#textR'); if(t) t.style.display='none'; const d=$('#colRdel'); if(d) d.style.display='none'; }
   await loadMorph();
   let LIBDATA = null;
   try{ LIBDATA = await get('data/library.json'); }catch(e){}
