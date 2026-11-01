@@ -37,7 +37,7 @@ if(!RIDS_BASE.includes(RIGHT)) RIGHT = 'none';
 const IAST_DEVA = (()=>{
   const VOW={a:'\u0905','\u0101':'\u0906',i:'\u0907','\u012b':'\u0908',u:'\u0909','\u016b':'\u090a','\u1e5b':'\u090b','\u1e5d':'\u090c','\u1e37':'\u090d',e:'\u090f',o:'\u0913',ai:'\u0910',au:'\u0914'};
   const VSN={'\u0101':'\u093e',i:'\u093f','\u012b':'\u0940',u:'\u0941','\u016b':'\u0942','\u1e5b':'\u0943','\u1e5d':'\u0944','\u1e37':'\u0962',e:'\u0947',o:'\u094b',ai:'\u0948',au:'\u094c'};
-  const CON={k:'\u0915',kh:'\u0916',g:'\u0917',gh:'\u0918','\u014b':'\u0919',c:'\u091a',ch:'\u091b',j:'\u091c',jh:'\u091d','\u00f1':'\u091e','\u1e6d':'\u091f','\u1e6dh':'\u0920','\u1e0d':'\u0921','\u1e0dh':'\u0922','\u1e47':'\u0923',t:'\u0924',th:'\u0925',d:'\u0926',dh:'\u0927',n:'\u0928',p:'\u092a',ph:'\u092b',b:'\u092c',bh:'\u092c',m:'\u092e',y:'\u092f',r:'\u0930',l:'\u0932',v:'\u0935','\u015b':'\u0936','\u1e63':'\u0937',s:'\u0938',h:'\u0939'};
+  const CON={k:'\u0915',kh:'\u0916',g:'\u0917',gh:'\u0918','\u014b':'\u0919',c:'\u091a',ch:'\u091b',j:'\u091c',jh:'\u091d','\u00f1':'\u091e','\u1e6d':'\u091f','\u1e6dh':'\u0920','\u1e0d':'\u0921','\u1e0dh':'\u0922','\u1e47':'\u0923',t:'\u0924',th:'\u0925',d:'\u0926',dh:'\u0927',n:'\u0928',p:'\u092a',ph:'\u092b',b:'\u092c',bh:'\u092d',m:'\u092e',y:'\u092f',r:'\u0930',l:'\u0932',v:'\u0935','\u015b':'\u0936','\u1e63':'\u0937',s:'\u0938',h:'\u0939'};
   const OTH={'\u1e43':'\u0902','\u1e41':'\u0902','\u1e25':'\u0903',"'":'\u093d','\u2019':'\u093d','.':'\u0964','..':'\u0965','|':'\u0964','||':'\u0965',' ':' ','\n':'\n','\u2014':'\u0964'};
   const HAL='\u094d';
   const ALL=Object.keys(CON).concat(Object.keys(VOW)).sort((a,b)=>b.length-a.length);
@@ -141,8 +141,22 @@ function saWords(v, iast){
   if(kw && kw.length){
     const shown = iast ? kw.map(k=>k.r) : kw.map(k=>IAST_DEVA.convert(k.r));
     return `<div class="sa">` + shown.map((w,j)=>{
-      const t = (kw[j].t0!=null) ? ` data-t0="${kw[j].t0}" data-t1="${kw[j].t1}" data-i="${v.n-1}"` : '';
-      return `<span class="w" data-w="${esc(kw[j].r)}" data-v="${esc(v.id)}"${t}>${esc(w)}</span>`;
+      const kk = kw[j] || {};
+      const t = (kk.t0!=null) ? ` data-t0="${kk.t0}" data-t1="${kk.t1}" data-i="${v.n-1}"` : '';
+      // Syllable-level sweep: use the karaoke syllables only when they
+      // reproduce the displayed glyphs exactly (joined === w). Otherwise a
+      // sandhi-merged karaoke word would render different text than the
+      // verse, so fall back to the whole-word span.
+      const syl = kk.syls;
+      // Final anusvara is written both ways across sources (ṣaṃ / ṣam),
+      // so normalise the word-final before deciding the texts agree.
+      const nf = x => (x||'').replace(/\u0902$/, '\u092e\u094d');
+      if(syl && syl.length && nf(syl.map(x=>x.d).join('')) === nf(w)){
+        const inner = syl.map(x=>
+          `<span class="w syl" data-t0="${x.t0}" data-t1="${x.t1}" data-i="${v.n-1}">${esc(x.d)}</span>`).join('');
+        return `<span class="kword" data-w="${esc(kk.r)}" data-v="${esc(v.id)}">${inner}</span>`;
+      }
+      return `<span class="w" data-w="${esc(kk.r)}" data-v="${esc(v.id)}"${t}>${esc(w)}</span>`;
     }).join(' ')
       + `</div>` + (!iast ? `<div class="ro">${esc(kw.map(k=>k.r).join(' '))}</div>` : '');
   }
@@ -284,7 +298,8 @@ async function main(){
         }
         const covered = best && bestN >= Math.max(1, Math.ceil(vw.length*0.3));
         const kw = covered ? (best.words||[]) : [];
-        const ks = kw.map(x=>({skel:skelDeva(x.w||''), t0:x.t_on, t1:x.t_off}));
+        const ks = kw.map(x=>({skel:skelDeva(x.w||''), t0:x.t_on, t1:x.t_off,
+                               w:x.w, syls:x.syls||null}));
         // Direct lookup: a karaoke word may cover several verse words (sandhi),
         // so repeats are allowed. Exact > prefix > containment.
         const out = vw.map(w=>{
@@ -295,7 +310,8 @@ async function main(){
                || ks.find(k=>k.skel.startsWith(t) || t.startsWith(k.skel))
                || (t.length>=3 ? ks.find(k=>k.skel.includes(t)) : null);
           }
-          return {w, r:w, t0:hit?hit.t0:null, t1:hit?hit.t1:null};
+          return {w, r:w, t0:hit?hit.t0:null, t1:hit?hit.t1:null,
+                  syls:hit?hit.syls:null, kwd:hit?hit.w:null};
         });
         KAR.words[ix]=out;
         KAR.au[ix]= (covered && best.id) ? `${R2}/audio/${dir}/${best.id}.mp3` : null;
@@ -568,9 +584,14 @@ function tickAU(){
   const t = AU.currentTime;
   document.querySelectorAll('.w.sing').forEach(w=>w.classList.remove('sing'));
   const all = document.querySelectorAll(`.w[data-t0][data-i="${AUix}"]`);
+  // Hold the most recently started syllable until the next one begins, so
+  // inter-syllable gaps don't flash the line unlit. Onsets are in document
+  // order, so the last span with t0 <= t is the current one.
+  let cur = null;
   for(const w of all){
-    if(t >= +w.getAttribute('data-t0') && t <= +w.getAttribute('data-t1')){ w.classList.add('sing'); break; }
+    if(+w.getAttribute('data-t0') <= t) cur = w; else break;
   }
+  if(cur) cur.classList.add('sing');
   if(!AU.paused && !AU.ended) AUtimer = requestAnimationFrame(tickAU);
 }
 function speakThen(i, next){
