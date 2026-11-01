@@ -248,18 +248,26 @@ async function main(){
   $('#pgleft a').onclick = e=>{ e.preventDefault(); goVerse(-1); };
   $('#pgright a').onclick = e=>{ e.preventDefault(); goVerse(1); };
   $('#navsearch').onclick = e=>{ e.preventDefault(); const w = document.querySelector('#wid-search input'); if(w){ w.focus(); w.scrollIntoView({block:'center'}); } };
-  // library rail
+  // library rail — only what you can read. Hidden until texts land:
+  // kallata (spandavrtti, spanda-sutra-varttika, tattvartha-cintamani),
+  // lalla (vakyani), lakshmanagupta + sambhunatha (transmission only),
+  // sivopadhyaya (vb-vivrti), + textless works under kept masters.
+  // To restore: delete the HIDDEN filter below.
+  const HIDDEN_MASTERS = ['kallata','lalla','lakshmanagupta','sambhunatha','sivopadhyaya'];
   try{
-    const lib = await get('data/library.json');
+    const lib = (await get('data/library.json')) || [];
     const box = $('#liblist');
+    const shown = lib.filter(m=>!HIDDEN_MASTERS.includes(m.id))
+      .map(m=>({m, works:(m.works||[]).filter(w=>w.lv)}))
+      .filter(x=>x.works.length);
     const curMaster = (function(){
-      for(const m of (lib||[])) if((m.works||[]).some(w=>w.id===WORK)) return m.id;
+      for(const x of shown) if(x.works.some(w=>w.id===WORK)) return x.m.id;
       return '';
     })();
-    box.innerHTML = (lib||[]).map(m=>
-      `<div class="m${m.id===curMaster?' open':''}" data-m="${esc(m.id)}">`
-      + `<button class="mrow${m.id===curMaster?' on':''}"><span class="car">${m.id===curMaster?'▾':'▸'}</span><span>${esc(m.name||m.id)}</span></button>`
-      + `<div class="wlist">${(m.works||[]).map(w=>`<a href="?work=${esc(w.id)}" class="${w.id===WORK?'cur':''}">${esc(w.title||w.id)}</a>`).join('')}</div></div>`
+    box.innerHTML = shown.map(x=>
+      `<div class="m${x.m.id===curMaster?' open':''}" data-m="${esc(x.m.id)}">`
+      + `<button class="mrow${x.m.id===curMaster?' on':''}"><span class="car">${x.m.id===curMaster?'▾':'▸'}</span><span>${esc(x.m.name||x.m.id)}</span></button>`
+      + `<div class="wlist">${x.works.map(w=>`<a href="?work=${esc(w.id)}" class="${w.id===WORK?'cur':''}">${esc(w.title||w.id)}${w.lv==='sa'?' °':''}</a>`).join('')}</div></div>`
     ).join('');
     box.querySelectorAll('.mrow').forEach(b=>{
       b.onclick = ()=>{
