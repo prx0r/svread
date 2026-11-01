@@ -49,7 +49,7 @@ header nav{background:var(--g800);color:#fff}
 
 /* ---------- passage heading ---------- */
 .passage-heading{margin-bottom:20px;font-family:var(--serif);color:var(--g600)}
-.passage-heading h1{margin:0;font-weight:normal;font-size:24px}
+.passage-heading h1{margin:0;font-weight:normal;font-size:24px;color:var(--g600)}
 .passage-heading h1 a{color:inherit;text-decoration:none}
 .passage-heading h2{margin:0;font-weight:normal;font-style:italic;font-size:16px;line-height:24px}
 .passage-heading h3{margin:0;font-size:14px;line-height:18px;color:var(--g500);font-weight:normal}
@@ -89,6 +89,18 @@ header nav{background:var(--g800);color:#fff}
 .text .enp{font-size:var(--en-size);line-height:1.6}
 .text .verse{margin:0 0 1.4em}
 .text .w.sing{background:var(--hi)}
+.text .w.hl{background:var(--hi)}
+.widget .urn{color:var(--red);font-size:12px;word-break:break-all;font-family:ui-monospace,monospace}
+#vcount{color:var(--red);text-decoration:none;font-family:var(--serif)}
+.widget .wbody a.redlink{color:var(--red)}
+/* display settings: Scaife text links, not buttons */
+#wid-display .tsize button{border:0;background:none;padding:.1rem .3rem;color:var(--g500)}
+#wid-display .tsize button.on{color:var(--black);font-weight:700}
+#wid-mode .tmode button{border:0;background:none;padding:.1rem .4rem;color:var(--g500);font-size:13px;letter-spacing:.08em}
+#wid-mode .tmode button.on{color:var(--black);font-weight:700}
+.twidth a{color:var(--g500);text-decoration:none;margin-right:.9rem;font-size:13px}
+.twidth a.on{color:var(--black);font-weight:700}
+.twidth a:hover{color:var(--black)}
 .text .verse.now{box-shadow:-3px 0 0 var(--red);padding-left:.5em}
 a.vref{color:inherit;text-decoration:none;cursor:pointer}
 a.vref:hover{color:var(--red)}
@@ -125,7 +137,16 @@ body.highlight .text .w:hover{background:var(--hi-lt)}
   text-decoration:none;padding:.16rem .2rem;border-left:2px solid transparent}
 .lib .wlist a:hover{color:var(--red)}
 .lib .wlist a.cur{color:var(--red);border-left-color:var(--red);font-weight:700}
-@media (max-width:1000px){.lib{display:none}.pgutter{flex-basis:34px}.pgutter a{font-size:32px}}
+/* ---------- rail collapse tabs (Scaife arrows) ---------- */
+.railtab{flex:0 0 34px;text-align:center}
+.railtab a{display:block;color:var(--g400);text-decoration:none;
+  font-size:18px;padding:14px 0}
+.railtab a:hover{color:var(--g700)}
+.layout.hideL .lib{display:none}
+.layout.hideR .rail{display:none}
+.layout.hideL #tabL a{transform:scaleX(-1)}
+.layout.hideR #tabR a{transform:scaleX(-1)}
+@media (max-width:1000px){.lib{display:none}.rail{display:none}.pgutter{flex-basis:34px}.pgutter a{font-size:32px}.railtab{display:none}}
 .widget{padding:0 8px 8px;border-bottom:1px solid var(--g200)}
 .widget:first-of-type{border-top:1px solid var(--g200)}
 .widget h2{background:var(--white);padding:15px 0 5px;display:flex;

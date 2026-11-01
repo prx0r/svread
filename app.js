@@ -232,7 +232,10 @@ async function main(){
   renderCol('L', LEFT); renderCol('R', RIGHT);
   if(RIGHT==='none') $('#colR').classList.add('hidden');
   await loadMorph();
-  buildRail(verses);
+  let LIBDATA = null;
+  try{ LIBDATA = await get('data/library.json'); }catch(e){}
+  buildLeftRail(verses, LIBDATA);
+  buildRightRail(verses);
   applyPrefs();
   document.addEventListener('click', e=>{
     if(!e.target.closest('.verbar')) document.querySelectorAll('.dropdown-menu').forEach(m=>m.classList.remove('show'));
@@ -260,37 +263,114 @@ async function main(){
   };
   $('#pgleft a').onclick = e=>{ e.preventDefault(); goVerse(-1); };
   $('#pgright a').onclick = e=>{ e.preventDefault(); goVerse(1); };
-  $('#navsearch').onclick = e=>{ e.preventDefault(); const w = document.querySelector('#wid-search input'); if(w){ w.focus(); w.scrollIntoView({block:'center'}); } };
-  // library rail — only what you can read. Hidden until texts land:
-  // kallata (spandavrtti, spanda-sutra-varttika, tattvartha-cintamani),
-  // lalla (vakyani), lakshmanagupta + sambhunatha (transmission only),
-  // sivopadhyaya (vb-vivrti), + textless works under kept masters.
-  // To restore: delete the HIDDEN filter below.
-  const HIDDEN_MASTERS = ['kallata','lalla','lakshmanagupta','sambhunatha','sivopadhyaya'];
-  try{
-    const lib = (await get('data/library.json')) || [];
-    const box = $('#liblist');
-    const shown = lib.filter(m=>!HIDDEN_MASTERS.includes(m.id))
-      .map(m=>({m, works:(m.works||[]).filter(w=>w.lv)}))
-      .filter(x=>x.works.length);
-    const curMaster = (function(){
-      for(const x of shown) if(x.works.some(w=>w.id===WORK)) return x.m.id;
-      return '';
-    })();
-    box.innerHTML = shown.map(x=>
-      `<div class="m${x.m.id===curMaster?' open':''}" data-m="${esc(x.m.id)}">`
-      + `<button class="mrow${x.m.id===curMaster?' on':''}"><span class="car">${x.m.id===curMaster?'▾':'▸'}</span><span>${esc(x.m.name||x.m.id)}</span></button>`
-      + `<div class="wlist">${x.works.map(w=>`<a href="?work=${esc(w.id)}" class="${w.id===WORK?'cur':''}">${esc(w.title||w.id)}${w.lv==='sa'?' °':''}</a>`).join('')}</div></div>`
-    ).join('');
-    box.querySelectorAll('.mrow').forEach(b=>{
-      b.onclick = ()=>{
-        const m = b.parentElement, open = m.classList.toggle('open');
-        b.querySelector('.car').textContent = open ? '▾' : '▸';
-      };
-    });
-  }catch(e){ const b=$('#liblist'); if(b) b.innerHTML=''; }
+  $('#navsearch').onclick = e=>{ e.preventDefault(); const w = document.querySelector('#lib #wq'); if(w){ w.focus(); w.scrollIntoView({block:'center'}); } };
+  // rail collapse arrows (Scaife)
+  const lay = document.querySelector('.layout');
+  $('#tabL a').onclick = e=>{ e.preventDefault(); lay.classList.toggle('hideL'); };
+  $('#tabR a').onclick = e=>{ e.preventDefault(); lay.classList.toggle('hideR'); };
 
   window.scrollTo(0,0);
+}
+async function buildLeftRail(verses, LIBDATA){
+  // LEFT RAIL — Scaife order: id, verses, library, reference, search, attributions, proof, export
+  try{
+    const lib = LIBDATA || (await get('data/library.json')) || [];
+    const urn = `urn:svread:${WORK}`;
+    const libAside = $('#lib');
+    libAside.innerHTML =
+      W('workid','Work ID', `<div class="urn">${esc(urn)}</div>`)
+      + W('verses','Verses', `<a href="#" id="vcount" style="color:#B45141">${verses.length}</a>`)
+      + W('library','Library', `<div id="liblist">${libraryHtml(lib)}</div>`)
+      + W('ref','Passage Reference', `<div class="wsearch"><input id="wjump" placeholder="§ number…" inputmode="numeric"/><button id="wgo2">go</button></div><div class="vref-list" style="margin-top:.4rem">${verses.map((v,i)=>`<a href="#v${i}" data-i="${i}">§${i+1}</a>`).join('')}</div>`)
+      + W('search','Text Search', `<div class="wsearch"><input id="wq" placeholder="find in this work…"/><button id="wgo">go</button></div><div style="margin:.3rem 0;font-size:13px"><label><input type="radio" name="smode" value="form" checked/> Form</label> <label style="margin-left:.6rem"><input type="radio" name="smode" value="lemma"/> Lemma</label></div><div class="cmp-note">Use text input above to find text in this version.</div><div id="wres" style="margin-top:.4rem"></div>`)
+      + W('attr','Attributions', `<table class="wtable">`
+        + `<tr><td>work</td><td>${esc(DATA.title)}</td></tr>`
+        + `<tr><td>editions</td><td>L1 close · L2 read · C1 commentary — pipeline, machine-proposed, needs human review</td></tr>`
+        + `<tr><td>gate</td><td>${verses.filter(v=>v.gate==='PASS').length}/${verses.length} passages passed</td></tr>`
+        + (PROOF ? `<tr><td>proof</td><td>${Object.values(PROOF).filter(p=>p.gate==='PASS').length}/${Object.keys(PROOF).length} proved 5/5 · deterministic gate, no model</td></tr>` : '')
+        + `<tr><td>repository</td><td>prx0r/svread · data: prx0r/ipvv layers</td></tr></table>`)
+      + (PROOF ? W('proof','Proof Queue', proofQueueHtml()) : '')
+      + W('export','Export Passage', `<a class="redlink" href="#" id="exp-t">as text</a> or <a class="redlink" href="#" id="exp-j">as json</a>`)
+      + W('issue','Report an Issue', `<a class="redlink" href="https://github.com/prx0r/svread/issues/new" target="_blank" rel="noopener">open a GitHub issue</a>`);
+    bindLibrary($('#liblist'));
+    $('#vcount').onclick = e=>{ e.preventDefault(); const el=document.querySelector('.verse[data-i="0"]'); if(el) el.scrollIntoView(); };
+    const goJump = ()=>{
+      const n = parseInt(($('#wjump').value||'').replace(/[^0-9]/g,''),10);
+      if(n>=1 && n<=verses.length){ const el=document.querySelector(`.verse[data-i="${n-1}"]`); if(el) el.scrollIntoView({block:'center'}); }
+    };
+    $('#wgo2').onclick = goJump;
+    $('#wjump').addEventListener('keydown', e=>{ if(e.key==='Enter') goJump(); });
+    libAside.querySelectorAll('.vref-list a').forEach(a=>{
+      a.onclick = e=>{ e.preventDefault(); const el=document.querySelector(`.verse[data-i="${a.getAttribute('data-i')}"]`); if(el) el.scrollIntoView({block:'center',behavior:'smooth'}); };
+    });
+    const runQ = ()=>{
+      const q = ($('#wq').value||'').trim();
+      const box = $('#wres');
+      if(!q){ box.innerHTML=''; return; }
+      const mode = (libAside.querySelector('input[name=smode]:checked')||{}).value || 'form';
+      const hits = [];
+      if(mode==='lemma' && MORPH){
+        const qn = normQ(q);
+        verses.forEach((v,i)=>{
+          const tags = MORPH[v.id]||{};
+          for(const w of Object.keys(tags)){
+            const mo = tags[w];
+            const lem = normQ((mo&&mo.lemma)||'');
+            if((lem && (lem===qn||lem.startsWith(qn))) || normQ(w)===qn || normQ(w).startsWith(qn)){ hits.push(i); break; }
+          }
+        });
+      } else {
+        const ql = q.toLowerCase();
+        verses.forEach((v,i)=>{
+          const hay = `${v.sa} ${v.l1} ${v.l2} ${v.c1||''}`.toLowerCase();
+          if(hay.includes(ql)) hits.push(i);
+        });
+      }
+      box.innerHTML = hits.length
+        ? `${hits.length} match${hits.length===1?'':'es'}: ` + hits.map(i=>`<a href="#" data-i="${i}">§${i+1}</a>`).join(' ')
+        : 'no matches in this work.';
+      box.querySelectorAll('a').forEach(a=>{
+        a.onclick = e=>{ e.preventDefault(); const el=document.querySelector(`.verse[data-i="${a.getAttribute('data-i')}"]`); if(el) el.scrollIntoView({block:'center',behavior:'smooth'}); };
+      });
+    };
+    $('#wgo').onclick = runQ;
+    $('#wq').addEventListener('keydown', e=>{ if(e.key==='Enter') runQ(); });
+    $('#exp-t').onclick = e=>{ e.preventDefault(); dl(`${WORK}.txt`, verses.map((v,i)=>`§${i+1}\n${cleanSA(v.sa)}\n${cleanEN(v.l2||v.l1||'')}`).join('\n\n'), 'text/plain'); };
+    $('#exp-j').onclick = e=>{ e.preventDefault(); dl(`${WORK}.json`, JSON.stringify(verses, null, 1), 'application/json'); };
+    libAside.querySelectorAll('[data-pi]').forEach(a=>{
+      a.onclick = e=>{ e.preventDefault(); const el=document.querySelector(`.verse[data-i="${a.getAttribute('data-pi')}"]`); if(el) el.scrollIntoView({block:'center',behavior:'smooth'}); };
+    });
+    libAside.querySelectorAll('.widget h2').forEach(h=>{ h.onclick = ()=>h.parentElement.classList.toggle('closed'); });
+  }catch(e){ const la=$('#lib'); if(la) la.innerHTML='<p class="loading">library unavailable</p>'; }
+}
+function normQ(s){ return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z]/g, ''); }
+// Hidden masters (no readable texts yet — restore by deleting this list):
+// kallata (spandavrtti, spanda-sutra-varttika, tattvartha-cintamani),
+// lalla (vakyani), lakshmanagupta + sambhunatha (transmission only),
+// sivopadhyaya (vb-vivrti). Textless works under kept masters also filtered.
+const HIDDEN_MASTERS = ['kallata','lalla','lakshmanagupta','sambhunatha','sivopadhyaya'];
+function libraryHtml(lib){
+  const shown = (lib||[]).filter(m=>!HIDDEN_MASTERS.includes(m.id))
+    .map(m=>({m, works:(m.works||[]).filter(w=>w.lv)}))
+    .filter(x=>x.works.length);
+  const curMaster = (function(){
+    for(const x of shown) if(x.works.some(w=>w.id===WORK)) return x.m.id;
+    return '';
+  })();
+  return shown.map(x=>
+    `<div class="m${x.m.id===curMaster?' open':''}" data-m="${esc(x.m.id)}">`
+    + `<button class="mrow${x.m.id===curMaster?' on':''}"><span class="car">${x.m.id===curMaster?'▾':'▸'}</span><span>${esc(x.m.name||x.m.id)}</span></button>`
+    + `<div class="wlist">${x.works.map(w=>`<a href="?work=${esc(w.id)}" class="${w.id===WORK?'cur':''}">${esc(w.title||w.id)}${w.lv==='sa'?' °':''}</a>`).join('')}</div></div>`
+  ).join('');
+}
+function bindLibrary(box){
+  if(!box) return;
+  box.querySelectorAll('.mrow').forEach(b=>{
+    b.onclick = ()=>{
+      const m = b.parentElement, open = m.classList.toggle('open');
+      b.querySelector('.car').textContent = open ? '▾' : '▸';
+    };
+  });
 }
 
 function renderCol(side, vid){
@@ -426,28 +506,21 @@ function reciteAll(){
   step();
 }
 
-function buildRail(verses){
-  const W = (id, title, body)=>`<div class="widget" id="wid-${id}"><h2><span><span class="tog">−</span>${title}</span></h2><div class="wbody">${body}</div></div>`;
+const W = (id, title, body)=>`<div class="widget" id="wid-${id}"><h2><span><span class="tog">⌄</span>${title}</span></h2><div class="wbody">${body}</div></div>`;
+function buildRightRail(verses){
   $('#rail').innerHTML =
-    W('word','Word Study Tools',
-      `<div class="tmode"><button data-m="normal" class="on">normal</button><button data-m="highlight">highlight</button></div><div id="wsw">Select a Sanskrit word to analyze its form.</div>`)
+    W('mode','Text Mode',
+      `<div class="tmode"><button data-m="normal" class="on">normal</button><button data-m="highlight">highlight</button></div><div class="cmp-note">normal selection of text for copying possible</div>`)
+    + W('hl','Highlight', `<div class="wsearch"><input id="hlq" placeholder="highlight words…"/></div><div id="hlc" class="cmp-note"></div>`)
+    + W('word','Morphology', `<div class="cmp-note">In <b>highlight</b> text mode, select a word to get morphological analysis.</div><div id="wsw">Select a Sanskrit word to analyze its form.</div>`)
+    + W('dict','Dictionaries', `<div class="wsearch"><select id="dsel" style="max-width:7rem"><option value="terms">Key Terms</option></select><input id="dq" placeholder="look up a term…"/></div><div class="cmp-note">Search with * to match anywhere in the headword.</div><div id="dres" style="margin-top:.4rem"></div>`)
+    + W('display','Display Settings',
+      `<div class="cmp-note" style="text-transform:uppercase;letter-spacing:.15em;font-size:.68rem">Text Size</div><div class="tsize">${['Αα','Αα','Αα','Αα','Αα'].map((a,i)=>`<button data-s="${i}" style="font-size:${[11,13,15,19,24][i]}px">${a}</button>`).join('')}</div>`
+      + `<div class="cmp-note" style="text-transform:uppercase;letter-spacing:.15em;font-size:.68rem;margin-top:.6rem">Text Width</div><div class="twidth">${['Narrow','Normal','Wide','Full'].map(w=>`<a href="#" data-w="${w}">${w}</a>`).join(' ')}</div>`)
     + W('recite','Recitation',
-      `<div class="tsize"><button id="rcAll">▶ recite all</button><button id="rcStop">■ stop</button></div><div class="cmp-note">${KAR ? 'studio chant, karaoke-timed · tap § for one verse' : 'browser voice · no studio chant on file · tap § for one verse'}</div>`) // placeholder replaced below
-    + W('size','Text Size', `<div class="tsize">${['Αα','Αα','Αα','Αα'].map((a,i)=>`<button data-s="${i}" style="font-size:${[12,15,18,22][i]}px">${a}</button>`).join('')}</div>`)
-    + W('width','Text Width', `<div class="twidth">${['Narrow','Normal','Wide','Full'].map(w=>`<button data-w="${w}">${w}</button>`).join('')}</div>`)
-    + W('ref','Passage Reference', `<div class="vref-list">${verses.map((v,i)=>`<a href="#v${i}" data-i="${i}">§${i+1}</a>`).join('')}</div>`)
-    + W('search','Text Search', `<div class="wsearch"><input id="wq" placeholder="find in this work…"/><button id="wgo">go</button></div><div id="wres" style="margin-top:.4rem"></div>`)
-    + W('attr','Attributions', `<table class="wtable">`
-      + `<tr><td>work</td><td>${esc(DATA.title)}</td></tr>`
-      + `<tr><td>editions</td><td>L1 close · L2 read · C1 commentary — pipeline, machine-proposed, needs human review</td></tr>`
-      + `<tr><td>gate</td><td>${verses.filter(v=>v.gate==='PASS').length}/${verses.length} passages passed</td></tr>`
-      + (PROOF ? `<tr><td>proof</td><td>${Object.values(PROOF).filter(p=>p.gate==='PASS').length}/${Object.keys(PROOF).length} proved 5/5 · deterministic gate, no model</td></tr>` : '')
-      + `<tr><td>repository</td><td>prx0r/svread · data: prx0r/ipvv layers</td></tr></table>`)
-    + (PROOF ? W('proof','Proof Queue', proofQueueHtml()) : '')
-    + W('export','Export Passage', `<a href="#" id="exp-t">as text</a> · <a href="#" id="exp-j">as json</a>`)
-    + W('issue','Report an Issue', `<a href="https://github.com/prx0r/svread/issues/new" target="_blank" rel="noopener">open a GitHub issue</a>`);
+      `<div class="tsize"><button id="rcAll">▶ recite all</button><button id="rcStop">■ stop</button></div><div class="cmp-note">${KAR ? 'studio chant, karaoke-timed · tap § for one verse' : 'browser voice · no studio chant on file · tap § for one verse'}</div>`);
   // collapsible widgets
-  document.querySelectorAll('.widget h2').forEach(h=>{
+  document.querySelectorAll('#rail .widget h2').forEach(h=>{
     h.onclick = ()=>h.parentElement.classList.toggle('closed');
   });
   // recitation
@@ -455,84 +528,73 @@ function buildRail(verses){
   if(rcA) rcA.onclick = ()=>reciteAll();
   if(rcS) rcS.onclick = ()=>stopRecite();
   // text mode
-  document.querySelectorAll('#wid-word [data-m]').forEach(b=>{
+  document.querySelectorAll('#wid-mode [data-m]').forEach(b=>{
     b.onclick = ()=>{
-      document.querySelectorAll('#wid-word [data-m]').forEach(x=>x.classList.remove('on'));
+      document.querySelectorAll('#wid-mode [data-m]').forEach(x=>x.classList.remove('on'));
       b.classList.add('on');
       document.body.classList.toggle('highlight', b.getAttribute('data-m')==='highlight');
     };
   });
-  // size / width
-  const sizes = [[1.0,0.85],[1.25,1.0],[1.5,1.15],[1.8,1.3]];
-  document.querySelectorAll('#wid-size [data-s]').forEach(b=>{
+  // highlight-a-word box
+  const hlq = $('#hlq');
+  if(hlq) hlq.addEventListener('input', ()=>{
+    const q = hlq.value.trim();
+    document.querySelectorAll('.w.hl').forEach(w=>w.classList.remove('hl'));
+    const box = $('#hlc');
+    if(!q){ if(box) box.innerHTML=''; return; }
+    const ql = q.toLowerCase().replace(/\*/g,'');
+    let n = 0;
+    document.querySelectorAll('.w').forEach(w=>{
+      const t = (w.getAttribute('data-w')||'').toLowerCase();
+      if(t && (q.includes('*') ? t.includes(ql) : t===ql)){ w.classList.add('hl'); n++; }
+    });
+    if(box) box.innerHTML = n ? `${n} hit${n===1?'':'s'}` : 'no matches';
+  });
+  // dictionaries: key-terms lookup
+  const drun = ()=>{
+    const q = ($('#dq').value||'').trim().toLowerCase().replace(/\*/g,'');
+    const box = $('#dres');
+    if(!q){ box.innerHTML=''; return; }
+    const hits = [];
+    verses.forEach((v,i)=>{
+      for(const e of (TERMS[v.id]||[])){
+        if(e.t.toLowerCase().includes(q) || (e.g||'').toLowerCase().includes(q)){ hits.push({i, e}); break; }
+      }
+    });
+    box.innerHTML = hits.length
+      ? hits.map(h=>`<div><b>${esc(h.e.t)}</b> — ${esc(h.e.g)} <a href="#" data-i="${h.i}">§${h.i+1}</a></div>`).join('')
+      : 'no entries found.';
+    box.querySelectorAll('a').forEach(a=>{
+      a.onclick = e=>{ e.preventDefault(); const el=document.querySelector(`.verse[data-i="${a.getAttribute('data-i')}"]`); if(el) el.scrollIntoView({block:'center',behavior:'smooth'}); };
+    });
+  };
+  const dgo = $('#dq'); if(dgo){
+    dgo.addEventListener('keydown', e=>{ if(e.key==='Enter') drun(); });
+    dgo.addEventListener('input', ()=>{ if(!dgo.value.trim()) $('#dres').innerHTML=''; });
+  }
+  // size (5 steps, Scaife) / width (text links, Scaife)
+  const sizes = [[0.9,0.8],[1.0,0.85],[1.25,1.0],[1.5,1.15],[1.8,1.3]];
+  document.querySelectorAll('#wid-display [data-s]').forEach(b=>{
     b.onclick = ()=>{
       const i = +b.getAttribute('data-s');
       const r = document.documentElement.style;
       r.setProperty('--sa-size', sizes[i][0]+'rem');
       r.setProperty('--en-size', sizes[i][1]+'rem');
       try{ localStorage.setItem('svv-tsize', i); }catch(e){}
-      document.querySelectorAll('#wid-size [data-s]').forEach(x=>x.classList.remove('on'));
+      document.querySelectorAll('#wid-display [data-s]').forEach(x=>x.classList.remove('on'));
       b.classList.add('on');
     };
   });
   const widths = {Narrow:'38rem', Normal:'46rem', Wide:'62rem', Full:'100%'};
-  document.querySelectorAll('#wid-width [data-w]').forEach(b=>{
-    b.onclick = ()=>{
+  document.querySelectorAll('#wid-display [data-w]').forEach(b=>{
+    b.onclick = e=>{
+      e.preventDefault();
       document.documentElement.style.setProperty('--measure', widths[b.getAttribute('data-w')]);
       try{ localStorage.setItem('svv-twidth', b.getAttribute('data-w')); }catch(e){}
-      document.querySelectorAll('#wid-width [data-w]').forEach(x=>x.classList.remove('on'));
+      document.querySelectorAll('#wid-display [data-w]').forEach(x=>x.classList.remove('on'));
       b.classList.add('on');
     };
   });
-  // proof-queue jumps
-  document.querySelectorAll('[data-pi]').forEach(a=>{
-    a.onclick = e=>{
-      e.preventDefault();
-      const el = document.querySelector(`.verse[data-i="${a.getAttribute('data-pi')}"]`);
-      if(el) el.scrollIntoView({block:'center', behavior:'smooth'});
-    };
-  });
-  // reference jumps
-  document.querySelectorAll('.vref-list a').forEach(a=>{
-    a.onclick = e=>{
-      e.preventDefault();
-      const el = document.querySelector(`.verse[data-i="${a.getAttribute('data-i')}"]`);
-      if(el) el.scrollIntoView({block:'center', behavior:'smooth'});
-    };
-  });
-  // search
-  const run = ()=>{
-    const q = ($('#wq').value||'').trim().toLowerCase();
-    const box = $('#wres');
-    if(!q){ box.innerHTML=''; return; }
-    const hits = [];
-    verses.forEach((v,i)=>{
-      const hay = `${v.sa} ${v.l1} ${v.l2} ${v.c1||''}`.toLowerCase();
-      if(hay.includes(q)) hits.push(i);
-    });
-    box.innerHTML = hits.length
-      ? `${hits.length} match${hits.length===1?'':'es'}: ` + hits.map(i=>`<a href="#" data-i="${i}">§${i+1}</a>`).join(' ')
-      : 'no matches in this work.';
-    box.querySelectorAll('a').forEach(a=>{
-      a.onclick = e=>{
-        e.preventDefault();
-        const el = document.querySelector(`.verse[data-i="${a.getAttribute('data-i')}"]`);
-        if(el) el.scrollIntoView({block:'center', behavior:'smooth'});
-      };
-    });
-  };
-  $('#wgo').onclick = run;
-  $('#wq').addEventListener('keydown', e=>{ if(e.key==='Enter') run(); });
-  // export
-  $('#exp-t').onclick = e=>{
-    e.preventDefault();
-    const t = verses.map((v,i)=>`§${i+1}\n${cleanSA(v.sa)}\n${cleanEN(v.l2||v.l1||'')}`).join('\n\n');
-    dl(`${WORK}.txt`, t, 'text/plain');
-  };
-  $('#exp-j').onclick = e=>{
-    e.preventDefault();
-    dl(`${WORK}.json`, JSON.stringify(verses, null, 1), 'application/json');
-  };
 }
 function dl(name, text, type){
   const a = document.createElement('a');
@@ -542,16 +604,16 @@ function dl(name, text, type){
 }
 function applyPrefs(){
   try{
-    const s = +(localStorage.getItem('svv-tsize')||1);
-    const sizes = [[1.0,0.85],[1.25,1.0],[1.5,1.15],[1.8,1.3]];
+    const s = (localStorage.getItem('svv-tsize')==null) ? 2 : +localStorage.getItem('svv-tsize');
+    const sizes = [[0.9,0.8],[1.0,0.85],[1.25,1.0],[1.5,1.15],[1.8,1.3]];
     const r = document.documentElement.style;
     r.setProperty('--sa-size', sizes[s][0]+'rem');
     r.setProperty('--en-size', sizes[s][1]+'rem');
-    const b = document.querySelector(`#wid-size [data-s="${s}"]`); if(b) b.classList.add('on');
+    const b = document.querySelector(`#wid-display [data-s="${s}"]`); if(b) b.classList.add('on');
     const w = localStorage.getItem('svv-twidth')||'Normal';
     const widths = {Narrow:'38rem', Normal:'46rem', Wide:'62rem', Full:'100%'};
     r.setProperty('--measure', widths[w]||widths.Normal);
-    const wb = document.querySelector(`#wid-width [data-w="${w}"]`); if(wb) wb.classList.add('on');
+    const wb = document.querySelector(`#wid-display [data-w="${w}"]`); if(wb) wb.classList.add('on');
   }catch(e){}
 }
 main();
