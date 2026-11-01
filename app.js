@@ -128,10 +128,10 @@ function glossFor(id, word){
 const VDEF = {
   'sa-deva': v=>({label:v.title||WORK, desc:'Sanskrit text, Devanagari', meta:'san edition'}),
   'sa-iast': v=>({label:v.title||WORK, desc:'Sanskrit text, IAST transliteration', meta:'san transliteration'}),
-  'l1': ()=>({label:'Close translation', desc:'Proposition-faithful English, Sanskrit-close (was L1)', meta:'eng translation'}),
-  'l2': ()=>({label:'Reading translation', desc:'Book prose, Dyczkowski-mode (was L2)', meta:'eng translation'}),
-  'c1': ()=>({label:'Commentary', desc:'Passage commentary, 100–450 words (was C1)', meta:'eng commentary'}),
-  'l0': ()=>({label:'Word gloss', desc:'T1 word-gloss extraction, verbatim, checkable (was L0)', meta:'san gloss-layer'}),
+  'l1': ()=>({label:'Close', desc:'Close translation — faithful to the Sanskrit', meta:'eng translation'}),
+  'l2': ()=>({label:'Plain', desc:'Plain translation — clear English', meta:'eng translation'}),
+  'c1': ()=>({label:'Reading', desc:'Reading — commentary as prose', meta:'eng commentary'}),
+  'l0': ()=>({label:'Word gloss', desc:'Word-by-word gloss', meta:'san gloss-layer'}),
   'mine': ()=>({label:'Your version', desc:'Pasted by you, this device only', meta:'eng user-version'}),
   'none': ()=>({label:'—', desc:'', meta:''}),
 };
@@ -581,12 +581,31 @@ function renderCol(side, vid){
   const v0 = DATA.verses[0];
   const d = VDEF[vid]({title:DATA.title});
   labelEl.innerHTML = vid==='none' ? '' : `<div class="vlab" style="font-weight:700">${esc(d.label)}</div><div class="vdesc">${esc(d.desc)}</div><div class="vmeta">${esc(d.meta)}</div>`;
-  menuEl.innerHTML = ids.map(id=>{
+  /* grouped picker: Translations header with narrow bars (Close · Plain · Reading),
+     then Sanskrit, then Yours. Version ids unchanged — old links keep working. */
+  const GROUPS=[['Translations',['l1','l2','c1'],'bars'],['Sanskrit',['sa-deva','sa-iast','l0'],'list'],['Yours',['mine','none'],'list']];
+  const inIds=id=>ids.includes(id);
+  const item=id=>{
     const dd = VDEF[id]({title:DATA.title});
     const mark = id===vid ? `<span class="side">${side}</span>` : `<span class="side">&nbsp;</span>`;
     return `<a class="dropdown-item" href="#" data-col="${side}" data-v="${id}">${mark}<div><div class="label">${esc(dd.label)}</div><div class="description">${esc(dd.desc)}</div><div class="metadata">${esc(dd.meta)}</div></div></a>`;
-  }).join('') + (side==='R' && vid!=='none' ? `<div class="dropdown-divider"></div><a class="dropdown-item remove" href="#" data-col="R" data-v="none"><span class="side">&nbsp;</span><div><div class="label">remove column</div></div></a>` : '');
-  menuEl.querySelectorAll('.dropdown-item').forEach(a=>{
+  };
+  let menuHtml='';
+  for(const [gname,gids,kind] of GROUPS){
+    const present=gids.filter(inIds);
+    if(!present.length) continue;
+    menuHtml+=`<div class="dgroup">${gname}</div>`;
+    if(kind==='bars'){
+      menuHtml+=`<div class="tbars">`+present.map(id=>{
+        const dd = VDEF[id]({title:DATA.title});
+        return `<a class="tbar${id===vid?' on':''}" href="#" data-col="${side}" data-v="${id}" title="${esc(dd.desc)}">${esc(dd.label)}</a>`;
+      }).join('')+`</div>`;
+    }else{
+      menuHtml+=present.map(item).join('');
+    }
+  }
+  menuEl.innerHTML = menuHtml + (side==='R' && vid!=='none' ? `<div class="dropdown-divider"></div><a class="dropdown-item remove" href="#" data-col="R" data-v="none"><span class="side">&nbsp;</span><div><div class="label">remove column</div></div></a>` : '');
+  menuEl.querySelectorAll('.dropdown-item,.tbar').forEach(a=>{
     a.onclick = e=>{ e.preventDefault(); menuEl.classList.remove('show'); setCol(a.getAttribute('data-col')==='L'?'left':'right', a.getAttribute('data-v')); };
   });
   const drop = $(side==='L' ? '#verdropL' : '#verdropR');
