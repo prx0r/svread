@@ -136,75 +136,74 @@ const VDEF = {
   'none': ()=>({label:'—', desc:'', meta:''}),
 };
 
-function saWords(v, iast){
-  // aligned karaoke timings when chant covers this verse's words, else plain split.
-  // data-t0/1 emitted only for matched words; tickAU skips the rest.
-  const kw = KAR && KAR.words[v.n-1];
-  if(kw && kw.length){
-    const shown = iast ? kw.map(k=>k.r) : kw.map(k=>IAST_DEVA.convert(k.r));
-    const relA = ART_REL[v.n-1];
-    if(relA && relA.size){
-      // ---- compiled path: no matching at runtime.
-      // The artifact carries TIMES ONLY, one slot per chant syllable. Split the
-      // verse's own word into that many pieces by length so the glyphs shown are
-      // exactly the verse text (sandhi merges no longer alter what is displayed).
-      const cut = (str, k) => {
-        if(k <= 1 || str.length <= 1) return [str];
-        const out = []; let prev = 0;
-        for(let i=1;i<k;i++){
-          const at = Math.round(str.length * i / k);
-          if(at <= prev || at >= str.length) continue;
-          out.push(str.slice(prev, at)); prev = at;
-        }
-        out.push(str.slice(prev));
-        return out;
-      };
-      return `<div class="sa">` + shown.map((w,j)=>{
-        const sy = relA.get(j);
-        if(sy && sy.length){
-          const n = Math.min(sy.length, Math.max(1, w.length));
-          const parts = cut(w, n);
-          const times = sy.length === parts.length ? sy : parts.map((_,i)=>sy[Math.floor(i*sy.length/parts.length)]);
-          const inner = parts.map((p,i)=>
-            `<span class="w syl" data-t0="${times[i][0]}" data-t1="${times[i][1]}" data-i="${v.n-1}">${esc(p)}</span>`).join('');
-          return `<span class="kword" data-w="${esc(kw[j]&&kw[j].r||w)}" data-v="${esc(v.id)}">${inner}</span>`;
-        }
-        return `<span class="w" data-w="${esc(kw[j]&&kw[j].r||w)}" data-v="${esc(v.id)}">${esc(w)}</span>`;
-      }).join(' ') + `</div>` + (!iast ? `<div class="ro">${esc(kw.map(k=>k.r).join(' '))}</div>` : '');
-    }
+function saWords(v, iast, vix){
+  const VI = (vix!=null) ? vix : (v.n-1);
+  const raw = cleanSA(v.sa||'');
+  const words = raw.split(/\s+/).filter(Boolean)
+                   .filter(w=>!/^[\u0964\u0965.,|;:]+$/.test(w))
+                   .filter(w=>!/[A-Z]/.test(w));
+  const shown = iast ? words : words.map(w=>IAST_DEVA.convert(w));
+  const roLine = iast ? '' : `<div class="ro">${esc(raw)}</div>`;
+
+  // ---- compiled path (preferred): no matching, no karaoke dependency.
+  // The artifact gives each verse word a list of [t0,t1] slots. Split the
+  // verse's own glyphs into that many pieces so text stays exact.
+  const relA = ART_REL[VI];
+  if(relA && relA.size && !iast){
+    const cutAt = (str, k) => {
+      if(k <= 1 || str.length <= 1) return [str];
+      const out = []; let prev = 0;
+      for(let i=1;i<k;i++){
+        const at = Math.round(str.length * i / k);
+        if(at <= prev || at >= str.length) continue;
+        out.push(str.slice(prev, at)); prev = at;
+      }
+      out.push(str.slice(prev));
+      return out;
+    };
     return `<div class="sa">` + shown.map((w,j)=>{
+      const sy = relA.get(j);
+      if(sy && sy.length){
+        const parts = cutAt(w, Math.min(sy.length, Math.max(1, w.length)));
+        const times = sy.length === parts.length ? sy
+                    : parts.map((_,i)=>sy[Math.min(sy.length-1, Math.floor(i*sy.length/parts.length))]);
+        const inner = parts.map((p,i)=>
+          `<span class="w syl" data-t0="${times[i][0]}" data-t1="${times[i][1]}" data-i="${VI}">${esc(p)}</span>`).join('');
+        return `<span class="kword" data-w="${esc(words[j])}" data-v="${esc(v.id)}">${inner}</span>`;
+      }
+      return `<span class="w" data-w="${esc(words[j])}" data-v="${esc(v.id)}">${esc(w)}</span>`;
+    }).join(' ') + `</div>` + roLine;
+  }
+
+  // ---- live karaoke match (works without an artifact)
+  const kw = KAR && KAR.words[VI];
+  if(kw && kw.length){
+    const shownK = iast ? kw.map(k=>k.r) : kw.map(k=>IAST_DEVA.convert(k.r));
+    const nf = x => (x||'').replace(/\u0902$/, '\u092e\u094d');
+    return `<div class="sa">` + shownK.map((w,j)=>{
       const kk = kw[j] || {};
-      const t = (kk.t0!=null) ? ` data-t0="${kk.t0}" data-t1="${kk.t1}" data-i="${v.n-1}"` : '';
-      // Syllable-level sweep: use the karaoke syllables only when they
-      // reproduce the displayed glyphs exactly (joined === w). Otherwise a
-      // sandhi-merged karaoke word would render different text than the
-      // verse, so fall back to the whole-word span.
+      const t = (kk.t0!=null) ? ` data-t0="${kk.t0}" data-t1="${kk.t1}" data-i="${VI}"` : '';
       const syl = (kk.sslice && kk.sslice.length) ? kk.sslice : kk.syls;
-      // Final anusvara is written both ways across sources (ṣaṃ / ṣam),
-      // so normalise the word-final before deciding the texts agree.
-      const nf = x => (x||'').replace(/\u0902$/, '\u092e\u094d');
       if(syl && syl.length && nf(syl.map(x=>x.d).join('')) === nf(w)){
         const inner = syl.map(x=>
-          `<span class="w syl" data-t0="${x.t0}" data-t1="${x.t1}" data-i="${v.n-1}">${esc(x.d)}</span>`).join('');
+          `<span class="w syl" data-t0="${x.t0}" data-t1="${x.t1}" data-i="${VI}">${esc(x.d)}</span>`).join('');
         return `<span class="kword" data-w="${esc(kk.r)}" data-v="${esc(v.id)}">${inner}</span>`;
       }
       return `<span class="w" data-w="${esc(kk.r)}" data-v="${esc(v.id)}"${t}>${esc(w)}</span>`;
-    }).join(' ')
-      + `</div>` + (!iast ? `<div class="ro">${esc(kw.map(k=>k.r).join(' '))}</div>` : '');
+    }).join(' ') + `</div>` + (!iast ? `<div class="ro">${esc(kw.map(k=>k.r).join(' '))}</div>` : '');
   }
-  const raw = cleanSA(v.sa||'');
-  const words = raw.split(/\s+/).filter(Boolean);
-  const shown = iast ? words : words.map(w=>IAST_DEVA.convert(w));
+
+  // ---- nothing timed: plain text
   return `<div class="sa">` + shown.map((w,j)=>
-    `<span class="w" data-w="${esc(words[j])}" data-v="${esc(v.id)}" data-i="${v.n-1}">${esc(w)}</span>`).join(' ')
-    + `</div>` + (!iast ? `<div class="ro">${esc(raw)}</div>` : '');
+    `<span class="w" data-w="${esc(words[j])}" data-v="${esc(v.id)}" data-i="${VI}">${esc(w)}</span>`).join(' ')
+    + `</div>` + roLine;
 }
-function verseText(v, vid, col){
+function verseText(v, vid, col, vix){
   const raw = cleanSA(v.sa||'');
   const pass = v.gate==='PASS' && (v.l2||v.l1);
-  if(vid==='sa-deva') return saWords(v, false);
-  if(vid==='sa-iast') return saWords(v, true);
-  if(!pass) return saWords(v, false)
+  if(vid==='sa-deva') return saWords(v, false, vix);
+  if(vid==='sa-iast') return saWords(v, true, vix);
+  if(!pass) return saWords(v, false, vix)
     + `<div class="milestone">English withheld — gate ${esc(v.gate||'BLOCKED')}</div>`;
   if(vid==='l1') return `<div class="enp">${esc(cleanEN(v.l1||v.l2||''))}</div>`;
   if(vid==='l2') return `<div class="enp">${esc(cleanEN(v.l2||v.l1||''))}</div>`;
@@ -598,7 +597,7 @@ function renderCol(side, vid){
     return;
   }
   textEl.innerHTML = DATA.verses.map((v,i)=>
-    `<div class="verse" data-i="${i}" id="v${i}"><a class="vref" href="#v${i}" data-i="${i}" title="recite this verse">§ ${i+1}</a>${verseText(v, vid, side)}</div>`
+    `<div class="verse" data-i="${i}" id="v${i}"><a class="vref" href="#v${i}" data-i="${i}" title="recite this verse">§ ${i+1}</a>${verseText(v, vid, side, i)}</div>`
   ).join('');
   const del = $('#colRdel');
   if(del) del.onclick = e=>{ e.preventDefault(); setCol('right','none'); };
