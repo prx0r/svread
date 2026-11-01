@@ -147,7 +147,7 @@ function saWords(v, iast){
       // reproduce the displayed glyphs exactly (joined === w). Otherwise a
       // sandhi-merged karaoke word would render different text than the
       // verse, so fall back to the whole-word span.
-      const syl = kk.syls;
+      const syl = (kk.sslice && kk.sslice.length) ? kk.sslice : kk.syls;
       // Final anusvara is written both ways across sources (ṣaṃ / ṣam),
       // so normalise the word-final before deciding the texts agree.
       const nf = x => (x||'').replace(/\u0902$/, '\u092e\u094d');
@@ -275,7 +275,8 @@ async function main(){
       KAR = {words: [], au: []};
       verses.forEach((v,ix)=>{
         const raw = cleanSA(v.sa||v.sanskrit||'');
-        const vw = raw.split(/\s+/).filter(Boolean);
+        const vw = raw.split(/\s+/).filter(Boolean)
+                     .filter(w=>!/^[\u0964\u0965.,|]+$/.test(w));  // danda is not a word
         // one predicate, used both to pick the covering karaoke entry and to
         // assign timings — mismatched rules here silently killed whole works.
         const skelMatch = (t, ksk)=>{
@@ -324,8 +325,29 @@ async function main(){
           }
           if(hit) hit.used = true;
           return {w, r:w, t0:hit?hit.t0:null, t1:hit?hit.t1:null,
-                  syls:hit?hit.syls:null, kwd:hit?hit.w:null};
+                  syls:hit?hit.syls:null, kwd:hit?hit.w:null, hit:hit||null};
         });
+        // A karaoke word often merges several verse words (sandhi:
+        // sankramo'tra = samkramo 'tra). Every verse word in that run maps
+        // to the same hit, so split the hit's syllables across the run by
+        // relative length; each word then gets its own slice.
+        for(let a=0;a<out.length;){
+          const h = out[a].hit;
+          if(!h || !h.syls || !h.syls.length){ a++; continue; }
+          let b=a; while(b+1<out.length && out[b+1].hit===h) b++;
+          if(b>a){
+            const lens = out.slice(a,b+1).map(x=>Math.max(1,(x.w||'').length));
+            const tot = lens.reduce((p,q)=>p+q,0);
+            const n = h.syls.length;
+            let pos=0;
+            for(let k=a;k<=b;k++){
+              const take = (k===b) ? n-pos : Math.max(1, Math.round(n*lens[k-a]/tot));
+              out[k].sslice = h.syls.slice(pos, pos+take);
+              pos += take;
+            }
+          }
+          a=b+1;
+        }
         KAR.words[ix]=out;
         KAR.au[ix]= (covered && best.id) ? `${R2}/audio/${dir}/${best.id}.mp3` : null;
       });
