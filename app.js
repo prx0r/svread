@@ -216,6 +216,7 @@ async function main(){
   renderCol('L', LEFT); renderCol('R', RIGHT);
   if(RIGHT==='none') $('#colR').classList.add('hidden');
   buildRail(verses);
+  loadMorph();
   applyPrefs();
   document.addEventListener('click', e=>{
     if(!e.target.closest('.verbar')) document.querySelectorAll('.dropdown-menu').forEach(m=>m.classList.remove('show'));
@@ -306,18 +307,36 @@ function renderCol(side, vid){
   if(del) del.onclick = e=>{ e.preventDefault(); setCol('right','none'); };
 }
 
+let MORPH = null; // data/morph/<wid>.json {verses:[{id,tags:{word:{src,lemma?,pos?}}}]}
+async function loadMorph(){
+  try{
+    const m = await get(`data/morph/${WORK}.json`);
+    MORPH = {};
+    for(const v of (m.verses||[])) MORPH[v.id] = v.tags || {};
+  }catch(e){ MORPH = null; }
+}
 function selectWord(w){
   document.querySelectorAll('.w.sel').forEach(x=>x.classList.remove('sel'));
   w.classList.add('sel');
   document.body.classList.add('highlight');
   const ia = w.getAttribute('data-w'), id = w.getAttribute('data-v');
   const g = glossFor(id, ia);
+  const mo = MORPH && MORPH[id] && MORPH[id][ia];
+  let morphRow = '';
+  if(mo && mo.src==='vidyut' && mo.lemma)
+    morphRow = `<tr><td>morph</td><td>stem <b>${esc(mo.lemma)}</b> <span style="color:#adb5bd">(Vidyut)</span></td></tr>`;
+  else if(mo && mo.src==='tagger' && mo.pos)
+    morphRow = `<tr><td>morph</td><td>${esc(mo.pos)} <span style="color:#adb5bd">(neural)</span></td></tr>`;
+  else if(MORPH)
+    morphRow = `<tr><td>morph</td><td>No analysis on file — T1 word-gloss pending.</td></tr>`;
+  else
+    morphRow = `<tr><td>morph</td><td>batch pending — key-terms below meanwhile.</td></tr>`;
   const box = $('#wid-word .wbody');
   if(box) box.innerHTML = `<table class="wtable">`
     + `<tr><td>form</td><td style="font-family:var(--deva);font-size:1.2em">${esc(IAST_DEVA.convert(cleanSA(ia)))}</td></tr>`
     + `<tr><td>iast</td><td><i>${esc(ia)}</i></td></tr>`
-    + (g ? `<tr><td>gloss</td><td><b>${esc(g.t)}</b> — ${esc(g.g)}</td></tr>`
-         : `<tr><td>gloss</td><td>No gloss on file — T1 word-gloss pending.</td></tr>`)
+    + morphRow
+    + (g ? `<tr><td>gloss</td><td><b>${esc(g.t)}</b> — ${esc(g.g)}</td></tr>` : '')
     + `<tr><td>verse</td><td>${esc(id)}</td></tr></table>`;
 }
 
