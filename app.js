@@ -128,10 +128,10 @@ function glossFor(id, word){
 const VDEF = {
   'sa-deva': v=>({label:v.title||WORK, desc:'Sanskrit text, Devanagari', meta:'san edition'}),
   'sa-iast': v=>({label:v.title||WORK, desc:'Sanskrit text, IAST transliteration', meta:'san transliteration'}),
-  'l1': ()=>({label:'L1 — close translation', desc:'Proposition-faithful English, Sanskrit-close', meta:'eng translation'}),
-  'l2': ()=>({label:'L2 — read translation', desc:'Book prose, Dyczkowski-mode', meta:'eng translation'}),
-  'c1': ()=>({label:'C1 — commentary', desc:'Passage commentary, 100–450 words', meta:'eng commentary'}),
-  'l0': ()=>({label:'L0 — tokens', desc:'T1 word-gloss extraction, verbatim, checkable', meta:'san gloss-layer'}),
+  'l1': ()=>({label:'Close translation', desc:'Proposition-faithful English, Sanskrit-close (was L1)', meta:'eng translation'}),
+  'l2': ()=>({label:'Reading translation', desc:'Book prose, Dyczkowski-mode (was L2)', meta:'eng translation'}),
+  'c1': ()=>({label:'Commentary', desc:'Passage commentary, 100–450 words (was C1)', meta:'eng commentary'}),
+  'l0': ()=>({label:'Word gloss', desc:'T1 word-gloss extraction, verbatim, checkable (was L0)', meta:'san gloss-layer'}),
   'mine': ()=>({label:'Your version', desc:'Pasted by you, this device only', meta:'eng user-version'}),
   'none': ()=>({label:'—', desc:'', meta:''}),
 };
@@ -210,7 +210,7 @@ function verseText(v, vid, col, vix){
   if(vid==='c1') return v.c1 ? `<div class="enp c1sec">${mdSec(v.c1)}</div>` : `<div class="enp">${esc(cleanEN(v.l2||v.l1||''))}</div>`;
   if(vid==='l0'){
     const toks = (L0 && (L0[v.id]||L0[v.chunk])) || [];
-    if(!toks.length) return `<div class="milestone">No L0 on file for this verse yet — T1 gloss pending.</div>`;
+    if(!toks.length) return `<div class="milestone">No word gloss on file for this verse yet — T1 gloss pending.</div>`;
     return `<table class="wtable l0tab">` + toks.map(t=>
       `<tr><td class="l0sa">${esc(IAST_DEVA.convert(cleanSA(t.iast||'')))}</td>`
       + `<td class="l0ro"><i>${esc(t.iast||'')}</i></td>`
@@ -227,7 +227,9 @@ function verseText(v, vid, col, vix){
 
 async function main(){
   let D = null;
-  for(const u of (SRC ? [SRC] : [`data/${WORK}.json`, `${IPVV}/data/layers/${WORK}.json`, `${IPVV}/data/translations/${WORK}.json`])){
+  /* canonical-first: ipvv layers JSONs are the backend source of truth.
+     Vendored data/ copy is the offline fallback, not the authority. */
+  for(const u of (SRC ? [SRC] : [`${IPVV}/data/layers/${WORK}.json`, `${IPVV}/data/translations/${WORK}.json`, `data/${WORK}.json`])){
     try{ D = await get(u); if(D && (D.verses || D.chunks)) break; else D = null; }catch(e){ D = null; }
   }
   // last resort: Sanskrit root via works-index (Sanskrit always, English never)
@@ -483,7 +485,7 @@ async function buildLeftRail(verses, LIBDATA){
       + W('search','Text Search', `<div class="wsearch"><input id="wq" placeholder="find in this work…"/><button id="wgo">go</button></div><div style="margin:.3rem 0;font-size:13px"><label><input type="radio" name="smode" value="form" checked/> Form</label> <label style="margin-left:.6rem"><input type="radio" name="smode" value="lemma"/> Lemma</label></div><div class="cmp-note">Use text input above to find text in this version.</div><div id="wres" style="margin-top:.4rem"></div>`)
       + W('attr','Attributions', `<table class="wtable">`
         + `<tr><td>work</td><td>${esc(DATA.title)}</td></tr>`
-        + `<tr><td>editions</td><td>L1 close · L2 read · C1 commentary — pipeline, machine-proposed, needs human review</td></tr>`
+        + `<tr><td>editions</td><td>Close translation · Reading translation · Commentary — pipeline, machine-proposed, needs human review</td></tr>`
         + `<tr><td>gate</td><td>${verses.filter(v=>v.gate==='PASS').length}/${verses.length} passages passed</td></tr>`
         + (PROOF ? `<tr><td>proof</td><td>${Object.values(PROOF).filter(p=>p.gate==='PASS').length}/${Object.keys(PROOF).length} proved 5/5 · deterministic gate, no model</td></tr>` : '')
         + `<tr><td>repository</td><td>prx0r/svread · data: prx0r/ipvv layers</td></tr></table>`)
