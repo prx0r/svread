@@ -14,7 +14,9 @@ const R2 = 'https://pub-87169194562a44fcb8279a799d626c62.r2.dev';
    Probed per work — the day kashaudio ships new timings, they just work. */
 const CHANTDIR = {anuttarastika:'anuttarashtika_trad'};
 let KAR = null; // {words:[[ {w,r,t0,t1} ]], au:[url|null]}
+let ART = null, ART_CLIPS = {}, ART_REL = {};   // compiled alignment (see build_align.py)
 let AU = null, AUtimer = null, AUix = null;
+let QUEUE = null, QIDX = 0, QBASE = 0, QNEXT = null;
 let LEFT = qs.get('left') || localStorage.getItem('svv-left') || 'sa-deva';
 let RIGHT = qs.get('right') || localStorage.getItem('svv-right') || 'none';
 const LIDS_BASE = ['sa-deva','sa-iast','l1','l2','c1'];
@@ -140,6 +142,36 @@ function saWords(v, iast){
   const kw = KAR && KAR.words[v.n-1];
   if(kw && kw.length){
     const shown = iast ? kw.map(k=>k.r) : kw.map(k=>IAST_DEVA.convert(k.r));
+    const relA = ART_REL[v.n-1];
+    if(relA && relA.size){
+      // ---- compiled path: no matching at runtime.
+      // The artifact carries TIMES ONLY, one slot per chant syllable. Split the
+      // verse's own word into that many pieces by length so the glyphs shown are
+      // exactly the verse text (sandhi merges no longer alter what is displayed).
+      const cut = (str, k) => {
+        if(k <= 1 || str.length <= 1) return [str];
+        const out = []; let prev = 0;
+        for(let i=1;i<k;i++){
+          const at = Math.round(str.length * i / k);
+          if(at <= prev || at >= str.length) continue;
+          out.push(str.slice(prev, at)); prev = at;
+        }
+        out.push(str.slice(prev));
+        return out;
+      };
+      return `<div class="sa">` + shown.map((w,j)=>{
+        const sy = relA.get(j);
+        if(sy && sy.length){
+          const n = Math.min(sy.length, Math.max(1, w.length));
+          const parts = cut(w, n);
+          const times = sy.length === parts.length ? sy : parts.map((_,i)=>sy[Math.floor(i*sy.length/parts.length)]);
+          const inner = parts.map((p,i)=>
+            `<span class="w syl" data-t0="${times[i][0]}" data-t1="${times[i][1]}" data-i="${v.n-1}">${esc(p)}</span>`).join('');
+          return `<span class="kword" data-w="${esc(kw[j]&&kw[j].r||w)}" data-v="${esc(v.id)}">${inner}</span>`;
+        }
+        return `<span class="w" data-w="${esc(kw[j]&&kw[j].r||w)}" data-v="${esc(v.id)}">${esc(w)}</span>`;
+      }).join(' ') + `</div>` + (!iast ? `<div class="ro">${esc(kw.map(k=>k.r).join(' '))}</div>` : '');
+    }
     return `<div class="sa">` + shown.map((w,j)=>{
       const kk = kw[j] || {};
       const t = (kk.t0!=null) ? ` data-t0="${kk.t0}" data-t1="${kk.t1}" data-i="${v.n-1}"` : '';
@@ -276,7 +308,8 @@ async function main(){
       verses.forEach((v,ix)=>{
         const raw = cleanSA(v.sa||v.sanskrit||'');
         const vw = raw.split(/\s+/).filter(Boolean)
-                     .filter(w=>!/^[\u0964\u0965.,|]+$/.test(w));  // danda is not a word
+                     .filter(w=>!/^[\u0964\u0965.,|]+$/.test(w))       // danda is not a word
+                     .filter(w=>!/[A-Z]/.test(w));                    // source refs (AgAna_1)
         // one predicate, used both to pick the covering karaoke entry and to
         // assign timings — mismatched rules here silently killed whole works.
         const skelMatch = (t, ksk)=>{
@@ -353,6 +386,27 @@ async function main(){
       });
     }
   }catch(e){ KAR = null; }
+
+  // ---- compiled alignment (scripts/build_align.py). When present the browser
+  // does NO text matching: the artifact already says which chant clips belong
+  // to this passage and gives every syllable an absolute time within it.
+  ART = null; ART_CLIPS = {}; ART_REL = {};
+  try{
+    let art = null;
+    for(const u of [`${R2}/align/${WORK}.json`, `align/${WORK}.json`]){
+      try{ const r = await get(u); if(r && Array.isArray(r.units) && r.units.length){ art = r; break; } }catch(e){}
+    }
+    if(art){
+      ART = art;
+      const dir = CHANTDIR[WORK] || WORK;
+      art.units.forEach((u, i) => {
+        ART_CLIPS[i] = (u.clips||[]).map(c=>({ url:`${R2}/audio/${dir}/${c.clip}.mp3`, dur:c.dur }));
+        const rel = new Map();
+        (u.words||[]).forEach(w => rel.set(w[0] - u.w0, w[1]));
+        ART_REL[i] = rel;
+      });
+    }
+  }catch(e){ ART = null; }
 
   await loadMorph();
   await loadL0();
@@ -601,6 +655,7 @@ function selectWord(w){
 }
 
 function quiet(){
+  QUEUE = null; QIDX = 0; QBASE = 0; QNEXT = null;
   if(AUtimer){ cancelAnimationFrame(AUtimer); AUtimer = null; }
   if(AU){ AU.onended = null; try{ AU.pause(); }catch(e){} }
   try{ speechSynthesis.cancel(); }catch(e){}
@@ -614,9 +669,24 @@ function markVerse(i){
     el.classList.add('now'); el.scrollIntoView({block:'center', behavior:'smooth'});
   });
 }
+function playClip(){
+  if(!QUEUE || QIDX >= QUEUE.length){ const nx = QNEXT; QUEUE = null; if(nx) nx(); return; }
+  AU = AU || new Audio();
+  AU.src = QUEUE[QIDX].url;
+  AU.onended = ()=>{
+    QBASE += (QUEUE[QIDX].dur || 0) + (ART ? (ART.gap||0) : 0);
+    QIDX++;
+    playClip();
+  };
+  AU.play().catch(()=>{ // autoplay blocked or clip missing
+    QBASE += (QUEUE[QIDX].dur || 0) + (ART ? (ART.gap||0) : 0);
+    QIDX++; playClip();
+  });
+  AUtimer = requestAnimationFrame(tickAU);
+}
 function tickAU(){
   if(!AU) return;
-  const t = AU.currentTime;
+  const t = (QUEUE ? QBASE : 0) + AU.currentTime;
   document.querySelectorAll('.w.sing').forEach(w=>w.classList.remove('sing'));
   const all = document.querySelectorAll(`.w[data-t0][data-i="${AUix}"]`);
   // Hold the most recently started syllable until the next one begins, so
@@ -638,6 +708,12 @@ function speakThen(i, next){
   }catch(e){ next(); }
 }
 function stepOnce(i, next){
+  const q = ART_CLIPS[i];
+  if(q && q.length){
+    QUEUE = q; QIDX = 0; QBASE = 0; QNEXT = next;
+    playClip();
+    return;
+  }
   const au = KAR && KAR.au && KAR.au[i];
   if(au){
     AU = AU || new Audio();
