@@ -8,11 +8,9 @@ const qs = new URLSearchParams(location.search);
 const WORK = qs.get('work') || 'bhairavastava';
 const SRC = qs.get('src');
 const IPVV = 'https://ipvv-a8u.pages.dev';
-/* studio chant: works with karaoke timings + mp3s on the ipvv origin */
-const CHANT = {
-  bhairavastava: {kar:'karaoke-bhairavastava.json', dir:'bhairavastava'},
-  anuttarastika: {kar:'karaoke-anuttarastika.json', dir:'anuttarashtika_trad'},
-};
+/* studio chant: karaoke timings + mp3s live on the ipvv origin.
+   Probed per work — the day kashaudio ships new timings, they just work. */
+const CHANTDIR = {anuttarastika:'anuttarashtika_trad'};
 let KAR = null; // {words:[[ {w,r,t0,t1} ]], au:[url|null]}
 let AU = null, AUtimer = null, AUix = null;
 let LEFT = qs.get('left') || localStorage.getItem('svv-left') || 'sa-deva';
@@ -201,21 +199,19 @@ async function main(){
   $('#wh3').textContent = `${nPass}/${verses.length} passages gate-passed · English shows only where passed`;
 
   // studio chant for this work? (karaoke timings + mp3s on ipvv origin)
-  const cm = CHANT[WORK];
-  if(cm){
-    try{
-      const kar = await get(`${IPVV}/data/${cm.kar}`);
-      if(Array.isArray(kar) && kar.length){
-        KAR = {words: verses.map((v,ix)=>{
-          const k = kar[ix % kar.length];
-          return (k.words||[]).map(w=>({w:w.w, r:w.r||'', t0:w.t_on, t1:w.t_off}));
-        }), au: verses.map((v,ix)=>{
-          const k = kar[ix % kar.length];
-          return k ? `${IPVV}/audio/${cm.dir}/${k.id}.mp3` : null;
-        })};
-      }
-    }catch(e){ KAR = null; }
-  }
+  try{
+    const kar = await get(`${IPVV}/data/karaoke-${WORK}.json`);
+    if(Array.isArray(kar) && kar.length){
+      const dir = CHANTDIR[WORK] || WORK;
+      KAR = {words: verses.map((v,ix)=>{
+        const k = kar[ix % kar.length];
+        return (k.words||[]).map(w=>({w:w.w, r:w.r||'', t0:w.t_on, t1:w.t_off}));
+      }), au: verses.map((v,ix)=>{
+        const k = kar[ix % kar.length];
+        return k ? `${IPVV}/audio/${dir}/${k.id}.mp3` : null;
+      })};
+    }
+  }catch(e){ KAR = null; }
 
   renderCol('L', LEFT); renderCol('R', RIGHT);
   if(RIGHT==='none') $('#colR').classList.add('hidden');
