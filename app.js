@@ -120,14 +120,16 @@ const VDEF = {
 };
 
 function saWords(v, iast){
-  // karaoke-timed words when chant exists for this verse, else plain split
+  // aligned karaoke timings when chant covers this verse's words, else plain split.
+  // data-t0/1 emitted only for matched words; tickAU skips the rest.
   const kw = KAR && KAR.words[v.n-1];
   if(kw && kw.length){
-    const shown = iast ? kw.map(k=>k.r) : kw.map(k=>k.w);
-    const src = iast ? kw.map(k=>k.r) : kw.map(k=>k.w);
-    return `<div class="sa">` + shown.map((w,j)=>
-      `<span class="w" data-w="${esc(kw[j].r||kw[j].w)}" data-v="${esc(v.id)}" data-t0="${kw[j].t0}" data-t1="${kw[j].t1}" data-i="${v.n-1}">${esc(w)}</span>`).join(' ')
-      + `</div>` + (!iast ? `<div class="ro">${esc(kw.map(k=>k.r||'').join(' '))}</div>` : '');
+    const shown = iast ? kw.map(k=>k.r) : kw.map(k=>IAST_DEVA.convert(k.r));
+    return `<div class="sa">` + shown.map((w,j)=>{
+      const t = (kw[j].t0!=null) ? ` data-t0="${kw[j].t0}" data-t1="${kw[j].t1}" data-i="${v.n-1}"` : '';
+      return `<span class="w" data-w="${esc(kw[j].r)}" data-v="${esc(v.id)}"${t}>${esc(w)}</span>`;
+    }).join(' ')
+      + `</div>` + (!iast ? `<div class="ro">${esc(kw.map(k=>k.r).join(' '))}</div>` : '');
   }
   const raw = cleanSA(v.sa||'');
   const words = raw.split(/\s+/).filter(Boolean);
@@ -198,25 +200,39 @@ async function main(){
   const nPass = verses.filter(v=>v.gate==='PASS' && (v.l2||v.l1)).length;
   $('#wh3').textContent = `${nPass}/${verses.length} passages gate-passed · English shows only where passed`;
 
-  // studio chant for this work? (karaoke timings + mp3s on ipvv origin)
+  // studio chant for this work? align karaoke to displayed verses by word
+  // overlap (karaoke entries may span differently than pipeline chunks).
+  // Words failing to match get no timing; verses failing to match get no audio.
   try{
     const kar = await get(`${IPVV}/data/karaoke-${WORK}.json`);
     if(Array.isArray(kar) && kar.length){
       const dir = CHANTDIR[WORK] || WORK;
-      KAR = {words: verses.map((v,ix)=>{
-        const k = kar[ix % kar.length];
-        return (k.words||[]).map(w=>({w:w.w, r:w.r||'', t0:w.t_on, t1:w.t_off}));
-      }), au: verses.map((v,ix)=>{
-        const k = kar[ix % kar.length];
-        return k ? `${IPVV}/audio/${dir}/${k.id}.mp3` : null;
+      const wmap = {};
+      kar.forEach(k=>{ (k.words||[]).forEach(w=>{
+        const key = w.r || w.w;
+        if(key && !(key in wmap)) wmap[key] = {t0:w.t_on, t1:w.t_off};
+      }); });
+      KAR = {words: verses.map((v)=>{
+        const raw = cleanSA(v.sa||v.sanskrit||'');
+        return raw.split(/\s+/).filter(Boolean).map(w=>({w, r:w, ...(wmap[w]||{t0:null,t1:null})}));
+      }), au: verses.map((v)=>{
+        const raw = cleanSA(v.sa||v.sanskrit||'');
+        const ws = new Set(raw.split(/\s+/).filter(Boolean));
+        let best=null, bestN=0;
+        kar.forEach(k=>{
+          const ks = new Set((k.words||[]).map(x=>x.r||x.w));
+          let n=0; ws.forEach(w=>{ if(ks.has(w)) n++; });
+          if(n>bestN){ bestN=n; best=k; }
+        });
+        return (best && bestN>0) ? `${IPVV}/audio/${dir}/${best.id}.mp3` : null;
       })};
     }
   }catch(e){ KAR = null; }
 
   renderCol('L', LEFT); renderCol('R', RIGHT);
   if(RIGHT==='none') $('#colR').classList.add('hidden');
+  await loadMorph();
   buildRail(verses);
-  loadMorph();
   applyPrefs();
   document.addEventListener('click', e=>{
     if(!e.target.closest('.verbar')) document.querySelectorAll('.dropdown-menu').forEach(m=>m.classList.remove('show'));
@@ -308,12 +324,29 @@ function renderCol(side, vid){
 }
 
 let MORPH = null; // data/morph/<wid>.json {verses:[{id,tags:{word:{src,lemma?,pos?}}}]}
+let PROOF = null; // data/proof/<wid>.json {verses:{id:{gate,blocking,checks,source_sha,result_id,model,date}}}
 async function loadMorph(){
   try{
     const m = await get(`data/morph/${WORK}.json`);
     MORPH = {};
     for(const v of (m.verses||[])) MORPH[v.id] = v.tags || {};
   }catch(e){ MORPH = null; }
+  try{
+    const p = await get(`data/proof/${WORK}.json`);
+    PROOF = (p && p.verses) || null;
+  }catch(e){ PROOF = null; }
+}
+function proofQueueHtml(){
+  const open = Object.entries(PROOF||{}).filter(([id,p])=>(p.blocking||[]).length>0);
+  if(!open.length) return `<div class="cmp-note">every gated verse proves 5/5.</div>`;
+  // map verse id -> index for jumps
+  const idxOf = {};
+  DATA.verses.forEach((v,i)=>{ idxOf[v.id]=i; });
+  return `<div class="cmp-note">${open.length} verse${open.length===1?'':'s'} with open checks (length-ratio is heuristic — see record):</div>`
+    + open.map(([id,p])=>{
+      const i = idxOf[id];
+      return `<div style="margin:.35rem 0"><a href="#" data-pi="${i==null?'':i}">§${i==null?'?':i+1}</a> <span style="color:#868e96">${esc((p.blocking||[]).join(', '))}</span> <span style="color:#adb5bd">#${esc(p.result_id||'')}</span></div>`;
+    }).join('');
 }
 function selectWord(w){
   document.querySelectorAll('.w.sel').forEach(x=>x.classList.remove('sel'));
@@ -408,7 +441,9 @@ function buildRail(verses){
       + `<tr><td>work</td><td>${esc(DATA.title)}</td></tr>`
       + `<tr><td>editions</td><td>L1 close · L2 read · C1 commentary — pipeline, machine-proposed, needs human review</td></tr>`
       + `<tr><td>gate</td><td>${verses.filter(v=>v.gate==='PASS').length}/${verses.length} passages passed</td></tr>`
+      + (PROOF ? `<tr><td>proof</td><td>${Object.values(PROOF).filter(p=>p.gate==='PASS').length}/${Object.keys(PROOF).length} proved 5/5 · deterministic gate, no model</td></tr>` : '')
       + `<tr><td>repository</td><td>prx0r/svread · data: prx0r/ipvv layers</td></tr></table>`)
+    + (PROOF ? W('proof','Proof Queue', proofQueueHtml()) : '')
     + W('export','Export Passage', `<a href="#" id="exp-t">as text</a> · <a href="#" id="exp-j">as json</a>`)
     + W('issue','Report an Issue', `<a href="https://github.com/prx0r/svread/issues/new" target="_blank" rel="noopener">open a GitHub issue</a>`);
   // collapsible widgets
@@ -447,6 +482,14 @@ function buildRail(verses){
       try{ localStorage.setItem('svv-twidth', b.getAttribute('data-w')); }catch(e){}
       document.querySelectorAll('#wid-width [data-w]').forEach(x=>x.classList.remove('on'));
       b.classList.add('on');
+    };
+  });
+  // proof-queue jumps
+  document.querySelectorAll('[data-pi]').forEach(a=>{
+    a.onclick = e=>{
+      e.preventDefault();
+      const el = document.querySelector(`.verse[data-i="${a.getAttribute('data-pi')}"]`);
+      if(el) el.scrollIntoView({block:'center', behavior:'smooth'});
     };
   });
   // reference jumps
