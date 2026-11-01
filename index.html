@@ -3,19 +3,56 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
-<title>read · trika</title>
+<title id="doctitle">svread</title>
 <link rel="manifest" href="manifest.webmanifest"/>
 <link rel="stylesheet" href="styles.css"/>
 </head>
-<body>
-<header id="top"><div class="in">
-  <a class="home" href="./">‹ works</a>
-  <span class="wt" id="wtitle">…</span>
-  <span class="sub" id="wsub"></span>
-  <nav class="vswitch" id="vsw"></nav>
-</div></header>
-<main id="view"><p class="loading">…</p></main>
-<footer id="foot"><span id="fprov"></span><span class="spk"><button id="speak" title="read aloud">🔊</button></span></footer>
+<body class="reader">
+<header><nav>
+  <div class="topbar-container">
+    <a class="brand" href="./">svread</a>
+    <ul class="main-bar">
+      <li><a href="./">Browse Library</a></li>
+      <li><a href="#" id="navsearch">Text Search</a></li>
+    </ul>
+  </div>
+</nav></header>
+
+<div class="layout">
+  <div class="pgutter" id="pgleft"><a href="#" title="previous verse"><span>‹</span></a></div>
+
+  <main class="reader-main">
+    <div class="passage-heading">
+      <h1 id="wh1">…</h1>
+      <h2 id="wh2"></h2>
+      <h3 id="wh3"></h3>
+    </div>
+    <div class="overall" id="cols">
+      <section class="col left" id="colL">
+        <div class="verbar">
+          <button class="verdrop" id="verdropL" aria-haspopup="true">▾</button>
+          <div class="version-select" id="verlabelL"></div>
+          <div class="dropdown-menu" id="vermenuL"></div>
+        </div>
+        <div class="text" id="textL"></div>
+      </section>
+      <section class="col right" id="colR">
+        <div class="verbar">
+          <button class="verdrop" id="verdropR" aria-haspopup="true">▾</button>
+          <div class="version-select" id="verlabelR"></div>
+          <a class="side-delete" id="colRdel" href="#" title="remove column">×</a>
+          <div class="dropdown-menu" id="vermenuR"></div>
+        </div>
+        <div class="text" id="textR"></div>
+      </section>
+    </div>
+  </main>
+
+  <div class="pgutter" id="pgright"><a href="#" title="next verse"><span>›</span></a></div>
+
+  <aside class="rail" id="rail"></aside>
+</div>
+
 <script src="app.js"></script>
 </body>
 </html>
