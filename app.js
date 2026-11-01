@@ -224,33 +224,82 @@ async function main(){
   const nPass = verses.filter(v=>v.gate==='PASS' && (v.l2||v.l1)).length;
   $('#wh3').textContent = `${nPass}/${verses.length} passages gate-passed · English shows only where passed`;
 
-  // studio chant for this work? align karaoke to displayed verses by word
-  // overlap (karaoke entries may span differently than pipeline chunks).
-  // Words failing to match get no timing; verses failing to match get no audio.
+  // studio chant: align karaoke to displayed verses. Karaoke files vary —
+  // some carry romanisation, some only Devanagari, and many merge sandhi
+  // (सङ्क्रामोऽत्र = "saṃkrāmo 'tra"). So we compare CONSONANT SKELETONS and
+  // walk both lists in order, letting one karaoke word cover several verse
+  // words. Unmatched words simply get no timing.
   try{
-    // timings stay with the site (small JSON); only the mp3s moved to R2
-    const kar = await get(`${IPVV}/data/karaoke-${WORK}.json`);
+    // Timings are small JSON and may live either on R2 or with the site.
+    // R2 first (authoritative, CORS-open); the ipvv origin can return its SPA
+    // fallback HTML with a 200, which get() would hand back as a string.
+    let kar = null;
+    for(const u of [`${R2}/karaoke/${WORK}.json`, `${IPVV}/data/karaoke-${WORK}.json`]){
+      try{ const r = await get(u); if(Array.isArray(r) && r.length){ kar = r; break; } }catch(e){}
+    }
     if(Array.isArray(kar) && kar.length){
       const dir = CHANTDIR[WORK] || WORK;
-      const wmap = {};
-      kar.forEach(k=>{ (k.words||[]).forEach(w=>{
-        const key = w.r || w.w;
-        if(key && !(key in wmap)) wmap[key] = {t0:w.t_on, t1:w.t_off};
-      }); });
-      KAR = {words: verses.map((v)=>{
+      const DEVCON = {'\u0915':'k','\u0916':'kh','\u0917':'g','\u0918':'gh','\u0919':'N',
+        '\u091a':'c','\u091b':'ch','\u091c':'j','\u091d':'jh','\u091e':'N',
+        '\u091f':'t','\u0920':'th','\u0921':'d','\u0922':'dh','\u0923':'N',
+        '\u0924':'t','\u0925':'th','\u0926':'d','\u0927':'dh','\u0928':'N',
+        '\u092a':'p','\u092b':'ph','\u092c':'b','\u092d':'bh','\u092e':'N',
+        '\u092f':'y','\u0930':'r','\u0932':'l','\u0935':'v',
+        '\u0936':'s','\u0937':'s','\u0938':'s','\u0939':'h'};
+      const skelDeva = s=>{
+        let out='';
+        for(const ch of (s||'')){
+          if(DEVCON[ch]) out += DEVCON[ch];
+          else if(/[a-zA-Z]/.test(ch)) out += ch.toLowerCase();
+        }
+        return out;
+      };
+      const skelIast = s=>{
+        const norm=(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+        return norm.replace(/[^a-z]/g,'').replace(/[aeiou]/g,'').replace(/[nm]/g,'N');
+      };
+      KAR = {words: [], au: []};
+      verses.forEach((v,ix)=>{
         const raw = cleanSA(v.sa||v.sanskrit||'');
-        return raw.split(/\s+/).filter(Boolean).map(w=>({w, r:w, ...(wmap[w]||{t0:null,t1:null})}));
-      }), au: verses.map((v)=>{
-        const raw = cleanSA(v.sa||v.sanskrit||'');
-        const ws = new Set(raw.split(/\s+/).filter(Boolean));
+        const vw = raw.split(/\s+/).filter(Boolean);
+        // one predicate, used both to pick the covering karaoke entry and to
+        // assign timings — mismatched rules here silently killed whole works.
+        const skelMatch = (t, ksk)=>{
+          if(!t || !ksk) return false;
+          return ksk===t || ksk.startsWith(t) || t.startsWith(ksk)
+            || (t.length>=3 && ksk.includes(t));
+        };
+        const countMatch = k=>{
+          const sk = (k.words||[]).map(x=>skelDeva(x.w||''));
+          let n=0;
+          vw.forEach(w=>{ const t=skelIast(w); if(sk.some(x=>skelMatch(t,x))) n++; });
+          return n;
+        };
         let best=null, bestN=0;
-        kar.forEach(k=>{
-          const ks = new Set((k.words||[]).map(x=>x.r||x.w));
-          let n=0; ws.forEach(w=>{ if(ks.has(w)) n++; });
-          if(n>bestN){ bestN=n; best=k; }
+        // same number of verses as chant clips -> they correspond 1:1
+        if(kar.length === verses.length){
+          best = kar[ix]; bestN = countMatch(best);
+        } else {
+          kar.forEach(k=>{ const n=countMatch(k); if(n>bestN){ bestN=n; best=k; } });
+        }
+        const covered = best && bestN >= Math.max(1, Math.ceil(vw.length*0.3));
+        const kw = covered ? (best.words||[]) : [];
+        const ks = kw.map(x=>({skel:skelDeva(x.w||''), t0:x.t_on, t1:x.t_off}));
+        // Direct lookup: a karaoke word may cover several verse words (sandhi),
+        // so repeats are allowed. Exact > prefix > containment.
+        const out = vw.map(w=>{
+          const t = skelIast(w);
+          let hit = null;
+          if(t){
+            hit = ks.find(k=>k.skel===t)
+               || ks.find(k=>k.skel.startsWith(t) || t.startsWith(k.skel))
+               || (t.length>=3 ? ks.find(k=>k.skel.includes(t)) : null);
+          }
+          return {w, r:w, t0:hit?hit.t0:null, t1:hit?hit.t1:null};
         });
-        return (best && bestN>0) ? `${R2}/audio/${dir}/${best.id}.mp3` : null;
-      })};
+        KAR.words[ix]=out;
+        KAR.au[ix]= (covered && best.id) ? `${R2}/audio/${dir}/${best.id}.mp3` : null;
+      });
     }
   }catch(e){ KAR = null; }
 
