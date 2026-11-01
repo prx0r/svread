@@ -37,7 +37,7 @@ if(!RIDS_BASE.includes(RIGHT)) RIGHT = 'none';
 const IAST_DEVA = (()=>{
   const VOW={a:'\u0905','\u0101':'\u0906',i:'\u0907','\u012b':'\u0908',u:'\u0909','\u016b':'\u090a','\u1e5b':'\u090b','\u1e5d':'\u090c','\u1e37':'\u090d',e:'\u090f',o:'\u0913',ai:'\u0910',au:'\u0914'};
   const VSN={'\u0101':'\u093e',i:'\u093f','\u012b':'\u0940',u:'\u0941','\u016b':'\u0942','\u1e5b':'\u0943','\u1e5d':'\u0944','\u1e37':'\u0962',e:'\u0947',o:'\u094b',ai:'\u0948',au:'\u094c'};
-  const CON={k:'\u0915',kh:'\u0916',g:'\u0917',gh:'\u0918','\u014b':'\u0919',c:'\u091a',ch:'\u091b',j:'\u091c',jh:'\u091d','\u00f1':'\u091e','\u1e6d':'\u091f','\u1e6dh':'\u0920','\u1e0d':'\u0921','\u1e0dh':'\u0922','\u1e47':'\u0923',t:'\u0924',th:'\u0925',d:'\u0926',dh:'\u0927',n:'\u0928',p:'\u092a',ph:'\u092b',b:'\u092c',bh:'\u092d',m:'\u092e',y:'\u092f',r:'\u0930',l:'\u0932',v:'\u0935','\u015b':'\u0936','\u1e63':'\u0937',s:'\u0938',h:'\u0939'};
+  const CON={k:'\u0915',kh:'\u0916',g:'\u0917',gh:'\u0918','\u014b':'\u0919','\u1e45':'\u0919',c:'\u091a',ch:'\u091b',j:'\u091c',jh:'\u091d','\u00f1':'\u091e','\u1e6d':'\u091f','\u1e6dh':'\u0920','\u1e0d':'\u0921','\u1e0dh':'\u0922','\u1e47':'\u0923',t:'\u0924',th:'\u0925',d:'\u0926',dh:'\u0927',n:'\u0928',p:'\u092a',ph:'\u092b',b:'\u092c',bh:'\u092d',m:'\u092e',y:'\u092f',r:'\u0930',l:'\u0932',v:'\u0935','\u015b':'\u0936','\u1e63':'\u0937',s:'\u0938',h:'\u0939'};
   const OTH={'\u1e43':'\u0902','\u1e41':'\u0902','\u1e25':'\u0903',"'":'\u093d','\u2019':'\u093d','.':'\u0964','..':'\u0965','|':'\u0964','||':'\u0965',' ':' ','\n':'\n','\u2014':'\u0964'};
   const HAL='\u094d';
   const ALL=Object.keys(CON).concat(Object.keys(VOW)).sort((a,b)=>b.length-a.length);
@@ -302,14 +302,27 @@ async function main(){
                                w:x.w, syls:x.syls||null}));
         // Direct lookup: a karaoke word may cover several verse words (sandhi),
         // so repeats are allowed. Exact > prefix > containment.
+        // Word-final anusvara is written both ways across sources.
+        const nfDev = x => (x||'').replace(/\u0902$/, '\u092e\u094d');
         const out = vw.map(w=>{
           const t = skelIast(w);
-          let hit = null;
-          if(t){
-            hit = ks.find(k=>k.skel===t)
-               || ks.find(k=>k.skel.startsWith(t) || t.startsWith(k.skel))
-               || (t.length>=3 ? ks.find(k=>k.skel.includes(t)) : null);
+          const devW = IAST_DEVA.convert(w);
+          // Prefer an UNUSED exact word match over a fuzzy skeleton hit:
+          // fuzzy matching could hand a word someone else's timings (and
+          // therefore someone else's syllables), which silently demoted it
+          // to whole-word highlighting even though an exact entry existed.
+          let hit = ks.find(k=>!k.used && k.w && nfDev(k.w) === nfDev(devW));
+          if(!hit && t){
+            hit = ks.find(k=>!k.used && k.skel===t)
+               || ks.find(k=>!k.used && (k.skel.startsWith(t) || t.startsWith(k.skel)))
+               || ks.find(k=>!k.used && k.skel===t)
+               || ks.find(k=>!k.used && (k.skel.startsWith(t) || t.startsWith(k.skel)))
+               || ks.find(k=>!k.used && t.length>=3 && k.skel.includes(t))
+               || ks.find(k=>k.skel===t)
+               || ks.find(k=>k.skel && (k.skel.startsWith(t) || t.startsWith(k.skel)))
+               || (t.length>=3 ? ks.find(k=>k.skel && k.skel.includes(t)) : null);
           }
+          if(hit) hit.used = true;
           return {w, r:w, t0:hit?hit.t0:null, t1:hit?hit.t1:null,
                   syls:hit?hit.syls:null, kwd:hit?hit.w:null};
         });
