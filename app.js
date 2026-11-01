@@ -256,7 +256,24 @@ async function main(){
   if(qs.get('left')==='l0' && L0) LEFT = 'l0';
   if(qs.get('right')==='l0' && L0) RIGHT = 'l0';
   renderCol('L', LEFT); renderCol('R', RIGHT);
-  if(RIGHT==='none'){ const t = $('#textR'); if(t) t.style.display='none'; const d=$('#colRdel'); if(d) d.style.display='none'; }
+  const syncCols = ()=>{
+    const split = RIGHT!=='none';
+    const colR = $('#colR'), add = $('#addcol');
+    if(colR) colR.style.display = split ? '' : 'none';
+    const t = $('#textR'); if(t) t.style.display = split ? '' : 'none';
+    const del = $('#colRdel'); if(del) del.style.display = split ? '' : 'none';
+    if(add) add.style.display = split ? 'none' : '';
+  };
+  syncCols();
+  const addBtn = $('#addcol');
+  if(addBtn) addBtn.onclick = e=>{
+    e.stopPropagation();
+    const colR = $('#colR');
+    if(colR) colR.style.display = '';
+    const menu = $('#vermenuR');
+    document.querySelectorAll('.dropdown-menu').forEach(m=>{ if(m!==menu) m.classList.remove('show'); });
+    if(menu) menu.classList.add('show');
+  };
   let LIBDATA = null;
   try{ LIBDATA = await get('data/library.json'); }catch(e){}
   buildLeftRail(verses, LIBDATA);
@@ -405,9 +422,7 @@ function renderCol(side, vid){
   const ids = side==='L' ? LIDS : RIDS;
   const v0 = DATA.verses[0];
   const d = VDEF[vid]({title:DATA.title});
-  labelEl.innerHTML = vid==='none'
-    ? `<button class="addver" id="addver${side}" title="add a parallel version">＋ add parallel version</button>`
-    : `<div class="vlab" style="font-weight:700">${esc(d.label)}</div><div class="vdesc">${esc(d.desc)}</div><div class="vmeta">${esc(d.meta)}</div>`;
+  labelEl.innerHTML = vid==='none' ? '' : `<div class="vlab" style="font-weight:700">${esc(d.label)}</div><div class="vdesc">${esc(d.desc)}</div><div class="vmeta">${esc(d.meta)}</div>`;
   menuEl.innerHTML = ids.map(id=>{
     const dd = VDEF[id]({title:DATA.title});
     const mark = id===vid ? `<span class="side">${side}</span>` : `<span class="side">&nbsp;</span>`;
@@ -423,11 +438,6 @@ function renderCol(side, vid){
   };
   if(vid==='none'){
     textEl.innerHTML='';
-    const add = $(side==='L' ? '#addverL' : '#addverR');
-    if(add) add.onclick = ()=>{
-      document.querySelectorAll('.dropdown-menu').forEach(m=>{ if(m!==menuEl) m.classList.remove('show'); });
-      menuEl.classList.toggle('show');
-    };
     return;
   }
   textEl.innerHTML = DATA.verses.map((v,i)=>
