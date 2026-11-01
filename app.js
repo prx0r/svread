@@ -8,6 +8,8 @@ const qs = new URLSearchParams(location.search);
 const WORK = qs.get('work') || 'bhairavastava';
 const SRC = qs.get('src');
 const IPVV = 'https://ipvv-a8u.pages.dev';
+// Chant audio + karaoke timings live in the public R2 bucket (CORS-open).
+const R2 = 'https://pub-87169194562a44fcb8279a799d626c62.r2.dev';
 /* studio chant: karaoke timings + mp3s live on the ipvv origin.
    Probed per work — the day kashaudio ships new timings, they just work. */
 const CHANTDIR = {anuttarastika:'anuttarashtika_trad'};
@@ -226,6 +228,7 @@ async function main(){
   // overlap (karaoke entries may span differently than pipeline chunks).
   // Words failing to match get no timing; verses failing to match get no audio.
   try{
+    // timings stay with the site (small JSON); only the mp3s moved to R2
     const kar = await get(`${IPVV}/data/karaoke-${WORK}.json`);
     if(Array.isArray(kar) && kar.length){
       const dir = CHANTDIR[WORK] || WORK;
@@ -246,7 +249,7 @@ async function main(){
           let n=0; ws.forEach(w=>{ if(ks.has(w)) n++; });
           if(n>bestN){ bestN=n; best=k; }
         });
-        return (best && bestN>0) ? `${IPVV}/audio/${dir}/${best.id}.mp3` : null;
+        return (best && bestN>0) ? `${R2}/audio/${dir}/${best.id}.mp3` : null;
       })};
     }
   }catch(e){ KAR = null; }
