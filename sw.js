@@ -1,6 +1,6 @@
 /* offline-first: cache shell + vendored work data. MIT (skeleton: gita-quotes). */
 const C = 'svread-v1';
-const SHELL = ['./index.html','./styles.css','./app.js','./manifest.webmanifest','./data/bhairavastava.json'];
+const SHELL = ['./index.html','./styles.css','./app.js','./manifest.webmanifest','./data/bhairavastava.json','./data/library.json'];
 self.addEventListener('install', e=>{
   e.waitUntil(caches.open(C).then(c=>c.addAll(SHELL)).then(()=>self.skipWaiting()).catch(()=>{}));
 });

@@ -99,7 +99,26 @@ body.highlight .text .w:hover{background:var(--hi-lt)}
 .rail{flex:0 0 300px;border-left:1px solid var(--g200);
   padding:0 8px 40px;margin-left:1rem;max-height:calc(100vh - 60px);
   overflow-y:auto;position:sticky;top:0}
-@media (max-width:1000px){.rail{display:none}.pgutter{flex-basis:34px}.pgutter a{font-size:32px}}
+/* ---------- library rail (left) ---------- */
+.lib{flex:0 0 210px;border-right:1px solid var(--g200);
+  padding:0 12px 40px;margin-right:1rem;max-height:calc(100vh - 60px);
+  overflow-y:auto;position:sticky;top:0}
+.lib h2{font-size:14px;margin:0;padding:15px 0 5px;color:var(--g600);
+  text-transform:uppercase;letter-spacing:.2em;font-weight:400}
+.lib .m{margin:0}
+.lib .mrow{display:flex;align-items:center;gap:.3rem;width:100%;text-align:left;
+  background:none;border:0;cursor:pointer;padding:.28rem .2rem;font-size:13px;
+  color:var(--g900);font-family:var(--sans)}
+.lib .mrow:hover{color:var(--red)}
+.lib .mrow .car{color:var(--g400);font-size:10px;min-width:.8em}
+.lib .mrow.on{font-weight:700}
+.lib .wlist{display:none;margin:0 0 .3rem 1em}
+.lib .m.open .wlist{display:block}
+.lib .wlist a{display:block;font-size:12.5px;color:var(--g700);
+  text-decoration:none;padding:.16rem .2rem;border-left:2px solid transparent}
+.lib .wlist a:hover{color:var(--red)}
+.lib .wlist a.cur{color:var(--red);border-left-color:var(--red);font-weight:700}
+@media (max-width:1000px){.lib{display:none}.pgutter{flex-basis:34px}.pgutter a{font-size:32px}}
 .widget{padding:0 8px 8px;border-bottom:1px solid var(--g200)}
 .widget:first-of-type{border-top:1px solid var(--g200)}
 .widget h2{background:var(--white);padding:15px 0 5px;display:flex;

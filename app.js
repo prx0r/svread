@@ -185,6 +185,27 @@ async function main(){
   $('#pgleft a').onclick = e=>{ e.preventDefault(); goVerse(-1); };
   $('#pgright a').onclick = e=>{ e.preventDefault(); goVerse(1); };
   $('#navsearch').onclick = e=>{ e.preventDefault(); const w = document.querySelector('#wid-search input'); if(w){ w.focus(); w.scrollIntoView({block:'center'}); } };
+  // library rail
+  try{
+    const lib = await get('data/library.json');
+    const box = $('#liblist');
+    const curMaster = (function(){
+      for(const m of (lib||[])) if((m.works||[]).some(w=>w.id===WORK)) return m.id;
+      return '';
+    })();
+    box.innerHTML = (lib||[]).map(m=>
+      `<div class="m${m.id===curMaster?' open':''}" data-m="${esc(m.id)}">`
+      + `<button class="mrow${m.id===curMaster?' on':''}"><span class="car">${m.id===curMaster?'▾':'▸'}</span><span>${esc(m.name||m.id)}</span></button>`
+      + `<div class="wlist">${(m.works||[]).map(w=>`<a href="?work=${esc(w.id)}" class="${w.id===WORK?'cur':''}">${esc(w.title||w.id)}</a>`).join('')}</div></div>`
+    ).join('');
+    box.querySelectorAll('.mrow').forEach(b=>{
+      b.onclick = ()=>{
+        const m = b.parentElement, open = m.classList.toggle('open');
+        b.querySelector('.car').textContent = open ? '▾' : '▸';
+      };
+    });
+  }catch(e){ const b=$('#liblist'); if(b) b.innerHTML=''; }
+
   window.scrollTo(0,0);
 }
 
