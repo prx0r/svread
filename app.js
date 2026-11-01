@@ -14,11 +14,23 @@ const CHANTDIR = {anuttarastika:'anuttarashtika_trad'};
 let KAR = null; // {words:[[ {w,r,t0,t1} ]], au:[url|null]}
 let AU = null, AUtimer = null, AUix = null;
 let LEFT = qs.get('left') || localStorage.getItem('svv-left') || 'sa-deva';
-let RIGHT = qs.get('right') || localStorage.getItem('svv-right') || 'l2';
-const LIDS = ['sa-deva','sa-iast','l1','l2','c1'];
-const RIDS = ['none','l1','l2','c1','mine'];
-if(!LIDS.includes(LEFT)) LEFT = 'sa-deva';
-if(!RIDS.includes(RIGHT)) RIGHT = 'l2';
+let RIGHT = qs.get('right') || localStorage.getItem('svv-right') || 'none';
+const LIDS_BASE = ['sa-deva','sa-iast','l1','l2','c1'];
+const RIDS_BASE = ['none','l1','l2','c1','mine'];
+let LIDS = [...LIDS_BASE], RIDS = [...RIDS_BASE];
+let L0 = null; // data/l0/<wid>.json {verses:[{id,tokens:[{iast,gloss,raw,status}]}]}
+async function loadL0(){
+  try{
+    const m = await get(`data/l0/${WORK}.json`);
+    if(m && m.verses && m.verses.length){
+      L0 = {};
+      for(const v of m.verses) L0[v.id] = v.tokens || [];
+      if(!LIDS.includes('l0')){ LIDS.splice(3, 0, 'l0'); RIDS.splice(3, 0, 'l0'); }
+    }
+  }catch(e){ L0 = null; }
+}
+if(!LIDS_BASE.includes(LEFT)) LEFT = 'sa-deva';
+if(!RIDS_BASE.includes(RIGHT)) RIGHT = 'none';
 
 const IAST_DEVA = (()=>{
   const VOW={a:'\u0905','\u0101':'\u0906',i:'\u0907','\u012b':'\u0908',u:'\u0909','\u016b':'\u090a','\u1e5b':'\u090b','\u1e5d':'\u090c','\u1e37':'\u090d',e:'\u090f',o:'\u0913',ai:'\u0910',au:'\u0914'};
@@ -115,6 +127,7 @@ const VDEF = {
   'l1': ()=>({label:'L1 — close translation', desc:'Proposition-faithful English, Sanskrit-close', meta:'eng translation'}),
   'l2': ()=>({label:'L2 — read translation', desc:'Book prose, Dyczkowski-mode', meta:'eng translation'}),
   'c1': ()=>({label:'C1 — commentary', desc:'Passage commentary, 100–450 words', meta:'eng commentary'}),
+  'l0': ()=>({label:'L0 — tokens', desc:'T1 word-gloss extraction, verbatim, checkable', meta:'san gloss-layer'}),
   'mine': ()=>({label:'Your version', desc:'Pasted by you, this device only', meta:'eng user-version'}),
   'none': ()=>({label:'—', desc:'', meta:''}),
 };
@@ -148,6 +161,15 @@ function verseText(v, vid, col){
   if(vid==='l1') return `<div class="enp">${esc(cleanEN(v.l1||v.l2||''))}</div>`;
   if(vid==='l2') return `<div class="enp">${esc(cleanEN(v.l2||v.l1||''))}</div>`;
   if(vid==='c1') return v.c1 ? `<div class="enp c1sec">${mdSec(v.c1)}</div>` : `<div class="enp">${esc(cleanEN(v.l2||v.l1||''))}</div>`;
+  if(vid==='l0'){
+    const toks = (L0 && (L0[v.id]||L0[v.chunk])) || [];
+    if(!toks.length) return `<div class="milestone">No L0 on file for this verse yet — T1 gloss pending.</div>`;
+    return `<table class="wtable l0tab">` + toks.map(t=>
+      `<tr><td class="l0sa">${esc(IAST_DEVA.convert(cleanSA(t.iast||'')))}</td>`
+      + `<td class="l0ro"><i>${esc(t.iast||'')}</i></td>`
+      + `<td>${esc(t.gloss||'')}${t.status&&t.status!=='PARSED'?` <span class="l0st">${esc(t.status)}</span>`:''}</td></tr>`
+    ).join('') + `</table>`;
+  }
   if(vid==='mine'){
     const uv = getVar(v.id);
     return (uv ? `<div class="enp yours">${esc(uv)}</div>` : '')
@@ -229,9 +251,12 @@ async function main(){
     }
   }catch(e){ KAR = null; }
 
+  await loadMorph();
+  await loadL0();
+  if(qs.get('left')==='l0' && L0) LEFT = 'l0';
+  if(qs.get('right')==='l0' && L0) RIGHT = 'l0';
   renderCol('L', LEFT); renderCol('R', RIGHT);
   if(RIGHT==='none'){ const t = $('#textR'); if(t) t.style.display='none'; const d=$('#colRdel'); if(d) d.style.display='none'; }
-  await loadMorph();
   let LIBDATA = null;
   try{ LIBDATA = await get('data/library.json'); }catch(e){}
   buildLeftRail(verses, LIBDATA);
@@ -380,7 +405,8 @@ function renderCol(side, vid){
   const ids = side==='L' ? LIDS : RIDS;
   const v0 = DATA.verses[0];
   const d = VDEF[vid]({title:DATA.title});
-  labelEl.innerHTML = vid==='none' ? `<span style="color:#adb5bd">no parallel version</span>`
+  labelEl.innerHTML = vid==='none'
+    ? `<button class="addver" id="addver${side}" title="add a parallel version">＋ add parallel version</button>`
     : `<div class="vlab" style="font-weight:700">${esc(d.label)}</div><div class="vdesc">${esc(d.desc)}</div><div class="vmeta">${esc(d.meta)}</div>`;
   menuEl.innerHTML = ids.map(id=>{
     const dd = VDEF[id]({title:DATA.title});
@@ -395,7 +421,15 @@ function renderCol(side, vid){
     document.querySelectorAll('.dropdown-menu').forEach(m=>{ if(m!==menuEl) m.classList.remove('show'); });
     menuEl.classList.toggle('show');
   };
-  if(vid==='none'){ textEl.innerHTML=''; return; }
+  if(vid==='none'){
+    textEl.innerHTML='';
+    const add = $(side==='L' ? '#addverL' : '#addverR');
+    if(add) add.onclick = ()=>{
+      document.querySelectorAll('.dropdown-menu').forEach(m=>{ if(m!==menuEl) m.classList.remove('show'); });
+      menuEl.classList.toggle('show');
+    };
+    return;
+  }
   textEl.innerHTML = DATA.verses.map((v,i)=>
     `<div class="verse" data-i="${i}" id="v${i}"><a class="vref" href="#v${i}" data-i="${i}" title="recite this verse">§ ${i+1}</a>${verseText(v, vid, side)}</div>`
   ).join('');
