@@ -7,6 +7,14 @@ const esc = s => (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g
 const qs = new URLSearchParams(location.search);
 const WORK = qs.get('work') || 'bhairavastava';
 const SRC = qs.get('src');
+const IPVV = 'https://ipvv-a8u.pages.dev';
+/* studio chant: works with karaoke timings + mp3s on the ipvv origin */
+const CHANT = {
+  bhairavastava: {kar:'karaoke-bhairavastava.json', dir:'bhairavastava'},
+  anuttarastika: {kar:'karaoke-anuttarastika.json', dir:'anuttarashtika_trad'},
+};
+let KAR = null; // {words:[[ {w,r,t0,t1} ]], au:[url|null]}
+let AU = null, AUtimer = null, AUix = null;
 let LEFT = qs.get('left') || localStorage.getItem('svv-left') || 'sa-deva';
 let RIGHT = qs.get('right') || localStorage.getItem('svv-right') || 'l2';
 const LIDS = ['sa-deva','sa-iast','l1','l2','c1'];
@@ -113,19 +121,30 @@ const VDEF = {
   'none': ()=>({label:'—', desc:'', meta:''}),
 };
 
+function saWords(v, iast){
+  // karaoke-timed words when chant exists for this verse, else plain split
+  const kw = KAR && KAR.words[v.n-1];
+  if(kw && kw.length){
+    const shown = iast ? kw.map(k=>k.r) : kw.map(k=>k.w);
+    const src = iast ? kw.map(k=>k.r) : kw.map(k=>k.w);
+    return `<div class="sa">` + shown.map((w,j)=>
+      `<span class="w" data-w="${esc(kw[j].r||kw[j].w)}" data-v="${esc(v.id)}" data-t0="${kw[j].t0}" data-t1="${kw[j].t1}" data-i="${v.n-1}">${esc(w)}</span>`).join(' ')
+      + `</div>` + (!iast ? `<div class="ro">${esc(kw.map(k=>k.r||'').join(' '))}</div>` : '');
+  }
+  const raw = cleanSA(v.sa||'');
+  const words = raw.split(/\s+/).filter(Boolean);
+  const shown = iast ? words : words.map(w=>IAST_DEVA.convert(w));
+  return `<div class="sa">` + shown.map((w,j)=>
+    `<span class="w" data-w="${esc(words[j])}" data-v="${esc(v.id)}" data-i="${v.n-1}">${esc(w)}</span>`).join(' ')
+    + `</div>` + (!iast ? `<div class="ro">${esc(raw)}</div>` : '');
+}
 function verseText(v, vid, col){
   const raw = cleanSA(v.sa||'');
   const pass = v.gate==='PASS' && (v.l2||v.l1);
-  if(vid==='sa-deva' || vid==='sa-iast'){
-    const words = raw.split(/\s+/).filter(Boolean);
-    const shown = vid==='sa-deva' ? words.map(w=>IAST_DEVA.convert(w)) : words;
-    return `<div class="sa">` + shown.map((w,i)=>
-      `<span class="w" data-w="${esc(words[i])}" data-v="${esc(v.id)}">${esc(w)}</span>`).join(' ')
-      + `</div>` + (vid==='sa-deva' ? `<div class="ro">${esc(raw)}</div>` : '');
-  }
-  if(!pass) return `<div class="sa">` + raw.split(/\s+/).filter(Boolean).map(w=>
-    `<span class="w" data-w="${esc(w)}" data-v="${esc(v.id)}">${esc(IAST_DEVA.convert(w))}</span>`).join(' ')
-    + `</div><div class="ro">${esc(raw)}</div><div class="milestone">English withheld — gate ${esc(v.gate||'BLOCKED')}</div>`;
+  if(vid==='sa-deva') return saWords(v, false);
+  if(vid==='sa-iast') return saWords(v, true);
+  if(!pass) return saWords(v, false)
+    + `<div class="milestone">English withheld — gate ${esc(v.gate||'BLOCKED')}</div>`;
   if(vid==='l1') return `<div class="enp">${esc(cleanEN(v.l1||v.l2||''))}</div>`;
   if(vid==='l2') return `<div class="enp">${esc(cleanEN(v.l2||v.l1||''))}</div>`;
   if(vid==='c1') return v.c1 ? `<div class="enp c1sec">${mdSec(v.c1)}</div>` : `<div class="enp">${esc(cleanEN(v.l2||v.l1||''))}</div>`;
@@ -139,8 +158,20 @@ function verseText(v, vid, col){
 
 async function main(){
   let D = null;
-  for(const u of (SRC ? [SRC] : [`data/${WORK}.json`])){
-    try{ D = await get(u); if(D) break; }catch(e){}
+  for(const u of (SRC ? [SRC] : [`data/${WORK}.json`, `${IPVV}/data/layers/${WORK}.json`, `${IPVV}/data/translations/${WORK}.json`])){
+    try{ D = await get(u); if(D && (D.verses || D.chunks)) break; else D = null; }catch(e){ D = null; }
+  }
+  // last resort: Sanskrit root via works-index (Sanskrit always, English never)
+  if(!D){
+    try{
+      const idx = await get('data/works-index.json');
+      const rec = Object.values(idx||{}).find(r=>(r.translation===WORK||r.work===WORK) && r.sanskrit);
+      if(rec){
+        const raw = await get(`${IPVV}/data/sanskrit/${rec.sanskrit}`);
+        const paras = String(raw).split(/\n{2,}|\n(?=[\u0900-\u097F])/).map(p=>p.trim()).filter(p=>p).slice(0,80);
+        D = {title: rec.title||WORK, master: rec.author||'', verses: paras.map((p,i)=>({id:`${WORK}-s${i+1}`, sa:p, l1:'', l2:'', c1:'', argmap:'', gate:'WITHHELD'}))};
+      }
+    }catch(e){}
   }
   let verses = D && (D.verses || (D.chunks||[]).map(c=>({
     id:c.chunk, sa:c.sanskrit, l1:c.l1, l2:c.l2, c1:c.c1, argmap:c.argmap,
@@ -150,6 +181,17 @@ async function main(){
     return;
   }
   DATA = {title:(D.title||WORK), master:(D.master||''), verses};
+  DATA.verses.forEach((v,i)=>{ v.n = i+1; });
+  // pretty title + master name from the library catalogue
+  try{
+    const lib = await get('data/library.json');
+    for(const m of (lib||[])) for(const w of (m.works||[])){
+      if(w.id===WORK){
+        if(w.title) DATA.title = w.title;
+        if(!DATA.master || DATA.master===WORK) DATA.master = m.name||m.id;
+      }
+    }
+  }catch(e){}
   buildTerms(verses);
   const title = DATA.title, master = DATA.master;
   document.title = `${title} · svread`;
@@ -157,6 +199,23 @@ async function main(){
   $('#wh2').textContent = `${master?master+' · ':''}verse 1–${verses.length} (${verses.length} passages)`;
   const nPass = verses.filter(v=>v.gate==='PASS' && (v.l2||v.l1)).length;
   $('#wh3').textContent = `${nPass}/${verses.length} passages gate-passed · English shows only where passed`;
+
+  // studio chant for this work? (karaoke timings + mp3s on ipvv origin)
+  const cm = CHANT[WORK];
+  if(cm){
+    try{
+      const kar = await get(`${IPVV}/data/${cm.kar}`);
+      if(Array.isArray(kar) && kar.length){
+        KAR = {words: verses.map((v,ix)=>{
+          const k = kar[ix % kar.length];
+          return (k.words||[]).map(w=>({w:w.w, r:w.r||'', t0:w.t_on, t1:w.t_off}));
+        }), au: verses.map((v,ix)=>{
+          const k = kar[ix % kar.length];
+          return k ? `${IPVV}/audio/${cm.dir}/${k.id}.mp3` : null;
+        })};
+      }
+    }catch(e){ KAR = null; }
+  }
 
   renderCol('L', LEFT); renderCol('R', RIGHT);
   if(RIGHT==='none') $('#colR').classList.add('hidden');
@@ -174,6 +233,10 @@ async function main(){
   });
   document.querySelectorAll('#textL .w, #textR .w').forEach(w=>{
     w.onclick = ()=>selectWord(w);
+  });
+  // § = recite this verse (studio chant where it exists, voice otherwise)
+  document.querySelectorAll('a.vref').forEach(a=>{
+    a.onclick = e=>{ e.preventDefault(); reciteVerse(+a.getAttribute('data-i')); };
   });
   // gutter prev/next verse
   let cur = 0;
@@ -233,7 +296,7 @@ function renderCol(side, vid){
   };
   if(vid==='none'){ textEl.innerHTML=''; return; }
   textEl.innerHTML = DATA.verses.map((v,i)=>
-    `<div class="verse" data-i="${i}" id="v${i}"><div class="vref">§ ${i+1}</div>${verseText(v, vid, side)}</div>`
+    `<div class="verse" data-i="${i}" id="v${i}"><a class="vref" href="#v${i}" data-i="${i}" title="recite this verse">§ ${i+1}</a>${verseText(v, vid, side)}</div>`
   ).join('');
   const del = $('#colRdel');
   if(del) del.onclick = e=>{ e.preventDefault(); setCol('right','none'); };
@@ -254,11 +317,66 @@ function selectWord(w){
     + `<tr><td>verse</td><td>${esc(id)}</td></tr></table>`;
 }
 
+function quiet(){
+  if(AUtimer){ cancelAnimationFrame(AUtimer); AUtimer = null; }
+  if(AU){ AU.onended = null; try{ AU.pause(); }catch(e){} }
+  try{ speechSynthesis.cancel(); }catch(e){}
+  document.querySelectorAll('.w.sing').forEach(w=>w.classList.remove('sing'));
+  document.querySelectorAll('.verse.now').forEach(v=>v.classList.remove('now'));
+}
+function stopRecite(){ quiet(); AUix = null; }
+function markVerse(i){
+  document.querySelectorAll('.verse.now').forEach(v=>v.classList.remove('now'));
+  document.querySelectorAll(`.verse[data-i="${i}"]`).forEach(el=>{
+    el.classList.add('now'); el.scrollIntoView({block:'center', behavior:'smooth'});
+  });
+}
+function tickAU(){
+  if(!AU) return;
+  const t = AU.currentTime;
+  document.querySelectorAll('.w.sing').forEach(w=>w.classList.remove('sing'));
+  const all = document.querySelectorAll(`.w[data-t0][data-i="${AUix}"]`);
+  for(const w of all){
+    if(t >= +w.getAttribute('data-t0') && t <= +w.getAttribute('data-t1')){ w.classList.add('sing'); break; }
+  }
+  if(!AU.paused && !AU.ended) AUtimer = requestAnimationFrame(tickAU);
+}
+function speakThen(i, next){
+  try{
+    const el = document.querySelector(`#textL .verse[data-i="${i}"], #textR .verse[data-i="${i}"]`);
+    const u = new SpeechSynthesisUtterance((el ? el.innerText : '').slice(0,1200));
+    u.rate = 0.95; u.onend = next;
+    speechSynthesis.speak(u);
+  }catch(e){ next(); }
+}
+function stepOnce(i, next){
+  const au = KAR && KAR.au && KAR.au[i];
+  if(au){
+    AU = AU || new Audio();
+    AU.src = au; AU.onended = next;
+    AU.play().catch(()=>{ speakThen(i, next); });
+    AUtimer = requestAnimationFrame(tickAU);
+  } else speakThen(i, next);
+}
+function reciteVerse(i){ quiet(); AUix = i; markVerse(i); stepOnce(i, ()=>stopRecite()); }
+function reciteAll(){
+  quiet();
+  let i = 0;
+  const step = ()=>{
+    if(i >= DATA.verses.length){ stopRecite(); return; }
+    AUix = i; markVerse(i);
+    stepOnce(i, ()=>{ i++; step(); });
+  };
+  step();
+}
+
 function buildRail(verses){
   const W = (id, title, body)=>`<div class="widget" id="wid-${id}"><h2><span><span class="tog">−</span>${title}</span></h2><div class="wbody">${body}</div></div>`;
   $('#rail').innerHTML =
     W('word','Word Study Tools',
-      `<div class="tmode"><button data-m="normal" class="on">normal</button><button data-m="highlight">highlight</button></div><div id="wsw">Select a Sanskrit word to analyze its form.</div>`) // placeholder replaced below
+      `<div class="tmode"><button data-m="normal" class="on">normal</button><button data-m="highlight">highlight</button></div><div id="wsw">Select a Sanskrit word to analyze its form.</div>`)
+    + W('recite','Recitation',
+      `<div class="tsize"><button id="rcAll">▶ recite all</button><button id="rcStop">■ stop</button></div><div class="cmp-note">${KAR ? 'studio chant, karaoke-timed · tap § for one verse' : 'browser voice · no studio chant on file · tap § for one verse'}</div>`) // placeholder replaced below
     + W('size','Text Size', `<div class="tsize">${['Αα','Αα','Αα','Αα'].map((a,i)=>`<button data-s="${i}" style="font-size:${[12,15,18,22][i]}px">${a}</button>`).join('')}</div>`)
     + W('width','Text Width', `<div class="twidth">${['Narrow','Normal','Wide','Full'].map(w=>`<button data-w="${w}">${w}</button>`).join('')}</div>`)
     + W('ref','Passage Reference', `<div class="vref-list">${verses.map((v,i)=>`<a href="#v${i}" data-i="${i}">§${i+1}</a>`).join('')}</div>`)
@@ -274,6 +392,10 @@ function buildRail(verses){
   document.querySelectorAll('.widget h2').forEach(h=>{
     h.onclick = ()=>h.parentElement.classList.toggle('closed');
   });
+  // recitation
+  const rcA = $('#rcAll'), rcS = $('#rcStop');
+  if(rcA) rcA.onclick = ()=>reciteAll();
+  if(rcS) rcS.onclick = ()=>stopRecite();
   // text mode
   document.querySelectorAll('#wid-word [data-m]').forEach(b=>{
     b.onclick = ()=>{
