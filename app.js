@@ -8,6 +8,7 @@ const qs = new URLSearchParams(location.search);
 const WORK = qs.get('work') || 'bhairavastava';
 const SRC = qs.get('src');
 const IPVV = 'https://ipvv-a8u.pages.dev';
+const API = 'https://ipvv-api.tradesprior.workers.dev';
 // Chant audio + karaoke timings live in the public R2 bucket (CORS-open).
 const R2 = 'https://pub-87169194562a44fcb8279a799d626c62.r2.dev';
 /* studio chant: karaoke timings + mp3s live on the ipvv origin.
@@ -219,8 +220,15 @@ function verseText(v, vid, col, vix){
   }
   if(vid==='mine'){
     const uv = getVar(v.id);
+    /* C2 voice box (PASS verses only): any style, grounded on the canonical
+       packet, rendered by the api worker per skills/render-c2. Lives here —
+       canonical columns are never touched by machine renderings. */
+    const c2 = (v.gate==='PASS')
+      ? `<div class="c2box"><div class="c2head">Render in any voice</div><div class="c2row"><input id="c2in-${esc(v.id)}" maxlength="60" placeholder="e.g. gen z, sailor, bedtime story…"/><button class="c2btn" data-ch="${esc(v.id)}" data-chunk="${esc(v.chunk||v.id)}">Render →</button></div><div class="c2out" id="c2out-${esc(v.id)}"></div></div>`
+      : '';
     return (uv ? `<div class="enp yours">${esc(uv)}</div>` : '')
-      + `<div class="varbox"><textarea id="var-${esc(v.id)}" placeholder="Paste your translation (from your own book)…"></textarea><br><button class="savebtn" data-ch="${esc(v.id)}">Save on this device</button></div>`;
+      + `<div class="varbox"><textarea id="var-${esc(v.id)}" placeholder="Paste your translation (from your own book)…"></textarea><br><button class="savebtn" data-ch="${esc(v.id)}">Save on this device</button></div>`
+      + c2;
   }
   return '';
 }
@@ -445,6 +453,30 @@ async function main(){
     b.onclick = ()=>{
       const ta = document.getElementById(`var-${b.getAttribute('data-ch')}`);
       if(ta && ta.value.trim()){ setVar(b.getAttribute('data-ch'), ta.value.trim()); location.reload(); }
+    };
+  });
+  document.querySelectorAll('.c2btn').forEach(b=>{
+    b.onclick = async ()=>{
+      const ch = b.getAttribute('data-ch'), chunk = b.getAttribute('data-chunk');
+      const inp = document.getElementById('c2in-'+ch), out = document.getElementById('c2out-'+ch);
+      const style = (inp && inp.value.trim().slice(0,60)) || '';
+      if(!style){ if(out) out.innerHTML = `<div class="milestone">Name a voice first — e.g. gen z.</div>`; return; }
+      b.disabled = true; const old = b.textContent; b.textContent = 'Rendering…';
+      try{
+        const r = await fetch(API+'/api/c2/render', {method:'POST', headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({work: WORK, chunk, style})});
+        const d = await r.json();
+        if(!r.ok) throw new Error(d.error || ('http '+r.status));
+        out.innerHTML = `<div class="enp c2txt">${esc(d.c2)}</div>`
+          + `<div class="c2meta">machine rendering · ${esc(d.style)} · ${esc(d.model||'')}</div>`
+          + `<button class="c2save" data-ch="${esc(ch)}">Save as mine →</button>`;
+        out.querySelector('.c2save').onclick = ev=>{
+          setVar(ev.target.getAttribute('data-ch'), d.c2); location.reload();
+        };
+      }catch(e){
+        if(out) out.innerHTML = `<div class="milestone">${esc(String(e.message||e).slice(0,160))}</div>`;
+      }
+      b.disabled = false; b.textContent = old;
     };
   });
   document.querySelectorAll('#textL .w, #textR .w').forEach(w=>{
