@@ -7,7 +7,6 @@ const esc = s => (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g
 const qs = new URLSearchParams(location.search);
 const WORK = qs.get('work') || 'bhairavastava';
 const SRC = qs.get('src');
-const KOFI = ''; // <-- paste ko-fi url here, link appears in the nav
 const IPVV = 'https://ipvv-a8u.pages.dev';
 /* studio chant: works with karaoke timings + mp3s on the ipvv origin */
 const CHANT = {
@@ -158,7 +157,6 @@ function verseText(v, vid, col){
 }
 
 async function main(){
-  if(KOFI){ const k = document.querySelector('#kofi'); if(k){ k.href = KOFI; k.style.display=''; } }
   let D = null;
   for(const u of (SRC ? [SRC] : [`data/${WORK}.json`, `${IPVV}/data/layers/${WORK}.json`, `${IPVV}/data/translations/${WORK}.json`])){
     try{ D = await get(u); if(D && (D.verses || D.chunks)) break; else D = null; }catch(e){ D = null; }
