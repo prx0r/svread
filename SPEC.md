@@ -16,7 +16,8 @@ Old `?left=l1&right=c1` links keep resolving (lane ids unchanged). `?right=final
 ## Rails
 
 - **Left rail (library side, unchanged):** work id, verse count, library, passage jump, text search, attributions, proof queue, export, issue link.
-- **Right rail (reading side):** Display Settings, Recitation, Text Mode, **Ask the text (chat)** — in that order, chat last (= bottom right).
+- **Right rail (reading side):** Display Settings, Recitation, Text Mode, **Ask the text (chat)** — in that order, chat last (= bottom right). The AI speaks first: a per-work wonder-question (`data/openers.json`) with an ask-→ link.
+- **Left rail (library side, unchanged except +1):** work id, verse count, library, passage jump, text search, attributions, proof queue, **Hard Questions (pushing hounds, where filed)** — tap one to jump to its verse and ask it in chat — then export, issue link.
 - **Sacked (deliberately):** Highlight box (duplicated Text Search), Morphology widget (showed "no analysis" — its job moves into chat + Literal lane), Dictionaries widget (its Key-Terms source died with the old C1 format; L0 lookup moves into chat).
 - Tap-a-Sanskrit-word no longer opens a morphology table: it prefills the chat with `what does "X" mean in §N?` (one tap to ask, Enter to answer). Instant L0 gloss lives in the Literal lane, not in a widget.
 

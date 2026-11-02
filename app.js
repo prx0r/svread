@@ -410,6 +410,7 @@ async function main(){
 
   await loadMorph();
   await loadL0();
+  await loadProbes();
   if(qs.get('left')==='l0' && L0) LEFT = 'l0';
   if(qs.get('right')==='l0' && L0) RIGHT = 'l0';
   /* L3 is the one translation to look at: default to it wherever it exists
@@ -522,8 +523,10 @@ async function buildLeftRail(verses, LIBDATA){
         + (PROOF ? `<tr><td>proof</td><td>${Object.values(PROOF).filter(p=>p.gate==='PASS').length}/${Object.keys(PROOF).length} proved 5/5 · deterministic gate, no model</td></tr>` : '')
         + `<tr><td>repository</td><td>prx0r/svread · data: prx0r/ipvv layers</td></tr></table>`)
       + (PROOF ? W('proof','Proof Queue', proofQueueHtml()) : '')
+      + (PROBES && PROBES.length ? W('probes','Hard Questions', probesHtml() + (PROBES_SOURCE ? `<div class="cmp-note" style="margin-top:.4rem"><a class="redlink" href="${esc(PROBES_SOURCE)}" target="_blank" rel="noopener">full hound transcripts →</a></div>` : '')) : '')
       + W('export','Export Passage', `<a class="redlink" href="#" id="exp-t">as text</a> or <a class="redlink" href="#" id="exp-j">as json</a>`)
       + W('issue','Report an Issue', `<a class="redlink" href="https://github.com/prx0r/svread/issues/new" target="_blank" rel="noopener">open a GitHub issue</a>`);
+    bindProbes();
     bindLibrary($('#liblist'));
     $('#vcount').onclick = e=>{ e.preventDefault(); const el=document.querySelector('.verse[data-i="0"]'); if(el) el.scrollIntoView(); };
     const goJump = ()=>{
@@ -660,6 +663,15 @@ function renderCol(side, vid){
 
 let MORPH = null; // data/morph/<wid>.json {verses:[{id,tags:{word:{src,lemma?,pos?}}}]}
 let PROOF = null; // data/proof/<wid>.json {verses:{id:{gate,blocking,checks,source_sha,result_id,model,date}}}
+let PROBES = null; // data/probes/<wid>.json {probes:[{id,question,verses:[n],verdict}]} — pushing hounds
+async function loadProbes(){
+  try{
+    const p = await get(`data/probes/${WORK}.json`);
+    PROBES = (p && p.probes) || null;
+    PROBES_SOURCE = (p && p.source) || '';
+  }catch(e){ PROBES = null; }
+}
+let PROBES_SOURCE = '';
 async function loadMorph(){
   try{
     const m = await get(`data/morph/${WORK}.json`);
@@ -682,6 +694,43 @@ function proofQueueHtml(){
       const i = idxOf[id];
       return `<div style="margin:.35rem 0"><a href="#" data-pi="${i==null?'':i}">§${i==null?'?':i+1}</a> <span style="color:#868e96">${esc((p.blocking||[]).join(', '))}</span> <span style="color:#adb5bd">#${esc(p.result_id||'')}</span></div>`;
     }).join('');
+}
+/* pushing hounds: the hardest questions, each with its verdict. Tap one to
+   hound the text — jumps to the verse and asks the chat. */
+function probesHtml(){
+  return `<div class="cmp-note" style="margin-bottom:.3rem">${PROBES.length} hard questions, hounded against the text. Tap one to ask it.</div>`
+    + PROBES.map((p,k)=>{
+      const iv = (p.verses||[]).length ? p.verses[0]-1 : null;
+      return `<div style="margin:.4rem 0"><a href="#" data-pq="${k}"><b>${esc(p.id.toUpperCase())}</b> — ${esc(p.question)}</a>`
+        + (iv!=null ? ` <a href="#" data-pj="${iv}">§${iv+1}</a>` : '')
+        + `<div class="cmp-note">${esc(p.verdict)}</div></div>`;
+    }).join('');
+}
+function bindProbes(){
+  const box = $('#wid-probes');
+  if(!box) return;
+  box.querySelectorAll('a[data-pq]').forEach(a=>{
+    a.onclick = e=>{
+      e.preventDefault();
+      const p = PROBES[+a.getAttribute('data-pq')];
+      if(!p) return;
+      const iv = (p.verses||[]).length ? p.verses[0]-1 : null;
+      if(iv!=null){
+        const el = document.querySelector(`.verse[data-i="${iv}"]`);
+        if(el) el.scrollIntoView({block:'center', behavior:'smooth'});
+      }
+      const inp = $('#qin');
+      if(inp){
+        inp.value = p.question + (iv!=null ? ` (re §${iv+1})` : '');
+        inp.focus();
+        const rail = $('#wid-chat');
+        if(rail){ rail.classList.remove('closed'); rail.scrollIntoView({block:'nearest'}); }
+      }
+    };
+  });
+  box.querySelectorAll('a[data-pj]').forEach(a=>{
+    a.onclick = e=>{ e.preventDefault(); const el=document.querySelector(`.verse[data-i="${a.getAttribute('data-pj')}"]`); if(el) el.scrollIntoView({block:'center',behavior:'smooth'}); };
+  });
 }
 /* tap a Sanskrit word: prefill the chat with a grounded question about it */
 function askWord(w){
