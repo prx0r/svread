@@ -27,7 +27,7 @@ Small text, sharp precise answers. Two tiers:
 
 - **Qwen Omni (primary):** `POST /api/chat/:work` on the ipvv worker — `qwen3.8-omni-flash` via DashScope. Pipeline: bge-m3 query embedding → gated cosine retrieval (PASS/PUBLISHED/OWNER only) → lexical fallback (transliteration-tolerant, work-name aware) → direct chunk-id injection → rerank top-5 → argmap graph walk + work-matched pushing probes → recorded-verdict injection from pushing INDEX → closed-world prompt (no source-talk, reader-aware, concise) → answer + follow-up suggestion. Session persisted per work (`svv-chat-<work>`); every Q&A logged with retrieved ids. The worker quotes L3 (final translation) where present.
 - **Local retrieval (fallback):** instant answers from the work's own vendored files when the worker is unreachable or offline — L0 gloss ("what does X mean [in §N]?"), verse translation ("translate §N" → L3, fallback L2), verse commentary ("why §N" → C1 SUMMARY), trust ("is §N reviewed?" → proof gate/needs), navigation ("§N").
-- Citations on every claim; gates enforced (BLOCKED = Sanskrit only); unknown questions get an honest boundary, never a guess.
+Answer policy is two-tier, not closed-world-only: (1) passages first, with citations — the default and the authority; (2) where passages are silent, stable background knowledge (authorship, dates, figures, plain glosses, general Trika context) may be given, explicitly marked "From general knowledge, not these verses" and closed with "Verify it against the texts"; (3) BLOCKED-verse English is never freelanced — translations the pipeline hasn't passed stay withheld even though the model could produce them. Never present general knowledge as coming from the passages; never contradict them.
 
 ## Chat v2 (shipped — was "later" above)
 
