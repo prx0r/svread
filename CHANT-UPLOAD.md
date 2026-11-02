@@ -1,15 +1,28 @@
 # Chant audio → R2 (handover for next agent)
 
-## State: 4 of 10 works uploaded, rest is mechanical
+## State: R2 audio + karaoke complete for all chanted works (verified 2026-11-02)
 
 Bucket **`svread-audio`** exists and is PUBLIC at:
 `https://pub-87169194562a44fcb8279a799d626c62.r2.dev`
 
-Done (verified OK): bhairavastava (10), anuttarastika (8),
-stavacintamani (120), dehastha (16).
-TODO: bodhapanadasika (15), mahopadeshavimshatika (20),
-rahasyapanchadashika (16), paramadvayadvadashika (13),
-pancashloki (5), kramastotra (30).
+Done (verified OK): bhairavastava (10), anuttarastika (8 + trad 8),
+stavacintamani (120), dehastha (16), bodhapancadasika (15),
+mahopadeshavimshatika (20), rahasyapanchadashika (16),
+paramadvayadvadashika (13), pancashloki (5), kramastotra (30),
++ full coverage: ajadapramatrsiddhi, anubhavanivedana,
+bhairavanukarana, bodhavilasa, isvarasiddhi, paramarthacarca,
+paramarthasara, parapravesika, paryantapancasika, phrdaya,
+ptvmadhyama, saktavijnana, sambandhasiddhi, sivastotravali (20 songs),
+sivasutra, spandakarika, svabodhasiddhi, tattvasandoha.
+Compiled align/ artifacts (R2): 9 works (anuttarastika,
+bhairavanukarana, bhairavanukaranastotra, bhairavastava,
+bodhapancadasika, paramarthasara, paryantapancasika,
+sivastotravali, stavacintamani).
+
+Not chanted (no kashaudio source — needs recording, not upload):
+ghatakarpara, spandasandoha (+ tantrasara, vbt, malinivijaya roots).
+Also: anuttarastika audio dirs use the `anuttarashtika[_trad]`
+spelling; site maps via CHANTDIR (`anuttarastika→anuttarashtika_trad`).
 
 ## Finish the upload
 

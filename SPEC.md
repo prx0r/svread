@@ -40,9 +40,11 @@ Per translation-work `CHAT.md` + `DATATYPES.json` worker contracts (chat-answer,
 | `data/<work>.json` (layers: sa/l1/l2/l3/c1/argmap/gate) | columns, chat answers, export |
 | `data/l0/<work>.json` | Literal lane, chat word answers |
 | `data/morph/<work>.json`, `data/proof/<work>.json` | proof queue, trust answers (morphology UI removed) |
+| `data/probes/<work>.json` (question, verse refs, verdict, transcript link) | Hard Questions rail: tap a hound → jump to verse + prefill chat |
 | `site/data/c1/<work>/*.NOTE.md` (ipvv, not vendored) | future "scholar notes" expander; chat trust layer |
 | `site/data/argmaps/<work>/*.md` (ipvv, not vendored) | future per-verse "why" expander; chat reasoning traces |
-| pushing sessions (ipvv `site/data/pushing/`) | future "hardest questions" + chat few-shots |
+| pushing sessions (ipvv `site/data/pushing/`, indexed in `INDEX.json`: 56 files, 111 questions) | Hard Questions probes; chat template matches; R2 audio + karaoke per work |
+| `svread-audio` R2 bucket (1430 objects: audio/karaoke/align) | studio chant playback + karaoke highlighting (falls back to browser TTS/voice) |
 | C2 renders (`/api/c2/render`) | future Poetic lane, once verse renders earn it |
 
 ## Open (not decided here)
