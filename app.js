@@ -835,9 +835,11 @@ function buildRightRail(verses){
       + `<div class="cmp-note" style="text-transform:uppercase;letter-spacing:.15em;font-size:.68rem;margin-top:.6rem">Text Width</div><div class="twidth">${['Narrow','Normal','Wide','Full'].map(w=>`<a href="#" data-w="${w}">${w}</a>`).join(' ')}</div>`)
     + W('recite','Recitation',
       `<div class="tsize"><button id="rcAll">▶ recite all</button><button id="rcStop">■ stop</button></div><div class="cmp-note">${KAR ? 'studio chant, karaoke-timed · tap § for one verse' : 'browser voice · no studio chant on file · tap § for one verse'}</div>`)
+    /* Text Mode retired: tap-to-ask works everywhere now, hover affordance below is unconditional.
     + W('mode','Text Mode',
       `<div class="tmode"><button data-m="normal" class="on">normal</button><button data-m="highlight">highlight</button></div><div class="cmp-note">normal selection of text for copying possible</div>`)
-    + W('chat','Ask the text', `<div id="convo" aria-live="polite"></div><div class="wsearch"><input id="qin" placeholder="ask about this work…" aria-label="ask about this work"/><button id="qgo">→</button></div><div class="cmp-note">answers only from this work's files · tap a Sanskrit word to ask about it</div>`);
+    */
+    + W('chat','Ask the text', `<div id="convo" aria-live="polite"></div><div class="wsearch"><input id="qin" placeholder="ask about this work…" aria-label="ask about this work"/><button id="qgo">→</button></div>`);
   // collapsible widgets
   document.querySelectorAll('#rail .widget h2').forEach(h=>{
     h.onclick = ()=>h.parentElement.classList.toggle('closed');
@@ -846,7 +848,7 @@ function buildRightRail(verses){
   const rcA = $('#rcAll'), rcS = $('#rcStop');
   if(rcA) rcA.onclick = ()=>reciteAll();
   if(rcS) rcS.onclick = ()=>stopRecite();
-  // text mode
+  /* text mode retired with its widget (tap-to-ask works everywhere now)
   document.querySelectorAll('#wid-mode [data-m]').forEach(b=>{
     b.onclick = ()=>{
       document.querySelectorAll('#wid-mode [data-m]').forEach(x=>x.classList.remove('on'));
@@ -854,6 +856,7 @@ function buildRightRail(verses){
       document.body.classList.toggle('highlight', b.getAttribute('data-m')==='highlight');
     };
   });
+  */
   /* ---- Ask the text: retrieval-only chat (SPEC.md). No inference —
      every answer is assembled from this work's own files, with citations. */
   const vjump = i=>`<a href="#" data-jump="${i}">§${i+1}</a>`;
@@ -996,7 +999,9 @@ function buildRightRail(verses){
       clearTimeout(to);
       try{ if(d.session_id) localStorage.setItem('svv-chat-'+WORK, d.session_id); }catch(e){}
       thinking.remove();
-      qsay('a', esc(d.reply||'No answer.')
+      /* linkify §N so Qwen's verse refs jump like local answers do */
+      const linked = esc(d.reply||'No answer.').replace(/§(\d+)/g, (m,n)=>`<a href="#" data-jump="${(+n)-1}">§${n}</a>`);
+      qsay('a', linked
         + (d.suggestion ? `<div class="qsug">Try: <a href="#" data-qask="${esc(d.suggestion)}">${esc(d.suggestion)}</a></div>` : ''));
       const sug = convo.querySelector('.qsug a[data-qask]');
       if(sug) sug.onclick = ev=>{ ev.preventDefault(); inp.value = ev.target.textContent; qrun(); };
