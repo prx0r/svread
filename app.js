@@ -857,8 +857,8 @@ function buildRightRail(verses){
     };
   });
   */
-  /* ---- Ask the text: retrieval-only chat (SPEC.md). No inference —
-     every answer is assembled from this work's own files, with citations. */
+  /* ---- Ask the text: Qwen Omni via worker, local retrieval fallback.
+     Answers are grounded in this work's files, with citations. */
   const vjump = i=>`<a href="#" data-jump="${i}">§${i+1}</a>`;
   const bindJumps = box=>{
     box.querySelectorAll('a[data-jump]').forEach(a=>{
