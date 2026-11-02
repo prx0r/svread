@@ -161,7 +161,9 @@ def main():
             if not tm:
                 errors.append(f"{tag}: l1 missing '// <ref>' trailer")
             elif tm.group(1) != c["id"]:
-                flags.append(f"{tag}: l1 trailer //{tm.group(1)} is a source ref, not the chunk id")
+                if re.match(r"^[a-z]+-[a-z]*\d+$", tm.group(1)):
+                    flags.append(f"{tag}: l1 trailer //{tm.group(1)} points at a different chunk")
+                # else: external source ref (e.g. //UtSst_8.12) — accepted silently
         # --- S5 segment/word ratio + S5b order check (need a populated l1)
         sa_w = [w for w in words(c["sa"]) if not re.fullmatch(r"[A-Z][A-Za-z0-9_]+", w)]
         body = re.sub(r"//\s*\S+\s*$", "", l1).strip()
