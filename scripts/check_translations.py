@@ -220,6 +220,21 @@ def main():
             cw = [w for w in re.findall(r"[a-z]+", strip(s)) if w not in STOP]
             if has_l1 and len(cw) >= 4 and not any(any(st in l1bag for st in stems(w)) for w in cw):
                 flags.append(f"{tag}: L2 sentence with zero L1 overlap: {s.strip()[:90]!r}")
+        # --- S13 L3 Final lane (when present, PASS only)
+        l3 = (c.get("l3") or "")
+        if l3 and c["gate"] == "PASS":
+            if l3.startswith("##") or re.search(r"//\s*\S+\s*$", l3):
+                errors.append(f"{tag}: L3 carries header/trailer (translation only)")
+            if "BLOCKED" in l3:
+                errors.append(f"{tag}: L3 carries BLOCKED boilerplate")
+            for doc, pat in [("metacommentary", r"[Tt]he (verse|hymn|passage|text|song) (says|describes|opens|closes|moves)"),
+                             ("essay header", r"\*\*(SUMMARY|FUNCTION|KEY TERMS)"),
+                             ("rasa note", r"\*Rasa:")]:
+                if re.search(pat, l3):
+                    flags.append(f"{tag}: L3 smells of {doc} — translation, not commentary")
+            nl = len([x for x in l3.split("\n") if x.strip()])
+            if nl != 2:
+                flags.append(f"{tag}: L3 has {nl} lines (house convention: hemistich couplets)")
         # --- S11 C1 shape
         c1 = c["c1"]
         if c1 is None and a.c1_dir:
