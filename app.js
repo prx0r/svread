@@ -914,7 +914,15 @@ function buildRightRail(verses){
   };
   if(convo && !convo.dataset.hi){
     convo.dataset.hi = '1';
-    qsay('a', `Ask about this work — words, verses, readings. I answer only from its files, with citations.`);
+    /* the AI speaks first: a wondering question pertaining to this work.
+       Precomputed openers (data/openers.json) — no inference on page load. */
+    const openerFallback = 'I wonder what this work is really asking…';
+    fetch('data/openers.json').then(r=>r.ok?r.json():{}).catch(()=>({})).then(o=>{
+      const line = o[WORK] || openerFallback;
+      qsay('a', `<i>${esc(line)}</i> <a href="#" id="qask0">ask →</a>`);
+      const b = convo.querySelector('#qask0');
+      if(b) b.onclick = e=>{ e.preventDefault(); const inp=$('#qin'); if(inp){ inp.value = line; qrun(); } };
+    });
   }
   /* Qwen Omni via the ipvv worker (RAG over gated corpus + pushing probes,
      closed world per CHAT.md). Local retrieval answers instantly and covers
