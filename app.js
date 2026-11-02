@@ -999,9 +999,22 @@ function buildRightRail(verses){
       clearTimeout(to);
       try{ if(d.session_id) localStorage.setItem('svv-chat-'+WORK, d.session_id); }catch(e){}
       thinking.remove();
-      /* linkify §N so Qwen's verse refs jump like local answers do */
-      const linked = esc(d.reply||'No answer.').replace(/§(\d+)/g, (m,n)=>`<a href="#" data-jump="${(+n)-1}">§${n}</a>`);
-      qsay('a', linked
+      /* linkify chunk-id citations to verses we actually have (never bare §N —
+         Qwen must cite [id]s; bare § numbers from a model are untrustworthy) */
+      const known = {};
+      (DATA.verses||[]).forEach((v,i)=>{ if(v.id) known[v.id]=i; });
+      let html = esc(d.reply||'No answer.');
+      /* bare ids first (the ':' in work:chunk blocks this pass), then work:chunk —
+         neither pass touches the other's inserted markup (no colons inside it) */
+      html = html.replace(/(^|[\s(>"'])([a-z]+-[a-z]*\d+(?:-v\d+)?)\b/g, (m,pre,id)=>{
+        if(known[id]!=null) return `${pre}<a href="#" data-jump="${known[id]}">${esc(id)}</a>`;
+        return m;
+      });
+      html = html.replace(/([A-Za-z0-9_.-]+):([A-Za-z0-9_.-]+)/g, (m,w,c)=>{
+        if(known[c]!=null) return `${w}:<a href="#" data-jump="${known[c]}">${esc(c)}</a>`;
+        return m;
+      });
+      qsay('a', html
         + (d.suggestion ? `<div class="qsug">Try: <a href="#" data-qask="${esc(d.suggestion)}">${esc(d.suggestion)}</a></div>` : ''));
       const sug = convo.querySelector('.qsug a[data-qask]');
       if(sug) sug.onclick = ev=>{ ev.preventDefault(); inp.value = ev.target.textContent; qrun(); };
