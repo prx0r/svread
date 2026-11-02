@@ -213,7 +213,12 @@ function verseText(v, vid, col, vix){
   if(!pass) return saWords(v, false, vix)
     + `<div class="milestone">English withheld — gate ${esc(v.gate||'BLOCKED')}</div>`;
   if(vid==='l1') return `<div class="enp">${esc(cleanEN(v.l1||v.l2||''))}</div>`;
-  if(vid==='l2') return `<div class="enp">${esc(cleanEN(v.l2||v.l1||''))}</div>`;
+  if(vid==='l2'){
+    const t = esc(cleanEN(v.l2||v.l1||''));
+    /* passage-grained chunks carry multi-paragraph L2: render the breaks */
+    if(t.includes('\n\n')) return `<div class="enp">${t.split(/\n{2,}/).map(p=>`<p>${p.replace(/\n/g,'<br>')}</p>`).join('')}</div>`;
+    return `<div class="enp">${t}</div>`;
+  }
   if(vid==='l3') return v.l3 ? `<div class="enp finalsec">${esc(v.l3).replace(/\n/g, '<br>')}</div>` : `<div class="milestone">Final translation pending — needs human review.</div>`;
   if(vid==='c1') return v.c1 ? `<div class="enp c1sec">${mdSec(v.c1.replace(/^##\s+[^\n]*\n/, ''))}</div>` : `<div class="enp">${esc(cleanEN(v.l2||v.l1||''))}</div>`;
   if(vid==='l0'){
