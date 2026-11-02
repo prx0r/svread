@@ -433,6 +433,12 @@ async function main(){
   await loadL0();
   if(qs.get('left')==='l0' && L0) LEFT = 'l0';
   if(qs.get('right')==='l0' && L0) RIGHT = 'l0';
+  /* L3 is the one translation to look at: default to it wherever it exists
+     (no URL param and no stored preference — explicit choices always win) */
+  try{
+    if(!qs.get('right') && !localStorage.getItem('svv-right')
+       && (DATA.verses||[]).some(v=>v.l3)) RIGHT = 'l3';
+  }catch(e){}
   /* literal lane falls back to the close translation where no word-gloss is on file */
   if(LEFT==='l0' && !LIDS.includes('l0')) LEFT = 'l1';
   if(RIGHT==='l0' && !RIDS.includes('l0')) RIGHT = 'l1';
@@ -710,6 +716,14 @@ function selectWord(w){
     morphRow = `<tr><td>morph</td><td>stem <b>${esc(mo.lemma)}</b> <span style="color:#adb5bd">(Vidyut)</span></td></tr>`;
   else if(mo && mo.src==='tagger' && mo.pos)
     morphRow = `<tr><td>morph</td><td>${esc(mo.pos)} <span style="color:#adb5bd">(neural)</span></td></tr>`;
+  /* L0 word-gloss: the literal lane, per token — always on file where L0 is */
+  let l0row = '';
+  if(L0 && L0[id]){
+    const nq = normQ(ia);
+    const hit = (L0[id]||[]).find(t=>{ const k = normQ(t.iast||''); return k && nq && (k===nq||k.includes(nq)||nq.includes(k)); });
+    if(hit) l0row = `<tr><td>gloss</td><td><b>${esc((hit.gloss||'').replace(/\n/g,' '))}</b> <span style="color:#adb5bd">(word gloss)</span></td></tr>`;
+    else if(MORPH) morphRow = `<tr><td>morph</td><td>No analysis on file — T1 word-gloss pending.</td></tr>`;
+  }
   else if(MORPH)
     morphRow = `<tr><td>morph</td><td>No analysis on file — T1 word-gloss pending.</td></tr>`;
   else
@@ -719,6 +733,7 @@ function selectWord(w){
     + `<tr><td>form</td><td style="font-family:var(--deva);font-size:1.2em">${esc(IAST_DEVA.convert(cleanSA(ia)))}</td></tr>`
     + `<tr><td>iast</td><td><i>${esc(ia)}</i></td></tr>`
     + morphRow
+    + l0row
     + (g ? `<tr><td>gloss</td><td><b>${esc(g.t)}</b> — ${esc(g.g)}</td></tr>` : '')
     + `<tr><td>verse</td><td>${esc(id)}</td></tr></table>`;
 }
@@ -806,16 +821,15 @@ function reciteAll(){
 const W = (id, title, body)=>`<div class="widget" id="wid-${id}"><h2><span><span class="tog">⌄</span>${title}</span></h2><div class="wbody">${body}</div></div>`;
 function buildRightRail(verses){
   $('#rail').innerHTML =
-    W('mode','Text Mode',
-      `<div class="tmode"><button data-m="normal" class="on">normal</button><button data-m="highlight">highlight</button></div><div class="cmp-note">normal selection of text for copying possible</div>`)
-    + W('hl','Highlight', `<div class="wsearch"><input id="hlq" placeholder="highlight words…"/></div><div id="hlc" class="cmp-note"></div>`)
-    + W('word','Morphology', `<div class="cmp-note">In <b>highlight</b> text mode, select a word to get morphological analysis.</div><div id="wsw">Select a Sanskrit word to analyze its form.</div>`)
-    + W('dict','Dictionaries', `<div class="wsearch"><select id="dsel" style="max-width:7rem"><option value="terms">Key Terms</option></select><input id="dq" placeholder="look up a term…"/></div><div class="cmp-note">Search with * to match anywhere in the headword.</div><div id="dres" style="margin-top:.4rem"></div>`)
-    + W('display','Display Settings',
+    W('display','Display Settings',
       `<div class="cmp-note" style="text-transform:uppercase;letter-spacing:.15em;font-size:.68rem">Text Size</div><div class="tsize">${['Αα','Αα','Αα','Αα','Αα'].map((a,i)=>`<button data-s="${i}" style="font-size:${[11,13,15,19,24][i]}px">${a}</button>`).join('')}</div>`
       + `<div class="cmp-note" style="text-transform:uppercase;letter-spacing:.15em;font-size:.68rem;margin-top:.6rem">Text Width</div><div class="twidth">${['Narrow','Normal','Wide','Full'].map(w=>`<a href="#" data-w="${w}">${w}</a>`).join(' ')}</div>`)
     + W('recite','Recitation',
-      `<div class="tsize"><button id="rcAll">▶ recite all</button><button id="rcStop">■ stop</button></div><div class="cmp-note">${KAR ? 'studio chant, karaoke-timed · tap § for one verse' : 'browser voice · no studio chant on file · tap § for one verse'}</div>`);
+      `<div class="tsize"><button id="rcAll">▶ recite all</button><button id="rcStop">■ stop</button></div><div class="cmp-note">${KAR ? 'studio chant, karaoke-timed · tap § for one verse' : 'browser voice · no studio chant on file · tap § for one verse'}</div>`)
+    + W('mode','Text Mode',
+      `<div class="tmode"><button data-m="normal" class="on">normal</button><button data-m="highlight">highlight</button></div><div class="cmp-note">normal selection of text for copying possible</div>`)
+    + W('word','Morphology', `<div class="cmp-note">In <b>highlight</b> text mode, select a word to get morphological analysis.</div><div id="wsw">Select a Sanskrit word to analyze its form.</div>`)
+    + W('dict','Dictionaries', `<div class="wsearch"><input id="dq" placeholder="look up a term…"/></div><div class="cmp-note">Searches the word-gloss, then key terms. * matches anywhere.</div><div id="dres" style="margin-top:.4rem"></div>`);
   // collapsible widgets
   document.querySelectorAll('#rail .widget h2').forEach(h=>{
     h.onclick = ()=>h.parentElement.classList.toggle('closed');
@@ -832,35 +846,39 @@ function buildRightRail(verses){
       document.body.classList.toggle('highlight', b.getAttribute('data-m')==='highlight');
     };
   });
-  // highlight-a-word box
-  const hlq = $('#hlq');
-  if(hlq) hlq.addEventListener('input', ()=>{
-    const q = hlq.value.trim();
-    document.querySelectorAll('.w.hl').forEach(w=>w.classList.remove('hl'));
-    const box = $('#hlc');
-    if(!q){ if(box) box.innerHTML=''; return; }
-    const ql = q.toLowerCase().replace(/\*/g,'');
-    let n = 0;
-    document.querySelectorAll('.w').forEach(w=>{
-      const t = (w.getAttribute('data-w')||'').toLowerCase();
-      if(t && (q.includes('*') ? t.includes(ql) : t===ql)){ w.classList.add('hl'); n++; }
-    });
-    if(box) box.innerHTML = n ? `${n} hit${n===1?'':'s'}` : 'no matches';
-  });
-  // dictionaries: key-terms lookup
+  // dictionaries: word-gloss (L0) first, key terms second
+  const l0index = ()=>{
+    const out = [];
+    if(!L0) return out;
+    for(const vid of Object.keys(L0)){
+      const i = (DATA.verses||[]).findIndex(v=>v.id===vid||v.chunk===vid);
+      for(const t of (L0[vid]||[])) out.push({i, vid, t});
+    }
+    return out;
+  };
   const drun = ()=>{
-    const q = ($('#dq').value||'').trim().toLowerCase().replace(/\*/g,'');
+    const q = ($('#dq').value||'').trim().toLowerCase();
     const box = $('#dres');
     if(!q){ box.innerHTML=''; return; }
-    const hits = [];
+    const wild = q.includes('*'), qq = q.replace(/\*/g,'');
+    const hitsL0 = [];
+    for(const e of l0index()){
+      const hay = `${e.t.iast||''} ${e.t.gloss||''}`.toLowerCase();
+      if(hay && (wild ? hay.includes(qq) : hay.split(/[^a-z]+/).includes(qq))){ hitsL0.push(e); if(e.i>=0) break; }
+      if(hitsL0.length>=20) break;
+    }
+    const hitsT = [];
     verses.forEach((v,i)=>{
       for(const e of (TERMS[v.id]||[])){
-        if(e.t.toLowerCase().includes(q) || (e.g||'').toLowerCase().includes(q)){ hits.push({i, e}); break; }
+        if(e.t.toLowerCase().includes(qq) || (e.g||'').toLowerCase().includes(qq)){ hitsT.push({i, e}); break; }
       }
+      if(hitsT.length>=20) return;
     });
-    box.innerHTML = hits.length
-      ? hits.map(h=>`<div><b>${esc(h.e.t)}</b> — ${esc(h.e.g)} <a href="#" data-i="${h.i}">§${h.i+1}</a></div>`).join('')
-      : 'no entries found.';
+    const go = i=>`<a href="#" data-i="${i}">§${i+1}</a>`;
+    box.innerHTML =
+      (hitsL0.length ? `<div class="cmp-note">word gloss</div>` + hitsL0.map(h=>`<div><b>${esc(h.t.iast||'')}</b> — ${esc(h.t.gloss||'')}${h.i>=0?' '+go(h.i):''}</div>`).join('') : '')
+      + (hitsT.length ? `<div class="cmp-note" style="margin-top:.4rem">key terms</div>` + hitsT.map(h=>`<div><b>${esc(h.e.t)}</b> — ${esc(h.e.g)} ${go(h.i)}</div>`).join('') : '')
+      || 'no entries found.';
     box.querySelectorAll('a').forEach(a=>{
       a.onclick = e=>{ e.preventDefault(); const el=document.querySelector(`.verse[data-i="${a.getAttribute('data-i')}"]`); if(el) el.scrollIntoView({block:'center',behavior:'smooth'}); };
     });
