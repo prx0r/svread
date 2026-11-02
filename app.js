@@ -916,12 +916,41 @@ function buildRightRail(verses){
     convo.dataset.hi = '1';
     qsay('a', `Ask about this work — words, verses, readings. I answer only from its files, with citations.`);
   }
+  /* Qwen Omni via the ipvv worker (RAG over gated corpus + pushing probes,
+     closed world per CHAT.md). Local retrieval answers instantly and covers
+     offline/failure — the worker is for open questions. */
   const qrun = ()=>{
-    const inp = $('#qin'); if(!inp) return;
+    const inp = $('#qin'); if(!inp || inp.disabled) return;
     const q = (inp.value||'').trim(); if(!q) return;
-    inp.value = '';
+    inp.value = ''; inp.disabled = true;
     qsay('q', esc(q));
-    qsay('a', answerQuestion(q));
+    const thinking = document.createElement('div');
+    thinking.className = 'qbub a thinking'; thinking.textContent = '…';
+    convo.appendChild(thinking); convo.scrollTop = convo.scrollHeight;
+    let sid = null;
+    try{ sid = localStorage.getItem('svv-chat-'+WORK) || null; }catch(e){}
+    const ctrl = new AbortController();
+    const to = setTimeout(()=>ctrl.abort(), 90000);
+    fetch(API + '/api/chat/' + encodeURIComponent(WORK), {method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({session_id: sid, message: q}), signal: ctrl.signal})
+    .then(r=>{ if(!r.ok) throw new Error('http '+r.status); return r.json(); })
+    .then(d=>{
+      clearTimeout(to);
+      try{ if(d.session_id) localStorage.setItem('svv-chat-'+WORK, d.session_id); }catch(e){}
+      thinking.remove();
+      qsay('a', esc(d.reply||'No answer.')
+        + (d.suggestion ? `<div class="qsug">Try: <a href="#" data-qask="${esc(d.suggestion)}">${esc(d.suggestion)}</a></div>` : ''));
+      const sug = convo.querySelector('.qsug a[data-qask]');
+      if(sug) sug.onclick = ev=>{ ev.preventDefault(); inp.value = ev.target.textContent; qrun(); };
+    })
+    .catch(err=>{
+      clearTimeout(to);
+      thinking.remove();
+      const why = (err && err.name==='AbortError') ? 'timed out' : String((err&&(err.message||err))||err).slice(0,60);
+      qsay('a', `<span class="cmp-note">Qwen unreachable (${esc(why)}) — answering from this work's files:</span> ` + answerQuestion(q));
+    })
+    .finally(()=>{ inp.disabled = false; try{ inp.focus(); }catch(e){} });
   };
   const qgo = $('#qgo'); if(qgo) qgo.onclick = qrun;
   const qin = $('#qin'); if(qin) qin.addEventListener('keydown', e=>{ if(e.key==='Enter') qrun(); });
