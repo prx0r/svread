@@ -20,14 +20,13 @@ Old `?left=l1&right=c1` links keep resolving (lane ids unchanged). `?right=final
 - **Sacked (deliberately):** Highlight box (duplicated Text Search), Morphology widget (showed "no analysis" — its job moves into chat + Literal lane), Dictionaries widget (its Key-Terms source died with the old C1 format; L0 lookup moves into chat).
 - Tap-a-Sanskrit-word no longer opens a morphology table: it prefills the chat with `what does "X" mean in §N?` (one tap to ask, Enter to answer). Instant L0 gloss lives in the Literal lane, not in a widget.
 
-## Chat v1 (this spec): retrieval-only, no inference
+## Chat: Qwen Omni via worker, local retrieval fallback
 
-Small text, sharp precise answers, **retrieved from the work's own files only** — the chat never invents. Closed world (mirrors translation-work `CHAT.md`):
+Small text, sharp precise answers. Two tiers:
 
-- Answerable: L0 gloss for a word ("what does X mean [in §N]?"), verse translation ("translate §N", "what does §N say?" → L3, fallback L2), verse commentary ("why this reading?", "what is X?" → C1 SUMMARY + argmap inference), trust ("is this reviewed?" → proof gate/needs), navigation ("go to §N", "§N").
-- Citations mandatory: every claim ends with a `§N` jump link.
-- Gates enforced: BLOCKED verses have no English — the chat says so and shows Sanskrit only. Same fail-closed as the columns.
-- Unknown questions get an honest boundary ("I only answer from this work's files — try …"), never a guess.
+- **Qwen Omni (primary):** `POST /api/chat/:work` on the ipvv worker — `qwen3.8-omni-flash` via DashScope, RAG over gated corpus (`PASS`/`PUBLISHED`/`OWNER` only) + pushing-probe template match + rerank, closed world per translation-work `CHAT.md`. Session persisted per work (`svv-chat-<work>`), follow-up suggestions clickable. The worker quotes L3 (final translation) where present.
+- **Local retrieval (fallback):** instant answers from the work's own vendored files when the worker is unreachable or offline — L0 gloss ("what does X mean [in §N]?"), verse translation ("translate §N" → L3, fallback L2), verse commentary ("why §N" → C1 SUMMARY), trust ("is §N reviewed?" → proof gate/needs), navigation ("§N").
+- Citations on every claim; gates enforced (BLOCKED = Sanskrit only); unknown questions get an honest boundary, never a guess.
 
 ## Chat v2 (later, needs worker): LLM with the closed-world contract
 
