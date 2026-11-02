@@ -109,27 +109,7 @@ function setCol(which, v){
   location.href = u.toString();
 }
 
-let DATA = null, TERMS = {}; // verseId -> [{t,g}]
-function buildTerms(v){
-  TERMS = {};
-  v.forEach(x=>{
-    const m = (x.c1||'').match(/\*\*KEY TERMS\.\*\*\s*([^\n]+)/);
-    TERMS[x.id] = [];
-    if(m) m[1].split(/[·;]/).forEach(part=>{
-      const mm = part.trim().match(/^(.+?)\s*\((.+)\)$/);
-      if(mm) TERMS[x.id].push({t:mm[1].trim(), g:mm[2].trim()});
-    });
-  });
-}
-function glossFor(id, word){
-  const w = norm(word);
-  for(const e of (TERMS[id]||[])){
-    const t = norm(e.t);
-    if(!t || !w) continue;
-    if(t===w || t.startsWith(w.slice(0,-2)) && w.length>3 || w.startsWith(t)) return e;
-  }
-  return null;
-}
+let DATA = null;
 
 const VDEF = {
   'sa-deva': v=>({label:v.title||WORK, desc:'Sanskrit text, Devanagari', meta:'san edition'}),
@@ -283,7 +263,6 @@ async function main(){
       }
     }
   }catch(e){}
-  buildTerms(verses);
   const title = DATA.title, master = DATA.master;
   document.title = `${title} · svread`;
   $('#wh1').textContent = title;
@@ -501,7 +480,7 @@ async function main(){
     };
   });
   document.querySelectorAll('#textL .w, #textR .w').forEach(w=>{
-    w.onclick = ()=>selectWord(w);
+    w.onclick = ()=>askWord(w);
   });
   // § = recite this verse (studio chant where it exists, voice otherwise)
   document.querySelectorAll('a.vref').forEach(a=>{
@@ -704,38 +683,19 @@ function proofQueueHtml(){
       return `<div style="margin:.35rem 0"><a href="#" data-pi="${i==null?'':i}">§${i==null?'?':i+1}</a> <span style="color:#868e96">${esc((p.blocking||[]).join(', '))}</span> <span style="color:#adb5bd">#${esc(p.result_id||'')}</span></div>`;
     }).join('');
 }
-function selectWord(w){
+/* tap a Sanskrit word: prefill the chat with a grounded question about it */
+function askWord(w){
   document.querySelectorAll('.w.sel').forEach(x=>x.classList.remove('sel'));
   w.classList.add('sel');
-  document.body.classList.add('highlight');
   const ia = w.getAttribute('data-w'), id = w.getAttribute('data-v');
-  const g = glossFor(id, ia);
-  const mo = MORPH && MORPH[id] && MORPH[id][ia];
-  let morphRow = '';
-  if(mo && mo.src==='vidyut' && mo.lemma)
-    morphRow = `<tr><td>morph</td><td>stem <b>${esc(mo.lemma)}</b> <span style="color:#adb5bd">(Vidyut)</span></td></tr>`;
-  else if(mo && mo.src==='tagger' && mo.pos)
-    morphRow = `<tr><td>morph</td><td>${esc(mo.pos)} <span style="color:#adb5bd">(neural)</span></td></tr>`;
-  /* L0 word-gloss: the literal lane, per token — always on file where L0 is */
-  let l0row = '';
-  if(L0 && L0[id]){
-    const nq = normQ(ia);
-    const hit = (L0[id]||[]).find(t=>{ const k = normQ(t.iast||''); return k && nq && (k===nq||k.includes(nq)||nq.includes(k)); });
-    if(hit) l0row = `<tr><td>gloss</td><td><b>${esc((hit.gloss||'').replace(/\n/g,' '))}</b> <span style="color:#adb5bd">(word gloss)</span></td></tr>`;
-    else if(MORPH) morphRow = `<tr><td>morph</td><td>No analysis on file — T1 word-gloss pending.</td></tr>`;
+  const i = (DATA.verses||[]).findIndex(v=>v.id===id);
+  const inp = $('#qin');
+  if(inp){
+    inp.value = `what does "${ia||'?'}" mean in §${i>=0?i+1:'?'}`;
+    inp.focus();
   }
-  else if(MORPH)
-    morphRow = `<tr><td>morph</td><td>No analysis on file — T1 word-gloss pending.</td></tr>`;
-  else
-    morphRow = `<tr><td>morph</td><td>batch pending — key-terms below meanwhile.</td></tr>`;
-  const box = $('#wid-word .wbody');
-  if(box) box.innerHTML = `<table class="wtable">`
-    + `<tr><td>form</td><td style="font-family:var(--deva);font-size:1.2em">${esc(IAST_DEVA.convert(cleanSA(ia)))}</td></tr>`
-    + `<tr><td>iast</td><td><i>${esc(ia)}</i></td></tr>`
-    + morphRow
-    + l0row
-    + (g ? `<tr><td>gloss</td><td><b>${esc(g.t)}</b> — ${esc(g.g)}</td></tr>` : '')
-    + `<tr><td>verse</td><td>${esc(id)}</td></tr></table>`;
+  const rail = $('#wid-chat');
+  if(rail){ rail.classList.remove('closed'); rail.scrollIntoView({block:'nearest'}); }
 }
 
 function quiet(){
@@ -828,8 +788,7 @@ function buildRightRail(verses){
       `<div class="tsize"><button id="rcAll">▶ recite all</button><button id="rcStop">■ stop</button></div><div class="cmp-note">${KAR ? 'studio chant, karaoke-timed · tap § for one verse' : 'browser voice · no studio chant on file · tap § for one verse'}</div>`)
     + W('mode','Text Mode',
       `<div class="tmode"><button data-m="normal" class="on">normal</button><button data-m="highlight">highlight</button></div><div class="cmp-note">normal selection of text for copying possible</div>`)
-    + W('word','Morphology', `<div class="cmp-note">In <b>highlight</b> text mode, select a word to get morphological analysis.</div><div id="wsw">Select a Sanskrit word to analyze its form.</div>`)
-    + W('dict','Dictionaries', `<div class="wsearch"><input id="dq" placeholder="look up a term…"/></div><div class="cmp-note">Searches the word-gloss, then key terms. * matches anywhere.</div><div id="dres" style="margin-top:.4rem"></div>`);
+    + W('chat','Ask the text', `<div id="convo" aria-live="polite"></div><div class="wsearch"><input id="qin" placeholder="ask about this work…" aria-label="ask about this work"/><button id="qgo">→</button></div><div class="cmp-note">answers only from this work's files · tap a Sanskrit word to ask about it</div>`);
   // collapsible widgets
   document.querySelectorAll('#rail .widget h2').forEach(h=>{
     h.onclick = ()=>h.parentElement.classList.toggle('closed');
@@ -846,47 +805,126 @@ function buildRightRail(verses){
       document.body.classList.toggle('highlight', b.getAttribute('data-m')==='highlight');
     };
   });
-  // dictionaries: word-gloss (L0) first, key terms second
-  const l0index = ()=>{
+  /* ---- Ask the text: retrieval-only chat (SPEC.md). No inference —
+     every answer is assembled from this work's own files, with citations. */
+  const vjump = i=>`<a href="#" data-jump="${i}">§${i+1}</a>`;
+  const bindJumps = box=>{
+    box.querySelectorAll('a[data-jump]').forEach(a=>{
+      a.onclick = e=>{ e.preventDefault(); const el=document.querySelector(`.verse[data-i="${a.getAttribute('data-jump')}"]`); if(el) el.scrollIntoView({block:'center',behavior:'smooth'}); };
+    });
+  };
+  const l0find = (id, ia)=>{
+    if(!L0 || !L0[id]) return null;
+    const nq = normQ(ia||'');
+    return (L0[id]||[]).find(t=>{ const k=normQ(t.iast||''); return k&&nq&&(k===nq||k.includes(nq)||nq.includes(k)); }) || null;
+  };
+  const l0scan = q=>{
     const out = [];
     if(!L0) return out;
     for(const vid of Object.keys(L0)){
       const i = (DATA.verses||[]).findIndex(v=>v.id===vid||v.chunk===vid);
-      for(const t of (L0[vid]||[])) out.push({i, vid, t});
+      for(const t of (L0[vid]||[])){
+        const hay = `${t.iast||''} ${t.gloss||''}`.toLowerCase();
+        if(hay.includes(q)){ out.push({i, vid, t}); break; }
+      }
+      if(out.length>=8) break;
     }
     return out;
   };
-  const drun = ()=>{
-    const q = ($('#dq').value||'').trim().toLowerCase();
-    const box = $('#dres');
-    if(!q){ box.innerHTML=''; return; }
-    const wild = q.includes('*'), qq = q.replace(/\*/g,'');
-    const hitsL0 = [];
-    for(const e of l0index()){
-      const hay = `${e.t.iast||''} ${e.t.gloss||''}`.toLowerCase();
-      if(hay && (wild ? hay.includes(qq) : hay.split(/[^a-z]+/).includes(qq))){ hitsL0.push(e); if(e.i>=0) break; }
-      if(hitsL0.length>=20) break;
-    }
-    const hitsT = [];
-    verses.forEach((v,i)=>{
-      for(const e of (TERMS[v.id]||[])){
-        if(e.t.toLowerCase().includes(qq) || (e.g||'').toLowerCase().includes(qq)){ hitsT.push({i, e}); break; }
-      }
-      if(hitsT.length>=20) return;
-    });
-    const go = i=>`<a href="#" data-i="${i}">§${i+1}</a>`;
-    box.innerHTML =
-      (hitsL0.length ? `<div class="cmp-note">word gloss</div>` + hitsL0.map(h=>`<div><b>${esc(h.t.iast||'')}</b> — ${esc(h.t.gloss||'')}${h.i>=0?' '+go(h.i):''}</div>`).join('') : '')
-      + (hitsT.length ? `<div class="cmp-note" style="margin-top:.4rem">key terms</div>` + hitsT.map(h=>`<div><b>${esc(h.e.t)}</b> — ${esc(h.e.g)} ${go(h.i)}</div>`).join('') : '')
-      || 'no entries found.';
-    box.querySelectorAll('a').forEach(a=>{
-      a.onclick = e=>{ e.preventDefault(); const el=document.querySelector(`.verse[data-i="${a.getAttribute('data-i')}"]`); if(el) el.scrollIntoView({block:'center',behavior:'smooth'}); };
-    });
+  const summOf = v=>{
+    const m = (v.c1||'').match(/\*\*SUMMARY\.\*\*\s*([^*]+)/);
+    if(!m) return '';
+    return m[1].trim().split(/(?<=[.?!])\s+/).slice(0,2).join(' ');
   };
-  const dgo = $('#dq'); if(dgo){
-    dgo.addEventListener('keydown', e=>{ if(e.key==='Enter') drun(); });
-    dgo.addEventListener('input', ()=>{ if(!dgo.value.trim()) $('#dres').innerHTML=''; });
+  const gateNote = v=>`English is withheld for this verse (gate ${esc(v.gate||'BLOCKED')}) — Sanskrit only.`;
+  function answerQuestion(rawQ){
+    const q0 = (rawQ||'').trim(); if(!q0) return '';
+    const q = q0.toLowerCase();
+    const verses = DATA.verses||[];
+    const vm = q.match(/(?:§|verse|v)\s*(\d{1,3})/);
+    const vi = vm ? (+vm[1]-1) : -1;
+    const vok = vi>=0 && vi<verses.length;
+    const v = vok ? verses[vi] : null;
+    const pass = v && v.gate==='PASS' && (v.l2||v.l1);
+    if(/^(help|what can you do|commands|\?)$/.test(q))
+      return `Ask about words (“what does X mean”), verses (“translate §3”, “why §3”, “is §3 reviewed”), or jump (“§3”). I answer only from this work's files.`;
+    // navigation: bare §N / "verse N" / "go N"
+    if(vok && /^(§\s*\d+|verse\s+\d+|v\s*\d+|go(\s+to)?\s+§?\s*\d+|show\s+§?\s*\d+)$/.test(q)){
+      const el = document.querySelector(`.verse[data-i="${vi}"]`);
+      if(el) el.scrollIntoView({block:'center', behavior:'smooth'});
+      const first = ((v.l3||'').split('\n').map(s=>s.trim()).filter(Boolean)[0]) || cleanEN(v.l2||v.l1||'').slice(0,120);
+      return pass ? `${vjump(vi)} — ${esc(first)}` : `${vjump(vi)} — ${gateNote(v)}`;
+    }
+    // "what does X mean [in §N]?"
+    let mq = q.match(/what does\s+["“”']?(.+?)["“”']?\s+mean(?:\s+(?:in|of|at)\s+(?:§\s*\d+|verse\s+\d+|this\s+verse))?\s*\??$/)
+          || q.match(/mean(?:ing)?\s+of\s+["“”']?(.+?)["“”']?\s*\??$/);
+    if(!mq && q.split(/\s+/).length<=3 && !vok && !/^(what is|what's|define)\b/.test(q)) mq = [q, q0.replace(/[?]/g,'')];
+    if(mq){
+      const term = (mq[1]||'').replace(/^(?:the|a|an)\s+/,'').trim();
+      if(term){
+        if(vok && pass){
+          const hit = l0find(v.id, term);
+          if(hit) return `<b>${esc(term)}</b> in ${vjump(vi)} — ${esc((hit.gloss||'').replace(/\n/g,' '))}.`;
+        }
+        if(vok && !pass) return `${vjump(vi)} — ${gateNote(v)}`;
+        const hits = l0scan(term.toLowerCase());
+        if(hits.length) return `<b>${esc(term)}</b> — ` + hits.slice(0,3).map(h=>`${esc((h.t.gloss||'').replace(/\n/g,' '))} ${h.i>=0?vjump(h.i):''}`).join(' · ');
+        return `“${esc(term)}” is not in this work's word-gloss.`;
+      }
+    }
+    // "translate §N" / "what does §N say|mean"
+    if(vok && /translat|what does|say|mean|reading/.test(q)){
+      if(!pass) return `${vjump(vi)} — ${gateNote(v)}`;
+      const lines = (v.l3||'').split('\n').map(s=>s.trim()).filter(Boolean);
+      const body = lines.length ? lines.map(esc).join('<br>') : esc(cleanEN(v.l2||v.l1||''));
+      return `${vjump(vi)} — ${body}`;
+    }
+    // "why §N" / "commentary"
+    if(vok && /why|commentary|reading|explain/.test(q)){
+      if(!pass) return `${vjump(vi)} — ${gateNote(v)}`;
+      const s = summOf(v);
+      return s ? `${vjump(vi)} — ${esc(s)}` : `${vjump(vi)} — no commentary on file.`;
+    }
+    // "what is X" (term, no verse): gloss + commentary hint
+    const mw = q.match(/^(?:what is|what's|define)\s+(.+?)\s*\??$/);
+    if(mw){
+      const hits = l0scan(mw[1].trim());
+      if(hits.length){ const h = hits[0]; return `<b>${esc(mw[1].trim())}</b> — ${esc((h.t.gloss||'').replace(/\n/g,' '))} ${h.i>=0?vjump(h.i):''}.`; }
+      return `Nothing on file for “${esc(mw[1].trim())}”.`;
+    }
+    // trust / proof
+    if(/review|proof|trust|human|machine|reliable|complete/.test(q)){
+      if(vok){
+        const p = (PROOF||{})[v.id];
+        const g = p ? p.gate : (pass ? 'PASS (unproved record)' : 'BLOCKED');
+        return `${vjump(vi)} — proof ${esc(String(g))}; machine-proposed, needs human review.`;
+      }
+      const n = verses.filter(x=>x.gate==='PASS'&&(x.l2||x.l1)).length;
+      return `${n}/${verses.length} passages gate-passed · English shows only where passed · all machine-proposed, needs human review.`;
+    }
+    return `I answer only from this work's files — try “what does … mean”, “translate §N”, “why §N”, or “§N”.`;
   }
+  const convo = $('#convo');
+  const qsay = (cls, html)=>{
+    if(!convo) return;
+    const d = document.createElement('div');
+    d.className = 'qbub '+cls; d.innerHTML = html;
+    convo.appendChild(d); bindJumps(d);
+    convo.scrollTop = convo.scrollHeight;
+  };
+  if(convo && !convo.dataset.hi){
+    convo.dataset.hi = '1';
+    qsay('a', `Ask about this work — words, verses, readings. I answer only from its files, with citations.`);
+  }
+  const qrun = ()=>{
+    const inp = $('#qin'); if(!inp) return;
+    const q = (inp.value||'').trim(); if(!q) return;
+    inp.value = '';
+    qsay('q', esc(q));
+    qsay('a', answerQuestion(q));
+  };
+  const qgo = $('#qgo'); if(qgo) qgo.onclick = qrun;
+  const qin = $('#qin'); if(qin) qin.addEventListener('keydown', e=>{ if(e.key==='Enter') qrun(); });
   // size (5 steps, Scaife) / width (text links, Scaife)
   const sizes = [[0.9,0.8],[1.0,0.85],[1.25,1.0],[1.5,1.15],[1.8,1.3]];
   document.querySelectorAll('#wid-display [data-s]').forEach(b=>{
