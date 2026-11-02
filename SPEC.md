@@ -25,13 +25,13 @@ Old `?left=l1&right=c1` links keep resolving (lane ids unchanged). `?right=final
 
 Small text, sharp precise answers. Two tiers:
 
-- **Qwen Omni (primary):** `POST /api/chat/:work` on the ipvv worker — `qwen3.8-omni-flash` via DashScope, RAG over gated corpus (`PASS`/`PUBLISHED`/`OWNER` only) + pushing-probe template match + rerank, closed world per translation-work `CHAT.md`. Session persisted per work (`svv-chat-<work>`), follow-up suggestions clickable. The worker quotes L3 (final translation) where present.
+- **Qwen Omni (primary):** `POST /api/chat/:work` on the ipvv worker — `qwen3.8-omni-flash` via DashScope. Pipeline: bge-m3 query embedding → gated cosine retrieval (PASS/PUBLISHED/OWNER only) → lexical fallback (transliteration-tolerant, work-name aware) → direct chunk-id injection → rerank top-5 → argmap graph walk + work-matched pushing probes → recorded-verdict injection from pushing INDEX → closed-world prompt (no source-talk, reader-aware, concise) → answer + follow-up suggestion. Session persisted per work (`svv-chat-<work>`); every Q&A logged with retrieved ids. The worker quotes L3 (final translation) where present.
 - **Local retrieval (fallback):** instant answers from the work's own vendored files when the worker is unreachable or offline — L0 gloss ("what does X mean [in §N]?"), verse translation ("translate §N" → L3, fallback L2), verse commentary ("why §N" → C1 SUMMARY), trust ("is §N reviewed?" → proof gate/needs), navigation ("§N").
 - Citations on every claim; gates enforced (BLOCKED = Sanskrit only); unknown questions get an honest boundary, never a guess.
 
-## Chat v2 (later, needs worker): LLM with the closed-world contract
+## Chat v2 (shipped — was "later" above)
 
-Per translation-work `CHAT.md` + `DATATYPES.json` worker contracts (chat-answer, style-render): retrieval over `corpus.jsonl` (PASS/PUBLISHED/OWNER only), `variants/*.json` (fork status always stated, never one-sided), proofs + signoffs for trust questions. Missing pieces before v2 is honest: embeddings over the corpus, the enforced retrieval filter in worker code, per-clause L2→L0 derivation. Pushing sessions (GEM Q&A per work) seed few-shot examples.
+The worker endpoint, the retrieval filter, and the closed-world prompt are live. Remaining from the original gap list: per-clause L2→L0 derivation, signoffs, C2 poetic renders. Pushing sessions seed context via template match + work-matched probes + recorded verdicts.
 
 ## Data map (what feeds what)
 
