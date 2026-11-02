@@ -864,6 +864,27 @@ function buildRightRail(verses){
     box.querySelectorAll('a[data-jump]').forEach(a=>{
       a.onclick = e=>{ e.preventDefault(); const el=document.querySelector(`.verse[data-i="${a.getAttribute('data-jump')}"]`); if(el) el.scrollIntoView({block:'center',behavior:'smooth'}); };
     });
+    box.querySelectorAll('a[data-doc]').forEach(a=>{
+      a.onclick = e=>{ e.preventDefault(); openDoc(a.getAttribute('data-doc'), a.getAttribute('title')||'source'); };
+    });
+  };
+  const openDoc = (url, title)=>{
+    let ov = document.getElementById('qdocov');
+    if(!ov){
+      ov = document.createElement('div');
+      ov.id = 'qdocov';
+      ov.innerHTML = '<div class="qdochead"><span id="qdoct"></span><a href="#" id="qdocx">×</a></div><div class="qdocbody" id="qdocb"></div>';
+      const rail = document.querySelector('#wid-chat .wbody');
+      (rail || document.body).appendChild(ov);
+      document.getElementById('qdocx').onclick = ev=>{ ev.preventDefault(); ov.style.display='none'; };
+    }
+    document.getElementById('qdoct').textContent = title;
+    const b = document.getElementById('qdocb');
+    b.textContent = 'loading…';
+    ov.style.display = '';
+    fetch(url).then(r=>{ if(!r.ok) throw 0; return r.text(); })
+      .then(t=>{ b.textContent = (t||'').slice(0,6000); })
+      .catch(()=>{ b.textContent = 'Could not load this record.'; });
   };
   const l0find = (id, ia)=>{
     if(!L0 || !L0[id]) return null;
@@ -999,20 +1020,36 @@ function buildRightRail(verses){
       clearTimeout(to);
       try{ if(d.session_id) localStorage.setItem('svv-chat-'+WORK, d.session_id); }catch(e){}
       thinking.remove();
-      /* linkify chunk-id citations to verses we actually have (never bare §N —
-         Qwen cites [id]s; displayed as §N links, id kept in title) */
+      /* citations become tiny numbered refs. Verse chunks jump in place;
+         C1 NOTEs and argmaps (not rendered on this page) open the source doc. */
       const known = {};
       (DATA.verses||[]).forEach((v,i)=>{ if(v.id) known[v.id]=i; });
+      const docUrl = id=>{
+        let m;
+        if(m=id.match(/^c1:([^/]+)\/(.+?\.NOTE)$/)) return `https://ipvv-a8u.pages.dev/data/c1/${m[1]}/${m[2]}.md`;
+        if(m=id.match(/^pt:argument:([^:]+):(.+)$/)) return `https://ipvv-a8u.pages.dev/data/argmaps/${m[1]}/${m[2]}.md`;
+        return null;
+      };
+      const chunkOf = id=>{
+        const parts = id.split(/[:/]/);
+        const last = parts[parts.length-1].replace(/\.(NOTE|md)$/i,'');
+        if(known[last]!=null) return last;
+        if(known[id]!=null) return id;
+        return null;
+      };
       let html = esc(d.reply||'No answer.');
-      /* bare ids first (the ':' in work:chunk blocks this pass), then work:chunk —
-         neither pass touches the other's inserted markup (no colons inside it) */
-      html = html.replace(/(^|[\s(>"'])([a-z]+-[a-z]*\d+(?:-v\d+)?)\b/g, (m,pre,id)=>{
-        if(known[id]!=null) return `${pre}<a href="#" data-jump="${known[id]}" title="${esc(id)}">§${known[id]+1}</a>`;
-        return m;
-      });
-      html = html.replace(/([A-Za-z0-9_.-]+):([A-Za-z0-9_.-]+)/g, (m,w,c)=>{
-        if(known[c]!=null) return `${w}:<a href="#" data-jump="${known[c]}" title="${esc(c)}">§${known[c]+1}</a>`;
-        return m;
+      const seen = {}; let n = 0;
+      const cite = id=>{
+        if(!(id in seen)){ n++; seen[id]=n; }
+        return seen[id];
+      };
+      html = html.replace(/\[([^\]]+)\]/g, (full, id0)=>{
+        const id = (id0||'').trim();
+        const u = docUrl(id);
+        if(u) return `<a href="#" class="qref" data-doc="${esc(u)}" title="${esc(id)}">[${cite(id)}]</a>`;
+        const c = chunkOf(id);
+        if(c!=null) return `<a href="#" class="qref" data-jump="${known[c]}" title="${esc(id)}">[${cite(id)}]</a>`;
+        return full;
       });
       qsay('a', html
         + (d.suggestion ? `<div class="qsug">Try: <a href="#" data-qask="${esc(d.suggestion)}">${esc(d.suggestion)}</a></div>` : ''));
