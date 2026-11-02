@@ -21,7 +21,7 @@ let QUEUE = null, QIDX = 0, QBASE = 0, QNEXT = null;
 let LEFT = qs.get('left') || localStorage.getItem('svv-left') || 'sa-deva';
 let RIGHT = qs.get('right') || localStorage.getItem('svv-right') || 'none';
 /* plain-word aliases: ?left=literal&right=poetic works; lane codes still accepted. */
-const ALIAS = {literal:'l0', plain:'l2', poetic:'c1', close:'l1', gloss:'l0', reading:'c1'};
+const ALIAS = {literal:'l0', plain:'l2', poetic:'c1', commentary:'c1', close:'l1', gloss:'l0', reading:'c1'};
 LEFT = ALIAS[(LEFT||'').toLowerCase()] || LEFT;
 RIGHT = ALIAS[(RIGHT||'').toLowerCase()] || RIGHT;
 const LIDS_BASE = ['sa-deva','sa-iast','l1','l2','c1'];
@@ -136,7 +136,7 @@ const VDEF = {
   'sa-iast': v=>({label:v.title||WORK, desc:'Sanskrit text, IAST transliteration', meta:'san transliteration'}),
   'l1': ()=>({label:'Literal', desc:'Close translation — faithful to the Sanskrit', meta:'eng translation'}),
   'l2': ()=>({label:'Plain', desc:'Plain translation — clear English', meta:'eng translation'}),
-  'c1': ()=>({label:'Poetic', desc:'Poetic reading — commentary as verse', meta:'eng commentary'}),
+  'c1': ()=>({label:'Commentary', desc:'Commentary — SUMMARY plus rasa reading', meta:'eng commentary'}),
   'l0': ()=>({label:'Literal', desc:'Word-by-word gloss — the most literal layer', meta:'eng gloss'}),
   'mine': ()=>({label:'Your version', desc:'Pasted by you, this device only', meta:'eng user-version'}),
   'none': ()=>({label:'—', desc:'', meta:''}),
@@ -525,7 +525,7 @@ async function buildLeftRail(verses, LIBDATA){
       + W('search','Text Search', `<div class="wsearch"><input id="wq" placeholder="find in this work…"/><button id="wgo">go</button></div><div style="margin:.3rem 0;font-size:13px"><label><input type="radio" name="smode" value="form" checked/> Form</label> <label style="margin-left:.6rem"><input type="radio" name="smode" value="lemma"/> Lemma</label></div><div class="cmp-note">Use text input above to find text in this version.</div><div id="wres" style="margin-top:.4rem"></div>`)
       + W('attr','Attributions', `<table class="wtable">`
         + `<tr><td>work</td><td>${esc(DATA.title)}</td></tr>`
-        + `<tr><td>editions</td><td>Literal · Plain · Poetic translations + commentary — pipeline, machine-proposed, needs human review</td></tr>`
+        + `<tr><td>editions</td><td>Literal gloss · Plain translation · Commentary — pipeline, machine-proposed, needs human review</td></tr>`
         + `<tr><td>gate</td><td>${verses.filter(v=>v.gate==='PASS').length}/${verses.length} passages passed</td></tr>`
         + (PROOF ? `<tr><td>proof</td><td>${Object.values(PROOF).filter(p=>p.gate==='PASS').length}/${Object.keys(PROOF).length} proved 5/5 · deterministic gate, no model</td></tr>` : '')
         + `<tr><td>repository</td><td>prx0r/svread · data: prx0r/ipvv layers</td></tr></table>`)
@@ -621,9 +621,9 @@ function renderCol(side, vid){
   const v0 = DATA.verses[0];
   const d = VDEF[vid]({title:DATA.title});
   labelEl.innerHTML = vid==='none' ? '' : `<div class="vlab" style="font-weight:700">${esc(d.label)}</div><div class="vdesc">${esc(d.desc)}</div><div class="vmeta">${esc(d.meta)}</div>`;
-   /* grouped picker: Translations header with narrow bars (Literal · Plain · Poetic),
-     then Sanskrit, then Yours. Version ids unchanged — old links keep working. */
-  /* Translations bars: Literal (word-gloss l0 where on file, else close l1) · Plain (l2) · Poetic (c1). Lane ids unchanged — old links keep working. */
+   /* grouped picker: Translations header with narrow bars (Literal · Plain · Commentary),
+      then Sanskrit, then Yours. Version ids unchanged — old links keep working. */
+  /* Translations bars: Literal (word-gloss l0 where on file, else close l1) · Plain (l2) · Commentary (c1). Lane ids unchanged — old links keep working. */
   const TBARS = LIDS.includes('l0') ? ['l0','l2','c1'] : ['l1','l2','c1'];
   const GROUPS=[['Translations',TBARS,'bars'],['Sanskrit',['sa-deva','sa-iast'],'list'],['Yours',['mine','none'],'list']];
   const inIds=id=>ids.includes(id);
