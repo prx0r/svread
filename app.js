@@ -1000,18 +1000,18 @@ function buildRightRail(verses){
       try{ if(d.session_id) localStorage.setItem('svv-chat-'+WORK, d.session_id); }catch(e){}
       thinking.remove();
       /* linkify chunk-id citations to verses we actually have (never bare §N —
-         Qwen must cite [id]s; bare § numbers from a model are untrustworthy) */
+         Qwen cites [id]s; displayed as §N links, id kept in title) */
       const known = {};
       (DATA.verses||[]).forEach((v,i)=>{ if(v.id) known[v.id]=i; });
       let html = esc(d.reply||'No answer.');
       /* bare ids first (the ':' in work:chunk blocks this pass), then work:chunk —
          neither pass touches the other's inserted markup (no colons inside it) */
       html = html.replace(/(^|[\s(>"'])([a-z]+-[a-z]*\d+(?:-v\d+)?)\b/g, (m,pre,id)=>{
-        if(known[id]!=null) return `${pre}<a href="#" data-jump="${known[id]}">${esc(id)}</a>`;
+        if(known[id]!=null) return `${pre}<a href="#" data-jump="${known[id]}" title="${esc(id)}">§${known[id]+1}</a>`;
         return m;
       });
       html = html.replace(/([A-Za-z0-9_.-]+):([A-Za-z0-9_.-]+)/g, (m,w,c)=>{
-        if(known[c]!=null) return `${w}:<a href="#" data-jump="${known[c]}">${esc(c)}</a>`;
+        if(known[c]!=null) return `${w}:<a href="#" data-jump="${known[c]}" title="${esc(c)}">§${known[c]+1}</a>`;
         return m;
       });
       qsay('a', html
