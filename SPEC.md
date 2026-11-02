@@ -45,6 +45,8 @@ Per translation-work `CHAT.md` + `DATATYPES.json` worker contracts (chat-answer,
 | `site/data/argmaps/<work>/*.md` (ipvv, not vendored) | future per-verse "why" expander; chat reasoning traces |
 | pushing sessions (ipvv `site/data/pushing/`, indexed in `INDEX.json`: 56 files, 111 questions) | Hard Questions probes; chat template matches; R2 audio + karaoke per work |
 | `svread-audio` R2 bucket (1430 objects: audio/karaoke/align) | studio chant playback + karaoke highlighting (falls back to browser TTS/voice) |
+| corpus includes: translations (L1/L2/L3), site C1 + scholar NOTEs, pushing sessions, essays, argmaps | RAG retrieval; re-embed on changed English/gates |
+| excluded from site (deliberate) | tantraessays video-script packs (production assets, not reading text); volume `source-library` binaries (index-only); unchanted works have no karaoke (ghatakarpara, spandasandoha — needs recording, not wiring) |
 | C2 renders (`/api/c2/render`) | future Poetic lane, once verse renders earn it |
 
 ## Open (not decided here)
