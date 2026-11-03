@@ -21,11 +21,11 @@ let QUEUE = null, QIDX = 0, QBASE = 0, QNEXT = null;
 let LEFT = qs.get('left') || localStorage.getItem('svv-left') || 'sa-deva';
 let RIGHT = qs.get('right') || localStorage.getItem('svv-right') || 'none';
 /* plain-word aliases: ?left=literal&right=poetic works; lane codes still accepted. */
-const ALIAS = {literal:'l0', plain:'l2', poetic:'c1', commentary:'c1', final:'l3', close:'l1', gloss:'l0', reading:'c1'};
+const ALIAS = {literal:'l0', plain:'l2', poetic:'c1', commentary:'c1', final:'l3', svatantrya:'l4', canonical:'l4', close:'l1', gloss:'l0', reading:'c1'};
 LEFT = ALIAS[(LEFT||'').toLowerCase()] || LEFT;
 RIGHT = ALIAS[(RIGHT||'').toLowerCase()] || RIGHT;
-const LIDS_BASE = ['sa-deva','sa-iast','l1','l2','l3','c1'];
-const RIDS_BASE = ['none','l1','l2','l3','c1','mine'];
+const LIDS_BASE = ['sa-deva','sa-iast','l1','l2','l3','l4','c1'];
+const RIDS_BASE = ['none','l1','l2','l3','l4','c1','mine'];
 let LIDS = [...LIDS_BASE], RIDS = [...RIDS_BASE];
 let L0 = null; // data/l0/<wid>.json {verses:[{id,tokens:[{iast,gloss,raw,status}]}]}
 async function loadL0(){
@@ -117,7 +117,8 @@ const VDEF = {
   'l1': ()=>({label:'Literal', desc:'Close translation — faithful to the Sanskrit', meta:'eng translation'}),
   'l2': ()=>({label:'Plain', desc:'Plain translation — clear English', meta:'eng translation'}),
   'c1': ()=>({label:'Commentary', desc:'Commentary — SUMMARY plus rasa reading', meta:'eng commentary'}),
-  'l3': ()=>({label:'Final', desc:'Final canonical translation — line by line, evocative', meta:'eng final'}),
+  'l3': ()=>({label:'Final', desc:'Final translation — line by line, evocative', meta:'eng final'}),
+  'l4': ()=>({label:'Svatantrya', desc:'Canonical translation — L4, set to the rhythm of the verse', meta:'eng canonical'}),
   'l0': ()=>({label:'Literal', desc:'Word-by-word gloss — the most literal layer', meta:'eng gloss'}),
   'mine': ()=>({label:'Your version', desc:'Pasted by you, this device only', meta:'eng user-version'}),
   'none': ()=>({label:'—', desc:'', meta:''}),
@@ -199,6 +200,7 @@ function verseText(v, vid, col, vix){
     if(t.includes('\n\n')) return `<div class="enp">${t.split(/\n{2,}/).map(p=>`<p>${p.replace(/\n/g,'<br>')}</p>`).join('')}</div>`;
     return `<div class="enp">${t}</div>`;
   }
+  if(vid==='l4') return v.l4 ? `<div class="enp finalsec">${esc(v.l4).replace(/\n/g, '<br>')}</div>` : `<div class="milestone">Svatantrya (L4) pending — falls back to Final (L3) below.</div>`;
   if(vid==='l3') return v.l3 ? `<div class="enp finalsec">${esc(v.l3).replace(/\n/g, '<br>')}</div>` : `<div class="milestone">Final translation pending — needs human review.</div>`;
   if(vid==='c1') return v.c1 ? `<div class="enp c1sec">${mdSec(v.c1.replace(/^##\s+[^\n]*\n/, ''))}</div>` : `<div class="enp">${esc(cleanEN(v.l2||v.l1||''))}</div>`;
   if(vid==='l0'){
@@ -525,13 +527,13 @@ async function main(){
     }catch(e){}
   }
   let verses = D && (D.verses || (D.chunks||[]).map(c=>({
-    id:c.chunk, sa:c.sanskrit, l1:c.l1, l2:c.l2, c1:c.c1, argmap:c.argmap,
+    id:c.chunk, sa:c.sanskrit, l1:c.l1, l2:c.l2, l3:c.l3, l4:c.l4, c1:c.c1, argmap:c.argmap,
     gate:c.gate, model:c.model||'', date:c.date||'' })));
   if(!verses || !verses.length){
     $('.reader-main').innerHTML = `<p id="err">Nothing on file for “${esc(WORK)}” yet.</p>`;
     return;
   }
-  DATA = {title:(D.title||WORK), master:(D.master||''), verses};
+  DATA = {title:(D.title||WORK), master:(D.master||''), source_edition:(D.source_edition||''), verses};
   DATA.verses.forEach((v,i)=>{ v.n = i+1; });
   // pretty title + master name from the library catalogue
   try{
@@ -696,8 +698,10 @@ async function main(){
   /* L3 is the one translation to look at: default to it wherever it exists
      (no URL param and no stored preference — explicit choices always win) */
   try{
-    if(!qs.get('right') && !localStorage.getItem('svv-right')
-       && (DATA.verses||[]).some(v=>v.l3)) RIGHT = 'l3';
+    if(!qs.get('right') && !localStorage.getItem('svv-right')){
+      if((DATA.verses||[]).some(v=>v.l4)) RIGHT = 'l4';          /* Svatantrya (L4) is the canonical one to look at */
+      else if((DATA.verses||[]).some(v=>v.l3)) RIGHT = 'l3';
+    }
   }catch(e){}
   /* literal lane falls back to the close translation where no word-gloss is on file */
   if(LEFT==='l0' && !LIDS.includes('l0')) LEFT = 'l1';
@@ -791,14 +795,18 @@ async function buildLeftRail(verses, LIBDATA){
     const urn = `urn:svread:${WORK}`;
     const libAside = $('#lib');
     libAside.innerHTML =
-      W('workid','Work ID', `<div class="urn">${esc(urn)}</div>`)
+      W('workid','Work ID', (DATA.source_edition
+          ? `<div class="urn">${esc(DATA.source_edition)}</div><div class="cmp-note">${esc(urn)}</div>`
+          : `<div class="urn">${esc(urn)}</div>`))
       + W('verses','Verses', `<a href="#" id="vcount" style="color:#B45141">${verses.length}</a>`)
       + W('library','Library', `<div id="liblist">${libraryHtml(lib)}</div>`)
       + W('ref','Passage Reference', `<div class="wsearch"><input id="wjump" placeholder="§ number…" inputmode="numeric"/><button id="wgo2">go</button></div><div class="vref-list" style="margin-top:.4rem">${verses.map((v,i)=>`<a href="#v${i}" data-i="${i}">§${i+1}</a>`).join('')}</div>`)
       + W('search','Text Search', `<div class="wsearch"><input id="wq" placeholder="find in this work…"/><button id="wgo">go</button></div><div style="margin:.3rem 0;font-size:13px"><label><input type="radio" name="smode" value="form" checked/> Form</label> <label style="margin-left:.6rem"><input type="radio" name="smode" value="lemma"/> Lemma</label></div><div class="cmp-note">Use text input above to find text in this version.</div><div id="wres" style="margin-top:.4rem"></div>`)
       + W('attr','Attributions', `<table class="wtable">`
         + `<tr><td>work</td><td>${esc(DATA.title)}</td></tr>`
-        + `<tr><td>editions</td><td>Final translation · Literal gloss · Plain translation · Commentary — pipeline, machine-proposed, needs human review</td></tr>`
+        + `<tr><td>source</td><td>${esc(DATA.source_edition || 'root text (see Work ID)')}</td></tr>`
+        + `<tr><td>translation</td><td><b>FREE</b> — our English (L1–L4, commentary) is free use. Scholar edits &amp; words: © their authors, all rights reserved.</td></tr>`
+        + `<tr><td>editions</td><td>Svatantrya (L4) · Final · Literal gloss · Plain translation · Commentary — pipeline, machine-proposed, needs human review</td></tr>`
         + `<tr><td>gate</td><td>${verses.filter(v=>v.gate==='PASS').length}/${verses.length} passages passed</td></tr>`
         + (PROOF ? `<tr><td>proof</td><td>${Object.values(PROOF).filter(p=>p.gate==='PASS').length}/${Object.keys(PROOF).length} proved 5/5 · deterministic gate, no model</td></tr>` : '')
         + `<tr><td>repository</td><td>prx0r/svread · data: prx0r/ipvv layers</td></tr></table>`)
@@ -899,7 +907,7 @@ function renderCol(side, vid){
    /* grouped picker: Translations header with narrow bars (Final · Literal · Plain · Commentary),
       then Sanskrit, then Yours. Version ids unchanged — old links keep working. */
   /* Translations bars: Final (l3, the one translation) · Literal (word-gloss l0 where on file, else close l1) · Plain (l2) · Commentary (c1). Lane ids unchanged — old links keep working. */
-  const TBARS = ['l3', ...(LIDS.includes('l0') ? ['l0'] : ['l1']), 'l2','c1'];
+  const TBARS = [...((DATA.verses||[]).some(v=>v.l4) ? ['l4'] : []), 'l3', ...(LIDS.includes('l0') ? ['l0'] : ['l1']), 'l2','c1'];
   const GROUPS=[['Translations',TBARS,'bars'],['Sanskrit',['sa-deva','sa-iast'],'list'],['Yours',['mine','none'],'list']];
   const inIds=id=>ids.includes(id);
   const item=id=>{
@@ -1205,7 +1213,7 @@ function buildRightRail(verses){
     if(vok && /^(§\s*\d+|verse\s+\d+|v\s*\d+|go(\s+to)?\s+§?\s*\d+|show\s+§?\s*\d+)$/.test(q)){
       const el = document.querySelector(`.verse[data-i="${vi}"]`);
       if(el) el.scrollIntoView({block:'center', behavior:'smooth'});
-      const first = ((v.l3||'').split('\n').map(s=>s.trim()).filter(Boolean)[0]) || cleanEN(v.l2||v.l1||'').slice(0,120);
+      const first = ((v.l4||v.l3||'').split('\n').map(s=>s.trim()).filter(Boolean)[0]) || cleanEN(v.l2||v.l1||'').slice(0,120);
       return pass ? `${vjump(vi)} — ${esc(first)}` : `${vjump(vi)} — ${gateNote(v)}`;
     }
     // "what does X mean [in §N]?"
@@ -1228,7 +1236,7 @@ function buildRightRail(verses){
     // "translate §N" / "what does §N say|mean"
     if(vok && /translat|what does|say|mean|reading/.test(q)){
       if(!pass) return `${vjump(vi)} — ${gateNote(v)}`;
-      const lines = (v.l3||'').split('\n').map(s=>s.trim()).filter(Boolean);
+      const lines = (v.l4||v.l3||'').split('\n').map(s=>s.trim()).filter(Boolean);
       const body = lines.length ? lines.map(esc).join('<br>') : esc(cleanEN(v.l2||v.l1||''));
       return `${vjump(vi)} — ${body}`;
     }

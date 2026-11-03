@@ -4,7 +4,8 @@
 
 | Lane | Source | Rule |
 |------|--------|------|
-| Final | L3 | **The one translation to look at.** Line-by-line, evocative, grounded (l0_ids + essence_maps). Default right column wherever it exists. |
+| Svatantrya | L4 | **THE canonical translation** (owner directive 2026-11-03). The song layer: L3 set to the rhythm of the verse. Default right column wherever it exists; `?right=svatantrya`/`canonical` alias here. |
+| Final | L3 | Line-by-line, evocative, grounded (l0_ids + essence_maps). Default where no L4 is on file. |
 | Literal | L0 word-gloss (fallback: L1 close) | Gloss only, never prose. |
 | Plain | L2 | **The translation.** Plain exact English; translation, never commentary. |
 | Commentary | C1 SUMMARY + rasa | About the verse, openly labeled. Never a translation. |
@@ -66,6 +67,9 @@ The **Scholar** nav tab. Same functions (`$`/`esc`/`get`/`W`/`dl`/`norm`) and sa
   is the only path to reviewed).
 - Data: `data/scholar/<work>.json` + `index.json` (works with scholar data). Reader path is
   untouched: without `?view=scholar` main() runs exactly as before.
+- **Rights (owner directive):** our English translation (L1–L4 + commentary) = **FREE**;
+  scholar edits/versions/reviews/sign-offs = **(c) their authors** — carried in the emitted
+  `rights` block and shown in the reader's Attributions.
 
 ## Open (not decided here)
 
