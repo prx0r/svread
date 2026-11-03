@@ -19,7 +19,7 @@ let ART = null, ART_CLIPS = {}, ART_REL = {};   // compiled alignment (see build
 let AU = null, AUtimer = null, AUix = null;
 let PS = null;      // per-section play: {kind:'sa'|'en'|'c1', i, paused, gen, audio, _step}
 let PLAYGEN = 0;    // invalidates older chains (widget recite vs section play never fight)
-const EN_READ_OFF = true;   // fish Granny English readout silent for now — set false to re-enable
+const EN_READ_OFF = false;  // English (Granny) readout ON — default language reads English
 let QUEUE = null, QIDX = 0, QBASE = 0, QNEXT = null;
 let CURIX = 0;   // current verse (gutter / § jumps) — read-buttons act on it
 /* debug/inspection hook (read-only): window.__sv.kar()/au()/ps() — no writes */
@@ -1373,9 +1373,12 @@ function splayToggle(kind, ix){
   splayStart(kind, ix);                       // any other section: start the chain there
 }
 function repaintSplay(){
+  const ra = document.querySelector('#rcAll');
+  if(ra) ra.textContent = (PS && !PS.paused) ? '\u23F8' : '\u25B6';   // one button: play ⇄ pause
   document.querySelectorAll('.verse.paused').forEach(v=>v.classList.remove('paused'));
   if(PS && PS.paused) document.querySelectorAll(`.verse[data-i="${PS.i}"]`).forEach(v=>v.classList.add('paused'));
 }
+let SEL_LANG = 'en';   // headbar language selector: 'sa' | 'en' (EN default)
 function enSilent(){
   if(EN_READ_OFF){ const m=$('#readMsg'); if(m) m.textContent='english readout is off for now'; return true; }
   return false;
@@ -1461,11 +1464,9 @@ function buildRightRail(verses){
       <span class="hbsep"></span>
       <span class="twidth hbg">${['Narrow','Normal','Wide','Full'].map(w=>`<a href="#" data-w="${w}" title="text width">${w}</a>`).join(' ')}</span>
       <span class="hbsep"></span>
-      <button id="rcAll" class="hbbtn" title="recite all from the start">▶</button>
-      <button id="rcStop" class="hbbtn" title="stop">■</button>
-      <span class="hbsep"></span>
-      <button id="readSa" class="hbbtn" title="read this verse in Sanskrit">स</button>
-      <button id="readEn" class="hbbtn" title="read this verse in English (Granny)">EN</button>
+      <button id="readSa" class="hbbtn" title="language: Sanskrit">स</button>
+      <button id="readEn" class="hbbtn hbsel" title="language: English (selected)">EN</button>
+      <button id="rcAll" class="hbbtn" title="play English">▶</button>
     </div>
     <div id="readMsg" class="cmp-note hbmsg"></div>`;
   $('#rail').innerHTML =
@@ -1475,41 +1476,26 @@ function buildRightRail(verses){
     h.onclick = ()=>h.parentElement.classList.toggle('closed');
   });
   // recitation
-  const rcA = $('#rcAll'), rcS = $('#rcStop');
-  const readVerse = async (lang)=>{
-    if(lang !== 'sa' && enSilent()) return;
-    const vs = (DATA && DATA.verses) || [];
-    const v = vs[CURIX] || vs[0];
-    const msg = $('#readMsg');
-    if(!v){ if(msg) msg.textContent = 'nothing to read yet.'; return; }
-    let text = '';
-    if(lang === 'sa'){
-      text = cleanSA(v.sa || '');
-      if(text && !/[\u0900-\u097F]/.test(text)){ try{ text = IAST_DEVA.convert(text); }catch(e){} }
-    }else{
-      text = (v.l4 || v.l3 || v.l2 || '').trim();
-      if(!text){ if(msg) msg.textContent = 'no English on file for this verse yet — withheld, never freelanced.'; return; }
-    }
-    if(!text){ if(msg) msg.textContent = 'no text for this verse.'; return; }
-    const ix = (vs.indexOf(v) >= 0 ? vs.indexOf(v) : 0) + 1;
-    if(msg) msg.textContent = `rendering §${ix}…`;
-    try{
-      const r = await fetch(API + '/api/read', {method:'POST', headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({work: WORK, verse: v.id, lang, text: text.slice(0,4000)})});
-      const d = await r.json();
-      if(!r.ok) throw new Error(d.error || ('http ' + r.status));
-      if(msg) msg.textContent = `${d.cached ? 'stored' : 'rendered'} §${ix} ${lang==='sa'?'sanskrit':'english'} — playing`;
-      const au = new Audio(d.url);
-      au.play().catch(e=>{ if(msg) msg.textContent = 'play blocked: ' + String(e.message||e); });
-    }catch(e){
-      if(msg) msg.textContent = 'render failed: ' + String((e && e.message) || e).slice(0,90);
-    }
-  };
+  const rcA = $('#rcAll');
+  /* headbar: स/EN = language SELECTOR (EN default), one ▶/⏸ toggle after them —
+     idle ▶ plays the work from the current section in the selected language;
+     while playing the same button pauses/resumes (all chains route through PS) */
   const readSa = $('#readSa'), readEn = $('#readEn');
-  if(readSa) readSa.onclick = ()=>readVerse('sa');
-  if(readEn) readEn.onclick = ()=>readVerse('en');
-  if(rcA) rcA.onclick = ()=>reciteAll();
-  if(rcS) rcS.onclick = ()=>stopRecite();
+  const setSel = lang=>{
+    if(PS) stopRecite();                    // switching language = fresh intent
+    SEL_LANG = lang;
+    if(readSa) readSa.classList.toggle('hbsel', lang==='sa');
+    if(readEn) readEn.classList.toggle('hbsel', lang==='en');
+    if(rcA) rcA.title = 'play ' + (lang==='sa' ? 'Sanskrit' : 'English');
+    const m = $('#readMsg'); if(m) m.textContent = '';
+    repaintSplay();
+  };
+  if(readSa) readSa.onclick = ()=>setSel('sa');
+  if(readEn) readEn.onclick = ()=>setSel('en');
+  if(rcA) rcA.onclick = ()=>{
+    if(PS){ splayToggle(PS.kind, PS.i); return; }   // ⏸ pause / ▶ resume
+    splayStart(SEL_LANG, CURIX || 0);               // idle → play from here, selected language
+  };
   /* text mode retired with its widget (tap-to-ask works everywhere now)
   document.querySelectorAll('#wid-mode [data-m]').forEach(b=>{
     b.onclick = ()=>{
