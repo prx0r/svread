@@ -4,7 +4,7 @@
     constructor({api,work,profile,onStatus}){
       this.api=api;this.work=work;this.profile=profile;this.status=onStatus||(()=>{});
       this.docs=new Map();this.conflicts=new Map();this.reviews=[];this.userId=null;
-      this.current=null;this.essayId=null;this.agent=null;this.voice=null;this.voiceText='';
+      this.current=null;this.essayId=null;this.agent=null;this.voice=null;this.voiceText='';this.signoffs=new Map();
     }
     esc(x){return String(x??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
       .replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
@@ -17,7 +17,7 @@
     id(kind,target,layer=''){return `${kind}:${layer||'work'}:${target||this.work}`;}
     async load(){
       const uid=this.profile()?.id||null;
-      if(uid!==this.userId){this.voice?.end();this.voice=null;this.voiceText='';this.docs.clear();this.conflicts.clear();this.reviews=[];this.essayId=null;this.agent=null;this.userId=uid;}
+      if(uid!==this.userId){this.voice?.end();this.voice=null;this.voiceText='';this.docs.clear();this.conflicts.clear();this.signoffs.clear();this.reviews=[];this.essayId=null;this.agent=null;this.userId=uid;}
       if(!uid)return;
       try{
         let offset=0;const docs=[];
@@ -46,7 +46,7 @@
     remember(data){
       if(!this.profile()?.id)return;
       let state=this.docs.get(data.id);if(!state){state={revision:0,dirty:false};this.docs.set(data.id,state);}
-      state.data={...data};state.dirty=true;
+      state.data={...data};state.dirty=true;this.signoffs.delete(data.id);
       try{localStorage.setItem(this.key(data.id),JSON.stringify({base_revision:state.revision,data}));}catch{}
       clearTimeout(state.timer);state.timer=setTimeout(()=>this.flush(data.id).catch(e=>this.status(e.message)),600);
     }
@@ -110,7 +110,8 @@
           ${reviews.map(r=>`<div class="cmp-note">${e(r.document_id)} · revision ${r.revision} · ${e(r.decision||'awaiting review')} · ${e((r.snapshot_sha256||'').slice(0,12))}</div><pre>${e(r.snapshot?.content?.text||'')}</pre>${r.reasoning?`<div>${e(r.reasoning)}</div>`:''}${r.reviewer_id===profile.id&&!r.decision?`<textarea id="workspace-review-${e(r.id)}" placeholder="Your reasoning"></textarea><button class="c2btn workspace-decision" data-id="${e(r.id)}" data-decision="ACCEPT">Accept</button><button class="c2btn workspace-decision" data-id="${e(r.id)}" data-decision="REQUEST_CHANGES">Request changes</button>`:''}`).join('')}</details>
         <details><summary>Author sign-off</summary><select id="workspace-sign-kind"><option value="translation">Current translation</option><option value="essay">Selected essay</option></select>
           <select id="workspace-rights"><option value="all-rights-reserved">All rights reserved</option><option value="cc-by-4.0">CC BY 4.0</option><option value="cc0">CC0</option></select>
-          <button class="c2btn" id="workspace-sign">Sign off saved revision</button><div class="cmp-note">Records your account's private approval. Publication to Git is not yet available in this workspace.</div></details>
+          <button class="c2btn" id="workspace-sign">Sign off saved revision</button><button class="c2btn" id="workspace-submit">Submit signed revision</button>
+          <div class="cmp-note">Sign-off is private. Submission may create a public Git branch for review; it does not merge or publish to the site automatically.</div></details>
         <details><summary>Saved agent and voice activity (${activity.length})</summary>${activity.map(d=>`<details><summary>${e(d.title||d.kind)} · ${e(d.target)}</summary><pre>${e(d.content?.text||'')}</pre><button class="c2btn workspace-delete" data-id="${e(d.id)}">Delete private copy</button></details>`).join('')}</details></div>`;
       const $=selector=>container.querySelector(selector);
       container.querySelectorAll('.workspace-restore').forEach(button=>{button.onclick=()=>{
@@ -177,7 +178,14 @@
       $('#workspace-sign').onclick=async()=>{try{const id=selected($('#workspace-sign-kind').value);if(!id)throw new Error('Choose a document.');
         await this.flush(id);const doc=this.document(id),result=await this.request('/api/scholar/signoffs','POST',
           {document_id:id,revision:doc.revision,rights:$('#workspace-rights').value,confirmed:true});
-        this.status('Privately signed off revision '+doc.revision+' · '+result.snapshot_sha256.slice(0,12));}catch(e){this.status(e.message);}};
+        this.signoffs.set(id,result);this.status('Privately signed off revision '+doc.revision+' · '+result.snapshot_sha256.slice(0,12));}catch(e){this.status(e.message);}};
+      $('#workspace-submit').onclick=async()=>{
+        const id=selected($('#workspace-sign-kind').value),approval=this.signoffs.get(id);
+        if(!approval)return this.status('Sign off the current saved revision first.');
+        if(!root.confirm('Submit this signed version? Its text may become public on a Git branch. Confirm that you have authority to share it under your selected rights statement.'))return;
+        try{const result=await this.request('/api/scholar/submit','POST',{signoff_id:approval.id,confirm_submission:true});
+          this.status(result.message+(result.branch?' · '+result.branch:'')+(result.commit?' · '+result.commit.slice(0,12):''));}catch(e){this.status(e.message);}
+      };
     }
   }
   root.ScholarWorkspace=ScholarWorkspace;

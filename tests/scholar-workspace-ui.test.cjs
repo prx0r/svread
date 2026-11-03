@@ -24,6 +24,7 @@ test('Scholar workspace saves privately and labels a copied agent draft',async()
     if(String(url).endsWith('/api/scholar/assist'))return Response.json({document:{id:'agent:one',revision:1,
       content:{text:'Agent reading',task:'translation',model:'qwen-test'}},message:'Agent draft saved privately.'});
     if(String(url).endsWith('/api/scholar/signoffs'))return Response.json({id:'signoff:one',snapshot_sha256:'a'.repeat(64)});
+    if(String(url).endsWith('/api/scholar/submit'))return Response.json({status:'SUBMITTED_PUBLIC_BRANCH',message:'Submitted to a public Git branch for review.'});
     throw new Error('Unexpected request '+url);
   };
   const context=vm.createContext({fetch,localStorage,Response,URL,URLSearchParams,setTimeout,clearTimeout,
@@ -43,6 +44,8 @@ test('Scholar workspace saves privately and labels a copied agent draft',async()
   assert.equal(calls.find(x=>x.url.endsWith('/reviews')&&x.method==='POST').data.document_id,id);
   element('#workspace-sign-kind').value='translation';element('#workspace-rights').value='all-rights-reserved';await element('#workspace-sign').onclick();
   assert.equal(calls.find(x=>x.url.endsWith('/signoffs')).data.confirmed,true);
+  await element('#workspace-submit').onclick();
+  assert.equal(calls.find(x=>x.url.endsWith('/submit')).data.confirm_submission,true);
   for(const state of suite.docs.values())clearTimeout(state.timer);
 });
 

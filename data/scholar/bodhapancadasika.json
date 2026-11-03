@@ -1,0 +1,6953 @@
+{
+ "work": "bodhapancadasika",
+ "generated": null,
+ "source": "translation-work canonical data + scholar/ ledgers (emit_scholar.py)",
+ "source_edition": "GRETIL (Marino Faliero input, 15+1 verses)",
+ "contract": {
+  "contract_version": "svatantrya-agent-contract/1",
+  "contract_sha256": "8f22582bd8833e43d4ed31bbdfa49cf1f2e720569d15da9edc61a2bfab34d86e",
+  "schema_version": "1.3.0",
+  "structural_schema_version": "2.0.0",
+  "structural_schema_snapshot_sha256": "7143ce16fd2fec74bcbb442937194c13abcb94e7d76e10fb35ec9e76016a9577",
+  "order": [
+   "source",
+   "t1",
+   "l0",
+   "argmap",
+   "l2",
+   "c1",
+   "l3",
+   "l4",
+   "c2"
+  ],
+  "schemas": {
+   "t1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:t1",
+    "title": "Svatantrya T1 structural schema",
+    "x-validator": "schemas.t1.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "quick_english",
+     "tokens",
+     "source_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "quick_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "source_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "tokens": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "surface",
+        "quick_gloss"
+       ],
+       "properties": {
+        "surface": {
+         "type": "string",
+         "minLength": 1
+        },
+        "quick_gloss": {
+         "type": "string",
+         "minLength": 1
+        }
+       }
+      }
+     }
+    }
+   },
+   "l0": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l0:verse",
+    "title": "Svatantrya L0 verse token list structural schema",
+    "x-validator": "schemas.l0.validate (per token)",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+     "$schema": "https://json-schema.org/draft/2020-12/schema",
+     "$id": "urn:svatantrya:schema:2.0.0:l0",
+     "title": "Svatantrya L0 structural schema",
+     "x-validator": "schemas.l0.validate",
+     "x-schema-version": "1.3.0",
+     "x-structural-schema-version": "2.0.0",
+     "type": "object",
+     "required": [
+      "id",
+      "verse_id",
+      "pada_index",
+      "surface",
+      "citation",
+      "options",
+      "chosen_index",
+      "status"
+     ],
+     "properties": {
+      "id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "verse_id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "pada_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "surface": {
+       "type": "string",
+       "minLength": 1
+      },
+      "citation": {
+       "type": "string",
+       "minLength": 1
+      },
+      "morph": {
+       "type": "string"
+      },
+      "morph_unknown": {
+       "type": "boolean"
+      },
+      "options": {
+       "type": "array",
+       "maxItems": 5,
+       "items": {
+        "type": "object",
+        "required": [
+         "gloss",
+         "rank",
+         "source",
+         "grounds"
+        ],
+        "properties": {
+         "gloss": {
+          "type": "string",
+          "minLength": 1
+         },
+         "rank": {
+          "type": "integer",
+          "minimum": 1
+         },
+         "source": {
+          "type": "string",
+          "minLength": 1
+         },
+         "grounds": {
+          "type": "string",
+          "minLength": 1
+         }
+        }
+       }
+      },
+      "chosen_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "status": {
+       "type": "string",
+       "enum": [
+        "PARSED",
+        "AMBIGUOUS",
+        "FAILED"
+       ]
+      },
+      "revised": {
+       "type": "boolean"
+      },
+      "revise_reason": {
+       "type": "string"
+      },
+      "fork": {
+       "type": "string",
+       "enum": [
+        "none",
+        "live",
+        "resolved"
+       ]
+      }
+     }
+    }
+   },
+   "argmap": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:argmap",
+    "title": "Svatantrya ARGMAP structural schema",
+    "x-validator": "schemas.argmap.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "traces",
+     "sanskrit_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "traces": {
+      "type": "object",
+      "required": [
+       "t1_verse",
+       "l0_ids"
+      ],
+      "properties": {
+       "t1_verse": {
+        "type": "string",
+        "minLength": 1
+       },
+       "l0_ids": {
+        "type": "array",
+        "items": {
+         "type": "string",
+         "minLength": 1
+        },
+        "minItems": 1
+       }
+      }
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "sanskrit_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "speaker": {
+      "type": "string",
+      "minLength": 1
+     },
+     "question": {
+      "type": "string",
+      "minLength": 1
+     },
+     "inference": {
+      "type": "string",
+      "minLength": 1
+     },
+     "reconstruction": {
+      "type": "string",
+      "minLength": 1
+     },
+     "premises": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     },
+     "uncertainties": {
+      "type": "array"
+     },
+     "structured": {
+      "type": "boolean"
+     }
+    }
+   },
+   "l2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l2",
+    "title": "Svatantrya L2 structural schema",
+    "x-validator": "schemas.l2.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "plain_english",
+     "sanskrit_cite",
+     "l0_ids"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "plain_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "supplied": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     }
+    }
+   },
+   "c1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:c1",
+    "title": "Svatantrya C1 structural schema",
+    "x-validator": "schemas.c1.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "song",
+     "essence",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "essence": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "renders": {
+      "type": "object",
+      "required": [
+       "standard"
+      ]
+     }
+    }
+   },
+   "l3": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l3",
+    "title": "Svatantrya L3 structural schema",
+    "x-validator": "schemas.l3.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "l4": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l4",
+    "title": "Svatantrya L4 structural schema",
+    "x-validator": "schemas.l4.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "c2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:c2",
+    "title": "Svatantrya C2 structural schema",
+    "x-validator": "schemas.c2.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "song",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "renders": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "style",
+        "prompt",
+        "paragraphs"
+       ],
+       "properties": {
+        "style": {
+         "type": "string",
+         "minLength": 1
+        },
+        "prompt": {
+         "type": "string",
+         "minLength": 1
+        },
+        "paragraphs": {
+         "type": "array",
+         "minItems": 1,
+         "items": {
+          "type": "object",
+          "required": [
+           "text",
+           "maps_to"
+          ],
+          "properties": {
+           "text": {
+            "type": "string",
+            "minLength": 1
+           },
+           "maps_to": {
+            "type": "array",
+            "items": {
+             "type": "integer",
+             "minimum": 0
+            },
+            "minItems": 1
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "layers": [
+   {
+    "id": "t1",
+    "scope": "verse",
+    "depends_on": [
+     "source"
+    ],
+    "validator": "schemas/t1.py",
+    "validator_sha256": "ac792ba1f0cbc06ab52dfbc41a31d3e39460f0e8a7de2977ed02e4ce63a20f27",
+    "example": {
+     "file": "sivastotravali/data/s01.t1.json",
+     "file_sha256": "a5c4cfae67571d05866d97ad6eb29b1c2956140a69c2fae554c29577330beb8e",
+     "target": "s01-v01",
+     "content_sha256": "26f027dafbe67347efd901cb2b94630cdb0e372957edeb4a3e1305e83745ba5b",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l0",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1"
+    ],
+    "validator": "schemas/l0.py",
+    "validator_sha256": "0651bc77f519897f8a4f8b41f4ea0cc6a88f3441910af99b18d55854a7e9030e",
+    "example": {
+     "file": "sivastotravali/data/s06.l0.json",
+     "file_sha256": "c2bb0ce1010315d72bdce75ee3c8901b17499202abe7adc5bd1977a26f4fea2f",
+     "target": "s06-v01",
+     "content_sha256": "91e3b04d47482757bcaf1e9705992edd0815ff7907ed2cb33c7c9586f3a9e5aa",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "argmap",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0"
+    ],
+    "validator": "schemas/argmap.py",
+    "validator_sha256": "335c1bbe809c5ae942ecef4a30ee7fd8fcb82645a43019312fa74397fe5758b0",
+    "example": {
+     "file": "sivastotravali/data/s01.argmap.json",
+     "file_sha256": "a44c8ec09a30c577f2a792c1255d4290f49a6138c456bb687bc00e78a3902949",
+     "target": "s01-v21",
+     "content_sha256": "80b69a54761b8b0b7c193058f6c88eef60323a3611008c41ba9879bcfc3cdc21",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l2",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap"
+    ],
+    "validator": "schemas/l2.py",
+    "validator_sha256": "f5653e405e0f162f78593ad6344cbbefe122d6d1c921ca3e22003e4f4d2cfaaa",
+    "example": {
+     "file": "sivastotravali/data/s01.l2.json",
+     "file_sha256": "f5a1cec55bb466c328380a0bf527e6d8906428b3436f85a79bd01df98ceb1040",
+     "target": "s01-v01",
+     "content_sha256": "f3c47f6a631f7551d4f9c8ad1117bdf65463cb8cdc92e9b42bb3bf517ae80055",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c1",
+    "scope": "song",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2"
+    ],
+    "validator": "schemas/c1.py",
+    "validator_sha256": "88ad9123135a7a18237cec1d11430992b4f43adf1771ae26a43e4df8198c69d7",
+    "example": {
+     "file": "sivastotravali/data/s01.c1.json",
+     "file_sha256": "99f4d2bbf7a8086176ee585b6e459076e2abd72b9675435267f7546beb1515f8",
+     "target": "s01",
+     "content_sha256": "5be1f3c0c3f64fafe5395b42cf5502a139a5e208be419d5804fe1a5bdd33712a",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l3",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2",
+     "c1"
+    ],
+    "validator": "schemas/l3.py",
+    "validator_sha256": "6c3df228f886207782d5250699e9e459f236f6e7d6b25ac29b00a38541956917",
+    "example": {
+     "file": "sivastotravali/data/s01.l3.json",
+     "file_sha256": "cdb4af6a4c2a851231195f4e5c940346f65199d5d5d69ea1c41d8095f98409f9",
+     "target": "s01-v01",
+     "content_sha256": "6aa20635387174b68fe4ea3baf970c06aff9838acb2c745e7afca0ed7c6751de",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l4",
+    "scope": "verse",
+    "depends_on": [
+     "l3",
+     "c1"
+    ],
+    "validator": "schemas/l4.py",
+    "validator_sha256": "3c1f7b0dfe3d83d425ed0fd84fba7b74aa3ed9e9758402369d779eedda1a8c03",
+    "example": {
+     "file": "paramarthasara/data/param-p01.l4.json",
+     "file_sha256": "db346e51e71f2f835ddfda004d4432934611817c2c73318d335f6ca2362ad4fb",
+     "target": "param-p01-v01",
+     "content_sha256": "91e9d424cf310d4e5b45c173b02f5286d837269ef9447533c153a48cb5122c14",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c2",
+    "scope": "song",
+    "depends_on": [
+     "c1",
+     "l3"
+    ],
+    "validator": "schemas/c2.py",
+    "validator_sha256": "fb8743f206e036002c780d082c7d32cf011dcdab4c21df742a5f5e59a9d851b8",
+    "example": {
+     "file": "sivastotravali/data/s01.c2.json",
+     "file_sha256": "09660a3c09679fce8c95968934e5851a22d89cdf154d2b0635d358e1ef9e8aeb",
+     "target": "s01",
+     "content_sha256": "2faa5fa86e38faca7ef5a1a967a4e261e2df294648a31ed5bad5f731001aa41c",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   }
+  ]
+ },
+ "rights": {
+  "translation": "FREE — our English (L1–L4, commentary) is free use",
+  "scholar": "Contributors declare rights; authorship and copyright depend on the work and law."
+ },
+ "originals": {
+  "t1": {
+   "bod-p01-v01": {
+    "verse_id": "bod-p01-v01",
+    "song": "bod-p01",
+    "verse": 1,
+    "quick_english": "un-set-sun-light-form / of-powers / of-darknesses / too / who / one / within / what-end / powers / darknesses",
+    "quick_english_source": "t1-draft",
+    "tokens": [
+     {
+      "surface": "anastamitabhārūpas",
+      "quick_gloss": "un-set-sun-light-form"
+     },
+     {
+      "surface": "tejasām",
+      "quick_gloss": "of-powers"
+     },
+     {
+      "surface": "tamasām",
+      "quick_gloss": "of-darknesses"
+     },
+     {
+      "surface": "api",
+      "quick_gloss": "too"
+     },
+     {
+      "surface": "yaḥ",
+      "quick_gloss": "who"
+     },
+     {
+      "surface": "ekaḥ",
+      "quick_gloss": "one"
+     },
+     {
+      "surface": "antar",
+      "quick_gloss": "within"
+     },
+     {
+      "surface": "yadantaś ca",
+      "quick_gloss": "what-end"
+     },
+     {
+      "surface": "tejāṃsi ca",
+      "quick_gloss": "powers"
+     },
+     {
+      "surface": "tamāṃsi ca",
+      "quick_gloss": "darknesses"
+     }
+    ],
+    "source_sha": "b9671a2619cdf64a",
+    "source_lines": [
+     4,
+     6
+    ]
+   },
+   "bod-p02-v02": {
+    "verse_id": "bod-p02-v02",
+    "song": "bod-p02",
+    "verse": 2,
+    "quick_english": "He / of-all-beings / own-nature / supreme-Lord / host-of-things / of-him-alone / power / Lordship-made",
+    "quick_english_source": "t1-draft",
+    "tokens": [
+     {
+      "surface": "saḥ eva",
+      "quick_gloss": "He"
+     },
+     {
+      "surface": "sarvabhūtānām",
+      "quick_gloss": "of-all-beings"
+     },
+     {
+      "surface": "svabhāvaḥ",
+      "quick_gloss": "own-nature"
+     },
+     {
+      "surface": "parameśvaraḥ",
+      "quick_gloss": "supreme-Lord"
+     },
+     {
+      "surface": "bhāvajātam hi",
+      "quick_gloss": "host-of-things"
+     },
+     {
+      "surface": "tasyaiva",
+      "quick_gloss": "of-him-alone"
+     },
+     {
+      "surface": "śaktiḥ",
+      "quick_gloss": "power"
+     },
+     {
+      "surface": "īśvaratāmayī",
+      "quick_gloss": "Lordship-made"
+     }
+    ],
+    "source_sha": "f80d878665d968d6",
+    "source_lines": [
+     7,
+     9
+    ]
+   },
+   "bod-p03-v03": {
+    "verse_id": "bod-p03-v03",
+    "song": "bod-p03",
+    "verse": 3,
+    "quick_english": "Power / from-power-possessor-form / difference / does-not-desire / identity / of-these-two / eternal / as / fire-burning",
+    "quick_english_source": "t1-draft",
+    "tokens": [
+     {
+      "surface": "śaktiś ca",
+      "quick_gloss": "Power"
+     },
+     {
+      "surface": "śaktimadrūpāt",
+      "quick_gloss": "from-power-possessor-form"
+     },
+     {
+      "surface": "vyatirekam",
+      "quick_gloss": "difference"
+     },
+     {
+      "surface": "na vāñchati",
+      "quick_gloss": "does-not-desire"
+     },
+     {
+      "surface": "tādātmyam",
+      "quick_gloss": "identity"
+     },
+     {
+      "surface": "anayor",
+      "quick_gloss": "of-these-two"
+     },
+     {
+      "surface": "nityaṃ",
+      "quick_gloss": "eternal"
+     },
+     {
+      "surface": "iva",
+      "quick_gloss": "as"
+     },
+     {
+      "surface": "vahnidāhikayor",
+      "quick_gloss": "fire-burning"
+     }
+    ],
+    "source_sha": "47c2062b92a49098",
+    "source_lines": [
+     10,
+     12
+    ]
+   },
+   "bod-p04-v04": {
+    "verse_id": "bod-p04-v04",
+    "song": "bod-p04",
+    "verse": 4,
+    "quick_english": "He / Bhairava / god / world-bearing-characterized / in-own-self-vision / whole / by-power / reflected",
+    "quick_english_source": "t1-draft",
+    "tokens": [
+     {
+      "surface": "saḥ eva",
+      "quick_gloss": "He"
+     },
+     {
+      "surface": "bhairavaḥ",
+      "quick_gloss": "Bhairava"
+     },
+     {
+      "surface": "devo",
+      "quick_gloss": "god"
+     },
+     {
+      "surface": "jagadbharaṇalakṣaṇaḥ",
+      "quick_gloss": "world-bearing-characterized"
+     },
+     {
+      "surface": "svātmādṛṣe",
+      "quick_gloss": "in-own-self-vision"
+     },
+     {
+      "surface": "samagram hi",
+      "quick_gloss": "whole"
+     },
+     {
+      "surface": "yacchaktyā",
+      "quick_gloss": "by-power"
+     },
+     {
+      "surface": "pratibimbitam",
+      "quick_gloss": "reflected"
+     }
+    ],
+    "source_sha": "19bd9cdab0e89562",
+    "source_lines": [
+     13,
+     15
+    ]
+   },
+   "bod-p05-v05": {
+    "verse_id": "bod-p05-v05",
+    "song": "bod-p05",
+    "verse": 5,
+    "quick_english": "Of-him-alone / supreme / goddess / own-nature-grasping-eager / fullness / in-all-beings / of-whom / neither-little / nor / excess",
+    "quick_english_source": "t1-draft",
+    "tokens": [
+     {
+      "surface": "tasyaivaiṣā",
+      "quick_gloss": "Of-him-alone"
+     },
+     {
+      "surface": "parā",
+      "quick_gloss": "supreme"
+     },
+     {
+      "surface": "devī",
+      "quick_gloss": "goddess"
+     },
+     {
+      "surface": "svarūpāmarśanotsukā",
+      "quick_gloss": "own-nature-grasping-eager"
+     },
+     {
+      "surface": "pūrṇatvam",
+      "quick_gloss": "fullness"
+     },
+     {
+      "surface": "sarvabhaveṣu",
+      "quick_gloss": "in-all-beings"
+     },
+     {
+      "surface": "yasyāḥ",
+      "quick_gloss": "of-whom"
+     },
+     {
+      "surface": "nālpaṃ",
+      "quick_gloss": "neither-little"
+     },
+     {
+      "surface": "na ca",
+      "quick_gloss": "nor"
+     },
+     {
+      "surface": "adhikam",
+      "quick_gloss": "excess"
+     }
+    ],
+    "source_sha": "dd107ad2c3108d73",
+    "source_lines": [
+     16,
+     18
+    ]
+   },
+   "bod-p06-v06": {
+    "verse_id": "bod-p06-v06",
+    "song": "bod-p06",
+    "verse": 6,
+    "quick_english": "This / god / by-this / goddess / always / play-joy-eager / varied / creation-dissolution / does / simultaneously / all-pervading",
+    "quick_english_source": "t1-draft",
+    "tokens": [
+     {
+      "surface": "eṣa",
+      "quick_gloss": "This"
+     },
+     {
+      "surface": "devo",
+      "quick_gloss": "god"
+     },
+     {
+      "surface": "anayā",
+      "quick_gloss": "by-this"
+     },
+     {
+      "surface": "devyā",
+      "quick_gloss": "goddess"
+     },
+     {
+      "surface": "nityaṃ",
+      "quick_gloss": "always"
+     },
+     {
+      "surface": "krīḍārasotsukaḥ",
+      "quick_gloss": "play-joy-eager"
+     },
+     {
+      "surface": "vicitrān",
+      "quick_gloss": "varied"
+     },
+     {
+      "surface": "sṛṣṭisaṃhārān",
+      "quick_gloss": "creation-dissolution"
+     },
+     {
+      "surface": "vidhatte",
+      "quick_gloss": "does"
+     },
+     {
+      "surface": "yugapad",
+      "quick_gloss": "simultaneously"
+     },
+     {
+      "surface": "vibhuḥ",
+      "quick_gloss": "all-pervading"
+     }
+    ],
+    "source_sha": "3d6ee9b5b1fb3aaf",
+    "source_lines": [
+     19,
+     21
+    ]
+   },
+   "bod-p07-v07": {
+    "verse_id": "bod-p07-v07",
+    "song": "bod-p07",
+    "verse": 7,
+    "quick_english": "Hard-to-accomplish / of-it / unsurpassed / indeed / what / that-itself / autonomy / lordship / awareness-form",
+    "quick_english_source": "t1-draft",
+    "tokens": [
+     {
+      "surface": "atidurghaṭakāritvam",
+      "quick_gloss": "Hard-to-accomplish"
+     },
+     {
+      "surface": "asya",
+      "quick_gloss": "of-it"
+     },
+     {
+      "surface": "anuttaram",
+      "quick_gloss": "unsurpassed"
+     },
+     {
+      "surface": "eva",
+      "quick_gloss": "indeed"
+     },
+     {
+      "surface": "yat",
+      "quick_gloss": "what"
+     },
+     {
+      "surface": "etad eva",
+      "quick_gloss": "that-itself"
+     },
+     {
+      "surface": "svatantratvam",
+      "quick_gloss": "autonomy"
+     },
+     {
+      "surface": "aisvaryaṃ",
+      "quick_gloss": "lordship"
+     },
+     {
+      "surface": "bodharūpatā",
+      "quick_gloss": "awareness-form"
+     }
+    ],
+    "source_sha": "7cae6e6cab02fe19",
+    "source_lines": [
+     22,
+     24
+    ]
+   },
+   "bod-p08-v08": {
+    "verse_id": "bod-p08-v08",
+    "song": "bod-p08",
+    "verse": 8,
+    "quick_english": "Limited-light-ness / of-inert / indeed / mark / from-inert / different / awareness / since / not / measured",
+    "quick_english_source": "t1-draft",
+    "tokens": [
+     {
+      "surface": "paricchinnaprakāśatvaṃ",
+      "quick_gloss": "Limited-light-ness"
+     },
+     {
+      "surface": "jaḍasya",
+      "quick_gloss": "of-inert"
+     },
+     {
+      "surface": "kila",
+      "quick_gloss": "indeed"
+     },
+     {
+      "surface": "lakṣaṇam",
+      "quick_gloss": "mark"
+     },
+     {
+      "surface": "jaḍād",
+      "quick_gloss": "from-inert"
+     },
+     {
+      "surface": "vilakṣaṇo",
+      "quick_gloss": "different"
+     },
+     {
+      "surface": "bodho",
+      "quick_gloss": "awareness"
+     },
+     {
+      "surface": "yato",
+      "quick_gloss": "since"
+     },
+     {
+      "surface": "na",
+      "quick_gloss": "not"
+     },
+     {
+      "surface": "parimīyate",
+      "quick_gloss": "measured"
+     }
+    ],
+    "source_sha": "39489363cf462bb3",
+    "source_lines": [
+     25,
+     27
+    ]
+   },
+   "bod-p09-v09": {
+    "verse_id": "bod-p09-v09",
+    "song": "bod-p09",
+    "verse": 9,
+    "quick_english": "Thus / of-it / autonomous / by-own-power-distinction / own-self / creation-dissolution / as-nature / stand",
+    "quick_english_source": "t1-draft",
+    "tokens": [
+     {
+      "surface": "evam",
+      "quick_gloss": "Thus"
+     },
+     {
+      "surface": "asya",
+      "quick_gloss": "of-it"
+     },
+     {
+      "surface": "svatantrasya",
+      "quick_gloss": "autonomous"
+     },
+     {
+      "surface": "nijaśaktyupabhedinaḥ",
+      "quick_gloss": "by-own-power-distinction"
+     },
+     {
+      "surface": "svātmagāḥ",
+      "quick_gloss": "own-self"
+     },
+     {
+      "surface": "sṛṣṭisaṃhārāḥ",
+      "quick_gloss": "creation-dissolution"
+     },
+     {
+      "surface": "svarūpatvena",
+      "quick_gloss": "as-nature"
+     },
+     {
+      "surface": "saṃsthitāḥ",
+      "quick_gloss": "stand"
+     }
+    ],
+    "source_sha": "48df62e8bb2e8041",
+    "source_lines": [
+     28,
+     30
+    ]
+   },
+   "bod-p10-v10": {
+    "verse_id": "bod-p10-v10",
+    "song": "bod-p10",
+    "verse": 10,
+    "quick_english": "In-them / variety / extreme / up-down / across / what / worlds / their-parts / pleasure-pain-mind / what",
+    "quick_english_source": "t1-draft",
+    "tokens": [
+     {
+      "surface": "teṣu",
+      "quick_gloss": "In-them"
+     },
+     {
+      "surface": "vaicitryam",
+      "quick_gloss": "variety"
+     },
+     {
+      "surface": "atyantam",
+      "quick_gloss": "extreme"
+     },
+     {
+      "surface": "ūrdhvādhas",
+      "quick_gloss": "up-down"
+     },
+     {
+      "surface": "tiryag eva",
+      "quick_gloss": "across"
+     },
+     {
+      "surface": "yat",
+      "quick_gloss": "what"
+     },
+     {
+      "surface": "bhuvanāni",
+      "quick_gloss": "worlds"
+     },
+     {
+      "surface": "tadaṃśāś ca",
+      "quick_gloss": "their-parts"
+     },
+     {
+      "surface": "sukhaduḥkhamatiś ca",
+      "quick_gloss": "pleasure-pain-mind"
+     },
+     {
+      "surface": "yā",
+      "quick_gloss": "what"
+     }
+    ],
+    "source_sha": "08346b112284eefe",
+    "source_lines": [
+     31,
+     33
+    ]
+   },
+   "bod-p11-v11": {
+    "verse_id": "bod-p11-v11",
+    "song": "bod-p11",
+    "verse": 11,
+    "quick_english": "What / of-it / non-knowledge / that / its-autonomy / thus / it / indeed / saṃsāra / of-fools / who / terrifying",
+    "quick_english_source": "t1-draft",
+    "tokens": [
+     {
+      "surface": "yad",
+      "quick_gloss": "What"
+     },
+     {
+      "surface": "etasya",
+      "quick_gloss": "of-it"
+     },
+     {
+      "surface": "aparijñānaṃ",
+      "quick_gloss": "non-knowledge"
+     },
+     {
+      "surface": "tat",
+      "quick_gloss": "that"
+     },
+     {
+      "surface": "svātantryaṃ hi",
+      "quick_gloss": "its-autonomy"
+     },
+     {
+      "surface": "varṇitam",
+      "quick_gloss": "thus"
+     },
+     {
+      "surface": "saḥ eva",
+      "quick_gloss": "it"
+     },
+     {
+      "surface": "khalu",
+      "quick_gloss": "indeed"
+     },
+     {
+      "surface": "saṃsāro",
+      "quick_gloss": "saṃsāra"
+     },
+     {
+      "surface": "mūḍānāṃ",
+      "quick_gloss": "of-fools"
+     },
+     {
+      "surface": "yaḥ",
+      "quick_gloss": "who"
+     },
+     {
+      "surface": "vibhīṣakaḥ",
+      "quick_gloss": "terrifying"
+     }
+    ],
+    "source_sha": "00019aeff7794a23",
+    "source_lines": [
+     34,
+     36
+    ]
+   },
+   "bod-p12-v12": {
+    "verse_id": "bod-p12-v12",
+    "song": "bod-p12",
+    "verse": 12,
+    "quick_english": "From-that / grace-sap / or / from-teacher-scripture / or / from-scripture / of-supreme-Lord / from-which / from-which / approached",
+    "quick_english_source": "t1-draft",
+    "tokens": [
+     {
+      "surface": "tat",
+      "quick_gloss": "From-that"
+     },
+     {
+      "surface": "prasādarasād eva",
+      "quick_gloss": "grace-sap"
+     },
+     {
+      "surface": "vā",
+      "quick_gloss": "or"
+     },
+     {
+      "surface": "gurvāgamata eva",
+      "quick_gloss": "from-teacher-scripture"
+     },
+     {
+      "surface": "vā",
+      "quick_gloss": "or"
+     },
+     {
+      "surface": "śāstrād vā",
+      "quick_gloss": "from-scripture"
+     },
+     {
+      "surface": "parameśasya",
+      "quick_gloss": "of-supreme-Lord"
+     },
+     {
+      "surface": "yasmāt",
+      "quick_gloss": "from-which"
+     },
+     {
+      "surface": "kasmād",
+      "quick_gloss": "from-which"
+     },
+     {
+      "surface": "upāgatam",
+      "quick_gloss": "approached"
+     }
+    ],
+    "source_sha": "cf0724fa16aa7ca6",
+    "source_lines": [
+     37,
+     39
+    ]
+   },
+   "bod-p13-v13": {
+    "verse_id": "bod-p13-v13",
+    "song": "bod-p13",
+    "verse": 13,
+    "quick_english": "What / of-reality / full-knowledge / that / liberation / from-supreme-Lord / That / fullness / of-awakened / living-liberation / that / remembered",
+    "quick_english_source": "t1-draft",
+    "tokens": [
+     {
+      "surface": "yat",
+      "quick_gloss": "What"
+     },
+     {
+      "surface": "tattvasya",
+      "quick_gloss": "of-reality"
+     },
+     {
+      "surface": "parijñānaṃ",
+      "quick_gloss": "full-knowledge"
+     },
+     {
+      "surface": "saḥ",
+      "quick_gloss": "that"
+     },
+     {
+      "surface": "mokṣaḥ",
+      "quick_gloss": "liberation"
+     },
+     {
+      "surface": "parameśataḥ",
+      "quick_gloss": "from-supreme-Lord"
+     },
+     {
+      "surface": "tat",
+      "quick_gloss": "That"
+     },
+     {
+      "surface": "pūrṇatvam",
+      "quick_gloss": "fullness"
+     },
+     {
+      "surface": "prabuddhānāṃ",
+      "quick_gloss": "of-awakened"
+     },
+     {
+      "surface": "jīvanmuktiś ca",
+      "quick_gloss": "living-liberation"
+     },
+     {
+      "surface": "sā",
+      "quick_gloss": "that"
+     },
+     {
+      "surface": "smṛtā",
+      "quick_gloss": "remembered"
+     }
+    ],
+    "source_sha": "ade0e52aeaa739ee",
+    "source_lines": [
+     40,
+     42
+    ]
+   },
+   "bod-p14-v14": {
+    "verse_id": "bod-p14-v14",
+    "song": "bod-p14",
+    "verse": 14,
+    "quick_english": "These-two / bondage / liberation / from-supreme-Lord-nature / Not / they-differ / no / difference / in-truth / in-supreme-Lord",
+    "quick_english_source": "t1-draft",
+    "tokens": [
+     {
+      "surface": "etau",
+      "quick_gloss": "These-two"
+     },
+     {
+      "surface": "bandha",
+      "quick_gloss": "bondage"
+     },
+     {
+      "surface": "vimokṣau ca",
+      "quick_gloss": "liberation"
+     },
+     {
+      "surface": "parameśasvarūpataḥ",
+      "quick_gloss": "from-supreme-Lord-nature"
+     },
+     {
+      "surface": "na",
+      "quick_gloss": "Not"
+     },
+     {
+      "surface": "bhidyete",
+      "quick_gloss": "they-differ"
+     },
+     {
+      "surface": "na",
+      "quick_gloss": "no"
+     },
+     {
+      "surface": "bhedo hi",
+      "quick_gloss": "difference"
+     },
+     {
+      "surface": "tattvataḥ",
+      "quick_gloss": "in-truth"
+     },
+     {
+      "surface": "parameśvare",
+      "quick_gloss": "in-supreme-Lord"
+     }
+    ],
+    "source_sha": "4aee9ccafc472b96",
+    "source_lines": [
+     43,
+     45
+    ]
+   },
+   "bod-p15-v15": {
+    "verse_id": "bod-p15-v15",
+    "song": "bod-p15",
+    "verse": 15,
+    "quick_english": "Thus / will-power / art / knowledge / power / trident / lotus / resorted / Bhairava / of-all-things / own-nature / is-examined",
+    "quick_english_source": "t1-draft",
+    "tokens": [
+     {
+      "surface": "ittham",
+      "quick_gloss": "Thus"
+     },
+     {
+      "surface": "icchā",
+      "quick_gloss": "will-power"
+     },
+     {
+      "surface": "kalā",
+      "quick_gloss": "art"
+     },
+     {
+      "surface": "jñāna",
+      "quick_gloss": "knowledge"
+     },
+     {
+      "surface": "śakti",
+      "quick_gloss": "power"
+     },
+     {
+      "surface": "śūla",
+      "quick_gloss": "trident"
+     },
+     {
+      "surface": "ambuja",
+      "quick_gloss": "lotus"
+     },
+     {
+      "surface": "āśritaḥ",
+      "quick_gloss": "resorted"
+     },
+     {
+      "surface": "bhairavaḥ",
+      "quick_gloss": "Bhairava"
+     },
+     {
+      "surface": "sarvabhāvānāṃ",
+      "quick_gloss": "of-all-things"
+     },
+     {
+      "surface": "svabhāvaḥ",
+      "quick_gloss": "own-nature"
+     },
+     {
+      "surface": "pariśīlyate",
+      "quick_gloss": "is-examined"
+     }
+    ],
+    "source_sha": "3337689c63d5acfb",
+    "source_lines": [
+     46,
+     48
+    ]
+   }
+  },
+  "l0": {
+   "bod-p01-v01": [
+    {
+     "id": "bod-p01-v01-p000",
+     "verse_id": "bod-p01-v01",
+     "pada_index": 0,
+     "surface": "anastamitabhārūpas",
+     "citation": "anastamitabhārūpas",
+     "options": [
+      {
+       "gloss": "un-set-sun-light-form",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg (long comp.)"
+    },
+    {
+     "id": "bod-p01-v01-p001",
+     "verse_id": "bod-p01-v01",
+     "pada_index": 1,
+     "surface": "tejasām",
+     "citation": "tejasām",
+     "options": [
+      {
+       "gloss": "of-powers",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Print tejasāṃ; correct gen.pl tejasām carried (cf. tamasām in same line)."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.gen.pl (tejas)"
+    },
+    {
+     "id": "bod-p01-v01-p002",
+     "verse_id": "bod-p01-v01",
+     "pada_index": 2,
+     "surface": "tamasām",
+     "citation": "tamasām",
+     "options": [
+      {
+       "gloss": "of-darknesses",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.gen.pl (tamas)"
+    },
+    {
+     "id": "bod-p01-v01-p003",
+     "verse_id": "bod-p01-v01",
+     "pada_index": 3,
+     "surface": "api",
+     "citation": "api",
+     "options": [
+      {
+       "gloss": "too",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl."
+    },
+    {
+     "id": "bod-p01-v01-p004",
+     "verse_id": "bod-p01-v01",
+     "pada_index": 4,
+     "surface": "yaḥ",
+     "citation": "ya",
+     "options": [
+      {
+       "gloss": "who",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg (yad)"
+    },
+    {
+     "id": "bod-p01-v01-p005",
+     "verse_id": "bod-p01-v01",
+     "pada_index": 5,
+     "surface": "ekaḥ",
+     "citation": "ekaḥ",
+     "options": [
+      {
+       "gloss": "one",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg (eka)"
+    },
+    {
+     "id": "bod-p01-v01-p006",
+     "verse_id": "bod-p01-v01",
+     "pada_index": 6,
+     "surface": "antar",
+     "citation": "antar",
+     "options": [
+      {
+       "gloss": "within",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl."
+    },
+    {
+     "id": "bod-p01-v01-p007",
+     "verse_id": "bod-p01-v01",
+     "pada_index": 7,
+     "surface": "yadantaś ca",
+     "citation": "ya",
+     "options": [
+      {
+       "gloss": "what-end",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "yat + m.nom.sg + ca joints"
+    },
+    {
+     "id": "bod-p01-v01-p008",
+     "verse_id": "bod-p01-v01",
+     "pada_index": 8,
+     "surface": "tejāṃsi ca",
+     "citation": "ca",
+     "options": [
+      {
+       "gloss": "powers",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.nom.pl + ca"
+    },
+    {
+     "id": "bod-p01-v01-p009",
+     "verse_id": "bod-p01-v01",
+     "pada_index": 9,
+     "surface": "tamāṃsi ca",
+     "citation": "ca",
+     "options": [
+      {
+       "gloss": "darknesses",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.nom.pl + ca"
+    }
+   ],
+   "bod-p02-v02": [
+    {
+     "id": "bod-p02-v02-p000",
+     "verse_id": "bod-p02-v02",
+     "pada_index": 0,
+     "surface": "saḥ eva",
+     "citation": "sa",
+     "options": [
+      {
+       "gloss": "He",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg + eva (T1 joint)"
+    },
+    {
+     "id": "bod-p02-v02-p001",
+     "verse_id": "bod-p02-v02",
+     "pada_index": 1,
+     "surface": "sarvabhūtānām",
+     "citation": "sa",
+     "options": [
+      {
+       "gloss": "of-all-beings",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Print sarvabhūtānāṃ; correct gen.pl carried."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.gen.pl (comp.)"
+    },
+    {
+     "id": "bod-p02-v02-p002",
+     "verse_id": "bod-p02-v02",
+     "pada_index": 2,
+     "surface": "svabhāvaḥ",
+     "citation": "svabhāvaḥ",
+     "options": [
+      {
+       "gloss": "own-nature",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg"
+    },
+    {
+     "id": "bod-p02-v02-p003",
+     "verse_id": "bod-p02-v02",
+     "pada_index": 3,
+     "surface": "parameśvaraḥ",
+     "citation": "parameśvaraḥ",
+     "options": [
+      {
+       "gloss": "supreme-Lord",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg"
+    },
+    {
+     "id": "bod-p02-v02-p004",
+     "verse_id": "bod-p02-v02",
+     "pada_index": 4,
+     "surface": "bhāvajātam hi",
+     "citation": "hi",
+     "options": [
+      {
+       "gloss": "host-of-things",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Print bhāvajātaṃ; ṃ→m normalized, hi kept."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.nom.sg + hi"
+    },
+    {
+     "id": "bod-p02-v02-p005",
+     "verse_id": "bod-p02-v02",
+     "pada_index": 5,
+     "surface": "tasyaiva",
+     "citation": "tasyaiva",
+     "options": [
+      {
+       "gloss": "of-him-alone",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m./n.gen.sg + eva (tad)"
+    },
+    {
+     "id": "bod-p02-v02-p006",
+     "verse_id": "bod-p02-v02",
+     "pada_index": 6,
+     "surface": "śaktiḥ",
+     "citation": "śaktiḥ",
+     "options": [
+      {
+       "gloss": "power",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Print śaktir (correct sandhi before īśvara-); lexical śaktiḥ carried."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "f.nom.sg (śakti)"
+    },
+    {
+     "id": "bod-p02-v02-p007",
+     "verse_id": "bod-p02-v02",
+     "pada_index": 7,
+     "surface": "īśvaratāmayī",
+     "citation": "īśvaratāmayī",
+     "options": [
+      {
+       "gloss": "Lordship-made",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "f.nom.sg (comp.)"
+    }
+   ],
+   "bod-p03-v03": [
+    {
+     "id": "bod-p03-v03-p000",
+     "verse_id": "bod-p03-v03",
+     "pada_index": 0,
+     "surface": "śaktiś ca",
+     "citation": "śaktiś",
+     "options": [
+      {
+       "gloss": "Power",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Sandhi-kept joint (śaktiḥ + ca before ś-)."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "f.nom.sg + ca (śaktiḥ)"
+    },
+    {
+     "id": "bod-p03-v03-p001",
+     "verse_id": "bod-p03-v03",
+     "pada_index": 1,
+     "surface": "śaktimadrūpāt",
+     "citation": "śaktimadrūpāt",
+     "options": [
+      {
+       "gloss": "from-power-possessor-form",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.abl.sg (comp.)"
+    },
+    {
+     "id": "bod-p03-v03-p002",
+     "verse_id": "bod-p03-v03",
+     "pada_index": 2,
+     "surface": "vyatirekam",
+     "citation": "vyatirekam",
+     "options": [
+      {
+       "gloss": "difference",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.acc.sg"
+    },
+    {
+     "id": "bod-p03-v03-p003",
+     "verse_id": "bod-p03-v03",
+     "pada_index": 3,
+     "surface": "na vāñchati",
+     "citation": "na",
+     "options": [
+      {
+       "gloss": "does-not-desire",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "na + 3sg.pres.act √vāñch joints"
+    },
+    {
+     "id": "bod-p03-v03-p004",
+     "verse_id": "bod-p03-v03",
+     "pada_index": 4,
+     "surface": "tādātmyam",
+     "citation": "tādātmyam",
+     "options": [
+      {
+       "gloss": "identity",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.nom.sg"
+    },
+    {
+     "id": "bod-p03-v03-p005",
+     "verse_id": "bod-p03-v03",
+     "pada_index": 5,
+     "surface": "anayor",
+     "citation": "na",
+     "options": [
+      {
+       "gloss": "of-these-two",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m./n.gen./loc.du (idas)"
+    },
+    {
+     "id": "bod-p03-v03-p006",
+     "verse_id": "bod-p03-v03",
+     "pada_index": 6,
+     "surface": "nityaṃ",
+     "citation": "nityaṃ",
+     "options": [
+      {
+       "gloss": "eternal",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "adv. (nitya)"
+    },
+    {
+     "id": "bod-p03-v03-p007",
+     "verse_id": "bod-p03-v03",
+     "pada_index": 7,
+     "surface": "iva",
+     "citation": "iva",
+     "options": [
+      {
+       "gloss": "as",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl."
+    },
+    {
+     "id": "bod-p03-v03-p008",
+     "verse_id": "bod-p03-v03",
+     "pada_index": 8,
+     "surface": "vahnidāhikayor",
+     "citation": "vahnidāhikayor",
+     "options": [
+      {
+       "gloss": "fire-burning",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m./n.gen./loc.du (comp.)"
+    }
+   ],
+   "bod-p04-v04": [
+    {
+     "id": "bod-p04-v04-p000",
+     "verse_id": "bod-p04-v04",
+     "pada_index": 0,
+     "surface": "saḥ eva",
+     "citation": "sa",
+     "options": [
+      {
+       "gloss": "He",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg + eva (T1 joint)"
+    },
+    {
+     "id": "bod-p04-v04-p001",
+     "verse_id": "bod-p04-v04",
+     "pada_index": 1,
+     "surface": "bhairavaḥ",
+     "citation": "bhairavaḥ",
+     "options": [
+      {
+       "gloss": "Bhairava",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Print bhairavo (correct sandhi before devo); lexical carried."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg"
+    },
+    {
+     "id": "bod-p04-v04-p002",
+     "verse_id": "bod-p04-v04",
+     "pada_index": 2,
+     "surface": "devo",
+     "citation": "devo",
+     "options": [
+      {
+       "gloss": "god",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg (devaḥ)"
+    },
+    {
+     "id": "bod-p04-v04-p003",
+     "verse_id": "bod-p04-v04",
+     "pada_index": 3,
+     "surface": "jagadbharaṇalakṣaṇaḥ",
+     "citation": "jagadbharaṇalakṣaṇaḥ",
+     "options": [
+      {
+       "gloss": "world-bearing-characterized",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg (long comp.)"
+    },
+    {
+     "id": "bod-p04-v04-p004",
+     "verse_id": "bod-p04-v04",
+     "pada_index": 4,
+     "surface": "svātmādṛṣe",
+     "citation": "svātmādṛṣe",
+     "options": [
+      {
+       "gloss": "in-own-self-vision",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.loc.sg (comp.)"
+    },
+    {
+     "id": "bod-p04-v04-p005",
+     "verse_id": "bod-p04-v04",
+     "pada_index": 5,
+     "surface": "samagram hi",
+     "citation": "sa",
+     "options": [
+      {
+       "gloss": "whole",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Print samagraṃ; normalized, hi kept."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.acc.sg + hi (samagra)"
+    },
+    {
+     "id": "bod-p04-v04-p006",
+     "verse_id": "bod-p04-v04",
+     "pada_index": 6,
+     "surface": "yacchaktyā",
+     "citation": "yacchaktyā",
+     "options": [
+      {
+       "gloss": "by-power",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "yat + f.inst.sg joints"
+    },
+    {
+     "id": "bod-p04-v04-p007",
+     "verse_id": "bod-p04-v04",
+     "pada_index": 7,
+     "surface": "pratibimbitam",
+     "citation": "pratibimbitam",
+     "options": [
+      {
+       "gloss": "reflected",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.nom.sg ppp √bimb+prati"
+    }
+   ],
+   "bod-p05-v05": [
+    {
+     "id": "bod-p05-v05-p000",
+     "verse_id": "bod-p05-v05",
+     "pada_index": 0,
+     "surface": "tasyaivaiṣā",
+     "citation": "tasyaivaiṣā",
+     "options": [
+      {
+       "gloss": "Of-him-alone",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "gen.sg + eva + f.nom.sg joints (tad+eṣā)"
+    },
+    {
+     "id": "bod-p05-v05-p001",
+     "verse_id": "bod-p05-v05",
+     "pada_index": 1,
+     "surface": "parā",
+     "citation": "parā",
+     "options": [
+      {
+       "gloss": "supreme",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "f.nom.sg"
+    },
+    {
+     "id": "bod-p05-v05-p002",
+     "verse_id": "bod-p05-v05",
+     "pada_index": 2,
+     "surface": "devī",
+     "citation": "devī",
+     "options": [
+      {
+       "gloss": "goddess",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "f.nom.sg"
+    },
+    {
+     "id": "bod-p05-v05-p003",
+     "verse_id": "bod-p05-v05",
+     "pada_index": 3,
+     "surface": "svarūpāmarśanotsukā",
+     "citation": "svarūpāmarśanotsukā",
+     "options": [
+      {
+       "gloss": "own-nature-grasping-eager",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "f.nom.sg (long comp.)"
+    },
+    {
+     "id": "bod-p05-v05-p004",
+     "verse_id": "bod-p05-v05",
+     "pada_index": 4,
+     "surface": "pūrṇatvam",
+     "citation": "pūrṇatvam",
+     "options": [
+      {
+       "gloss": "fullness",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.nom.sg"
+    },
+    {
+     "id": "bod-p05-v05-p005",
+     "verse_id": "bod-p05-v05",
+     "pada_index": 5,
+     "surface": "sarvabhaveṣu",
+     "citation": "sarvabhaveṣu",
+     "options": [
+      {
+       "gloss": "in-all-beings",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.loc.pl (comp.)"
+    },
+    {
+     "id": "bod-p05-v05-p006",
+     "verse_id": "bod-p05-v05",
+     "pada_index": 6,
+     "surface": "yasyāḥ",
+     "citation": "yasyā",
+     "options": [
+      {
+       "gloss": "of-whom",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "f.gen.sg (yad)"
+    },
+    {
+     "id": "bod-p05-v05-p007",
+     "verse_id": "bod-p05-v05",
+     "pada_index": 7,
+     "surface": "nālpaṃ",
+     "citation": "nālpaṃ",
+     "options": [
+      {
+       "gloss": "neither-little",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "na + n.nom.sg joints"
+    },
+    {
+     "id": "bod-p05-v05-p008",
+     "verse_id": "bod-p05-v05",
+     "pada_index": 8,
+     "surface": "na ca",
+     "citation": "na",
+     "options": [
+      {
+       "gloss": "nor",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "na + ca"
+    },
+    {
+     "id": "bod-p05-v05-p009",
+     "verse_id": "bod-p05-v05",
+     "pada_index": 9,
+     "surface": "adhikam",
+     "citation": "adhikam",
+     "options": [
+      {
+       "gloss": "excess",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.nom.sg"
+    }
+   ],
+   "bod-p06-v06": [
+    {
+     "id": "bod-p06-v06-p000",
+     "verse_id": "bod-p06-v06",
+     "pada_index": 0,
+     "surface": "eṣa",
+     "citation": "eṣa",
+     "options": [
+      {
+       "gloss": "This",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg (etad)"
+    },
+    {
+     "id": "bod-p06-v06-p001",
+     "verse_id": "bod-p06-v06",
+     "pada_index": 1,
+     "surface": "devo",
+     "citation": "devo",
+     "options": [
+      {
+       "gloss": "god",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Print devo (correct sandhi before vowel); lexical devaḥ understood."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg"
+    },
+    {
+     "id": "bod-p06-v06-p002",
+     "verse_id": "bod-p06-v06",
+     "pada_index": 2,
+     "surface": "anayā",
+     "citation": "anayā",
+     "options": [
+      {
+       "gloss": "by-this",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "A- restored from elision (source devo 'nayā); correct sandhi resolution."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "f.inst.sg (idas)"
+    },
+    {
+     "id": "bod-p06-v06-p003",
+     "verse_id": "bod-p06-v06",
+     "pada_index": 3,
+     "surface": "devyā",
+     "citation": "devyā",
+     "options": [
+      {
+       "gloss": "goddess",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "f.inst.sg (devī)"
+    },
+    {
+     "id": "bod-p06-v06-p004",
+     "verse_id": "bod-p06-v06",
+     "pada_index": 4,
+     "surface": "nityaṃ",
+     "citation": "nityaṃ",
+     "options": [
+      {
+       "gloss": "always",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "adv."
+    },
+    {
+     "id": "bod-p06-v06-p005",
+     "verse_id": "bod-p06-v06",
+     "pada_index": 5,
+     "surface": "krīḍārasotsukaḥ",
+     "citation": "krīḍārasotsukaḥ",
+     "options": [
+      {
+       "gloss": "play-joy-eager",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg (long comp.)"
+    },
+    {
+     "id": "bod-p06-v06-p006",
+     "verse_id": "bod-p06-v06",
+     "pada_index": 6,
+     "surface": "vicitrān",
+     "citation": "vicitrān",
+     "options": [
+      {
+       "gloss": "varied",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.acc.pl"
+    },
+    {
+     "id": "bod-p06-v06-p007",
+     "verse_id": "bod-p06-v06",
+     "pada_index": 7,
+     "surface": "sṛṣṭisaṃhārān",
+     "citation": "sṛṣṭisaṃhārān",
+     "options": [
+      {
+       "gloss": "creation-dissolution",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.acc.pl (comp.)"
+    },
+    {
+     "id": "bod-p06-v06-p008",
+     "verse_id": "bod-p06-v06",
+     "pada_index": 8,
+     "surface": "vidhatte",
+     "citation": "vidhatte",
+     "options": [
+      {
+       "gloss": "does",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "3sg.pres.mid √dhā+vi"
+    },
+    {
+     "id": "bod-p06-v06-p009",
+     "verse_id": "bod-p06-v06",
+     "pada_index": 9,
+     "surface": "yugapad",
+     "citation": "yugapad",
+     "options": [
+      {
+       "gloss": "simultaneously",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl."
+    },
+    {
+     "id": "bod-p06-v06-p010",
+     "verse_id": "bod-p06-v06",
+     "pada_index": 10,
+     "surface": "vibhuḥ",
+     "citation": "vibhuḥ",
+     "options": [
+      {
+       "gloss": "all-pervading",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg (vibhu)"
+    }
+   ],
+   "bod-p07-v07": [
+    {
+     "id": "bod-p07-v07-p000",
+     "verse_id": "bod-p07-v07",
+     "pada_index": 0,
+     "surface": "atidurghaṭakāritvam",
+     "citation": "atidurghaṭakāritvam",
+     "options": [
+      {
+       "gloss": "Hard-to-accomplish",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.nom.sg (long comp.)"
+    },
+    {
+     "id": "bod-p07-v07-p001",
+     "verse_id": "bod-p07-v07",
+     "pada_index": 1,
+     "surface": "asya",
+     "citation": "asya",
+     "options": [
+      {
+       "gloss": "of-it",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m./n.gen.sg (idas)"
+    },
+    {
+     "id": "bod-p07-v07-p002",
+     "verse_id": "bod-p07-v07",
+     "pada_index": 2,
+     "surface": "anuttaram",
+     "citation": "anuttaram",
+     "options": [
+      {
+       "gloss": "unsurpassed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.nom.sg"
+    },
+    {
+     "id": "bod-p07-v07-p003",
+     "verse_id": "bod-p07-v07",
+     "pada_index": 3,
+     "surface": "eva",
+     "citation": "eva",
+     "options": [
+      {
+       "gloss": "indeed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl."
+    },
+    {
+     "id": "bod-p07-v07-p004",
+     "verse_id": "bod-p07-v07",
+     "pada_index": 4,
+     "surface": "yat",
+     "citation": "yat",
+     "options": [
+      {
+       "gloss": "what",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "neut.nom.sg (yad)"
+    },
+    {
+     "id": "bod-p07-v07-p005",
+     "verse_id": "bod-p07-v07",
+     "pada_index": 5,
+     "surface": "etad eva",
+     "citation": "eva",
+     "options": [
+      {
+       "gloss": "that-itself",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "neut.nom.sg + eva (T1 joint)"
+    },
+    {
+     "id": "bod-p07-v07-p006",
+     "verse_id": "bod-p07-v07",
+     "pada_index": 6,
+     "surface": "svatantratvam",
+     "citation": "svatantratvam",
+     "options": [
+      {
+       "gloss": "autonomy",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.nom.sg"
+    },
+    {
+     "id": "bod-p07-v07-p007",
+     "verse_id": "bod-p07-v07",
+     "pada_index": 7,
+     "surface": "aisvaryaṃ",
+     "citation": "aisvaryaṃ",
+     "options": [
+      {
+       "gloss": "lordship",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.nom.sg"
+    },
+    {
+     "id": "bod-p07-v07-p008",
+     "verse_id": "bod-p07-v07",
+     "pada_index": 8,
+     "surface": "bodharūpatā",
+     "citation": "bodharūpatā",
+     "options": [
+      {
+       "gloss": "awareness-form",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "f.nom.sg (comp.)"
+    }
+   ],
+   "bod-p08-v08": [
+    {
+     "id": "bod-p08-v08-p000",
+     "verse_id": "bod-p08-v08",
+     "pada_index": 0,
+     "surface": "paricchinnaprakāśatvaṃ",
+     "citation": "paricchinnaprakāśatvaṃ",
+     "options": [
+      {
+       "gloss": "Limited-light-ness",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.nom.sg (comp.)"
+    },
+    {
+     "id": "bod-p08-v08-p001",
+     "verse_id": "bod-p08-v08",
+     "pada_index": 1,
+     "surface": "jaḍasya",
+     "citation": "jaḍasya",
+     "options": [
+      {
+       "gloss": "of-inert",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m./n.gen.sg (jaḍa)"
+    },
+    {
+     "id": "bod-p08-v08-p002",
+     "verse_id": "bod-p08-v08",
+     "pada_index": 2,
+     "surface": "kila",
+     "citation": "kila",
+     "options": [
+      {
+       "gloss": "indeed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl."
+    },
+    {
+     "id": "bod-p08-v08-p003",
+     "verse_id": "bod-p08-v08",
+     "pada_index": 3,
+     "surface": "lakṣaṇam",
+     "citation": "lakṣaṇam",
+     "options": [
+      {
+       "gloss": "mark",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.nom.sg"
+    },
+    {
+     "id": "bod-p08-v08-p004",
+     "verse_id": "bod-p08-v08",
+     "pada_index": 4,
+     "surface": "jaḍād",
+     "citation": "jaḍād",
+     "options": [
+      {
+       "gloss": "from-inert",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m./n.abl.sg"
+    },
+    {
+     "id": "bod-p08-v08-p005",
+     "verse_id": "bod-p08-v08",
+     "pada_index": 5,
+     "surface": "vilakṣaṇo",
+     "citation": "vilakṣaṇo",
+     "options": [
+      {
+       "gloss": "different",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg (comp.)"
+    },
+    {
+     "id": "bod-p08-v08-p006",
+     "verse_id": "bod-p08-v08",
+     "pada_index": 6,
+     "surface": "bodho",
+     "citation": "bodho",
+     "options": [
+      {
+       "gloss": "awareness",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg (bodhaḥ)"
+    },
+    {
+     "id": "bod-p08-v08-p007",
+     "verse_id": "bod-p08-v08",
+     "pada_index": 7,
+     "surface": "yato",
+     "citation": "yato",
+     "options": [
+      {
+       "gloss": "since",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl. (yatas)"
+    },
+    {
+     "id": "bod-p08-v08-p008",
+     "verse_id": "bod-p08-v08",
+     "pada_index": 8,
+     "surface": "na",
+     "citation": "paricchinnaprakāśatvaṃ",
+     "options": [
+      {
+       "gloss": "not",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl."
+    },
+    {
+     "id": "bod-p08-v08-p009",
+     "verse_id": "bod-p08-v08",
+     "pada_index": 9,
+     "surface": "parimīyate",
+     "citation": "parimīyate",
+     "options": [
+      {
+       "gloss": "measured",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "3sg.pres.pass √mā+pari"
+    }
+   ],
+   "bod-p09-v09": [
+    {
+     "id": "bod-p09-v09-p000",
+     "verse_id": "bod-p09-v09",
+     "pada_index": 0,
+     "surface": "evam",
+     "citation": "evam",
+     "options": [
+      {
+       "gloss": "Thus",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl."
+    },
+    {
+     "id": "bod-p09-v09-p001",
+     "verse_id": "bod-p09-v09",
+     "pada_index": 1,
+     "surface": "asya",
+     "citation": "asya",
+     "options": [
+      {
+       "gloss": "of-it",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m./n.gen.sg (idas)"
+    },
+    {
+     "id": "bod-p09-v09-p002",
+     "verse_id": "bod-p09-v09",
+     "pada_index": 2,
+     "surface": "svatantrasya",
+     "citation": "asya",
+     "options": [
+      {
+       "gloss": "autonomous",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m./n.gen.sg (svatantra)"
+    },
+    {
+     "id": "bod-p09-v09-p003",
+     "verse_id": "bod-p09-v09",
+     "pada_index": 3,
+     "surface": "nijaśaktyupabhedinaḥ",
+     "citation": "nijaśaktyupabhedinaḥ",
+     "options": [
+      {
+       "gloss": "by-own-power-distinction",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.gen.sg (comp.)"
+    },
+    {
+     "id": "bod-p09-v09-p004",
+     "verse_id": "bod-p09-v09",
+     "pada_index": 4,
+     "surface": "svātmagāḥ",
+     "citation": "svātmagāḥ",
+     "options": [
+      {
+       "gloss": "own-self",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.pl (comp.)"
+    },
+    {
+     "id": "bod-p09-v09-p005",
+     "verse_id": "bod-p09-v09",
+     "pada_index": 5,
+     "surface": "sṛṣṭisaṃhārāḥ",
+     "citation": "sṛṣṭisaṃhārāḥ",
+     "options": [
+      {
+       "gloss": "creation-dissolution",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.pl (comp.)"
+    },
+    {
+     "id": "bod-p09-v09-p006",
+     "verse_id": "bod-p09-v09",
+     "pada_index": 6,
+     "surface": "svarūpatvena",
+     "citation": "svarūpatvena",
+     "options": [
+      {
+       "gloss": "as-nature",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.inst.sg"
+    },
+    {
+     "id": "bod-p09-v09-p007",
+     "verse_id": "bod-p09-v09",
+     "pada_index": 7,
+     "surface": "saṃsthitāḥ",
+     "citation": "saṃsthitāḥ",
+     "options": [
+      {
+       "gloss": "stand",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.pl ppp √sthā+sam"
+    }
+   ],
+   "bod-p10-v10": [
+    {
+     "id": "bod-p10-v10-p000",
+     "verse_id": "bod-p10-v10",
+     "pada_index": 0,
+     "surface": "teṣu",
+     "citation": "teṣu",
+     "options": [
+      {
+       "gloss": "In-them",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m./n.loc.pl (tad)"
+    },
+    {
+     "id": "bod-p10-v10-p001",
+     "verse_id": "bod-p10-v10",
+     "pada_index": 1,
+     "surface": "vaicitryam",
+     "citation": "vaicitryam",
+     "options": [
+      {
+       "gloss": "variety",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.nom.sg"
+    },
+    {
+     "id": "bod-p10-v10-p002",
+     "verse_id": "bod-p10-v10",
+     "pada_index": 2,
+     "surface": "atyantam",
+     "citation": "atyantam",
+     "options": [
+      {
+       "gloss": "extreme",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "adv. (atyanta)"
+    },
+    {
+     "id": "bod-p10-v10-p003",
+     "verse_id": "bod-p10-v10",
+     "pada_index": 3,
+     "surface": "ūrdhvādhas",
+     "citation": "ūrdhvādhas",
+     "options": [
+      {
+       "gloss": "up-down",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl. (comp.)"
+    },
+    {
+     "id": "bod-p10-v10-p004",
+     "verse_id": "bod-p10-v10",
+     "pada_index": 4,
+     "surface": "tiryag eva",
+     "citation": "tiryag",
+     "options": [
+      {
+       "gloss": "across",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl. + eva (T1 joint)"
+    },
+    {
+     "id": "bod-p10-v10-p005",
+     "verse_id": "bod-p10-v10",
+     "pada_index": 5,
+     "surface": "yat",
+     "citation": "yat",
+     "options": [
+      {
+       "gloss": "what",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "neut.nom.sg (yad)"
+    },
+    {
+     "id": "bod-p10-v10-p006",
+     "verse_id": "bod-p10-v10",
+     "pada_index": 6,
+     "surface": "bhuvanāni",
+     "citation": "bhuvanāni",
+     "options": [
+      {
+       "gloss": "worlds",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.nom.pl"
+    },
+    {
+     "id": "bod-p10-v10-p007",
+     "verse_id": "bod-p10-v10",
+     "pada_index": 7,
+     "surface": "tadaṃśāś ca",
+     "citation": "tadaṃśāś",
+     "options": [
+      {
+       "gloss": "their-parts",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.pl + ca"
+    },
+    {
+     "id": "bod-p10-v10-p008",
+     "verse_id": "bod-p10-v10",
+     "pada_index": 8,
+     "surface": "sukhaduḥkhamatiś ca",
+     "citation": "ca",
+     "options": [
+      {
+       "gloss": "pleasure-pain-mind",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "GRETIL print (pleasure-pain-mind); Lakshmanjoo Academy reads sukha-duḥkham-atir-bhavaḥ. T1 follows print; variant recorded."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "f.nom.sg + ca (print; Academy reads sukha-duḥkham-atir-bhavaḥ — see grounds)"
+    },
+    {
+     "id": "bod-p10-v10-p009",
+     "verse_id": "bod-p10-v10",
+     "pada_index": 9,
+     "surface": "yā",
+     "citation": "yā",
+     "options": [
+      {
+       "gloss": "what",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "f.nom.sg (yad)"
+    }
+   ],
+   "bod-p11-v11": [
+    {
+     "id": "bod-p11-v11-p000",
+     "verse_id": "bod-p11-v11",
+     "pada_index": 0,
+     "surface": "yad",
+     "citation": "yad",
+     "options": [
+      {
+       "gloss": "What",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "neut.nom.sg (yad)"
+    },
+    {
+     "id": "bod-p11-v11-p001",
+     "verse_id": "bod-p11-v11",
+     "pada_index": 1,
+     "surface": "etasya",
+     "citation": "etasya",
+     "options": [
+      {
+       "gloss": "of-it",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m./n.gen.sg (etad)"
+    },
+    {
+     "id": "bod-p11-v11-p002",
+     "verse_id": "bod-p11-v11",
+     "pada_index": 2,
+     "surface": "aparijñānaṃ",
+     "citation": "aparijñānaṃ",
+     "options": [
+      {
+       "gloss": "non-knowledge",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.nom.sg (comp.)"
+    },
+    {
+     "id": "bod-p11-v11-p003",
+     "verse_id": "bod-p11-v11",
+     "pada_index": 3,
+     "surface": "tat",
+     "citation": "tatsvātantryaṃ",
+     "options": [
+      {
+       "gloss": "that",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "neut.nom.sg (tad)"
+    },
+    {
+     "id": "bod-p11-v11-p004",
+     "verse_id": "bod-p11-v11",
+     "pada_index": 4,
+     "surface": "svātantryaṃ hi",
+     "citation": "hi",
+     "options": [
+      {
+       "gloss": "its-autonomy",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.nom.sg + hi (T1 joint)"
+    },
+    {
+     "id": "bod-p11-v11-p005",
+     "verse_id": "bod-p11-v11",
+     "pada_index": 5,
+     "surface": "varṇitam",
+     "citation": "varṇitam",
+     "options": [
+      {
+       "gloss": "thus",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.nom.sg ppp √varṇ"
+    },
+    {
+     "id": "bod-p11-v11-p006",
+     "verse_id": "bod-p11-v11",
+     "pada_index": 6,
+     "surface": "saḥ eva",
+     "citation": "sa",
+     "options": [
+      {
+       "gloss": "it",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg + eva (T1 joint)"
+    },
+    {
+     "id": "bod-p11-v11-p007",
+     "verse_id": "bod-p11-v11",
+     "pada_index": 7,
+     "surface": "khalu",
+     "citation": "khalu",
+     "options": [
+      {
+       "gloss": "indeed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl."
+    },
+    {
+     "id": "bod-p11-v11-p008",
+     "verse_id": "bod-p11-v11",
+     "pada_index": 8,
+     "surface": "saṃsāro",
+     "citation": "sa",
+     "options": [
+      {
+       "gloss": "saṃsāra",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg (saṃsāraḥ)"
+    },
+    {
+     "id": "bod-p11-v11-p009",
+     "verse_id": "bod-p11-v11",
+     "pada_index": 9,
+     "surface": "mūḍānāṃ",
+     "citation": "mūḍānāṃ",
+     "options": [
+      {
+       "gloss": "of-fools",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.gen.pl (mūḍha)"
+    },
+    {
+     "id": "bod-p11-v11-p010",
+     "verse_id": "bod-p11-v11",
+     "pada_index": 10,
+     "surface": "yaḥ",
+     "citation": "yaḥ",
+     "options": [
+      {
+       "gloss": "who",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg (yad)"
+    },
+    {
+     "id": "bod-p11-v11-p011",
+     "verse_id": "bod-p11-v11",
+     "pada_index": 11,
+     "surface": "vibhīṣakaḥ",
+     "citation": "vibhīṣakaḥ",
+     "options": [
+      {
+       "gloss": "terrifying",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg"
+    }
+   ],
+   "bod-p12-v12": [
+    {
+     "id": "bod-p12-v12-p000",
+     "verse_id": "bod-p12-v12",
+     "pada_index": 0,
+     "surface": "tat",
+     "citation": "tatprasādarasād",
+     "options": [
+      {
+       "gloss": "From-that",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "neut.nom.sg (tad)"
+    },
+    {
+     "id": "bod-p12-v12-p001",
+     "verse_id": "bod-p12-v12",
+     "pada_index": 1,
+     "surface": "prasādarasād eva",
+     "citation": "eva",
+     "options": [
+      {
+       "gloss": "grace-sap",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.abl.sg + eva (comp.)"
+    },
+    {
+     "id": "bod-p12-v12-p002",
+     "verse_id": "bod-p12-v12",
+     "pada_index": 2,
+     "surface": "vā",
+     "citation": "gurvāgamata",
+     "options": [
+      {
+       "gloss": "or",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl."
+    },
+    {
+     "id": "bod-p12-v12-p003",
+     "verse_id": "bod-p12-v12",
+     "pada_index": 3,
+     "surface": "gurvāgamata eva",
+     "citation": "eva",
+     "options": [
+      {
+       "gloss": "from-teacher-scripture",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.abl.sg + eva (comp.)"
+    },
+    {
+     "id": "bod-p12-v12-p004",
+     "verse_id": "bod-p12-v12",
+     "pada_index": 4,
+     "surface": "vā",
+     "citation": "gurvāgamata",
+     "options": [
+      {
+       "gloss": "or",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl."
+    },
+    {
+     "id": "bod-p12-v12-p005",
+     "verse_id": "bod-p12-v12",
+     "pada_index": 5,
+     "surface": "śāstrād vā",
+     "citation": "vā",
+     "options": [
+      {
+       "gloss": "from-scripture",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.abl.sg + vā"
+    },
+    {
+     "id": "bod-p12-v12-p006",
+     "verse_id": "bod-p12-v12",
+     "pada_index": 6,
+     "surface": "parameśasya",
+     "citation": "parameśasya",
+     "options": [
+      {
+       "gloss": "of-supreme-Lord",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.gen.sg (parameśa)"
+    },
+    {
+     "id": "bod-p12-v12-p007",
+     "verse_id": "bod-p12-v12",
+     "pada_index": 7,
+     "surface": "yasmāt",
+     "citation": "yasmāt",
+     "options": [
+      {
+       "gloss": "from-which",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m./n.abl.sg (yad)"
+    },
+    {
+     "id": "bod-p12-v12-p008",
+     "verse_id": "bod-p12-v12",
+     "pada_index": 8,
+     "surface": "kasmād",
+     "citation": "kasmād",
+     "options": [
+      {
+       "gloss": "from-which",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m./n.abl.sg (kim)"
+    },
+    {
+     "id": "bod-p12-v12-p009",
+     "verse_id": "bod-p12-v12",
+     "pada_index": 9,
+     "surface": "upāgatam",
+     "citation": "upāgatam",
+     "options": [
+      {
+       "gloss": "approached",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.nom.sg ppp √gam+upa"
+    }
+   ],
+   "bod-p13-v13": [
+    {
+     "id": "bod-p13-v13-p000",
+     "verse_id": "bod-p13-v13",
+     "pada_index": 0,
+     "surface": "yat",
+     "citation": "yat",
+     "options": [
+      {
+       "gloss": "What",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "neut.nom.sg (yad)"
+    },
+    {
+     "id": "bod-p13-v13-p001",
+     "verse_id": "bod-p13-v13",
+     "pada_index": 1,
+     "surface": "tattvasya",
+     "citation": "tattvasya",
+     "options": [
+      {
+       "gloss": "of-reality",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.gen.sg (tattva)"
+    },
+    {
+     "id": "bod-p13-v13-p002",
+     "verse_id": "bod-p13-v13",
+     "pada_index": 2,
+     "surface": "parijñānaṃ",
+     "citation": "parijñānaṃ",
+     "options": [
+      {
+       "gloss": "full-knowledge",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.nom.sg (comp.)"
+    },
+    {
+     "id": "bod-p13-v13-p003",
+     "verse_id": "bod-p13-v13",
+     "pada_index": 3,
+     "surface": "saḥ",
+     "citation": "sa",
+     "options": [
+      {
+       "gloss": "that",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg (tad)"
+    },
+    {
+     "id": "bod-p13-v13-p004",
+     "verse_id": "bod-p13-v13",
+     "pada_index": 4,
+     "surface": "mokṣaḥ",
+     "citation": "mokṣaḥ",
+     "options": [
+      {
+       "gloss": "liberation",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg"
+    },
+    {
+     "id": "bod-p13-v13-p005",
+     "verse_id": "bod-p13-v13",
+     "pada_index": 5,
+     "surface": "parameśataḥ",
+     "citation": "parameśataḥ",
+     "options": [
+      {
+       "gloss": "from-supreme-Lord",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.abl.sg (parameśa)"
+    },
+    {
+     "id": "bod-p13-v13-p006",
+     "verse_id": "bod-p13-v13",
+     "pada_index": 6,
+     "surface": "tat",
+     "citation": "tattvasya",
+     "options": [
+      {
+       "gloss": "That",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "neut.nom.sg (tad)"
+    },
+    {
+     "id": "bod-p13-v13-p007",
+     "verse_id": "bod-p13-v13",
+     "pada_index": 7,
+     "surface": "pūrṇatvam",
+     "citation": "pūrṇatvam",
+     "options": [
+      {
+       "gloss": "fullness",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.nom.sg"
+    },
+    {
+     "id": "bod-p13-v13-p008",
+     "verse_id": "bod-p13-v13",
+     "pada_index": 8,
+     "surface": "prabuddhānāṃ",
+     "citation": "prabuddhānāṃ",
+     "options": [
+      {
+       "gloss": "of-awakened",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.gen.pl ppp √budh+pra"
+    },
+    {
+     "id": "bod-p13-v13-p009",
+     "verse_id": "bod-p13-v13",
+     "pada_index": 9,
+     "surface": "jīvanmuktiś ca",
+     "citation": "jīvanmuktiś",
+     "options": [
+      {
+       "gloss": "living-liberation",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "f.nom.sg + ca (comp.)"
+    },
+    {
+     "id": "bod-p13-v13-p010",
+     "verse_id": "bod-p13-v13",
+     "pada_index": 10,
+     "surface": "sā",
+     "citation": "sā",
+     "options": [
+      {
+       "gloss": "that",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "f.nom.sg (tad)"
+    },
+    {
+     "id": "bod-p13-v13-p011",
+     "verse_id": "bod-p13-v13",
+     "pada_index": 11,
+     "surface": "smṛtā",
+     "citation": "smṛtā",
+     "options": [
+      {
+       "gloss": "remembered",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "f.nom.sg ppp √smṛ"
+    }
+   ],
+   "bod-p14-v14": [
+    {
+     "id": "bod-p14-v14-p000",
+     "verse_id": "bod-p14-v14",
+     "pada_index": 0,
+     "surface": "etau",
+     "citation": "etau",
+     "options": [
+      {
+       "gloss": "These-two",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.du (etad)"
+    },
+    {
+     "id": "bod-p14-v14-p001",
+     "verse_id": "bod-p14-v14",
+     "pada_index": 1,
+     "surface": "bandha",
+     "citation": "bandhavimokṣau",
+     "options": [
+      {
+       "gloss": "bondage",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg"
+    },
+    {
+     "id": "bod-p14-v14-p002",
+     "verse_id": "bod-p14-v14",
+     "pada_index": 2,
+     "surface": "vimokṣau ca",
+     "citation": "ca",
+     "options": [
+      {
+       "gloss": "liberation",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.du + ca"
+    },
+    {
+     "id": "bod-p14-v14-p003",
+     "verse_id": "bod-p14-v14",
+     "pada_index": 3,
+     "surface": "parameśasvarūpataḥ",
+     "citation": "parameśasvarūpataḥ",
+     "options": [
+      {
+       "gloss": "from-supreme-Lord-nature",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.abl.sg (comp.)"
+    },
+    {
+     "id": "bod-p14-v14-p004",
+     "verse_id": "bod-p14-v14",
+     "pada_index": 4,
+     "surface": "na",
+     "citation": "na",
+     "options": [
+      {
+       "gloss": "Not",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl."
+    },
+    {
+     "id": "bod-p14-v14-p005",
+     "verse_id": "bod-p14-v14",
+     "pada_index": 5,
+     "surface": "bhidyete",
+     "citation": "bhidyete",
+     "options": [
+      {
+       "gloss": "they-differ",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "3du.pres.mid √bhid"
+    },
+    {
+     "id": "bod-p14-v14-p006",
+     "verse_id": "bod-p14-v14",
+     "pada_index": 6,
+     "surface": "na",
+     "citation": "na",
+     "options": [
+      {
+       "gloss": "no",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl."
+    },
+    {
+     "id": "bod-p14-v14-p007",
+     "verse_id": "bod-p14-v14",
+     "pada_index": 7,
+     "surface": "bhedo hi",
+     "citation": "bhedo",
+     "options": [
+      {
+       "gloss": "difference",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg + hi (T1 joint)"
+    },
+    {
+     "id": "bod-p14-v14-p008",
+     "verse_id": "bod-p14-v14",
+     "pada_index": 8,
+     "surface": "tattvataḥ",
+     "citation": "tattvataḥ",
+     "options": [
+      {
+       "gloss": "in-truth",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl. (abl.-sense)"
+    },
+    {
+     "id": "bod-p14-v14-p009",
+     "verse_id": "bod-p14-v14",
+     "pada_index": 9,
+     "surface": "parameśvare",
+     "citation": "parameśvare",
+     "options": [
+      {
+       "gloss": "in-supreme-Lord",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.loc.sg"
+    }
+   ],
+   "bod-p15-v15": [
+    {
+     "id": "bod-p15-v15-p000",
+     "verse_id": "bod-p15-v15",
+     "pada_index": 0,
+     "surface": "ittham",
+     "citation": "ittham",
+     "options": [
+      {
+       "gloss": "Thus",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl."
+    },
+    {
+     "id": "bod-p15-v15-p001",
+     "verse_id": "bod-p15-v15",
+     "pada_index": 1,
+     "surface": "icchā",
+     "citation": "icchākalājñānaśaktiśūlāmbujāśritaḥ",
+     "options": [
+      {
+       "gloss": "will-power",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "f.nom.sg"
+    },
+    {
+     "id": "bod-p15-v15-p002",
+     "verse_id": "bod-p15-v15",
+     "pada_index": 2,
+     "surface": "kalā",
+     "citation": "icchākalājñānaśaktiśūlāmbujāśritaḥ",
+     "options": [
+      {
+       "gloss": "art",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "f.nom.sg"
+    },
+    {
+     "id": "bod-p15-v15-p003",
+     "verse_id": "bod-p15-v15",
+     "pada_index": 3,
+     "surface": "jñāna",
+     "citation": "icchākalājñānaśaktiśūlāmbujāśritaḥ",
+     "options": [
+      {
+       "gloss": "knowledge",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.nom.sg"
+    },
+    {
+     "id": "bod-p15-v15-p004",
+     "verse_id": "bod-p15-v15",
+     "pada_index": 4,
+     "surface": "śakti",
+     "citation": "icchākalājñānaśaktiśūlāmbujāśritaḥ",
+     "options": [
+      {
+       "gloss": "power",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "f.nom.sg"
+    },
+    {
+     "id": "bod-p15-v15-p005",
+     "verse_id": "bod-p15-v15",
+     "pada_index": 5,
+     "surface": "śūla",
+     "citation": "śūla",
+     "options": [
+      {
+       "gloss": "trident",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m./n.nom.sg"
+    },
+    {
+     "id": "bod-p15-v15-p006",
+     "verse_id": "bod-p15-v15",
+     "pada_index": 6,
+     "surface": "ambuja",
+     "citation": "ambuja",
+     "options": [
+      {
+       "gloss": "lotus",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.nom.sg (comp.)"
+    },
+    {
+     "id": "bod-p15-v15-p007",
+     "verse_id": "bod-p15-v15",
+     "pada_index": 7,
+     "surface": "āśritaḥ",
+     "citation": "icchākalājñānaśaktiśūlāmbujāśritaḥ",
+     "options": [
+      {
+       "gloss": "resorted",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg ppp √śri+ā"
+    },
+    {
+     "id": "bod-p15-v15-p008",
+     "verse_id": "bod-p15-v15",
+     "pada_index": 8,
+     "surface": "bhairavaḥ",
+     "citation": "bhairavaḥ",
+     "options": [
+      {
+       "gloss": "Bhairava",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg"
+    },
+    {
+     "id": "bod-p15-v15-p009",
+     "verse_id": "bod-p15-v15",
+     "pada_index": 9,
+     "surface": "sarvabhāvānāṃ",
+     "citation": "sarvabhāvānāṃ",
+     "options": [
+      {
+       "gloss": "of-all-things",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "In-repo SOURCE.txt prints sarvabhavānāṃ (short a); T1 follows GRETIL sarvabhāvānāṃ (bhāva = existent, cf. v2 sarvabhūtānām). Variant noted, not smoothed."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.gen.pl (print sarvabhāvānāṃ; SOURCE.txt sarvabhavānāṃ short-a — see grounds)"
+    },
+    {
+     "id": "bod-p15-v15-p010",
+     "verse_id": "bod-p15-v15",
+     "pada_index": 10,
+     "surface": "svabhāvaḥ",
+     "citation": "svabhāvaḥ",
+     "options": [
+      {
+       "gloss": "own-nature",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg"
+    },
+    {
+     "id": "bod-p15-v15-p011",
+     "verse_id": "bod-p15-v15",
+     "pada_index": 11,
+     "surface": "pariśīlyate",
+     "citation": "pariśīlyate",
+     "options": [
+      {
+       "gloss": "is-examined",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "3sg.pres.pass √śīl+pari"
+    }
+   ]
+  },
+  "argmap": {
+   "bod-p01-v01": {
+    "verse_id": "bod-p01-v01",
+    "song": "bod-p01",
+    "verse": 1,
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What never sets, and who dwells within it?",
+    "premises": [
+     "Never-setting light-form of bright powers and darknesses — darkness included, not opposed (api).",
+     "One within, in whom powers and darknesses end (yadantaḥ: limit and abode both)."
+    ],
+    "inference": "The all-containing One: light that never sets, holding bright and dark.",
+    "uncertainties": [
+     "yadantaḥ read as limit and abode both — verse lets both stand."
+    ],
+    "traces": {
+     "t1_verse": "bod-p01-v01",
+     "l0_ids": [
+      "bod-p01-v01-p000",
+      "bod-p01-v01-p001",
+      "bod-p01-v01-p002",
+      "bod-p01-v01-p003",
+      "bod-p01-v01-p004",
+      "bod-p01-v01-p005",
+      "bod-p01-v01-p006",
+      "bod-p01-v01-p007",
+      "bod-p01-v01-p008",
+      "bod-p01-v01-p009"
+     ]
+    },
+    "sanskrit_sha": "b9671a2619cdf64a"
+   },
+   "bod-p02-v02": {
+    "verse_id": "bod-p02-v02",
+    "song": "bod-p02",
+    "verse": 2,
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "Who is own-nature of all beings?",
+    "premises": [
+     "He alone is beings' own-nature, the supreme Lord (eva in identity).",
+     "Therefore the whole host of things is His power, shaped as Lordship (īśvaratāmayī: form, not second entity)."
+    ],
+    "inference": "Identity, not process: He alone beings' nature; all things His Lordship-shaped power.",
+    "uncertainties": [
+     "īśvaratāmayī read as power's form, not a second entity."
+    ],
+    "traces": {
+     "t1_verse": "bod-p02-v02",
+     "l0_ids": [
+      "bod-p02-v02-p000",
+      "bod-p02-v02-p001",
+      "bod-p02-v02-p002",
+      "bod-p02-v02-p003",
+      "bod-p02-v02-p004",
+      "bod-p02-v02-p005",
+      "bod-p02-v02-p006",
+      "bod-p02-v02-p007"
+     ]
+    },
+    "sanskrit_sha": "f80d878665d968d6"
+   },
+   "bod-p03-v03": {
+    "verse_id": "bod-p03-v03",
+    "song": "bod-p03",
+    "verse": 3,
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "Does power ever part from her bearer?",
+    "premises": [
+     "Power wants no apartness from the power-bearer (na vāñchati: will, not mechanism).",
+     "Eternal identity of the two — sealed by fire-and-burning only ground offered."
+    ],
+    "inference": "No-desire-for-difference, then eternal identity; fire-burning seals it.",
+    "uncertainties": [
+     "na vāñchati personifies non-separation as will — kept as stated."
+    ],
+    "traces": {
+     "t1_verse": "bod-p03-v03",
+     "l0_ids": [
+      "bod-p03-v03-p000",
+      "bod-p03-v03-p001",
+      "bod-p03-v03-p002",
+      "bod-p03-v03-p003",
+      "bod-p03-v03-p004",
+      "bod-p03-v03-p005",
+      "bod-p03-v03-p006",
+      "bod-p03-v03-p007",
+      "bod-p03-v03-p008"
+     ]
+    },
+    "sanskrit_sha": "47c2062b92a49098"
+   },
+   "bod-p04-v04": {
+    "verse_id": "bod-p04-v04",
+    "song": "bod-p04",
+    "verse": 4,
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "How does Bhairava bear the world?",
+    "premises": [
+     "He alone Bhairava, world-bearing-marked; reflection by power His manner (no emanation language).",
+     "Vision itself the mirror (svātmādṛś); no reflecting agent besides power named."
+    ],
+    "inference": "Character then mechanism: world-bearing mark, power-mirroring manner.",
+    "uncertainties": [
+     "Mirror-not-place reading; power sole agent."
+    ],
+    "traces": {
+     "t1_verse": "bod-p04-v04",
+     "l0_ids": [
+      "bod-p04-v04-p000",
+      "bod-p04-v04-p001",
+      "bod-p04-v04-p002",
+      "bod-p04-v04-p003",
+      "bod-p04-v04-p004",
+      "bod-p04-v04-p005",
+      "bod-p04-v04-p006",
+      "bod-p04-v04-p007"
+     ]
+    },
+    "sanskrit_sha": "19bd9cdab0e89562"
+   },
+   "bod-p05-v05": {
+    "verse_id": "bod-p05-v05",
+    "song": "bod-p05",
+    "verse": 5,
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "Whose is the goddess, and what does she want?",
+    "premises": [
+     "His alone the supreme goddess, eager only for own-nature-grasping (desire bounded as granted).",
+     "Exact fullness in all beings: neither little nor excess (definition of pūrṇatva)."
+    ],
+    "inference": "Belonging, bounded eagerness, exact fullness.",
+    "uncertainties": [
+     "utsukā appetite bounded to grasping; exactness not approximation."
+    ],
+    "traces": {
+     "t1_verse": "bod-p05-v05",
+     "l0_ids": [
+      "bod-p05-v05-p000",
+      "bod-p05-v05-p001",
+      "bod-p05-v05-p002",
+      "bod-p05-v05-p003",
+      "bod-p05-v05-p004",
+      "bod-p05-v05-p005",
+      "bod-p05-v05-p006",
+      "bod-p05-v05-p007",
+      "bod-p05-v05-p008",
+      "bod-p05-v05-p009"
+     ]
+    },
+    "sanskrit_sha": "dd107ad2c3108d73"
+   },
+   "bod-p06-v06": {
+    "verse_id": "bod-p06-v06",
+    "song": "bod-p06",
+    "verse": 6,
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What do god and goddess do together?",
+    "premises": [
+     "Always play-joy-eager (mood); varied creation-dissolution at once (act).",
+     "Simultaneity needs ubiquity: yugapad load-bearing, vibhuḥ closing."
+    ],
+    "inference": "Mood then act: play-eager, therefore co-occurrent making-unmaking, everywhere.",
+    "uncertainties": [
+     "yugapad unsoftened (co-occur, not alternate); vibhuḥ required by it."
+    ],
+    "traces": {
+     "t1_verse": "bod-p06-v06",
+     "l0_ids": [
+      "bod-p06-v06-p000",
+      "bod-p06-v06-p001",
+      "bod-p06-v06-p002",
+      "bod-p06-v06-p003",
+      "bod-p06-v06-p004",
+      "bod-p06-v06-p005",
+      "bod-p06-v06-p006",
+      "bod-p06-v06-p007",
+      "bod-p06-v06-p008",
+      "bod-p06-v06-p009",
+      "bod-p06-v06-p010"
+     ]
+    },
+    "sanskrit_sha": "3d6ee9b5b1fb3aaf"
+   },
+   "bod-p07-v07": {
+    "verse_id": "bod-p07-v07",
+    "song": "bod-p07",
+    "verse": 7,
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What five names share one referent?",
+    "premises": [
+     "Hard-to-accomplish of it, unsurpassed indeed (rank, not task).",
+     "Equation: that itself autonomy, lordship, awareness-form — no agent, no verb beyond is."
+    ],
+    "inference": "Five terms, one referent: hard = unsurpassed = autonomy = lordship = awareness-form.",
+    "uncertainties": [
+     "atidurghaṭakāritva as rank; agentless equation."
+    ],
+    "traces": {
+     "t1_verse": "bod-p07-v07",
+     "l0_ids": [
+      "bod-p07-v07-p000",
+      "bod-p07-v07-p001",
+      "bod-p07-v07-p002",
+      "bod-p07-v07-p003",
+      "bod-p07-v07-p004",
+      "bod-p07-v07-p005",
+      "bod-p07-v07-p006",
+      "bod-p07-v07-p007",
+      "bod-p07-v07-p008"
+     ]
+    },
+    "sanskrit_sha": "7cae6e6cab02fe19"
+   },
+   "bod-p08-v08": {
+    "verse_id": "bod-p08-v08",
+    "song": "bod-p08",
+    "verse": 8,
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "How is awareness told apart from the inert?",
+    "premises": [
+     "Limited light defines inert (mark); unmeasured awareness differs (reason: not measured).",
+     "na parimīyate active (evades measure); kila shared ground, no irony."
+    ],
+    "inference": "Mark then difference: partial shining vs measure-evading awareness.",
+    "uncertainties": [
+     "Active evasion reading; kila unironic."
+    ],
+    "traces": {
+     "t1_verse": "bod-p08-v08",
+     "l0_ids": [
+      "bod-p08-v08-p000",
+      "bod-p08-v08-p001",
+      "bod-p08-v08-p002",
+      "bod-p08-v08-p003",
+      "bod-p08-v08-p004",
+      "bod-p08-v08-p005",
+      "bod-p08-v08-p006",
+      "bod-p08-v08-p007",
+      "bod-p08-v08-p008",
+      "bod-p08-v08-p009"
+     ]
+    },
+    "sanskrit_sha": "39489363cf462bb3"
+   },
+   "bod-p09-v09": {
+    "verse_id": "bod-p09-v09",
+    "song": "bod-p09",
+    "verse": 9,
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "Where do makings and unmakings stand?",
+    "premises": [
+     "Autonomous by own-power-distinction; creations stand as own nature, gone to own self (arrival-without-departure, durative stand)."
+    ],
+    "inference": "Thus-therefore: self-abiding change, stood not made.",
+    "uncertainties": [
+     "svātmagāḥ arrival reading; saṃsthitāḥ durative."
+    ],
+    "traces": {
+     "t1_verse": "bod-p09-v09",
+     "l0_ids": [
+      "bod-p09-v09-p000",
+      "bod-p09-v09-p001",
+      "bod-p09-v09-p002",
+      "bod-p09-v09-p003",
+      "bod-p09-v09-p004",
+      "bod-p09-v09-p005",
+      "bod-p09-v09-p006",
+      "bod-p09-v09-p007"
+     ]
+    },
+    "sanskrit_sha": "48df62e8bb2e8041"
+   },
+   "bod-p10-v10": {
+    "verse_id": "bod-p10-v10",
+    "song": "bod-p10",
+    "verse": 10,
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "How far does variety run?",
+    "premises": [
+     "Teṣu back to verse 9's makings (inventory, no explaining).",
+     "Three directions, outer worlds-and-parts, inner pleasure-pain-mind — one list, no inner/outer split (Academy variant atir-bhavaḥ noted)."
+    ],
+    "inference": "Total inventory, uncompressed: completeness is the point.",
+    "uncertainties": [
+     "teṣu anaphoric; inner-outer undivided; Academy variant logged."
+    ],
+    "traces": {
+     "t1_verse": "bod-p10-v10",
+     "l0_ids": [
+      "bod-p10-v10-p000",
+      "bod-p10-v10-p001",
+      "bod-p10-v10-p002",
+      "bod-p10-v10-p003",
+      "bod-p10-v10-p004",
+      "bod-p10-v10-p005",
+      "bod-p10-v10-p006",
+      "bod-p10-v10-p007",
+      "bod-p10-v10-p008",
+      "bod-p10-v10-p009"
+     ]
+    },
+    "sanskrit_sha": "08346b112284eefe"
+   },
+   "bod-p11-v11": {
+    "verse_id": "bod-p11-v11",
+    "song": "bod-p11",
+    "verse": 11,
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice, moral edge)",
+    "question": "What is bondage?",
+    "premises": [
+     "Non-knowledge of this = autonomy described (hi emphasis, equation over explanation).",
+     "That itself = saṃsāra, terrifying to fools only (vibhīṣaka bounds the dread)."
+    ],
+    "inference": "Equation then identification: mis-knowing is freedom; bondage dreadful-to-fools.",
+    "uncertainties": [
+     "hi emphatic; dread bounded to fools (autonomy itself unterrifying)."
+    ],
+    "traces": {
+     "t1_verse": "bod-p11-v11",
+     "l0_ids": [
+      "bod-p11-v11-p000",
+      "bod-p11-v11-p001",
+      "bod-p11-v11-p002",
+      "bod-p11-v11-p003",
+      "bod-p11-v11-p004",
+      "bod-p11-v11-p005",
+      "bod-p11-v11-p006",
+      "bod-p11-v11-p007",
+      "bod-p11-v11-p008",
+      "bod-p11-v11-p009",
+      "bod-p11-v11-p010",
+      "bod-p11-v11-p011"
+     ]
+    },
+    "sanskrit_sha": "00019aeff7794a23"
+   },
+   "bod-p12-v12": {
+    "verse_id": "bod-p12-v12",
+    "song": "bod-p12",
+    "verse": 12,
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "By which doors is arrival reached?",
+    "premises": [
+     "Three doors unranked: grace-sap, teacher-scripture, Lord's scripture.",
+     "yasmāt kasmāt indifferent to route; upāgatam content unnamed (verse 13 names it)."
+    ],
+    "inference": "Three entries, one arrival, no hierarchy.",
+    "uncertainties": [
+     "No ranking imported; arrival-content deferred."
+    ],
+    "traces": {
+     "t1_verse": "bod-p12-v12",
+     "l0_ids": [
+      "bod-p12-v12-p000",
+      "bod-p12-v12-p001",
+      "bod-p12-v12-p002",
+      "bod-p12-v12-p003",
+      "bod-p12-v12-p004",
+      "bod-p12-v12-p005",
+      "bod-p12-v12-p006",
+      "bod-p12-v12-p007",
+      "bod-p12-v12-p008",
+      "bod-p12-v12-p009"
+     ]
+    },
+    "sanskrit_sha": "cf0724fa16aa7ca6"
+   },
+   "bod-p13-v13": {
+    "verse_id": "bod-p13-v13",
+    "song": "bod-p13",
+    "verse": 13,
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What is release?",
+    "premises": [
+     "Four-term identity (not stages): full knowledge = liberation = fullness = living liberation.",
+     "parameśataḥ source-and-domain; sā smṛtā transmission-close."
+    ],
+    "inference": "Knowing is release, lived, remembered — no sequencing.",
+    "uncertainties": [
+     "Source-domain reading; memory-lineage close."
+    ],
+    "traces": {
+     "t1_verse": "bod-p13-v13",
+     "l0_ids": [
+      "bod-p13-v13-p000",
+      "bod-p13-v13-p001",
+      "bod-p13-v13-p002",
+      "bod-p13-v13-p003",
+      "bod-p13-v13-p004",
+      "bod-p13-v13-p005",
+      "bod-p13-v13-p006",
+      "bod-p13-v13-p007",
+      "bod-p13-v13-p008",
+      "bod-p13-v13-p009",
+      "bod-p13-v13-p010",
+      "bod-p13-v13-p011"
+     ]
+    },
+    "sanskrit_sha": "ade0e52aeaa739ee"
+   },
+   "bod-p14-v14": {
+    "verse_id": "bod-p14-v14",
+    "song": "bod-p14",
+    "verse": 14,
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "Do bondage and release differ?",
+    "premises": [
+     "Pair from Lord's nature; doubled negation (na bhidyete, na bhedo hi) is emphasis.",
+     "tattvataḥ reconciles by level (verse 11's dread stands phenomenally); pure position, no practice."
+    ],
+    "inference": "Double non-difference: of the pair, and in the Lord, in truth.",
+    "uncertainties": [
+     "Level-reconciliation (no cancellation); emphasis-not-redundancy."
+    ],
+    "traces": {
+     "t1_verse": "bod-p14-v14",
+     "l0_ids": [
+      "bod-p14-v14-p000",
+      "bod-p14-v14-p001",
+      "bod-p14-v14-p002",
+      "bod-p14-v14-p003",
+      "bod-p14-v14-p004",
+      "bod-p14-v14-p005",
+      "bod-p14-v14-p006",
+      "bod-p14-v14-p007",
+      "bod-p14-v14-p008",
+      "bod-p14-v14-p009"
+     ]
+    },
+    "sanskrit_sha": "4aee9ccafc472b96"
+   },
+   "bod-p15-v15": {
+    "verse_id": "bod-p15-v15",
+    "song": "bod-p15",
+    "verse": 15,
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice, closing injunction)",
+    "question": "Upon what is Bhairava to be dwelt?",
+    "premises": [
+     "Emblem: will-art-knowledge-power trident-lotus seat, unexpanded lotus symbolism.",
+     "Closing word restates verse 2 (sarvabhāva own-nature); passive enjoins ongoing dwelling (SOURCE short-a variant noted)."
+    ],
+    "inference": "Emblem then injunction: trident-lotus Bhairava, all-nature, to be dwelt upon.",
+    "uncertainties": [
+     "Lotus unexpanded; dwelling-not-rite; short-a variant logged."
+    ],
+    "traces": {
+     "t1_verse": "bod-p15-v15",
+     "l0_ids": [
+      "bod-p15-v15-p000",
+      "bod-p15-v15-p001",
+      "bod-p15-v15-p002",
+      "bod-p15-v15-p003",
+      "bod-p15-v15-p004",
+      "bod-p15-v15-p005",
+      "bod-p15-v15-p006",
+      "bod-p15-v15-p007",
+      "bod-p15-v15-p008",
+      "bod-p15-v15-p009",
+      "bod-p15-v15-p010",
+      "bod-p15-v15-p011"
+     ]
+    },
+    "sanskrit_sha": "3337689c63d5acfb"
+   }
+  },
+  "l2": {
+   "bod-p01-v01": {
+    "verse_id": "bod-p01-v01",
+    "song": "bod-p01",
+    "verse": 1,
+    "plain_english": "Of unsetting sun-light is His form — of bright powers and of darknesses too. For He is one, within, and powers and darknesses end in Him.",
+    "sanskrit_cite": "anastamitabhārūpas tejasāṃ tamasām api | ya eko 'ntar yadantaś ca tejāṃsi ca tamāṃsi ca",
+    "l0_ids": [
+     "bod-p01-v01-p000",
+     "bod-p01-v01-p001",
+     "bod-p01-v01-p002",
+     "bod-p01-v01-p003",
+     "bod-p01-v01-p004",
+     "bod-p01-v01-p005",
+     "bod-p01-v01-p006",
+     "bod-p01-v01-p007",
+     "bod-p01-v01-p008",
+     "bod-p01-v01-p009"
+    ],
+    "trace_level": "verse"
+   },
+   "bod-p02-v02": {
+    "verse_id": "bod-p02-v02",
+    "song": "bod-p02",
+    "verse": 2,
+    "plain_english": "He alone is the own-nature of all beings, the supreme Lord. And the whole host of things is His alone — power, shaped as Lordship.",
+    "sanskrit_cite": "sa eva sarvabhūtānāṃ svabhāvaḥ parameśvaraḥ | bhāvajātaṃ hi tasyaiva śaktir īśvaratāmayī",
+    "l0_ids": [
+     "bod-p02-v02-p000",
+     "bod-p02-v02-p001",
+     "bod-p02-v02-p002",
+     "bod-p02-v02-p003",
+     "bod-p02-v02-p004",
+     "bod-p02-v02-p005",
+     "bod-p02-v02-p006",
+     "bod-p02-v02-p007"
+    ],
+    "trace_level": "verse"
+   },
+   "bod-p03-v03": {
+    "verse_id": "bod-p03-v03",
+    "song": "bod-p03",
+    "verse": 3,
+    "plain_english": "Power wants no apartness from the power-bearer. The two are eternally one — as fire is one with its burning.",
+    "sanskrit_cite": "śaktiś ca śaktimadrūpād vyatirekam na vāñchati | tādātmyam anayor nityaṃ vahnidāhikayor iva",
+    "l0_ids": [
+     "bod-p03-v03-p000",
+     "bod-p03-v03-p001",
+     "bod-p03-v03-p002",
+     "bod-p03-v03-p003",
+     "bod-p03-v03-p004",
+     "bod-p03-v03-p005",
+     "bod-p03-v03-p006",
+     "bod-p03-v03-p007",
+     "bod-p03-v03-p008"
+    ],
+    "trace_level": "verse"
+   },
+   "bod-p04-v04": {
+    "verse_id": "bod-p04-v04",
+    "song": "bod-p04",
+    "verse": 4,
+    "plain_english": "He alone is Bhairava, the god whose very mark is bearing the world. In the mirror of His own self-seeing, the whole stands reflected — by power.",
+    "sanskrit_cite": "sa eva bhairavo devo jagadbharaṇalakṣaṇaḥ | svātmādṛṣe samagraṃ hi yacchaktyā pratibimbitam",
+    "l0_ids": [
+     "bod-p04-v04-p000",
+     "bod-p04-v04-p001",
+     "bod-p04-v04-p002",
+     "bod-p04-v04-p003",
+     "bod-p04-v04-p004",
+     "bod-p04-v04-p005",
+     "bod-p04-v04-p006",
+     "bod-p04-v04-p007"
+    ],
+    "trace_level": "verse"
+   },
+   "bod-p05-v05": {
+    "verse_id": "bod-p05-v05",
+    "song": "bod-p05",
+    "verse": 5,
+    "plain_english": "His alone is the supreme goddess, hungry only to grasp His own nature. She is fullness in all beings — in whom there is neither too little nor too much.",
+    "sanskrit_cite": "tasyaivaiṣā parā devī svarūpāmarśanotsukā | pūrṇatvaṃ sarvabhaveṣu yasyā nālpaṃ na cādhikam",
+    "l0_ids": [
+     "bod-p05-v05-p000",
+     "bod-p05-v05-p001",
+     "bod-p05-v05-p002",
+     "bod-p05-v05-p003",
+     "bod-p05-v05-p004",
+     "bod-p05-v05-p005",
+     "bod-p05-v05-p006",
+     "bod-p05-v05-p007",
+     "bod-p05-v05-p008",
+     "bod-p05-v05-p009"
+    ],
+    "trace_level": "verse"
+   },
+   "bod-p06-v06": {
+    "verse_id": "bod-p06-v06",
+    "song": "bod-p06",
+    "verse": 6,
+    "plain_english": "This god, with this goddess, is forever eager for the joy of play. Varied makings and unmakings He works at once — everywhere at once.",
+    "sanskrit_cite": "eṣa devo 'nayā devyā nityaṃ krīḍārasotsukaḥ | vicitrān sṛṣṭisaṃhārān vidhatte yugapad vibhuḥ",
+    "l0_ids": [
+     "bod-p06-v06-p000",
+     "bod-p06-v06-p001",
+     "bod-p06-v06-p002",
+     "bod-p06-v06-p003",
+     "bod-p06-v06-p004",
+     "bod-p06-v06-p005",
+     "bod-p06-v06-p006",
+     "bod-p06-v06-p007",
+     "bod-p06-v06-p008",
+     "bod-p06-v06-p009",
+     "bod-p06-v06-p010"
+    ],
+    "trace_level": "verse"
+   },
+   "bod-p07-v07": {
+    "verse_id": "bod-p07-v07",
+    "song": "bod-p07",
+    "verse": 7,
+    "plain_english": "What is hardest to do is His, and it is unsurpassed. That itself is His freedom, His lordship, His awareness-form.",
+    "sanskrit_cite": "atidurghaṭakāritvam asyānuttaram eva yat | etad eva svatantratvam aisvaryaṃ bodharūpatā",
+    "l0_ids": [
+     "bod-p07-v07-p000",
+     "bod-p07-v07-p001",
+     "bod-p07-v07-p002",
+     "bod-p07-v07-p003",
+     "bod-p07-v07-p004",
+     "bod-p07-v07-p005",
+     "bod-p07-v07-p006",
+     "bod-p07-v07-p007",
+     "bod-p07-v07-p008"
+    ],
+    "trace_level": "verse"
+   },
+   "bod-p08-v08": {
+    "verse_id": "bod-p08-v08",
+    "song": "bod-p08",
+    "verse": 8,
+    "plain_english": "To shine only in part — that is the mark of the inert. Awareness is otherwise than the inert, for no measure contains it.",
+    "sanskrit_cite": "paricchinnaprakāśatvaṃ jaḍasya kila lakṣaṇam | jaḍād vilakṣaṇo bodho yato na parimīyate",
+    "l0_ids": [
+     "bod-p08-v08-p000",
+     "bod-p08-v08-p001",
+     "bod-p08-v08-p002",
+     "bod-p08-v08-p003",
+     "bod-p08-v08-p004",
+     "bod-p08-v08-p005",
+     "bod-p08-v08-p006",
+     "bod-p08-v08-p007",
+     "bod-p08-v08-p008",
+     "bod-p08-v08-p009"
+    ],
+    "trace_level": "verse"
+   },
+   "bod-p09-v09": {
+    "verse_id": "bod-p09-v09",
+    "song": "bod-p09",
+    "verse": 9,
+    "plain_english": "So it is with the free one, distinguishing by His own power: makings and unmakings rest in His own self, standing as His very nature.",
+    "sanskrit_cite": "evam asya svatantrasya nijaśaktyupabhedinaḥ | svātmagāḥ sṛṣṭisaṃhārāḥ svarūpatvena saṃsthitāḥ",
+    "l0_ids": [
+     "bod-p09-v09-p000",
+     "bod-p09-v09-p001",
+     "bod-p09-v09-p002",
+     "bod-p09-v09-p003",
+     "bod-p09-v09-p004",
+     "bod-p09-v09-p005",
+     "bod-p09-v09-p006",
+     "bod-p09-v09-p007"
+    ],
+    "trace_level": "verse"
+   },
+   "bod-p10-v10": {
+    "verse_id": "bod-p10-v10",
+    "song": "bod-p10",
+    "verse": 10,
+    "plain_english": "In them, variety runs to the extreme — upward, downward, across. Worlds and their fragments, pleasure and pain and mind.",
+    "sanskrit_cite": "teṣu vaicitryam atyantam ūrdhvādhas tiryag eva yat | bhuvanāni tadaṃśāś ca sukhaduḥkhamatiś ca yā",
+    "l0_ids": [
+     "bod-p10-v10-p000",
+     "bod-p10-v10-p001",
+     "bod-p10-v10-p002",
+     "bod-p10-v10-p003",
+     "bod-p10-v10-p004",
+     "bod-p10-v10-p005",
+     "bod-p10-v10-p006",
+     "bod-p10-v10-p007",
+     "bod-p10-v10-p008",
+     "bod-p10-v10-p009"
+    ],
+    "trace_level": "verse"
+   },
+   "bod-p11-v11": {
+    "verse_id": "bod-p11-v11",
+    "song": "bod-p11",
+    "verse": 11,
+    "plain_english": "Not to know this is called His freedom. And that is saṃsāra itself — a terror to the deluded.",
+    "sanskrit_cite": "yad etasyāparijñānaṃ tatsvātantryaṃ hi varṇitam | sa eva khalu saṃsāro mūḍānāṃ yo vibhīṣakaḥ",
+    "l0_ids": [
+     "bod-p11-v11-p000",
+     "bod-p11-v11-p001",
+     "bod-p11-v11-p002",
+     "bod-p11-v11-p003",
+     "bod-p11-v11-p004",
+     "bod-p11-v11-p005",
+     "bod-p11-v11-p006",
+     "bod-p11-v11-p007",
+     "bod-p11-v11-p008",
+     "bod-p11-v11-p009",
+     "bod-p11-v11-p010",
+     "bod-p11-v11-p011"
+    ],
+    "trace_level": "verse"
+   },
+   "bod-p12-v12": {
+    "verse_id": "bod-p12-v12",
+    "song": "bod-p12",
+    "verse": 12,
+    "plain_english": "From the sap of His grace, or from the teacher's handed word, or from the Lord's own scripture — from whichever, it is reached.",
+    "sanskrit_cite": "tatprasādarasād eva gurvāgamata eva vā | śāstrād vā parameśasya yasmāt kasmād upāgatam",
+    "l0_ids": [
+     "bod-p12-v12-p000",
+     "bod-p12-v12-p001",
+     "bod-p12-v12-p002",
+     "bod-p12-v12-p003",
+     "bod-p12-v12-p004",
+     "bod-p12-v12-p005",
+     "bod-p12-v12-p006",
+     "bod-p12-v12-p007",
+     "bod-p12-v12-p008",
+     "bod-p12-v12-p009"
+    ],
+    "trace_level": "verse"
+   },
+   "bod-p13-v13": {
+    "verse_id": "bod-p13-v13",
+    "song": "bod-p13",
+    "verse": 13,
+    "plain_english": "To know reality through and through — that is release, from the supreme Lord. That is the fullness of the awakened: freedom while living, as the remembered teaching holds.",
+    "sanskrit_cite": "yat tattvasya parijñānaṃ sa mokṣaḥ parameśataḥ | tat pūrṇatvaṃ prabuddhānāṃ jīvanmuktiś ca sā smṛtā",
+    "l0_ids": [
+     "bod-p13-v13-p000",
+     "bod-p13-v13-p001",
+     "bod-p13-v13-p002",
+     "bod-p13-v13-p003",
+     "bod-p13-v13-p004",
+     "bod-p13-v13-p005",
+     "bod-p13-v13-p006",
+     "bod-p13-v13-p007",
+     "bod-p13-v13-p008",
+     "bod-p13-v13-p009",
+     "bod-p13-v13-p010",
+     "bod-p13-v13-p011"
+    ],
+    "trace_level": "verse"
+   },
+   "bod-p14-v14": {
+    "verse_id": "bod-p14-v14",
+    "song": "bod-p14",
+    "verse": 14,
+    "plain_english": "Bondage and release both come of the Lord's own nature. The two do not split apart; in truth, in the supreme Lord, there is no split.",
+    "sanskrit_cite": "etau bandhavimokṣau ca parameśasvarūpataḥ | na bhidyete na bhedo hi tattvataḥ parameśvare",
+    "l0_ids": [
+     "bod-p14-v14-p000",
+     "bod-p14-v14-p001",
+     "bod-p14-v14-p002",
+     "bod-p14-v14-p003",
+     "bod-p14-v14-p004",
+     "bod-p14-v14-p005",
+     "bod-p14-v14-p006",
+     "bod-p14-v14-p007",
+     "bod-p14-v14-p008",
+     "bod-p14-v14-p009"
+    ],
+    "trace_level": "verse"
+   },
+   "bod-p15-v15": {
+    "verse_id": "bod-p15-v15",
+    "song": "bod-p15",
+    "verse": 15,
+    "plain_english": "So it is: resting on the lotus of the trident — will, art, knowledge, power — Bhairava, the own-nature of all things, is to be dwelt upon.",
+    "sanskrit_cite": "ittham icchākalājñānaśaktiśūlāmbujāśritaḥ | bhairavaḥ sarvabhāvānāṃ svabhāvaḥ pariśīlyate",
+    "l0_ids": [
+     "bod-p15-v15-p000",
+     "bod-p15-v15-p001",
+     "bod-p15-v15-p002",
+     "bod-p15-v15-p003",
+     "bod-p15-v15-p004",
+     "bod-p15-v15-p005",
+     "bod-p15-v15-p006",
+     "bod-p15-v15-p007",
+     "bod-p15-v15-p008",
+     "bod-p15-v15-p009",
+     "bod-p15-v15-p010",
+     "bod-p15-v15-p011"
+    ],
+    "trace_level": "verse"
+   }
+  },
+  "c1": {
+   "bod-p01": {
+    "song": "bod-p01",
+    "essence": [
+     "Unsetting light holds bright and dark alike; one inward reality bounds both."
+    ],
+    "essence_source": "human-sharpened",
+    "renders": {
+     "standard": {
+      "style": "standard",
+      "sections": {
+       "SUMMARY": "A light that never sets holds brightness and darkness alike; a solitary inward reality, which both bound.",
+       "FUNCTION": "",
+       "KEY TERMS": "",
+       "LOCAL CONTEXT": "",
+       "EXPLANATION": "",
+       "BOUNDARY": "",
+       "RELATED": ""
+      }
+     }
+    },
+    "rasa": {
+     "dominant": "adbhuta of all-containing light",
+     "sthayibhava": "vismaya (wonder) at darkness included, never opposed",
+     "justification": "The sthāyibhāva is wonder: unsetting light wedding bright and dark. All-containing marvel relished."
+    }
+   },
+   "bod-p02": {
+    "song": "bod-p02",
+    "essence": [
+     "He alone beings' own-nature; the world's abundance power cast as sovereignty."
+    ],
+    "essence_source": "human-sharpened",
+    "renders": {
+     "standard": {
+      "style": "standard",
+      "sections": {
+       "SUMMARY": "That reality is each creature's own-nature, and the world's abundance is power cast in the shape of sovereignty.",
+       "FUNCTION": "",
+       "KEY TERMS": "",
+       "LOCAL CONTEXT": "",
+       "EXPLANATION": "",
+       "BOUNDARY": "",
+       "RELATED": ""
+      }
+     }
+    },
+    "rasa": {
+     "dominant": "vīra of identity stated",
+     "sthayibhava": "utsāha (exultation) at aloneness doubled",
+     "justification": "The sthāyibhāva is exultation: He alone, His alone. Identity relished."
+    }
+   },
+   "bod-p03": {
+    "song": "bod-p03",
+    "essence": [
+     "Power refuses parting; eternal identity, fire-sealed."
+    ],
+    "essence_source": "human-sharpened",
+    "renders": {
+     "standard": {
+      "style": "standard",
+      "sections": {
+       "SUMMARY": "Power refuses any parting from its bearer — one eternally, as burning is one with fire.",
+       "FUNCTION": "",
+       "KEY TERMS": "",
+       "LOCAL CONTEXT": "",
+       "EXPLANATION": "",
+       "BOUNDARY": "",
+       "RELATED": ""
+      }
+     }
+    },
+    "rasa": {
+     "dominant": "śṛṅgāra-adbhuta of inseparables",
+     "sthayibhava": "rati-vismaya (love-wonder) at power never parting",
+     "justification": "The sthāyibhāva is love-wonder: no parting ever wanted. Union relished."
+    }
+   },
+   "bod-p04": {
+    "song": "bod-p04",
+    "essence": [
+     "World-bearing His mark; whole mirrored by power in self-seeing."
+    ],
+    "essence_source": "human-sharpened",
+    "renders": {
+     "standard": {
+      "style": "standard",
+      "sections": {
+       "SUMMARY": "Bhairava bears the world by mirroring it within His own seeing.",
+       "FUNCTION": "",
+       "KEY TERMS": "",
+       "LOCAL CONTEXT": "",
+       "EXPLANATION": "",
+       "BOUNDARY": "",
+       "RELATED": ""
+      }
+     }
+    },
+    "rasa": {
+     "dominant": "adbhuta of world mirrored whole",
+     "sthayibhava": "vismaya (wonder) at bearing-by-mirroring",
+     "justification": "The sthāyibhāva is wonder: the world carried in a glance. Mirroring relished."
+    }
+   },
+   "bod-p05": {
+    "song": "bod-p05",
+    "essence": [
+     "His goddess, grasp-eager, fills all exactly — never short, never over."
+    ],
+    "essence_source": "human-sharpened",
+    "renders": {
+     "standard": {
+      "style": "standard",
+      "sections": {
+       "SUMMARY": "His goddess, grasp-eager, fills all exactly — never short, never over.",
+       "FUNCTION": "",
+       "KEY TERMS": "",
+       "LOCAL CONTEXT": "",
+       "EXPLANATION": "",
+       "BOUNDARY": "",
+       "RELATED": ""
+      }
+     }
+    },
+    "rasa": {
+     "dominant": "śṛṅgāra of bounded hunger",
+     "sthayibhava": "rati (love) sharpened to exact fullness",
+     "justification": "The sthāyibhāva is love: Hers, hungry, exact. Belonging relished."
+    }
+   },
+   "bod-p06": {
+    "song": "bod-p06",
+    "essence": [
+     "Play-eager pair make-unmake varied worlds simultaneously, everywhere."
+    ],
+    "essence_source": "human-sharpened",
+    "renders": {
+     "standard": {
+      "style": "standard",
+      "sections": {
+       "SUMMARY": "At play together, they make and unmake worlds in a single stroke.",
+       "FUNCTION": "",
+       "KEY TERMS": "",
+       "LOCAL CONTEXT": "",
+       "EXPLANATION": "",
+       "BOUNDARY": "",
+       "RELATED": ""
+      }
+     }
+    },
+    "rasa": {
+     "dominant": "ānanda-vīra of play",
+     "sthayibhava": "ullāsa (exuberant joy) at making-unmaking at once",
+     "justification": "The sthāyibhāva is exuberant joy: play-eager, co-occurrent worlds. Play relished."
+    }
+   },
+   "bod-p07": {
+    "song": "bod-p07",
+    "essence": [
+     "Hardest deed, unsurpassed: autonomy, lordship, awareness-form in one."
+    ],
+    "essence_source": "human-sharpened",
+    "renders": {
+     "standard": {
+      "style": "standard",
+      "sections": {
+       "SUMMARY": "The hardest deed belongs to Him and has no higher — and it is freedom, lordship, awareness-form in one.",
+       "FUNCTION": "",
+       "KEY TERMS": "",
+       "LOCAL CONTEXT": "",
+       "EXPLANATION": "",
+       "BOUNDARY": "",
+       "RELATED": ""
+      }
+     }
+    },
+    "rasa": {
+     "dominant": "vīra of equation",
+     "sthayibhava": "utsāha (exultation) at five-said-once",
+     "justification": "The sthāyibhāva is exultation: hardest, highest, freest, most aware — one. Equation relished."
+    }
+   },
+   "bod-p08": {
+    "song": "bod-p08",
+    "essence": [
+     "Partial shining marks inert; measure-evading awareness differs."
+    ],
+    "essence_source": "human-sharpened",
+    "renders": {
+     "standard": {
+      "style": "standard",
+      "sections": {
+       "SUMMARY": "The inert is defined by shining only partially; awareness stands apart from it by escaping all measure.",
+       "FUNCTION": "",
+       "KEY TERMS": "",
+       "LOCAL CONTEXT": "",
+       "EXPLANATION": "",
+       "BOUNDARY": "",
+       "RELATED": ""
+      }
+     }
+    },
+    "rasa": {
+     "dominant": "vīra of criterion",
+     "sthayibhava": "utsāha (exultation) at awareness uncontainable",
+     "justification": "The sthāyibhāva is exultation: measure tried, awareness elsewhere. Uncontainability relished."
+    }
+   },
+   "bod-p09": {
+    "song": "bod-p09",
+    "essence": [
+     "Change self-abides: stood as nature, arrived without departing."
+    ],
+    "essence_source": "human-sharpened",
+    "renders": {
+     "standard": {
+      "style": "standard",
+      "sections": {
+       "SUMMARY": "Change itself — every making and unmaking — rests inside the free one, distinguished by His own power, abiding as His nature rather than departing anywhere.",
+       "FUNCTION": "",
+       "KEY TERMS": "",
+       "LOCAL CONTEXT": "",
+       "EXPLANATION": "",
+       "BOUNDARY": "",
+       "RELATED": ""
+      }
+     }
+    },
+    "rasa": {
+     "dominant": "śānta of abiding",
+     "sthayibhava": "śama (peace) at change standing still in self",
+     "justification": "The sthāyibhāva is peace: makings resting, nowhere departing. Abiding relished."
+    }
+   },
+   "bod-p10": {
+    "song": "bod-p10",
+    "essence": [
+     "Variety totalized: extremes, three directions, outer-inner one list."
+    ],
+    "essence_source": "human-sharpened",
+    "renders": {
+     "standard": {
+      "style": "standard",
+      "sections": {
+       "SUMMARY": "Variety is totalized first: every extreme, in all three directions, across outer worlds and their fragments and inner pleasure, pain, and mind.",
+       "FUNCTION": "",
+       "KEY TERMS": "",
+       "LOCAL CONTEXT": "",
+       "EXPLANATION": "",
+       "BOUNDARY": "",
+       "RELATED": ""
+      }
+     }
+    },
+    "rasa": {
+     "dominant": "adbhuta of totality",
+     "sthayibhava": "vismaya (wonder) at all-directions-all-things listed",
+     "justification": "The sthāyibhāva is wonder: high low across, outer inner, complete. Totality relished."
+    }
+   },
+   "bod-p11": {
+    "song": "bod-p11",
+    "essence": [
+     "Mis-knowing described as freedom; bondage dreadful-to-fools, nothing second."
+    ],
+    "essence_source": "human-sharpened",
+    "renders": {
+     "standard": {
+      "style": "standard",
+      "sections": {
+       "SUMMARY": "Then its cause is named: missing this freedom is itself freedom under description — and that mis-knowing is bondage, dreadful to the deluded.",
+       "FUNCTION": "",
+       "KEY TERMS": "",
+       "LOCAL CONTEXT": "",
+       "EXPLANATION": "",
+       "BOUNDARY": "",
+       "RELATED": ""
+      }
+     }
+    },
+    "rasa": {
+     "dominant": "karuṇa-bhaya of bondage named",
+     "sthayibhava": "bhayānaka tempered: dread for fools, freedom beneath",
+     "justification": "The sthāyibhāva is tempered dread: terror named, freedom underneath. Naming relished."
+    }
+   },
+   "bod-p12": {
+    "song": "bod-p12",
+    "essence": [
+     "Three doors unranked; whichever arrival counts."
+    ],
+    "essence_source": "human-sharpened",
+    "renders": {
+     "standard": {
+      "style": "standard",
+      "sections": {
+       "SUMMARY": "Three entries stand open — the sap of grace, the teacher's transmitted word, the Lord's scripture — and whichever one arrival comes through counts as arrival.",
+       "FUNCTION": "",
+       "KEY TERMS": "",
+       "LOCAL CONTEXT": "",
+       "EXPLANATION": "",
+       "BOUNDARY": "",
+       "RELATED": ""
+      }
+     }
+    },
+    "rasa": {
+     "dominant": "prasāda-śānta of open doors",
+     "sthayibhava": "śama (peace) at whichever-door counts",
+     "justification": "The sthāyibhāva is peace: grace, teacher, scripture — any door. Openness relished."
+    }
+   },
+   "bod-p13": {
+    "song": "bod-p13",
+    "essence": [
+     "Knowing-through is release from the Lord: fullness, living freedom, remembered."
+    ],
+    "essence_source": "human-sharpened",
+    "renders": {
+     "standard": {
+      "style": "standard",
+      "sections": {
+       "SUMMARY": "Knowing reality to the bottom is release, a fullness belonging to the awakened, freedom lived while living, handed down as remembered teaching.",
+       "FUNCTION": "",
+       "KEY TERMS": "",
+       "LOCAL CONTEXT": "",
+       "EXPLANATION": "",
+       "BOUNDARY": "",
+       "RELATED": ""
+      }
+     }
+    },
+    "rasa": {
+     "dominant": "śānta of release named",
+     "sthayibhava": "śama (peace) at knowing-is-release",
+     "justification": "The sthāyibhāva is peace: known, released, full, living, remembered. Identity relished."
+    }
+   },
+   "bod-p14": {
+    "song": "bod-p14",
+    "essence": [
+     "Bondage-release undivided in nature and Lord, in truth."
+    ],
+    "essence_source": "human-sharpened",
+    "renders": {
+     "standard": {
+      "style": "standard",
+      "sections": {
+       "SUMMARY": "Bondage and release both issue from the Lord's nature and do not come apart in Him — in truth, no split.",
+       "FUNCTION": "",
+       "KEY TERMS": "",
+       "LOCAL CONTEXT": "",
+       "EXPLANATION": "",
+       "BOUNDARY": "",
+       "RELATED": ""
+      }
+     }
+    },
+    "rasa": {
+     "dominant": "śānta-vīra of non-difference",
+     "sthayibhava": "śama (peace) at pair undivided",
+     "justification": "The sthāyibhāva is peace: bondage release, undivided, twice said. Doubled negation relished."
+    }
+   },
+   "bod-p15": {
+    "song": "bod-p15",
+    "essence": [
+     "Trident-lotus emblem bearing four powers; Bhairava all-nature, to be dwelt upon."
+    ],
+    "essence_source": "human-sharpened",
+    "renders": {
+     "standard": {
+      "style": "standard",
+      "sections": {
+       "SUMMARY": "Thus — on will, art, knowledge, power, trident, lotus stayed — Bhairava, all things' own-nature, to be dwelt and weighed.",
+       "FUNCTION": "",
+       "KEY TERMS": "",
+       "LOCAL CONTEXT": "",
+       "EXPLANATION": "",
+       "BOUNDARY": "",
+       "RELATED": ""
+      }
+     }
+    },
+    "rasa": {
+     "dominant": "śānta of closing dwelling",
+     "sthayibhava": "śama (peace) at emblem-injunction",
+     "justification": "The sthāyibhāva is peace: stayed, stated, dwelt upon. Closing relished."
+    }
+   }
+  },
+  "l3": {
+   "bod-p01-v01": {
+    "verse_id": "bod-p01-v01",
+    "song": "bod-p01",
+    "verse": 1,
+    "lines": [
+     "Light never setting — bright powers, darknesses, all;",
+     "one, within, in whom each shine and shadow fall."
+    ],
+    "sanskrit_cite": "anastamitabhārūpas tejasāṃ tamasām api | ya eko 'ntar yadantaś ca tejāṃsi ca tamāṃsi ca",
+    "l0_ids": [
+     "bod-p01-v01-p000",
+     "bod-p01-v01-p001",
+     "bod-p01-v01-p002",
+     "bod-p01-v01-p003",
+     "bod-p01-v01-p004",
+     "bod-p01-v01-p005",
+     "bod-p01-v01-p006",
+     "bod-p01-v01-p007",
+     "bod-p01-v01-p008",
+     "bod-p01-v01-p009"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "bod-p02-v02": {
+    "verse_id": "bod-p02-v02",
+    "song": "bod-p02",
+    "verse": 2,
+    "lines": [
+     "He alone is every being's own-nature, the supreme Lord;",
+     "and the whole host of things — His power, Lordship-made."
+    ],
+    "sanskrit_cite": "sa eva sarvabhūtānāṃ svabhāvaḥ parameśvaraḥ | bhāvajātaṃ hi tasyaiva śaktir īśvaratāmayī",
+    "l0_ids": [
+     "bod-p02-v02-p000",
+     "bod-p02-v02-p001",
+     "bod-p02-v02-p002",
+     "bod-p02-v02-p003",
+     "bod-p02-v02-p004",
+     "bod-p02-v02-p005",
+     "bod-p02-v02-p006",
+     "bod-p02-v02-p007"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "bod-p03-v03": {
+    "verse_id": "bod-p03-v03",
+    "song": "bod-p03",
+    "verse": 3,
+    "lines": [
+     "Power wants no parting from her bearer — never, ever;",
+     "the two are eternally one — as fire is one with burning."
+    ],
+    "sanskrit_cite": "śaktiś ca śaktimadrūpād vyatirekam na vāñchati | tādātmyam anayor nityaṃ vahnidāhikayor iva",
+    "l0_ids": [
+     "bod-p03-v03-p000",
+     "bod-p03-v03-p001",
+     "bod-p03-v03-p002",
+     "bod-p03-v03-p003",
+     "bod-p03-v03-p004",
+     "bod-p03-v03-p005",
+     "bod-p03-v03-p006",
+     "bod-p03-v03-p007",
+     "bod-p03-v03-p008"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "bod-p04-v04": {
+    "verse_id": "bod-p04-v04",
+    "song": "bod-p04",
+    "verse": 4,
+    "lines": [
+     "He alone is Bhairava, the world-bearing god;",
+     "in His own seeing's mirror stands the whole, mirrored by power."
+    ],
+    "sanskrit_cite": "sa eva bhairavo devo jagadbharaṇalakṣaṇaḥ | svātmādṛṣe samagraṃ hi yacchaktyā pratibimbitam",
+    "l0_ids": [
+     "bod-p04-v04-p000",
+     "bod-p04-v04-p001",
+     "bod-p04-v04-p002",
+     "bod-p04-v04-p003",
+     "bod-p04-v04-p004",
+     "bod-p04-v04-p005",
+     "bod-p04-v04-p006",
+     "bod-p04-v04-p007"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "bod-p05-v05": {
+    "verse_id": "bod-p05-v05",
+    "song": "bod-p05",
+    "verse": 5,
+    "lines": [
+     "His alone is the goddess supreme, hungry to grasp His nature;",
+     "fullness in all beings — never little, never more."
+    ],
+    "sanskrit_cite": "tasyaivaiṣā parā devī svarūpāmarśanotsukā | pūrṇatvaṃ sarvabhaveṣu yasyā nālpaṃ na cādhikam",
+    "l0_ids": [
+     "bod-p05-v05-p000",
+     "bod-p05-v05-p001",
+     "bod-p05-v05-p002",
+     "bod-p05-v05-p003",
+     "bod-p05-v05-p004",
+     "bod-p05-v05-p005",
+     "bod-p05-v05-p006",
+     "bod-p05-v05-p007",
+     "bod-p05-v05-p008",
+     "bod-p05-v05-p009"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "bod-p06-v06": {
+    "verse_id": "bod-p06-v06",
+    "song": "bod-p06",
+    "verse": 6,
+    "lines": [
+     "This god, with this goddess, forever eager for play's delight;",
+     "varied makings and unmakings He works at once — the all-pervading."
+    ],
+    "sanskrit_cite": "eṣa devo 'nayā devyā nityaṃ krīḍārasotsukaḥ | vicitrān sṛṣṭisaṃhārān vidhatte yugapad vibhuḥ",
+    "l0_ids": [
+     "bod-p06-v06-p000",
+     "bod-p06-v06-p001",
+     "bod-p06-v06-p002",
+     "bod-p06-v06-p003",
+     "bod-p06-v06-p004",
+     "bod-p06-v06-p005",
+     "bod-p06-v06-p006",
+     "bod-p06-v06-p007",
+     "bod-p06-v06-p008",
+     "bod-p06-v06-p009",
+     "bod-p06-v06-p010"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "bod-p07-v07": {
+    "verse_id": "bod-p07-v07",
+    "song": "bod-p07",
+    "verse": 7,
+    "lines": [
+     "What is hardest to do is His — and none is higher;",
+     "that itself is freedom, lordship, awareness-nature."
+    ],
+    "sanskrit_cite": "atidurghaṭakāritvam asyānuttaram eva yat | etad eva svatantratvam aisvaryaṃ bodharūpatā",
+    "l0_ids": [
+     "bod-p07-v07-p000",
+     "bod-p07-v07-p001",
+     "bod-p07-v07-p002",
+     "bod-p07-v07-p003",
+     "bod-p07-v07-p004",
+     "bod-p07-v07-p005",
+     "bod-p07-v07-p006",
+     "bod-p07-v07-p007",
+     "bod-p07-v07-p008"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "bod-p08-v08": {
+    "verse_id": "bod-p08-v08",
+    "song": "bod-p08",
+    "verse": 8,
+    "lines": [
+     "To shine only in part — that is the mark of the inert;",
+     "awareness stands apart from the inert, for it cannot be measured."
+    ],
+    "sanskrit_cite": "paricchinnaprakāśatvaṃ jaḍasya kila lakṣaṇam | jaḍād vilakṣaṇo bodho yato na parimīyate",
+    "l0_ids": [
+     "bod-p08-v08-p000",
+     "bod-p08-v08-p001",
+     "bod-p08-v08-p002",
+     "bod-p08-v08-p003",
+     "bod-p08-v08-p004",
+     "bod-p08-v08-p005",
+     "bod-p08-v08-p006",
+     "bod-p08-v08-p007",
+     "bod-p08-v08-p008",
+     "bod-p08-v08-p009"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "bod-p09-v09": {
+    "verse_id": "bod-p09-v09",
+    "song": "bod-p09",
+    "verse": 9,
+    "lines": [
+     "So of the free one, discerning by his own power,",
+     "makings and unmakings rest in his own self, standing as his nature."
+    ],
+    "sanskrit_cite": "evam asya svatantrasya nijaśaktyupabhedinaḥ | svātmagāḥ sṛṣṭisaṃhārāḥ svarūpatvena saṃsthitāḥ",
+    "l0_ids": [
+     "bod-p09-v09-p000",
+     "bod-p09-v09-p001",
+     "bod-p09-v09-p002",
+     "bod-p09-v09-p003",
+     "bod-p09-v09-p004",
+     "bod-p09-v09-p005",
+     "bod-p09-v09-p006",
+     "bod-p09-v09-p007"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "bod-p10-v10": {
+    "verse_id": "bod-p10-v10",
+    "song": "bod-p10",
+    "verse": 10,
+    "lines": [
+     "In them, variety runs to the uttermost — high, low, athwart;",
+     "worlds and their fragments, pleasure, pain, and mind."
+    ],
+    "sanskrit_cite": "teṣu vaicitryam atyantam ūrdhvādhas tiryag eva yat | bhuvanāni tadaṃśāś ca sukhaduḥkhamatiś ca yā",
+    "l0_ids": [
+     "bod-p10-v10-p000",
+     "bod-p10-v10-p001",
+     "bod-p10-v10-p002",
+     "bod-p10-v10-p003",
+     "bod-p10-v10-p004",
+     "bod-p10-v10-p005",
+     "bod-p10-v10-p006",
+     "bod-p10-v10-p007",
+     "bod-p10-v10-p008",
+     "bod-p10-v10-p009"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "bod-p11-v11": {
+    "verse_id": "bod-p11-v11",
+    "song": "bod-p11",
+    "verse": 11,
+    "lines": [
+     "Not to know this is called His freedom — that is told;",
+     "and that itself is saṃsāra — to the deluded, a terror."
+    ],
+    "sanskrit_cite": "yad etasyāparijñānaṃ tatsvātantryaṃ hi varṇitam | sa eva khalu saṃsāro mūḍānāṃ yo vibhīṣakaḥ",
+    "l0_ids": [
+     "bod-p11-v11-p000",
+     "bod-p11-v11-p001",
+     "bod-p11-v11-p002",
+     "bod-p11-v11-p003",
+     "bod-p11-v11-p004",
+     "bod-p11-v11-p005",
+     "bod-p11-v11-p006",
+     "bod-p11-v11-p007",
+     "bod-p11-v11-p008",
+     "bod-p11-v11-p009",
+     "bod-p11-v11-p010",
+     "bod-p11-v11-p011"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "bod-p12-v12": {
+    "verse_id": "bod-p12-v12",
+    "song": "bod-p12",
+    "verse": 12,
+    "lines": [
+     "From grace's sap, or the teacher's handed word,",
+     "or the Lord's own scripture — from wherever, it is reached."
+    ],
+    "sanskrit_cite": "tatprasādarasād eva gurvāgamata eva vā | śāstrād vā parameśasya yasmāt kasmād upāgatam",
+    "l0_ids": [
+     "bod-p12-v12-p000",
+     "bod-p12-v12-p001",
+     "bod-p12-v12-p002",
+     "bod-p12-v12-p003",
+     "bod-p12-v12-p004",
+     "bod-p12-v12-p005",
+     "bod-p12-v12-p006",
+     "bod-p12-v12-p007",
+     "bod-p12-v12-p008",
+     "bod-p12-v12-p009"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "bod-p13-v13": {
+    "verse_id": "bod-p13-v13",
+    "song": "bod-p13",
+    "verse": 13,
+    "lines": [
+     "To know the real through and through — release, from the supreme Lord;",
+     "that is the awakened's fullness: while living, free — as is remembered."
+    ],
+    "sanskrit_cite": "yat tattvasya parijñānaṃ sa mokṣaḥ parameśataḥ | tat pūrṇatvaṃ prabuddhānāṃ jīvanmuktiś ca sā smṛtā",
+    "l0_ids": [
+     "bod-p13-v13-p000",
+     "bod-p13-v13-p001",
+     "bod-p13-v13-p002",
+     "bod-p13-v13-p003",
+     "bod-p13-v13-p004",
+     "bod-p13-v13-p005",
+     "bod-p13-v13-p006",
+     "bod-p13-v13-p007",
+     "bod-p13-v13-p008",
+     "bod-p13-v13-p009",
+     "bod-p13-v13-p010",
+     "bod-p13-v13-p011"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "bod-p14-v14": {
+    "verse_id": "bod-p14-v14",
+    "song": "bod-p14",
+    "verse": 14,
+    "lines": [
+     "Bondage and release, both from the Lord's own nature, never part;",
+     "in truth, in the Lord, there is no split."
+    ],
+    "sanskrit_cite": "etau bandhavimokṣau ca parameśasvarūpataḥ | na bhidyete na bhedo hi tattvataḥ parameśvare",
+    "l0_ids": [
+     "bod-p14-v14-p000",
+     "bod-p14-v14-p001",
+     "bod-p14-v14-p002",
+     "bod-p14-v14-p003",
+     "bod-p14-v14-p004",
+     "bod-p14-v14-p005",
+     "bod-p14-v14-p006",
+     "bod-p14-v14-p007",
+     "bod-p14-v14-p008",
+     "bod-p14-v14-p009"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "bod-p15-v15": {
+    "verse_id": "bod-p15-v15",
+    "song": "bod-p15",
+    "verse": 15,
+    "lines": [
+     "Thus, resting on will, art, knowledge, power, trident, lotus —",
+     "Bhairava, the own-nature of all things, is to be contemplated."
+    ],
+    "sanskrit_cite": "ittham icchākalājñānaśaktiśūlāmbujāśritaḥ | bhairavaḥ sarvabhāvānāṃ svabhāvaḥ pariśīlyate",
+    "l0_ids": [
+     "bod-p15-v15-p000",
+     "bod-p15-v15-p001",
+     "bod-p15-v15-p002",
+     "bod-p15-v15-p003",
+     "bod-p15-v15-p004",
+     "bod-p15-v15-p005",
+     "bod-p15-v15-p006",
+     "bod-p15-v15-p007",
+     "bod-p15-v15-p008",
+     "bod-p15-v15-p009",
+     "bod-p15-v15-p010",
+     "bod-p15-v15-p011"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   }
+  },
+  "l4": {
+   "bod-p01-v01": {
+    "verse_id": "bod-p01-v01",
+    "song": "bod-p01",
+    "verse": 1,
+    "lines": [
+     "Light never setting — bright powers, darknesses, all;",
+     "one, within, in whom each shine and shadow fall."
+    ],
+    "sanskrit_cite": "anastamitabhārūpas tejasāṃ tamasām api | ya eko 'ntar yadantaś ca tejāṃsi ca tamāṃsi ca",
+    "l0_ids": [
+     "bod-p01-v01-p000",
+     "bod-p01-v01-p001",
+     "bod-p01-v01-p002",
+     "bod-p01-v01-p003",
+     "bod-p01-v01-p004",
+     "bod-p01-v01-p005",
+     "bod-p01-v01-p006",
+     "bod-p01-v01-p007",
+     "bod-p01-v01-p008",
+     "bod-p01-v01-p009"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "bod-p02-v02": {
+    "verse_id": "bod-p02-v02",
+    "song": "bod-p02",
+    "verse": 2,
+    "lines": [
+     "He alone is every being's own-nature, the supreme Lord;",
+     "and the whole host of things — His power, Lordship-made."
+    ],
+    "sanskrit_cite": "sa eva sarvabhūtānāṃ svabhāvaḥ parameśvaraḥ | bhāvajātaṃ hi tasyaiva śaktir īśvaratāmayī",
+    "l0_ids": [
+     "bod-p02-v02-p000",
+     "bod-p02-v02-p001",
+     "bod-p02-v02-p002",
+     "bod-p02-v02-p003",
+     "bod-p02-v02-p004",
+     "bod-p02-v02-p005",
+     "bod-p02-v02-p006",
+     "bod-p02-v02-p007"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "bod-p03-v03": {
+    "verse_id": "bod-p03-v03",
+    "song": "bod-p03",
+    "verse": 3,
+    "lines": [
+     "Power wants no parting from her bearer — never, ever;",
+     "the two are eternally one — as fire is one with burning."
+    ],
+    "sanskrit_cite": "śaktiś ca śaktimadrūpād vyatirekam na vāñchati | tādātmyam anayor nityaṃ vahnidāhikayor iva",
+    "l0_ids": [
+     "bod-p03-v03-p000",
+     "bod-p03-v03-p001",
+     "bod-p03-v03-p002",
+     "bod-p03-v03-p003",
+     "bod-p03-v03-p004",
+     "bod-p03-v03-p005",
+     "bod-p03-v03-p006",
+     "bod-p03-v03-p007",
+     "bod-p03-v03-p008"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "bod-p04-v04": {
+    "verse_id": "bod-p04-v04",
+    "song": "bod-p04",
+    "verse": 4,
+    "lines": [
+     "He alone is Bhairava, the world-bearing god;",
+     "in His own seeing's mirror stands the whole, mirrored by power."
+    ],
+    "sanskrit_cite": "sa eva bhairavo devo jagadbharaṇalakṣaṇaḥ | svātmādṛṣe samagraṃ hi yacchaktyā pratibimbitam",
+    "l0_ids": [
+     "bod-p04-v04-p000",
+     "bod-p04-v04-p001",
+     "bod-p04-v04-p002",
+     "bod-p04-v04-p003",
+     "bod-p04-v04-p004",
+     "bod-p04-v04-p005",
+     "bod-p04-v04-p006",
+     "bod-p04-v04-p007"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "bod-p05-v05": {
+    "verse_id": "bod-p05-v05",
+    "song": "bod-p05",
+    "verse": 5,
+    "lines": [
+     "His alone is the goddess supreme, hungry to grasp His nature;",
+     "fullness in all beings — never little, never more."
+    ],
+    "sanskrit_cite": "tasyaivaiṣā parā devī svarūpāmarśanotsukā | pūrṇatvaṃ sarvabhaveṣu yasyā nālpaṃ na cādhikam",
+    "l0_ids": [
+     "bod-p05-v05-p000",
+     "bod-p05-v05-p001",
+     "bod-p05-v05-p002",
+     "bod-p05-v05-p003",
+     "bod-p05-v05-p004",
+     "bod-p05-v05-p005",
+     "bod-p05-v05-p006",
+     "bod-p05-v05-p007",
+     "bod-p05-v05-p008",
+     "bod-p05-v05-p009"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "bod-p06-v06": {
+    "verse_id": "bod-p06-v06",
+    "song": "bod-p06",
+    "verse": 6,
+    "lines": [
+     "This god, with this goddess, forever eager for play's delight;",
+     "varied makings and unmakings He works at once — the all-pervading."
+    ],
+    "sanskrit_cite": "eṣa devo 'nayā devyā nityaṃ krīḍārasotsukaḥ | vicitrān sṛṣṭisaṃhārān vidhatte yugapad vibhuḥ",
+    "l0_ids": [
+     "bod-p06-v06-p000",
+     "bod-p06-v06-p001",
+     "bod-p06-v06-p002",
+     "bod-p06-v06-p003",
+     "bod-p06-v06-p004",
+     "bod-p06-v06-p005",
+     "bod-p06-v06-p006",
+     "bod-p06-v06-p007",
+     "bod-p06-v06-p008",
+     "bod-p06-v06-p009",
+     "bod-p06-v06-p010"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "bod-p07-v07": {
+    "verse_id": "bod-p07-v07",
+    "song": "bod-p07",
+    "verse": 7,
+    "lines": [
+     "What is hardest to do is His — and none is higher;",
+     "that itself is freedom, lordship, awareness-nature."
+    ],
+    "sanskrit_cite": "atidurghaṭakāritvam asyānuttaram eva yat | etad eva svatantratvam aisvaryaṃ bodharūpatā",
+    "l0_ids": [
+     "bod-p07-v07-p000",
+     "bod-p07-v07-p001",
+     "bod-p07-v07-p002",
+     "bod-p07-v07-p003",
+     "bod-p07-v07-p004",
+     "bod-p07-v07-p005",
+     "bod-p07-v07-p006",
+     "bod-p07-v07-p007",
+     "bod-p07-v07-p008"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "bod-p08-v08": {
+    "verse_id": "bod-p08-v08",
+    "song": "bod-p08",
+    "verse": 8,
+    "lines": [
+     "To shine only in part — that is the mark of the inert;",
+     "awareness stands apart from the inert, for it cannot be measured."
+    ],
+    "sanskrit_cite": "paricchinnaprakāśatvaṃ jaḍasya kila lakṣaṇam | jaḍād vilakṣaṇo bodho yato na parimīyate",
+    "l0_ids": [
+     "bod-p08-v08-p000",
+     "bod-p08-v08-p001",
+     "bod-p08-v08-p002",
+     "bod-p08-v08-p003",
+     "bod-p08-v08-p004",
+     "bod-p08-v08-p005",
+     "bod-p08-v08-p006",
+     "bod-p08-v08-p007",
+     "bod-p08-v08-p008",
+     "bod-p08-v08-p009"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "bod-p09-v09": {
+    "verse_id": "bod-p09-v09",
+    "song": "bod-p09",
+    "verse": 9,
+    "lines": [
+     "So of the free one, discerning by his own power,",
+     "makings and unmakings rest in his own self, standing as his nature."
+    ],
+    "sanskrit_cite": "evam asya svatantrasya nijaśaktyupabhedinaḥ | svātmagāḥ sṛṣṭisaṃhārāḥ svarūpatvena saṃsthitāḥ",
+    "l0_ids": [
+     "bod-p09-v09-p000",
+     "bod-p09-v09-p001",
+     "bod-p09-v09-p002",
+     "bod-p09-v09-p003",
+     "bod-p09-v09-p004",
+     "bod-p09-v09-p005",
+     "bod-p09-v09-p006",
+     "bod-p09-v09-p007"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "bod-p10-v10": {
+    "verse_id": "bod-p10-v10",
+    "song": "bod-p10",
+    "verse": 10,
+    "lines": [
+     "In them, variety runs to the uttermost — high, low, athwart;",
+     "worlds and their fragments, pleasure, pain, and mind."
+    ],
+    "sanskrit_cite": "teṣu vaicitryam atyantam ūrdhvādhas tiryag eva yat | bhuvanāni tadaṃśāś ca sukhaduḥkhamatiś ca yā",
+    "l0_ids": [
+     "bod-p10-v10-p000",
+     "bod-p10-v10-p001",
+     "bod-p10-v10-p002",
+     "bod-p10-v10-p003",
+     "bod-p10-v10-p004",
+     "bod-p10-v10-p005",
+     "bod-p10-v10-p006",
+     "bod-p10-v10-p007",
+     "bod-p10-v10-p008",
+     "bod-p10-v10-p009"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "bod-p11-v11": {
+    "verse_id": "bod-p11-v11",
+    "song": "bod-p11",
+    "verse": 11,
+    "lines": [
+     "Not to know this is called His freedom — that is told;",
+     "and that itself is saṃsāra — to the deluded, a terror."
+    ],
+    "sanskrit_cite": "yad etasyāparijñānaṃ tatsvātantryaṃ hi varṇitam | sa eva khalu saṃsāro mūḍānāṃ yo vibhīṣakaḥ",
+    "l0_ids": [
+     "bod-p11-v11-p000",
+     "bod-p11-v11-p001",
+     "bod-p11-v11-p002",
+     "bod-p11-v11-p003",
+     "bod-p11-v11-p004",
+     "bod-p11-v11-p005",
+     "bod-p11-v11-p006",
+     "bod-p11-v11-p007",
+     "bod-p11-v11-p008",
+     "bod-p11-v11-p009",
+     "bod-p11-v11-p010",
+     "bod-p11-v11-p011"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "bod-p12-v12": {
+    "verse_id": "bod-p12-v12",
+    "song": "bod-p12",
+    "verse": 12,
+    "lines": [
+     "From grace's sap, or the teacher's handed word,",
+     "or the Lord's own scripture — from wherever, it is reached."
+    ],
+    "sanskrit_cite": "tatprasādarasād eva gurvāgamata eva vā | śāstrād vā parameśasya yasmāt kasmād upāgatam",
+    "l0_ids": [
+     "bod-p12-v12-p000",
+     "bod-p12-v12-p001",
+     "bod-p12-v12-p002",
+     "bod-p12-v12-p003",
+     "bod-p12-v12-p004",
+     "bod-p12-v12-p005",
+     "bod-p12-v12-p006",
+     "bod-p12-v12-p007",
+     "bod-p12-v12-p008",
+     "bod-p12-v12-p009"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "bod-p13-v13": {
+    "verse_id": "bod-p13-v13",
+    "song": "bod-p13",
+    "verse": 13,
+    "lines": [
+     "To know the real through and through — release, from the supreme Lord;",
+     "that is the awakened's fullness: while living, free — as is remembered."
+    ],
+    "sanskrit_cite": "yat tattvasya parijñānaṃ sa mokṣaḥ parameśataḥ | tat pūrṇatvaṃ prabuddhānāṃ jīvanmuktiś ca sā smṛtā",
+    "l0_ids": [
+     "bod-p13-v13-p000",
+     "bod-p13-v13-p001",
+     "bod-p13-v13-p002",
+     "bod-p13-v13-p003",
+     "bod-p13-v13-p004",
+     "bod-p13-v13-p005",
+     "bod-p13-v13-p006",
+     "bod-p13-v13-p007",
+     "bod-p13-v13-p008",
+     "bod-p13-v13-p009",
+     "bod-p13-v13-p010",
+     "bod-p13-v13-p011"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "bod-p14-v14": {
+    "verse_id": "bod-p14-v14",
+    "song": "bod-p14",
+    "verse": 14,
+    "lines": [
+     "Bondage and release, both from the Lord's own nature, never part;",
+     "in truth, in the Lord, there is no split."
+    ],
+    "sanskrit_cite": "etau bandhavimokṣau ca parameśasvarūpataḥ | na bhidyete na bhedo hi tattvataḥ parameśvare",
+    "l0_ids": [
+     "bod-p14-v14-p000",
+     "bod-p14-v14-p001",
+     "bod-p14-v14-p002",
+     "bod-p14-v14-p003",
+     "bod-p14-v14-p004",
+     "bod-p14-v14-p005",
+     "bod-p14-v14-p006",
+     "bod-p14-v14-p007",
+     "bod-p14-v14-p008",
+     "bod-p14-v14-p009"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "bod-p15-v15": {
+    "verse_id": "bod-p15-v15",
+    "song": "bod-p15",
+    "verse": 15,
+    "lines": [
+     "Thus, resting on will, art, knowledge, power, trident, lotus —",
+     "Bhairava, the own-nature of all things, is to be contemplated."
+    ],
+    "sanskrit_cite": "ittham icchākalājñānaśaktiśūlāmbujāśritaḥ | bhairavaḥ sarvabhāvānāṃ svabhāvaḥ pariśīlyate",
+    "l0_ids": [
+     "bod-p15-v15-p000",
+     "bod-p15-v15-p001",
+     "bod-p15-v15-p002",
+     "bod-p15-v15-p003",
+     "bod-p15-v15-p004",
+     "bod-p15-v15-p005",
+     "bod-p15-v15-p006",
+     "bod-p15-v15-p007",
+     "bod-p15-v15-p008",
+     "bod-p15-v15-p009",
+     "bod-p15-v15-p010",
+     "bod-p15-v15-p011"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   }
+  },
+  "c2": {}
+ },
+ "source_verses": {
+  "bod-p01-v01": {
+   "text": "# Text  anastamitabhārūpas tejasāṃ tamasām api | ya eko 'ntar yadantaś ca tejāṃsi ca tamāṃsi ca",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": [
+    4,
+    6
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "bod-p02-v02": {
+   "text": "sa eva sarvabhūtānāṃ svabhāvaḥ parameśvaraḥ | bhāvajātaṃ hi tasyaiva śaktir īśvaratāmayī",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": [
+    7,
+    9
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "bod-p03-v03": {
+   "text": "śaktiś ca śaktimadrūpād vyatirekam na vāñchati | tādātmyam anayor nityaṃ vahnidāhikayor iva",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": [
+    10,
+    12
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "bod-p04-v04": {
+   "text": "sa eva bhairavo devo jagadbharaṇalakṣaṇaḥ | svātmādṛṣe samagraṃ hi yacchaktyā pratibimbitam",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": [
+    13,
+    15
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "bod-p05-v05": {
+   "text": "tasyaivaiṣā parā devī svarūpāmarśanotsukā | pūrṇatvaṃ sarvabhaveṣu yasyā nālpaṃ na cādhikam",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": [
+    16,
+    18
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "bod-p06-v06": {
+   "text": "eṣa devo 'nayā devyā nityaṃ krīḍārasotsukaḥ | vicitrān sṛṣṭisaṃhārān vidhatte yugapad vibhuḥ",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": [
+    19,
+    21
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "bod-p07-v07": {
+   "text": "atidurghaṭakāritvam asyānuttaram eva yat | etad eva svatantratvam aisvaryaṃ bodharūpatā",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": [
+    22,
+    24
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "bod-p08-v08": {
+   "text": "paricchinnaprakāśatvaṃ jaḍasya kila lakṣaṇam | jaḍād vilakṣaṇo bodho yato na parimīyate",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC 4.0",
+   "source_origin": "Mukhabodha M00021",
+   "source_lines": [
+    25,
+    27
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "bod-p09-v09": {
+   "text": "evam asya svatantrasya nijaśaktyupabhedinaḥ | svātmagāḥ sṛṣṭisaṃhārāḥ svarūpatvena saṃsthitāḥ",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": [
+    28,
+    30
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "bod-p10-v10": {
+   "text": "teṣu vaicitryam atyantam ūrdhvādhas tiryag eva yat | bhuvanāni tadaṃśāś ca sukhaduḥkhamatiś ca yā",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": [
+    31,
+    33
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "bod-p11-v11": {
+   "text": "yad etasyāparijñānaṃ tatsvātantryaṃ hi varṇitam | sa eva khalu saṃsāro mūḍānāṃ yo vibhīṣakaḥ",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": [
+    34,
+    36
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "bod-p12-v12": {
+   "text": "tatprasādarasād eva gurvāgamata eva vā | śāstrād vā parameśasya yasmāt kasmād upāgatam",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": [
+    37,
+    39
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "bod-p13-v13": {
+   "text": "yat tattvasya parijñānaṃ sa mokṣaḥ parameśataḥ | tat pūrṇatvaṃ prabuddhānāṃ jīvanmuktiś ca sā smṛtā",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": [
+    40,
+    42
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "bod-p14-v14": {
+   "text": "etau bandhavimokṣau ca parameśasvarūpataḥ | na bhidyete na bhedo hi tattvataḥ parameśvare",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": [
+    43,
+    45
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "bod-p15-v15": {
+   "text": "ittham icchākalājñānaśaktiśūlāmbujāśritaḥ | bhairavaḥ sarvabhāvānāṃ svabhāvaḥ pariśīlyate",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": [
+    46,
+    48
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  }
+ },
+ "l4_craft": {
+  "bod-p01-v01": [
+   {
+    "file": "bodhapancadasika/L4-bod-p01.DRAFT.json",
+    "file_sha256": "038eef718e54719a9f8ca7fbc4b176fcbe764968bb2ddde3d84e6d58396178f0",
+    "l4_sha256": "6c8c2b35b49409b037871f5fd62260d3f25721ec8cb719709b3b300307bfe882",
+    "notes": {
+     "craft": "Unsetting light; yadantaḥ double-kept (limit+abode both: within…in whom) per UNC held-open; end-weight fall (setting never, falling ever).",
+     "rejected": "(a) resolving limit-vs-abode → killed by UNC. (b) shadows→darknesses flatten → killed: L3 keeps both bright-powers/darknesses (L2).",
+     "reads": "argmap Q+INF (+UNC) / C1 essence / rasa adbhuta of all-containing light / L2+L3 voice"
+    }
+   }
+  ],
+  "bod-p02-v02": [
+   {
+    "file": "bodhapancadasika/L4-bod-p02.DRAFT.json",
+    "file_sha256": "6e9abbc1562e3119eaf91bbbb36f68d0d84520722df9cc71f63f64cfd44cfd29",
+    "l4_sha256": "6b2ed36380f3550a834517000b96a73253bbe13ba4bdd71a811e7ff0f48c7585",
+    "notes": {
+     "craft": "Aloneness doubled (He alone…His alone) — anaphora IS the utsāha (rasa); īśvaratāmayī as power-form per UNC.",
+     "rejected": "(a) trimming doubled alone → killed: doubling is the exultation. (b) second-entity reading → killed by UNC.",
+     "reads": "argmap Q+INF (+UNC) / C1 essence / rasa vīra of identity stated / L2+L3 voice"
+    }
+   }
+  ],
+  "bod-p03-v03": [
+   {
+    "file": "bodhapancadasika/L4-bod-p03.DRAFT.json",
+    "file_sha256": "adccc0c894033a631488d5a201d67cd19aaefc58de991449e38451d39e784a85",
+    "l4_sha256": "8172896754904b19089237ed78317bee83ee81f91aba11b949ac9e78857d04dc",
+    "notes": {
+     "craft": "never-ever doubling seals no-parting; fire simile kept (agni/daha stock seal); personified will kept as stated per UNC.",
+     "rejected": "(a) softening na vāñchati → killed: kept as stated. (b) fire→lamp modernize → killed: stock seal carries śāstra-memory.",
+     "reads": "argmap Q+INF (+UNC) / C1 essence / rasa śṛṅgāra-adbhuta of inseparables / L2+L3 voice"
+    }
+   }
+  ],
+  "bod-p04-v04": [
+   {
+    "file": "bodhapancadasika/L4-bod-p04.DRAFT.json",
+    "file_sha256": "d1e62f70135c6bd6fccf47a72c9075cf0562f251c1f25266a09ad6ad2a98867f",
+    "l4_sha256": "f71fdd90b454d27c0698994394df86822cd4e461b4232f23de6aa5076dcc1a63",
+    "notes": {
+     "craft": "Mirror-image kept whole (self-seeing mirror, power-mirrored); bearing-by-mirroring wonder.",
+     "rejected": "(a) mirror→glass → killed: vighna + load image. (b) explaining power-sole-agency → killed: NOTE prose, not song.",
+     "reads": "argmap Q+INF (+UNC) / C1 essence / rasa adbhuta of world mirrored whole / L2+L3 voice"
+    }
+   }
+  ],
+  "bod-p05-v05": [
+   {
+    "file": "bodhapancadasika/L4-bod-p05.DRAFT.json",
+    "file_sha256": "3b47b36cbd50bddacd423cbf96966576985baebb998129b75d63a68397732da6",
+    "l4_sha256": "fc815bee1e61c153d48c3f1b8a2010a76af65ca89ade45c18b56b458359546bf",
+    "notes": {
+     "craft": "Exactness sounded not stated (never-little-never-more); grasp-eager bounded per UNC.",
+     "rejected": "(a) exact-fullness abstraction → killed: exactness must sound. (b) hungry→eager soften → killed: utsukā appetite is the verse.",
+     "reads": "argmap Q+INF (+UNC) / C1 essence / rasa śṛṅgāra of bounded hunger / L2+L3 voice"
+    }
+   }
+  ],
+  "bod-p06-v06": [
+   {
+    "file": "bodhapancadasika/L4-bod-p06.DRAFT.json",
+    "file_sha256": "431879c38c264a734ccb41c68d9485ef9abe7a484107acff0241dc06555c7636",
+    "l4_sha256": "fa541b2318aac20fe3095d0807390638e8a6ba6f0ceb3a663280a7a4bbaea65a",
+    "notes": {
+     "craft": "Co-occurrence hammered (yugapad unsoftened per UNC); play-delight + all-pervading close.",
+     "rejected": "(a) alternate-for-at-once → killed by UNC. (b) cutting second at-once → killed: simultaneity doubled is the point.",
+     "reads": "argmap Q+INF (+UNC) / C1 essence / rasa ānanda-vīra of play / L2+L3 voice"
+    }
+   }
+  ],
+  "bod-p07-v07": [
+   {
+    "file": "bodhapancadasika/L4-bod-p07.DRAFT.json",
+    "file_sha256": "f563e183fa36d24b6bd2c123405bcfb14d9c12b48d3f10fea1f70ec0fd8df8da",
+    "l4_sha256": "1b7fe2ef5ebf016823d5b7cf2f27da56fc8cbbfbe70d0dea731fbb4f52b12c58",
+    "notes": {
+     "craft": "Five-said-once equation kept whole (hardest=unsurpassed=freedom=lordship=awareness); rank-reading per UNC.",
+     "rejected": "(a) trimming list → killed: equation is content. (b) awareness-form→consciousness → killed: L3 frozen term.",
+     "reads": "argmap Q+INF (+UNC) / C1 essence / rasa vīra of equation / L2+L3 voice"
+    }
+   }
+  ],
+  "bod-p08-v08": [
+   {
+    "file": "bodhapancadasika/L4-bod-p08.DRAFT.json",
+    "file_sha256": "42c555e072dafc3cb4b705850af04815c60a3404d706eb5f4643fe8a2bb10a00",
+    "l4_sha256": "afd561fa192b9de95c692350a33693d55080b664d1f955a6a6e2ae96f45706af",
+    "notes": {
+     "craft": "Criterion hammer: partial-shine marks inert; measure-word kept (cannot-be-measured — māna stays audible).",
+     "rejected": "(a) uncontainable → killed: L3 frozen + measure must sound. (b) kila irony import → killed: unironic per UNC.",
+     "reads": "argmap Q+INF (+UNC) / C1 essence / rasa vīra of criterion / L2+L3 voice"
+    }
+   }
+  ],
+  "bod-p09-v09": [
+   {
+    "file": "bodhapancadasika/L4-bod-p09.DRAFT.json",
+    "file_sha256": "3f8bacf3893347263904aa14fe46b05d4d35a77f63842e0dec27dd3fa3b265ef",
+    "l4_sha256": "32cdb9d7a45a1ead18681eaca9bff33750a38295305a491c030a4811064b4147",
+    "notes": {
+     "craft": "Durative standing (saṃsthitāḥ durative per UNC); change self-abiding — śama first landing.",
+     "rejected": "(a) stood-not-made gloss → killed: L3 standing-as-nature frozen. (b) heightening → killed: peace, not climax.",
+     "reads": "argmap Q+INF (+UNC) / C1 essence / rasa śānta of abiding / L2+L3 voice"
+    }
+   }
+  ],
+  "bod-p10-v10": [
+   {
+    "file": "bodhapancadasika/L4-bod-p10.DRAFT.json",
+    "file_sha256": "6e56f2129b7f24ede2dc92b8eb54214d44a22309858ce6fa39bff534f7bc47d7",
+    "l4_sha256": "3b63d4494a4242814c4bf86a4da525dbaf7806f31a616223baee602cc6451a3c",
+    "notes": {
+     "craft": "Inventory uncompressed (completeness IS the point per INF); high-low-athwart kept archaic-true.",
+     "rejected": "(a) compressing catalogue → killed by INF. (b) modernizing directions → killed: vighna.",
+     "reads": "argmap Q+INF (+UNC) / C1 essence / rasa adbhuta of totality / L2+L3 voice"
+    }
+   }
+  ],
+  "bod-p11-v11": [
+   {
+    "file": "bodhapancadasika/L4-bod-p11.DRAFT.json",
+    "file_sha256": "cd069ab0586740d5fdd58a12f7c9ab5b165c63b399be84f2beeb64e0b0d1874d",
+    "l4_sha256": "ce0e09b43485fb51770fa4703ebc62aae1b646ce5a0200f7084b0dcbcbaa9bae",
+    "notes": {
+     "craft": "Dread bounded to fools (UNC): to-the-deluded keeps the bound; hi-emphasis in told.",
+     "rejected": "(a) universal terror → killed: autonomy unterrifying. (b) saṃsāra→cycle gloss → killed: load term.",
+     "reads": "argmap Q+INF (+UNC) / C1 essence / rasa karuṇa-bhaya of bondage named / L2+L3 voice"
+    }
+   }
+  ],
+  "bod-p12-v12": [
+   {
+    "file": "bodhapancadasika/L4-bod-p12.DRAFT.json",
+    "file_sha256": "1f0d914746f12e096c42f716d9aa6efb7ef3fe8de26cbb97dcc320278217ae91",
+    "l4_sha256": "2f789bcd039a35e7ee0254e22e0711faca4f85ebc1ecf0b088391e23c566c06c",
+    "notes": {
+     "craft": "Three doors unranked, whichever-counts close; no hierarchy imported per UNC.",
+     "rejected": "(a) ranking doors → killed by INF. (b) sap→juice → killed: rasa-word rasa kept.",
+     "reads": "argmap Q+INF (+UNC) / C1 essence / rasa prasāda-śānta of open doors / L2+L3 voice"
+    }
+   }
+  ],
+  "bod-p13-v13": [
+   {
+    "file": "bodhapancadasika/L4-bod-p13.DRAFT.json",
+    "file_sha256": "3ee01bb45a048238970e198e24672deff974155573dd0f0d5e4d5691ff5940ad",
+    "l4_sha256": "bb5939fa12fafddc3f671e8eeb6f229874da9844f3d637809eb0d1821d9ea883",
+    "notes": {
+     "craft": "Release = knowing-through, no sequencing per INF; remembered-close (memory-lineage) kept.",
+     "rejected": "(a) staging steps → killed: no sequencing. (b) contemplated→meditated → killed: L3 frozen.",
+     "reads": "argmap Q+INF (+UNC) / C1 essence / rasa śānta of release named / L2+L3 voice"
+    }
+   }
+  ],
+  "bod-p14-v14": [
+   {
+    "file": "bodhapancadasika/L4-bod-p14.DRAFT.json",
+    "file_sha256": "b2405c2f70d312131a5a9c9d3220dc1255c2cfb165a59b35e3a6ab3011e95b1e",
+    "l4_sha256": "dd44c3c74ecc25b55a3589b8ebd4ee31d56994c800ae3a891e16bc6811a737e8",
+    "notes": {
+     "craft": "Double non-difference kept double (never-part + no-split; emphasis-not-redundancy per UNC).",
+     "rejected": "(a) trimming one half → killed: double is doctrine. (b) in-truth→truly → killed: satya-word weight.",
+     "reads": "argmap Q+INF (+UNC) / C1 essence / rasa śānta-vīra of non-difference / L2+L3 voice"
+    }
+   }
+  ],
+  "bod-p15-v15": [
+   {
+    "file": "bodhapancadasika/L4-bod-p15.DRAFT.json",
+    "file_sha256": "04e5ba8df766a528a935314e46be9247b71dd8f1532ec3fa54b517e3753a4664",
+    "l4_sha256": "6bfb883706f352b979602c19f10ac2ff6e9070a04566c8aa52a1c32aed1440c8",
+    "notes": {
+     "craft": "Emblem catalogue unexpanded (lotus per UNC); dwelling-not-rite; injunction close (to-be-contemplated).",
+     "rejected": "(a) expanding lotus → killed by UNC. (b) rite-language → killed: dwelling, not rite.",
+     "reads": "argmap Q+INF (+UNC) / C1 essence / rasa śānta of closing dwelling / L2+L3 voice"
+    }
+   }
+  ]
+ },
+ "withheld_songs": [],
+ "original_hashes": {
+  "t1": {
+   "bod-p01-v01": "855e195ddd25868cf073bc0bc84738f3c2d44e66e57d7dfbd54e33bb67990f55",
+   "bod-p02-v02": "9bd7b2fb91ee8671a03405a341fc298384ed9f92af6fb7f79335f05221f14fd2",
+   "bod-p03-v03": "0c095fd8679a3bb394f014878930d11372c579de2e3e3cf9d14283577ddd4b36",
+   "bod-p04-v04": "758fefd00cd49cf4d69116bd00f3ace89d4cfd2e64ebc1f9aed41b8553760845",
+   "bod-p05-v05": "cad71dbf1113bd68f4fd4db882179b665088cce7281770cd1d1f15577fcf3cf1",
+   "bod-p06-v06": "b3ba2e0e42ffc0002a78989072f110dbc5272105a7957c53a5c69b483fbefbdd",
+   "bod-p07-v07": "b88ef2683dff7be94459b2decd0c6d37c394de3d5f64045fd70b95a1604e0dae",
+   "bod-p08-v08": "7cbc7e74d79d6fd77435603c578066986e7c4e776c1fc9dcf6a19435cd664a64",
+   "bod-p09-v09": "894eaa23a4923e8001602ea5dfd9911f95dfd0a350224e48dfee8af24d9578c5",
+   "bod-p10-v10": "0a6b0b89dc371a3259d87ea59a2a2097ba237800eb64183dc487569b307af6d2",
+   "bod-p11-v11": "68e252d6e68d0c3a04157654ad04f5dfbc182ef1e782324ab7778c8495eefea4",
+   "bod-p12-v12": "fa33f6ff570047922d8c1f80bd28361b0bca0d343830af63f0b623049319182a",
+   "bod-p13-v13": "5b94a59b71e1d6038dc1202871a492010c72726ef630d5a71d0731dd32a08fe1",
+   "bod-p14-v14": "78b0e810f8c64862b5e146b54c60053e726864d1fce7da615777e28e530a55b2",
+   "bod-p15-v15": "3554bb54f25bb9778281bcb170d2dc7dc16132e6fa2ca41629d5d4cf2dc15a5e"
+  },
+  "l0": {
+   "bod-p01-v01": "5ea801e3a50a6d4327e02ad42d24b878fccbd529ac773e80688292b844fa7610",
+   "bod-p02-v02": "ddc7ab87570872dcb1506fbb8a2bc20477a425a12f73c52f71d34c8d6267bf62",
+   "bod-p03-v03": "e6a7eb4a16883982a97bec792455eab18632306af85ddd9059f1770951d8086f",
+   "bod-p04-v04": "9d4800ca03afc3ab10e6b817927451b0c4d656a21170d6d9dc7d5782b7487a1d",
+   "bod-p05-v05": "c7955f71fd23fdccee4a8b0c0f61e0d11827b1cd9dd52276f39fb28643ea61aa",
+   "bod-p06-v06": "6393ec88a203ea631eefd862fc329c8f2fb284bf7786e5e01d503e13f9f65465",
+   "bod-p07-v07": "928e795588ef518672810015af73c7ac79f56233b4717bf0a8116a2a7b55962d",
+   "bod-p08-v08": "3bef7a9b1fa14337056e07dcc741cc6bc150a46398c325134608da915c7bfe41",
+   "bod-p09-v09": "2f513f0bbfa713bc1f8f001153557b56924df9b433f76742b08e314cfb78f8d4",
+   "bod-p10-v10": "78f07e3ba9b151e8fd0f5f014b30f32c94e12a54ad20b6fcfc00a389121071a1",
+   "bod-p11-v11": "3b93f74553935e95f6e567cbcfcab30c7905edcfb0d3c6bfeadd8d21749ecb23",
+   "bod-p12-v12": "dd7543adbcd28ea3432ac3377d82f556d6edfa1c0e4da134eca6da1b738c417f",
+   "bod-p13-v13": "863c1ac18dcf66360b11e966c7a7b946e4e79371de0e37231e869eb5c906f911",
+   "bod-p14-v14": "e40bfbc072afa26139a7a9b318756d037d7e3527836da7260e944bdddd718d33",
+   "bod-p15-v15": "9dda88f02878e73058abcad665fbd885b467031d68a34ab711c9292d7b1bb366"
+  },
+  "argmap": {
+   "bod-p01-v01": "6b934eb0a0d437091b429e7abbc974d433951e826afb6d0155aa9be629ddc27f",
+   "bod-p02-v02": "9723224b2becba9027dfb865879d28ec80f59ea9a9cb5db9d5c7646067518537",
+   "bod-p03-v03": "9fd61ada8c298024d0517025d2d9bcc9547a7902d0aefef2a79503181a916ad7",
+   "bod-p04-v04": "f0b6c3f7e8c9557844cd148ee03c5b4092efed6e7861809e520dec2c46d4db14",
+   "bod-p05-v05": "9f606b49a99f48a828d950806d611ee6ea64aafb0ddbaa4557b24364fe1a6379",
+   "bod-p06-v06": "27182c111f97cc938bf86b40fdad39f6933eb394d1b6bc05382ee0d40a484110",
+   "bod-p07-v07": "b8eec9734d6da8f6a33670eb42929c6a3758be334de0dcbd7b780a689f141dd1",
+   "bod-p08-v08": "481b355e9934f6e265f813fba2c09bbf80a9a4282e4b0fce43eaccf395bbb06a",
+   "bod-p09-v09": "3f16e1398f9e6dc44ebc4ae080b77daac8969087d2112da65e1642cc888603dd",
+   "bod-p10-v10": "46a0264a09124013af92db2daa22d4a23fb615f68d5d45355ab1e205d9b4bf88",
+   "bod-p11-v11": "701f4cd20e630bf25397a4dc119e22f6cd0390b775e8c2d839b7a7119ada4dca",
+   "bod-p12-v12": "ef07257c73017bb4c979e36d3aa71fec4f962d701fa1320c0dc4ac0089783097",
+   "bod-p13-v13": "393030a4e76a34df34a790e0aa90418449e29b30f5926f53f74e5a49626dd8b1",
+   "bod-p14-v14": "6ba445e6ddeb52b5926be1947e0ebb8d00a96e6f36938fdfdf6c6c859ce752d9",
+   "bod-p15-v15": "b38106a374eaa086e935b92fc99d8f7ee0c180f3f04d3a981170553920981c8a"
+  },
+  "l2": {
+   "bod-p01-v01": "0dea532e56785989881671a0eac3a2b7c73fefe7aea1c684c59abb256cac103e",
+   "bod-p02-v02": "514ac85812a9844ab6315aac9f969e6da48144fe732035c3e1f989357377c612",
+   "bod-p03-v03": "246f1608a2c36a146d74e0ee2f0c6842b13a5e2a6e8988b61a760fe5071db5d1",
+   "bod-p04-v04": "592c4d4f09489c7c82cd5e2979e1ac8cd40fed36ad24c65ad2570aa70a6449c2",
+   "bod-p05-v05": "5fe659365a1628caa52de0263bfa54b8699e17bce1ef1476c52f4080a364cdec",
+   "bod-p06-v06": "1dac426b74066a96f08255ded4186ce6b640a3cc17aed7366e9b914042541992",
+   "bod-p07-v07": "e987aad71dacc85faef1394aa6aad78512f7c0ced34efb8a4c7f0ba84478b555",
+   "bod-p08-v08": "8473e9f5a975f9911cee89e3a9823df31ff3a2fd8d127985a5ef22b9d2a557ed",
+   "bod-p09-v09": "547d54cc6dac6a171fd805f1c075febb2e5d95b456bbb925aa17fb7bb8cb349c",
+   "bod-p10-v10": "4cd9ab15633032f735eb8aa34e248da01ceff493959931a91dabcad5dde638b4",
+   "bod-p11-v11": "d1129f8161da69e6d326e48f7b6b49c887350eb3d2d581172c07ef5d311f4c3a",
+   "bod-p12-v12": "32614661b3c8a6438500771a30a5efcfc6d942a5102c8edc3b02451ed2943db4",
+   "bod-p13-v13": "423123eb2e2ef1b59c2e9e3959f1d41df73c601de3d2f89d2db21b488477521f",
+   "bod-p14-v14": "1c4f5a6062a29e771134d7047a55c1c9dd9410b486ce0c1437d0e00ec11037f3",
+   "bod-p15-v15": "226f0bdb277d79795e4542544bbe46c04f6dc3b2c6db911086101f74e8f161a7"
+  },
+  "c1": {
+   "bod-p01": "ea27853e12f79e18c8587718923305ef4fc562db9e8d464594c23f3c732b1910",
+   "bod-p02": "fd47d1f187c8018f68e25e0417b106e9adcd9336fe2775e2def90265fefbe0de",
+   "bod-p03": "dd1e25c450061ed9cd55357bdbb782cec89d9b0fb8e9c9ee1ba1233cdf411a93",
+   "bod-p04": "d6c9cf8f47886736380f911be7c9cf56487f19eaa19dfa2900d9e1f77ade7846",
+   "bod-p05": "851b4d0867957eb248fd6146ee9d432b5db5fcd0bbc7c6fc2d1a142266948b69",
+   "bod-p06": "60e67af1c913cc54632bb301265f92489f1bc71f44e2438744ccfed4c576fdea",
+   "bod-p07": "dccf475845ad6649a057d9889da8908d3a2587da3829015513278ac23fd5e95e",
+   "bod-p08": "950149b126377044d0e48b7f2cb40a266e489d4f40fbc12910512d984ac7bb27",
+   "bod-p09": "dbb1b03241e031918481404cdbfed2fbf04413a4b4af7f4c5d974a6599c3357e",
+   "bod-p10": "c1a889e380d3455c90c6ebb66caddbf43619338dde895a17a82150f61f97dd93",
+   "bod-p11": "896c1dd16a716aa76eeb2ac6d2079c30b93029257e0c1c6a34cf7c143af1ccb9",
+   "bod-p12": "ac89641ac3e7aed8a98f333514ff8d070e9edd48e1f28cad8d1653101bd44ec6",
+   "bod-p13": "f5152992c8e17f42256213646ed34cfddfca61d41b89d9a63ee6bf18aa91d8a5",
+   "bod-p14": "a2e3dfb1fc76ab644710320b8b7a27240045f7be634be9d5116639fef2a72cad",
+   "bod-p15": "bfdecee851c0639c414731cfe221328587dcaad2e6f63666813d8767bbb1048b"
+  },
+  "l3": {
+   "bod-p01-v01": "bc59bb6d92d8db6b14b3dc453a3fbab44f86cd91ee8b496a7eddf70f638ccc14",
+   "bod-p02-v02": "e6ce7475d36ed8dfd2af6b3a98413895890cd72af2b095e81399e1ccde54af5d",
+   "bod-p03-v03": "dc99c323f969ebc6c7e032720200782eca2993487b6135613f2ebae712d0f9f5",
+   "bod-p04-v04": "627e3e620d62d448844976c5b99d19402ffe11fa1a9d1b53bb8967d80f23d863",
+   "bod-p05-v05": "0732159bbd7f67683e975e087dc80f96c161c3f269adb6b0f1b34d5141858c4d",
+   "bod-p06-v06": "936f68bc072809f4dbc553cfe96438bf568fe860fe411a4912e8829d0fe613ef",
+   "bod-p07-v07": "5eff8b23b5c0dbb3fe260312da28652266f6ba08c40f993d4cf1fea41aea3280",
+   "bod-p08-v08": "1684bad1f8ef48420e405c76d8681cbd0826469e45412e3465b094359d1b8c66",
+   "bod-p09-v09": "a588564e76c86831c60178367db78ff70a72443fd0cdc7d03dbc4047b59a8f6a",
+   "bod-p10-v10": "87379d4f5143b1605cf88e525b06920e8301b8bb21669a92259f700a4224c113",
+   "bod-p11-v11": "a413240cff4c0e44c32e400ca6fa00c5584d5df153309e159a41786dc5befd18",
+   "bod-p12-v12": "5d130409500f2ee50c8577b61baf2c585a9c877bdcf5973337a3629dbaeb0161",
+   "bod-p13-v13": "29042e4a36e3bf670cc9ebe0a2b550d558bb239fb13115550f39ee1fcbadaa67",
+   "bod-p14-v14": "af86570d223dc407a89c53da43fcc8a9e0b326aea647571707011562f5535a9d",
+   "bod-p15-v15": "e9e4f248123ff31196ab9d6cee98260cc6393d6da0fee6cbb265482887ed5a4d"
+  },
+  "l4": {
+   "bod-p01-v01": "6c8c2b35b49409b037871f5fd62260d3f25721ec8cb719709b3b300307bfe882",
+   "bod-p02-v02": "6b2ed36380f3550a834517000b96a73253bbe13ba4bdd71a811e7ff0f48c7585",
+   "bod-p03-v03": "8172896754904b19089237ed78317bee83ee81f91aba11b949ac9e78857d04dc",
+   "bod-p04-v04": "f71fdd90b454d27c0698994394df86822cd4e461b4232f23de6aa5076dcc1a63",
+   "bod-p05-v05": "fc815bee1e61c153d48c3f1b8a2010a76af65ca89ade45c18b56b458359546bf",
+   "bod-p06-v06": "fa541b2318aac20fe3095d0807390638e8a6ba6f0ceb3a663280a7a4bbaea65a",
+   "bod-p07-v07": "1b7fe2ef5ebf016823d5b7cf2f27da56fc8cbbfbe70d0dea731fbb4f52b12c58",
+   "bod-p08-v08": "afd561fa192b9de95c692350a33693d55080b664d1f955a6a6e2ae96f45706af",
+   "bod-p09-v09": "32cdb9d7a45a1ead18681eaca9bff33750a38295305a491c030a4811064b4147",
+   "bod-p10-v10": "3b63d4494a4242814c4bf86a4da525dbaf7806f31a616223baee602cc6451a3c",
+   "bod-p11-v11": "ce0e09b43485fb51770fa4703ebc62aae1b646ce5a0200f7084b0dcbcbaa9bae",
+   "bod-p12-v12": "2f789bcd039a35e7ee0254e22e0711faca4f85ebc1ecf0b088391e23c566c06c",
+   "bod-p13-v13": "bb5939fa12fafddc3f671e8eeb6f229874da9844f3d637809eb0d1821d9ea883",
+   "bod-p14-v14": "dd44c3c74ecc25b55a3589b8ebd4ee31d56994c800ae3a891e16bc6811a737e8",
+   "bod-p15-v15": "6bfb883706f352b979602c19f10ac2ff6e9070a04566c8aa52a1c32aed1440c8"
+  },
+  "c2": {}
+ },
+ "versions": [],
+ "essays": [],
+ "reviews": [],
+ "promotions": [],
+ "signoffs": [],
+ "stack_hashes": {
+  "bod-p01": "c9cee2c21655f99084366c45b7e8b99cf64480d352ccf9f18245aa40c8afcb00",
+  "bod-p02": "202f1dbc9e3302d1eb76736f43fe2ab6ce751d3ab3b74c6efa32c9e0f25044dc",
+  "bod-p03": "3f90c63103281ff4173ddf88780383d0bfcdf1467963c7096c45025a2922250d",
+  "bod-p04": "4589e8e4c71ea12c2e13e3990efe14520f40b7c75a5a94f1278305e243cfea3a",
+  "bod-p05": "0998fea893a615047e092bff67060913177831289f7806160112c7edd0a0ff66",
+  "bod-p06": "58d96d7e571e9f838a36fbb9b84f92d4c38a8d56a8e172cea1a0c3f40192e334",
+  "bod-p07": "a1c55722903fe51447e828c17626e570b328ad5ba36f2da78c6f87ac14dae0fc",
+  "bod-p08": "dbd9aa68d89bd4718a08b0508f705e78fe0c818cb9847fa27cefcae489541227",
+  "bod-p09": "5be5bf3ae99984afcf475e02bd673dbedfaafe63a465179dcbe5d0f1241b2641",
+  "bod-p10": "5228021f356c59f245d6bb389ac70c64138ee05265a7727778d97fa840c0750f",
+  "bod-p11": "b1080351b2448d5cdcdf17979563c59330051e654f47728e836002f78ce9c01d",
+  "bod-p12": "136ffd6d78fb4250da5cb51b28ad9762d52916745dc25a8ac16b2bef26773dfb",
+  "bod-p13": "6a7e1133f2a7acc5766bdb0af77288eef7cf2bea8af7585300734f5da8448ac5",
+  "bod-p14": "2d185b5266ecc195759065f5fefeafd2ba29fe3c958ca99b73cfa6bf2f5fedf3",
+  "bod-p15": "6274640132b0722cdf71c3188bd569aa748b8b4cf73cd02965c7c61d02c5792d"
+ },
+ "projection_sha256": "ae73d28a7f38ca8e64c9309c283ff38ff85e9a2f3d0a24222c84229b3840bd6c"
+}

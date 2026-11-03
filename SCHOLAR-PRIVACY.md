@@ -17,7 +17,9 @@ invite peer review, sign off a revision privately and ask Qwen with explicit con
 The matching ipvv Worker branch and additive D1 migration must be deployed first.
 Realtime voice remains disabled until the operator configures the Qwen provider and
 free quota; the provider receives audio and the passage after the user's consent.
-This branch does not implement publication from account sign-off to Git.
+With the matching Worker and translation-work bridge configured, an explicit author
+confirmation submits an unchanged signed revision to a Git branch for review. That
+branch may be public; submission does not merge it or publish it to the reader.
 
 Before deployment run `node --check app.js` and
 `node --test tests/scholar-smoke.cjs tests/service-worker-privacy.test.cjs

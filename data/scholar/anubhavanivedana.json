@@ -1,0 +1,4772 @@
+{
+ "work": "anubhavanivedana",
+ "generated": null,
+ "source": "translation-work canonical data + scholar/ ledgers (emit_scholar.py)",
+ "source_edition": "SanskritDocuments (Ruma Dewan, from Abhinavastotravali)",
+ "contract": {
+  "contract_version": "svatantrya-agent-contract/1",
+  "contract_sha256": "8f22582bd8833e43d4ed31bbdfa49cf1f2e720569d15da9edc61a2bfab34d86e",
+  "schema_version": "1.3.0",
+  "structural_schema_version": "2.0.0",
+  "structural_schema_snapshot_sha256": "7143ce16fd2fec74bcbb442937194c13abcb94e7d76e10fb35ec9e76016a9577",
+  "order": [
+   "source",
+   "t1",
+   "l0",
+   "argmap",
+   "l2",
+   "c1",
+   "l3",
+   "l4",
+   "c2"
+  ],
+  "schemas": {
+   "t1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:t1",
+    "title": "Svatantrya T1 structural schema",
+    "x-validator": "schemas.t1.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "quick_english",
+     "tokens",
+     "source_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "quick_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "source_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "tokens": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "surface",
+        "quick_gloss"
+       ],
+       "properties": {
+        "surface": {
+         "type": "string",
+         "minLength": 1
+        },
+        "quick_gloss": {
+         "type": "string",
+         "minLength": 1
+        }
+       }
+      }
+     }
+    }
+   },
+   "l0": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l0:verse",
+    "title": "Svatantrya L0 verse token list structural schema",
+    "x-validator": "schemas.l0.validate (per token)",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+     "$schema": "https://json-schema.org/draft/2020-12/schema",
+     "$id": "urn:svatantrya:schema:2.0.0:l0",
+     "title": "Svatantrya L0 structural schema",
+     "x-validator": "schemas.l0.validate",
+     "x-schema-version": "1.3.0",
+     "x-structural-schema-version": "2.0.0",
+     "type": "object",
+     "required": [
+      "id",
+      "verse_id",
+      "pada_index",
+      "surface",
+      "citation",
+      "options",
+      "chosen_index",
+      "status"
+     ],
+     "properties": {
+      "id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "verse_id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "pada_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "surface": {
+       "type": "string",
+       "minLength": 1
+      },
+      "citation": {
+       "type": "string",
+       "minLength": 1
+      },
+      "morph": {
+       "type": "string"
+      },
+      "morph_unknown": {
+       "type": "boolean"
+      },
+      "options": {
+       "type": "array",
+       "maxItems": 5,
+       "items": {
+        "type": "object",
+        "required": [
+         "gloss",
+         "rank",
+         "source",
+         "grounds"
+        ],
+        "properties": {
+         "gloss": {
+          "type": "string",
+          "minLength": 1
+         },
+         "rank": {
+          "type": "integer",
+          "minimum": 1
+         },
+         "source": {
+          "type": "string",
+          "minLength": 1
+         },
+         "grounds": {
+          "type": "string",
+          "minLength": 1
+         }
+        }
+       }
+      },
+      "chosen_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "status": {
+       "type": "string",
+       "enum": [
+        "PARSED",
+        "AMBIGUOUS",
+        "FAILED"
+       ]
+      },
+      "revised": {
+       "type": "boolean"
+      },
+      "revise_reason": {
+       "type": "string"
+      },
+      "fork": {
+       "type": "string",
+       "enum": [
+        "none",
+        "live",
+        "resolved"
+       ]
+      }
+     }
+    }
+   },
+   "argmap": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:argmap",
+    "title": "Svatantrya ARGMAP structural schema",
+    "x-validator": "schemas.argmap.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "traces",
+     "sanskrit_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "traces": {
+      "type": "object",
+      "required": [
+       "t1_verse",
+       "l0_ids"
+      ],
+      "properties": {
+       "t1_verse": {
+        "type": "string",
+        "minLength": 1
+       },
+       "l0_ids": {
+        "type": "array",
+        "items": {
+         "type": "string",
+         "minLength": 1
+        },
+        "minItems": 1
+       }
+      }
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "sanskrit_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "speaker": {
+      "type": "string",
+      "minLength": 1
+     },
+     "question": {
+      "type": "string",
+      "minLength": 1
+     },
+     "inference": {
+      "type": "string",
+      "minLength": 1
+     },
+     "reconstruction": {
+      "type": "string",
+      "minLength": 1
+     },
+     "premises": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     },
+     "uncertainties": {
+      "type": "array"
+     },
+     "structured": {
+      "type": "boolean"
+     }
+    }
+   },
+   "l2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l2",
+    "title": "Svatantrya L2 structural schema",
+    "x-validator": "schemas.l2.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "plain_english",
+     "sanskrit_cite",
+     "l0_ids"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "plain_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "supplied": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     }
+    }
+   },
+   "c1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:c1",
+    "title": "Svatantrya C1 structural schema",
+    "x-validator": "schemas.c1.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "song",
+     "essence",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "essence": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "renders": {
+      "type": "object",
+      "required": [
+       "standard"
+      ]
+     }
+    }
+   },
+   "l3": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l3",
+    "title": "Svatantrya L3 structural schema",
+    "x-validator": "schemas.l3.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "l4": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l4",
+    "title": "Svatantrya L4 structural schema",
+    "x-validator": "schemas.l4.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "c2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:c2",
+    "title": "Svatantrya C2 structural schema",
+    "x-validator": "schemas.c2.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "song",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "renders": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "style",
+        "prompt",
+        "paragraphs"
+       ],
+       "properties": {
+        "style": {
+         "type": "string",
+         "minLength": 1
+        },
+        "prompt": {
+         "type": "string",
+         "minLength": 1
+        },
+        "paragraphs": {
+         "type": "array",
+         "minItems": 1,
+         "items": {
+          "type": "object",
+          "required": [
+           "text",
+           "maps_to"
+          ],
+          "properties": {
+           "text": {
+            "type": "string",
+            "minLength": 1
+           },
+           "maps_to": {
+            "type": "array",
+            "items": {
+             "type": "integer",
+             "minimum": 0
+            },
+            "minItems": 1
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "layers": [
+   {
+    "id": "t1",
+    "scope": "verse",
+    "depends_on": [
+     "source"
+    ],
+    "validator": "schemas/t1.py",
+    "validator_sha256": "ac792ba1f0cbc06ab52dfbc41a31d3e39460f0e8a7de2977ed02e4ce63a20f27",
+    "example": {
+     "file": "sivastotravali/data/s01.t1.json",
+     "file_sha256": "a5c4cfae67571d05866d97ad6eb29b1c2956140a69c2fae554c29577330beb8e",
+     "target": "s01-v01",
+     "content_sha256": "26f027dafbe67347efd901cb2b94630cdb0e372957edeb4a3e1305e83745ba5b",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l0",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1"
+    ],
+    "validator": "schemas/l0.py",
+    "validator_sha256": "0651bc77f519897f8a4f8b41f4ea0cc6a88f3441910af99b18d55854a7e9030e",
+    "example": {
+     "file": "sivastotravali/data/s06.l0.json",
+     "file_sha256": "c2bb0ce1010315d72bdce75ee3c8901b17499202abe7adc5bd1977a26f4fea2f",
+     "target": "s06-v01",
+     "content_sha256": "91e3b04d47482757bcaf1e9705992edd0815ff7907ed2cb33c7c9586f3a9e5aa",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "argmap",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0"
+    ],
+    "validator": "schemas/argmap.py",
+    "validator_sha256": "335c1bbe809c5ae942ecef4a30ee7fd8fcb82645a43019312fa74397fe5758b0",
+    "example": {
+     "file": "sivastotravali/data/s01.argmap.json",
+     "file_sha256": "a44c8ec09a30c577f2a792c1255d4290f49a6138c456bb687bc00e78a3902949",
+     "target": "s01-v21",
+     "content_sha256": "80b69a54761b8b0b7c193058f6c88eef60323a3611008c41ba9879bcfc3cdc21",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l2",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap"
+    ],
+    "validator": "schemas/l2.py",
+    "validator_sha256": "f5653e405e0f162f78593ad6344cbbefe122d6d1c921ca3e22003e4f4d2cfaaa",
+    "example": {
+     "file": "sivastotravali/data/s01.l2.json",
+     "file_sha256": "f5a1cec55bb466c328380a0bf527e6d8906428b3436f85a79bd01df98ceb1040",
+     "target": "s01-v01",
+     "content_sha256": "f3c47f6a631f7551d4f9c8ad1117bdf65463cb8cdc92e9b42bb3bf517ae80055",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c1",
+    "scope": "song",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2"
+    ],
+    "validator": "schemas/c1.py",
+    "validator_sha256": "88ad9123135a7a18237cec1d11430992b4f43adf1771ae26a43e4df8198c69d7",
+    "example": {
+     "file": "sivastotravali/data/s01.c1.json",
+     "file_sha256": "99f4d2bbf7a8086176ee585b6e459076e2abd72b9675435267f7546beb1515f8",
+     "target": "s01",
+     "content_sha256": "5be1f3c0c3f64fafe5395b42cf5502a139a5e208be419d5804fe1a5bdd33712a",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l3",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2",
+     "c1"
+    ],
+    "validator": "schemas/l3.py",
+    "validator_sha256": "6c3df228f886207782d5250699e9e459f236f6e7d6b25ac29b00a38541956917",
+    "example": {
+     "file": "sivastotravali/data/s01.l3.json",
+     "file_sha256": "cdb4af6a4c2a851231195f4e5c940346f65199d5d5d69ea1c41d8095f98409f9",
+     "target": "s01-v01",
+     "content_sha256": "6aa20635387174b68fe4ea3baf970c06aff9838acb2c745e7afca0ed7c6751de",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l4",
+    "scope": "verse",
+    "depends_on": [
+     "l3",
+     "c1"
+    ],
+    "validator": "schemas/l4.py",
+    "validator_sha256": "3c1f7b0dfe3d83d425ed0fd84fba7b74aa3ed9e9758402369d779eedda1a8c03",
+    "example": {
+     "file": "paramarthasara/data/param-p01.l4.json",
+     "file_sha256": "db346e51e71f2f835ddfda004d4432934611817c2c73318d335f6ca2362ad4fb",
+     "target": "param-p01-v01",
+     "content_sha256": "91e9d424cf310d4e5b45c173b02f5286d837269ef9447533c153a48cb5122c14",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c2",
+    "scope": "song",
+    "depends_on": [
+     "c1",
+     "l3"
+    ],
+    "validator": "schemas/c2.py",
+    "validator_sha256": "fb8743f206e036002c780d082c7d32cf011dcdab4c21df742a5f5e59a9d851b8",
+    "example": {
+     "file": "sivastotravali/data/s01.c2.json",
+     "file_sha256": "09660a3c09679fce8c95968934e5851a22d89cdf154d2b0635d358e1ef9e8aeb",
+     "target": "s01",
+     "content_sha256": "2faa5fa86e38faca7ef5a1a967a4e261e2df294648a31ed5bad5f731001aa41c",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   }
+  ]
+ },
+ "rights": {
+  "translation": "FREE — our English (L1–L4, commentary) is free use",
+  "scholar": "Contributors declare rights; authorship and copyright depend on the work and law."
+ },
+ "originals": {
+  "t1": {
+   "anu-p01": {
+    "verse_id": "anu-p01",
+    "song": "anu-p01",
+    "verse": 1,
+    "quick_english": "whose-mind-wind-is-dissolved-in-the-inward-aim / the-yogin / when / abides / with-gaze / of-unmoving-pupil / outside / he / seeing / not-seeing / even / this-mudrā / indeed / śāmbhavī / becomes / that / by-your-grace / O-guru / devoid-of-void-and-non-void / becomes / which / reality / state / śāmbhava",
+    "quick_english_source": "manual",
+    "source_lines": null,
+    "source_file": "passages.jsonl",
+    "tokens": [
+     {
+      "surface": "antarlakṣyavilīnacittapavanaḥ",
+      "quick_gloss": "whose-mind-wind-is-dissolved-in-the-inward-aim"
+     },
+     {
+      "surface": "yogī",
+      "quick_gloss": "the-yogin"
+     },
+     {
+      "surface": "yadā",
+      "quick_gloss": "when"
+     },
+     {
+      "surface": "vartate",
+      "quick_gloss": "abides"
+     },
+     {
+      "surface": "dṛṣṭyā",
+      "quick_gloss": "with-gaze"
+     },
+     {
+      "surface": "niścalatārayā",
+      "quick_gloss": "of-unmoving-pupil"
+     },
+     {
+      "surface": "bahir",
+      "quick_gloss": "outside"
+     },
+     {
+      "surface": "asau",
+      "quick_gloss": "he"
+     },
+     {
+      "surface": "paśyan",
+      "quick_gloss": "seeing"
+     },
+     {
+      "surface": "apaśyan",
+      "quick_gloss": "not-seeing"
+     },
+     {
+      "surface": "api",
+      "quick_gloss": "even"
+     },
+     {
+      "surface": "mudreyam",
+      "quick_gloss": "this-mudrā"
+     },
+     {
+      "surface": "khalu",
+      "quick_gloss": "indeed"
+     },
+     {
+      "surface": "śāmbhavī",
+      "quick_gloss": "śāmbhavī"
+     },
+     {
+      "surface": "bhavati",
+      "quick_gloss": "becomes"
+     },
+     {
+      "surface": "sā",
+      "quick_gloss": "that"
+     },
+     {
+      "surface": "yuṣmatprasādāt",
+      "quick_gloss": "by-your-grace"
+     },
+     {
+      "surface": "guro",
+      "quick_gloss": "O-guru"
+     },
+     {
+      "surface": "śūnyāśūnyavivarjitam",
+      "quick_gloss": "devoid-of-void-and-non-void"
+     },
+     {
+      "surface": "bhavati",
+      "quick_gloss": "becomes"
+     },
+     {
+      "surface": "yat",
+      "quick_gloss": "which"
+     },
+     {
+      "surface": "tattvam",
+      "quick_gloss": "reality"
+     },
+     {
+      "surface": "padam",
+      "quick_gloss": "state"
+     },
+     {
+      "surface": "śāmbhavam",
+      "quick_gloss": "śāmbhava"
+     }
+    ],
+    "source_sha": "377f2d85d3fffd1a"
+   },
+   "anu-p02": {
+    "verse_id": "anu-p02",
+    "song": "anu-p02",
+    "verse": 2,
+    "quick_english": "half-open-eyed / steady-minded / whose-gaze-is-placed-on-the-nose-tip / moon-and-sun / even / dissolution / attained / in-the-interior-of-the-triple-throb-state / of-light-form / devoid-of-all-exteriority / and / one / person / supreme / reality / that / state / attains / thing / supreme / to-be-said / what / here / more",
+    "quick_english_source": "manual",
+    "source_lines": null,
+    "source_file": "passages.jsonl",
+    "tokens": [
+     {
+      "surface": "ardhoddhāṭitalocanaḥ",
+      "quick_gloss": "half-open-eyed"
+     },
+     {
+      "surface": "sthiramanāḥ",
+      "quick_gloss": "steady-minded"
+     },
+     {
+      "surface": "nāsāgradattekṣaṇaḥ",
+      "quick_gloss": "whose-gaze-is-placed-on-the-nose-tip"
+     },
+     {
+      "surface": "candrārkau",
+      "quick_gloss": "moon-and-sun"
+     },
+     {
+      "surface": "api",
+      "quick_gloss": "even"
+     },
+     {
+      "surface": "līnatām",
+      "quick_gloss": "dissolution"
+     },
+     {
+      "surface": "upagatau",
+      "quick_gloss": "attained"
+     },
+     {
+      "surface": "trispandabhāvāntare",
+      "quick_gloss": "in-the-interior-of-the-triple-throb-state"
+     },
+     {
+      "surface": "jyotīrūpam",
+      "quick_gloss": "of-light-form"
+     },
+     {
+      "surface": "aśeṣabāhyarahitam",
+      "quick_gloss": "devoid-of-all-exteriority"
+     },
+     {
+      "surface": "ca",
+      "quick_gloss": "and"
+     },
+     {
+      "surface": "ekam",
+      "quick_gloss": "one"
+     },
+     {
+      "surface": "pumāṃsam",
+      "quick_gloss": "person"
+     },
+     {
+      "surface": "param",
+      "quick_gloss": "supreme"
+     },
+     {
+      "surface": "tattvam",
+      "quick_gloss": "reality"
+     },
+     {
+      "surface": "tat",
+      "quick_gloss": "that"
+     },
+     {
+      "surface": "padam",
+      "quick_gloss": "state"
+     },
+     {
+      "surface": "eti",
+      "quick_gloss": "attains"
+     },
+     {
+      "surface": "vastu",
+      "quick_gloss": "thing"
+     },
+     {
+      "surface": "paramam",
+      "quick_gloss": "supreme"
+     },
+     {
+      "surface": "vācyam",
+      "quick_gloss": "to-be-said"
+     },
+     {
+      "surface": "kim",
+      "quick_gloss": "what"
+     },
+     {
+      "surface": "atra",
+      "quick_gloss": "here"
+     },
+     {
+      "surface": "adhikam",
+      "quick_gloss": "more"
+     }
+    ],
+    "source_sha": "fe50dfd042469bea"
+   },
+   "anu-p03": {
+    "verse_id": "anu-p03",
+    "song": "anu-p03",
+    "verse": 3,
+    "quick_english": "sound / whatever / which / from-the-mouth / arises / mantra / that / transcendent / posture / of-the-body-born-of-pleasure-and-pain / whatever / somehow / mudrā / indeed / that / of-breath / by-own-rhythm / which / flowing / yoga / that / indeed / wonderful / śākta / abode / supreme / while-I-experience / what / indeed / not / shines",
+    "quick_english_source": "manual",
+    "source_lines": null,
+    "source_file": "passages.jsonl",
+    "tokens": [
+     {
+      "surface": "śabdaḥ",
+      "quick_gloss": "sound"
+     },
+     {
+      "surface": "kaścana",
+      "quick_gloss": "whatever"
+     },
+     {
+      "surface": "yaḥ",
+      "quick_gloss": "which"
+     },
+     {
+      "surface": "mukhāt",
+      "quick_gloss": "from-the-mouth"
+     },
+     {
+      "surface": "udayate",
+      "quick_gloss": "arises"
+     },
+     {
+      "surface": "mantraḥ",
+      "quick_gloss": "mantra"
+     },
+     {
+      "surface": "saḥ",
+      "quick_gloss": "that"
+     },
+     {
+      "surface": "lokottaraḥ",
+      "quick_gloss": "transcendent"
+     },
+     {
+      "surface": "saṃsthānam",
+      "quick_gloss": "posture"
+     },
+     {
+      "surface": "sukhaduḥkhajanmavapuṣaḥ",
+      "quick_gloss": "of-the-body-born-of-pleasure-and-pain"
+     },
+     {
+      "surface": "yat",
+      "quick_gloss": "whatever"
+     },
+     {
+      "surface": "kāpi",
+      "quick_gloss": "somehow"
+     },
+     {
+      "surface": "mudrā",
+      "quick_gloss": "mudrā"
+     },
+     {
+      "surface": "eva",
+      "quick_gloss": "indeed"
+     },
+     {
+      "surface": "sā",
+      "quick_gloss": "that"
+     },
+     {
+      "surface": "prāṇasya",
+      "quick_gloss": "of-breath"
+     },
+     {
+      "surface": "svarasena",
+      "quick_gloss": "by-own-rhythm"
+     },
+     {
+      "surface": "yat",
+      "quick_gloss": "which"
+     },
+     {
+      "surface": "pravahaṇam",
+      "quick_gloss": "flowing"
+     },
+     {
+      "surface": "yogaḥ",
+      "quick_gloss": "yoga"
+     },
+     {
+      "surface": "saḥ",
+      "quick_gloss": "that"
+     },
+     {
+      "surface": "eva",
+      "quick_gloss": "indeed"
+     },
+     {
+      "surface": "adbhutaḥ",
+      "quick_gloss": "wonderful"
+     },
+     {
+      "surface": "śāktam",
+      "quick_gloss": "śākta"
+     },
+     {
+      "surface": "dhāma",
+      "quick_gloss": "abode"
+     },
+     {
+      "surface": "param",
+      "quick_gloss": "supreme"
+     },
+     {
+      "surface": "mamānubhavataḥ",
+      "quick_gloss": "while-I-experience"
+     },
+     {
+      "surface": "kim",
+      "quick_gloss": "what"
+     },
+     {
+      "surface": "nāma",
+      "quick_gloss": "indeed"
+     },
+     {
+      "surface": "na",
+      "quick_gloss": "not"
+     },
+     {
+      "surface": "bhrājate",
+      "quick_gloss": "shines"
+     }
+    ],
+    "source_sha": "30fa5117e4a99338"
+   },
+   "anu-p04": {
+    "verse_id": "anu-p04",
+    "song": "anu-p04",
+    "verse": 4,
+    "quick_english": "mantra / that / shines-forth / of-letters / arrangement / in-which / not / is-distinguished / mudrā / that / arises / in-which / dissolved / entire / action / bodily / yoga / that / spreads-forth / from-which / flowing / of-breath / is-exhausted / in-the-festivals-of-attaining-your-abode / of-the-wise / what / what / not / indeed / wonderful",
+    "quick_english_source": "manual",
+    "source_lines": null,
+    "source_file": "passages.jsonl",
+    "tokens": [
+     {
+      "surface": "mantraḥ",
+      "quick_gloss": "mantra"
+     },
+     {
+      "surface": "saḥ",
+      "quick_gloss": "that"
+     },
+     {
+      "surface": "pratibhāti",
+      "quick_gloss": "shines-forth"
+     },
+     {
+      "surface": "varṇa",
+      "quick_gloss": "of-letters"
+     },
+     {
+      "surface": "racanā",
+      "quick_gloss": "arrangement"
+     },
+     {
+      "surface": "yasmin",
+      "quick_gloss": "in-which"
+     },
+     {
+      "surface": "na",
+      "quick_gloss": "not"
+     },
+     {
+      "surface": "saṃlakṣyate",
+      "quick_gloss": "is-distinguished"
+     },
+     {
+      "surface": "mudrā",
+      "quick_gloss": "mudrā"
+     },
+     {
+      "surface": "sā",
+      "quick_gloss": "that"
+     },
+     {
+      "surface": "samudeti",
+      "quick_gloss": "arises"
+     },
+     {
+      "surface": "yatra",
+      "quick_gloss": "in-which"
+     },
+     {
+      "surface": "galitā",
+      "quick_gloss": "dissolved"
+     },
+     {
+      "surface": "kṛtsnā",
+      "quick_gloss": "entire"
+     },
+     {
+      "surface": "kriyā",
+      "quick_gloss": "action"
+     },
+     {
+      "surface": "kāyikī",
+      "quick_gloss": "bodily"
+     },
+     {
+      "surface": "yogaḥ",
+      "quick_gloss": "yoga"
+     },
+     {
+      "surface": "saḥ",
+      "quick_gloss": "that"
+     },
+     {
+      "surface": "prathate",
+      "quick_gloss": "spreads-forth"
+     },
+     {
+      "surface": "yataḥ",
+      "quick_gloss": "from-which"
+     },
+     {
+      "surface": "pravahaṇam",
+      "quick_gloss": "flowing"
+     },
+     {
+      "surface": "prāṇasya",
+      "quick_gloss": "of-breath"
+     },
+     {
+      "surface": "saṃkṣīyate",
+      "quick_gloss": "is-exhausted"
+     },
+     {
+      "surface": "tvaddhāmādhigamotsaveṣu",
+      "quick_gloss": "in-the-festivals-of-attaining-your-abode"
+     },
+     {
+      "surface": "sudhiyām",
+      "quick_gloss": "of-the-wise"
+     },
+     {
+      "surface": "kim",
+      "quick_gloss": "what"
+     },
+     {
+      "surface": "kim",
+      "quick_gloss": "what"
+     },
+     {
+      "surface": "na",
+      "quick_gloss": "not"
+     },
+     {
+      "surface": "nāma",
+      "quick_gloss": "indeed"
+     },
+     {
+      "surface": "adbhutam",
+      "quick_gloss": "wonderful"
+     }
+    ],
+    "source_sha": "ea97a9805ff69b2c"
+   }
+  },
+  "l0": {
+   "anu-p01": [
+    {
+     "id": "anu-p01-p000",
+     "legacy_id": "T1:anu-p01:T0",
+     "verse_id": "anu-p01",
+     "pada_index": 0,
+     "surface": "antarlakṣyavilīnacittapavanaḥ",
+     "legacy_raw": "[and]-whose-mind-wind-is-dissolved-in-the-inward-aim (antarlakṣyavilīnacittapavanaḥ)",
+     "citation": "antarlakṣyavilīnacittapavanaḥ",
+     "morph": "comp (antarlakṣyavilīnacittapavana)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "whose-mind-wind-is-dissolved-in-the-inward-aim",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p01-p001",
+     "legacy_id": "T1:anu-p01:T1",
+     "verse_id": "anu-p01",
+     "pada_index": 1,
+     "surface": "yogī",
+     "legacy_raw": "[and]-the-yogin (yogī)",
+     "citation": "yogī",
+     "morph": "nom.sg.m (yogī)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "the-yogin",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p01-p002",
+     "legacy_id": "T1:anu-p01:T2",
+     "verse_id": "anu-p01",
+     "pada_index": 2,
+     "surface": "yadā",
+     "legacy_raw": "[and]-when (yadā)",
+     "citation": "yadā",
+     "morph": "rel.pron (yadā)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "when",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p01-p003",
+     "legacy_id": "T1:anu-p01:T3",
+     "verse_id": "anu-p01",
+     "pada_index": 3,
+     "surface": "vartate",
+     "legacy_raw": "[and]-abides (vartate)",
+     "citation": "vartate",
+     "morph": "3sg.pres (vartate)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "abides",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p01-p004",
+     "legacy_id": "T1:anu-p01:T4",
+     "verse_id": "anu-p01",
+     "pada_index": 4,
+     "surface": "dṛṣṭyā",
+     "legacy_raw": "[and]-with-gaze (dṛṣṭyā)",
+     "citation": "dṛṣṭyā",
+     "morph": "instr.sg.f (dṛṣṭyā)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "with-gaze",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p01-p005",
+     "legacy_id": "T1:anu-p01:T5",
+     "verse_id": "anu-p01",
+     "pada_index": 5,
+     "surface": "niścalatārayā",
+     "legacy_raw": "[and]-of-unmoving-pupil (niścalatārayā)",
+     "citation": "niścalatārayā",
+     "morph": "instr.sg.f (niścalatārā)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "of-unmoving-pupil",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p01-p006",
+     "legacy_id": "T1:anu-p01:T6",
+     "verse_id": "anu-p01",
+     "pada_index": 6,
+     "surface": "bahir",
+     "legacy_raw": "[and]-outside (bahir)",
+     "citation": "bahir",
+     "morph": "adv (bahir)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "outside",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p01-p007",
+     "legacy_id": "T1:anu-p01:T7",
+     "verse_id": "anu-p01",
+     "pada_index": 7,
+     "surface": "asau",
+     "legacy_raw": "[and]-he (asau)",
+     "citation": "asau",
+     "morph": "nom.sg.m (asau)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "he",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p01-p008",
+     "legacy_id": "T1:anu-p01:T8",
+     "verse_id": "anu-p01",
+     "pada_index": 8,
+     "surface": "paśyan",
+     "legacy_raw": "[and]-seeing (paśyan)",
+     "citation": "paśyan",
+     "morph": "pres.part (paśyan)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "seeing",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p01-p009",
+     "legacy_id": "T1:anu-p01:T9",
+     "verse_id": "anu-p01",
+     "pada_index": 9,
+     "surface": "apaśyan",
+     "legacy_raw": "[and]-not-seeing (apaśyan)",
+     "citation": "apaśyan",
+     "morph": "pres.part (apaśyan)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "not-seeing",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p01-p010",
+     "legacy_id": "T1:anu-p01:T10",
+     "verse_id": "anu-p01",
+     "pada_index": 10,
+     "surface": "api",
+     "legacy_raw": "[and]-even (api)",
+     "citation": "api",
+     "morph": "indecl. (api)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "even",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p01-p011",
+     "legacy_id": "T1:anu-p01:T11",
+     "verse_id": "anu-p01",
+     "pada_index": 11,
+     "surface": "mudreyam",
+     "legacy_raw": "[and]-this-mudrā (mudreyam)",
+     "citation": "mudreyam",
+     "morph": "nom.sg.f (mudrā)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "this-mudrā",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p01-p012",
+     "legacy_id": "T1:anu-p01:T12",
+     "verse_id": "anu-p01",
+     "pada_index": 12,
+     "surface": "khalu",
+     "legacy_raw": "[and]-indeed (khalu)",
+     "citation": "khalu",
+     "morph": "indecl. (khalu)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "indeed",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p01-p013",
+     "legacy_id": "T1:anu-p01:T13",
+     "verse_id": "anu-p01",
+     "pada_index": 13,
+     "surface": "śāmbhavī",
+     "legacy_raw": "[and]-śāmbhavī (śāmbhavī)",
+     "citation": "śāmbhavī",
+     "morph": "adj (śāmbhavī)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "śāmbhavī",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p01-p014",
+     "legacy_id": "T1:anu-p01:T14",
+     "verse_id": "anu-p01",
+     "pada_index": 14,
+     "surface": "bhavati",
+     "legacy_raw": "[and]-becomes (bhavati)",
+     "citation": "bhavati",
+     "morph": "3sg.pres (bhavati)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "becomes",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p01-p015",
+     "legacy_id": "T1:anu-p01:T15",
+     "verse_id": "anu-p01",
+     "pada_index": 15,
+     "surface": "sā",
+     "legacy_raw": "[and]-that (sā)",
+     "citation": "sā",
+     "morph": "nom.sg.f (sā)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "that",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p01-p016",
+     "legacy_id": "T1:anu-p01:T16",
+     "verse_id": "anu-p01",
+     "pada_index": 16,
+     "surface": "yuṣmatprasādāt",
+     "legacy_raw": "[and]-by-your-grace (yuṣmatprasādāt)",
+     "citation": "yuṣmatprasādāt",
+     "morph": "abl.sg (yuṣmatprasāda)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "by-your-grace",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p01-p017",
+     "legacy_id": "T1:anu-p01:T17",
+     "verse_id": "anu-p01",
+     "pada_index": 17,
+     "surface": "guro",
+     "legacy_raw": "[and]-O-guru (guro)",
+     "citation": "guro",
+     "morph": "voc.sg (guro)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "O-guru",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p01-p018",
+     "legacy_id": "T1:anu-p01:T18",
+     "verse_id": "anu-p01",
+     "pada_index": 18,
+     "surface": "śūnyāśūnyavivarjitam",
+     "legacy_raw": "[and]-devoid-of-void-and-non-void (śūnyāśūnyavivarjitam)",
+     "citation": "śūnyāśūnyavivarjitam",
+     "morph": "adj (śūnyāśūnyavivarjita)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "devoid-of-void-and-non-void",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p01-p019",
+     "legacy_id": "T1:anu-p01:T19",
+     "verse_id": "anu-p01",
+     "pada_index": 19,
+     "surface": "bhavati",
+     "legacy_raw": "[and]-becomes (bhavati)",
+     "citation": "bhavati",
+     "morph": "3sg.pres (bhavati)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "becomes",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p01-p020",
+     "legacy_id": "T1:anu-p01:T20",
+     "verse_id": "anu-p01",
+     "pada_index": 20,
+     "surface": "yat",
+     "legacy_raw": "[and]-which (yat)",
+     "citation": "yat",
+     "morph": "rel.pron (yat)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "which",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p01-p021",
+     "legacy_id": "T1:anu-p01:T21",
+     "verse_id": "anu-p01",
+     "pada_index": 21,
+     "surface": "tattvam",
+     "legacy_raw": "[and]-reality (tattvam)",
+     "citation": "tattvam",
+     "morph": "nom.sg.n (tattva)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "reality",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p01-p022",
+     "legacy_id": "T1:anu-p01:T22",
+     "verse_id": "anu-p01",
+     "pada_index": 22,
+     "surface": "padam",
+     "legacy_raw": "[and]-state (padam)",
+     "citation": "padam",
+     "morph": "nom.sg.n (pada)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "state",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p01-p023",
+     "legacy_id": "T1:anu-p01:T23",
+     "verse_id": "anu-p01",
+     "pada_index": 23,
+     "surface": "śāmbhavam",
+     "legacy_raw": "[and]-śāmbhava (śāmbhavam)",
+     "citation": "śāmbhavam",
+     "morph": "adj (śāmbhava)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "śāmbhava",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "anu-p02": [
+    {
+     "id": "anu-p02-p000",
+     "legacy_id": "T1:anu-p02:T0",
+     "verse_id": "anu-p02",
+     "pada_index": 0,
+     "surface": "ardhoddhāṭitalocanaḥ",
+     "legacy_raw": "[and]-half-open-eyed (ardhoddhāṭitalocanaḥ)",
+     "citation": "ardhoddhāṭitalocanaḥ",
+     "morph": "adj (ardhoddhāṭitalocana)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "half-open-eyed",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p02-p001",
+     "legacy_id": "T1:anu-p02:T1",
+     "verse_id": "anu-p02",
+     "pada_index": 1,
+     "surface": "sthiramanāḥ",
+     "legacy_raw": "[and]-steady-minded (sthiramanāḥ)",
+     "citation": "sthiramanāḥ",
+     "morph": "adj (sthiramanas)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "steady-minded",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p02-p002",
+     "legacy_id": "T1:anu-p02:T2",
+     "verse_id": "anu-p02",
+     "pada_index": 2,
+     "surface": "nāsāgradattekṣaṇaḥ",
+     "legacy_raw": "[and]-whose-gaze-is-placed-on-the-nose-tip (nāsāgradattekṣaṇaḥ)",
+     "citation": "nāsāgradattekṣaṇaḥ",
+     "morph": "nom.sg.m (nāsāgradattekṣaṇa)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "whose-gaze-is-placed-on-the-nose-tip",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p02-p003",
+     "legacy_id": "T1:anu-p02:T3",
+     "verse_id": "anu-p02",
+     "pada_index": 3,
+     "surface": "candrārkau",
+     "legacy_raw": "[and]-moon-and-sun (candrārkau)",
+     "citation": "candrārkau",
+     "morph": "nom.du.m (candrārka)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "moon-and-sun",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p02-p004",
+     "legacy_id": "T1:anu-p02:T4",
+     "verse_id": "anu-p02",
+     "pada_index": 4,
+     "surface": "api",
+     "legacy_raw": "[and]-even (api)",
+     "citation": "api",
+     "morph": "indecl. (api)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "even",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p02-p005",
+     "legacy_id": "T1:anu-p02:T5",
+     "verse_id": "anu-p02",
+     "pada_index": 5,
+     "surface": "līnatām",
+     "legacy_raw": "[and]-dissolution (līnatām)",
+     "citation": "līnatām",
+     "morph": "perf.part.f (līnatā)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "dissolution",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p02-p006",
+     "legacy_id": "T1:anu-p02:T6",
+     "verse_id": "anu-p02",
+     "pada_index": 6,
+     "surface": "upagatau",
+     "legacy_raw": "[and]-attained (upagatau)",
+     "citation": "upagatau",
+     "morph": "3sg.pres (upagatau)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "attained",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p02-p007",
+     "legacy_id": "T1:anu-p02:T7",
+     "verse_id": "anu-p02",
+     "pada_index": 7,
+     "surface": "trispandabhāvāntare",
+     "legacy_raw": "[and]-in-the-interior-of-the-triple-throb-state (trispandabhāvāntare)",
+     "citation": "trispandabhāvāntare",
+     "morph": "loc.sg.m (trispandabhāva)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "in-the-interior-of-the-triple-throb-state",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p02-p008",
+     "legacy_id": "T1:anu-p02:T8",
+     "verse_id": "anu-p02",
+     "pada_index": 8,
+     "surface": "jyotīrūpam",
+     "legacy_raw": "[and]-of-light-form (jyotīrūpam)",
+     "citation": "jyotīrūpam",
+     "morph": "adj (jyotīrūpa)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "of-light-form",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p02-p009",
+     "legacy_id": "T1:anu-p02:T9",
+     "verse_id": "anu-p02",
+     "pada_index": 9,
+     "surface": "aśeṣabāhyarahitam",
+     "legacy_raw": "[and]-devoid-of-all-exteriority (aśeṣabāhyarahitam)",
+     "citation": "aśeṣabāhyarahitam",
+     "morph": "adj (aśeṣabāhyarahita)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "devoid-of-all-exteriority",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p02-p010",
+     "legacy_id": "T1:anu-p02:T10",
+     "verse_id": "anu-p02",
+     "pada_index": 10,
+     "surface": "ca",
+     "legacy_raw": "[and]-and (ca)",
+     "citation": "ca",
+     "morph": "indecl. (ca)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "and",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p02-p011",
+     "legacy_id": "T1:anu-p02:T11",
+     "verse_id": "anu-p02",
+     "pada_index": 11,
+     "surface": "ekam",
+     "legacy_raw": "[and]-one (ekam)",
+     "citation": "ekam",
+     "morph": "nom.sg.m (eka)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "one",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p02-p012",
+     "legacy_id": "T1:anu-p02:T12",
+     "verse_id": "anu-p02",
+     "pada_index": 12,
+     "surface": "pumāṃsam",
+     "legacy_raw": "[and]-person (pumāṃsam)",
+     "citation": "pumāṃsam",
+     "morph": "nom.sg.m (pumāṃs)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "person",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p02-p013",
+     "legacy_id": "T1:anu-p02:T13",
+     "verse_id": "anu-p02",
+     "pada_index": 13,
+     "surface": "param",
+     "legacy_raw": "[and]-supreme (param)",
+     "citation": "param",
+     "morph": "adj (para)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "supreme",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p02-p014",
+     "legacy_id": "T1:anu-p02:T14",
+     "verse_id": "anu-p02",
+     "pada_index": 14,
+     "surface": "tattvam",
+     "legacy_raw": "[and]-reality (tattvam)",
+     "citation": "tattvam",
+     "morph": "nom.sg.n (tattva)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "reality",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p02-p015",
+     "legacy_id": "T1:anu-p02:T15",
+     "verse_id": "anu-p02",
+     "pada_index": 15,
+     "surface": "tat",
+     "legacy_raw": "[and]-that (tat)",
+     "citation": "tat",
+     "morph": "nom.sg.n (tat)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "that",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p02-p016",
+     "legacy_id": "T1:anu-p02:T16",
+     "verse_id": "anu-p02",
+     "pada_index": 16,
+     "surface": "padam",
+     "legacy_raw": "[and]-state (padam)",
+     "citation": "padam",
+     "morph": "nom.sg.n (pada)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "state",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p02-p017",
+     "legacy_id": "T1:anu-p02:T17",
+     "verse_id": "anu-p02",
+     "pada_index": 17,
+     "surface": "eti",
+     "legacy_raw": "[and]-attains (eti)",
+     "citation": "eti",
+     "morph": "3sg.pres (eti)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "attains",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p02-p018",
+     "legacy_id": "T1:anu-p02:T18",
+     "verse_id": "anu-p02",
+     "pada_index": 18,
+     "surface": "vastu",
+     "legacy_raw": "[and]-thing (vastu)",
+     "citation": "vastu",
+     "morph": "nom.sg.n (vastu)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "thing",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p02-p019",
+     "legacy_id": "T1:anu-p02:T19",
+     "verse_id": "anu-p02",
+     "pada_index": 19,
+     "surface": "paramam",
+     "legacy_raw": "[and]-supreme (paramam)",
+     "citation": "paramam",
+     "morph": "adj (parama)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "supreme",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p02-p020",
+     "legacy_id": "T1:anu-p02:T20",
+     "verse_id": "anu-p02",
+     "pada_index": 20,
+     "surface": "vācyam",
+     "legacy_raw": "[and]-to-be-said (vācyam)",
+     "citation": "vācyam",
+     "morph": "indecl. (vācya)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "to-be-said",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p02-p021",
+     "legacy_id": "T1:anu-p02:T21",
+     "verse_id": "anu-p02",
+     "pada_index": 21,
+     "surface": "kim",
+     "legacy_raw": "[and]-what (kim)",
+     "citation": "kim",
+     "morph": "interrog (kim)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "what",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p02-p022",
+     "legacy_id": "T1:anu-p02:T22",
+     "verse_id": "anu-p02",
+     "pada_index": 22,
+     "surface": "atra",
+     "legacy_raw": "[and]-here (atra)",
+     "citation": "atra",
+     "morph": "loc.sg (atra)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "here",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p02-p023",
+     "legacy_id": "T1:anu-p02:T23",
+     "verse_id": "anu-p02",
+     "pada_index": 23,
+     "surface": "adhikam",
+     "legacy_raw": "[and]-more (adhikam)",
+     "citation": "adhikam",
+     "morph": "adj (adhika)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "more",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "anu-p03": [
+    {
+     "id": "anu-p03-p000",
+     "legacy_id": "T1:anu-p03:T0",
+     "verse_id": "anu-p03",
+     "pada_index": 0,
+     "surface": "śabdaḥ",
+     "legacy_raw": "[and]-sound (śabdaḥ)",
+     "citation": "śabdaḥ",
+     "morph": "nom.sg.m (śabda)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "sound",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p03-p001",
+     "legacy_id": "T1:anu-p03:T1",
+     "verse_id": "anu-p03",
+     "pada_index": 1,
+     "surface": "kaścana",
+     "legacy_raw": "[and]-whatever (kaścana)",
+     "citation": "kaścana",
+     "morph": "indecl. (kaścana)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "whatever",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p03-p002",
+     "legacy_id": "T1:anu-p03:T2",
+     "verse_id": "anu-p03",
+     "pada_index": 2,
+     "surface": "yaḥ",
+     "legacy_raw": "[and]-which (yaḥ)",
+     "citation": "yaḥ",
+     "morph": "rel.pron (yaḥ)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "which",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p03-p003",
+     "legacy_id": "T1:anu-p03:T3",
+     "verse_id": "anu-p03",
+     "pada_index": 3,
+     "surface": "mukhāt",
+     "legacy_raw": "[and]-from-the-mouth (mukhāt)",
+     "citation": "mukhāt",
+     "morph": "abl.sg (mukha)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "from-the-mouth",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p03-p004",
+     "legacy_id": "T1:anu-p03:T4",
+     "verse_id": "anu-p03",
+     "pada_index": 4,
+     "surface": "udayate",
+     "legacy_raw": "[and]-arises (udayate)",
+     "citation": "udayate",
+     "morph": "3sg.pres (udayate)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "arises",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p03-p005",
+     "legacy_id": "T1:anu-p03:T5",
+     "verse_id": "anu-p03",
+     "pada_index": 5,
+     "surface": "mantraḥ",
+     "legacy_raw": "[and]-mantra (mantraḥ)",
+     "citation": "mantraḥ",
+     "morph": "nom.sg.m (mantra)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "mantra",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p03-p006",
+     "legacy_id": "T1:anu-p03:T6",
+     "verse_id": "anu-p03",
+     "pada_index": 6,
+     "surface": "saḥ",
+     "legacy_raw": "[and]-that (saḥ)",
+     "citation": "saḥ",
+     "morph": "nom.sg.m (saḥ)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "that",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p03-p007",
+     "legacy_id": "T1:anu-p03:T7",
+     "verse_id": "anu-p03",
+     "pada_index": 7,
+     "surface": "lokottaraḥ",
+     "legacy_raw": "[and]-transcendent (lokottaraḥ)",
+     "citation": "lokottaraḥ",
+     "morph": "adj (lokottara)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "transcendent",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p03-p008",
+     "legacy_id": "T1:anu-p03:T8",
+     "verse_id": "anu-p03",
+     "pada_index": 8,
+     "surface": "saṃsthānam",
+     "legacy_raw": "[and]-posture (saṃsthānam)",
+     "citation": "saṃsthānam",
+     "morph": "nom.sg.n (saṃsthāna)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "posture",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p03-p009",
+     "legacy_id": "T1:anu-p03:T9",
+     "verse_id": "anu-p03",
+     "pada_index": 9,
+     "surface": "sukhaduḥkhajanmavapuṣaḥ",
+     "legacy_raw": "[and]-of-the-body-born-of-pleasure-and-pain (sukhaduḥkhajanmavapuṣaḥ)",
+     "citation": "sukhaduḥkhajanmavapuṣaḥ",
+     "morph": "adj (sukhaduḥkhajanmavapus)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "of-the-body-born-of-pleasure-and-pain",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p03-p010",
+     "legacy_id": "T1:anu-p03:T10",
+     "verse_id": "anu-p03",
+     "pada_index": 10,
+     "surface": "yat",
+     "legacy_raw": "[and]-whatever (yat)",
+     "citation": "yat",
+     "morph": "rel.pron (yat)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "whatever",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p03-p011",
+     "legacy_id": "T1:anu-p03:T11",
+     "verse_id": "anu-p03",
+     "pada_index": 11,
+     "surface": "kāpi",
+     "legacy_raw": "[and]-somehow (kāpi)",
+     "citation": "kāpi",
+     "morph": "indecl. (kāpi)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "somehow",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p03-p012",
+     "legacy_id": "T1:anu-p03:T12",
+     "verse_id": "anu-p03",
+     "pada_index": 12,
+     "surface": "mudrā",
+     "legacy_raw": "[and]-mudrā (mudrā)",
+     "citation": "mudrā",
+     "morph": "nom.sg.f (mudrā)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "mudrā",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p03-p013",
+     "legacy_id": "T1:anu-p03:T13",
+     "verse_id": "anu-p03",
+     "pada_index": 13,
+     "surface": "eva",
+     "legacy_raw": "[and]-indeed (eva)",
+     "citation": "eva",
+     "morph": "indecl. (eva)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "indeed",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p03-p014",
+     "legacy_id": "T1:anu-p03:T14",
+     "verse_id": "anu-p03",
+     "pada_index": 14,
+     "surface": "sā",
+     "legacy_raw": "[and]-that (sā)",
+     "citation": "sā",
+     "morph": "nom.sg.f (sā)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "that",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p03-p015",
+     "legacy_id": "T1:anu-p03:T15",
+     "verse_id": "anu-p03",
+     "pada_index": 15,
+     "surface": "prāṇasya",
+     "legacy_raw": "[and]-of-breath (prāṇasya)",
+     "citation": "prāṇasya",
+     "morph": "gen.sg (prāṇa)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "of-breath",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p03-p016",
+     "legacy_id": "T1:anu-p03:T16",
+     "verse_id": "anu-p03",
+     "pada_index": 16,
+     "surface": "svarasena",
+     "legacy_raw": "[and]-by-own-rhythm (svarasena)",
+     "citation": "svarasena",
+     "morph": "instr.sg (svarasa)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "by-own-rhythm",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p03-p017",
+     "legacy_id": "T1:anu-p03:T17",
+     "verse_id": "anu-p03",
+     "pada_index": 17,
+     "surface": "yat",
+     "legacy_raw": "[and]-which (yat)",
+     "citation": "yat",
+     "morph": "rel.pron (yat)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "which",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p03-p018",
+     "legacy_id": "T1:anu-p03:T18",
+     "verse_id": "anu-p03",
+     "pada_index": 18,
+     "surface": "pravahaṇam",
+     "legacy_raw": "[and]-flowing (pravahaṇam)",
+     "citation": "pravahaṇam",
+     "morph": "nom.sg.n (pravahaṇa)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "flowing",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p03-p019",
+     "legacy_id": "T1:anu-p03:T19",
+     "verse_id": "anu-p03",
+     "pada_index": 19,
+     "surface": "yogaḥ",
+     "legacy_raw": "[and]-yoga (yogaḥ)",
+     "citation": "yogaḥ",
+     "morph": "nom.sg.m (yoga)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "yoga",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p03-p020",
+     "legacy_id": "T1:anu-p03:T20",
+     "verse_id": "anu-p03",
+     "pada_index": 20,
+     "surface": "saḥ",
+     "legacy_raw": "[and]-that (saḥ)",
+     "citation": "saḥ",
+     "morph": "nom.sg.m (saḥ)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "that",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p03-p021",
+     "legacy_id": "T1:anu-p03:T21",
+     "verse_id": "anu-p03",
+     "pada_index": 21,
+     "surface": "eva",
+     "legacy_raw": "[and]-indeed (eva)",
+     "citation": "eva",
+     "morph": "indecl. (eva)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "indeed",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p03-p022",
+     "legacy_id": "T1:anu-p03:T22",
+     "verse_id": "anu-p03",
+     "pada_index": 22,
+     "surface": "adbhutaḥ",
+     "legacy_raw": "[and]-wonderful (adbhutaḥ)",
+     "citation": "adbhutaḥ",
+     "morph": "adj (adbhuta)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "wonderful",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p03-p023",
+     "legacy_id": "T1:anu-p03:T23",
+     "verse_id": "anu-p03",
+     "pada_index": 23,
+     "surface": "śāktam",
+     "legacy_raw": "[and]-śākta (śāktam)",
+     "citation": "śāktam",
+     "morph": "adj (śākta)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "śākta",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p03-p024",
+     "legacy_id": "T1:anu-p03:T24",
+     "verse_id": "anu-p03",
+     "pada_index": 24,
+     "surface": "dhāma",
+     "legacy_raw": "[and]-abode (dhāma)",
+     "citation": "dhāma",
+     "morph": "nom.sg.n (dhāma)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "abode",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p03-p025",
+     "legacy_id": "T1:anu-p03:T25",
+     "verse_id": "anu-p03",
+     "pada_index": 25,
+     "surface": "param",
+     "legacy_raw": "[and]-supreme (param)",
+     "citation": "param",
+     "morph": "adj (parama)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "supreme",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p03-p026",
+     "legacy_id": "T1:anu-p03:T26",
+     "verse_id": "anu-p03",
+     "pada_index": 26,
+     "surface": "mamānubhavataḥ",
+     "legacy_raw": "[and]-while-I-experience (mamānubhavataḥ)",
+     "citation": "mamānubhavataḥ",
+     "morph": "gen.sg (mamānubhava)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "while-I-experience",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p03-p027",
+     "legacy_id": "T1:anu-p03:T27",
+     "verse_id": "anu-p03",
+     "pada_index": 27,
+     "surface": "kim",
+     "legacy_raw": "[and]-what (kim)",
+     "citation": "kim",
+     "morph": "interrog (kim)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "what",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p03-p028",
+     "legacy_id": "T1:anu-p03:T28",
+     "verse_id": "anu-p03",
+     "pada_index": 28,
+     "surface": "nāma",
+     "legacy_raw": "[and]-indeed (nāma)",
+     "citation": "nāma",
+     "morph": "indecl. (nāma)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "indeed",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p03-p029",
+     "legacy_id": "T1:anu-p03:T29",
+     "verse_id": "anu-p03",
+     "pada_index": 29,
+     "surface": "na",
+     "legacy_raw": "[and]-not (na)",
+     "citation": "na",
+     "morph": "neg (na)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "not",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p03-p030",
+     "legacy_id": "T1:anu-p03:T30",
+     "verse_id": "anu-p03",
+     "pada_index": 30,
+     "surface": "bhrājate",
+     "legacy_raw": "[and]-shines (bhrājate)",
+     "citation": "bhrājate",
+     "morph": "3sg.pres (bhrājate)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "shines",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "anu-p04": [
+    {
+     "id": "anu-p04-p000",
+     "legacy_id": "T1:anu-p04:T0",
+     "verse_id": "anu-p04",
+     "pada_index": 0,
+     "surface": "mantraḥ",
+     "legacy_raw": "[and]-mantra (mantraḥ)",
+     "citation": "mantraḥ",
+     "morph": "nom.sg.m (mantra)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "mantra",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p04-p001",
+     "legacy_id": "T1:anu-p04:T1",
+     "verse_id": "anu-p04",
+     "pada_index": 1,
+     "surface": "saḥ",
+     "legacy_raw": "[and]-that (saḥ)",
+     "citation": "saḥ",
+     "morph": "nom.sg.m (saḥ)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "that",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p04-p002",
+     "legacy_id": "T1:anu-p04:T2",
+     "verse_id": "anu-p04",
+     "pada_index": 2,
+     "surface": "pratibhāti",
+     "legacy_raw": "[and]-shines-forth (pratibhāti)",
+     "citation": "pratibhāti",
+     "morph": "3sg.pres (pratibhāti)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "shines-forth",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p04-p003",
+     "legacy_id": "T1:anu-p04:T3",
+     "verse_id": "anu-p04",
+     "pada_index": 3,
+     "surface": "varṇa",
+     "legacy_raw": "[and]-of-letters (varṇa)",
+     "citation": "varṇa",
+     "morph": "nom.sg.n (varṇa)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "of-letters",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p04-p004",
+     "legacy_id": "T1:anu-p04:T4",
+     "verse_id": "anu-p04",
+     "pada_index": 4,
+     "surface": "racanā",
+     "legacy_raw": "[and]-arrangement (racanā)",
+     "citation": "racanā",
+     "morph": "nom.sg.f (racanā)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "arrangement",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p04-p005",
+     "legacy_id": "T1:anu-p04:T5",
+     "verse_id": "anu-p04",
+     "pada_index": 5,
+     "surface": "yasmin",
+     "legacy_raw": "[and]-in-which (yasmin)",
+     "citation": "yasmin",
+     "morph": "loc.sg (yasmin)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "in-which",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p04-p006",
+     "legacy_id": "T1:anu-p04:T6",
+     "verse_id": "anu-p04",
+     "pada_index": 6,
+     "surface": "na",
+     "legacy_raw": "[and]-not (na)",
+     "citation": "na",
+     "morph": "neg (na)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "not",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p04-p007",
+     "legacy_id": "T1:anu-p04:T7",
+     "verse_id": "anu-p04",
+     "pada_index": 7,
+     "surface": "saṃlakṣyate",
+     "legacy_raw": "[and]-is-distinguished (saṃlakṣyate)",
+     "citation": "saṃlakṣyate",
+     "morph": "3sg.pass (saṃlakṣyate)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "is-distinguished",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p04-p008",
+     "legacy_id": "T1:anu-p04:T8",
+     "verse_id": "anu-p04",
+     "pada_index": 8,
+     "surface": "mudrā",
+     "legacy_raw": "[and]-mudrā (mudrā)",
+     "citation": "mudrā",
+     "morph": "nom.sg.f (mudrā)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "mudrā",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p04-p009",
+     "legacy_id": "T1:anu-p04:T9",
+     "verse_id": "anu-p04",
+     "pada_index": 9,
+     "surface": "sā",
+     "legacy_raw": "[and]-that (sā)",
+     "citation": "sā",
+     "morph": "nom.sg.f (sā)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "that",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p04-p010",
+     "legacy_id": "T1:anu-p04:T10",
+     "verse_id": "anu-p04",
+     "pada_index": 10,
+     "surface": "samudeti",
+     "legacy_raw": "[and]-arises (samudeti)",
+     "citation": "samudeti",
+     "morph": "3sg.pres (samudeti)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "arises",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p04-p011",
+     "legacy_id": "T1:anu-p04:T11",
+     "verse_id": "anu-p04",
+     "pada_index": 11,
+     "surface": "yatra",
+     "legacy_raw": "[and]-in-which (yatra)",
+     "citation": "yatra",
+     "morph": "loc.sg (yatra)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "in-which",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p04-p012",
+     "legacy_id": "T1:anu-p04:T12",
+     "verse_id": "anu-p04",
+     "pada_index": 12,
+     "surface": "galitā",
+     "legacy_raw": "[and]-dissolved (galitā)",
+     "citation": "galitā",
+     "morph": "perf.part.f (galitā)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "dissolved",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p04-p013",
+     "legacy_id": "T1:anu-p04:T13",
+     "verse_id": "anu-p04",
+     "pada_index": 13,
+     "surface": "kṛtsnā",
+     "legacy_raw": "[and]-entire (kṛtsnā)",
+     "citation": "kṛtsnā",
+     "morph": "adj (kṛtsna)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "entire",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p04-p014",
+     "legacy_id": "T1:anu-p04:T14",
+     "verse_id": "anu-p04",
+     "pada_index": 14,
+     "surface": "kriyā",
+     "legacy_raw": "[and]-action (kriyā)",
+     "citation": "kriyā",
+     "morph": "nom.sg.f (kriyā)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "action",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p04-p015",
+     "legacy_id": "T1:anu-p04:T15",
+     "verse_id": "anu-p04",
+     "pada_index": 15,
+     "surface": "kāyikī",
+     "legacy_raw": "[and]-bodily (kāyikī)",
+     "citation": "kāyikī",
+     "morph": "adj (kāyikī)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "bodily",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p04-p016",
+     "legacy_id": "T1:anu-p04:T16",
+     "verse_id": "anu-p04",
+     "pada_index": 16,
+     "surface": "yogaḥ",
+     "legacy_raw": "[and]-yoga (yogaḥ)",
+     "citation": "yogaḥ",
+     "morph": "nom.sg.m (yoga)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "yoga",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p04-p017",
+     "legacy_id": "T1:anu-p04:T17",
+     "verse_id": "anu-p04",
+     "pada_index": 17,
+     "surface": "saḥ",
+     "legacy_raw": "[and]-that (saḥ)",
+     "citation": "saḥ",
+     "morph": "nom.sg.m (saḥ)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "that",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p04-p018",
+     "legacy_id": "T1:anu-p04:T18",
+     "verse_id": "anu-p04",
+     "pada_index": 18,
+     "surface": "prathate",
+     "legacy_raw": "[and]-spreads-forth (prathate)",
+     "citation": "prathate",
+     "morph": "3sg.pres (prathate)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "spreads-forth",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p04-p019",
+     "legacy_id": "T1:anu-p04:T19",
+     "verse_id": "anu-p04",
+     "pada_index": 19,
+     "surface": "yataḥ",
+     "legacy_raw": "[and]-from-which (yataḥ)",
+     "citation": "yataḥ",
+     "morph": "abl.sg (yataḥ)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "from-which",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p04-p020",
+     "legacy_id": "T1:anu-p04:T20",
+     "verse_id": "anu-p04",
+     "pada_index": 20,
+     "surface": "pravahaṇam",
+     "legacy_raw": "[and]-flowing (pravahaṇam)",
+     "citation": "pravahaṇam",
+     "morph": "nom.sg.n (pravahaṇa)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "flowing",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p04-p021",
+     "legacy_id": "T1:anu-p04:T21",
+     "verse_id": "anu-p04",
+     "pada_index": 21,
+     "surface": "prāṇasya",
+     "legacy_raw": "[and]-of-breath (prāṇasya)",
+     "citation": "prāṇasya",
+     "morph": "gen.sg (prāṇa)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "of-breath",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p04-p022",
+     "legacy_id": "T1:anu-p04:T22",
+     "verse_id": "anu-p04",
+     "pada_index": 22,
+     "surface": "saṃkṣīyate",
+     "legacy_raw": "[and]-is-exhausted (saṃkṣīyate)",
+     "citation": "saṃkṣīyate",
+     "morph": "3sg.pass (saṃkṣīyate)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "is-exhausted",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p04-p023",
+     "legacy_id": "T1:anu-p04:T23",
+     "verse_id": "anu-p04",
+     "pada_index": 23,
+     "surface": "tvaddhāmādhigamotsaveṣu",
+     "legacy_raw": "[and]-in-the-festivals-of-attaining-your-abode (tvaddhāmādhigamotsaveṣu)",
+     "citation": "tvaddhāmādhigamotsaveṣu",
+     "morph": "comp (tvaddhāmādhigamotsava)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "in-the-festivals-of-attaining-your-abode",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p04-p024",
+     "legacy_id": "T1:anu-p04:T24",
+     "verse_id": "anu-p04",
+     "pada_index": 24,
+     "surface": "sudhiyām",
+     "legacy_raw": "[and]-of-the-wise (sudhiyām)",
+     "citation": "sudhiyām",
+     "morph": "loc.pl.m (sudhī)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "of-the-wise",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p04-p025",
+     "legacy_id": "T1:anu-p04:T25",
+     "verse_id": "anu-p04",
+     "pada_index": 25,
+     "surface": "kim",
+     "legacy_raw": "[and]-what (kim)",
+     "citation": "kim",
+     "morph": "interrog (kim)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "what",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p04-p026",
+     "legacy_id": "T1:anu-p04:T26",
+     "verse_id": "anu-p04",
+     "pada_index": 26,
+     "surface": "kim",
+     "legacy_raw": "[and]-what (kim)",
+     "citation": "kim",
+     "morph": "interrog (kim)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "what",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p04-p027",
+     "legacy_id": "T1:anu-p04:T27",
+     "verse_id": "anu-p04",
+     "pada_index": 27,
+     "surface": "na",
+     "legacy_raw": "[and]-not (na)",
+     "citation": "na",
+     "morph": "neg (na)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "not",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p04-p028",
+     "legacy_id": "T1:anu-p04:T28",
+     "verse_id": "anu-p04",
+     "pada_index": 28,
+     "surface": "nāma",
+     "legacy_raw": "[and]-indeed (nāma)",
+     "citation": "nāma",
+     "morph": "indecl. (nāma)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "indeed",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "anu-p04-p029",
+     "legacy_id": "T1:anu-p04:T29",
+     "verse_id": "anu-p04",
+     "pada_index": 29,
+     "surface": "adbhutam",
+     "legacy_raw": "[and]-wonderful (adbhutam)",
+     "citation": "adbhutam",
+     "morph": "adj (adbhuta)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "wonderful",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ]
+  },
+  "argmap": {
+   "anu-p01": {
+    "verse_id": "anu-p01",
+    "song": "anu-p01",
+    "verse": 1,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "author (devotional voice)",
+    "question": "Mind-wind dissolved in the inward aim; seeing yet not seeing with steady gaze — this is śāmbhavī mudrā by the guru's grace alone: reality free of void and non-void.",
+    "premises": [
+     "Mind-wind dissolved in the inward aim; seeing yet not seeing.",
+     "This becomes śāmbhavī mudrā by the guru's grace alone.",
+     "Reality free of void and non-void: the śāmbhava state."
+    ],
+    "inference": "Dissolution, not effort, becomes the mudrā; grace alone, reality beyond extremes.",
+    "uncertainties": [
+     "Whether śāmbhavī mudrā is performed or occurring is unresolved."
+    ],
+    "traces": {
+     "t1_verse": "anu-p01",
+     "l0_ids": [
+      "anu-p01-p000",
+      "anu-p01-p001",
+      "anu-p01-p002",
+      "anu-p01-p003",
+      "anu-p01-p004",
+      "anu-p01-p005",
+      "anu-p01-p006",
+      "anu-p01-p007",
+      "anu-p01-p008",
+      "anu-p01-p009",
+      "anu-p01-p010",
+      "anu-p01-p011",
+      "anu-p01-p012",
+      "anu-p01-p013",
+      "anu-p01-p014",
+      "anu-p01-p015",
+      "anu-p01-p016",
+      "anu-p01-p017",
+      "anu-p01-p018",
+      "anu-p01-p019",
+      "anu-p01-p020",
+      "anu-p01-p021",
+      "anu-p01-p022",
+      "anu-p01-p023"
+     ]
+    },
+    "sanskrit_sha": "c64cc1cd8ee45b84",
+    "option_choices": []
+   },
+   "anu-p02": {
+    "verse_id": "anu-p02",
+    "song": "anu-p02",
+    "verse": 2,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "author (devotional voice)",
+    "question": "Four outer strokes — half-open eyes, steady mind, nose-tip gaze, moon-sun dissolved — then the vision: light-form without exterior, one supreme person attained; after which speech ends.",
+    "premises": [
+     "Four outer strokes: half-open eyes, steady mind, nose-tip gaze, moon-sun dissolved.",
+     "Then the vision: light-form without exterior, one supreme person.",
+     "After which speech ends: what more is to be said?"
+    ],
+    "inference": "Portrait, then vision, then silence: recognition completes itself.",
+    "uncertainties": [
+     "Whether the triple-throb state (trispandabhāva) is breath or consciousness is unresolved."
+    ],
+    "traces": {
+     "t1_verse": "anu-p02",
+     "l0_ids": [
+      "anu-p02-p000",
+      "anu-p02-p001",
+      "anu-p02-p002",
+      "anu-p02-p003",
+      "anu-p02-p004",
+      "anu-p02-p005",
+      "anu-p02-p006",
+      "anu-p02-p007",
+      "anu-p02-p008",
+      "anu-p02-p009",
+      "anu-p02-p010",
+      "anu-p02-p011",
+      "anu-p02-p012",
+      "anu-p02-p013",
+      "anu-p02-p014",
+      "anu-p02-p015",
+      "anu-p02-p016",
+      "anu-p02-p017",
+      "anu-p02-p018",
+      "anu-p02-p019",
+      "anu-p02-p020",
+      "anu-p02-p021",
+      "anu-p02-p022",
+      "anu-p02-p023"
+     ]
+    },
+    "sanskrit_sha": "1934863a7cd10060",
+    "option_choices": []
+   },
+   "anu-p03": {
+    "verse_id": "anu-p03",
+    "song": "anu-p03",
+    "verse": 3,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "author (devotional voice)",
+    "question": "No technique enjoined: whatever sounds is already transcendent mantra, whatever the body postures is already mudrā, whatever the breath's flow is already wonderful yoga — so, in the experienced śākta abode, what would not shine?",
+    "premises": [
+     "Whatever sounds is already transcendent mantra.",
+     "Whatever postures is already mudrā; whatever breath flows is already wonderful yoga.",
+     "In the experienced śākta abode, what would not shine?"
+    ],
+    "inference": "No technique enjoined; recognition, not practice.",
+    "uncertainties": [
+     "Whether 'śākta dhāma' means the abode of Śakti or the abode of the śākta is unresolved."
+    ],
+    "traces": {
+     "t1_verse": "anu-p03",
+     "l0_ids": [
+      "anu-p03-p000",
+      "anu-p03-p001",
+      "anu-p03-p002",
+      "anu-p03-p003",
+      "anu-p03-p004",
+      "anu-p03-p005",
+      "anu-p03-p006",
+      "anu-p03-p007",
+      "anu-p03-p008",
+      "anu-p03-p009",
+      "anu-p03-p010",
+      "anu-p03-p011",
+      "anu-p03-p012",
+      "anu-p03-p013",
+      "anu-p03-p014",
+      "anu-p03-p015",
+      "anu-p03-p016",
+      "anu-p03-p017",
+      "anu-p03-p018",
+      "anu-p03-p019",
+      "anu-p03-p020",
+      "anu-p03-p021",
+      "anu-p03-p022",
+      "anu-p03-p023",
+      "anu-p03-p024",
+      "anu-p03-p025",
+      "anu-p03-p026",
+      "anu-p03-p027",
+      "anu-p03-p028",
+      "anu-p03-p029",
+      "anu-p03-p030"
+     ]
+    },
+    "sanskrit_sha": "2e9e1e59a7b8a5c9",
+    "option_choices": []
+   },
+   "anu-p04": {
+    "verse_id": "anu-p04",
+    "song": "anu-p04",
+    "verse": 4,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "author (devotional voice)",
+    "question": "Each sacred form defined by a vanishing: mantra where letters unnoticed, mudrā where all bodily action dissolved, yoga where breath-flow exhausted — then the festival: for the wise attaining Your abode, everything wonderful.",
+    "premises": [
+     "Mantra: where letters are not distinguished.",
+     "Mudrā: where bodily action is dissolved; yoga: where breath-flow is exhausted.",
+     "In the festivals of attaining Your abode, everything is wonderful."
+    ],
+    "inference": "Each sacred form defined by what drops out; festival of the abode.",
+    "uncertainties": [
+     "Whether 'sudhī' means 'the wise' or 'the good-minded' is unresolved."
+    ],
+    "traces": {
+     "t1_verse": "anu-p04",
+     "l0_ids": [
+      "anu-p04-p000",
+      "anu-p04-p001",
+      "anu-p04-p002",
+      "anu-p04-p003",
+      "anu-p04-p004",
+      "anu-p04-p005",
+      "anu-p04-p006",
+      "anu-p04-p007",
+      "anu-p04-p008",
+      "anu-p04-p009",
+      "anu-p04-p010",
+      "anu-p04-p011",
+      "anu-p04-p012",
+      "anu-p04-p013",
+      "anu-p04-p014",
+      "anu-p04-p015",
+      "anu-p04-p016",
+      "anu-p04-p017",
+      "anu-p04-p018",
+      "anu-p04-p019",
+      "anu-p04-p020",
+      "anu-p04-p021",
+      "anu-p04-p022",
+      "anu-p04-p023",
+      "anu-p04-p024",
+      "anu-p04-p025",
+      "anu-p04-p026",
+      "anu-p04-p027",
+      "anu-p04-p028",
+      "anu-p04-p029"
+     ]
+    },
+    "sanskrit_sha": "476933cd7ed971c1",
+    "option_choices": []
+   }
+  },
+  "l2": {
+   "anu-p01": {
+    "verse_id": "anu-p01",
+    "song": "anu-p01",
+    "verse": 1,
+    "plain_english": "When the yogin abides with mind-wind dissolved in the inward aim — he, seeing yet not seeing outside with unmoving-pupil gaze — this indeed becomes the śāmbhavī mudrā, by your grace, O guru: devoid of void and non-void becomes that reality, the śāmbhava state.",
+    "sanskrit_cite": "antarlakṣyavilīnacittapavanaḥ yogī yadā vartate dṛṣṭyā niścalatārayā bahir asau paśyan apaśyan api mudreyam | khalu śāmbhavī bhavati sā yuṣmatprasādāt guro śūnyāśūnyavivarjitam bhavati yat tattvam padam śāmbhavam",
+    "l0_ids": [
+     "anu-p01-p000",
+     "anu-p01-p001",
+     "anu-p01-p002",
+     "anu-p01-p003",
+     "anu-p01-p004",
+     "anu-p01-p005",
+     "anu-p01-p006",
+     "anu-p01-p007",
+     "anu-p01-p008",
+     "anu-p01-p009",
+     "anu-p01-p010",
+     "anu-p01-p011",
+     "anu-p01-p012",
+     "anu-p01-p013",
+     "anu-p01-p014",
+     "anu-p01-p015",
+     "anu-p01-p016",
+     "anu-p01-p017",
+     "anu-p01-p018",
+     "anu-p01-p019",
+     "anu-p01-p020",
+     "anu-p01-p021",
+     "anu-p01-p022",
+     "anu-p01-p023"
+    ],
+    "trace_level": "verse"
+   },
+   "anu-p02": {
+    "verse_id": "anu-p02",
+    "song": "anu-p02",
+    "verse": 2,
+    "plain_english": "Half-open-eyed, steady-minded, gaze placed on the nose-tip — moon and sun too have attained dissolution in the interior of the triple-throb state — light-formed, devoid of all exteriority, and one supreme person: reality attains that state, the thing supreme. What more is there to say here?",
+    "sanskrit_cite": "ardhoddhāṭitalocanaḥ sthiramanāḥ nāsāgradattekṣaṇaḥ candrārkau api līnatām upagatau trispandabhāvāntare jyotīrūpam aśeṣabāhyarahitam ca ekam | pumāṃsam param tattvam tat padam eti vastu paramam vācyam kim atra adhikam",
+    "l0_ids": [
+     "anu-p02-p000",
+     "anu-p02-p001",
+     "anu-p02-p002",
+     "anu-p02-p003",
+     "anu-p02-p004",
+     "anu-p02-p005",
+     "anu-p02-p006",
+     "anu-p02-p007",
+     "anu-p02-p008",
+     "anu-p02-p009",
+     "anu-p02-p010",
+     "anu-p02-p011",
+     "anu-p02-p012",
+     "anu-p02-p013",
+     "anu-p02-p014",
+     "anu-p02-p015",
+     "anu-p02-p016",
+     "anu-p02-p017",
+     "anu-p02-p018",
+     "anu-p02-p019",
+     "anu-p02-p020",
+     "anu-p02-p021",
+     "anu-p02-p022",
+     "anu-p02-p023"
+    ],
+    "trace_level": "verse"
+   },
+   "anu-p03": {
+    "verse_id": "anu-p03",
+    "song": "anu-p03",
+    "verse": 3,
+    "plain_english": "Whatever sound arises from the mouth — that mantra is transcendent. Whatever posture of the pleasure-pain-born body — that indeed is mudrā. Whatever flowing of breath by its own rhythm — that indeed is wonderful yoga. The supreme śākta abode — while I experience, what indeed would not shine?",
+    "sanskrit_cite": "śabdaḥ kaścana yaḥ mukhāt udayate mantraḥ saḥ lokottaraḥ saṃsthānam sukhaduḥkhajanmavapuṣaḥ yat kāpi mudrā eva sā prāṇasya | svarasena yat pravahaṇam yogaḥ saḥ eva adbhutaḥ śāktam dhāma param mamānubhavataḥ kim nāma na bhrājate",
+    "l0_ids": [
+     "anu-p03-p000",
+     "anu-p03-p001",
+     "anu-p03-p002",
+     "anu-p03-p003",
+     "anu-p03-p004",
+     "anu-p03-p005",
+     "anu-p03-p006",
+     "anu-p03-p007",
+     "anu-p03-p008",
+     "anu-p03-p009",
+     "anu-p03-p010",
+     "anu-p03-p011",
+     "anu-p03-p012",
+     "anu-p03-p013",
+     "anu-p03-p014",
+     "anu-p03-p015",
+     "anu-p03-p016",
+     "anu-p03-p017",
+     "anu-p03-p018",
+     "anu-p03-p019",
+     "anu-p03-p020",
+     "anu-p03-p021",
+     "anu-p03-p022",
+     "anu-p03-p023",
+     "anu-p03-p024",
+     "anu-p03-p025",
+     "anu-p03-p026",
+     "anu-p03-p027",
+     "anu-p03-p028",
+     "anu-p03-p029",
+     "anu-p03-p030"
+    ],
+    "trace_level": "verse"
+   },
+   "anu-p04": {
+    "verse_id": "anu-p04",
+    "song": "anu-p04",
+    "verse": 4,
+    "plain_english": "That mantra shines forth in which letter-arrangement is not distinguished. That mudrā arises in which entire bodily action is dissolved. That yoga spreads forth from which breath's flowing is exhausted. In the festivals of attaining Your abode, of the wise — what, what is indeed not wonderful? *Fidelity: preserved (all 4 verses, full pādas from T1). Added: connective phrasing only. Not-resolved: trispandabhāva read as inhalation/exhalation/juncture (marked); yataḥ read relatively; śāktaṃ dhāma read as nominative.*",
+    "sanskrit_cite": "mantraḥ saḥ pratibhāti varṇa racanā yasmin na saṃlakṣyate mudrā sā samudeti yatra galitā kṛtsnā kriyā | kāyikī yogaḥ saḥ prathate yataḥ pravahaṇam prāṇasya saṃkṣīyate tvaddhāmādhigamotsaveṣu sudhiyām kim kim na nāma adbhutam",
+    "l0_ids": [
+     "anu-p04-p000",
+     "anu-p04-p001",
+     "anu-p04-p002",
+     "anu-p04-p003",
+     "anu-p04-p004",
+     "anu-p04-p005",
+     "anu-p04-p006",
+     "anu-p04-p007",
+     "anu-p04-p008",
+     "anu-p04-p009",
+     "anu-p04-p010",
+     "anu-p04-p011",
+     "anu-p04-p012",
+     "anu-p04-p013",
+     "anu-p04-p014",
+     "anu-p04-p015",
+     "anu-p04-p016",
+     "anu-p04-p017",
+     "anu-p04-p018",
+     "anu-p04-p019",
+     "anu-p04-p020",
+     "anu-p04-p021",
+     "anu-p04-p022",
+     "anu-p04-p023",
+     "anu-p04-p024",
+     "anu-p04-p025",
+     "anu-p04-p026",
+     "anu-p04-p027",
+     "anu-p04-p028",
+     "anu-p04-p029"
+    ],
+    "trace_level": "verse"
+   }
+  },
+  "c1": {
+   "anu-p01": {
+    "song": "anu-p01",
+    "essence": [
+     "Mind-wind dissolved in the inward aim; seeing yet not seeing with steady gaze — this is śāmbhavī mudrā by the guru's grace alone: reality free of void and non-void."
+    ],
+    "essence_source": "manual",
+    "renders": {
+     "standard": {
+      "sections": {
+       "SUMMARY": "",
+       "FUNCTION": "",
+       "KEY TERMS": "",
+       "LOCAL CONTEXT": "",
+       "EXPLANATION": "",
+       "BOUNDARY": "",
+       "RELATED": ""
+      }
+     }
+    },
+    "rasa": {
+     "dominant": "śānta (tranquility) with adbhuta (wonder)",
+     "sthayibhava": "śānta (tranquility) as śāmbhavī mudrā",
+     "justification": "The sthāyibhāva is devotion (bhakti) in the mode of recognition (pratyabhijñā); the vyabhicāri is wonder (adbhuta), integrated into the śāmbhava state."
+    }
+   },
+   "anu-p02": {
+    "song": "anu-p02",
+    "essence": [
+     "Four outer strokes — half-open eyes, steady mind, nose-tip gaze, moon-sun dissolved — then the vision: light-form without exterior, one supreme person attained; after which speech ends."
+    ],
+    "essence_source": "manual",
+    "renders": {
+     "standard": {
+      "sections": {
+       "SUMMARY": "",
+       "FUNCTION": "",
+       "KEY TERMS": "",
+       "LOCAL CONTEXT": "",
+       "EXPLANATION": "",
+       "BOUNDARY": "",
+       "RELATED": ""
+      }
+     }
+    },
+    "rasa": {
+     "dominant": "adbhuta (wonder) at the light-form vision",
+     "sthayibhava": "adbhuta (wonder) as the vision unfolds",
+     "justification": "The sthāyibhāva is devotion (bhakti) in the mode of vision (darśana); the vyabhicāri is wonder (camatkāra) at the light-form person."
+    }
+   },
+   "anu-p03": {
+    "song": "anu-p03",
+    "essence": [
+     "No technique enjoined: whatever sounds is already transcendent mantra, whatever the body postures is already mudrā, whatever the breath's flow is already wonderful yoga — so, in the experienced śākta abode, what would not shine?"
+    ],
+    "essence_source": "manual",
+    "renders": {
+     "standard": {
+      "sections": {
+       "SUMMARY": "",
+       "FUNCTION": "",
+       "KEY TERMS": "",
+       "LOCAL CONTEXT": "",
+       "EXPLANATION": "",
+       "BOUNDARY": "",
+       "RELATED": ""
+      }
+     }
+    },
+    "rasa": {
+     "dominant": "ānanda (bliss) with adbhuta (wonder)",
+     "sthayibhava": "ānanda (bliss) as everything is already yoga",
+     "justification": "The sthāyibhāva is devotion (bhakti) in the mode of recognition (pratyabhijñā); the vyabhicāri is joy (harṣa) that all utterance/posture/breath is already mantra/mudrā/yoga."
+    }
+   },
+   "anu-p04": {
+    "song": "anu-p04",
+    "essence": [
+     "Each sacred form defined by a vanishing: mantra where letters unnoticed, mudrā where all bodily action dissolved, yoga where breath-flow exhausted — then the festival: for the wise attaining Your abode, everything wonderful."
+    ],
+    "essence_source": "manual",
+    "renders": {
+     "standard": {
+      "sections": {
+       "SUMMARY": "",
+       "FUNCTION": "",
+       "KEY TERMS": "",
+       "LOCAL CONTEXT": "",
+       "EXPLANATION": "",
+       "BOUNDARY": "",
+       "RELATED": ""
+      }
+     }
+    },
+    "rasa": {
+     "dominant": "śānta (tranquility) with adbhuta (wonder)",
+     "sthayibhava": "śānta (tranquility) as the festival of the abode",
+     "justification": "The sthāyibhāva is devotion (bhakti) in the mode of festival (utsava); the vyabhicāri is wonder (adbhuta) that everything is wonderful for the wise."
+    }
+   }
+  },
+  "l3": {
+   "anu-p01": {
+    "verse_id": "anu-p01",
+    "song": "anu-p01",
+    "verse": 1,
+    "lines": [
+     "When the yogin rests, mind and breath dissolved in the inward aim — seeing, yet unseeing, outward with motionless gaze —",
+     "this indeed becomes śāmbhavī mudrā, by your grace, O guru: reality free of void and non-void becomes the śāmbhava state."
+    ],
+    "sanskrit_cite": "antarlakṣyavilīnacittapavano yogī yadā vartate dṛṣṭyā niścalatārayā bahirasau paśyannapaśyannapi | mudreyaṃ khalu śāmbhavī bhavati sā yuṣmatprasādādguro śūnyāśūnyavivarjitaṃ bhavati yat tattvaṃ padaṃ śāmbhavam",
+    "l0_ids": [
+     "anu-p01-p000",
+     "anu-p01-p001",
+     "anu-p01-p002",
+     "anu-p01-p003",
+     "anu-p01-p004",
+     "anu-p01-p005",
+     "anu-p01-p006",
+     "anu-p01-p007",
+     "anu-p01-p008",
+     "anu-p01-p009",
+     "anu-p01-p010",
+     "anu-p01-p011",
+     "anu-p01-p012",
+     "anu-p01-p013",
+     "anu-p01-p014",
+     "anu-p01-p015",
+     "anu-p01-p016",
+     "anu-p01-p017",
+     "anu-p01-p018",
+     "anu-p01-p019",
+     "anu-p01-p020",
+     "anu-p01-p021",
+     "anu-p01-p022",
+     "anu-p01-p023"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "anu-p02": {
+    "verse_id": "anu-p02",
+    "song": "anu-p02",
+    "verse": 2,
+    "lines": [
+     "Eyes half-open, mind steady, gaze set on the nose-tip — moon and sun themselves dissolved within the triple throb —",
+     "a form of light, free of all outside, the one supreme Person: reality attains that state, the highest Real. so it stands, past saying."
+    ],
+    "sanskrit_cite": "ardhoddhāṭitalocanaḥ sthiramanā nāsāgradattekṣaṇaḥ candrārkāvapi līnatāmupagatau trispandabhāvāntare | jyotīrūpamaśeṣabāhyarahitaṃ caikaṃ pumāṃsaṃ paraṃ tattvaṃ tatpadameti vastu paramam vācyaṃ kimatrādhikam",
+    "l0_ids": [
+     "anu-p02-p000",
+     "anu-p02-p001",
+     "anu-p02-p002",
+     "anu-p02-p003",
+     "anu-p02-p004",
+     "anu-p02-p005",
+     "anu-p02-p006",
+     "anu-p02-p007",
+     "anu-p02-p008",
+     "anu-p02-p009",
+     "anu-p02-p010",
+     "anu-p02-p011",
+     "anu-p02-p012",
+     "anu-p02-p013",
+     "anu-p02-p014",
+     "anu-p02-p015",
+     "anu-p02-p016",
+     "anu-p02-p017",
+     "anu-p02-p018",
+     "anu-p02-p019",
+     "anu-p02-p020",
+     "anu-p02-p021",
+     "anu-p02-p022",
+     "anu-p02-p023"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": [
+     "trispandabhāva kept transliterated (breath-vs-consciousness open)"
+    ]
+   },
+   "anu-p03": {
+    "verse_id": "anu-p03",
+    "song": "anu-p03",
+    "verse": 3,
+    "lines": [
+     "Whatever sound rises from the mouth — that mantra is beyond the world; whatever stance this pleasure-pain-born body takes — that itself is mudrā.",
+     "Whatever flowing of breath in its own rhythm — that itself is wondrous yoga; and the supreme śākta abode — as I experience it, what would not shine?"
+    ],
+    "sanskrit_cite": "śabdaḥ kaścana yo mukhādudayate mantraḥ sa lokottaraḥ saṃsthānaṃ sukhaduḥkhajanmavapuṣo yatkāpi mudraiva sā | prāṇasya svarasena yatpravahaṇaṃ yogaḥ sa evādbhutaḥ śāktaṃ dhāma paraṃ mamānubhavataḥ kinnāma na bhrājate",
+    "l0_ids": [
+     "anu-p03-p000",
+     "anu-p03-p001",
+     "anu-p03-p002",
+     "anu-p03-p003",
+     "anu-p03-p004",
+     "anu-p03-p005",
+     "anu-p03-p006",
+     "anu-p03-p007",
+     "anu-p03-p008",
+     "anu-p03-p009",
+     "anu-p03-p010",
+     "anu-p03-p011",
+     "anu-p03-p012",
+     "anu-p03-p013",
+     "anu-p03-p014",
+     "anu-p03-p015",
+     "anu-p03-p016",
+     "anu-p03-p017",
+     "anu-p03-p018",
+     "anu-p03-p019",
+     "anu-p03-p020",
+     "anu-p03-p021",
+     "anu-p03-p022",
+     "anu-p03-p023",
+     "anu-p03-p024",
+     "anu-p03-p025",
+     "anu-p03-p026",
+     "anu-p03-p027",
+     "anu-p03-p028",
+     "anu-p03-p029",
+     "anu-p03-p030"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": [
+     "śākta kept transliterated (of-Śakti vs of-the-śākta open)"
+    ]
+   },
+   "anu-p04": {
+    "verse_id": "anu-p04",
+    "song": "anu-p04",
+    "verse": 4,
+    "lines": [
+     "That mantra shines where no pattern of letters can be traced; that mudrā rises where every bodily act has melted away.",
+     "That yoga spreads where the breath’s flowing is spent; in the festivals of attaining Your abode, of the wise — what, what is not wonderful?"
+    ],
+    "sanskrit_cite": "mantraḥ sa pratibhāti varṇaracanā yasminna saṃlakṣyate mudrā sā samudeti yatra galitā kṛtsnā kriyā kāyikī | yogaḥ sa prathate yataḥ pravahaṇaṃ prāṇasya saṃkṣīyate tvaddhāmādhigamotsaveṣu sudhiyāṃ kiṃ kiṃ na nāmādbhutaṃ",
+    "l0_ids": [
+     "anu-p04-p000",
+     "anu-p04-p001",
+     "anu-p04-p002",
+     "anu-p04-p003",
+     "anu-p04-p004",
+     "anu-p04-p005",
+     "anu-p04-p006",
+     "anu-p04-p007",
+     "anu-p04-p008",
+     "anu-p04-p009",
+     "anu-p04-p010",
+     "anu-p04-p011",
+     "anu-p04-p012",
+     "anu-p04-p013",
+     "anu-p04-p014",
+     "anu-p04-p015",
+     "anu-p04-p016",
+     "anu-p04-p017",
+     "anu-p04-p018",
+     "anu-p04-p019",
+     "anu-p04-p020",
+     "anu-p04-p021",
+     "anu-p04-p022",
+     "anu-p04-p023",
+     "anu-p04-p024",
+     "anu-p04-p025",
+     "anu-p04-p026",
+     "anu-p04-p027",
+     "anu-p04-p028",
+     "anu-p04-p029"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": [
+     "sudhī kept genitive (‘of the wise’); vocative reading open"
+    ]
+   }
+  },
+  "l4": {
+   "anu-p01": {
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "quatrain",
+    "l0_ids": [
+     "anu-p01-p000",
+     "anu-p01-p001",
+     "anu-p01-p002",
+     "anu-p01-p003",
+     "anu-p01-p004",
+     "anu-p01-p005",
+     "anu-p01-p006",
+     "anu-p01-p007",
+     "anu-p01-p008",
+     "anu-p01-p009",
+     "anu-p01-p010",
+     "anu-p01-p011",
+     "anu-p01-p012",
+     "anu-p01-p013",
+     "anu-p01-p014",
+     "anu-p01-p015",
+     "anu-p01-p016",
+     "anu-p01-p017",
+     "anu-p01-p018",
+     "anu-p01-p019",
+     "anu-p01-p020",
+     "anu-p01-p021",
+     "anu-p01-p022",
+     "anu-p01-p023"
+    ],
+    "lines": [
+     "When the yogin rests — mind and breath dissolved in the inward aim —",
+     "seeing, yet unseeing, outward, with motionless gaze —",
+     "this indeed becomes śāmbhavī mudrā, by your grace, O guru:",
+     "reality free of void and non-void — the śāmbhava state."
+    ],
+    "needs": [
+     "human-review"
+    ],
+    "notes": [],
+    "sanskrit_cite": "antarlakṣyavilīnacittapavano yogī yadā vartate dṛṣṭyā niścalatārayā bahirasau paśyannapaśyannapi | mudreyaṃ khalu śāmbhavī bhavati sā yuṣmatprasādādguro śūnyāśūnyavivarjitaṃ bhavati yat tattvaṃ padaṃ śāmbhavam",
+    "song": "anu-p01",
+    "verse": 1,
+    "verse_id": "anu-p01"
+   },
+   "anu-p02": {
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "quatrain",
+    "l0_ids": [
+     "anu-p02-p000",
+     "anu-p02-p001",
+     "anu-p02-p002",
+     "anu-p02-p003",
+     "anu-p02-p004",
+     "anu-p02-p005",
+     "anu-p02-p006",
+     "anu-p02-p007",
+     "anu-p02-p008",
+     "anu-p02-p009",
+     "anu-p02-p010",
+     "anu-p02-p011",
+     "anu-p02-p012",
+     "anu-p02-p013",
+     "anu-p02-p014",
+     "anu-p02-p015",
+     "anu-p02-p016",
+     "anu-p02-p017",
+     "anu-p02-p018",
+     "anu-p02-p019",
+     "anu-p02-p020",
+     "anu-p02-p021",
+     "anu-p02-p022",
+     "anu-p02-p023"
+    ],
+    "lines": [
+     "Eyes half-open, mind steady, gaze set on the nose-tip —",
+     "moon and sun themselves dissolved within the triple throb —",
+     "a form of light, free of all outside, the one supreme Person —",
+     "reality attains that state, the highest Real. What more is there to say?"
+    ],
+    "needs": [
+     "human-review"
+    ],
+    "notes": [
+     "Close restores Sanskrit interrogative (vācyam kim atra adhikam) against L3 declarative; trispandabhāva kept transliterated per L3 note (breath-vs-consciousness open)"
+    ],
+    "sanskrit_cite": "ardhoddhāṭitalocanaḥ sthiramanā nāsāgradattekṣaṇaḥ candrārkāvapi līnatāmupagatau trispandabhāvāntare | jyotīrūpamaśeṣabāhyarahitaṃ caikaṃ pumāṃsaṃ paraṃ tattvaṃ tatpadameti vastu paramam vācyaṃ kimatrādhikam",
+    "song": "anu-p02",
+    "verse": 2,
+    "verse_id": "anu-p02"
+   },
+   "anu-p03": {
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "quatrain",
+    "l0_ids": [
+     "anu-p03-p000",
+     "anu-p03-p001",
+     "anu-p03-p002",
+     "anu-p03-p003",
+     "anu-p03-p004",
+     "anu-p03-p005",
+     "anu-p03-p006",
+     "anu-p03-p007",
+     "anu-p03-p008",
+     "anu-p03-p009",
+     "anu-p03-p010",
+     "anu-p03-p011",
+     "anu-p03-p012",
+     "anu-p03-p013",
+     "anu-p03-p014",
+     "anu-p03-p015",
+     "anu-p03-p016",
+     "anu-p03-p017",
+     "anu-p03-p018",
+     "anu-p03-p019",
+     "anu-p03-p020",
+     "anu-p03-p021",
+     "anu-p03-p022",
+     "anu-p03-p023",
+     "anu-p03-p024",
+     "anu-p03-p025",
+     "anu-p03-p026",
+     "anu-p03-p027",
+     "anu-p03-p028",
+     "anu-p03-p029",
+     "anu-p03-p030"
+    ],
+    "lines": [
+     "Whatever sound rises from the mouth — that mantra is beyond the world;",
+     "whatever stance this pleasure-pain-born body takes — that itself is mudrā;",
+     "whatever flowing of breath in its own rhythm — that itself is wondrous yoga;",
+     "and the supreme śākta abode — as I experience it, what would not shine?"
+    ],
+    "needs": [
+     "human-review"
+    ],
+    "notes": [
+     "śākta kept transliterated per L3 (of-Śakti vs of-the-śākta open)"
+    ],
+    "sanskrit_cite": "śabdaḥ kaścana yo mukhādudayate mantraḥ sa lokottaraḥ saṃsthānaṃ sukhaduḥkhajanmavapuṣo yatkāpi mudraiva sā | prāṇasya svarasena yatpravahaṇaṃ yogaḥ sa evādbhutaḥ śāktaṃ dhāma paraṃ mamānubhavataḥ kinnāma na bhrājate",
+    "song": "anu-p03",
+    "verse": 3,
+    "verse_id": "anu-p03"
+   },
+   "anu-p04": {
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "quatrain",
+    "l0_ids": [
+     "anu-p04-p000",
+     "anu-p04-p001",
+     "anu-p04-p002",
+     "anu-p04-p003",
+     "anu-p04-p004",
+     "anu-p04-p005",
+     "anu-p04-p006",
+     "anu-p04-p007",
+     "anu-p04-p008",
+     "anu-p04-p009",
+     "anu-p04-p010",
+     "anu-p04-p011",
+     "anu-p04-p012",
+     "anu-p04-p013",
+     "anu-p04-p014",
+     "anu-p04-p015",
+     "anu-p04-p016",
+     "anu-p04-p017",
+     "anu-p04-p018",
+     "anu-p04-p019",
+     "anu-p04-p020",
+     "anu-p04-p021",
+     "anu-p04-p022",
+     "anu-p04-p023",
+     "anu-p04-p024",
+     "anu-p04-p025",
+     "anu-p04-p026",
+     "anu-p04-p027",
+     "anu-p04-p028",
+     "anu-p04-p029"
+    ],
+    "lines": [
+     "That mantra shines where no pattern of letters can be traced;",
+     "That mudrā rises where every bodily act has melted away.",
+     "That yoga spreads where the breath's flowing is spent;",
+     "in the festivals of attaining Your abode, of the wise — what, what is not wonderful?"
+    ],
+    "needs": [
+     "human-review"
+    ],
+    "notes": [
+     "sudhī kept genitive ('of the wise'); vocative reading open (per L3)"
+    ],
+    "sanskrit_cite": "mantraḥ sa pratibhāti varṇaracanā yasminna saṃlakṣyate mudrā sā samudeti yatra galitā kṛtsnā kriyā kāyikī | yogaḥ sa prathate yataḥ pravahaṇaṃ prāṇasya saṃkṣīyate tvaddhāmādhigamotsaveṣu sudhiyāṃ kiṃ kiṃ na nāmādbhutaṃ",
+    "song": "anu-p04",
+    "verse": 4,
+    "verse_id": "anu-p04"
+   }
+  },
+  "c2": {}
+ },
+ "source_verses": {
+  "anu-p01": {
+   "text": "antarlakṣyavilīnacittapavano yogī yadā vartate dṛṣṭyā niścalatārayā bahirasau paśyannapaśyannapi | mudreyaṃ khalu śāmbhavī bhavati sā yuṣmatprasādādguro śūnyāśūnyavivarjitaṃ bhavati yat tattvaṃ padaṃ śāmbhavam",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL Nirnaya Sagara 1918 KSTS 17",
+   "source_lines": null,
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "anu-p02": {
+   "text": "ardhoddhāṭitalocanaḥ sthiramanā nāsāgradattekṣaṇaḥ candrārkāvapi līnatāmupagatau trispandabhāvāntare | jyotīrūpamaśeṣabāhyarahitaṃ caikaṃ pumāṃsaṃ paraṃ tattvaṃ tatpadameti vastu paramam vācyaṃ kimatrādhikam",
+   "source_file": "passages.jsonl",
+   "source_license": "SanskritDocuments (Ruma Dewan) - no explicit source licence",
+   "source_origin": "SanskritDocuments (Ruma Dewan, from Abhinavastotravali)",
+   "source_lines": null,
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "anu-p03": {
+   "text": "śabdaḥ kaścana yo mukhādudayate mantraḥ sa lokottaraḥ saṃsthānaṃ sukhaduḥkhajanmavapuṣo yatkāpi mudraiva sā | prāṇasya svarasena yatpravahaṇaṃ yogaḥ sa evādbhutaḥ śāktaṃ dhāma paraṃ mamānubhavataḥ kinnāma na bhrājate",
+   "source_file": "passages.jsonl",
+   "source_license": "SanskritDocuments (Ruma Dewan) - no explicit source licence",
+   "source_origin": "SanskritDocuments (Ruma Dewan, from Abhinavastotravali)",
+   "source_lines": null,
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "anu-p04": {
+   "text": "mantraḥ sa pratibhāti varṇaracanā yasminna saṃlakṣyate mudrā sā samudeti yatra galitā kṛtsnā kriyā kāyikī | yogaḥ sa prathate yataḥ pravahaṇaṃ prāṇasya saṃkṣīyate tvaddhāmādhigamotsaveṣu sudhiyāṃ kiṃ kiṃ na nāmādbhutaṃ",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL (Locana embedded)",
+   "source_lines": null,
+   "note": "Site source display; check the cited edition and full source coverage."
+  }
+ },
+ "l4_craft": {
+  "anu-p01": [
+   {
+    "file": "anubhavanivedana/L4-anu-p01-v01.DRAFT.json",
+    "file_sha256": "241a1272c3afc4b6c05dd959b71712d755d7556317b0a6b9f84a7446e4160bf6",
+    "l4_sha256": "dc854ad281807b22cd6cfce7c64d29a7e6a02849af048ef6f7076afac25fc6f9",
+    "notes": {
+     "craft_notes": "Sthāyin: śānta as śāmbhavī mudrā with adbhuta; sthāyibhāva bhakti in the mode of pratyabhijñā (recognition), vyabhicāri wonder (C1 rasa block). Verse color: paradox held steady resolving into grace-given recognition. Firing structures: the oxymoron paśyan/apaśyan is given by the source and is the verse's hinge -> isolate 'seeing, yet unseeing' on its own line (the eye stops where the gaze stops); the long opening bahuvrīhi (antarlakṣyavilīnacittapavanaḥ) is one inward breath -> first line unbroken; vocative turn (guro) -> colon address; terminal doctrine word (śāmbhavam) -> end-weight the state name. Dashes as chant breaths. Minimal pass: reline L3 into breath units + paradox-pivot device; no diction changes beyond L3's own words.",
+     "reads_against": {
+      "argmap": "premises (dissolution + seeing-yet-not-seeing; becomes mudrā by grace alone; reality free of extremes) + inference (dissolution not effort; grace alone, beyond extremes)",
+      "c1_essence": [
+       0
+      ],
+      "c1_rasa": "śānta with adbhuta; bhakti as pratyabhijñā; wonder integrated into the śāmbhava state",
+      "l2": "When the yogin abides with mind-wind dissolved in the inward aim — he, seeing yet not seeing outside with unmoving-pupil gaze — this indeed becomes the śāmbhavī mudrā, by your grace, O guru: devoid of void and non-void becomes that reality, the śāmbhava state.",
+      "l3": [
+       "When the yogin rests, mind and breath dissolved in the inward aim — seeing, yet unseeing, outward with motionless gaze —",
+       "this indeed becomes śāmbhavī mudrā, by your grace, O guru: reality free of void and non-void becomes the śāmbhava state."
+      ],
+      "t1": "whose-mind-wind-is-dissolved-in-the-inward-aim / the-yogin / when / abides / with-gaze / of-unmoving-pupil / outside / he / seeing / not-seeing / even / this-mudrā / indeed / śāmbhavī / becomes / that / by-your-grace / O-guru / devoid-of-void-and-non-void / becomes / which / reality / state / śāmbhava"
+     }
+    }
+   }
+  ],
+  "anu-p02": [
+   {
+    "file": "anubhavanivedana/L4-anu-p02-v02.DRAFT.json",
+    "file_sha256": "17fcf199b13ddaefc788fed8467de6e265a5dd77116124f63102c0cec1d2f29b",
+    "l4_sha256": "23a68bdfa417e6529e6602d6f459e5878147bdf09c2b925e7a2eea72ff7561d8",
+    "notes": {
+     "craft_notes": "Same work voice as anu v1 (quatrain, dash breaths); new song, new sthāyin: adbhuta as the vision unfolds — bhakti in the mode of darśana, vyabhicāri camatkāra at the light-form person (C1 rasa block). Verse color: portrait, then vision, then silence. Firing rows: three parallel bahuvrīhi portrait-strokes -> parallel placement kept in one gathering line (row 3); compounds unpacked across the line-break (row 2); the close is the rupture AND the śānta-fall — Sanskrit ends not in statement but in question (vācyam kim atra adhikam, 'what more is to be said here?'). L3 states it ('past saying'); L4 restores the question: the verse silences itself by asking. Sanskrit-wins correction recorded here per ultimate-authority rule. FULL-LAYER AUDIT (all former layers re-read): L0 has no forks (all fork:none, single backfilled options) — it confirms rather than redirects: dual candrārkau (p003) + api too/even (p004) → 'themselves' carries both number and inclusion; pumāṃsam (p012) is accusative, the OBJECT of the vision → line 3 correctly an object-phrase, not subject; līnatām (p005, noun 'dissolvedness') + upagatau (p006, 'attained') → 'dissolved' collapse loses no aspect; atra (p022, 'here') absorbed into English 'there' — conscious thinning, vowel-arc cost of terminal 'here' judged higher than the deictic loss, recorded not hidden. REJECTED OPTIONS (with killers): (a) L3 close 'so it stands, past saying.' → killed by Sanskrit interrogative kim (L0 p021) + NOTE 'the question is the period': stating what the verse asks drops a rank and kills the rupture. (b) Close with atra kept ('...to say here?') → killed by vowel arc: terminal 'here' lifts where 'say' settles; 'there' absorbs the deixis. (c) Portrait strokes split over two lines → killed by row 3: the three bahuvrīhis are one gathering breath, splitting flattens the parallel placement and breaks v1's quatrain-breath voice. (d) 'tip of the nose' → killed by row 2 density + singability; L3's hyphen-chain 'nose-tip' stands. (e) 'too' for api ('moon and sun too dissolved') → killed by economy: 'themselves' carries dual number + inclusion in one word. (f) Line-3 colon (L3's ':') → killed by voice continuity: v1 set dash-breaths, a colon would import a second caesura system. End-weight: the question is line-final and song-final — speech ends where the line ends. Vowel arc bright (Eyes, light) to dark (say). Read aloud: three long gathering lines, one short closing question — the breath stops where speech stops.",
+     "reads_against": {
+      "argmap": "premises (four outer strokes; the vision: light-form, one supreme person; speech ends) + inference (portrait, then vision, then silence) + uncertainty (trispandabhāva breath vs consciousness — kept open)",
+      "c1_essence": [
+       0
+      ],
+      "c1_rasa": "adbhuta at the light-form vision; bhakti as darśana; camatkāra at the light-form person",
+      "l2": "Half-open-eyed, steady-minded, gaze placed on the nose-tip — moon and sun too have attained dissolution in the interior of the triple-throb state — light-formed, devoid of all exteriority, and one supreme person: reality attains that state, the thing supreme. What more is there to say here?",
+      "l3": [
+       "Eyes half-open, mind steady, gaze set on the nose-tip — moon and sun themselves dissolved within the triple throb —",
+       "a form of light, free of all outside, the one supreme Person: reality attains that state, the highest Real. so it stands, past saying."
+      ],
+      "t1": "half-open-eyed / steady-minded / whose-gaze-is-placed-on-the-nose-tip / moon-and-sun / even / dissolution / attained / in-the-interior-of-the-triple-throb-state / of-light-form / devoid-of-all-exteriority / and / one / person / supreme / reality / that / state / attains / thing / supreme / to-be-said / what / here / more"
+     }
+    }
+   }
+  ],
+  "anu-p03": [
+   {
+    "file": "anubhavanivedana/L4-anu-p03-v03.DRAFT.json",
+    "file_sha256": "e65f4a9dc770dbeee5b611153d54005fe81973e29c1cfe9d70bffe45b3045697",
+    "l4_sha256": "d99c34983b0d4d9f752c29bbd1b8879ddc3a801815c5330a52786321429e67fc",
+    "notes": {
+     "craft_notes": "Same work voice (quatrain, dash breaths); new song, new sthāyin: ānanda as everything-is-already-yoga — bhakti in the mode of pratyabhijñā (recognition), vyabhicāri harṣa (joy that all utterance/posture/breath is already mantra/mudrā/yoga). Verse color: recognition over technique; nothing enjoined, everything shining. Firing rows: the source's own engine is threefold repetition-with-variation (yat…saḥ / yat…sā / yat…saḥ, row 9) → English anaphora, capital 'Whatever' line-initial ×3; verb-final bhrājate (row 1) → end-weight 'shine' line-final and song-final; close is interrogative kim…na bhrājate (L0 p027) → the question IS the close again (v2's principle holds: the question is the period), but here it affirms — 'what would NOT shine?' means everything shines, so the vowel arc runs bright-to-brightest, the inverse of v2's dark settle. First-person mama (L0 p026) kept as 'I' per row 11 deixis: the Sanskrit particularizes, so English particularizes — generalizing to 'one' would betray the trace. FULL-LAYER AUDIT: L0 no forks (all fork:none); three redefinitions map cleanly p000–p007 (sound→mantra), p008–p014 (posture→mudrā), p015–p022 (breath-flow→yoga); śākta kept transliterated per L3 note (abode-of-Śakti vs of-the-śākta open — do not resolve in song). NOTE confirms 'Nothing enjoined; utterance, posture, breathing are recognized as already mantra, mudrā, yoga' + 'shining is the default' — the draft's arc is the analysis sung. REJECTED OPTIONS (with killers): (a) L3 couplet kept as 2 long lines → killed by work voice (v1/v2 quatrain) + row 9: anaphora needs line-initial repetition to scan, three redefinitions need three breaths. (b) lowercase mid-line 'whatever' → killed by the device itself: unstressed repetition isn't anaphora. (c) 'transcendent' for lokottara (L0 gloss) → killed by rule 15 + singability: L3's 'beyond the world' is frozen and breathes; both trace p007. (d) dropping line-4 'and' → killed by small-edits rule: L3's joint, keep it. (e) 'while I experience' (L2) over L3's 'as I experience it' → killed by L3-frozen; both trace p026. (f) declarative close ('everything shines.') → killed by kim interrogative + v2 precedent: stating what the verse asks drops the rank. Read aloud: three gathering Whatever-lines, one bright closing question — the breath opens, not stops.",
+     "reads_against": {
+      "argmap": "premises (whatever sounds→mantra; whatever postures→mudrā; whatever breath flows→yoga; in the experienced abode what would not shine?) + inference (no technique enjoined; recognition not practice) + uncertainty (śākta dhāma both readings open — kept open)",
+      "c1_essence": [
+       0
+      ],
+      "c1_note": "Three redefinitions + the ground and the question; 'shining is the default'; BOUNDARY keeps śākta open",
+      "c1_rasa": "ānanda with adbhuta; bhakti as pratyabhijñā; harṣa that all is already mantra/mudrā/yoga",
+      "l2": "Whatever sound arises from the mouth — that mantra is transcendent. Whatever posture of the pleasure-pain-born body — that indeed is mudrā. Whatever flowing of breath by its own rhythm — that indeed is wonderful yoga. The supreme śākta abode — while I experience, what indeed would not shine?",
+      "l3": [
+       "Whatever sound rises from the mouth — that mantra is beyond the world; whatever stance this pleasure-pain-born body takes — that itself is mudrā.",
+       "Whatever flowing of breath in its own rhythm — that itself is wondrous yoga; and the supreme śākta abode — as I experience it, what would not shine?"
+      ],
+      "t1": "sound / whatever / which / from-the-mouth / arises / mantra / that / transcendent / posture / of-the-body-born-of-pleasure-and-pain / whatever / somehow / mudrā / indeed / that / of-breath / by-own-rhythm / which / flowing / yoga / that / indeed / wonderful / śākta / abode / supreme / while-I-experience / what / indeed / not / shines"
+     }
+    }
+   }
+  ],
+  "anu-p04": [
+   {
+    "file": "anubhavanivedana/L4-anu-p04-v04.DRAFT.json",
+    "file_sha256": "9804b02cd8ea6d9bdd09ea6eff25626e35d0046b735344da4d6f86866dd63fce",
+    "l4_sha256": "b969b88e53020304f953d2be9694d825493c3d6a41d36ba7dbf7be4d1f76ad34",
+    "notes": {
+     "craft_notes": "Work voice holds (quatrain, dash breaths); closing song of the work, sthāyin: śānta as the festival of the abode — bhakti in the mode of utsava (festival), vyabhicāri adbhuta that everything is wonderful for the wise. Verse color: definitions by vanishing erupting into festival (v3 said all IS yoga; v4 says each form is known by what has dropped out of it — recognition deepens). Firing rows: strict yasmin/yatra/yataḥ parallel (rows 3+9) → 'That…where…' anaphora ×3, the structural rhyme answering v3's 'Whatever ×3'; three DISTINCT verbs pratibhāti/samudeti/prathate → kept distinct (each form shines differently — variety is doctrine); doubled kim kim (L0 p025–p026) → the stammer kept, it IS the camatkāra; tvad second person (row 7) → 'Your' prominent, distance collapsed; sudhī open (BOUNDARY) → L3's 'of the wise' kept, note carried. FULL-LAYER AUDIT: L0 no forks; NOTE's 'Three definitions by vanishing, in strict yasmin/yatra/yataḥ parallel' + 'it ends in festival' is the draft's skeleton — analysis sung, not decorated. REJECTED OPTIONS (with killers): (a) L3 couplet kept → killed by work-voice quatrain + three definitions need three breaths. (b) flattening shines/arises/spreads to one verb → killed by Sanskrit: three verbs, three musics; flattening sanitizes variety. (c) single 'what' (smoothing the stammer) → killed by doubled kim kim: undoubling calms the camatkāra. (d) resolving sudhī to 'the good-minded' → killed by BOUNDARY (unresolved). (e) 'dissolved' for galitā over L3's 'melted away' → killed by rule 15, L3 frozen; both trace p012. (f) exclamatory close ('how wonderful!') → killed by v2 precedent + row 10: the question affirms, exclamation states. Read aloud: three That-lines gathering by vanishing, one festival question — the song ends open, shining. SELF-CAUGHT PRE-VERDICT: first draft carried a sandhi-normalized cite reconstructed from memory; byte-check against L3 failed, replaced with exact L3 string. The check exists because memory smooths — this is the error it is for.",
+     "reads_against": {
+      "argmap": "premises (mantra where letters undistinguished; mudrā where action dissolved; yoga where breath exhausted; festivals of Your abode — all wonderful) + inference (each form defined by what drops out; festival of the abode) + uncertainty (sudhī wise vs good-minded open)",
+      "c1_essence": [
+       0
+      ],
+      "c1_note": "Three definitions by vanishing, strict yasmin/yatra/yataḥ parallel; 'it ends in festival'; BOUNDARY keeps sudhī open",
+      "c1_rasa": "śānta with adbhuta; bhakti as utsava (festival); wonder that everything is wonderful",
+      "l2": "That mantra shines forth in which letter-arrangement is not distinguished. That mudrā arises in which entire bodily action is dissolved. That yoga spreads forth from which breath's flowing is exhausted. In the festivals of attaining Your abode, of the wise — what, what is indeed not wonderful?",
+      "l3": [
+       "That mantra shines where no pattern of letters can be traced; that mudrā rises where every bodily act has melted away.",
+       "That yoga spreads where the breath's flowing is spent; in the festivals of attaining Your abode, of the wise — what, what is not wonderful?"
+      ],
+      "t1": "mantra / that / shines-forth / of-letters / arrangement / in-which / not / is-distinguished / mudrā / that / arises / in-which / dissolved / entire / action / bodily / yoga / that / spreads-forth / from-which / flowing / of-breath / is-exhausted / in-the-festivals-of-attaining-your-abode / of-the-wise / what / what / not / indeed / wonderful"
+     }
+    }
+   }
+  ]
+ },
+ "withheld_songs": [],
+ "original_hashes": {
+  "t1": {
+   "anu-p01": "3188d1fde77cfe560a6e0681e14c15e5d6dacee0113f638e6a95b9b17586fa89",
+   "anu-p02": "206833345dc3f9c3a363f01aea564fa41c16607fb81ffdce768e7dff09cfac40",
+   "anu-p03": "be6afc3a58b3da896998feaf39858ef0f9279732eff8555c947fe276f03890f5",
+   "anu-p04": "2b41366a761d142005c2174e867f18cf3ec0d4025c1fabdb4809579af3f5cf9d"
+  },
+  "l0": {
+   "anu-p01": "e2e15c805a48aba3ed82406e221eacfc0121298c9f65c03e31fa4ea52d8c4e4f",
+   "anu-p02": "10996b40690edb09693c23a9423271780d7714a983d10f67977fd79c9fa67612",
+   "anu-p03": "1062907646d34686910ae2df74a05885b437198f9c6d787d326451aed3abbeee",
+   "anu-p04": "7afc1855cd8f380de6fb411e2e0e589734ca9613b93705d8635f318abe4a1317"
+  },
+  "argmap": {
+   "anu-p01": "4f0de318f82137fd24db02e82f4f08d59b35f1a83513a062cdcdd1404f669769",
+   "anu-p02": "c22c8269809554cab044647cf83fef7c5bb990a78dbc67367002fd5940e274f5",
+   "anu-p03": "4626ac45082d670da8cf880dc060e98d0307dbd5a28ab910905ea2ef90f796e8",
+   "anu-p04": "462cfb18e03408892bd352f9864961583ce8662ac0d1babd8d980f15109a2e86"
+  },
+  "l2": {
+   "anu-p01": "08ff7d945d63d8b8641f87394562ae8ea54e71b73a300a07f0d4495626d94439",
+   "anu-p02": "332db2720ebe93b8709520b3f470f47f78d61d3ee90034f421522522588e55e3",
+   "anu-p03": "760ea45408ddd032be2145242e6a7b79dde3f249e714b3760935c528dfefc876",
+   "anu-p04": "91cc01a8c481a0efe96e4ea0bffb6f4ed43304d9cf40882f1b165d798e331f9e"
+  },
+  "c1": {
+   "anu-p01": "978a7eaa2662d9bf2419064e8209f25977e39114e7b635cf1e68c60bff33b3aa",
+   "anu-p02": "7e520e9caf970c8c5b5d46eb286abe11fb9c40961d6ca4d97b0db56123aea086",
+   "anu-p03": "7892fdf9913c28ca0cb14088030c63157538b997fc61a5ba574dc128a8679879",
+   "anu-p04": "b903f460867917ac216d10b859510aa89923da69d0087b3785cc2c96b9cb6a02"
+  },
+  "l3": {
+   "anu-p01": "4f40d73787bcfbf2791d75561eb97a696e0c710f96eca9ff1b5aca7e0a04f3d1",
+   "anu-p02": "e8734728cbe47cae94ca2accb6dc0d53eb5266d40deb43dd72420b20e09e8815",
+   "anu-p03": "7a8697a7472912fe51099d99c9f6737018789d4892db73b1a1cc40da6e8e56ce",
+   "anu-p04": "b7dd85ccf613b447b8aed044514d7f91b1f16fb57f691221aa45dc04cb590bee"
+  },
+  "l4": {
+   "anu-p01": "dc854ad281807b22cd6cfce7c64d29a7e6a02849af048ef6f7076afac25fc6f9",
+   "anu-p02": "23a68bdfa417e6529e6602d6f459e5878147bdf09c2b925e7a2eea72ff7561d8",
+   "anu-p03": "d99c34983b0d4d9f752c29bbd1b8879ddc3a801815c5330a52786321429e67fc",
+   "anu-p04": "b969b88e53020304f953d2be9694d825493c3d6a41d36ba7dbf7be4d1f76ad34"
+  },
+  "c2": {}
+ },
+ "versions": [],
+ "essays": [],
+ "reviews": [],
+ "promotions": [],
+ "signoffs": [],
+ "stack_hashes": {
+  "anu-p01": "3911b71382ce8ae572c50a5cff3f55e7ce94a797cf138189f417a4f7f3be9bb1",
+  "anu-p02": "d165405e8fa94d115d30ce4a506822fb729d0b57db493169725399b714c27910",
+  "anu-p03": "dfd01ed38e3653db26d84751da9d3312647648e3bd621834ab2f098d8f064fce",
+  "anu-p04": "a172a7aef9b69f17f50d039b4c1b7990ca6c8d0f774a35a9ffdb44c711debb8b"
+ },
+ "projection_sha256": "d7136559782f9c7b03980ad1271a999d9aa08d0c87266e3e26e99c79922310d7"
+}
