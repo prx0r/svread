@@ -7,7 +7,7 @@
 | Svatantrya | L4 | **THE canonical translation** (owner directive 2026-11-03). The song layer: L3 set to the rhythm of the verse. Default right column wherever it exists; `?right=svatantrya`/`canonical` alias here. |
 | Final | L3 | Line-by-line, evocative, grounded (l0_ids + essence_maps). Default where no L4 is on file. |
 | Literal | L0 word-gloss (fallback: L1 close) | Gloss only, never prose. |
-| Plain | L2 | **The translation.** Plain exact English; translation, never commentary. |
+| English translation | L2 | **The translation.** Plain exact English; translation, never commentary. (Renamed from 'Plain' — owner directive: call it English translation.) |
 | Commentary | C1 SUMMARY + rasa | About the verse, openly labeled. Never a translation. |
 | Sanskrit | sa-deva / sa-iast | Root text, always present, always first. |
 | Yours | localStorage `mine` | Pasted by the reader, this device only. |
@@ -70,6 +70,22 @@ The **Scholar** nav tab. Same functions (`$`/`esc`/`get`/`W`/`dl`/`norm`) and sa
 - **Rights (owner directive):** our English translation (L1–L4 + commentary) = **FREE**;
   scholar edits/versions/reviews/sign-offs = **(c) their authors** — carried in the emitted
   `rights` block and shown in the reader's Attributions.
+
+## Right-column dropdown: Language + Style (2026-11-03)
+
+Below the existing lane groups the right dropdown now has two sections:
+**Language** — `English` (the only language on file; more later), which selects the
+canonical English lane (l4→l3→l2). **Style** — `Normal` (no style, the standard English
+translation) plus the C2 derivations from `data/styles.json` (gen z · eli5 · poetic ·
+formal · mathematical). Picking a style queues it (`svv-c2pending`) and routes to the
+Yours/mine lane — canonical columns never show machine renders — auto-rendering the
+current verse via the existing `/api/c2/render` flow. **These styles ARE the C2 layer.**
+
+## Side-by-side alignment (2026-11-03)
+
+Every verse pair gets an equal row height (`alignVerses()`, grow-only, equality-guarded,
+re-run via ResizeObserver) so Sanskrit and English read across at the same eye line —
+no cumulative drift on long works (105/105 paramarthasara pairs verified).
 
 ## Audio widget (was: Recitation — renamed 2026-11-03, owner directive)
 

@@ -112,11 +112,31 @@ function setCol(which, v){
 
 let DATA = null;
 
+function engLaneId(){
+  const vs = (DATA && DATA.verses) || [];
+  if(vs.some(v=>v.l4)) return 'l4';
+  if(vs.some(v=>v.l3)) return 'l3';
+  return 'l2';
+}
+/* Side-by-side section alignment: every verse pair gets the same row height,
+   so Sanskrit and English read across at the same eye line. Grow-only with an
+   equality guard -> converges (no ResizeObserver loop). */
+function alignVerses(){
+  const L = document.querySelectorAll('#colL .verse'), R = document.querySelectorAll('#colR .verse');
+  const n = Math.min(L.length, R.length); if(!n) return;
+  for(let i=0;i<n;i++){
+    const h = Math.max(L[i].offsetHeight, R[i].offsetHeight);
+    const px = h + 'px';
+    if(L[i].style.minHeight !== px) L[i].style.minHeight = px;
+    if(R[i].style.minHeight !== px) R[i].style.minHeight = px;
+  }
+}
+
 const VDEF = {
   'sa-deva': v=>({label:v.title||WORK, desc:'Sanskrit text, Devanagari', meta:'san edition'}),
   'sa-iast': v=>({label:v.title||WORK, desc:'Sanskrit text, IAST transliteration', meta:'san transliteration'}),
   'l1': ()=>({label:'Literal', desc:'Close translation — faithful to the Sanskrit', meta:'eng translation'}),
-  'l2': ()=>({label:'Plain', desc:'Plain translation — clear English', meta:'eng translation'}),
+  'l2': ()=>({label:'English translation', desc:'The English translation — clear, direct prose', meta:'eng translation'}),
   'c1': ()=>({label:'Commentary', desc:'Commentary — SUMMARY plus rasa reading', meta:'eng commentary'}),
   'l3': ()=>({label:'Final', desc:'Final translation — line by line, evocative', meta:'eng final'}),
   'l4': ()=>({label:'Svatantrya', desc:'Canonical translation — L4, set to the rhythm of the verse', meta:'eng canonical'}),
@@ -708,6 +728,12 @@ async function main(){
   if(LEFT==='l0' && !LIDS.includes('l0')) LEFT = 'l1';
   if(RIGHT==='l0' && !RIDS.includes('l0')) RIGHT = 'l1';
   renderCol('L', LEFT); renderCol('R', RIGHT);
+  alignVerses();
+  try{
+    const ro = new ResizeObserver(()=>{ requestAnimationFrame(alignVerses); });
+    ro.observe($('#cols'));
+    window.addEventListener('resize', ()=>requestAnimationFrame(alignVerses));
+  }catch(e){}
   const syncCols = ()=>{
     const split = RIGHT!=='none';
     const colR = $('#colR'), add = $('#addcol');
@@ -726,6 +752,7 @@ async function main(){
     document.querySelectorAll('.dropdown-menu').forEach(m=>{ if(m!==menu) m.classList.remove('show'); });
     if(menu) menu.classList.add('show');
   };
+  get('data/styles.json').then(a=>{ if(Array.isArray(a)) window.SVSTYLES = a; }).catch(()=>{});
   let LIBDATA = null;
   try{ LIBDATA = await get('data/library.json'); }catch(e){}
   buildLeftRail(verses, LIBDATA);
@@ -765,6 +792,23 @@ async function main(){
       b.disabled = false; b.textContent = old;
     };
   });
+  /* queued C2 pick from the Style dropdown: auto-render for the current verse */
+  try{
+    const pend = JSON.parse(sessionStorage.getItem('svv-c2pending') || 'null');
+    if(pend && RIGHT === 'mine'){
+      sessionStorage.removeItem('svv-c2pending');
+      const v = (DATA.verses || [])[pend.ix || 0];
+      if(v){
+        const inp = document.getElementById('c2in-' + v.id);
+        if(inp){
+          inp.value = String(pend.style || '').slice(0, 60);
+          const el = document.querySelector(`.verse[data-i="${pend.ix || 0}"]`);
+          if(el) el.scrollIntoView({block:'center'});
+          setTimeout(()=>{ const b = document.querySelector(`.c2btn[data-ch="${v.id}"]`); if(b) b.click(); }, 300);
+        }
+      }
+    }
+  }catch(e){}
   document.querySelectorAll('#textL .w, #textR .w').forEach(w=>{
     w.onclick = ()=>askWord(w);
   });
@@ -808,7 +852,7 @@ async function buildLeftRail(verses, LIBDATA){
         + `<tr><td>work</td><td>${esc(DATA.title)}</td></tr>`
         + `<tr><td>source</td><td>${esc(DATA.source_edition || 'root text (see Work ID)')}</td></tr>`
         + `<tr><td>translation</td><td><b>FREE</b> — our English (L1–L4, commentary) is free use. Scholar edits &amp; words: © their authors, all rights reserved.</td></tr>`
-        + `<tr><td>editions</td><td>Svatantrya (L4) · Final · Literal gloss · Plain translation · Commentary — pipeline, machine-proposed, needs human review</td></tr>`
+        + `<tr><td>editions</td><td>Svatantrya (L4) · Final · Literal gloss · English translation · Commentary — pipeline, machine-proposed, needs human review</td></tr>`
         + `<tr><td>gate</td><td>${verses.filter(v=>v.gate==='PASS').length}/${verses.length} passages passed</td></tr>`
         + (PROOF ? `<tr><td>proof</td><td>${Object.values(PROOF).filter(p=>p.gate==='PASS').length}/${Object.keys(PROOF).length} proved 5/5 · deterministic gate, no model</td></tr>` : '')
         + `<tr><td>repository</td><td>prx0r/svread · data: prx0r/ipvv layers</td></tr></table>`)
@@ -931,9 +975,30 @@ function renderCol(side, vid){
       menuHtml+=present.map(item).join('');
     }
   }
-  menuEl.innerHTML = menuHtml + (side==='R' && vid!=='none' ? `<div class="dropdown-divider"></div><a class="dropdown-item remove" href="#" data-col="R" data-v="none"><span class="side">&nbsp;</span><div><div class="label">remove column</div></div></a>` : '');
+  let extra = '';
+  if(side === 'R'){
+    const eng = engLaneId();
+    const STYLES = Array.isArray(window.SVSTYLES) ? window.SVSTYLES : ['gen z','eli5','poetic','formal','mathematical'];
+    extra = `<div class="dropdown-divider"></div><div class="dgroup">Language</div>`
+      + `<a class="dropdown-item" href="#" data-col="R" data-v="${eng}"><span class="side">&nbsp;</span><div><div class="label">English</div><div class="description">the only language on file — the English translation</div><div class="metadata">eng · more languages later</div></div></a>`
+      + `<div class="dropdown-divider"></div><div class="dgroup">Style</div>`
+      + `<a class="dropdown-item styleitem" href="#" data-style="normal"><span class="side">&nbsp;</span><div><div class="label">Normal</div><div class="description">no style — the standard English translation</div><div class="metadata">c2 base</div></div></a>`
+      + STYLES.map(st=>`<a class="dropdown-item styleitem" href="#" data-style="${esc(st)}"><span class="side">&nbsp;</span><div><div class="label">${esc(st)}</div><div class="description">derivation of the English translation (C2)</div><div class="metadata">c2 · machine render</div></div></a>`).join('');
+  }
+  menuEl.innerHTML = menuHtml + extra + (side==='R' && vid!=='none' ? `<div class="dropdown-divider"></div><a class="dropdown-item remove" href="#" data-col="R" data-v="none"><span class="side">&nbsp;</span><div><div class="label">remove column</div></div></a>` : '');
   menuEl.querySelectorAll('.dropdown-item,.tbar').forEach(a=>{
     a.onclick = e=>{ e.preventDefault(); menuEl.classList.remove('show'); setCol(a.getAttribute('data-col')==='L'?'left':'right', a.getAttribute('data-v')); };
+  });
+  /* Style = C2. Canonical columns never show machine renders (doctrine): a style
+     pick routes to the mine lane with the render queued for the current verse. */
+  menuEl.querySelectorAll('.dropdown-item.styleitem').forEach(a=>{
+    a.onclick = e=>{
+      e.preventDefault(); menuEl.classList.remove('show');
+      const st = a.getAttribute('data-style');
+      if(st === 'normal'){ setCol('right', engLaneId()); return; }
+      try{ sessionStorage.setItem('svv-c2pending', JSON.stringify({style: st, ix: CURIX})); }catch(err){}
+      setCol('right', 'mine');
+    };
   });
   const drop = $(side==='L' ? '#verdropL' : '#verdropR');
   drop.onclick = ()=>{
