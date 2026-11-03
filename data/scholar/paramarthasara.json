@@ -5,7 +5,7 @@
  "source_edition": "GRETIL KSTS 7 (Abhinavagupta Paramārthasāra)",
  "contract": {
   "contract_version": "svatantrya-agent-contract/1",
-  "contract_sha256": "6aa580d02b457176d77144c548307f86398d99a162c7b1f7ded7e3e0de4d5b3d",
+  "contract_sha256": "8f22582bd8833e43d4ed31bbdfa49cf1f2e720569d15da9edc61a2bfab34d86e",
   "schema_version": "1.3.0",
   "structural_schema_version": "2.0.0",
   "structural_schema_snapshot_sha256": "7143ce16fd2fec74bcbb442937194c13abcb94e7d76e10fb35ec9e76016a9577",
@@ -694,9 +694,9 @@
     "validator_sha256": "fb8743f206e036002c780d082c7d32cf011dcdab4c21df742a5f5e59a9d851b8",
     "example": {
      "file": "sivastotravali/data/s01.c2.json",
-     "file_sha256": "6bbe160330b5d3a21c687fa6d4d4e364ffcd0ce9873f9daeb862f5ae29c5e2f5",
+     "file_sha256": "09660a3c09679fce8c95968934e5851a22d89cdf154d2b0635d358e1ef9e8aeb",
      "target": "s01",
-     "content_sha256": "3e408adb4cfab8cdc373700b7b22229a83306462e7baba7c6e9f35b97de2a898",
+     "content_sha256": "2faa5fa86e38faca7ef5a1a967a4e261e2df294648a31ed5bad5f731001aa41c",
      "note": "Illustrates the data shape; review status is not implied."
     }
    }
@@ -43745,7 +43745,57 @@
     "verse_id": "param-p12-v105"
    }
   },
-  "c2": {}
+  "c2": {
+   "param-p01": {
+    "song": "param-p01",
+    "renders": [
+     {
+      "style": "eli5",
+      "model": "translator-hand",
+      "date": "2026-11-04",
+      "prompt": "Explain the argument of this song as if to a bright 10-year-old. Use ONLY the claims in the ESSENCE list below; every paragraph must correspond to at least one essence item (record indices). Do not add doctrines, comparisons, meta-commentary, or quoted terms. ESSENCE: [0] Refuge in all-abiding Śambhu; whirled student asks, teacher answers in verses. [1] Fourfold egg manifested by Lord's power-weight; enjoyer embodied is Śiva fettered. [2] Lord holds all forms as crystal takes colors; self moves/rests with world-mass. [3] Everywhere-self shines in mind-mirror; grace-pure mind mirrors light-formed self, will-knowing-acting replete.",
+      "paragraphs": [
+       {
+        "text": "The song opens with taking shelter: refuge in Shambhu, who abides in everything. A student comes spinning with questions, and the teacher answers — in verses. That question-and-answer is the frame holding everything that follows.",
+        "maps_to": [
+         0
+        ]
+       },
+       {
+        "text": "Then the world gets built in three quick strokes. First, the fourfold egg — everything that exists — is manifested by nothing but the weight of the Lords power; and the enjoyer who gets embodied inside it is Shiva Himself, in fetters. Second, the Lord holds every form the way a crystal takes on whatever color is put next to it; the self moves with the moving world-mass and rests with the resting one. Third, the everywhere-self shines inside the mirror of the mind; and when grace purifies that mind, it mirrors back a self made of light, complete with will, knowing, and acting.",
+        "maps_to": [
+         1,
+         2,
+         3
+        ]
+       }
+      ]
+     },
+     {
+      "style": "genz",
+      "model": "translator-hand",
+      "date": "2026-11-04",
+      "prompt": "Render the argument of this song in a Gen-Z voice: direct, a little feral, zero cringe, no slang overload. Keep every doctrinal claim intact — voice changes, content does not. No new doctrines, no comparisons, no meta-commentary, no quoted terms. ESSENCE: [0] Refuge in all-abiding Śambhu; whirled student asks, teacher answers in verses. [1] Fourfold egg manifested by Lord's power-weight; enjoyer embodied is Śiva fettered. [2] Lord holds all forms as crystal takes colors; self moves/rests with world-mass. [3] Everywhere-self shines in mind-mirror; grace-pure mind mirrors light-formed self, will-knowing-acting replete.",
+      "paragraphs": [
+       {
+        "text": "Refuge in all-abiding Shambhu; whirled student asks, teacher answers in verses. Frame set: shelter, question, verse-answer.",
+        "maps_to": [
+         0
+        ]
+       },
+       {
+        "text": "Fourfold egg manifested by Lords power-weight; enjoyer embodied is Shiva fettered. Lord holds all forms as crystal takes colors; self moves-rests with world-mass. Everywhere-self shines in mind-mirror; grace-pure mind mirrors light-formed self, will-knowing-acting replete. World built in three strokes.",
+        "maps_to": [
+         1,
+         2,
+         3
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  }
  },
  "withheld_songs": [],
  "original_hashes": {
@@ -44405,7 +44455,9 @@
    "param-p12-v104": "48120fc08ebe6afac3e9d7119b15bf875dca5daa38def9e9cc7e761641fae3c2",
    "param-p12-v105": "cbd1b6dc4e38219298a2b017158f3002d64b7f2697e29ce1e7d76eb19d9f6346"
   },
-  "c2": {}
+  "c2": {
+   "param-p01": "3daf0c9f5d36588d0cc106c8c9cb5924743b73aee8bf9ccdd2af7ece1c472521"
+  }
  },
  "versions": [
   {
@@ -44546,5 +44598,5 @@
   "param-p11": "8674e66da33bdaf8209c4bb54c3a6fe5b36e26dbae13edd67054709f5c164c87",
   "param-p12": "fa9689837c837a5013f809d526edd2750e3370bd2da899c0210d25e67cbf5235"
  },
- "projection_sha256": "e44c3a66f12f8e336d0c2fe00561a6d78f9c6f2fb7ea7f32af0e2ec6c9c95575"
+ "projection_sha256": "89fff8d6de35f9eea40e46bdb3a44269f58f289c92e50a3c31d6f94bad651d28"
 }
