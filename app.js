@@ -223,7 +223,19 @@ function verseText(v, vid, col, vix){
   }
   if(vid==='l4') return v.l4 ? `<div class="enp finalsec">${esc(v.l4).replace(/\n/g, '<br>')}</div>` : `<div class="milestone">Svatantrya (L4) pending — falls back to Final (L3) below.</div>`;
   if(vid==='l3') return v.l3 ? `<div class="enp finalsec">${esc(v.l3).replace(/\n/g, '<br>')}</div>` : `<div class="milestone">Final translation pending — needs human review.</div>`;
-  if(vid==='c1') return v.c1 ? `<div class="enp c1sec">${mdSec(v.c1.replace(/^##\s+[^\n]*\n/, ''))}</div>` : `<div class="enp">${esc(cleanEN(v.l2||v.l1||''))}</div>`;
+  if(vid==='c1'){
+    if(v.c1) return `<div class="enp c1sec">${mdSec(v.c1.replace(/^##\s+[^\n]*\n/, ''))}</div>`;
+    /* song-level commentary: data holds ONE copy on the song's first verse —
+       every other verse of the song fans out from it (single change, all works) */
+    const m = (v.id||'').match(/^(.*)-v\d+$/);
+    if(m){
+      const first = (DATA.verses||[]).find(x=>x.id===m[1]+'-v01' && x.c1)
+                 || (DATA.verses||[]).find(x=>x.id && x.id.indexOf(m[1]+'-v')===0 && x.c1);
+      if(first) return `<div class="enp c1sec">${mdSec(first.c1.replace(/^##\s+[^\n]*\n/, ''))}</div>`
+        + `<div class="cmp-note">song commentary (from §${esc((first.id||'').split('-v').pop())})</div>`;
+    }
+    return `<div class="enp">${esc(cleanEN(v.l2||v.l1||''))}</div>`;
+  }
   if(vid==='l0'){
     const toks = (L0 && (L0[v.id]||L0[v.chunk])) || [];
     if(!toks.length) return `<div class="milestone">No word gloss on file for this verse yet — T1 gloss pending.</div>`;
