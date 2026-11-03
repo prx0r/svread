@@ -49,6 +49,24 @@ The worker endpoint, the retrieval filter, and the closed-world prompt are live.
 | excluded from site (deliberate) | tantraessays video-script packs (production assets, not reading text); volume `source-library` binaries (index-only); unchanted works have no karaoke (ghatakarpara, spandasandoha — needs recording, not wiring) |
 | C2 renders (`/api/c2/render`) | future Poetic lane, once verse renders earn it |
 
+## Scholar hub (shipped 2026-11-03 — `?work=X&view=scholar`)
+
+The **Scholar** nav tab. Same functions (`$`/`esc`/`get`/`W`/`dl`/`norm`) and same classes
+(`.col`/`.verbar`/`.version-select`/`.text`/`.varbox textarea`+`.savebtn`/`.widget`/`.wtable`/
+`.vref-list`/`.c2row`/`.c2btn`/`.urn`/`.milestone`/`.cmp-note`) as the reader — no parallel design.
+
+- **Layers:** t1 · l0 · argmap · l2 · c1 · l3 · l4 — originals are the canonical pipeline bytes
+  (emitted by `translation-work/tools/emit_scholar.py`), never edited by the hub.
+- **Versions fork:** pick any base (Original, any published `sv:…`, or any of your `local:◇`
+  drafts) → edit → **Save as my version** = a child of that base (fork-of-fork, any depth,
+  device-local). **Export JSON** publishes through `tools/scholar.py save` into the
+  append-only `scholar/` ledgers (git).
+- **Sign-offs widget:** per-song `accepted_by · date · scope · stack_sha · review_id` from the
+  same ledgers (ReviewEvent bound to an exact stack hash + Ed25519 signature; PromotionEvent
+  is the only path to reviewed).
+- Data: `data/scholar/<work>.json` + `index.json` (works with scholar data). Reader path is
+  untouched: without `?view=scholar` main() runs exactly as before.
+
 ## Open (not decided here)
 
 Poetic lane stays parked until verse-level renders exist. Song-level C1 essays (Śivastotrāvalī) need a song view. Ghaṭakarpara per-verse T1 re-chunk belongs to the crystal pipeline. Bhairavastava v10 root adjudication (`bhavati` vs `bhavamaru`) needs a Sanskritist.

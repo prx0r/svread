@@ -225,7 +225,286 @@ function verseText(v, vid, col, vix){
   return '';
 }
 
+
+/* ================= Scholar hub (?view=scholar) =================
+   The same functions and classes as the reader: $, esc, get, W, dl,
+   .col/.verbar/.version-select/.text, .varbox textarea + .savebtn,
+   .widget/.wtable/.vref-list/.c2row/.c2btn/.cmp-note/.urn/.milestone.
+   Data: data/scholar/<work>.json (emit_scholar.py) — originals come
+   from the canonical pipeline bytes, versions/reviews/signoffs from
+   the append-only scholar/ ledgers. Browser saves are device-local
+   drafts (parent = the version they fork); Export JSON publishes. */
+const SLAY = {
+  t1:      {label:'T1',      desc:'fast translation + token gloss', mode:'field', field:'quick_english'},
+  l0:      {label:'L0',      desc:'per-token gloss options (the audit)', mode:'json'},
+  argmap:  {label:'Argmap',  desc:'speaker · question · premises · inference', mode:'json'},
+  l2:      {label:'L2',      desc:'plain exact English', mode:'field', field:'plain_english'},
+  c1:      {label:'C1',      desc:'essence + standard essay (song scope)', mode:'json'},
+  l3:      {label:'L3',      desc:'final canonical translation — line by line', mode:'field', field:'lines'},
+  l4:      {label:'L4',      desc:'the song — L3 set to music', mode:'field', field:'lines'},
+};
+const SLAY_ORDER = ['t1','l0','argmap','l2','c1','l3','l4'];
+function schDrafts(){ try{ return JSON.parse(localStorage.getItem(`svv-scholar-${WORK}`)) || []; }catch(e){ return []; } }
+function schPutDrafts(a){ try{ localStorage.setItem(`svv-scholar-${WORK}`, JSON.stringify(a)); }catch(e){} }
+function schAuthor(){ try{ return localStorage.getItem('svv-scholar-author') || ''; }catch(e){ return ''; } }
+function schLocalHash(o){
+  const s = JSON.stringify(o); let h = 5381;
+  for(let i=0;i<s.length;i++) h = ((h<<5)+h+s.charCodeAt(i))>>>0;
+  return h.toString(16) + Date.now().toString(16).slice(-4);
+}
+function schVsort(ids){
+  return ids.slice().sort((a,b)=>{
+    const pa = a.match(/^(.*)-v(\d+)$/), pb = b.match(/^(.*)-v(\d+)$/);
+    if(pa && pb && pa[1]===pb[1]) return (+pa[2])-(+pb[2]);
+    return a < b ? -1 : a > b ? 1 : 0;
+  });
+}
+function schTextOf(layer, obj){
+  const def = SLAY[layer];
+  if(!def) return '';
+  if(def.mode==='json') return JSON.stringify(obj, null, 1);
+  const v = obj ? obj[def.field] : '';
+  return Array.isArray(v) ? v.join('\n') : String(v==null?'':v);
+}
+function schContentFrom(layer, target, text){
+  const orig = (SCH.originals[layer]||{})[target];
+  const def = SLAY[layer];
+  if(def.mode==='json'){
+    const o = JSON.parse(text);
+    if(!o || typeof o !== 'object') throw new Error('not an object');
+    return o;
+  }
+  const c = Object.assign({}, orig);
+  c[def.field] = (def.field==='lines')
+    ? String(text||'').split('\n').map(x=>x.trim()).filter(Boolean)
+    : String(text||'');
+  return c;
+}
+function schAllVersions(layer, target){
+  return (SCH.versions||[]).concat(schDrafts())
+    .filter(v=>v.layer===layer && v.target===target);
+}
+function schTreeHtml(layer, target, onBase){
+  const rows = schAllVersions(layer, target);
+  if(!rows.length) return `<div class="milestone">no scholar versions on this yet — be the first.</div>`;
+  const ids = new Set(rows.map(v=>v.version_id));
+  const kids = {};
+  rows.forEach(v=>{ (kids[v.parent] = kids[v.parent]||[]).push(v); });
+  const root = kids[null] || [];
+  const outside = rows.filter(v=>v.parent && !ids.has(v.parent));
+  const line = (v, depth)=>{
+    const mine = v.version_id.startsWith('local:');
+    const nm = esc(v.author||'anon') + (mine ? ' · this device' : '');
+    return `<div style="padding-left:${depth*1.1}rem"><a href="#" class="schbase vref" data-vid="${esc(v.version_id)}">` +
+      `${v.version_id.startsWith('local:')?'◇':'◆'} ${esc(v.author||'anon')}</a> ` +
+      `<span class="cmp-note">${esc(v.status||'')} · ${esc((v.created_at||'').slice(0,16).replace('T',' '))} · ${esc((v.content_sha256||'local').slice(0,8))}</span>` +
+      (v.note?`<div class="cmp-note">${esc(v.note)}</div>`:'') + `</div>` +
+      (kids[v.version_id]||[]).map(k=>line(k, depth+1)).join('');
+  };
+  return root.map(v=>line(v,0)).join('') + outside.map(v=>line(v,0)).join('');
+}
+async function scholarView(){
+  let idx = null;
+  try{ idx = await get('data/scholar/index.json'); }catch(e){}
+  SCH = await get(`data/scholar/${WORK}.json`).catch(()=>null);
+  document.title = `Scholar · ${WORK}`;
+  if(!SCH){
+    const works = idx ? Object.keys(idx) : [];
+    $('#wh1').textContent = 'Scholar';
+    $('#wh2').textContent = 'the hub for scholarly work and sign-offs';
+    $('#wh3').textContent = works.length ? `${works.length} work(s) with scholar data` : 'no scholar data yet';
+    $('#cols').innerHTML = `<section class="col left"><div class="text">` +
+      (works.length
+        ? `<div class="vref-list">` + works.map(w=>`<a href="?work=${esc(w)}&view=scholar">${esc(w)}</a>`).join('') + `</div>`
+        : `<div class="milestone">nothing emitted yet — run tools/emit_scholar.py.</div>`) +
+      `</div></section><section class="col right"><div class="text"><div class="milestone">pick a work → look at any layer → edit → save.</div></div></section>`;
+    return;
+  }
+  const st0 = (()=>{ try{ return JSON.parse(localStorage.getItem(`svv-schol-${WORK}`)) || {}; }catch(e){ return {}; } })();
+  const st = { layer: SLAY[st0.layer] ? st0.layer : 'l3', target: st0.target || null, base: null };
+  if(!st.target){
+    const t = schVsort(Object.keys(SCH.originals[st.layer]||{}));
+    st.target = t[0] || null;
+  }
+  const persist = ()=>{ try{ localStorage.setItem(`svv-schol-${WORK}`, JSON.stringify({layer:st.layer, target:st.target})); }catch(e){} };
+
+  $('#wh1').textContent = `Scholar — ${SCH.work}`;
+  $('#wh2').textContent = `${(SCH.versions||[]).length} versions · ${(SCH.reviews||[]).length} reviews · ${(SCH.signoffs||[]).length} sign-offs`;
+  $('#wh3').textContent = 'look at any layer · edit · save — your version forks off the original or anyone’s';
+
+  const allV = ()=>(SCH.versions||[]).concat(schDrafts());
+  const basesList = ()=>[{id:null, name:'Original (canonical)'}]
+    .concat(schAllVersions(st.layer, st.target).map(v=>({id:v.version_id, name:`${v.version_id.startsWith('local:')?'◇':'◆'} ${v.author}${v.version_id.startsWith('local:')?' · this device':''}`})));
+
+  function currentBaseContent(){
+    if(!st.base) return {content: (SCH.originals[st.layer]||{})[st.target], label:'Original (canonical)'};
+    const v = allV().find(x=>x.version_id===st.base);
+    if(!v){ st.base = null; return {content:(SCH.originals[st.layer]||{})[st.target], label:'Original (canonical)'}; }
+    return {content: v.content, label: `${v.author}'s version (${v.version_id})`};
+  }
+
+  function renderCols(){
+    const def = SLAY[st.layer];
+    const orig = (SCH.originals[st.layer]||{})[st.target];
+    const base = currentBaseContent();
+    const origHtml = orig
+      ? (def.mode==='json'
+          ? `<div class="urn" style="white-space:pre-wrap">${esc(JSON.stringify(orig,null,1))}</div>`
+          : `<div class="enp">${esc(schTextOf(st.layer, orig)).replace(/\n/g,'<br>')}</div>`)
+      : `<div class="milestone">no canonical ${esc(st.layer)} for this target.</div>`;
+    $('#cols').innerHTML =
+      `<section class="col left">
+         <div class="verbar"><div class="version-select"><span class="vlab">ORIGINAL</span>
+           <span class="vdesc">${esc(def.label)} · ${esc(st.target||'—')}</span>
+           <span class="vmeta">canonical pipeline bytes — never edited</span></div></div>
+         <div class="text">${origHtml}
+           <div class="c2box"><div class="cmp-note" style="text-transform:uppercase;letter-spacing:.15em;font-size:.68rem">Forks of this target</div>
+           ${schTreeHtml(st.layer, st.target)}</div>
+         </div>
+       </section>
+       <section class="col right">
+         <div class="verbar"><div class="version-select"><span class="vlab">YOUR EDIT</span>
+           <span class="vdesc">base: ${esc(base.label)}</span>
+           <span class="vmeta">saved on this device → export to publish</span></div></div>
+         <div class="text">
+           <div class="varbox"><textarea id="schta" spellcheck="false">${esc(schTextOf(st.layer, base.content))}</textarea><br>
+           <button class="savebtn" id="schsave">Save as my version</button>
+           <button class="c2btn" id="schexport">Export JSON</button></div>
+           <div class="cmp-note" id="schmsg"></div>
+         </div>
+       </section>`;
+    // base = click a fork
+    $('#cols').querySelectorAll('a.schbase').forEach(a=>{
+      a.onclick = e=>{
+        e.preventDefault();
+        st.base = a.getAttribute('data-vid');
+        renderCols();
+      };
+    });
+    $('#schsave').onclick = ()=>{
+      const msg = $('#schmsg');
+      const text = $('#schta').value;
+      let content;
+      try{ content = schContentFrom(st.layer, st.target, text); }
+      catch(err){ msg.textContent = `not saved — ${st.layer==='c1'||SLAY[st.layer].mode==='json' ? 'invalid JSON: '+esc(String(err).slice(0,60)) : esc(String(err))}`; return; }
+      if(!text.trim()){ msg.textContent = 'not saved — hollow edit refused.'; return; }
+      const author = schAuthor() || 'anonymous-scholar';
+      const v = {
+        version_id: 'local:' + schLocalHash({t:st.layer,g:st.target,c:content,a:author,n:Date.now()}),
+        work: WORK, layer: st.layer, target: st.target,
+        parent: st.base, base_sha256: '', author,
+        created_at: new Date().toISOString().replace(/\.\d+Z$/,'Z'),
+        note: 'browser draft', content_sha256: '',
+        content, status: 'DRAFT_LOCAL',
+      };
+      const all = schDrafts(); all.push(v); schPutDrafts(all);
+      st.base = v.version_id;
+      msg.textContent = `saved ◇ ${v.version_id} — parent: ${v.parent || 'original'}`;
+      $('#wh2').textContent = `${(SCH.versions||[]).length} versions · ${all.length} mine · ${(SCH.reviews||[]).length} reviews · ${(SCH.signoffs||[]).length} sign-offs`;
+      renderLib(); renderCols();
+      $('#schmsg') && ($('#schmsg').textContent = `saved ◇ ${v.version_id} — parent: ${v.parent || 'original'} · export JSON to publish`);
+    };
+    $('#schexport').onclick = ()=>{
+      let content;
+      try{ content = schContentFrom(st.layer, st.target, $('#schta').value); }
+      catch(err){ $('#schmsg').textContent = 'fix the content before exporting.'; return; }
+      const payload = {work: WORK, layer: st.layer, target: st.target,
+        parent: st.base, author: schAuthor() || 'anonymous-scholar',
+        note: 'exported from svread Scholar', content};
+      dl(`${WORK}-${st.layer}-${st.target}.version.json`, JSON.stringify(payload, null, 1), 'application/json');
+      $('#schmsg').textContent = 'downloaded — publish with: python3 tools/scholar.py save --file <json>';
+    };
+  }
+
+  function renderLib(){
+    const nOrig = Object.keys(SCH.originals[st.layer]||{}).length;
+    const tgtIds = schVsort(Object.keys(SCH.originals[st.layer]||{}));
+    $('#lib').innerHTML =
+      W('schhub','Scholar',
+        `<table class="wtable">`
+        + `<tr><td>work</td><td>${esc(SCH.work)}</td></tr>`
+        + `<tr><td>versions</td><td>${(SCH.versions||[]).length} published · ${schDrafts().length} mine (device)</td></tr>`
+        + `<tr><td>reviews</td><td>${(SCH.reviews||[]).length} ReviewEvents (exact-hash bound)</td></tr>`
+        + `<tr><td>promotions</td><td>${(SCH.promotions||[]).length} — the only path to reviewed</td></tr>`
+        + `<tr><td>generated</td><td>${esc(SCH.generated||'')}</td></tr>`
+        + `</table><div class="cmp-note" style="margin-top:.4rem"><a class="redlink" href="?work=${esc(WORK)}">← back to the reader</a></div>`)
+      + W('schsign','Sign-offs',
+          ((SCH.signoffs||[]).length
+            ? `<table class="wtable">` + SCH.signoffs.map(s=>
+                `<tr><td>${esc(s.song)}</td><td>${esc(s.accepted_by)} · ${esc(s.date)} · ${esc(s.scope)}<div class="cmp-note">${esc((s.stack_sha||'').slice(0,12))} · ${esc(s.review_id||'')}</div></td></tr>`).join('') + `</table>`
+            : `<div class="milestone">no sign-offs yet.</div>`))
+      + W('schlayers','Layers',
+          SLAY_ORDER.map(l=>{
+            const n = Object.keys(SCH.originals[l]||{}).length;
+            const on = l===st.layer;
+            return `<div><a href="#" class="schlay" data-l="${l}"${on?' style="font-weight:700;color:#B45141"':''}>${SLAY[l].label}</a> <span class="cmp-note">${n} ${l==='c1'?'songs':'verses'}</span></div>`;
+          }).join('') + `<div class="cmp-note">${esc(SLAY[st.layer].desc)}</div>`)
+      + W('schtgt','Passages',
+          `<div class="wsearch"><input id="schq" placeholder="filter §…" aria-label="filter passages"/><button id="schqgo">go</button></div>
+           <div class="vref-list" id="schtgtlist">` +
+          tgtIds.map(t=>`<a href="#" class="schtgt" data-t="${esc(t)}"${t===st.target?' style="font-weight:700;color:#B45141"':''}>${esc(t.replace(/^[a-z0-9]+-/,'').replace('-v',' §'))}</a>`).join('') +
+          `</div>`)
+      + W('schbase','Base for your edit',
+          `<div class="vref-list">` + basesList().map(b=>
+            `<a href="#" class="schbase2" data-vid="${b.id?esc(b.id):''}"${(st.base||'')===(b.id||'')?' style="font-weight:700;color:#B45141"':''}>${esc(b.name)}</a>`).join('') + `</div>`)
+      + W('schmine','My versions (this device)',
+          `<div class="c2row"><input id="schauthor" placeholder="your name (for versions)" value="${esc(schAuthor())}"/><button class="c2btn" id="schauthorok">set</button></div>`
+          + `<div class="cmp-note">edits save here first (◇ = device-local). Export JSON publishes them into the shared ledger — a fork of whichever base you chose.</div>`
+          + `<table class="wtable">` + schDrafts().filter(v=>v.layer===st.layer).slice(-8).reverse().map(v=>
+              `<tr><td>${esc(v.target.replace(/^[a-z0-9]+-/,'').replace('-v',' §'))}</td><td>${esc(v.author)}<div class="cmp-note">parent: ${esc((v.parent||'original').slice(0,20))}</div></td></tr>`).join('') + `</table>`);
+    // bindings
+    $('#lib').querySelectorAll('.schlay').forEach(a=>{
+      a.onclick = e=>{
+        e.preventDefault();
+        st.layer = a.getAttribute('data-l');
+        const t = schVsort(Object.keys(SCH.originals[st.layer]||{}));
+        st.target = t.includes(st.target) ? st.target : (t[0]||null);
+        st.base = null; persist(); renderLib(); renderCols();
+      };
+    });
+    $('#lib').querySelectorAll('.schtgt').forEach(a=>{
+      a.onclick = e=>{
+        e.preventDefault();
+        st.target = a.getAttribute('data-t'); st.base = null;
+        persist(); renderLib(); renderCols();
+      };
+    });
+    $('#lib').querySelectorAll('.schbase2').forEach(a=>{
+      a.onclick = e=>{
+        e.preventDefault();
+        st.base = a.getAttribute('data-vid') || null;
+        renderLib(); renderCols();
+      };
+    });
+    const q = $('#schq');
+    if(q){
+      const filt = ()=>{
+        const v = norm(q.value||'');
+        $('#schtgtlist').querySelectorAll('a').forEach(a=>{
+          a.style.display = (!v || norm(a.textContent).includes(v)) ? '' : 'none';
+        });
+      };
+      q.oninput = filt;
+      $('#schqgo').onclick = filt;
+      q.addEventListener('keydown', e=>{ if(e.key==='Enter') filt(); });
+    }
+    const sok = $('#schauthorok');
+    if(sok) sok.onclick = ()=>{ try{ localStorage.setItem('svv-scholar-author', $('#schauthor').value.trim()); }catch(e){} renderLib(); };
+    $('#lib').querySelectorAll('.widget h2').forEach(h=>{ h.onclick = ()=>h.parentElement.classList.toggle('closed'); });
+  }
+
+  renderLib();
+  renderCols();
+}
+
 async function main(){
+  const ns = $('#navscholar');
+  if(ns) ns.onclick = e=>{ e.preventDefault(); location.href = `?work=${encodeURIComponent(WORK)}&view=scholar`; };
+  if(qs.get('view')==='scholar'){
+    try{ await scholarView(); }
+    catch(err){ $('.reader-main').innerHTML = `<p id="err">Scholar view: ${esc(String(err&&err.message||err))}</p>`; }
+    return;
+  }
   let D = null;
   /* canonical-first: ipvv layers JSONs are the backend source of truth.
      Vendored data/ copy is the offline fallback, not the authority. */

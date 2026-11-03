@@ -25,6 +25,7 @@ New standalone site. Old readers (`ipvv/site/app`, deitybody lab) untouched.
   Per-verse Commentary|Translation toggle. Fail-closed: BLOCKED = Sanskrit only.
 - **Compare** = L1 | L2 columns. **Literal** = Sanskrit + L1.
 - **Critical** = stacked voices + provenance + ＋ add your version (localStorage).
+- **Scholar** (`?view=scholar`) = the hub: any layer → edit → save as a version that forks off the original or anyone’s version; sign-offs list. Same functions/classes.
 
 ## Run
 Any static server on this dir, e.g. `python3 -m http.server 8133`.
