@@ -18,6 +18,7 @@ let KAR = null; // {words:[[ {w,r,t0,t1} ]], au:[url|null]}
 let ART = null, ART_CLIPS = {}, ART_REL = {};   // compiled alignment (see build_align.py)
 let AU = null, AUtimer = null, AUix = null;
 let QUEUE = null, QIDX = 0, QBASE = 0, QNEXT = null;
+let CURIX = 0;   // current verse (gutter / § jumps) — read-buttons act on it
 let LEFT = qs.get('left') || localStorage.getItem('svv-left') || 'sa-deva';
 let RIGHT = qs.get('right') || localStorage.getItem('svv-right') || 'none';
 /* plain-word aliases: ?left=literal&right=poetic works; lane codes still accepted. */
@@ -769,12 +770,13 @@ async function main(){
   });
   // § = recite this verse (studio chant where it exists, voice otherwise)
   document.querySelectorAll('a.vref').forEach(a=>{
-    a.onclick = e=>{ e.preventDefault(); reciteVerse(+a.getAttribute('data-i')); };
+    a.onclick = e=>{ e.preventDefault(); CURIX = +a.getAttribute('data-i'); reciteVerse(CURIX); };
   });
   // gutter prev/next verse
-  let cur = 0;
+  let cur = CURIX;
   const goVerse = d=>{
     cur = Math.min(verses.length-1, Math.max(0, cur+d));
+    CURIX = cur;
     const el = document.querySelector(`.verse[data-i="${cur}"]`);
     if(el) el.scrollIntoView({block:'center', behavior:'smooth'});
   };
@@ -1121,8 +1123,9 @@ function buildRightRail(verses){
     W('display','Display Settings',
       `<div class="cmp-note" style="text-transform:uppercase;letter-spacing:.15em;font-size:.68rem">Text Size</div><div class="tsize">${['Αα','Αα','Αα','Αα','Αα'].map((a,i)=>`<button data-s="${i}" style="font-size:${[11,13,15,19,24][i]}px">${a}</button>`).join('')}</div>`
       + `<div class="cmp-note" style="text-transform:uppercase;letter-spacing:.15em;font-size:.68rem;margin-top:.6rem">Text Width</div><div class="twidth">${['Narrow','Normal','Wide','Full'].map(w=>`<a href="#" data-w="${w}">${w}</a>`).join(' ')}</div>`)
-    + W('recite','Recitation',
-      `<div class="tsize"><button id="rcAll">▶ recite all</button><button id="rcStop">■ stop</button></div><div class="cmp-note">${KAR ? 'studio chant, karaoke-timed · tap § for one verse' : 'browser voice · no studio chant on file · tap § for one verse'}</div>`)
+    + W('recite','Audio',
+      `<div class="tsize"><button id="rcAll">▶ recite all</button><button id="rcStop">■ stop</button></div><div class="cmp-note">${KAR ? 'studio chant, karaoke-timed · tap § for one verse' : 'browser voice · no studio chant on file · tap § for one verse'}</div>`
+      + `<div class="tsize" style="margin-top:.35rem"><button id="readSa">read sanskrit</button><button id="readEn">read english</button></div><div class="cmp-note" id="readMsg">current verse · rendered once, then stored verse-by-verse</div>`)
     /* Text Mode retired: tap-to-ask works everywhere now, hover affordance below is unconditional.
     + W('mode','Text Mode',
       `<div class="tmode"><button data-m="normal" class="on">normal</button><button data-m="highlight">highlight</button></div><div class="cmp-note">normal selection of text for copying possible</div>`)
@@ -1134,6 +1137,37 @@ function buildRightRail(verses){
   });
   // recitation
   const rcA = $('#rcAll'), rcS = $('#rcStop');
+  const readVerse = async (lang)=>{
+    const vs = (DATA && DATA.verses) || [];
+    const v = vs[CURIX] || vs[0];
+    const msg = $('#readMsg');
+    if(!v){ if(msg) msg.textContent = 'nothing to read yet.'; return; }
+    let text = '';
+    if(lang === 'sa'){
+      text = cleanSA(v.sa || '');
+      if(text && !/[\u0900-\u097F]/.test(text)){ try{ text = IAST_DEVA.convert(text); }catch(e){} }
+    }else{
+      text = (v.l4 || v.l3 || v.l2 || '').trim();
+      if(!text){ if(msg) msg.textContent = 'no English on file for this verse yet — withheld, never freelanced.'; return; }
+    }
+    if(!text){ if(msg) msg.textContent = 'no text for this verse.'; return; }
+    const ix = (vs.indexOf(v) >= 0 ? vs.indexOf(v) : 0) + 1;
+    if(msg) msg.textContent = `rendering §${ix}…`;
+    try{
+      const r = await fetch(API + '/api/read', {method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({work: WORK, verse: v.id, lang, text: text.slice(0,4000)})});
+      const d = await r.json();
+      if(!r.ok) throw new Error(d.error || ('http ' + r.status));
+      if(msg) msg.textContent = `${d.cached ? 'stored' : 'rendered'} §${ix} ${lang==='sa'?'sanskrit':'english'} — playing`;
+      const au = new Audio(d.url);
+      au.play().catch(e=>{ if(msg) msg.textContent = 'play blocked: ' + String(e.message||e); });
+    }catch(e){
+      if(msg) msg.textContent = 'render failed: ' + String((e && e.message) || e).slice(0,90);
+    }
+  };
+  const readSa = $('#readSa'), readEn = $('#readEn');
+  if(readSa) readSa.onclick = ()=>readVerse('sa');
+  if(readEn) readEn.onclick = ()=>readVerse('en');
   if(rcA) rcA.onclick = ()=>reciteAll();
   if(rcS) rcS.onclick = ()=>stopRecite();
   /* text mode retired with its widget (tap-to-ask works everywhere now)

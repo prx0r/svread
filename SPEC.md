@@ -71,6 +71,16 @@ The **Scholar** nav tab. Same functions (`$`/`esc`/`get`/`W`/`dl`/`norm`) and sa
   scholar edits/versions/reviews/sign-offs = **(c) their authors** — carried in the emitted
   `rights` block and shown in the reader's Attributions.
 
+## Audio widget (was: Recitation — renamed 2026-11-03, owner directive)
+
+Right rail, same structure and buttons as before (`▶ recite all` / `■ stop` unchanged) plus:
+**read sanskrit** · **read english** — renders the CURRENT verse via the worker
+`POST /api/read` (fish `s2.1-pro-free`, $0 header-pinned) and plays it. Sanskrit voice =
+`4e873c37…` (Andlig Sanskrit Röst, IAST→Devanagari client-side), English voice = `614f8afd…`
+(Granny British) over the canonical L4 (fallback L3/L2; no English = withheld, never freelanced).
+Stored verse-by-verse in R2 `svread-audio` at `read/<work>/<verse>_sa|en.mp3` — first tap
+renders + stores, later taps hit the cache (`{cached:true}`).
+
 ## Open (not decided here)
 
 Poetic lane stays parked until verse-level renders exist. Song-level C1 essays (Śivastotrāvalī) need a song view. Ghaṭakarpara per-verse T1 re-chunk belongs to the crystal pipeline. Bhairavastava v10 root adjudication (`bhavati` vs `bhavamaru`) needs a Sanskritist.
