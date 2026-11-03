@@ -19,6 +19,7 @@ let ART = null, ART_CLIPS = {}, ART_REL = {};   // compiled alignment (see build
 let AU = null, AUtimer = null, AUix = null;
 let QUEUE = null, QIDX = 0, QBASE = 0, QNEXT = null;
 let CURIX = 0;   // current verse (gutter / § jumps) — read-buttons act on it
+let SCHPROF = null;  // signed-in scholar (GET /api/auth/me)
 let LEFT = qs.get('left') || localStorage.getItem('svv-left') || 'sa-deva';
 let RIGHT = qs.get('right') || localStorage.getItem('svv-right') || 'none';
 /* plain-word aliases: ?left=literal&right=poetic works; lane codes still accepted. */
@@ -340,6 +341,10 @@ function schTreeHtml(layer, target, onBase){
   return root.map(v=>line(v,0)).join('') + outside.map(v=>line(v,0)).join('');
 }
 async function scholarView(){
+  try{
+    const r = await fetch(API + '/api/auth/me', {credentials: 'include'});
+    SCHPROF = (await r.json()).profile;
+  }catch(e){ SCHPROF = null; }
   let idx = null;
   try{ idx = await get('data/scholar/index.json'); }catch(e){}
   SCH = await get(`data/scholar/${WORK}.json`).catch(()=>null);
@@ -456,7 +461,12 @@ async function scholarView(){
     const nOrig = Object.keys(SCH.originals[st.layer]||{}).length;
     const tgtIds = schVsort(Object.keys(SCH.originals[st.layer]||{}));
     $('#lib').innerHTML =
-      W('schhub','Scholar',
+      W('schauth','Scholar account', SCHPROF
+        ? `<table class="wtable"><tr><td>signed in</td><td>${esc(SCHPROF.display_name||'')} · ${esc(SCHPROF.email||'')}${SCHPROF.orcid?`<div class="cmp-note">ORCID ${esc(SCHPROF.orcid)}</div>`:''}</tr></table><div style="margin-top:.4rem"><button class="c2btn" id="schout">sign out</button></div>`
+        : `<div class="c2row"><input id="schemail" placeholder="email" type="email"/><input id="schname" placeholder="display name"/></div>
+           <div class="c2row" style="margin-top:.3rem"><input id="schpw" placeholder="password (8+ chars)" type="password"/><button class="c2btn" id="schgo">sign in / join</button></div>
+           <div class="cmp-note" id="schauthmsg">one account — signs your versions and sign-offs (ORCID link comes next)</div>`)
+      + W('schhub','Scholar',
         `<table class="wtable">`
         + `<tr><td>work</td><td>${esc(SCH.work)}</td></tr>`
         + `<tr><td>versions</td><td>${(SCH.versions||[]).length} published · ${schDrafts().length} mine (device)</td></tr>`
@@ -526,6 +536,25 @@ async function scholarView(){
     }
     const sok = $('#schauthorok');
     if(sok) sok.onclick = ()=>{ try{ localStorage.setItem('svv-scholar-author', $('#schauthor').value.trim()); }catch(e){} renderLib(); };
+    const sgo = $('#schgo');
+    if(sgo) sgo.onclick = async ()=>{
+      const msg = $('#schauthmsg');
+      try{
+        const r = await fetch(API + '/api/auth/access', {method:'POST', credentials:'include',
+          headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({email: $('#schemail').value.trim(), name: $('#schname').value.trim(), password: $('#schpw').value})});
+        const d = await r.json();
+        if(!r.ok) throw new Error(d.error || ('http '+r.status));
+        SCHPROF = d.profile;
+        try{ localStorage.setItem('svv-scholar-author', d.display_name || d.profile.display_name || ''); }catch(e){}
+        renderLib(); renderCols();
+      }catch(e){ if(msg) msg.textContent = String(e.message||e).slice(0,90); }
+    };
+    const sout = $('#schout');
+    if(sout) sout.onclick = async ()=>{
+      try{ await fetch(API + '/api/auth/logout', {method:'POST', credentials:'include'}); }catch(e){}
+      SCHPROF = null; renderLib();
+    };
     $('#lib').querySelectorAll('.widget h2').forEach(h=>{ h.onclick = ()=>h.parentElement.classList.toggle('closed'); });
   }
 
