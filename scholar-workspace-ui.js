@@ -4,7 +4,7 @@
     constructor({api,work,profile,onStatus}){
       this.api=api;this.work=work;this.profile=profile;this.status=onStatus||(()=>{});
       this.docs=new Map();this.conflicts=new Map();this.reviews=[];this.userId=null;
-      this.current=null;this.essayId=null;this.agent=null;this.voice=null;this.voiceText='';this.signoffs=new Map();
+      this.current=null;this.essayId=null;this.agent=null;this.voice=null;this.voiceText='';this.signoffs=new Map();this.history=null;
     }
     esc(x){return String(x??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
       .replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
@@ -17,7 +17,7 @@
     id(kind,target,layer=''){return `${kind}:${layer||'work'}:${target||this.work}`;}
     async load(){
       const uid=this.profile()?.id||null;
-      if(uid!==this.userId){this.voice?.end();this.voice=null;this.voiceText='';this.docs.clear();this.conflicts.clear();this.signoffs.clear();this.reviews=[];this.essayId=null;this.agent=null;this.userId=uid;}
+      if(uid!==this.userId){this.voice?.end();this.voice=null;this.voiceText='';this.docs.clear();this.conflicts.clear();this.signoffs.clear();this.reviews=[];this.essayId=null;this.agent=null;this.history=null;this.userId=uid;}
       if(!uid)return;
       try{
         let offset=0;const docs=[];
@@ -66,7 +66,7 @@
     }
     document(id){return this.docs.get(id)?.data||null;}
     attach({container,textarea,target,layer,baseHash,parent}){
-      if(this.current&&(this.current.target!==target||this.current.layer!==layer))this.agent=null;
+      if(this.current&&(this.current.target!==target||this.current.layer!==layer)){this.agent=null;this.history=null;}
       if(this.voice){this.voice.end();this.voice=null;this.voiceText='';}
       this.current={container,textarea,target,layer,baseHash,parent:parent?.startsWith('sv:')?parent:null};
       const saved=this.document(this.id('translation',target,layer));
@@ -93,12 +93,21 @@
       const essay=this.document(this.essayId),reviews=this.reviews.filter(r=>r.work===this.work);
       const conflicts=[...this.conflicts.entries()].filter(([,saved])=>saved.data.work===this.work);
       const activity=[...this.docs.values()].map(s=>s.data).filter(d=>d.work===this.work&&['agent-draft','conversation'].includes(d.kind));
+      const history=this.history, revisions=history?.revisions||[];
+      const historyOptions=(selection)=>revisions.map((v,i)=>`<option value="${v.revision}"${i===selection?' selected':''}>Revision ${v.revision} · ${e(v.updated_at)}</option>`).join('');
       container.innerHTML=`<div class="c2box"><div class="c2head">Private Scholar workspace</div>
         <div class="cmp-note">Account ${e(profile.display_name||'')} · reviewer ID ${e(profile.id)}</div>
         ${conflicts.length?`<details open><summary>Conflicting local edits (${conflicts.length})</summary><div class="cmp-note">Restoring a local copy will replace the newer account draft.</div>${conflicts.map(([id,s])=>`<div>${e(id)}</div><pre>${e(s.data.content?.text||'')}</pre><button class="c2btn workspace-restore" data-id="${e(id)}">Restore local copy</button>`).join('')}</details>`:''}
         <label>Private passage notes<textarea id="workspace-note" rows="3">${e(note)}</textarea></label>
         <details><summary>Essay</summary><select id="workspace-essay"><option value="">Choose an essay</option>${essays.map(x=>`<option value="${e(x.id)}"${x.id===this.essayId?' selected':''}>${e(x.title||'Untitled')}</option>`).join('')}</select>
           <button class="c2btn" id="workspace-new">New essay</button><input id="workspace-title" placeholder="Title" value="${e(essay?.title||'')}"/><textarea id="workspace-text" rows="6">${e(essay?.content?.text||'')}</textarea></details>
+        <details${history?' open':''}><summary>Private revision history</summary>
+          <select id="workspace-history-kind"><option value="translation"${history?.id!==this.essayId?' selected':''}>Current translation</option><option value="essay"${history&&history.id===this.essayId?' selected':''}>Selected essay</option></select>
+          <button class="c2btn" id="workspace-history-load">Load revisions</button>
+          <div class="cmp-note">Saved revisions remain private. Restoring one creates a new revision.</div>
+          ${revisions.length?`<label>First revision <select id="workspace-history-left">${historyOptions(0)}</select></label><pre id="workspace-history-left-text"></pre>
+            <label>Second revision <select id="workspace-history-right">${historyOptions(Math.min(1,revisions.length-1))}</select></label><pre id="workspace-history-right-text"></pre>
+            <button class="c2btn" id="workspace-history-restore">Restore second revision</button>${history.next_before?'<button class="c2btn" id="workspace-history-older">Load older revisions</button>':''}`:''}</details>
         <details><summary>Ask Qwen</summary><select id="workspace-task"><option value="readings">Compare three readings</option><option value="translation">Draft translation</option><option value="essay">Draft essay</option></select>
           <textarea id="workspace-prompt" placeholder="What should it explore?"></textarea><label><input type="checkbox" id="workspace-style"/> Use my private style examples (at least three)</label>
           <button class="c2btn" id="workspace-ask">Ask Qwen</button><div class="cmp-note">The selected source goes to Qwen. Your own private examples are sent only when selected.</div>
@@ -124,12 +133,13 @@
         if(!root.confirm('Delete this private copy? Previously shared or published copies remain.'))return;
         try{state.deleting=true;clearTimeout(state.timer);if(state.inflight)await state.inflight;
           if(state.revision)await this.request('/api/scholar/documents/'+encodeURIComponent(id),'DELETE',{expected_revision:state.revision});
-          this.docs.delete(id);try{localStorage.removeItem(this.key(id));}catch{}this.render();this.status('Private copy deleted.');
+          this.docs.delete(id);if(this.history?.id===id)this.history=null;
+          try{localStorage.removeItem(this.key(id));}catch{}this.render();this.status('Private copy deleted.');
         }catch(err){state.deleting=false;this.status(err.message);}
       };});
       $('#workspace-note').oninput=event=>this.remember({id:noteId,kind:'note',work:this.work,target,layer,title:'Passage note',content:{text:event.target.value}});
       $('#workspace-new').onclick=()=>{this.essayId='essay:'+crypto.randomUUID();this.remember({id:this.essayId,kind:'essay',work:this.work,target,layer,title:'',content:{text:''}});this.render();};
-      $('#workspace-essay').onchange=event=>{this.essayId=event.target.value||null;this.render();};
+      $('#workspace-essay').onchange=event=>{this.essayId=event.target.value||null;this.history=null;this.render();};
       const saveEssay=()=>{if(!this.essayId)return this.status('Create or choose an essay first.');
         const old=this.document(this.essayId), prior=old?.content||{};
         this.remember({id:this.essayId,kind:'essay',work:this.work,target:old?.target||target,layer:old?.layer||layer,
@@ -168,6 +178,35 @@
       $('#workspace-send').onclick=()=>this.voice?.send();
       $('#workspace-end').onclick=()=>{this.voice?.end();this.voice=null;};
       const selected=kind=>kind==='essay'?this.essayId:this.id('translation',target,layer);
+      $('#workspace-history-load').onclick=async()=>{try{
+        const id=selected($('#workspace-history-kind').value),uid=profile.id;if(!id)throw new Error('Choose a document.');
+        await this.flush(id);const result=await this.request('/api/scholar/documents/'+encodeURIComponent(id)+'/history');
+        if(this.profile()?.id!==uid)return;
+        this.history={id,revisions:result.revisions||[],next_before:result.next_before};this.render();
+        this.status('Private revision history loaded.');
+      }catch(e){this.status(e.message);}};
+      if(revisions.length){
+        const updateHistory=()=>{for(const side of ['left','right']){
+          const revision=Number($('#workspace-history-'+side).value),v=revisions.find(x=>x.revision===revision);
+          $('#workspace-history-'+side+'-text').textContent=v?.content?.text||'';
+        }};
+        $('#workspace-history-left').onchange=updateHistory;$('#workspace-history-right').onchange=updateHistory;updateHistory();
+        $('#workspace-history-restore').onclick=async()=>{try{
+          const revision=Number($('#workspace-history-right').value),v=revisions.find(x=>x.revision===revision),id=history.id,uid=profile.id;
+          if(!v||!this.document(id))throw new Error('Choose a saved revision.');
+          if(!root.confirm('Restore this private revision as a new saved revision?'))return;
+          await this.flush(id);if(this.profile()?.id!==uid||this.history!==history)return;
+          this.remember({id,kind:v.kind,work:v.work,target:v.target,layer:v.layer,title:v.title,content:v.content});
+          if(id===this.id('translation',target,layer))textarea.value=v.content.text;
+          await this.flush(id);if(this.profile()?.id!==uid)return;
+          this.history=null;this.render();this.status('Restored as a new private revision.');
+        }catch(e){this.status(e.message);}};
+        if(history.next_before)$('#workspace-history-older').onclick=async()=>{try{
+          const uid=profile.id,result=await this.request('/api/scholar/documents/'+encodeURIComponent(history.id)+'/history?before='+history.next_before);
+          if(this.profile()?.id!==uid||this.history!==history)return;
+          this.history={...history,revisions:[...revisions,...(result.revisions||[])],next_before:result.next_before};this.render();
+        }catch(e){this.status(e.message);}};
+      }
       $('#workspace-share').onclick=async()=>{try{const id=selected($('#workspace-review-kind').value);if(!id)throw new Error('Choose a document.');
         await this.flush(id);const doc=this.document(id);await this.request('/api/scholar/reviews','POST',{document_id:id,revision:doc.revision,reviewer_id:$('#workspace-reviewer').value.trim()});
         this.reviews=(await this.request('/api/scholar/reviews')).reviews||[];this.render();this.status('Revision shared privately.');}catch(e){this.status(e.message);}};

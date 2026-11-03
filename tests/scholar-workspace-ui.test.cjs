@@ -97,3 +97,37 @@ test('conflicting offline edits remain recoverable without overwriting the accou
   restore.onclick();await workspace.flush(id);assert.equal(account.content.text,'Offline copy');assert.equal(account.revision,3);
   for(const state of workspace.docs.values())clearTimeout(state.timer);
 });
+
+test('private revisions can be compared and restored as a new version',async()=>{
+  const storage=new Map(),nodes=new Map(),id='translation:l3:p-v01',puts=[];
+  const localStorage={getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v),removeItem:k=>storage.delete(k),
+    key:i=>[...storage.keys()][i],get length(){return storage.size;}};
+  let account={id,kind:'translation',work:'testwork',target:'p-v01',layer:'l3',title:'',
+    content:{text:'Current text',assisted:true,model:'qwen-test'},revision:2,updated_at:'2026-11-03'};
+  const revisions=[account,{...account,revision:1,content:{text:'Earlier human text',assisted:false}}];
+  const fetch=async(url,options={})=>{
+    if(String(url).endsWith('/api/scholar/reviews'))return Response.json({reviews:[]});
+    if(String(url).includes('/api/scholar/documents?'))return Response.json({documents:[account],next_offset:null});
+    if(String(url).endsWith('/history'))return Response.json({revisions,next_before:null});
+    if(options.method==='PUT'){const data=JSON.parse(options.body);puts.push(data);assert.equal(data.expected_revision,2);
+      const {expected_revision,...payload}=data;account={...payload,revision:3};return Response.json({document:account});}
+    throw new Error('Unexpected request '+url);
+  };
+  const element=key=>{if(!nodes.has(key))nodes.set(key,{value:'',textContent:'',addEventListener(){}});return nodes.get(key);};
+  const container={set innerHTML(v){this.html=v;nodes.clear();},querySelector:element,querySelectorAll:()=>[]};
+  const context=vm.createContext({fetch,localStorage,Response,URL,URLSearchParams,setTimeout,clearTimeout,
+    crypto:{randomUUID:()=> 'id'},confirm:()=>true,CSS:{escape:x=>x}});
+  vm.runInContext(fs.readFileSync(path.join(__dirname,'../scholar-workspace-ui.js'),'utf8'),context);
+  const suite=new context.ScholarWorkspace({api:'https://api.example',work:'testwork',profile:()=>({id:'alice'})});
+  await suite.load();const editor={value:'',addEventListener(){}};
+  suite.attach({container,textarea:editor,target:'p-v01',layer:'l3',baseHash:'',parent:null});
+  element('#workspace-history-kind').value='translation';await element('#workspace-history-load').onclick();
+  element('#workspace-history-left').value='2';element('#workspace-history-right').value='1';
+  element('#workspace-history-right').onchange();
+  assert.equal(element('#workspace-history-left-text').textContent,'Current text');
+  assert.equal(element('#workspace-history-right-text').textContent,'Earlier human text');
+  suite.signoffs.set(id,{id:'signoff:old'});await element('#workspace-history-restore').onclick();
+  assert.equal(puts[0].content.text,'Earlier human text');assert.equal(account.revision,3);
+  assert.equal(editor.value,'Earlier human text');assert.equal(suite.signoffs.has(id),false);
+  for(const state of suite.docs.values())clearTimeout(state.timer);
+});
