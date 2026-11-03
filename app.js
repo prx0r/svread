@@ -1072,20 +1072,26 @@ function installResize(lay){
   const drag = (el, gutter, cfg, side)=>{
     if(!el || !gutter) return;
     let startX=0, startW=0, active=false, moved=false;
-    gutter.addEventListener('pointerdown', e=>{
+    /* two handles: the gutter AND the panel's inner edge (chat window's left
+       edge / master menu's right edge — the slider the owner asked for) */
+    const edgeOK = e=>{
+      const r = el.getBoundingClientRect();
+      return side==='left' ? (r.right - e.clientX) <= 7 : (e.clientX - r.left) <= 7;
+    };
+    const down = (e, cap)=>{
       if(e.button!==0) return;
       active=true; moved=false; startX=e.clientX; startW=cfg.get();
-      try{ gutter.setPointerCapture(e.pointerId); }catch(err){}
+      try{ cap.setPointerCapture(e.pointerId); }catch(err){}
       lay.classList.add('dragging'); e.preventDefault();
-    });
-    gutter.addEventListener('pointermove', e=>{
+    };
+    const move = e=>{
       if(!active) return;
       const dx = e.clientX - startX;
       if(Math.abs(dx)>4) moved=true;
       const w = side==='left' ? startW+dx : startW-dx;
-      if(w >= MIN) setHide(cfg.which, false);   // dragged back out ⇒ restore live
+      if(w >= MIN) setHide(cfg.which, false);
       cfg.set(w);
-    });
+    };
     const end = ()=>{
       if(!active) return;
       active=false;
@@ -1100,8 +1106,14 @@ function installResize(lay){
       if(w < MIN){ setHide(cfg.which, true); cfg.set(0); }
       else { setHide(cfg.which, false); save(cfg.key, Math.round(w)+'px'); }
     };
+    gutter.addEventListener('pointerdown', e=>down(e, gutter));
+    gutter.addEventListener('pointermove', move);
     gutter.addEventListener('pointerup', end);
     gutter.addEventListener('pointercancel', end);
+    el.addEventListener('pointerdown', e=>{ if(edgeOK(e)) down(e, gutter); });
+    el.addEventListener('pointermove', move);
+    el.addEventListener('pointerup', end);
+    el.addEventListener('pointercancel', end);
   };
   drag(lib, document.querySelector('#pgleft'), {which:'L', key:'svv-libw',
     get:()=>parseFloat(getComputedStyle(lib).width)||210,
@@ -1470,7 +1482,7 @@ function buildRightRail(verses){
     </div>
     <div id="readMsg" class="cmp-note hbmsg"></div>`;
   $('#rail').innerHTML =
-    W('chat','Chat', `<div id="convo" aria-live="polite"></div><div class="wsearch wsbox"><textarea id="qin" placeholder="${DEFAULT_PH}" aria-label="ask about this work"></textarea></div><div class="wsrow"><button id="wvoice" class="circbtn" title="voice — words appear as you speak, then it sends">🎙</button><button id="qgo" class="circbtn" title="send">↑</button></div>`).replace('<span class="tog">⌄</span>',''),
+    W('chat','Chat', `<div id="convo" aria-live="polite"></div><div class="wsearch wsbox"><textarea id="qin" placeholder="${DEFAULT_PH}" aria-label="ask about this work"></textarea><span class="wsrow"><button id="wvoice" class="circbtn" title="voice — words appear as you speak, then it sends">🎙</button><button id="qgo" class="circbtn" title="send">↑</button></span></div>`).replace('<span class="tog">⌄</span>',''),
   // collapsible widgets
   document.querySelectorAll('#headbar .widget h2').forEach(h=>{
     h.onclick = ()=>h.parentElement.classList.toggle('closed');

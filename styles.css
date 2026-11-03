@@ -133,7 +133,7 @@ header nav{background:var(--g800);color:#fff}
 #wid-display .tsize button.on{color:var(--black);font-weight:700}
 #wid-mode .tmode button{border:0;background:none;padding:.1rem .4rem;color:var(--g500);font-size:13px;letter-spacing:.08em}
 #wid-mode .tmode button.on{color:var(--black);font-weight:700}
-.twidth a{color:var(--g500);text-decoration:none;margin-right:.9rem;font-size:13px}
+.twidth a{color:var(--g500);text-decoration:none;margin-right:.5rem;font-size:12.5px}
 .twidth a.on{color:var(--black);font-weight:700}
 .twidth a:hover{color:var(--black)}
 .text .verse.now{box-shadow:-3px 0 0 var(--red);padding-left:.5em}
@@ -189,11 +189,15 @@ a.vref:hover{color:var(--red)}
 .widget{padding:0 8px 8px;border-bottom:1px solid var(--g200)}
 .headbar{display:flex;gap:.8rem;flex-direction:column;
   padding:.1rem 0 .3rem;border-bottom:1px solid var(--g200);margin-bottom:.5rem}
-.hbrow{display:flex;align-items:center;gap:.5rem;flex-wrap:nowrap;white-space:nowrap;overflow:hidden}
+.hbrow{display:flex;align-items:center;gap:.42rem;flex-wrap:nowrap;white-space:nowrap;overflow:hidden;
+  align-items:baseline;line-height:1}
 .hbg{display:flex;gap:.3rem;align-items:center}
-.hbsep{width:1px;height:1.05rem;background:var(--g200)}
-.hbbtn{border:0;background:none;color:var(--g600);padding:.1rem .3rem;
-  cursor:pointer;font-size:1.05rem;line-height:1.3}
+.hbsep{width:1px;height:.95rem;background:var(--g200);opacity:.7}
+.hbbtn{border:0;background:none;color:var(--g500);padding:.05rem .18rem;
+  cursor:pointer;line-height:1.2;transition:color .12s ease}
+#readSa{font-size:.8rem;color:var(--g600)}
+#readEn{font-size:.64rem;letter-spacing:.08em;font-weight:600;vertical-align:.05em;color:var(--g600)}
+#rcAll{font-size:.74rem;padding:.1rem .38rem;color:var(--g600)}
 .hbbtn:hover{color:var(--red)}
 .hbbtn.hbsel{color:var(--red);font-weight:700}
 .hbmsg:empty{display:none}
@@ -225,12 +229,13 @@ a.vref:hover{color:var(--red)}
   border:1px solid var(--g300);border-radius:9px;background:#fff;color:var(--g900)}
 #wid-chat .wsbox textarea:focus{outline:none;border-color:var(--g500)}
 #wid-chat .wsbox textarea::placeholder{color:var(--g500);font-style:italic}
-.wsrow{display:flex;justify-content:space-evenly;margin-top:.5rem;width:100%}
-.circbtn{width:2.45rem;height:2.45rem;border-radius:50%;border:1px solid var(--g300);
-  background:#fff;color:var(--g700);cursor:pointer;font-size:1rem;line-height:1;
-  display:flex;align-items:center;justify-content:center;padding:0}
-.circbtn:hover{border-color:var(--red);color:var(--red)}
-.circbtn.on{border-color:var(--red);color:var(--red);background:#fff4f4}
+.wsrow{display:flex;flex-direction:column;justify-content:space-between;
+  align-items:center;gap:.8rem;width:2.6rem;flex:0 0 auto}
+#wid-chat .wsbox button.circbtn{width:2.5rem;height:2.5rem;border-radius:50%;
+  border:1px solid var(--g300);background:#fff;color:var(--g600);cursor:pointer;
+  font-size:.95rem;line-height:1;display:flex;align-items:center;justify-content:center;padding:0}
+#wid-chat .wsbox button.circbtn:hover{border-color:var(--red);color:var(--red)}
+#wid-chat .wsbox button.circbtn.on{border-color:var(--red);color:var(--red);background:#fff4f4}
 .qbub{font-size:12.5px;line-height:1.45;color:var(--g900)}
 .qbub.q{color:var(--g600)}
 .qbub.q::before{content:'› ';color:var(--red);font-weight:700}
@@ -243,8 +248,8 @@ a.vref:hover{color:var(--red)}
 #qdocov .qdochead{display:flex;justify-content:space-between;align-items:center;padding:.3rem .55rem;border-bottom:1px solid var(--g200);font-size:12px;color:var(--g600);font-family:ui-monospace,monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 #qdocov .qdochead a{color:var(--red);text-decoration:none;font-size:14px}
 #qdocov .qdocbody{overflow-y:auto;padding:.55rem;font-size:12.5px;line-height:1.5;white-space:pre-wrap}
-.tsize{display:flex;gap:.4rem;align-items:baseline}
-.tsize button{border:0;background:none;border-radius:0;
+.tsize{display:flex;gap:0;align-items:baseline}
+.tsize button{border:0;background:none;border-radius:0;padding:.1rem .13rem!important;
   cursor:pointer;font-family:var(--serif);padding:.1rem .5rem}
 .tsize button.on{color:var(--black);font-weight:700}
 .twidth{display:flex;gap:.4rem;flex-wrap:wrap}
