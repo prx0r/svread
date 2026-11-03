@@ -278,8 +278,9 @@ const SLAY = {
   c2:      {label:'C2',      desc:'style renders mapped to the essence', mode:'json'},
 };
 const SLAY_ORDER = ['t1','l0','argmap','l2','c1','l3','l4','c2'];
-function schDrafts(){ try{ return JSON.parse(localStorage.getItem(`svv-scholar-${WORK}`)) || []; }catch(e){ return []; } }
-function schPutDrafts(a){ try{ localStorage.setItem(`svv-scholar-${WORK}`, JSON.stringify(a)); }catch(e){} }
+function schDraftKey(){return SCHPROF?.id ? `svv-scholar-${WORK}-${SCHPROF.id}` : `svv-scholar-${WORK}`;}
+function schDrafts(){ try{ return JSON.parse(localStorage.getItem(schDraftKey())) || []; }catch(e){ return []; } }
+function schPutDrafts(a){ try{ localStorage.setItem(schDraftKey(), JSON.stringify(a)); }catch(e){} }
 function schAuthor(){ try{ return localStorage.getItem('svv-scholar-author') || ''; }catch(e){ return ''; } }
 function schLocalHash(o){
   const s = JSON.stringify(o); let h = 5381;
@@ -607,7 +608,7 @@ async function scholarView(){
     const sout = $('#schout');
     if(sout) sout.onclick = async ()=>{
       try{ await fetch(API + '/api/auth/logout', {method:'POST', credentials:'include'}); }catch(e){}
-      SCHPROF = null; renderLib();
+      SCHPROF = null; renderLib(); renderCols();
     };
     $('#lib').querySelectorAll('.widget h2').forEach(h=>{ h.onclick = ()=>h.parentElement.classList.toggle('closed'); });
   }
