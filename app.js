@@ -1521,7 +1521,7 @@ function buildRightRail(verses){
     </div>
     <div id="readMsg" class="cmp-note hbmsg"></div>`;
   $('#rail').innerHTML =
-    W('chat','Chat', `<div id="convo" aria-live="polite"></div><div class="wsearch wsbox"><textarea id="qin" placeholder="${DEFAULT_PH}" aria-label="ask about this work"></textarea><span class="wsrow"><button id="wvoice" class="circbtn" title="voice — words appear as you speak, then it sends">🎙</button><button id="qgo" class="circbtn" title="send">↑</button></span></div>`).replace('<span class="tog">⌄</span>',''),
+    W('chat','Chat', `<div id="convo" aria-live="polite"></div><div class="wsearch wsbox"><textarea id="qin" placeholder="${DEFAULT_PH}" aria-label="ask about this work"></textarea><span class="wsrow"><span class="wsrow"><button id="qgo" class="circbtn trident" title="send"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M12 21V3M6.5 5.5v4M17.5 5.5v4M6.5 9.5h11"/></svg><span class="sr">send</span></button></span></span></div>`).replace('<span class="tog">⌄</span>',''),
   // collapsible widgets
   document.querySelectorAll('#headbar .widget h2').forEach(h=>{
     h.onclick = ()=>h.parentElement.classList.toggle('closed');
@@ -1691,14 +1691,20 @@ function buildRightRail(verses){
     /* first message = c1sum mini-essay (compiled from argmaps+C1 by
        translation-work/tools/build_c1sum.py); no "ask" link — the box IS the ask */
     const openerFallback = 'I wonder what this work is really asking…';
-    fetch('data/c1sum.json').then(r=>r.ok?r.json():{}).catch(()=>({})).then(cs=>{
-      const intro = (cs && cs[WORK]) || c1sumLine();
-      if(intro){
-        qsay('a', `<b>${esc((DATA&&DATA.title)||WORK)}</b> — ${esc(intro)}`);
-      } else {
-        fetch('data/openers.json').then(r=>r.ok?r.json():{}).catch(()=>({}))
-          .then(o=>qsay('a', `<i>${esc(o[WORK]||openerFallback)}</i>`));
+    fetch(`data/chatsum/${encodeURIComponent(WORK)}.json`).then(r=>r.ok?r.json():null).catch(()=>null).then(cs0=>{
+      if(cs0 && cs0.text){                       // authored chatsum (datatype: chatsum)
+        qsay('a', `<b>${esc(cs0.title||WORK)}</b> — ${esc(cs0.text)}`);
+        return;
       }
+      fetch('data/c1sum.json').then(r=>r.ok?r.json():{}).catch(()=>({})).then(cs=>{
+        const intro = (cs && cs[WORK]) || c1sumLine();
+        if(intro){
+          qsay('a', `<b>${esc((DATA&&DATA.title)||WORK)}</b> — ${esc(intro)}`);
+        } else {
+          fetch('data/openers.json').then(r=>r.ok?r.json():{}).catch(()=>({}))
+            .then(o=>qsay('a', `<i>${esc(o[WORK]||openerFallback)}</i>`));
+        }
+      });
     });
   }
   /* Qwen Omni via the ipvv worker (RAG over gated corpus + pushing probes,
@@ -1804,33 +1810,6 @@ function buildRightRail(verses){
     const has = (qin.value||'').trim().length > 0;
     if(PUSH.on) qin.placeholder = (has || !PUSH.seed.length) ? DEFAULT_PH : PUSH.seed[PUSH.ix % PUSH.seed.length];
   });
-  /* voice input circle: fill the box with what you say (send stays yours) */
-  const vbtn = $('#wvoice');
-  if(vbtn){
-    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-    let rec = null, listening = false;
-    vbtn.onclick = ()=>{
-      if(!SR){ const i=$('#qin'); if(i) i.placeholder='voice input not supported in this browser'; return; }
-      if(listening && rec){ try{ rec.stop(); }catch(e){} return; }
-      rec = rec || new SR();
-      rec.lang = 'en-IN'; rec.interimResults = true; rec.maxAlternatives = 1;
-      rec.onresult = e=>{
-        const i = $('#qin'); if(!i) return;
-        let fin = '', live = '';
-        for(const r of e.results){ if(r.isFinal) fin += r[0].transcript + ' '; else live += r[0].transcript; }
-        i.value = (fin + live).trim();                     // words register as you speak
-        i.dispatchEvent(new Event('input'));               // (clears the pushing placeholder)
-        if(fin.trim()){                                    // final ⇒ autosend to Qwen
-          listening = false; vbtn.classList.remove('on');
-          try{ rec.stop(); }catch(err){}
-          qrun();
-        }
-      };
-      rec.onend = ()=>{ listening=false; vbtn.classList.remove('on'); };
-      rec.onerror = ()=>{ listening=false; vbtn.classList.remove('on'); };
-      listening = true; vbtn.classList.add('on'); try{ rec.start(); }catch(e){}
-    };
-  }
   // size (5 steps, Scaife) / width (text links, Scaife)
   const sizes = [[0.9,0.8],[1.0,0.85],[1.25,1.0],[1.5,1.15],[1.8,1.3]];
   document.querySelectorAll('#headbar [data-s]').forEach(b=>{
