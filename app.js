@@ -234,6 +234,7 @@ function verseText(v, vid, col, vix){
    from the canonical pipeline bytes, versions/reviews/signoffs from
    the append-only scholar/ ledgers. Browser saves are device-local
    drafts (parent = the version they fork); Export JSON publishes. */
+let SCH = null;                       // emitted scholar doc (data/scholar/<work>.json)
 const SLAY = {
   t1:      {label:'T1',      desc:'fast translation + token gloss', mode:'field', field:'quick_english'},
   l0:      {label:'L0',      desc:'per-token gloss options (the audit)', mode:'json'},
