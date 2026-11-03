@@ -1677,14 +1677,20 @@ function buildRightRail(verses){
     /* first message = c1sum mini-essay (compiled from argmaps+C1 by
        translation-work/tools/build_c1sum.py); no "ask" link — the box IS the ask */
     const openerFallback = 'I wonder what this work is really asking…';
-    fetch('data/c1sum.json').then(r=>r.ok?r.json():{}).catch(()=>({})).then(cs=>{
-      const intro = (cs && cs[WORK]) || c1sumLine();
-      if(intro){
-        qsay('a', `<b>${esc((DATA&&DATA.title)||WORK)}</b> — ${esc(intro)}`);
-      } else {
-        fetch('data/openers.json').then(r=>r.ok?r.json():{}).catch(()=>({}))
-          .then(o=>qsay('a', `<i>${esc(o[WORK]||openerFallback)}</i>`));
+    fetch(`data/chatsum/${encodeURIComponent(WORK)}.json`).then(r=>r.ok?r.json():null).catch(()=>null).then(cs0=>{
+      if(cs0 && cs0.text){                       // authored chatsum (datatype: chatsum)
+        qsay('a', `<b>${esc(cs0.title||WORK)}</b> — ${esc(cs0.text)}`);
+        return;
       }
+      fetch('data/c1sum.json').then(r=>r.ok?r.json():{}).catch(()=>({})).then(cs=>{
+        const intro = (cs && cs[WORK]) || c1sumLine();
+        if(intro){
+          qsay('a', `<b>${esc((DATA&&DATA.title)||WORK)}</b> — ${esc(intro)}`);
+        } else {
+          fetch('data/openers.json').then(r=>r.ok?r.json():{}).catch(()=>({}))
+            .then(o=>qsay('a', `<i>${esc(o[WORK]||openerFallback)}</i>`));
+        }
+      });
     });
   }
   /* Qwen Omni via the ipvv worker (RAG over gated corpus + pushing probes,
