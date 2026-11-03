@@ -1312,20 +1312,18 @@ function reciteAll(){
 
 const W = (id, title, body)=>`<div class="widget" id="wid-${id}"><h2><span><span class="tog">⌄</span>${title}</span></h2><div class="wbody">${body}</div></div>`;
 function buildRightRail(verses){
-  $('#rail').innerHTML =
+  $('#headbar').innerHTML =
     W('display','Display Settings',
       `<div class="cmp-note" style="text-transform:uppercase;letter-spacing:.15em;font-size:.68rem">Text Size</div><div class="tsize">${['Αα','Αα','Αα','Αα','Αα'].map((a,i)=>`<button data-s="${i}" style="font-size:${[11,13,15,19,24][i]}px">${a}</button>`).join('')}</div>`
       + `<div class="cmp-note" style="text-transform:uppercase;letter-spacing:.15em;font-size:.68rem;margin-top:.6rem">Text Width</div><div class="twidth">${['Narrow','Normal','Wide','Full'].map(w=>`<a href="#" data-w="${w}">${w}</a>`).join(' ')}</div>`)
     + W('recite','Audio',
       `<div class="tsize"><button id="rcAll">▶ recite all</button><button id="rcStop">■ stop</button></div><div class="cmp-note">${KAR ? 'studio chant, karaoke-timed · tap § for one verse' : 'browser voice · no studio chant on file · tap § for one verse'}</div>`
       + `<div class="tsize" style="margin-top:.35rem"><button id="readSa">read sanskrit</button><button id="readEn">read english</button></div><div class="cmp-note" id="readMsg">current verse · rendered once, then stored verse-by-verse</div>`)
-    /* Text Mode retired: tap-to-ask works everywhere now, hover affordance below is unconditional.
-    + W('mode','Text Mode',
-      `<div class="tmode"><button data-m="normal" class="on">normal</button><button data-m="highlight">highlight</button></div><div class="cmp-note">normal selection of text for copying possible</div>`)
-    */
-    + W('chat','Ask the text', `<div id="convo" aria-live="polite"></div><div class="wsearch"><input id="qin" placeholder="ask about this work…" aria-label="ask about this work"/><button id="qgo">→</button></div>`);
+    ;
+  $('#rail').innerHTML =
+    W('chat','Ask the text', `<div id="convo" aria-live="polite"></div><div class="wsearch"><input id="qin" placeholder="ask about this work…" aria-label="ask about this work"/><button id="qgo">→</button></div>`);
   // collapsible widgets
-  document.querySelectorAll('#rail .widget h2').forEach(h=>{
+  document.querySelectorAll('#rail .widget h2, #headbar .widget h2').forEach(h=>{
     h.onclick = ()=>h.parentElement.classList.toggle('closed');
   });
   // recitation

@@ -186,6 +186,11 @@ a.vref:hover{color:var(--red)}
 .layout.hideR #tabR a{transform:scaleX(-1)}
 @media (max-width:1000px){.lib{display:none}.rail{display:none}.pgutter{flex-basis:34px}.pgutter a{font-size:32px}.railtab{display:none}}
 .widget{padding:0 8px 8px;border-bottom:1px solid var(--g200)}
+.headbar{display:flex;gap:1.4rem;flex-wrap:wrap;align-items:flex-start;
+  padding:.1rem 0 .4rem;border-bottom:1px solid var(--g200);margin-bottom:.6rem}
+.headbar .widget{border-bottom:none;border-right:1px solid var(--g200);
+  flex:0 1 auto;min-width:270px;max-width:420px}
+.headbar .widget:last-child{border-right:none}
 .widget:first-of-type{border-top:1px solid var(--g200)}
 .widget h2{background:var(--white);padding:15px 0 5px;display:flex;
   justify-content:space-between;font-size:14px;margin:0;color:var(--g600);
