@@ -269,8 +269,9 @@ const SLAY = {
   c1:      {label:'C1',      desc:'essence + standard essay (song scope)', mode:'json'},
   l3:      {label:'L3',      desc:'final canonical translation — line by line', mode:'field', field:'lines'},
   l4:      {label:'L4',      desc:'the song — L3 set to music', mode:'field', field:'lines'},
+  c2:      {label:'C2',      desc:'style renders mapped to the essence', mode:'json'},
 };
-const SLAY_ORDER = ['t1','l0','argmap','l2','c1','l3','l4'];
+const SLAY_ORDER = ['t1','l0','argmap','l2','c1','l3','l4','c2'];
 function schDrafts(){ try{ return JSON.parse(localStorage.getItem(`svv-scholar-${WORK}`)) || []; }catch(e){ return []; } }
 function schPutDrafts(a){ try{ localStorage.setItem(`svv-scholar-${WORK}`, JSON.stringify(a)); }catch(e){} }
 function schAuthor(){ try{ return localStorage.getItem('svv-scholar-author') || ''; }catch(e){ return ''; } }
@@ -293,7 +294,7 @@ function schTextOf(layer, obj){
   const v = obj ? obj[def.field] : '';
   return Array.isArray(v) ? v.join('\n') : String(v==null?'':v);
 }
-function schContentFrom(layer, target, text){
+function schContentFrom(layer, target, text, base){
   const orig = (SCH.originals[layer]||{})[target];
   const def = SLAY[layer];
   if(def.mode==='json'){
@@ -301,7 +302,7 @@ function schContentFrom(layer, target, text){
     if(!o || typeof o !== 'object') throw new Error('not an object');
     return o;
   }
-  const c = Object.assign({}, orig);
+  const c = Object.assign({}, orig, base || {});
   c[def.field] = (def.field==='lines')
     ? String(text||'').split('\n').map(x=>x.trim()).filter(Boolean)
     : String(text||'');
@@ -353,6 +354,7 @@ async function scholarView(){
   }
   const st0 = (()=>{ try{ return JSON.parse(localStorage.getItem(`svv-schol-${WORK}`)) || {}; }catch(e){ return {}; } })();
   const st = { layer: SLAY[st0.layer] ? st0.layer : 'l3', target: st0.target || null, base: null };
+  let publicationEndpoint = '';
   if(!st.target){
     const t = schVsort(Object.keys(SCH.originals[st.layer]||{}));
     st.target = t[0] || null;
@@ -396,11 +398,16 @@ async function scholarView(){
        <section class="col right">
          <div class="verbar"><div class="version-select"><span class="vlab">YOUR EDIT</span>
            <span class="vdesc">base: ${esc(base.label)}</span>
-           <span class="vmeta">saved on this device → export to publish</span></div></div>
+           <span class="vmeta">save on this device or submit for review</span></div></div>
          <div class="text">
            <div class="varbox"><textarea id="schta" spellcheck="false">${esc(schTextOf(st.layer, base.content))}</textarea><br>
            <button class="savebtn" id="schsave">Save as my version</button>
            <button class="c2btn" id="schexport">Export JSON</button></div>
+           <div class="c2box"><div class="c2head">Submit for review</div>
+           <input id="schendpoint" type="url" placeholder="Publication server" aria-label="Publication server" value="${esc(publicationEndpoint)}"/>
+           <input id="schtoken" type="password" autocomplete="off" placeholder="Access token" aria-label="Access token"/>
+           <button class="c2btn" id="schsubmit">Submit version</button>
+           <div class="cmp-note">Publication currently uses a separate service token from your Scholar account. The token is sent to the publication server and is not saved in this browser. Submissions are reviewed before publication.</div></div>
            <div class="cmp-note" id="schmsg"></div>
          </div>
        </section>`;
@@ -416,14 +423,17 @@ async function scholarView(){
       const msg = $('#schmsg');
       const text = $('#schta').value;
       let content;
-      try{ content = schContentFrom(st.layer, st.target, text); }
+      try{ content = schContentFrom(st.layer, st.target, text, currentBaseContent().content); }
       catch(err){ msg.textContent = `not saved — ${st.layer==='c1'||SLAY[st.layer].mode==='json' ? 'invalid JSON: '+esc(String(err).slice(0,60)) : esc(String(err))}`; return; }
       if(!text.trim()){ msg.textContent = 'not saved — hollow edit refused.'; return; }
       const author = schAuthor() || 'anonymous-scholar';
+      const selected = st.base && allV().find(x=>x.version_id===st.base);
+      const baseHash = selected?.base_sha256 || (SCH.original_hashes?.[st.layer]||{})[st.target] || '';
+      const localId = (globalThis.crypto && crypto.randomUUID) ? crypto.randomUUID() : schLocalHash({t:st.layer,g:st.target,c:content,a:author,n:Date.now()});
       const v = {
-        version_id: 'local:' + schLocalHash({t:st.layer,g:st.target,c:content,a:author,n:Date.now()}),
+        version_id: 'local:' + localId,
         work: WORK, layer: st.layer, target: st.target,
-        parent: st.base, base_sha256: '', author,
+        parent: st.base, base_sha256: baseHash, author, author_kind: 'human',
         created_at: new Date().toISOString().replace(/\.\d+Z$/,'Z'),
         note: 'browser draft', content_sha256: '',
         content, status: 'DRAFT_LOCAL',
@@ -435,15 +445,62 @@ async function scholarView(){
       renderLib(); renderCols();
       $('#schmsg') && ($('#schmsg').textContent = `saved ◇ ${v.version_id} — parent: ${v.parent || 'original'} · export JSON to publish`);
     };
+    $('#schendpoint').oninput = e=>{ publicationEndpoint = e.target.value.trim(); };
+    function submission(){
+      const base = currentBaseContent();
+      if(!$('#schta').value.trim()) throw new Error('The edit is empty.');
+      const content = schContentFrom(st.layer, st.target, $('#schta').value, base.content);
+      const drafts = schDrafts();
+      const chain = [];
+      const visited = new Set();
+      let parent = st.base;
+      while(parent && parent.startsWith('local:')){
+        if(visited.has(parent)) throw new Error('The draft chain contains a cycle.');
+        visited.add(parent);
+        const draft = drafts.find(x=>x.version_id===parent);
+        if(!draft) throw new Error('A parent draft is missing from this device.');
+        chain.unshift(draft);
+        parent = draft.parent;
+      }
+      const currentText = schTextOf(st.layer, base.content).trim();
+      if(!st.base || !st.base.startsWith('local:') || $('#schta').value.trim() !== currentText){
+        const selected = st.base && allV().find(x=>x.version_id===st.base);
+        const localId = (globalThis.crypto && crypto.randomUUID) ? crypto.randomUUID() : schLocalHash({t:st.layer,g:st.target,c:content,n:Date.now()});
+        chain.push({version_id:'local:'+localId, work:WORK, layer:st.layer, target:st.target,
+          parent:st.base, base_sha256:selected?.base_sha256 || (SCH.original_hashes?.[st.layer]||{})[st.target] || '',
+          author:schAuthor() || 'anonymous-scholar', author_kind:'human',
+          note:'exported from svread Scholar', content});
+      }
+      return {format:'scholar-submission/v1', work:WORK, versions:chain};
+    }
     $('#schexport').onclick = ()=>{
-      let content;
-      try{ content = schContentFrom(st.layer, st.target, $('#schta').value); }
-      catch(err){ $('#schmsg').textContent = 'fix the content before exporting.'; return; }
-      const payload = {work: WORK, layer: st.layer, target: st.target,
-        parent: st.base, author: schAuthor() || 'anonymous-scholar',
-        note: 'exported from svread Scholar', content};
+      let payload;
+      try{ payload = submission(); }
+      catch(err){ $('#schmsg').textContent = String(err.message||err); return; }
       dl(`${WORK}-${st.layer}-${st.target}.version.json`, JSON.stringify(payload, null, 1), 'application/json');
-      $('#schmsg').textContent = 'downloaded — publish with: python3 tools/scholar.py save --file <json>';
+      $('#schmsg').textContent = 'downloaded — import with: python3 tools/scholar.py import --file <json>';
+    };
+    $('#schsubmit').onclick = async ()=>{
+      const message = $('#schmsg');
+      const token = $('#schtoken').value;
+      try{
+        const endpoint = new URL(publicationEndpoint);
+        const local = endpoint.hostname === 'localhost' || endpoint.hostname === '127.0.0.1';
+        if(endpoint.username || endpoint.password || endpoint.search || endpoint.hash ||
+           (endpoint.protocol !== 'https:' && !(local && endpoint.protocol === 'http:'))){
+          throw new Error('Use an HTTPS publication server.');
+        }
+        if(!token) throw new Error('Enter your access token.');
+        const payload = submission();
+        const url = endpoint.origin + '/v1/scholar/submissions';
+        message.textContent = 'Submitting…';
+        const response = await fetch(url, {method:'POST', headers:{'Content-Type':'application/json',
+          'Authorization':'Bearer '+token}, body:JSON.stringify(payload)});
+        const result = await response.json();
+        if(!response.ok) throw new Error(result.error || 'Submission failed.');
+        $('#schtoken').value = '';
+        message.textContent = 'Submitted for review · ' + result.branch;
+      }catch(err){ message.textContent = String(err.message||err); }
     };
   }
 
@@ -455,13 +512,14 @@ async function scholarView(){
         ? `<table class="wtable"><tr><td>signed in</td><td>${esc(SCHPROF.display_name||'')} · ${esc(SCHPROF.email||'')}${SCHPROF.orcid?`<div class="cmp-note">ORCID ${esc(SCHPROF.orcid)}</div>`:''}</tr></table><div style="margin-top:.4rem"><button class="c2btn" id="schout">sign out</button></div>`
         : `<div class="c2row"><input id="schemail" placeholder="email" type="email"/><input id="schname" placeholder="display name"/></div>
            <div class="c2row" style="margin-top:.3rem"><input id="schpw" placeholder="password (8+ chars)" type="password"/><button class="c2btn" id="schgo">sign in / join</button></div>
-           <div class="cmp-note" id="schauthmsg">one account — signs your versions and sign-offs (ORCID link comes next)</div>`)
+           <div class="cmp-note" id="schauthmsg">Sign in to your Scholar profile. Submitting a version currently requires a separate service token; ORCID linking comes next.</div>`)
       + W('schhub','Scholar',
         `<table class="wtable">`
         + `<tr><td>work</td><td>${esc(SCH.work)}</td></tr>`
         + `<tr><td>versions</td><td>${(SCH.versions||[]).length} published · ${schDrafts().length} mine (device)</td></tr>`
         + `<tr><td>reviews</td><td>${(SCH.reviews||[]).length} ReviewEvents (exact-hash bound)</td></tr>`
         + `<tr><td>promotions</td><td>${(SCH.promotions||[]).length} — the only path to reviewed</td></tr>`
+        + (SCH.contract ? `<tr><td>schema</td><td>${esc(SCH.contract.structural_schema_version||'')} · <span title="${esc(SCH.contract.contract_sha256||'')}">${esc((SCH.contract.contract_sha256||'').slice(0,12))}</span></td></tr>` : '')
         + `<tr><td>generated</td><td>${esc(SCH.generated||'')}</td></tr>`
         + `</table><div class="cmp-note" style="margin-top:.4rem"><a class="redlink" href="?work=${esc(WORK)}">← back to the reader</a></div>`)
       + W('schsign','Sign-offs',
@@ -473,7 +531,7 @@ async function scholarView(){
           SLAY_ORDER.map(l=>{
             const n = Object.keys(SCH.originals[l]||{}).length;
             const on = l===st.layer;
-            return `<div><a href="#" class="schlay" data-l="${l}"${on?' style="font-weight:700;color:#B45141"':''}>${SLAY[l].label}</a> <span class="cmp-note">${n} ${l==='c1'?'songs':'verses'}</span></div>`;
+            return `<div><a href="#" class="schlay" data-l="${l}"${on?' style="font-weight:700;color:#B45141"':''}>${SLAY[l].label}</a> <span class="cmp-note">${n} ${l==='c1'||l==='c2'?'songs':'verses'}</span></div>`;
           }).join('') + `<div class="cmp-note">${esc(SLAY[st.layer].desc)}</div>`)
       + W('schtgt','Passages',
           `<div class="wsearch"><input id="schq" placeholder="filter §…" aria-label="filter passages"/><button id="schqgo">go</button></div>
@@ -485,7 +543,7 @@ async function scholarView(){
             `<a href="#" class="schbase2" data-vid="${b.id?esc(b.id):''}"${(st.base||'')===(b.id||'')?' style="font-weight:700;color:#B45141"':''}>${esc(b.name)}</a>`).join('') + `</div>`)
       + W('schmine','My versions (this device)',
           `<div class="c2row"><input id="schauthor" placeholder="your name (for versions)" value="${esc(schAuthor())}"/><button class="c2btn" id="schauthorok">set</button></div>`
-          + `<div class="cmp-note">edits save here first (◇ = device-local). Export JSON publishes them into the shared ledger — a fork of whichever base you chose.</div>`
+          + `<div class="cmp-note">edits save here first (◇ = device-local). Export JSON for import into the shared ledger — a fork of whichever base you chose.</div>`
           + `<table class="wtable">` + schDrafts().filter(v=>v.layer===st.layer).slice(-8).reverse().map(v=>
               `<tr><td>${esc(v.target.replace(/^[a-z0-9]+-/,'').replace('-v',' §'))}</td><td>${esc(v.author)}<div class="cmp-note">parent: ${esc((v.parent||'original').slice(0,20))}</div></td></tr>`).join('') + `</table>`);
     // bindings
