@@ -1469,7 +1469,7 @@ function buildRightRail(verses){
     </div>
     <div id="readMsg" class="cmp-note hbmsg"></div>`;
   $('#rail').innerHTML =
-    W('chat','Chat', `<div id="convo" aria-live="polite"></div><div class="wsearch wsbox"><textarea id="qin" placeholder="${DEFAULT_PH}" aria-label="ask about this work"></textarea><span class="wscircles"><button id="wvoice" class="circbtn" title="voice input — fills the box">🎙</button><button id="qgo" class="circbtn" title="send">↑</button></span></div>`).replace('<span class="tog">⌄</span>',''),
+    W('chat','Chat', `<div id="convo" aria-live="polite"></div><div class="wsearch wsbox"><textarea id="qin" placeholder="${DEFAULT_PH}" aria-label="ask about this work"></textarea></div><div class="wsrow"><button id="wvoice" class="circbtn" title="voice — words appear as you speak, then it sends">🎙</button><button id="qgo" class="circbtn" title="send">↑</button></div>`).replace('<span class="tog">⌄</span>',''),
   // collapsible widgets
   document.querySelectorAll('#headbar .widget h2').forEach(h=>{
     h.onclick = ()=>h.parentElement.classList.toggle('closed');
@@ -1776,9 +1776,19 @@ function buildRightRail(verses){
       if(!SR){ const i=$('#qin'); if(i) i.placeholder='voice input not supported in this browser'; return; }
       if(listening && rec){ try{ rec.stop(); }catch(e){} return; }
       rec = rec || new SR();
-      rec.lang = 'en-IN'; rec.interimResults = false; rec.maxAlternatives = 1;
-      rec.onresult = e=>{ const i=$('#qin');
-        if(i){ i.value = e.results[0][0].transcript; i.dispatchEvent(new Event('input')); } };
+      rec.lang = 'en-IN'; rec.interimResults = true; rec.maxAlternatives = 1;
+      rec.onresult = e=>{
+        const i = $('#qin'); if(!i) return;
+        let fin = '', live = '';
+        for(const r of e.results){ if(r.isFinal) fin += r[0].transcript + ' '; else live += r[0].transcript; }
+        i.value = (fin + live).trim();                     // words register as you speak
+        i.dispatchEvent(new Event('input'));               // (clears the pushing placeholder)
+        if(fin.trim()){                                    // final ⇒ autosend to Qwen
+          listening = false; vbtn.classList.remove('on');
+          try{ rec.stop(); }catch(err){}
+          qrun();
+        }
+      };
       rec.onend = ()=>{ listening=false; vbtn.classList.remove('on'); };
       rec.onerror = ()=>{ listening=false; vbtn.classList.remove('on'); };
       listening = true; vbtn.classList.add('on'); try{ rec.start(); }catch(e){}
