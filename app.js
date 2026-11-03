@@ -1112,9 +1112,9 @@ function installResize(lay){
     el.addEventListener('pointerup', end);
     el.addEventListener('pointercancel', end);
   };
-  drag(lib, document.querySelector('#pgleft'), {which:'L', key:'svv-libw',
-    get:()=>parseFloat(getComputedStyle(lib).width)||210,
-    set:w=>{ lib.style.flex='0 0 '+Math.max(Math.round(w),0)+'px'; }}, 'left');
+  /* LEFT menu: NO slider (owner) — #pgleft stays pure verse-nav; the tab arrow
+     still collapses it. Only the chat side resizes. */
+  const lw = load('svv-libw'); if(lw && lib) lib.style.flex = '0 0 ' + lw;
   drag(rail, document.querySelector('#pgright'), {which:'R', key:'svv-railw',
     get:()=>parseFloat(getComputedStyle(rail).width)||360,
     set:w=>{ rail.style.flex='0 0 '+Math.max(Math.round(w),0)+'px'; }}, 'right');
