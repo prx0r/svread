@@ -932,10 +932,10 @@ async function main(){
   $('#pgleft a').onclick = e=>{ e.preventDefault(); goVerse(-1); };
   $('#pgright a').onclick = e=>{ e.preventDefault(); goVerse(1); };
   $('#navsearch').onclick = e=>{ e.preventDefault(); const w = document.querySelector('#lib #wq'); if(w){ w.focus(); w.scrollIntoView({block:'center'}); } };
-  // rail collapse arrows (Scaife)
+  // rail collapse arrows (Scaife) + drag-to-resize (widths persist; drag past
+  // 60px collapses, drag back restores — see installResize)
   const lay = document.querySelector('.layout');
-  $('#tabL a').onclick = e=>{ e.preventDefault(); lay.classList.toggle('hideL'); };
-  $('#tabR a').onclick = e=>{ e.preventDefault(); lay.classList.toggle('hideR'); };
+  installResize(lay);
 
   window.scrollTo(0,0);
 }
@@ -1045,6 +1045,70 @@ function bindLibrary(box){
       b.querySelector('.car').textContent = open ? '▾' : '▸';
     };
   });
+}
+
+/* drag-to-resize: gutters #pgleft (master list) / #pgright (chat rail).
+   Drag = resize; past 60px = collapse; widths + collapse persist per device.
+   The gutter's own arrow clicks (verse nav) are swallowed after a real drag. */
+function installResize(lay){
+  const lib = document.querySelector('#lib'), rail = document.querySelector('.rail');
+  const MIN = 60;
+  const save = (k,v)=>{ try{ localStorage.setItem(k, v); }catch(e){} };
+  const load = k=>{ try{ return localStorage.getItem(k); }catch(e){ return null; } };
+  const setHide = (which, hide)=>{
+    const c = which==='L' ? 'hideL' : 'hideR';
+    if(hide) lay.classList.add(c); else lay.classList.remove(c);
+    save('svv-hide'+which, hide ? '1' : '0');
+  };
+  const toggle = which=> setHide(which, !lay.classList.contains(which==='L'?'hideL':'hideR'));
+  const tl = document.querySelector('#tabL a'), tr = document.querySelector('#tabR a');
+  if(tl) tl.onclick = e=>{ e.preventDefault(); toggle('L'); };
+  if(tr) tr.onclick = e=>{ e.preventDefault(); toggle('R'); };
+  const w0 = load('svv-libw'), r0 = load('svv-railw');
+  if(w0 && lib) lib.style.flex = '0 0 ' + w0;
+  if(r0 && rail) rail.style.flex = '0 0 ' + r0;
+  if(load('svv-hideL')==='1') lay.classList.add('hideL');
+  if(load('svv-hideR')==='1') lay.classList.add('hideR');
+  const drag = (el, gutter, cfg, side)=>{
+    if(!el || !gutter) return;
+    let startX=0, startW=0, active=false, moved=false;
+    gutter.addEventListener('pointerdown', e=>{
+      if(e.button!==0) return;
+      active=true; moved=false; startX=e.clientX; startW=cfg.get();
+      try{ gutter.setPointerCapture(e.pointerId); }catch(err){}
+      lay.classList.add('dragging'); e.preventDefault();
+    });
+    gutter.addEventListener('pointermove', e=>{
+      if(!active) return;
+      const dx = e.clientX - startX;
+      if(Math.abs(dx)>4) moved=true;
+      const w = side==='left' ? startW+dx : startW-dx;
+      if(w >= MIN) setHide(cfg.which, false);   // dragged back out ⇒ restore live
+      cfg.set(w);
+    });
+    const end = ()=>{
+      if(!active) return;
+      active=false;
+      lay.classList.remove('dragging');
+      if(moved){
+        const kill = ev=>{ ev.stopPropagation(); ev.preventDefault();
+          gutter.removeEventListener('click', kill, true); };
+        gutter.addEventListener('click', kill, true);
+        setTimeout(()=>gutter.removeEventListener('click', kill, true), 300);
+      }
+      const w = cfg.get();
+      if(w < MIN){ setHide(cfg.which, true); cfg.set(0); }
+      else { setHide(cfg.which, false); save(cfg.key, Math.round(w)+'px'); }
+    };
+    gutter.addEventListener('pointerup', end);
+    gutter.addEventListener('pointercancel', end);
+  };
+  drag(lib, document.querySelector('#pgleft'), {which:'L', key:'svv-libw',
+    get:()=>parseFloat(getComputedStyle(lib).width)||210,
+    set:w=>{ lib.style.flex='0 0 '+Math.max(Math.round(w),0)+'px'; }}, 'left');
+  drag(rail, document.querySelector('#pgright'), {which:'R', key:'svv-railw',
+    get:()=>parseFloat(getComputedStyle(rail).width)||360,
+    set:w=>{ rail.style.flex='0 0 '+Math.max(Math.round(w),0)+'px'; }}, 'right');
 }
 
 /* c1sum — standardized chat intro: first C1 SUMMARY clamped to chat length */
@@ -1609,22 +1673,22 @@ function buildRightRail(verses){
   const PUSH = {seed: [], ix: 0, on: false};
   const pushPh = ()=>{ const i = $('#qin');
     if(i && PUSH.on && PUSH.seed.length) i.placeholder = PUSH.seed[PUSH.ix % PUSH.seed.length]; };
+  const startPush = (seed)=>{
+    if(PUSH.on || !seed.length) return;
+    PUSH.seed = seed; PUSH.on = true; PUSH.ix = 0; pushPh();
+    setInterval(()=>{ const i = $('#qin');
+      if(!i || (i.value || '').trim()) return;      // typing ⇒ leave it alone
+      PUSH.ix++; pushPh(); }, 20000);
+  };
   fetch('https://ipvv-a8u.pages.dev/data/pushing/INDEX.json').then(r=>r.ok?r.json():{}).catch(()=>({}))
    .then(idx=>{
-     let qs = ((idx && idx.records) || []).filter(r=>r.work_hint === WORK)
+     const qs = ((idx && idx.records) || []).filter(r=>r.work_hint === WORK)
                    .flatMap(r => (r.questions || []).map(q => q.q)).filter(Boolean);
-     if(!qs.length){
-       qs = (DATA.verses || []).map(v=>{
-         const m = (v.argmap || '').match(/\*\*Question\.\*\*\s*([^\n]+)/);
-         return m ? m[1].trim() : '';
-       }).filter(Boolean);
-     }
-     if(qs.length){
-       PUSH.seed = qs; PUSH.on = true; PUSH.ix = 0; pushPh();
-       setInterval(()=>{ const i = $('#qin');
-         if(!i || (i.value || '').trim()) return;    // typing ⇒ leave it alone
-         PUSH.ix++; pushPh(); }, 20000);
-     }
+     if(qs.length){ startPush(qs); return; }
+     /* no hound corpus for this work → the shared bank of sharp general
+        enquiries reused across pushing texts (data/pushbank.json) */
+     fetch('data/pushbank.json').then(r=>r.ok?r.json():{}).catch(()=>({}))
+       .then(b=>{ const g = (b && b.queries) || []; if(g.length) startPush(g); });
    });
 
   const qrun = ()=>{

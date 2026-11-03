@@ -130,6 +130,22 @@ renders + stores, later taps hit the cache (`{cached:true}`).
   the box is empty again.
 - Widget collapse (⌄) removed from Chat — the header is static.
 
+## Chat rev4 + drag-resize (2026-11-03)
+
+- **Chat box flush to the bottom**: rail widened (360px default), rail padding
+  bottom 40→6px, textarea 8.5rem; voice/send circles now OVERLAY the box's
+  bottom-right corner (textarea takes the full width); convo + rail scrollbars
+  hidden (wheel/touch still scroll — they ate horizontal space).
+- **Pushing placeholder seeds**: work-specific hound queries from the pushing
+  INDEX first; otherwise the shared bank `data/pushbank.json` (12 sharp general
+  enquiries reused across pushing texts, owner-approved). Argmap-question seed
+  dropped (read as random out of context).
+- **Drag-to-resize**: gutters are drag handles — #pgleft resizes the master
+  list, #pgright resizes the chat rail. Dragging past 60px collapses the
+  section; dragging back out restores it live; widths + collapse persist per
+  device (localStorage) and the ←/→ tabs agree with the persisted state.
+  Verse-nav arrows on the gutters still tap-work; swallowed after a real drag.
+
 ## Open (not decided here)
 
 Poetic lane stays parked until verse-level renders exist. Song-level C1 essays (Śivastotrāvalī) need a song view. Ghaṭakarpara per-verse T1 re-chunk belongs to the crystal pipeline. Bhairavastava v10 root adjudication (`bhavati` vs `bhavamaru`) needs a Sanskritist.
