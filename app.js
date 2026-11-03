@@ -362,6 +362,9 @@ async function scholarView(){
   const st0 = (()=>{ try{ return JSON.parse(localStorage.getItem(`svv-schol-${WORK}`)) || {}; }catch(e){ return {}; } })();
   const st = { layer: SLAY[st0.layer] ? st0.layer : 'l3', target: st0.target || null, base: null };
   let publicationEndpoint = '';
+  const workspace=typeof ScholarWorkspace==='function'?new ScholarWorkspace({api:API,work:WORK,
+    profile:()=>SCHPROF,onStatus:message=>{const node=$('#schmsg');if(node)node.textContent=message;}}):null;
+  if(workspace)await workspace.load();
   if(!st.target){
     const t = schVsort(Object.keys(SCH.originals[st.layer]||{}));
     st.target = t[0] || null;
@@ -410,6 +413,7 @@ async function scholarView(){
            <div class="varbox"><textarea id="schta" spellcheck="false">${esc(schTextOf(st.layer, base.content))}</textarea><br>
            <button class="savebtn" id="schsave">Save as my version</button>
            <button class="c2btn" id="schexport">Export JSON</button></div>
+           <div id="schworkspace"></div>
            <div class="c2box"><div class="c2head">Submit for review</div>
            <input id="schendpoint" type="url" placeholder="Publication server" aria-label="Publication server" value="${esc(publicationEndpoint)}"/>
            <input id="schtoken" type="password" autocomplete="off" placeholder="Access token" aria-label="Access token"/>
@@ -509,6 +513,11 @@ async function scholarView(){
         message.textContent = 'Submitted for review · ' + result.branch;
       }catch(err){ message.textContent = String(err.message||err); }
     };
+    if(workspace){
+      const selected=st.base && allV().find(x=>x.version_id===st.base);
+      workspace.attach({container:$('#schworkspace'),textarea:$('#schta'),target:st.target,layer:st.layer,
+        baseHash:selected?.base_sha256||(SCH.original_hashes?.[st.layer]||{})[st.target]||'',parent:st.base});
+    }
   }
 
   function renderLib(){
@@ -602,13 +611,14 @@ async function scholarView(){
         if(!r.ok) throw new Error(d.error || ('http '+r.status));
         SCHPROF = d.profile;
         try{ localStorage.setItem('svv-scholar-author', d.display_name || d.profile.display_name || ''); }catch(e){}
+        if(workspace)await workspace.load();
         renderLib(); renderCols();
       }catch(e){ if(msg) msg.textContent = String(e.message||e).slice(0,90); }
     };
     const sout = $('#schout');
     if(sout) sout.onclick = async ()=>{
       try{ await fetch(API + '/api/auth/logout', {method:'POST', credentials:'include'}); }catch(e){}
-      SCHPROF = null; renderLib(); renderCols();
+      SCHPROF = null; if(workspace)await workspace.load(); renderLib(); renderCols();
     };
     $('#lib').querySelectorAll('.widget h2').forEach(h=>{ h.onclick = ()=>h.parentElement.classList.toggle('closed'); });
   }
