@@ -122,16 +122,6 @@ function engLaneId(){
 /* Side-by-side section alignment: every verse pair gets the same row height,
    so Sanskrit and English read across at the same eye line. Grow-only with an
    equality guard -> converges (no ResizeObserver loop). */
-function alignVerses(){
-  const L = document.querySelectorAll('#colL .verse'), R = document.querySelectorAll('#colR .verse');
-  const n = Math.min(L.length, R.length); if(!n) return;
-  for(let i=0;i<n;i++){
-    const h = Math.max(L[i].offsetHeight, R[i].offsetHeight);
-    const px = h + 'px';
-    if(L[i].style.minHeight !== px) L[i].style.minHeight = px;
-    if(R[i].style.minHeight !== px) R[i].style.minHeight = px;
-  }
-}
 
 const VDEF = {
   'sa-deva': v=>({label:v.title||WORK, desc:'Sanskrit text, Devanagari', meta:'san edition'}),
@@ -769,11 +759,12 @@ async function main(){
   if(LEFT==='l0' && !LIDS.includes('l0')) LEFT = 'l1';
   if(RIGHT==='l0' && !RIDS.includes('l0')) RIGHT = 'l1';
   renderCol('L', LEFT); renderCol('R', RIGHT);
-  alignVerses();
+  /* paired layout: one grid owns both columns — rows auto-size to the taller
+     cell, so § markers align exactly (replaces the old height-floor JS) */
   try{
-    const ro = new ResizeObserver(()=>{ requestAnimationFrame(alignVerses); });
-    ro.observe($('#cols'));
-    window.addEventListener('resize', ()=>requestAnimationFrame(alignVerses));
+    const cols = $('#cols');
+    cols.classList.add('paired');
+    cols.style.gridTemplateRows = 'repeat(' + (verses.length + 1) + ',auto)'; // +1 = verbar row
   }catch(e){}
   const syncCols = ()=>{
     const split = RIGHT!=='none';

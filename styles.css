@@ -58,6 +58,11 @@ header nav{background:var(--g800);color:#fff}
 
 /* ---------- parallel columns ---------- */
 .overall{display:flex}
+/* paired rows (reader): both columns share one grid — a verse row's height is
+   the TALLER of the two cells, so § markers align to the pixel, forever */
+#cols.paired{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-auto-rows:auto}
+#cols.paired .col{display:grid;grid-row:1/-1;grid-template-rows:subgrid;grid-template-columns:minmax(0,1fr)}
+#cols.paired .text{display:contents}
 .col{flex:10;padding:0 .5em;min-width:0}
 .col.right{border-left:1px solid var(--g300)}
 .col.hidden{display:none}
@@ -101,7 +106,7 @@ header nav{background:var(--g800);color:#fff}
 .tbar.on{background:var(--g900);color:#fff;border-color:var(--g900)}
 
 /* ---------- text proper ---------- */
-.text{font-family:var(--serif)}
+.text{font-family:var(--serif);overflow-wrap:break-word;-webkit-overflow-wrap:break-word}
 .text .sa{font-family:var(--deva);font-size:var(--sa-size);line-height:1.8}
 .text .ro{font-size:.9em;font-style:italic;color:var(--g600);margin:.1rem 0 .6rem}
 .text .enp{font-size:var(--en-size);line-height:1.6}
