@@ -130,6 +130,13 @@ renders + stores, later taps hit the cache (`{cached:true}`).
   the box is empty again.
 - Widget collapse (⌄) removed from Chat — the header is static.
 
+## Canonical heading (2026-11-03)
+
+Reader headings are **TITLE ONLY** for every text — the `verse 1–N (N passages)` and
+`N/N gate-passed · English shows only where passed` lines are removed from the top
+(empty h2/h3 are display:none); gate/trust facts live in the rail's Attributions.
+The Scholar view keeps its own hub stats line (it is a different view).
+
 ## Chat rev4 + drag-resize (2026-11-03)
 
 - **Chat box flush to the bottom**: rail widened (360px default), rail padding

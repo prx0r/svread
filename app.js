@@ -663,10 +663,7 @@ async function main(){
   }catch(e){}
   const title = DATA.title, master = DATA.master;
   document.title = `${title} · svread`;
-  $('#wh1').textContent = title;
-  $('#wh2').textContent = `${master?master+' · ':''}verse 1–${verses.length} (${verses.length} passages)`;
-  const nPass = verses.filter(v=>v.gate==='PASS' && (v.l2||v.l1)).length;
-  $('#wh3').textContent = `${nPass}/${verses.length} passages gate-passed · English shows only where passed`;
+  $('#wh1').textContent = title;   // canonical heading: TITLE ONLY, all texts (stats live in the rail)
 
   // studio chant: align karaoke to displayed verses. Karaoke files vary —
   // some carry romanisation, some only Devanagari, and many merge sandhi
