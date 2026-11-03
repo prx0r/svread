@@ -19,8 +19,11 @@ let ART = null, ART_CLIPS = {}, ART_REL = {};   // compiled alignment (see build
 let AU = null, AUtimer = null, AUix = null;
 let PS = null;      // per-section play: {kind:'sa'|'en'|'c1', i, paused, gen, audio, _step}
 let PLAYGEN = 0;    // invalidates older chains (widget recite vs section play never fight)
+const EN_READ_OFF = true;   // fish Granny English readout silent for now — set false to re-enable
 let QUEUE = null, QIDX = 0, QBASE = 0, QNEXT = null;
 let CURIX = 0;   // current verse (gutter / § jumps) — read-buttons act on it
+/* debug/inspection hook (read-only): window.__sv.kar()/au()/ps() — no writes */
+window.__sv = { kar:()=>KAR, au:()=>AU, ps:()=>PS, gen:()=>PLAYGEN };
 let SCHPROF = null;  // signed-in scholar (GET /api/auth/me)
 let LEFT = qs.get('left') || localStorage.getItem('svv-left') || 'sa-deva';
 let RIGHT = qs.get('right') || localStorage.getItem('svv-right') || 'none';
@@ -846,9 +849,18 @@ async function main(){
   document.querySelectorAll('#textL .w, #textR .w').forEach(w=>{
     w.onclick = ()=>askWord(w);
   });
-  // § = recite this verse (studio chant where it exists, voice otherwise)
+  // § = play from this verse (Sanskrit on the Sanskrit column, English on English columns)
+  const langOfLane = lane => (lane==='sa-deva'||lane==='sa-iast') ? 'sa'
+    : lane==='c1' ? 'c1'
+    : (lane==='l1'||lane==='l2'||lane==='l3'||lane==='l4') ? 'en' : null;
   document.querySelectorAll('a.vref').forEach(a=>{
-    a.onclick = e=>{ e.preventDefault(); CURIX = +a.getAttribute('data-i'); reciteVerse(CURIX); };
+    a.onclick = e=>{
+      e.preventDefault();
+      const i = +a.getAttribute('data-i'); CURIX = i;
+      const lane = a.closest('#colL') ? LEFT : RIGHT;
+      const lang = langOfLane(lane);
+      if(lang) splayToggle(lang, i); else reciteVerse(i);
+    };
   });
   // gutter prev/next verse
   let cur = CURIX;
@@ -976,14 +988,20 @@ function bindLibrary(box){
   });
 }
 
-function splayBtn(v, vid, i){
-  const sa = (vid === 'sa-deva' || vid === 'sa-iast');
-  if(sa) return `<button class="splay" data-i="${i}" data-k="sa" title="Sanskrit: play from here, continues through the work">\u25B6</button>`;
-  if(vid === 'c1') return `<button class="splay" data-i="${i}" data-k="c1" title="Commentary: read aloud from here (Granny)">\u25B6</button>`;
-  if(vid === 'l1' || vid === 'l2' || vid === 'l3' || vid === 'l4')
-    return (v && (v.l4 || v.l3 || v.l2 || v.l1))
-      ? `<button class="splay" data-i="${i}" data-k="en" title="English: read from here with Granny, continues through the work">\u25B6</button>` : '';
-  return '';
+/* c1sum — standardized chat intro: first C1 SUMMARY clamped to chat length */
+function c1sumLine(){
+  const vs = (DATA && DATA.verses) || [];
+  const v = vs.find(x=>x.c1) || null;
+  if(!v) return '';
+  const raw = (v.c1 || '').replace(/^##\s+[^\n]*\n/, '');
+  const m = raw.match(/\*\*SUMMARY\.\*\*\s*([\s\S]*?)(\n\n|\n\*Rasa|$)/);
+  let t = (m ? m[1] : cleanEN(raw)).replace(/\s+/g, ' ').trim();
+  if(t.length > 300){
+    const cut = t.slice(0, 300);
+    const dot = cut.lastIndexOf('. ');
+    t = (dot > 120 ? cut.slice(0, dot + 1) : cut.trimEnd() + '…');
+  }
+  return t;
 }
 function renderCol(side, vid){
   const labelEl = $(side==='L' ? '#verlabelL' : '#verlabelR');
@@ -1053,7 +1071,7 @@ function renderCol(side, vid){
     return;
   }
   textEl.innerHTML = DATA.verses.map((v,i)=>
-    `<div class="verse" data-i="${i}" id="v${i}"><a class="vref" href="#v${i}" data-i="${i}" title="recite this verse">§ ${i+1}</a>${splayBtn(v, vid, i)}${verseText(v, vid, side, i)}</div>`
+    `<div class="verse" data-i="${i}" id="v${i}"><a class="vref" href="#v${i}" data-i="${i}" title="recite this verse">§ ${i+1}</a>${verseText(v, vid, side, i)}</div>`
   ).join('');
   textEl.querySelectorAll('.splay').forEach(b=>{
     b.onclick = e=>{ e.preventDefault(); e.stopPropagation();
@@ -1208,6 +1226,7 @@ function splayStart(kind, from){
   step();
 }
 function splayToggle(kind, ix){
+  if(kind !== 'sa' && enSilent()) return;
   if(PS && PS.i === ix && PS.kind === kind){          // same section: pause / resume
     if(!PS.paused){
       PS.paused = true;
@@ -1231,11 +1250,12 @@ function splayToggle(kind, ix){
   splayStart(kind, ix);                       // any other section: start the chain there
 }
 function repaintSplay(){
-  document.querySelectorAll('.splay').forEach(b=>{
-    const on = PS && PS.i === +b.getAttribute('data-i') && PS.kind === b.getAttribute('data-k');
-    b.textContent = on && !PS.paused ? '\u23F8' : '\u25B6';
-    b.classList.toggle('on', !!on);
-  });
+  document.querySelectorAll('.verse.paused').forEach(v=>v.classList.remove('paused'));
+  if(PS && PS.paused) document.querySelectorAll(`.verse[data-i="${PS.i}"]`).forEach(v=>v.classList.add('paused'));
+}
+function enSilent(){
+  if(EN_READ_OFF){ const m=$('#readMsg'); if(m) m.textContent='english readout is off for now'; return true; }
+  return false;
 }
 function markVerse(i){
   document.querySelectorAll('.verse.now').forEach(v=>v.classList.remove('now'));
@@ -1313,15 +1333,20 @@ function reciteAll(){
 const W = (id, title, body)=>`<div class="widget" id="wid-${id}"><h2><span><span class="tog">⌄</span>${title}</span></h2><div class="wbody">${body}</div></div>`;
 function buildRightRail(verses){
   $('#headbar').innerHTML =
-    W('display','Display Settings',
-      `<div class="cmp-note" style="text-transform:uppercase;letter-spacing:.15em;font-size:.68rem">Text Size</div><div class="tsize">${['Αα','Αα','Αα','Αα','Αα'].map((a,i)=>`<button data-s="${i}" style="font-size:${[11,13,15,19,24][i]}px">${a}</button>`).join('')}</div>`
-      + `<div class="cmp-note" style="text-transform:uppercase;letter-spacing:.15em;font-size:.68rem;margin-top:.6rem">Text Width</div><div class="twidth">${['Narrow','Normal','Wide','Full'].map(w=>`<a href="#" data-w="${w}">${w}</a>`).join(' ')}</div>`)
-    + W('recite','Audio',
-      `<div class="tsize"><button id="rcAll">▶ recite all</button><button id="rcStop">■ stop</button></div><div class="cmp-note">${KAR ? 'studio chant, karaoke-timed · tap § for one verse' : 'browser voice · no studio chant on file · tap § for one verse'}</div>`
-      + `<div class="tsize" style="margin-top:.35rem"><button id="readSa">read sanskrit</button><button id="readEn">read english</button></div><div class="cmp-note" id="readMsg">current verse · rendered once, then stored verse-by-verse</div>`)
-    ;
+    `<div class="hbrow">
+      <span class="tsize hbg">${['Αα','Αα','Αα','Αα','Αα'].map((a,i)=>`<button data-s="${i}" style="font-size:${[11,13,15,19,24][i]}px" title="text size">${a}</button>`).join('')}</span>
+      <span class="hbsep"></span>
+      <span class="twidth hbg">${['Narrow','Normal','Wide','Full'].map(w=>`<a href="#" data-w="${w}" title="text width">${w}</a>`).join(' ')}</span>
+      <span class="hbsep"></span>
+      <button id="rcAll" class="hbbtn" title="recite all from the start">▶</button>
+      <button id="rcStop" class="hbbtn" title="stop">■</button>
+      <span class="hbsep"></span>
+      <button id="readSa" class="hbbtn" title="read this verse in Sanskrit">स</button>
+      <button id="readEn" class="hbbtn" title="read this verse in English (Granny)">EN</button>
+    </div>
+    <div id="readMsg" class="cmp-note hbmsg"></div>`;
   $('#rail').innerHTML =
-    W('chat','Ask the text', `<div id="convo" aria-live="polite"></div><div class="wsearch"><input id="qin" placeholder="ask about this work…" aria-label="ask about this work"/><button id="qgo">→</button></div>`);
+    W('chat','Chat', `<div id="convo" aria-live="polite"></div><div class="wsearch"><input id="qin" placeholder="ask about this work…" aria-label="ask about this work"/><button id="qgo">→</button></div>`);
   // collapsible widgets
   document.querySelectorAll('#rail .widget h2, #headbar .widget h2').forEach(h=>{
     h.onclick = ()=>h.parentElement.classList.toggle('closed');
@@ -1329,6 +1354,7 @@ function buildRightRail(verses){
   // recitation
   const rcA = $('#rcAll'), rcS = $('#rcStop');
   const readVerse = async (lang)=>{
+    if(lang !== 'sa' && enSilent()) return;
     const vs = (DATA && DATA.verses) || [];
     const v = vs[CURIX] || vs[0];
     const msg = $('#readMsg');
@@ -1504,8 +1530,13 @@ function buildRightRail(verses){
        Precomputed openers (data/openers.json) — no inference on page load. */
     const openerFallback = 'I wonder what this work is really asking…';
     fetch('data/openers.json').then(r=>r.ok?r.json():{}).catch(()=>({})).then(o=>{
-      const line = o[WORK] || openerFallback;
-      qsay('a', `<i>${esc(line)}</i> <a href="#" id="qask0">ask →</a>`);
+      const intro = c1sumLine();                      // standardized C1 overview
+      const line = intro || o[WORK] || openerFallback;
+      if(intro){
+        qsay('a', `<b>${esc((DATA&&DATA.title)||WORK)}</b> — ${esc(intro)} <a href="#" id="qask0">ask →</a>`);
+      } else {
+        qsay('a', `<i>${esc(line)}</i> <a href="#" id="qask0">ask →</a>`);
+      }
       const b = convo.querySelector('#qask0');
       if(b) b.onclick = e=>{ e.preventDefault(); const inp=$('#qin'); if(inp){ inp.value = line; qrun(); } };
     });
@@ -1581,24 +1612,24 @@ function buildRightRail(verses){
   const qin = $('#qin'); if(qin) qin.addEventListener('keydown', e=>{ if(e.key==='Enter') qrun(); });
   // size (5 steps, Scaife) / width (text links, Scaife)
   const sizes = [[0.9,0.8],[1.0,0.85],[1.25,1.0],[1.5,1.15],[1.8,1.3]];
-  document.querySelectorAll('#wid-display [data-s]').forEach(b=>{
+  document.querySelectorAll('#headbar [data-s]').forEach(b=>{
     b.onclick = ()=>{
       const i = +b.getAttribute('data-s');
       const r = document.documentElement.style;
       r.setProperty('--sa-size', sizes[i][0]+'rem');
       r.setProperty('--en-size', sizes[i][1]+'rem');
       try{ localStorage.setItem('svv-tsize', i); }catch(e){}
-      document.querySelectorAll('#wid-display [data-s]').forEach(x=>x.classList.remove('on'));
+      document.querySelectorAll('#headbar [data-s]').forEach(x=>x.classList.remove('on'));
       b.classList.add('on');
     };
   });
   const widths = {Narrow:'38rem', Normal:'46rem', Wide:'62rem', Full:'100%'};
-  document.querySelectorAll('#wid-display [data-w]').forEach(b=>{
+  document.querySelectorAll('#headbar [data-w]').forEach(b=>{
     b.onclick = e=>{
       e.preventDefault();
       document.documentElement.style.setProperty('--measure', widths[b.getAttribute('data-w')]);
       try{ localStorage.setItem('svv-twidth', b.getAttribute('data-w')); }catch(e){}
-      document.querySelectorAll('#wid-display [data-w]').forEach(x=>x.classList.remove('on'));
+      document.querySelectorAll('#headbar [data-w]').forEach(x=>x.classList.remove('on'));
       b.classList.add('on');
     };
   });
@@ -1616,11 +1647,11 @@ function applyPrefs(){
     const r = document.documentElement.style;
     r.setProperty('--sa-size', sizes[s][0]+'rem');
     r.setProperty('--en-size', sizes[s][1]+'rem');
-    const b = document.querySelector(`#wid-display [data-s="${s}"]`); if(b) b.classList.add('on');
+    const b = document.querySelector(`#headbar [data-s="${s}"]`); if(b) b.classList.add('on');
     const w = localStorage.getItem('svv-twidth')||'Normal';
     const widths = {Narrow:'38rem', Normal:'46rem', Wide:'62rem', Full:'100%'};
     r.setProperty('--measure', widths[w]||widths.Normal);
-    const wb = document.querySelector(`#wid-display [data-w="${w}"]`); if(wb) wb.classList.add('on');
+    const wb = document.querySelector(`#headbar [data-w="${w}"]`); if(wb) wb.classList.add('on');
   }catch(e){}
 }
 main();

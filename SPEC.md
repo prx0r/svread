@@ -97,6 +97,24 @@ Right rail, same structure and buttons as before (`▶ recite all` / `■ stop` 
 Stored verse-by-verse in R2 `svread-audio` at `read/<work>/<verse>_sa|en.mp3` — first tap
 renders + stores, later taps hit the cache (`{cached:true}`).
 
+## Chat + Audio + § (as shipped 2026-11-03, rev2)
+
+- **Chat** (was "Ask the text"): docked BOTTOM-RIGHT — output fills the whole right
+  rail (`#convo` flex), input pinned at its bottom. First message = **c1sum**: a
+  standardized intro formula over C1 (first `**SUMMARY.**`, clamped to 300 chars at a
+  sentence edge; falls back to `data/openers.json`, then the generic wonder-line).
+- **Headbar (minimal)**: beside the title — `Αα Αα Αα Αα Αα` · width links · icon
+  buttons `▶` recite-all · `■` stop · `स` read Sanskrit · `EN` read English — no
+  headings, no explanations (title tooltips only). Same ids/bindings as before.
+- **§ = play**: the section icon IS the play button (per-section ▶ removed). Language
+  follows the column's lane (Sanskrit lanes → chant chain, English lanes → Granny
+  chain, commentary → c1 text, other → classic single recite). Click again = pause
+  (marker: red §). Auto-continues to the end; `■ stop` clears everything.
+- **English readout SILENT for now**: `EN_READ_OFF = true` in app.js — English/c1
+  playback shows "english readout is off for now" (flip to false to re-enable fish).
+- **Service worker**: cache-first — `deploy.sh` bumps the SW version EVERY deploy
+  (stale-shells bit us once: karaoke appeared "broken" from an old cached app.js).
+
 ## Open (not decided here)
 
 Poetic lane stays parked until verse-level renders exist. Song-level C1 essays (Śivastotrāvalī) need a song view. Ghaṭakarpara per-verse T1 re-chunk belongs to the crystal pipeline. Bhairavastava v10 root adjudication (`bhavati` vs `bhavamaru`) needs a Sanskritist.
