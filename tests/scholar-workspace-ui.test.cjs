@@ -210,3 +210,24 @@ test('reviewer sends a structured report and explicitly opts into AI use',async(
   assert.equal(revision.expected_revision,1);assert.equal(revision.reasoning,'Updated reasoning');assert.equal(revision.ai_consent,false);
   for(const state of suite.docs.values())clearTimeout(state.timer);
 });
+
+test('a stale workspace cannot copy an agent draft after the account changes',async()=>{
+  const nodes=new Map(),status=[],profile={id:'alice'};
+  const localStorage={getItem:()=>null,setItem(){},removeItem(){},key:()=>null,get length(){return 0;}};
+  const fetch=async url=>{
+    if(String(url).includes('/api/scholar/documents?'))return Response.json({documents:[],next_offset:null});
+    if(String(url).endsWith('/api/scholar/reviews'))return Response.json({reviews:[]});
+    if(String(url).endsWith('/api/scholar/style-examples'))return Response.json({examples:[]});
+    throw new Error('Unexpected request');
+  };
+  const element=key=>{if(!nodes.has(key))nodes.set(key,{value:'',checked:false,textContent:'',addEventListener(){}});return nodes.get(key);};
+  const container={set innerHTML(v){nodes.clear();},querySelector:element,querySelectorAll:()=>[]};
+  const context=vm.createContext({fetch,localStorage,Response,URL,URLSearchParams,setTimeout,clearTimeout,
+    crypto:{randomUUID:()=> 'id'},confirm:()=>true,CSS:{escape:x=>x}});
+  vm.runInContext(fs.readFileSync(path.join(__dirname,'../scholar-workspace-ui.js'),'utf8'),context);
+  const suite=new context.ScholarWorkspace({api:'https://api.example',work:'testwork',profile:()=>profile,onStatus:s=>status.push(s)});
+  await suite.load();suite.attach({container,textarea:{value:'',addEventListener(){}},target:'p-v01',layer:'l3',baseHash:'',parent:null});
+  suite.agent={content:{task:'essay',text:'Alice private draft'}};profile.id='bob';element('#workspace-use').onclick();
+  assert.match(status.at(-1),/Account changed/);assert.equal([...suite.docs.values()].some(x=>x.data?.content?.text==='Alice private draft'),false);
+  for(const state of suite.docs.values())clearTimeout(state.timer);
+});
