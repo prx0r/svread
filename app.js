@@ -25,6 +25,7 @@ let CURIX = 0;   // current verse (gutter / § jumps) — read-buttons act on it
 /* debug/inspection hook (read-only): window.__sv.kar()/au()/ps() — no writes */
 window.__sv = { kar:()=>KAR, au:()=>AU, ps:()=>PS, gen:()=>PLAYGEN };
 let SCHPROF = null;  // signed-in scholar (GET /api/auth/me)
+const DEFAULT_PH = 'ask about this work…';   // chat box placeholder (chat markup + pushing rotation share it)
 let LEFT = qs.get('left') || localStorage.getItem('svv-left') || 'sa-deva';
 let RIGHT = qs.get('right') || localStorage.getItem('svv-right') || 'none';
 /* plain-word aliases: ?left=literal&right=poetic works; lane codes still accepted. */
@@ -1404,9 +1405,9 @@ function buildRightRail(verses){
     </div>
     <div id="readMsg" class="cmp-note hbmsg"></div>`;
   $('#rail').innerHTML =
-    W('chat','Chat', `<div id="convo" aria-live="polite"></div><div class="wsearch"><input id="qin" placeholder="ask about this work…" aria-label="ask about this work"/><button id="qgo">→</button></div>`);
+    W('chat','Chat', `<div id="convo" aria-live="polite"></div><div class="wsearch wsbox"><textarea id="qin" placeholder="${DEFAULT_PH}" aria-label="ask about this work"></textarea><span class="wscircles"><button id="wvoice" class="circbtn" title="voice input — fills the box">🎙</button><button id="qgo" class="circbtn" title="send">↑</button></span></div>`).replace('<span class="tog">⌄</span>',''),
   // collapsible widgets
-  document.querySelectorAll('#rail .widget h2, #headbar .widget h2').forEach(h=>{
+  document.querySelectorAll('#headbar .widget h2').forEach(h=>{
     h.onclick = ()=>h.parentElement.classList.toggle('closed');
   });
   // recitation
@@ -1586,26 +1587,55 @@ function buildRightRail(verses){
     convo.dataset.hi = '1';
     /* the AI speaks first: a wondering question pertaining to this work.
        Precomputed openers (data/openers.json) — no inference on page load. */
+    /* first message = c1sum mini-essay (compiled from argmaps+C1 by
+       translation-work/tools/build_c1sum.py); no "ask" link — the box IS the ask */
     const openerFallback = 'I wonder what this work is really asking…';
-    fetch('data/openers.json').then(r=>r.ok?r.json():{}).catch(()=>({})).then(o=>{
-      const intro = c1sumLine();                      // standardized C1 overview
-      const line = intro || o[WORK] || openerFallback;
+    fetch('data/c1sum.json').then(r=>r.ok?r.json():{}).catch(()=>({})).then(cs=>{
+      const intro = (cs && cs[WORK]) || c1sumLine();
       if(intro){
-        qsay('a', `<b>${esc((DATA&&DATA.title)||WORK)}</b> — ${esc(intro)} <a href="#" id="qask0">ask →</a>`);
+        qsay('a', `<b>${esc((DATA&&DATA.title)||WORK)}</b> — ${esc(intro)}`);
       } else {
-        qsay('a', `<i>${esc(line)}</i> <a href="#" id="qask0">ask →</a>`);
+        fetch('data/openers.json').then(r=>r.ok?r.json():{}).catch(()=>({}))
+          .then(o=>qsay('a', `<i>${esc(o[WORK]||openerFallback)}</i>`));
       }
-      const b = convo.querySelector('#qask0');
-      if(b) b.onclick = e=>{ e.preventDefault(); const inp=$('#qin'); if(inp){ inp.value = line; qrun(); } };
     });
   }
   /* Qwen Omni via the ipvv worker (RAG over gated corpus + pushing probes,
      closed world per CHAT.md). Local retrieval answers instantly and covers
      offline/failure — the worker is for open questions. */
+  /* grey placeholder = a probing query, new every 20s. Send with an empty
+     box to ask the one showing; typing clears it until the box is empty again.
+     Seed: the work's pushing/hound queries, else the text's own argmap questions. */
+  const PUSH = {seed: [], ix: 0, on: false};
+  const pushPh = ()=>{ const i = $('#qin');
+    if(i && PUSH.on && PUSH.seed.length) i.placeholder = PUSH.seed[PUSH.ix % PUSH.seed.length]; };
+  fetch('https://ipvv-a8u.pages.dev/data/pushing/INDEX.json').then(r=>r.ok?r.json():{}).catch(()=>({}))
+   .then(idx=>{
+     let qs = ((idx && idx.records) || []).filter(r=>r.work_hint === WORK)
+                   .flatMap(r => (r.questions || []).map(q => q.q)).filter(Boolean);
+     if(!qs.length){
+       qs = (DATA.verses || []).map(v=>{
+         const m = (v.argmap || '').match(/\*\*Question\.\*\*\s*([^\n]+)/);
+         return m ? m[1].trim() : '';
+       }).filter(Boolean);
+     }
+     if(qs.length){
+       PUSH.seed = qs; PUSH.on = true; PUSH.ix = 0; pushPh();
+       setInterval(()=>{ const i = $('#qin');
+         if(!i || (i.value || '').trim()) return;    // typing ⇒ leave it alone
+         PUSH.ix++; pushPh(); }, 20000);
+     }
+   });
+
   const qrun = ()=>{
     const inp = $('#qin'); if(!inp || inp.disabled) return;
-    const q = (inp.value||'').trim(); if(!q) return;
+    let q = (inp.value||'').trim();
+    if(!q && PUSH.on && PUSH.seed.length && inp.placeholder !== DEFAULT_PH){
+      q = PUSH.seed[PUSH.ix % PUSH.seed.length]; PUSH.ix++;   // empty box + grey query = ask it
+    }
+    if(!q) return;
     inp.value = ''; inp.disabled = true;
+    if(PUSH.on) pushPh();
     qsay('q', esc(q));
     const thinking = document.createElement('div');
     thinking.className = 'qbub a thinking'; thinking.textContent = '…';
@@ -1667,7 +1697,29 @@ function buildRightRail(verses){
     .finally(()=>{ inp.disabled = false; try{ inp.focus(); }catch(e){} });
   };
   const qgo = $('#qgo'); if(qgo) qgo.onclick = qrun;
-  const qin = $('#qin'); if(qin) qin.addEventListener('keydown', e=>{ if(e.key==='Enter') qrun(); });
+  const qin = $('#qin');
+  if(qin) qin.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); qrun(); } });
+  if(qin) qin.addEventListener('input', ()=>{
+    const has = (qin.value||'').trim().length > 0;
+    if(PUSH.on) qin.placeholder = (has || !PUSH.seed.length) ? DEFAULT_PH : PUSH.seed[PUSH.ix % PUSH.seed.length];
+  });
+  /* voice input circle: fill the box with what you say (send stays yours) */
+  const vbtn = $('#wvoice');
+  if(vbtn){
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    let rec = null, listening = false;
+    vbtn.onclick = ()=>{
+      if(!SR){ const i=$('#qin'); if(i) i.placeholder='voice input not supported in this browser'; return; }
+      if(listening && rec){ try{ rec.stop(); }catch(e){} return; }
+      rec = rec || new SR();
+      rec.lang = 'en-IN'; rec.interimResults = false; rec.maxAlternatives = 1;
+      rec.onresult = e=>{ const i=$('#qin');
+        if(i){ i.value = e.results[0][0].transcript; i.dispatchEvent(new Event('input')); } };
+      rec.onend = ()=>{ listening=false; vbtn.classList.remove('on'); };
+      rec.onerror = ()=>{ listening=false; vbtn.classList.remove('on'); };
+      listening = true; vbtn.classList.add('on'); try{ rec.start(); }catch(e){}
+    };
+  }
   // size (5 steps, Scaife) / width (text links, Scaife)
   const sizes = [[0.9,0.8],[1.0,0.85],[1.25,1.0],[1.5,1.15],[1.8,1.3]];
   document.querySelectorAll('#headbar [data-s]').forEach(b=>{

@@ -115,6 +115,21 @@ renders + stores, later taps hit the cache (`{cached:true}`).
 - **Service worker**: cache-first — `deploy.sh` bumps the SW version EVERY deploy
   (stale-shells bit us once: karaoke appeared "broken" from an old cached app.js).
 
+## Chat rev3 (2026-11-03)
+
+- **Intro = c1sum mini-essay** (~900 chars): compiled per work by
+  `translation-work/tools/build_c1sum.py` → `data/c1sum.json` — opening argmap
+  question + one C1 essence sentence per song, in order. Fallback: in-page
+  `c1sumLine()` → openers.json. No "ask" link (the box is the ask).
+- **Chat box**: tall textarea (not a bar) reaching near the page bottom; two
+  circles stacked right of it — 🎙 voice input (SpeechRecognition; fills the box)
+  above, ↑ send below. Enter sends (Shift+Enter = newline).
+- **Grey placeholder = a probing query, new every 20s** — seeded from the work's
+  pushing/hound queries (pushing INDEX) or, where the work has none, from its own
+  argmap questions. Press send with an empty box to ask it; typing clears it until
+  the box is empty again.
+- Widget collapse (⌄) removed from Chat — the header is static.
+
 ## Open (not decided here)
 
 Poetic lane stays parked until verse-level renders exist. Song-level C1 essays (Śivastotrāvalī) need a song view. Ghaṭakarpara per-verse T1 re-chunk belongs to the crystal pipeline. Bhairavastava v10 root adjudication (`bhavati` vs `bhavamaru`) needs a Sanskritist.
