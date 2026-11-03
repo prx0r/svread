@@ -528,7 +528,7 @@ async function scholarView(){
         ? `<table class="wtable"><tr><td>signed in</td><td>${esc(SCHPROF.display_name||'')} · ${esc(SCHPROF.email||'')}${SCHPROF.orcid?`<div class="cmp-note">ORCID ${esc(SCHPROF.orcid)}</div>`:''}</tr></table><div style="margin-top:.4rem"><button class="c2btn" id="schout">sign out</button></div>`
         : `<div class="c2row"><input id="schemail" placeholder="email" type="email"/><input id="schname" placeholder="display name"/></div>
            <div class="c2row" style="margin-top:.3rem"><input id="schpw" placeholder="password (8+ chars)" type="password"/><button class="c2btn" id="schgo">sign in / join</button></div>
-           <div class="cmp-note" id="schauthmsg">Sign in to your Scholar profile. Submitting a version currently requires a separate service token; ORCID linking comes next.</div>`)
+           <div class="cmp-note" id="schauthmsg">Sign in to save private work, request review, and submit a signed version.</div>`)
       + W('schhub','Scholar',
         `<table class="wtable">`
         + `<tr><td>work</td><td>${esc(SCH.work)}</td></tr>`
@@ -538,6 +538,10 @@ async function scholarView(){
         + (SCH.contract ? `<tr><td>schema</td><td>${esc(SCH.contract.structural_schema_version||'')} · <span title="${esc(SCH.contract.contract_sha256||'')}">${esc((SCH.contract.contract_sha256||'').slice(0,12))}</span></td></tr>` : '')
         + `<tr><td>generated</td><td>${esc(SCH.generated||'')}</td></tr>`
         + `</table><div class="cmp-note" style="margin-top:.4rem"><a class="redlink" href="?work=${esc(WORK)}">← back to the reader</a></div>`)
+      + W('schessays','Scholar essays',
+          (SCH.essays||[]).length ? SCH.essays.map(a=>
+            `<details><summary>${esc(a.title)} · ${esc(a.author)}</summary><div class="cmp-note">${esc(a.rights)}${a.assisted?' · AI-assisted':''}</div><div class="enp">${esc(a.text).replace(/\n/g,'<br>')}</div></details>`).join('')
+            : `<div class="milestone">No published essays for this work yet.</div>`)
       + W('schsign','Sign-offs',
           ((SCH.signoffs||[]).length
             ? `<table class="wtable">` + SCH.signoffs.map(s=>

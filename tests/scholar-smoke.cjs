@@ -9,6 +9,7 @@ test('Scholar keeps a local fork chain and submits the same data', async () => {
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
   const code = app.slice(app.indexOf('let SCH = null;'), app.indexOf('\nasync function main(){'));
   const data = JSON.parse(fs.readFileSync(path.join(root, 'data/scholar/paramarthasara.json'), 'utf8'));
+  data.essays = [{title:'A considered essay',author:'A Scholar',rights:'cc-by-4.0',text:'A public essay.'}];
   const storage = new Map([['svv-scholar-author', 'Test scholar']]);
   const nodes = new Map();
   let download;
@@ -49,6 +50,8 @@ test('Scholar keeps a local fork chain and submits the same data', async () => {
   });
   vm.runInContext(code, context);
   await vm.runInContext('scholarView()', context);
+  assert.match(node('#lib').innerHTML, /A considered essay/);
+  assert.match(node('#lib').innerHTML, /A public essay/);
   node('#schta').value = 'First version';
   node('#schsave').onclick();
   node('#schta').value = 'Second version';
