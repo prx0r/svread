@@ -17,6 +17,8 @@ const CHANTDIR = {anuttarastika:'anuttarashtika_trad'};
 let KAR = null; // {words:[[ {w,r,t0,t1} ]], au:[url|null]}
 let ART = null, ART_CLIPS = {}, ART_REL = {};   // compiled alignment (see build_align.py)
 let AU = null, AUtimer = null, AUix = null;
+let PS = null;      // per-section play: {kind:'sa'|'en'|'c1', i, paused, gen, audio, _step}
+let PLAYGEN = 0;    // invalidates older chains (widget recite vs section play never fight)
 let QUEUE = null, QIDX = 0, QBASE = 0, QNEXT = null;
 let CURIX = 0;   // current verse (gutter / § jumps) — read-buttons act on it
 let SCHPROF = null;  // signed-in scholar (GET /api/auth/me)
@@ -974,6 +976,15 @@ function bindLibrary(box){
   });
 }
 
+function splayBtn(v, vid, i){
+  const sa = (vid === 'sa-deva' || vid === 'sa-iast');
+  if(sa) return `<button class="splay" data-i="${i}" data-k="sa" title="Sanskrit: play from here, continues through the work">\u25B6</button>`;
+  if(vid === 'c1') return `<button class="splay" data-i="${i}" data-k="c1" title="Commentary: read aloud from here (Granny)">\u25B6</button>`;
+  if(vid === 'l1' || vid === 'l2' || vid === 'l3' || vid === 'l4')
+    return (v && (v.l4 || v.l3 || v.l2 || v.l1))
+      ? `<button class="splay" data-i="${i}" data-k="en" title="English: read from here with Granny, continues through the work">\u25B6</button>` : '';
+  return '';
+}
 function renderCol(side, vid){
   const labelEl = $(side==='L' ? '#verlabelL' : '#verlabelR');
   const menuEl = $(side==='L' ? '#vermenuL' : '#vermenuR');
@@ -1042,8 +1053,12 @@ function renderCol(side, vid){
     return;
   }
   textEl.innerHTML = DATA.verses.map((v,i)=>
-    `<div class="verse" data-i="${i}" id="v${i}"><a class="vref" href="#v${i}" data-i="${i}" title="recite this verse">§ ${i+1}</a>${verseText(v, vid, side, i)}</div>`
+    `<div class="verse" data-i="${i}" id="v${i}"><a class="vref" href="#v${i}" data-i="${i}" title="recite this verse">§ ${i+1}</a>${splayBtn(v, vid, i)}${verseText(v, vid, side, i)}</div>`
   ).join('');
+  textEl.querySelectorAll('.splay').forEach(b=>{
+    b.onclick = e=>{ e.preventDefault(); e.stopPropagation();
+      splayToggle(b.getAttribute('data-k'), +b.getAttribute('data-i')); };
+  });
   const del = $('#colRdel');
   if(del) del.onclick = e=>{ e.preventDefault(); setCol('right','none'); };
 }
@@ -1142,7 +1157,86 @@ function quiet(){
   document.querySelectorAll('.w.sing').forEach(w=>w.classList.remove('sing'));
   document.querySelectorAll('.verse.now').forEach(v=>v.classList.remove('now'));
 }
-function stopRecite(){ quiet(); AUix = null; }
+function bumpPlay(){ PLAYGEN++; PS = null; repaintSplay(); }
+function stopRecite(){ bumpPlay(); quiet(); AUix = null; }
+/* ---- per-section play: starts at a section, auto-continues to the end ----
+   sa = chant/browser voice via stepOnce · en/c1 = Granny via /api/read (R2-cached) */
+function readUrlFor(v, kind){
+  let text = '';
+  if(kind === 'c1'){
+    text = cleanEN((v.c1 || '').replace(/^##\s+[^\n]*\n/, ''));
+    if(!text){
+      const m = (v.id||'').match(/^(.*)-v\d+$/);
+      const first = m && (DATA.verses||[]).find(x=>x.id===m[1]+'-v01' && x.c1);
+      text = first ? cleanEN(first.c1.replace(/^##\s+[^\n]*\n/, '')) : '';
+    }
+  } else {
+    text = (v.l4 || v.l3 || v.l2 || '').trim();
+  }
+  if(!text) return Promise.reject(new Error('no english on file — withheld'));
+  return fetch(API + '/api/read', {method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({work: WORK, verse: v.id, lang: kind==='c1'?'c1':'en', text: text.slice(0,4000)})})
+    .then(r=>r.json().then(d=>{ if(!r.ok) throw new Error(d.error||('http '+r.status)); return d.url; }));
+}
+function splayStart(kind, from){
+  PLAYGEN++; const g = PLAYGEN;
+  quiet(); AUix = null;
+  PS = {kind, i: from, paused: false, gen: g, audio: null};
+  repaintSplay();
+  const step = ()=>{
+    if(!PS || PS.gen !== g || PS.paused) return;
+    repaintSplay();                          // paint the NEW current section each advance
+    const vs = DATA.verses || [];
+    if(PS.i >= vs.length){ stopRecite(); return; }
+    const i = PS.i;
+    if(kind === 'sa'){
+      markVerse(i); AUix = i;
+      stepOnce(i, ()=>{ if(!PS || PS.gen !== g || PS.paused) return; PS.i++; step(); });
+      return;
+    }
+    const v = vs[i];
+    if(kind === 'en' && !(v.l4 || v.l3 || v.l2)){ PS.i++; step(); return; }
+    markVerse(i);
+    readUrlFor(v, kind).then(url=>{
+      if(!PS || PS.gen !== g || PS.paused) return;
+      const a = new Audio(url); PS.audio = a;
+      a.onended = ()=>{ if(!PS || PS.gen !== g) return; PS.i++; PS.audio = null; step(); };
+      a.play().catch(()=>{ if(PS && PS.gen === g){ PS.i++; PS.audio = null; step(); } });
+    }).catch(()=>{ if(PS && PS.gen === g){ PS.i++; step(); } });
+  };
+  PS._step = step;
+  step();
+}
+function splayToggle(kind, ix){
+  if(PS && PS.i === ix && PS.kind === kind){          // same section: pause / resume
+    if(!PS.paused){
+      PS.paused = true;
+      if(kind === 'sa'){
+        try{ AU && AU.pause(); }catch(e){}
+        if(AUtimer){ cancelAnimationFrame(AUtimer); AUtimer = null; }
+        try{ speechSynthesis.pause(); }catch(e){}
+      } else if(PS.audio){ PS.audio.pause(); }
+      repaintSplay();
+    } else {
+      PS.paused = false;
+      if(kind === 'sa'){
+        try{ speechSynthesis.resume(); }catch(e){}
+        if(AU && !AU.ended){ AU.play().catch(()=>{}); AUtimer = requestAnimationFrame(tickAU); }
+      } else if(PS.audio){ PS.audio.play().catch(()=>{}); }
+      else if(PS._step) PS._step();          // paused between fetches — re-kick
+      repaintSplay();
+    }
+    return;
+  }
+  splayStart(kind, ix);                       // any other section: start the chain there
+}
+function repaintSplay(){
+  document.querySelectorAll('.splay').forEach(b=>{
+    const on = PS && PS.i === +b.getAttribute('data-i') && PS.kind === b.getAttribute('data-k');
+    b.textContent = on && !PS.paused ? '\u23F8' : '\u25B6';
+    b.classList.toggle('on', !!on);
+  });
+}
 function markVerse(i){
   document.querySelectorAll('.verse.now').forEach(v=>v.classList.remove('now'));
   document.querySelectorAll(`.verse[data-i="${i}"]`).forEach(el=>{
@@ -1202,14 +1296,16 @@ function stepOnce(i, next){
     AUtimer = requestAnimationFrame(tickAU);
   } else speakThen(i, next);
 }
-function reciteVerse(i){ quiet(); AUix = i; markVerse(i); stepOnce(i, ()=>stopRecite()); }
+function reciteVerse(i){ bumpPlay(); quiet(); AUix = i; markVerse(i); stepOnce(i, ()=>stopRecite()); }
 function reciteAll(){
-  quiet();
+  bumpPlay(); quiet();
+  const g = PLAYGEN;
   let i = 0;
   const step = ()=>{
+    if(g !== PLAYGEN) return;
     if(i >= DATA.verses.length){ stopRecite(); return; }
     AUix = i; markVerse(i);
-    stepOnce(i, ()=>{ i++; step(); });
+    stepOnce(i, ()=>{ if(g !== PLAYGEN) return; i++; step(); });
   };
   step();
 }
