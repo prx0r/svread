@@ -15,6 +15,7 @@ test('Scholar workspace saves privately and labels a copied agent draft',async()
     const method=options.method||'GET', data=options.body?JSON.parse(options.body):null;calls.push({url:String(url),method,data});
     if(String(url).includes('/api/scholar/documents?'))return Response.json({documents:[...saved.values()],next_offset:null});
     if(String(url).endsWith('/api/scholar/reviews'))return Response.json(method==='POST'?{id:'review:one'}:{reviews:[]});
+    if(String(url).endsWith('/api/scholar/style-examples'))return Response.json({examples:[]});
     if(method==='PUT'){
       const id=decodeURIComponent(String(url).split('/').pop()),prior=saved.get(id);
       if(data.expected_revision!==(prior?.revision||0))return Response.json({error:'conflict'},{status:409});
@@ -78,6 +79,7 @@ test('conflicting offline edits remain recoverable without overwriting the accou
     key:i=>[...storage.keys()][i],get length(){return storage.size;}};
   const fetch=async(url,options={})=>{
     if(String(url).endsWith('/api/scholar/reviews'))return Response.json({reviews:[]});
+    if(String(url).endsWith('/api/scholar/style-examples'))return Response.json({examples:[]});
     if(String(url).includes('/api/scholar/documents?'))return Response.json({documents:[account],next_offset:null});
     if(options.method==='PUT'){const body=JSON.parse(options.body);assert.equal(body.expected_revision,2);
       const {expected_revision,...data}=body;account={...data,revision:3};return Response.json({document:account});}
@@ -107,6 +109,7 @@ test('private revisions can be compared and restored as a new version',async()=>
   const revisions=[account,{...account,revision:1,content:{text:'Earlier human text',assisted:false}}];
   const fetch=async(url,options={})=>{
     if(String(url).endsWith('/api/scholar/reviews'))return Response.json({reviews:[]});
+    if(String(url).endsWith('/api/scholar/style-examples'))return Response.json({examples:[]});
     if(String(url).includes('/api/scholar/documents?'))return Response.json({documents:[account],next_offset:null});
     if(String(url).endsWith('/history'))return Response.json({revisions,next_before:null});
     if(options.method==='PUT'){const data=JSON.parse(options.body);puts.push(data);assert.equal(data.expected_revision,2);
@@ -129,5 +132,74 @@ test('private revisions can be compared and restored as a new version',async()=>
   suite.signoffs.set(id,{id:'signoff:old'});await element('#workspace-history-restore').onclick();
   assert.equal(puts[0].content.text,'Earlier human text');assert.equal(account.revision,3);
   assert.equal(editor.value,'Earlier human text');assert.equal(suite.signoffs.has(id),false);
+  for(const state of suite.docs.values())clearTimeout(state.timer);
+});
+
+test('essay revision sends selected review and style edits, then blocks a stale agent draft',async()=>{
+  const storage=new Map(),nodes=new Map(),calls=[],statuses=[];
+  const localStorage={getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v),removeItem:k=>storage.delete(k),
+    key:i=>[...storage.keys()][i],get length(){return storage.size;}};
+  let essay={id:'essay:1',kind:'essay',work:'testwork',target:'p-v01',layer:'l3',title:'My paper',content:{text:'My revision'},revision:2};
+  const reviews=[{id:'review:1',owner_id:'alice',reviewer_id:'bob',work:'testwork',document_id:essay.id,
+    revision:2,decision:'REQUEST_CHANGES',ai_consent:true,snapshot:{content:{text:'My revision'}}}];
+  const examples=[{id:'style:1',document_id:essay.id,work:'testwork',kind:'essay',layer:'l3',before_revision:1,after_revision:2}];
+  const fetch=async(url,options={})=>{
+    const method=options.method||'GET',data=options.body?JSON.parse(options.body):null;calls.push({url:String(url),method,data});
+    if(String(url).includes('/api/scholar/documents?'))return Response.json({documents:[essay],next_offset:null});
+    if(String(url).endsWith('/api/scholar/reviews'))return Response.json({reviews});
+    if(String(url).endsWith('/api/scholar/style-examples'))return Response.json({examples});
+    if(String(url).endsWith('/api/scholar/assist'))return Response.json({document:{id:'agent:1',kind:'agent-draft',revision:1,
+      content:{text:'Proposed revised paper',task:'essay_revision',model:'qwen-test',source_document_id:essay.id,source_revision:2}},message:'Saved privately.'});
+    if(method==='PUT'){assert.equal(data.expected_revision,2);const {expected_revision,...payload}=data;essay={...payload,revision:3};return Response.json({document:essay});}
+    throw new Error('Unexpected request '+url);
+  };
+  const element=key=>{if(!nodes.has(key))nodes.set(key,{value:'',checked:false,textContent:'',addEventListener(){}});return nodes.get(key);};
+  const container={set innerHTML(v){this.html=v;nodes.clear();},querySelector:element,querySelectorAll(key){
+    if(key==='.workspace-style-choice:checked')return [{value:'style:1'}];
+    if(key==='.workspace-feedback-choice:checked')return [{value:'review:1'}];return [];}};
+  const context=vm.createContext({fetch,localStorage,Response,URL,URLSearchParams,setTimeout,clearTimeout,
+    crypto:{randomUUID:()=> 'id'},confirm:()=>true,CSS:{escape:x=>x}});
+  vm.runInContext(fs.readFileSync(path.join(__dirname,'../scholar-workspace-ui.js'),'utf8'),context);
+  const suite=new context.ScholarWorkspace({api:'https://api.example',work:'testwork',profile:()=>({id:'alice'}),onStatus:s=>statuses.push(s)});
+  await suite.load();const editor={value:'',addEventListener(){}};
+  suite.attach({container,textarea:editor,target:'p-v01',layer:'l3',baseHash:'',parent:null});
+  element('#workspace-task').value='essay_revision';element('#workspace-style').checked=true;element('#workspace-prompt').value='Strengthen it';
+  await element('#workspace-ask').onclick();
+  const sent=calls.find(x=>x.url.endsWith('/assist')).data;
+  assert.equal(sent.document_id,'essay:1');assert.equal(sent.revision,2);
+  assert.deepEqual(sent.style_example_ids,['style:1']);assert.deepEqual(sent.review_ids,['review:1']);assert.equal(sent.consent_to_ai,true);
+  suite.docs.get('essay:1').data.revision=3;element('#workspace-use').onclick();
+  assert.match(statuses.at(-1),/changed since this draft/);suite.docs.get('essay:1').data.revision=2;
+  element('#workspace-use').onclick();await suite.flush('essay:1');
+  assert.equal(essay.content.text,'Proposed revised paper');assert.equal(essay.content.assisted,true);assert.equal(essay.revision,3);
+  for(const state of suite.docs.values())clearTimeout(state.timer);
+});
+
+test('reviewer sends a structured report and explicitly opts into AI use',async()=>{
+  const nodes=new Map(),calls=[];
+  const localStorage={getItem:()=>null,setItem(){},removeItem(){},key:()=>null,get length(){return 0;}};
+  const review={id:'review:1',owner_id:'alice',reviewer_id:'bob',work:'testwork',document_id:'essay:1',revision:1,
+    decision:null,snapshot:{content:{text:'Draft'}}};
+  const fetch=async(url,options={})=>{const method=options.method||'GET',data=options.body?JSON.parse(options.body):null;
+    calls.push({url:String(url),method,data});
+    if(String(url).includes('/api/scholar/documents?'))return Response.json({documents:[],next_offset:null});
+    if(String(url).endsWith('/api/scholar/reviews'))return Response.json({reviews:[review]});
+    if(String(url).endsWith('/api/scholar/style-examples'))return Response.json({examples:[]});
+    if(String(url).endsWith('/decision'))return Response.json({id:review.id,decision:data.decision});
+    throw new Error('Unexpected request '+url);
+  };
+  const element=key=>{if(!nodes.has(key))nodes.set(key,{value:'',checked:false,textContent:'',addEventListener(){}});return nodes.get(key);};
+  const button={dataset:{id:'review:1',decision:'REQUEST_CHANGES'}};
+  const container={set innerHTML(v){this.html=v;nodes.clear();},querySelector:element,querySelectorAll(key){return key==='.workspace-decision'?[button]:[];}};
+  const context=vm.createContext({fetch,localStorage,Response,URL,URLSearchParams,setTimeout,clearTimeout,
+    crypto:{randomUUID:()=> 'id'},confirm:()=>true,CSS:{escape:x=>x}});
+  vm.runInContext(fs.readFileSync(path.join(__dirname,'../scholar-workspace-ui.js'),'utf8'),context);
+  const suite=new context.ScholarWorkspace({api:'https://api.example',work:'testwork',profile:()=>({id:'bob'})});
+  await suite.load();suite.attach({container,textarea:{value:'',addEventListener(){}},target:'p-v01',layer:'l3',baseHash:'',parent:null});
+  element('#workspace-review-review:1').value='Needs revision';element('#workspace-review-argument-review:1').value='Clarify argument';
+  element('#workspace-review-evidence-review:1').value='Check source';element('#workspace-review-suggestions-review:1').value='Add evidence';
+  element('#workspace-review-ai-review:1').checked=true;await button.onclick();
+  const report=calls.find(x=>x.url.endsWith('/decision')).data;
+  assert.equal(report.decision,'REQUEST_CHANGES');assert.equal(report.rubric.evidence,'Check source');assert.equal(report.ai_consent,true);
   for(const state of suite.docs.values())clearTimeout(state.timer);
 });

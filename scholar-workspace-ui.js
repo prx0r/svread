@@ -3,7 +3,7 @@
   class ScholarWorkspace {
     constructor({api,work,profile,onStatus}){
       this.api=api;this.work=work;this.profile=profile;this.status=onStatus||(()=>{});
-      this.docs=new Map();this.conflicts=new Map();this.reviews=[];this.userId=null;
+      this.docs=new Map();this.conflicts=new Map();this.reviews=[];this.examples=[];this.discussions=new Map();this.userId=null;
       this.current=null;this.essayId=null;this.agent=null;this.voice=null;this.voiceText='';this.signoffs=new Map();this.history=null;
     }
     esc(x){return String(x??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
@@ -17,7 +17,7 @@
     id(kind,target,layer=''){return `${kind}:${layer||'work'}:${target||this.work}`;}
     async load(){
       const uid=this.profile()?.id||null;
-      if(uid!==this.userId){this.voice?.end();this.voice=null;this.voiceText='';this.docs.clear();this.conflicts.clear();this.signoffs.clear();this.reviews=[];this.essayId=null;this.agent=null;this.history=null;this.userId=uid;}
+      if(uid!==this.userId){this.voice?.end();this.voice=null;this.voiceText='';this.docs.clear();this.conflicts.clear();this.signoffs.clear();this.reviews=[];this.examples=[];this.discussions.clear();this.essayId=null;this.agent=null;this.history=null;this.userId=uid;}
       if(!uid)return;
       try{
         let offset=0;const docs=[];
@@ -25,6 +25,7 @@
           docs.push(...(page.documents||[]));const next=page.next_offset;offset=Number.isSafeInteger(next)&&next>offset?next:null;
         }while(offset!==null);
         const reviews=await this.request('/api/scholar/reviews');
+        const examples=await this.request('/api/scholar/style-examples');
         if(this.profile()?.id!==uid)return;
         for(const doc of docs)this.docs.set(doc.id,{data:doc,revision:doc.revision,dirty:false});
         const normal=`svv-private-${uid}-`,conflict=`svv-conflict-${uid}-`;
@@ -41,6 +42,7 @@
           }catch{}
         }
         this.reviews=reviews.reviews||[];
+        this.examples=examples.examples||[];
       }catch(e){this.status('Private workspace unavailable: '+e.message);}
     }
     remember(data){
@@ -91,6 +93,7 @@
       const essays=[...this.docs.values()].map(x=>x.data).filter(x=>x.kind==='essay');
       if(!this.essayId&&essays.length)this.essayId=essays[0].id;
       const essay=this.document(this.essayId),reviews=this.reviews.filter(r=>r.work===this.work);
+      const essayReviews=reviews.filter(r=>r.owner_id===profile.id&&r.document_id===this.essayId);
       const conflicts=[...this.conflicts.entries()].filter(([,saved])=>saved.data.work===this.work);
       const activity=[...this.docs.values()].map(s=>s.data).filter(d=>d.work===this.work&&['agent-draft','conversation'].includes(d.kind));
       const history=this.history, revisions=history?.revisions||[];
@@ -107,16 +110,29 @@
           <div class="cmp-note">Saved revisions remain private. Restoring one creates a new revision.</div>
           ${revisions.length?`<label>First revision <select id="workspace-history-left">${historyOptions(0)}</select></label><pre id="workspace-history-left-text"></pre>
             <label>Second revision <select id="workspace-history-right">${historyOptions(Math.min(1,revisions.length-1))}</select></label><pre id="workspace-history-right-text"></pre>
-            <button class="c2btn" id="workspace-history-restore">Restore second revision</button>${history.next_before?'<button class="c2btn" id="workspace-history-older">Load older revisions</button>':''}`:''}</details>
-        <details><summary>Ask Qwen</summary><select id="workspace-task"><option value="readings">Compare three readings</option><option value="translation">Draft translation</option><option value="essay">Draft essay</option></select>
-          <textarea id="workspace-prompt" placeholder="What should it explore?"></textarea><label><input type="checkbox" id="workspace-style"/> Use my private style examples (at least three)</label>
-          <button class="c2btn" id="workspace-ask">Ask Qwen</button><div class="cmp-note">The selected source goes to Qwen. Your own private examples are sent only when selected.</div>
+            <button class="c2btn" id="workspace-history-restore">Restore second revision</button><button class="c2btn" id="workspace-history-teach">Use these edits as a style example</button>${history.next_before?'<button class="c2btn" id="workspace-history-older">Load older revisions</button>':''}`:''}</details>
+        <details><summary>Ask Qwen</summary><select id="workspace-task"><option value="readings">Compare three readings</option><option value="translation">Draft translation</option><option value="essay">Draft essay</option><option value="essay_revision">Revise selected essay</option></select>
+          <textarea id="workspace-prompt" placeholder="What should it explore?"></textarea><label><input type="checkbox" id="workspace-style"/> Use my private style examples</label>
+          <div class="cmp-note">Select saved edits below, or leave them unchecked to use at least three human-written examples from this work.</div>
+          ${this.examples.map(x=>`<div><label><input type="checkbox" class="workspace-style-choice" value="${e(x.id)}"/> ${e(x.kind)} · ${e(x.work)} · revisions ${x.before_revision} → ${x.after_revision}</label> <button class="c2btn workspace-style-delete" data-id="${e(x.id)}">Remove example</button></div>`).join('')}
+          ${essayReviews.length?`<div class="cmp-note">Feedback for the selected essay (only a current revision with reviewer permission can be sent to Qwen):</div>${essayReviews.map(r=>`<label><input type="checkbox" class="workspace-feedback-choice" value="${e(r.id)}"${!r.ai_consent||!r.decision||r.revision!==essay?.revision?' disabled':''}/> Revision ${r.revision} · ${e(r.decision||'awaiting review')} · ${r.ai_consent?'AI use permitted':'AI use not permitted'}</label>`).join('')}`:''}
+          <button class="c2btn" id="workspace-ask">Ask Qwen</button><div class="cmp-note">Your selected passage, essay, examples and feedback are sent to Qwen only after your confirmation.</div>
           <pre id="workspace-output">${e(this.agent?.content?.text||'')}</pre><button class="c2btn" id="workspace-use">Use agent draft</button></details>
         <details><summary>Voice conversation</summary><button class="c2btn" id="workspace-talk">Talk</button><button class="c2btn" id="workspace-send">Send</button><button class="c2btn" id="workspace-end">End</button>
           <div class="cmp-note">Audio and this passage go to Qwen after consent; transcripts are saved privately. Provider usage may consume quota.</div><pre id="workspace-voice-text">${e(this.voiceText)}</pre></details>
         <details><summary>Peer review</summary><select id="workspace-review-kind"><option value="translation">Current translation</option><option value="essay">Selected essay</option></select>
           <input id="workspace-reviewer" placeholder="Reviewer account ID"/><button class="c2btn" id="workspace-share">Share saved revision</button>
-          ${reviews.map(r=>`<div class="cmp-note">${e(r.document_id)} · revision ${r.revision} · ${e(r.decision||'awaiting review')} · ${e((r.snapshot_sha256||'').slice(0,12))}</div><pre>${e(r.snapshot?.content?.text||'')}</pre>${r.reasoning?`<div>${e(r.reasoning)}</div>`:''}${r.reviewer_id===profile.id&&!r.decision?`<textarea id="workspace-review-${e(r.id)}" placeholder="Your reasoning"></textarea><button class="c2btn workspace-decision" data-id="${e(r.id)}" data-decision="ACCEPT">Accept</button><button class="c2btn workspace-decision" data-id="${e(r.id)}" data-decision="REQUEST_CHANGES">Request changes</button>`:''}`).join('')}</details>
+          ${reviews.map(r=>`<div class="cmp-note">${e(r.document_id)} · revision ${r.revision} · ${e(r.decision||'awaiting review')} · ${e((r.snapshot_sha256||'').slice(0,12))}</div><pre>${e(r.snapshot?.content?.text||'')}</pre>
+            ${r.reasoning?`<div>${e(r.reasoning)}</div>`:''}${Object.entries(r.rubric||{}).filter(([,v])=>v).map(([k,v])=>`<div><b>${e(k)}:</b> ${e(v)}</div>`).join('')}
+            ${r.reviewer_id===profile.id&&!r.decision?`<textarea id="workspace-review-${e(r.id)}" placeholder="Overall reasoning"></textarea>
+              <textarea id="workspace-review-argument-${e(r.id)}" placeholder="Argument and reasoning"></textarea><textarea id="workspace-review-evidence-${e(r.id)}" placeholder="Evidence and sources"></textarea>
+              <textarea id="workspace-review-suggestions-${e(r.id)}" placeholder="Constructive suggestions"></textarea>
+              <label><input type="checkbox" id="workspace-review-ai-${e(r.id)}"/> Allow the author to send this report to Qwen</label>
+              <button class="c2btn workspace-decision" data-id="${e(r.id)}" data-decision="ACCEPT">Accept</button><button class="c2btn workspace-decision" data-id="${e(r.id)}" data-decision="REQUEST_CHANGES">Request changes</button><button class="c2btn workspace-decision" data-id="${e(r.id)}" data-decision="COMMENT">Comment</button>`:''}
+            ${r.reviewer_id===profile.id&&r.decision?`<button class="c2btn workspace-review-consent" data-id="${e(r.id)}" data-allow="${r.ai_consent?'false':'true'}">${r.ai_consent?'Revoke AI permission':'Allow AI use of report'}</button>`:''}
+            <button class="c2btn workspace-thread-load" data-id="${e(r.id)}">Load private discussion</button>
+            ${(this.discussions.get(r.id)||[]).map(m=>`<div class="cmp-note">${m.author_id===profile.id?'You':'Participant'}: ${e(m.body)}</div>`).join('')}
+            <textarea id="workspace-message-${e(r.id)}" placeholder="Reply privately"></textarea><button class="c2btn workspace-thread-send" data-id="${e(r.id)}">Send reply</button>`).join('')}</details>
         <details><summary>Author sign-off</summary><select id="workspace-sign-kind"><option value="translation">Current translation</option><option value="essay">Selected essay</option></select>
           <select id="workspace-rights"><option value="all-rights-reserved">All rights reserved</option><option value="cc-by-4.0">CC BY 4.0</option><option value="cc0">CC0</option></select>
           <button class="c2btn" id="workspace-sign">Sign off saved revision</button><button class="c2btn" id="workspace-submit">Submit signed revision</button>
@@ -147,17 +163,31 @@
       $('#workspace-title').oninput=saveEssay;$('#workspace-text').oninput=saveEssay;
       $('#workspace-ask').onclick=async()=>{
         const kind=$('#workspace-task').value,useStyle=$('#workspace-style').checked;
-        if(!root.confirm(`Send this passage${useStyle?' and your private style examples':''} to Qwen?`))return;
-        try{const result=await this.request('/api/scholar/assist','POST',{work:this.work,target,layer:['l2','l3','l4'].includes(layer)?layer:'l3',
-          kind,instruction:$('#workspace-prompt').value,use_style:useStyle,consent_to_ai:true});
+        const styleIds=[...container.querySelectorAll('.workspace-style-choice:checked')].map(x=>x.value);
+        const reviewIds=kind==='essay_revision'?[...container.querySelectorAll('.workspace-feedback-choice:checked')].map(x=>x.value):[];
+        if(styleIds.length&&!useStyle)return this.status('Select “Use my private style examples” first.');
+        try{
+          let source=null;if(kind==='essay_revision'){
+            if(!this.essayId)throw new Error('Choose an essay first.');
+            await this.flush(this.essayId);source=this.document(this.essayId);if(!source)throw new Error('Choose a saved essay.');
+          }
+          if(!root.confirm(`Send the passage${source?', your saved essay':''}${useStyle?', your selected private style examples':''}${reviewIds.length?', and the selected permitted peer feedback':''} to Qwen?`))return;
+          const result=await this.request('/api/scholar/assist','POST',{work:source?.work||this.work,target:source?.target||target,
+            layer:['l2','l3','l4'].includes(source?.layer||layer)?(source?.layer||layer):'l3',
+            kind,instruction:$('#workspace-prompt').value,use_style:useStyle,style_example_ids:styleIds,review_ids:reviewIds,consent_to_ai:true,
+            ...(source?{document_id:source.id,revision:source.revision}:{})});
+          if(this.profile()?.id!==profile.id)return;
           this.agent=result.document;this.docs.set(result.document.id,{data:result.document,revision:result.document.revision,dirty:false});
           $('#workspace-output').textContent=result.document.content.text;this.status(result.message);
         }catch(e){this.status(e.message);}
       };
       $('#workspace-use').onclick=()=>{
         if(!this.agent)return this.status('Ask Qwen for a draft first.');
-        if(this.agent.content.task==='essay'){
+        if(['essay','essay_revision'].includes(this.agent.content.task)){
           const old=this.document(this.essayId);if(!old)return this.status('Create an essay first.');
+          if(this.agent.content.task==='essay_revision'&&(this.agent.content.source_document_id!==old.id||
+              this.agent.content.source_revision!==old.revision||this.docs.get(old.id)?.dirty))
+            return this.status('The essay changed since this draft was generated. Request a fresh revision.');
           this.remember({...old,content:{text:this.agent.content.text,assisted:true,model:this.agent.content.model}});this.render();
         }else{textarea.value=this.agent.content.text;this.saveTranslation({assisted:true,model:this.agent.content.model,agent_source:this.agent.id});}
         this.status('Agent draft copied privately. Review it against the source.');
@@ -201,6 +231,14 @@
           await this.flush(id);if(this.profile()?.id!==uid)return;
           this.history=null;this.render();this.status('Restored as a new private revision.');
         }catch(e){this.status(e.message);}};
+        $('#workspace-history-teach').onclick=async()=>{try{
+          const numbers=[Number($('#workspace-history-left').value),Number($('#workspace-history-right').value)].sort((a,b)=>a-b);
+          if(!numbers[0]||numbers[0]===numbers[1])throw new Error('Choose two different saved revisions.');
+          if(!root.confirm('Save these revisions as an example of your own editing style? They stay private unless you explicitly send them to Qwen.'))return;
+          await this.request('/api/scholar/style-examples','POST',{document_id:history.id,before_revision:numbers[0],after_revision:numbers[1],confirmed:true});
+          const result=await this.request('/api/scholar/style-examples');if(this.profile()?.id!==profile.id)return;
+          this.examples=result.examples||[];this.render();this.status('Private style example saved.');
+        }catch(e){this.status(e.message);}};
         if(history.next_before)$('#workspace-history-older').onclick=async()=>{try{
           const uid=profile.id,result=await this.request('/api/scholar/documents/'+encodeURIComponent(history.id)+'/history?before='+history.next_before);
           if(this.profile()?.id!==uid||this.history!==history)return;
@@ -212,8 +250,31 @@
         this.reviews=(await this.request('/api/scholar/reviews')).reviews||[];this.render();this.status('Revision shared privately.');}catch(e){this.status(e.message);}};
       container.querySelectorAll('.workspace-decision').forEach(button=>{button.onclick=async()=>{try{
         const id=button.dataset.id,reasoning=$(`#workspace-review-${CSS.escape(id)}`).value;
-        await this.request('/api/scholar/reviews/'+encodeURIComponent(id)+'/decision','POST',{decision:button.dataset.decision,reasoning});
+        const rubric={argument:$(`#workspace-review-argument-${CSS.escape(id)}`).value,evidence:$(`#workspace-review-evidence-${CSS.escape(id)}`).value,
+          suggestions:$(`#workspace-review-suggestions-${CSS.escape(id)}`).value};
+        const ai_consent=$(`#workspace-review-ai-${CSS.escape(id)}`).checked;
+        await this.request('/api/scholar/reviews/'+encodeURIComponent(id)+'/decision','POST',{decision:button.dataset.decision,reasoning,rubric,ai_consent});
         this.reviews=(await this.request('/api/scholar/reviews')).reviews||[];this.render();this.status('Review saved.');}catch(e){this.status(e.message);}};});
+      container.querySelectorAll('.workspace-review-consent').forEach(button=>{button.onclick=async()=>{try{
+        await this.request('/api/scholar/reviews/'+encodeURIComponent(button.dataset.id)+'/ai-consent','POST',{allow:button.dataset.allow==='true'});
+        this.reviews=(await this.request('/api/scholar/reviews')).reviews||[];if(this.profile()?.id!==profile.id)return;
+        this.render();this.status('Reviewer permission updated.');}catch(e){this.status(e.message);}};});
+      container.querySelectorAll('.workspace-style-delete').forEach(button=>{button.onclick=async()=>{try{
+        if(!root.confirm('Remove this private style example from future drafting?'))return;
+        await this.request('/api/scholar/style-examples/'+encodeURIComponent(button.dataset.id),'DELETE');
+        this.examples=(await this.request('/api/scholar/style-examples')).examples||[];if(this.profile()?.id!==profile.id)return;
+        this.render();this.status('Style example removed.');}catch(e){this.status(e.message);}};});
+      const loadThread=async id=>{let offset=0,messages=[];do{
+        const page=await this.request('/api/scholar/reviews/'+encodeURIComponent(id)+'/messages?offset='+offset);
+        messages.push(...(page.messages||[]));const next=page.next_offset;offset=Number.isSafeInteger(next)&&next>offset?next:null;
+      }while(offset!==null);if(this.profile()?.id!==profile.id)return;
+        this.discussions.set(id,messages);this.render();};
+      container.querySelectorAll('.workspace-thread-load').forEach(button=>{button.onclick=async()=>{try{await loadThread(button.dataset.id);}
+        catch(e){this.status(e.message);}};});
+      container.querySelectorAll('.workspace-thread-send').forEach(button=>{button.onclick=async()=>{try{
+        const id=button.dataset.id,text=$(`#workspace-message-${CSS.escape(id)}`).value;
+        await this.request('/api/scholar/reviews/'+encodeURIComponent(id)+'/messages','POST',{text});
+        await loadThread(id);this.status('Private reply saved.');}catch(e){this.status(e.message);}};});
       $('#workspace-sign').onclick=async()=>{try{const id=selected($('#workspace-sign-kind').value);if(!id)throw new Error('Choose a document.');
         await this.flush(id);const doc=this.document(id),result=await this.request('/api/scholar/signoffs','POST',
           {document_id:id,revision:doc.revision,rights:$('#workspace-rights').value,confirmed:true});
