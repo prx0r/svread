@@ -897,7 +897,34 @@ async function main(){
           inp.value = String(pend.style || '').slice(0, 60);
           const el = document.querySelector(`.verse[data-i="${pend.ix || 0}"]`);
           if(el) el.scrollIntoView({block:'center'});
-          setTimeout(()=>{ const b = document.querySelector(`.c2btn[data-ch="${v.id}"]`); if(b) b.click(); }, 300);
+          /* STORED approved render first (ipvv/data/c2/<work>.<style>.json,
+             tools/emit_c2.py — prompt-reproducible, proof-gated); live render
+             only when no stored render covers this song/verse */
+          const songOf = ((v.id || '').match(/^(.*)-v\d+$/) || [])[1] || v.id;
+          const raw = String(pend.style || '').trim();
+          const cands = [raw.replace(/\s+/g, ''), raw.replace(/\s+/g, '-'), raw];
+          const tryStored = i => i >= cands.length ? Promise.resolve(null)
+            : get(`${IPVV}/data/c2/${WORK}.${cands[i]}.json`).then(d=>{
+                if(!d || !d.items) return tryStored(i + 1);
+                const it = d.items.find(x => x.chunk === songOf) || d.items.find(x => x.chunk === v.id);
+                if(!it) return tryStored(i + 1);
+                const txt = (it.paragraphs && it.paragraphs.length)
+                  ? it.paragraphs.map(pp => pp.text).join('\n\n') : (it.c2 || '');
+                return txt ? {txt, prov: it, style: cands[i]} : tryStored(i + 1);
+              }).catch(()=>tryStored(i + 1));
+          tryStored(0).then(hit=>{
+            const out = document.getElementById('c2out-' + v.id);
+            if(hit && out){
+              out.innerHTML = `<div class="enp c2txt">${esc(hit.txt)}</div>`
+                + `<div class="c2meta">stored render · ${esc(hit.style)} · ${esc(String(hit.prov.model||'').slice(0,64))} · proof ${esc(hit.prov.gate||'')}</div>`
+                + `<button class="c2save" data-ch="${esc(v.id)}">Save as mine →</button>`;
+              const sv = out.querySelector('.c2save');
+              if(sv) sv.onclick = ev=>{ setVar(ev.target.getAttribute('data-ch'), hit.txt); location.reload(); };
+              return;
+            }
+            const b = document.querySelector(`.c2btn[data-ch="${v.id}"]`);
+            if(b) b.click();                              // no stored → live render
+          });
         }
       }
     }
