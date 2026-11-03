@@ -16,7 +16,8 @@ The Scholar workspace UI in this branch can save account-backed drafts and notes
 invite peer review, sign off a revision privately and ask Qwen with explicit consent.
 The matching ipvv Worker branch and D1 migrations `0002_scholar_workspace.sql`,
 `0003_scholar_history.sql`, `0004_scholar_ai_limits.sql`,
-`0005_scholar_peer_review.sql` and `0006_scholar_style_examples.sql` must be deployed first.
+`0005_scholar_peer_review.sql`, `0006_scholar_style_examples.sql` and
+`0007_scholar_review_versions.sql` must be deployed first.
 The revision history panel compares two private saved snapshots and can restore the
 second as a new revision;
 that invalidates any earlier sign-off. The history migration can recover only the
@@ -29,7 +30,8 @@ structured feedback and discuss it privately with the author. The reviewer contr
 whether their report may be sent to Qwen; the author must select the report and
 confirm the request. Discussion messages are not sent to Qwen. Restoring an old
 revision or copying an agent draft produces a new saved revision, and an old review
-or sign-off does not silently transfer to it. These examples inform individual
+or sign-off does not silently transfer to it. Reviewers can revise their reports
+without deleting the earlier report versions. These examples inform individual
 requests; they do not fine-tune the model.
 Realtime voice remains disabled until the operator configures the Qwen provider and
 free quota; the provider receives audio and the passage after the user's consent.

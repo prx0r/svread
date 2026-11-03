@@ -186,6 +186,7 @@ test('reviewer sends a structured report and explicitly opts into AI use',async(
     if(String(url).endsWith('/api/scholar/reviews'))return Response.json({reviews:[review]});
     if(String(url).endsWith('/api/scholar/style-examples'))return Response.json({examples:[]});
     if(String(url).endsWith('/decision'))return Response.json({id:review.id,decision:data.decision});
+    if(String(url).endsWith('/revise'))return Response.json({id:review.id,decision:data.decision});
     throw new Error('Unexpected request '+url);
   };
   const element=key=>{if(!nodes.has(key))nodes.set(key,{value:'',checked:false,textContent:'',addEventListener(){}});return nodes.get(key);};
@@ -201,5 +202,11 @@ test('reviewer sends a structured report and explicitly opts into AI use',async(
   element('#workspace-review-ai-review:1').checked=true;await button.onclick();
   const report=calls.find(x=>x.url.endsWith('/decision')).data;
   assert.equal(report.decision,'REQUEST_CHANGES');assert.equal(report.rubric.evidence,'Check source');assert.equal(report.ai_consent,true);
+  review.decision='REQUEST_CHANGES';review.report_revision=1;button.dataset.existing='true';button.dataset.revision='1';suite.render();
+  element('#workspace-review-review:1').value='Updated reasoning';element('#workspace-review-argument-review:1').value='Clarified';
+  element('#workspace-review-evidence-review:1').value='Verified';element('#workspace-review-suggestions-review:1').value='';
+  element('#workspace-review-ai-review:1').checked=false;await button.onclick();
+  const revision=calls.find(x=>x.url.endsWith('/revise')).data;
+  assert.equal(revision.expected_revision,1);assert.equal(revision.reasoning,'Updated reasoning');assert.equal(revision.ai_consent,false);
   for(const state of suite.docs.values())clearTimeout(state.timer);
 });

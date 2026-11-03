@@ -3,7 +3,7 @@
   class ScholarWorkspace {
     constructor({api,work,profile,onStatus}){
       this.api=api;this.work=work;this.profile=profile;this.status=onStatus||(()=>{});
-      this.docs=new Map();this.conflicts=new Map();this.reviews=[];this.examples=[];this.discussions=new Map();this.userId=null;
+      this.docs=new Map();this.conflicts=new Map();this.reviews=[];this.examples=[];this.discussions=new Map();this.reportHistory=new Map();this.userId=null;
       this.current=null;this.essayId=null;this.agent=null;this.voice=null;this.voiceText='';this.signoffs=new Map();this.history=null;
     }
     esc(x){return String(x??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
@@ -17,7 +17,7 @@
     id(kind,target,layer=''){return `${kind}:${layer||'work'}:${target||this.work}`;}
     async load(){
       const uid=this.profile()?.id||null;
-      if(uid!==this.userId){this.voice?.end();this.voice=null;this.voiceText='';this.docs.clear();this.conflicts.clear();this.signoffs.clear();this.reviews=[];this.examples=[];this.discussions.clear();this.essayId=null;this.agent=null;this.history=null;this.userId=uid;}
+      if(uid!==this.userId){this.voice?.end();this.voice=null;this.voiceText='';this.docs.clear();this.conflicts.clear();this.signoffs.clear();this.reviews=[];this.examples=[];this.discussions.clear();this.reportHistory.clear();this.essayId=null;this.agent=null;this.history=null;this.userId=uid;}
       if(!uid)return;
       try{
         let offset=0;const docs=[];
@@ -124,12 +124,13 @@
           <input id="workspace-reviewer" placeholder="Reviewer account ID"/><button class="c2btn" id="workspace-share">Share saved revision</button>
           ${reviews.map(r=>`<div class="cmp-note">${e(r.document_id)} · revision ${r.revision} · ${e(r.decision||'awaiting review')} · ${e((r.snapshot_sha256||'').slice(0,12))}</div><pre>${e(r.snapshot?.content?.text||'')}</pre>
             ${r.reasoning?`<div>${e(r.reasoning)}</div>`:''}${Object.entries(r.rubric||{}).filter(([,v])=>v).map(([k,v])=>`<div><b>${e(k)}:</b> ${e(v)}</div>`).join('')}
-            ${r.reviewer_id===profile.id&&!r.decision?`<textarea id="workspace-review-${e(r.id)}" placeholder="Overall reasoning"></textarea>
-              <textarea id="workspace-review-argument-${e(r.id)}" placeholder="Argument and reasoning"></textarea><textarea id="workspace-review-evidence-${e(r.id)}" placeholder="Evidence and sources"></textarea>
-              <textarea id="workspace-review-suggestions-${e(r.id)}" placeholder="Constructive suggestions"></textarea>
-              <label><input type="checkbox" id="workspace-review-ai-${e(r.id)}"/> Allow the author to send this report to Qwen</label>
-              <button class="c2btn workspace-decision" data-id="${e(r.id)}" data-decision="ACCEPT">Accept</button><button class="c2btn workspace-decision" data-id="${e(r.id)}" data-decision="REQUEST_CHANGES">Request changes</button><button class="c2btn workspace-decision" data-id="${e(r.id)}" data-decision="COMMENT">Comment</button>`:''}
+            ${r.reviewer_id===profile.id?`<textarea id="workspace-review-${e(r.id)}" placeholder="Overall reasoning">${e(r.reasoning||'')}</textarea>
+              <textarea id="workspace-review-argument-${e(r.id)}" placeholder="Argument and reasoning">${e(r.rubric?.argument||'')}</textarea><textarea id="workspace-review-evidence-${e(r.id)}" placeholder="Evidence and sources">${e(r.rubric?.evidence||'')}</textarea>
+              <textarea id="workspace-review-suggestions-${e(r.id)}" placeholder="Constructive suggestions">${e(r.rubric?.suggestions||'')}</textarea>
+              <label><input type="checkbox" id="workspace-review-ai-${e(r.id)}"${r.ai_consent?' checked':''}/> Allow the author to send this report to Qwen</label>
+              <button class="c2btn workspace-decision" data-id="${e(r.id)}" data-revision="${r.report_revision||0}" data-existing="${!!r.decision}" data-decision="ACCEPT">${r.decision?'Revise: accept':'Accept'}</button><button class="c2btn workspace-decision" data-id="${e(r.id)}" data-revision="${r.report_revision||0}" data-existing="${!!r.decision}" data-decision="REQUEST_CHANGES">${r.decision?'Revise: request changes':'Request changes'}</button><button class="c2btn workspace-decision" data-id="${e(r.id)}" data-revision="${r.report_revision||0}" data-existing="${!!r.decision}" data-decision="COMMENT">${r.decision?'Revise: comment':'Comment'}</button>`:''}
             ${r.reviewer_id===profile.id&&r.decision?`<button class="c2btn workspace-review-consent" data-id="${e(r.id)}" data-allow="${r.ai_consent?'false':'true'}">${r.ai_consent?'Revoke AI permission':'Allow AI use of report'}</button>`:''}
+            ${r.decision?`<button class="c2btn workspace-report-history" data-id="${e(r.id)}">View review history</button>${(this.reportHistory.get(r.id)||[]).map(v=>`<div class="cmp-note">Report revision ${v.revision} · ${e(v.decision)}: ${e(v.summary)}</div>`).join('')}`:''}
             <button class="c2btn workspace-thread-load" data-id="${e(r.id)}">Load private discussion</button>
             ${(this.discussions.get(r.id)||[]).map(m=>`<div class="cmp-note">${m.author_id===profile.id?'You':'Participant'}: ${e(m.body)}</div>`).join('')}
             <textarea id="workspace-message-${e(r.id)}" placeholder="Reply privately"></textarea><button class="c2btn workspace-thread-send" data-id="${e(r.id)}">Send reply</button>`).join('')}</details>
@@ -253,8 +254,14 @@
         const rubric={argument:$(`#workspace-review-argument-${CSS.escape(id)}`).value,evidence:$(`#workspace-review-evidence-${CSS.escape(id)}`).value,
           suggestions:$(`#workspace-review-suggestions-${CSS.escape(id)}`).value};
         const ai_consent=$(`#workspace-review-ai-${CSS.escape(id)}`).checked;
-        await this.request('/api/scholar/reviews/'+encodeURIComponent(id)+'/decision','POST',{decision:button.dataset.decision,reasoning,rubric,ai_consent});
+        const existing=button.dataset.existing==='true';
+        await this.request('/api/scholar/reviews/'+encodeURIComponent(id)+(existing?'/revise':'/decision'),'POST',
+          {decision:button.dataset.decision,reasoning,rubric,ai_consent,...(existing?{expected_revision:Number(button.dataset.revision)}:{})});
         this.reviews=(await this.request('/api/scholar/reviews')).reviews||[];this.render();this.status('Review saved.');}catch(e){this.status(e.message);}};});
+      container.querySelectorAll('.workspace-report-history').forEach(button=>{button.onclick=async()=>{try{
+        const id=button.dataset.id,result=await this.request('/api/scholar/reviews/'+encodeURIComponent(id)+'/report-history');
+        if(this.profile()?.id!==profile.id)return;this.reportHistory.set(id,result.reports||[]);this.render();
+      }catch(e){this.status(e.message);}};});
       container.querySelectorAll('.workspace-review-consent').forEach(button=>{button.onclick=async()=>{try{
         await this.request('/api/scholar/reviews/'+encodeURIComponent(button.dataset.id)+'/ai-consent','POST',{allow:button.dataset.allow==='true'});
         this.reviews=(await this.request('/api/scholar/reviews')).reviews||[];if(this.profile()?.id!==profile.id)return;
