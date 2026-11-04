@@ -74,15 +74,13 @@ The **Scholar** nav tab. Same functions (`$`/`esc`/`get`/`W`/`dl`/`norm`) and sa
   scholar contributions carry a contributor rights declaration in the emitted `rights`
   block and reader Attributions. The declaration is not proof of copyright ownership.
 
-## Right-column dropdown: Language + Style (2026-11-03)
+## Right-column dropdown (minimal)
 
-Below the existing lane groups the right dropdown now has two sections:
-**Language** — `English` (the only language on file; more later), which selects the
-canonical English lane (l4→l3→l2). **Style** — `Normal` (no style, the standard English
-translation) plus the C2 derivations from `data/styles.json` (gen z · eli5 · poetic ·
-formal · mathematical). Picking a style queues it (`svv-c2pending`) and routes to the
-Yours/mine lane — canonical columns never show machine renders — auto-rendering the
-current verse via the existing `/api/c2/render` flow. **These styles ARE the C2 layer.**
+LANGUAGES row: EN (the canonical English lane l4→l3→l2). Below it one row:
+GEN-Z / POETIC (C2 renders, queued to the mine lane — canonical columns never
+show machine renders) / LITERAL (word-gloss l0 where on file, else close l1).
+Then SANSKRIT / IAST. No Yours, no verbose lists. Old `?right=` lane ids keep
+resolving; the menu just doesn't list every lane.
 
 ## Side-by-side alignment (2026-11-03)
 
