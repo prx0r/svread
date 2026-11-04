@@ -623,7 +623,7 @@ async function scholarView(){
             const commit=/^[a-f0-9]{40,64}$/.test(a.source_git_commit||'')?a.source_git_commit:'';
             const references=refs.filter(c=>c&&/^[a-z0-9][a-z0-9_-]{0,79}$/.test(c.work||'')&&/^[A-Za-z0-9][A-Za-z0-9_.-]{0,159}$/.test(c.target||''));
             return `<details><summary>${esc(a.title)} · ${esc(a.author)}</summary><div class="cmp-note">${esc(a.rights)}${a.assisted?' · AI-assisted':''}</div><div class="enp">${esc(a.text).replace(/\n/g,'<br>')}</div>`+
-              (references.length?`<div class="cmp-note">Passage references (T1 hashes checked at submission; not proof that the argument is correct):</div>${references.map(c=>{
+              (references.length?`<div class="cmp-note">Passage references (T1 hashes are recorded; verify the pinned source and the argument):</div>${references.map(c=>{
                 const current=`?work=${encodeURIComponent(c.work)}&view=scholar&layer=t1&target=${encodeURIComponent(c.target)}`;
                 const song=c.target.replace(/-v\d+$/,'');
                 const pinned=commit?`https://github.com/prx0r/translation-work/blob/${commit}/${encodeURIComponent(c.work)}/data/${encodeURIComponent(song)}.t1.json`:'';
