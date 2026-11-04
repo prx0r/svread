@@ -112,6 +112,15 @@ async function get(p){
   const ct = r.headers.get('content-type')||'';
   return ct.includes('json') ? r.json() : r.text();
 }
+async function getReaderData(p){
+  const response=await fetch(p);if(!response.ok)throw new Error('Reader data unavailable');
+  const bytes=await response.arrayBuffer();
+  const data=JSON.parse(new TextDecoder().decode(bytes));
+  let sha256='';
+  try{const digest=await crypto.subtle.digest('SHA-256',bytes);
+    sha256=Array.from(new Uint8Array(digest),b=>b.toString(16).padStart(2,'0')).join('');}catch{}
+  return {data,sha256};
+}
 function norm(s){ return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z]/g,''); }
 function getVar(id){ try{ return localStorage.getItem(`svv-${WORK}-${id}`) || ''; }catch(e){ return ''; } }
 function setVar(id, v){ try{ localStorage.setItem(`svv-${WORK}-${id}`, v); }catch(e){} }
@@ -123,6 +132,7 @@ function setCol(which, v){
 }
 
 let DATA = null;
+let DATA_SOURCE = null;
 
 // The same gate controls every reader surface, including audio and exports.
 function isReaderPass(v){return !!(v&&v.gate==='PASS'&&
@@ -237,7 +247,12 @@ function verseText(v, vid, col, vix){
     if(t.includes('\n\n')) return `<div class="enp">${t.split(/\n{2,}/).map(p=>`<p>${p.replace(/\n/g,'<br>')}</p>`).join('')}</div>`;
     return `<div class="enp">${t}</div>`;
   }
-  if(vid==='l4') return v.l4 ? `<div class="enp finalsec">${esc(v.l4).replace(/\n/g, '<br>')}</div>` : `<div class="milestone">Svatantrya (L4) pending — falls back to Final (L3) below.</div>`;
+  if(vid==='l4'){
+    if(v.l4)return `<div class="enp finalsec">${esc(v.l4).replace(/\n/g, '<br>')}</div>`;
+    const fallback=v.l3||v.l2||v.l1||'',label=v.l3?'Final (L3)':v.l2?'English translation (L2)':'Literal (L1)';
+    return `<div class="milestone">Svatantrya (L4) pending — showing ${label}.</div>`
+      + `<div class="enp finalsec">${esc(cleanEN(fallback)).replace(/\n/g,'<br>')}</div>`;
+  }
   if(vid==='l3') return v.l3 ? `<div class="enp finalsec">${esc(v.l3).replace(/\n/g, '<br>')}</div>` : `<div class="milestone">Final translation pending — needs human review.</div>`;
   if(vid==='c1'){
     if(v.c1) return `<div class="enp c1sec">${mdSec(v.c1.replace(/^##\s+[^\n]*\n/, ''))}</div>`;
@@ -649,9 +664,17 @@ async function main(){
      Vendored data/ copy is the offline fallback, not the authority. */
   for(const u of (SRC ? [SRC] : [`${IPVV}/data/layers/${WORK}.json`, `${IPVV}/data/translations/${WORK}.json`, `data/${WORK}.json`])){
     try{
-      D = await get(u);
+      const loaded=await getReaderData(u);D=loaded.data;
       const rows=Array.isArray(D?.verses)?D.verses:Array.isArray(D?.chunks)?D.chunks:null;
-      if(rows?.length&&rows.every(validReaderRow))break;
+      if(rows?.length&&rows.every(validReaderRow)){
+        DATA_SOURCE={kind:SRC?'Custom source':u.startsWith(IPVV)?'Live ipvv data (mutable)':'Bundled snapshot',sha256:loaded.sha256};
+        if(!SRC&&!u.startsWith(IPVV)){
+          try{const manifest=await get('data/release-manifest.json'),expected=manifest?.assets?.[`data/${WORK}.json`];
+            DATA_SOURCE.manifest=expected&&loaded.sha256?(expected===loaded.sha256?'matches bundled manifest':'does not match bundled manifest'):'manifest unavailable';}
+          catch{DATA_SOURCE.manifest='manifest unavailable';}
+        }
+        break;
+      }
       D=null;
     }catch(e){ D = null; }
   }
@@ -664,7 +687,9 @@ async function main(){
         const raw = await get(`${IPVV}/data/sanskrit/${rec.sanskrit}`);
         if(typeof raw==='string'&&!/^\s*(?:<!doctype\s+html|<html\b)/i.test(raw)){
           const paras = raw.split(/\n{2,}|\n(?=[\u0900-\u097F])/).map(p=>p.trim()).filter(p=>p);
-          D = {title: rec.title||WORK, master: rec.author||'', verses: paras.map((p,i)=>({id:`${WORK}-s${i+1}`, sa:p, l1:'', l2:'', c1:'', argmap:'', gate:'WITHHELD'}))};
+          D = {title: rec.title||WORK, master: rec.author||'', source:`ipvv/data/sanskrit/${rec.sanskrit}`,
+            verses: paras.map((p,i)=>({id:`${WORK}-s${i+1}`, sa:p, l1:'', l2:'', c1:'', argmap:'', gate:'WITHHELD'}))};
+          DATA_SOURCE={kind:'Live Sanskrit source fallback (unversioned)',sha256:''};
         }
       }
     }catch(e){}
@@ -677,7 +702,8 @@ async function main(){
     return;
   }
   verses=verses.map(safeReaderVerse);
-  DATA = {title:(D.title||WORK), master:(D.master||''), source_edition:(D.source_edition||''), verses};
+  DATA = {title:(D.title||WORK), master:(D.master||''), source_edition:(D.source_edition||''),
+    source:typeof D.source==='string'?D.source:'', verses};
   DATA.verses.forEach((v,i)=>{ v.n = i+1; });
   // pretty title + master name from the library catalogue
   try{
@@ -1007,6 +1033,8 @@ async function buildLeftRail(verses, LIBDATA){
       + W('attr','Attributions', `<table class="wtable">`
         + `<tr><td>work</td><td>${esc(DATA.title)}</td></tr>`
         + `<tr><td>source</td><td>${esc(DATA.source_edition || 'Edition not recorded for this display.')}</td></tr>`
+        + (DATA.source?`<tr><td>source file</td><td>${esc(DATA.source)}</td></tr>`:'')
+        + (DATA_SOURCE?`<tr><td>data</td><td>${esc(DATA_SOURCE.kind)}${DATA_SOURCE.sha256?` · SHA-256 <span title="${esc(DATA_SOURCE.sha256)}">${esc(DATA_SOURCE.sha256.slice(0,16))}</span>`:' · fingerprint unavailable'}${DATA_SOURCE.manifest?` · ${esc(DATA_SOURCE.manifest)}`:''}</td></tr>`:'')
         + `<tr><td>translation</td><td><b>FREE</b> — our English (L1–L4, commentary) is free use. Scholar edits &amp; words: © their authors, all rights reserved.</td></tr>`
         + `<tr><td>editions</td><td>Svatantrya (L4) · Final · Literal gloss · English translation · Commentary — pipeline, machine-proposed, needs human review</td></tr>`
         + `<tr><td>gate</td><td>${verses.filter(v=>v.gate==='PASS').length}/${verses.length} passages passed</td></tr>`

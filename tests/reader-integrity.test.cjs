@@ -3,16 +3,24 @@ const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const vm=require('node:vm');
 const path=require('node:path');
+const {webcrypto,createHash}=require('node:crypto');
 
 const app=fs.readFileSync(path.join(__dirname,'../app.js'),'utf8');
 function harness(fetch){
-  const context=vm.createContext({fetch,URL,URLSearchParams,TextEncoder,Response,
+  const context=vm.createContext({fetch,URL,URLSearchParams,TextEncoder,TextDecoder,Response,crypto:webcrypto,
     location:{search:'?work=testwork',href:'https://svread.pages.dev/?work=testwork'},window:{},
     localStorage:{getItem:()=>null,setItem(){}},document:{querySelector:()=>null}});
-  const source=app.replace('main();\n})();',`globalThis.readerTest={safeReaderVerse,isReaderPass,verseText,readUrlFor,saWords,IAST_DEVA,esc,loadL0,
+  const source=app.replace('main();\n})();',`globalThis.readerTest={safeReaderVerse,isReaderPass,verseText,readUrlFor,saWords,IAST_DEVA,esc,loadL0,getReaderData,
     setData:value=>{DATA=value;},setKaraoke:value=>{KAR=value;},getL0:()=>L0};\n})();`);
   assert.notEqual(source,app);vm.runInContext(source,context);return context.readerTest;
 }
+
+test('reader fingerprints the exact response bytes, including formatting',async()=>{
+  const bytes='{\n  "work": "testwork"\n}\n';
+  const reader=harness(async()=>new Response(bytes,{headers:{'Content-Type':'application/json'}}));
+  const result=await reader.getReaderData('data/testwork.json');
+  assert.equal(result.data.work,'testwork');assert.equal(result.sha256,createHash('sha256').update(bytes).digest('hex'));
+});
 
 test('blocked English is removed from every exported row and cannot reach audio',async()=>{
   let calls=0;const reader=harness(async()=>{calls++;return Response.json({url:'https://audio.example/a.mp3'});});
@@ -23,6 +31,8 @@ test('blocked English is removed from every exported row and cannot reach audio'
   assert.match(reader.verseText(safe,'l2','L',0),/English withheld/);
   await assert.rejects(reader.readUrlFor(raw,'en'),/withheld/);assert.equal(calls,0);
   const pass={id:'p-v02',sa:'śivaḥ',gate:'PASS',l2:'A public reading'};
+  assert.match(reader.verseText(pass,'l4','R',1),/showing English translation \(L2\)/);
+  assert.match(reader.verseText(pass,'l4','R',1),/A public reading/);
   reader.setData({verses:[raw,pass]});
   await assert.rejects(reader.readUrlFor(pass,'c1'),/no english/);assert.equal(calls,0);
   assert.equal(await reader.readUrlFor(pass,'en'),'https://audio.example/a.mp3');assert.equal(calls,1);

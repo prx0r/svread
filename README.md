@@ -41,7 +41,16 @@ shown from the source data, not independently checked or corrected by the reader
 If an edition isn't recorded, the attribution says so. The last-resort root-text
 fallback assigns local section IDs and does not claim verse-by-verse alignment.
 
+The attributions panel identifies the chosen source as live, bundled or custom
+and shows a SHA-256 fingerprint of the received data when browser cryptography is
+available. Live data is mutable; the fingerprint identifies what was fetched but
+does not archive it. The bundled `data/release-manifest.json` fingerprints the
+checked-in assets and pins the Scholar projection and structural-schema hashes.
+It does not establish authenticity or scholarly correctness. After changing any
+bundled asset, regenerate it with `python3 scripts/release_manifest.py --write`
+and verify with `python3 scripts/release_manifest.py`.
+
 Run the local checks with `node --check app.js` and
-`node --test tests/reader-integrity.test.cjs tests/service-worker-privacy.test.cjs tests/scholar-smoke.cjs`.
+`node --test tests/reader-integrity.test.cjs tests/release-manifest.test.cjs tests/service-worker-privacy.test.cjs tests/scholar-smoke.cjs`.
 The audio Worker and its versioned R2 cache are documented in ipvv's
 `worker/SVREAD-AUDIO.md` on the accompanying review branch.
