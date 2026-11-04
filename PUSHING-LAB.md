@@ -56,6 +56,17 @@ python3 -m http.server 8000
   rechecked before saving; the author's bibliography is added to the draft.
   Model-generated arguments and citation relevance still require human review.
   Scholar's existing review, sign-off and publication flows remain separate.
+- **Find the crux** turns the selected branch into a local, editable essay
+  brief grouped by questions, sources, readings, inferences and objections.
+  Missing categories remain open; sibling branches are excluded. Copy it or
+  send it to the essay editor without calling a model.
+- **Why must this follow?** uses the existing consented Qwen enquiry request to
+  challenge the selected branch. A proposal is added only if its originating
+  branch is unchanged and the same account is active. Saved proposal nodes
+  retain an account-owner marker so this UI will not send or save them under a
+  different Scholar account. They remain visible in the browser's local copy;
+  this is a client-side safeguard, not protection against someone with access
+  to the device or a deliberately edited export.
 
 For development against a local Worker, configure its `CORS_ORIGIN` as
 `http://127.0.0.1:8000`, start it on `127.0.0.1:8787`, and open:
@@ -112,9 +123,9 @@ ownership and acceptance tests, see [PUSHING-NEXT.md](PUSHING-NEXT.md).
 
 | Idea | Concrete use | Constraint |
 | --- | --- | --- |
-| Crux cards | Collect questions such as the Q1 move from “manifest to me” to a universal perceiver, with the claimed inference, strongest objection and what could resolve it. | A card stays an attributed proposal until a person accepts it. |
+| Crux cards | The selected-branch brief groups the question, inference, objection and open limits; persistent shareable cards are future work. | A brief is an attributed working note, not an accepted finding. |
 | Two readings | Put two rival reconstructions side by side and ask where they rely on different premises or passages. | Preserve tradition, scope and unresolved disagreement. |
-| Examiner for an essay | Select a saved passage of your essay and ask which inference needs evidence; the selected excerpt retains its exact private revision. | Revision-bound review questions remain a next step; do not send a reviewer’s private report without their permission and the author's selection. |
+| Examiner for an essay | Add an excerpt from your own saved essay to a branch and use the focused challenge. The excerpt retains the saved revision reference. | This is not an independently verified annotation; revision-bound review suggestions remain a next step. Do not send a reviewer's private report without their permission and the author's selection. |
 | Curiosity path | Use the learner's own chosen branches to suggest the next source, counterexample and small exercise. | Suggestions are not an assessment of mastery. |
 | Argument-to-essay trail | Assemble a working thesis from selected notes, show the sources and objections beside it, then hand it to Scholar for editing and review. | No automatic publication; do not present a hash as a proof. |
 | Cross-work crux map | Compare how Tantrāloka, IPVV and another tradition respond to one question. | Require actual passage coverage before calling an answer grounded. |

@@ -18,7 +18,7 @@ scholar's permitted, published work and see where each answer came from.
 
 | Capability | State in these review branches | Remaining work |
 | --- | --- | --- |
-| Pushing enquiry | svread #5: local typed tree, imported conversations, 57 pinned archive entries, selected-branch Qwen request, JSON export, optional private account snapshot. | Durable, explicitly shared cruxes; richer source trails. |
+| Pushing enquiry | svread #5: local typed tree, imported conversations, 57 pinned archive entries, selected-branch crux brief and focused Qwen challenge, JSON export, optional private account snapshot. | Durable, explicitly shared cruxes; richer source trails. |
 | Evidence and essays | Available Scholar projections, chosen C1/L4 data, selected private notebook sources and author-permitted published essay excerpts. A Qwen essay can be saved as a private AI-assisted draft. | Immutable resolvable evidence, claim-by-claim support review and a production provider. |
 | Scholar work | Recovery branches provide private drafts/history, style edit pairs, forks, revision-bound review, sign-off and Git submission. | Deploy and exercise the complete stack; verify review integrity and publication gates. |
 | Rights | ipvv #11 grants answer and draft use separately for an exact published essay version. The account recorded as author grants or revokes; default is deny. | Account attribution is self-attested. Current D1 stores the current grant, not an audit history. Revocation cannot retrieve content already sent to a provider. |
@@ -247,6 +247,11 @@ provider timeout/error, account switch and explicit consent declined.
 
 ### 3.2 The “why?” examiner for essays and peer review
 
+**Starting point:** the existing branch supports a focused challenge on a selected
+enquiry branch, including an excerpt the author chose from their own saved
+essay. It retains an account and revision reference but does not yet verify an
+exact annotation against immutable history or create a review suggestion.
+
 **User sees:** select a paragraph of an exact saved revision, then ask: “What
 must be true for this to follow?”, “What is the strongest rival reading?” or
 “What would change the conclusion?” The result identifies the target quote,
@@ -283,6 +288,10 @@ distinguishes source, person's claim, proposed inference and objection. Let
 users compare two readings side by side and identify the premise where they
 diverge. Suggest related existing enquiries, but let a human choose a link;
 similar wording does not prove the questions or traditions are equivalent.
+
+**Starting point:** the branch already produces a local selected-branch crux
+brief, with copy and transfer to the essay editor. It is derived on demand from
+the tree; it is not yet a separately saved or shared card.
 
 **Implement:** start with a private `crux/1` object containing a stable ID,
 title, question, selected source/session/node references, thesis, disputed

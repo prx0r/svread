@@ -11,7 +11,7 @@
     {label:'Freedom · why the five coverings?',question:'Why does freedom conceal itself in these particular ways?',file:'tantraloka/LOGICVID-session-kancukas-self-emptying.md'}
   ];
   const typeNames={'question':'Question','source':'Source note','answer':'Proposed answer','inference':'Inference','objection':'Objection','crux':'Crux / honest limit','branch':'Next branch','essay-idea':'Essay idea'};
-  let session,selected=null,projection=null,verifiedSource=null,loadSerial=0,proposalParent=null,proposalSession=null;
+  let session,selected=null,projection=null,verifiedSource=null,loadSerial=0,proposalParent=null,proposalSession=null,proposalSnapshot=null,proposalOwner=null,proposalType='answer';
   let accountEssays=[],accountEnquiries=[],accountEssayOwner=null,accountEnquiryOwner=null;
   let notebook=[],published=[],styles=[],notebookOwner=null,publishedOwner=null,styleOwner=null,generatedEssay=null;
   const selectedScholarKeys=new Set();
@@ -44,8 +44,9 @@
         card.append(el('div',`${typeNames[n.type]} · ${n.origin}`,'node-meta'),el('div',n.text,'node-text'));
         if(n.link){const a=el('a',`Prior enquiry: ${n.link.label} ↗`,'node-link');a.href=n.link.url;a.target='_blank';a.rel='noopener noreferrer';card.append(a);}
         if(n.private_ref)card.append(el('div',`Private essay revision ${n.private_ref.revision}; stored reference, recheck before relying on it.`,'note'));
+        if(n.private_owner)card.append(el('div','Private AI proposal linked to its Scholar account.','note'));
         if(n.reference){const r=n.reference;card.append(el('div',`Passage: ${r.work} / ${r.target} · ${r.source_edition}. Stored reference; recheck before relying on it.`,'note'));const a=el('a','Open passage in Scholar ↗','node-link');a.href=`./?work=${encodeURIComponent(r.work)}&view=scholar&layer=t1&target=${encodeURIComponent(r.target)}`;card.append(a);}
-        const controls=el('div');controls.append(button(n.id===selected?'Selected':'Select',()=>{selected=n.id;renderTree();renderNext();}));
+        const controls=el('div');controls.append(button(n.id===selected?'Selected':'Select',()=>{selected=n.id;renderTree();renderNext();renderCrux();}));
         if(!n.reference&&!n.private_ref)controls.append(button('Edit',()=>{const value=prompt('Edit this note:',n.text);if(value===null)return;try{session=C.editNode(session,n.id,value);save();render();status('Note updated.');}catch(e){status(e.message);}}));
         controls.append(button('Remove',()=>{if(!confirm('Remove this node?'))return;try{session=C.removeLeaf(session,n.id);if(selected===n.id)selected=n.parent;save();render();status('Node removed.');}catch(e){status(e.message);}}));
         card.append(controls);li.append(card);if(kids.has(n.id))li.append(list(n.id));ul.append(li);}return ul;}
@@ -58,7 +59,12 @@
     area.append(el('h3','Where could you push next?'),el('p','Choose a question to add it under the selected node. These are prompts, not findings.'));
     for(const q of C.questions(n))area.append(button(q,()=>{try{add({parent:n.id,type:'question',origin:'agent',text:q});status('Question prompt added; follow or edit it.');}catch(e){status(e.message);}}));
   }
-  function render(){ $('title').value=session.title;renderTurns();renderTree();renderNext(); }
+  function renderCrux(){
+    const available=!!selected&&session.nodes.some(n=>n.id===selected);
+    $('crux-brief').textContent=available?C.cruxBrief(session,selected):'Select a node in your enquiry to make a brief.';
+    $('crux-use').disabled=!available;$('crux-copy').disabled=!available;
+  }
+  function render(){ $('title').value=session.title;renderTurns();renderTree();renderNext();renderCrux(); }
   function selectedSeed(){const value=$('seed').value;return value===''?null:seeds[Number(value)]||null;}
   function setSeedLink(){const seed=selectedSeed();$('add-seed').disabled=!seed;$('seed-link').hidden=!seed;if(seed)$('seed-link').href=BASE+seed.file;}
   function renderSeedOptions(){const query=$('seed-search').value.trim().toLowerCase(),prior=$('seed').value;$('seed').replaceChildren();
@@ -69,9 +75,9 @@
     add({parent:null,type:'question',origin:'unknown',text:seed.question,link:{label:seed.label,url:BASE+seed.file}});
     status('Added a question from an earlier enquiry; check the underlying source before treating it as evidence.');
   }catch(e){status(e.message);}};
-  $('title').oninput=()=>{session={...session,title:$('title').value};save();};
+  $('title').oninput=()=>{session={...session,title:$('title').value};save();renderCrux();};
   $('new').onclick=()=>{if((session.nodes.length||session.turns.length)&&!confirm('Start a new enquiry? Export the current one first if you want a copy.'))return;
-    session=C.makeSession();selected=null;projection=null;verifiedSource=null;proposalParent=null;proposalSession=null;generatedEssay=null;clearPrivateViews();$('agent-citations').replaceChildren();$('essay-citations').replaceChildren();
+    session=C.makeSession();selected=null;projection=null;verifiedSource=null;proposalParent=null;proposalSession=null;proposalSnapshot=null;proposalOwner=null;proposalType='answer';generatedEssay=null;clearPrivateViews();$('agent-citations').replaceChildren();$('essay-citations').replaceChildren();
     $('work').value='';$('target').replaceChildren(option('','Choose a passage'));$('source').textContent='Choose a work and passage to inspect its source.';
     $('attach-source').disabled=true;$('save-source').disabled=true;$('essay').value='';$('agent-output').value='';save();render();status('New private enquiry.');};
   $('parse').onclick=()=>{try{const turns=C.parseTranscript($('transcript').value);if(!turns.length)throw Error('Paste a conversation first.');
@@ -85,7 +91,7 @@
   $('import').onchange=async event=>{const file=event.target.files?.[0];if(!file)return;try{
     if(file.size>1000000)throw Error('Choose an enquiry file under 1 MB.');const loaded=C.validateSession(JSON.parse(await file.text()));
     if((session.nodes.length||session.turns.length)&&!confirm('Replace the enquiry on this device with the imported file?'))return;
-    session=loaded;selected=null;projection=null;verifiedSource=null;proposalParent=null;proposalSession=null;generatedEssay=null;clearPrivateViews();$('essay-citations').replaceChildren();$('agent-citations').replaceChildren();$('essay').value='';$('agent-output').value='';
+    session=loaded;selected=null;projection=null;verifiedSource=null;proposalParent=null;proposalSession=null;proposalSnapshot=null;proposalOwner=null;proposalType='answer';generatedEssay=null;clearPrivateViews();$('essay-citations').replaceChildren();$('agent-citations').replaceChildren();$('essay').value='';$('agent-output').value='';
     save();render();await loadWork(session.work,session.target);status('Imported. Passage references in a file are claims until rechecked.');
   }catch(e){status('Could not import: '+e.message);}finally{event.target.value='';}};
   function canonical(v){if(Array.isArray(v))return '['+v.map(canonical).join(',')+']';
@@ -123,7 +129,7 @@
   async function request(path,method='GET',data){if(!API)throw Error(apiError||'Scholar API unavailable.');const r=await fetch(API+path,{method,credentials:'include',...(data?{headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}:{})});
     let value;try{value=await r.json();}catch{throw Error('Scholar backend returned an unexpected response.');}if(!r.ok)throw Error(value.error||'Scholar request failed.');return value;}
   async function profile(){const me=await request('/api/auth/me');if(!me.profile?.id)throw Error('Sign in to Scholar first.');return me.profile;}
-  function checkPrivateOwners(nodes,uid){if(nodes.some(n=>n.private_ref&&n.private_ref.owner_id!==uid))throw Error('This enquiry includes an excerpt from a different Scholar account. Open that account or remove the excerpt before sending or saving it.');}
+  function checkPrivateOwners(nodes,uid){if(nodes.some(n=>(n.private_ref&&n.private_ref.owner_id!==uid)||(n.private_owner&&n.private_owner!==uid)))throw Error('This enquiry includes material from a different Scholar account. Open that account or remove that material before sending or saving it.');}
   function clearPrivateViews(){accountEssays=[];accountEnquiries=[];accountEssayOwner=null;accountEnquiryOwner=null;notebook=[];published=[];styles=[];notebookOwner=null;publishedOwner=null;styleOwner=null;selectedScholarKeys.clear();$('style-choices').replaceChildren();$('source-choices').replaceChildren();$('scholarship').replaceChildren();$('scholar-essays').replaceChildren(option('','Choose an essay'));$('scholar-excerpt').value='';$('account-enquiries').replaceChildren(option('','Choose a saved enquiry'));}
   async function checkVisibleAccount(){if(!accountEssayOwner&&!accountEnquiryOwner&&!notebookOwner&&!publishedOwner&&!styleOwner)return;try{const owner=await profile();if((accountEssayOwner&&owner.id!==accountEssayOwner)||(accountEnquiryOwner&&owner.id!==accountEnquiryOwner)||(notebookOwner&&owner.id!==notebookOwner)||(publishedOwner&&owner.id!==publishedOwner)||(styleOwner&&owner.id!==styleOwner)){clearPrivateViews();status('Account changed; private Scholar lists were cleared.');}}catch{clearPrivateViews();status('Signed out; private Scholar lists were cleared.');}}
   addEventListener('focus',checkVisibleAccount);
@@ -202,7 +208,7 @@
     const val=$('account-enquiries').value;if(val==='')throw Error('Choose a saved enquiry.');const doc=accountEnquiries[Number(val)],owner=await profile();
     if(!doc||owner.id!==accountEnquiryOwner)throw Error('Account changed; find your enquiries again.');
     const loaded=C.validateSession(JSON.parse(doc.content.text));if((session.nodes.length||session.turns.length)&&!confirm('Replace this device’s current enquiry with the private Scholar snapshot?'))return;
-    if((await profile()).id!==owner.id)throw Error('Account changed; try again.');session=loaded;selected=null;proposalParent=null;proposalSession=null;generatedEssay=null;clearPrivateViews();$('essay-citations').replaceChildren();$('agent-citations').replaceChildren();$('essay').value='';$('agent-output').value='';save();render();await loadWork(session.work,session.target);
+    if((await profile()).id!==owner.id)throw Error('Account changed; try again.');session=loaded;selected=null;proposalParent=null;proposalSession=null;proposalSnapshot=null;proposalOwner=null;proposalType='answer';generatedEssay=null;clearPrivateViews();$('essay-citations').replaceChildren();$('agent-citations').replaceChildren();$('essay').value='';$('agent-output').value='';save();render();await loadWork(session.work,session.target);
     status('Private Scholar snapshot opened on this device.');
   }catch(e){status(e.message);}};
   $('load-essays').onclick=async()=>{try{
@@ -224,7 +230,7 @@
     add({parent,type:'answer',origin:doc.content.assisted?'agent':'human',text,private_ref:{owner_id:owner.id,document_id:doc.id,revision:doc.revision,snapshot_sha256:hash}});
     status('Excerpt added from the saved essay revision.');
   }catch(e){status(e.message);}};
-  async function assist(kind){
+  async function assist(kind,mode='enquiry'){
     if(!session.work)throw Error('Choose a work first.');
     const ids=selectedSources(),refs=selectedScholars(kind==='essay'?'drafts':'answers'),styleIds=kind==='essay'?selectedStyle():[];
     const source=verifiedSource?{...verifiedSource}:null;
@@ -232,14 +238,14 @@
     if(kind==='essay'&&!source)throw Error('Choose a verified Scholar passage for the essay first.');
     if(!source&&!ids.length&&!refs.length)throw Error('Choose a passage, a notebook source or permitted scholarship first.');
     const capturedSession=session.id,parent=selected,path=C.path(session,parent),work=session.work,target=source?.target||'';
-    const instruction=kind==='essay'?C.essayInstruction(session,parent):C.modelInstruction(session,parent),owner=await profile();
+    const instruction=kind==='essay'?C.essayInstruction(session,parent):C.modelInstruction(session,parent,mode),owner=await profile();
     checkPrivateOwners(path,owner.id);if(ids.length&&notebookOwner!==owner.id)throw Error('Account changed; reload your sources.');
     if(refs.length&&publishedOwner!==owner.id)throw Error('Account changed; reload published essays.');
     if(styleIds.length&&styleOwner!==owner.id)throw Error('Account changed; reload your style edits.');
     const signature=JSON.stringify({ids,refs,styleIds});
     const current=()=>session.id===capturedSession&&selected===parent&&session.work===work&&
       (source?(verifiedSource?.work===source.work&&verifiedSource?.target===source.target):!verifiedSource)&&
-      (kind==='essay'?C.essayInstruction(session,parent):C.modelInstruction(session,parent))===instruction&&
+      (kind==='essay'?C.essayInstruction(session,parent):C.modelInstruction(session,parent,mode))===instruction&&
       JSON.stringify({ids:selectedSources(),refs:selectedScholars(kind==='essay'?'drafts':'answers'),styleIds:kind==='essay'?selectedStyle():[]})===signature;
     if(!current())throw Error('The branch, sources or passage changed; try again.');
     if(!confirm(`Send the selected ${path.length}-node branch${source?', '+source.work+' / '+source.target+' and its available layers':''}${ids.length?', '+ids.length+' notebook source(s) and their notes':''}${refs.length?', '+refs.length+' author-permitted essay(s)':''}${styleIds.length?', and '+styleIds.length+' selected private style edit(s)':''} to Qwen using ${owner.display_name||'your Scholar account'}? Other conversation turns are not sent.`))return null;
@@ -247,16 +253,24 @@
     const result=await request('/api/scholar/assist','POST',{work,target,layer:'l3',kind,instruction,use_style:styleIds.length>0,style_example_ids:styleIds,source_ids:ids,scholar_essays:refs,consent_to_ai:true});
     if((await profile()).id!==owner.id||!current())throw Error('Account or enquiry changed; the response remains in the original private account.');
     if(!result.document?.content?.text)throw Error('The model returned no proposal.');
-    return {doc:result.document,owner:owner.id,source,ids,refs,parent,session:capturedSession,work,target};
+    return {doc:result.document,owner:owner.id,source,ids,refs,parent,session:capturedSession,work,target,branchSnapshot:JSON.stringify(path)};
   }
-  $('ask').onclick=async()=>{try{
-    const result=await assist('enquiry');if(!result)return;$('agent-output').value=result.doc.content.text;proposalParent=result.parent;proposalSession=result.session;
+  async function ask(mode){try{
+    const result=await assist('enquiry',mode);if(!result)return;$('agent-output').value=result.doc.content.text;proposalParent=result.parent;proposalSession=result.session;proposalSnapshot=result.branchSnapshot;proposalOwner=result.owner;proposalType=mode==='examine'?'objection':'answer';
     showCitations('agent-citations',result.doc.content.scholar_citations);status('Agent proposal saved privately by Scholar. Check it; add it to the tree only if useful.');
-  }catch(e){status(e.message);}};
-  $('add-agent').onclick=()=>{try{if(proposalSession&&proposalSession!==session.id)throw Error('This proposal belongs to a different enquiry.');
+  }catch(e){status(e.message);}}
+  $('ask').onclick=()=>ask('enquiry');$('challenge').onclick=()=>ask('examine');
+  $('add-agent').onclick=async()=>{try{if(proposalOwner&&(await profile()).id!==proposalOwner)throw Error('This proposal belongs to a different Scholar account.');
+    if(proposalSession&&proposalSession!==session.id)throw Error('This proposal belongs to a different enquiry.');
     const parent=proposalParent||selected;if(parent&&!session.nodes.some(n=>n.id===parent))throw Error('The original branch is no longer present.');
-    add({parent,type:'answer',origin:'agent',text:$('agent-output').value});$('agent-output').value='';proposalParent=null;proposalSession=null;status('Agent proposal added as an unverified node.');
+    if(proposalSnapshot&&JSON.stringify(C.path(session,parent))!==proposalSnapshot)throw Error('The original branch changed; ask again before adding the proposal.');
+    add({parent,type:proposalType,origin:'agent',text:$('agent-output').value,private_owner:proposalOwner});$('agent-output').value='';proposalParent=null;proposalSession=null;proposalSnapshot=null;proposalOwner=null;proposalType='answer';status('Agent proposal added as an unverified node.');
   }catch(e){status(e.message);}};
+  $('crux-use').onclick=()=>{try{
+    const brief=C.cruxBrief(session,selected);if($('essay').value.trim()&&!confirm('Replace the current working brief with this selected branch?'))return;
+    generatedEssay=null;$('essay-citations').replaceChildren();$('essay').value=brief;status('Selected branch prepared as an editable essay brief.');
+  }catch(e){status(e.message);}};
+  $('crux-copy').onclick=async()=>{try{await navigator.clipboard.writeText(C.cruxBrief(session,selected));status('Selected branch brief copied.');}catch(e){status(e.message||'Could not copy on this device.');}};
   $('essay-preview').onclick=()=>{try{generatedEssay=null;$('essay-citations').replaceChildren();$('essay').value=C.essaySeed(session);status('Essay seed prepared. You can edit it before saving.');}catch(e){status(e.message);}};
   async function prepareDraftCitations(result){
     const passages=result.source?[{work:result.source.work,target:result.source.target}]:[],data=await request('/api/scholar/citations/prepare','POST',{source_ids:result.ids,passages});

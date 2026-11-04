@@ -49,3 +49,37 @@ test('essay request retains the selected enquiry, objection and boundary without
  s=C.addNode(s,{id:'node:3',parent:'node:1',type:'crux',origin:'human',text:'OTHER PRIVATE BRANCH'});
  const q=C.essayInstruction(s,'node:2');assert.match(q,/What justifies this/);assert.match(q,/strongest objection/);assert.doesNotMatch(q,/OTHER PRIVATE BRANCH/);
 });
+
+test('crux brief follows one branch, retains source and authorship, and leaves gaps open',()=>{
+ const reference={work:'paramarthasara',target:'param-p01-v01',projection_sha256:'a'.repeat(64),t1_sha256:'b'.repeat(64),source_edition:'Edition unknown'};
+ let s=C.makeSession('Universal perceiver');
+ s=C.addNode(s,{id:'q',type:'question',origin:'human',text:'Why is blue manifest to me?'});
+ s=C.addNode(s,{id:'src',parent:'q',type:'source',origin:'source',text:'Source text',reference});
+ s=C.addNode(s,{id:'inf',parent:'src',type:'inference',origin:'human',text:'A proposed inference.'});
+ s=C.addNode(s,{id:'crux',parent:'inf',type:'crux',origin:'agent',text:'What justifies that step?'});
+ s=C.addNode(s,{id:'other',parent:'q',type:'objection',origin:'human',text:'PRIVATE SIBLING'});
+ const brief=C.cruxBrief(s,'crux');
+ assert.match(brief,/Why is blue manifest to me/);assert.match(brief,/paramarthasara \/ param-p01-v01/);
+ assert.match(brief,/\[agent\] What justifies that step/);assert.match(brief,/## Objections\nNot yet recorded/);
+ assert.doesNotMatch(brief,/PRIVATE SIBLING/);assert.match(brief,/not verified findings/);
+ assert.throws(()=>C.cruxBrief(s,'missing'),/Select an enquiry node/);
+});
+
+test('examiner challenges the selected branch without including private siblings',()=>{
+ let s=C.makeSession();s=C.addNode(s,{id:'q',type:'question',origin:'human',text:'Why?'});
+ s=C.addNode(s,{id:'claim',parent:'q',type:'inference',origin:'human',text:'This must follow.'});
+ s=C.addNode(s,{id:'other',parent:'q',type:'answer',origin:'human',text:'PRIVATE SIBLING'});
+ const prompt=C.modelInstruction(s,'claim','examine');
+ assert.match(prompt,/premise that needs justification/);assert.match(prompt,/strongest relevant objection/);
+ assert.match(prompt,/This must follow/);assert.doesNotMatch(prompt,/PRIVATE SIBLING/);
+ assert.throws(()=>C.modelInstruction(s,'claim','unknown'),/Unknown enquiry mode/);
+});
+
+test('private proposal ownership survives an enquiry export but is not sent to the model or brief',()=>{
+ let s=C.makeSession();s=C.addNode(s,{id:'q',type:'question',origin:'human',text:'Why?'});
+ s=C.addNode(s,{id:'a',parent:'q',type:'objection',origin:'agent',text:'Check the premise.',private_owner:'alice-private-id'});
+ const reopened=C.validateSession(JSON.parse(JSON.stringify(s)));assert.equal(reopened.nodes[1].private_owner,'alice-private-id');
+ assert.doesNotMatch(C.modelInstruction(reopened,'a','examine'),/alice-private-id/);
+ assert.doesNotMatch(C.cruxBrief(reopened,'a'),/alice-private-id/);
+ assert.throws(()=>C.addNode(s,{id:'bad',type:'answer',origin:'agent',text:'X',private_owner:''}),/owner/);
+});
