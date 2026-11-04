@@ -1811,7 +1811,7 @@ function buildRightRail(verses){
       if(!i || (i.value || '').trim()) return;      // typing ⇒ leave it alone
       PUSH.ix++; pushPh(); }, 20000);
   };
-  fetch('https://ipvv-a8u.pages.dev/data/pushing/INDEX.json').then(r=>r.ok?r.json():{}).catch(()=>({}))
+  if(WORK!=='ghatakarpara')fetch('https://ipvv-a8u.pages.dev/data/pushing/INDEX.json').then(r=>r.ok?r.json():{}).catch(()=>({}))
    .then(idx=>{
      const qs = ((idx && idx.records) || []).filter(r=>r.work_hint === WORK)
                    .flatMap(r => (r.questions || []).map(q => q.q)).filter(Boolean);
