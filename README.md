@@ -57,3 +57,5 @@ The audio Worker and its versioned R2 cache are documented in ipvv's
 
 See `READER-ARCHITECTURE.md` for the data flow, release checks and the active
 Ghaṭakarpara source-coverage hold.
+
+For the local Scholar MCP bridge, account privacy, and tests, see [mcp/README.md](mcp/README.md).

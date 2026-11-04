@@ -30,7 +30,7 @@ def build() -> tuple[dict, list[str]]:
     assets += [ROOT / name for name in ('scholar-voice.js', 'scholar-workspace-ui.js', 'SCHOLAR-PRIVACY.md')
                if (ROOT / name).is_file()]
     assets += [p for p in (ROOT / '.github' / 'workflows').glob('*') if p.is_file()]
-    assets += [p for folder in ('data', 'align', 'scripts') for p in (ROOT / folder).rglob('*')
+    assets += [p for folder in ('data', 'align', 'scripts', 'mcp') for p in (ROOT / folder).rglob('*')
                if p.is_file() and p != MANIFEST and '__pycache__' not in p.parts and not p.name.endswith('.pyc')]
     files = {p.relative_to(ROOT).as_posix(): sha(p.read_bytes()) for p in sorted(assets)}
     works, missing_editions = 0, []

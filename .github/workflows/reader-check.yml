@@ -18,3 +18,4 @@ jobs:
       - run: python3 scripts/release_manifest.py
       - run: node --check app.js && node --check sw.js && node --check scholar-workspace-ui.js && node --check scholar-voice.js
       - run: node --test tests/*.cjs
+      - run: python3 -m unittest discover -s mcp -p "test_*.py" -v
