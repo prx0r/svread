@@ -80,6 +80,9 @@ def call(name,a):
         return api('GET','/api/scholar/documents?'+urllib.parse.urlencode({'work':w,'offset':a.get('offset',0)}))
     if name=='document_history': return api('GET','/api/scholar/documents/'+ident(a.get('document_id'))+'/history')
     if name=='list_reviews': return api('GET','/api/scholar/reviews')
+    if name=='list_review_annotations': return api('GET','/api/scholar/reviews/'+ident(a.get('review_id'))+'/annotations')
+    if name=='add_review_annotation':
+        review=ident(a.get('review_id')); return api('POST','/api/scholar/reviews/'+review+'/annotations',{k:v for k,v in a.items() if k!='review_id'})
     if name=='list_style_examples': return api('GET','/api/scholar/style-examples')
     if name=='list_decisions': return api('GET','/api/scholar/decisions')
     if name=='save_decision': return api('POST','/api/scholar/decisions',a)
@@ -97,6 +100,8 @@ TOOLS=[
  ('list_documents','List this account’s private documents for a work.',S({'work':T,'offset':{'type':'integer','minimum':0}},['work'])),
  ('document_history','Read this account’s private document revision history.',S({'document_id':T},['document_id'])),
  ('list_reviews','List reviews accessible to this account.',S({})),
+ ('list_review_annotations','List private selected-text comments for an accessible review.',S({'review_id':T},['review_id'])),
+ ('add_review_annotation','Comment on exact UTF-16 offsets in an immutable review snapshot.',S({'review_id':T,'start':{'type':'integer','minimum':0},'end':{'type':'integer','minimum':1},'quote':T,'body':T},['review_id','start','end','quote','body'])),
  ('list_style_examples','List this account’s explicitly saved private edit examples.',S({})),
  ('list_decisions','List your private revision-bound editorial decisions.',S({})),
  ('save_decision','Save a private editorial decision against an owned revision.',S({'document_id':T,'revision':{'type':'integer'},'subject':T,'before':T,'after':T,'reason':T},['document_id','revision','subject','before','after','reason'])),

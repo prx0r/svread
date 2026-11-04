@@ -3,7 +3,7 @@
   class ScholarWorkspace {
     constructor({api,work,profile,onStatus}){
       this.api=api;this.work=work;this.profile=profile;this.status=onStatus||(()=>{});
-      this.docs=new Map();this.conflicts=new Map();this.reviews=[];this.examples=[];this.decisions=[];this.discussions=new Map();this.reportHistory=new Map();this.userId=null;
+      this.docs=new Map();this.conflicts=new Map();this.reviews=[];this.examples=[];this.decisions=[];this.discussions=new Map();this.reportHistory=new Map();this.reviewAnnotations=new Map();this.userId=null;
       this.current=null;this.essayId=null;this.agent=null;this.voice=null;this.voiceText='';this.signoffs=new Map();this.history=null;
     }
     esc(x){return String(x??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
@@ -17,7 +17,7 @@
     id(kind,target,layer=''){return `${kind}:${layer||'work'}:${target||this.work}`;}
     async load(){
       const uid=this.profile()?.id||null;
-      if(uid!==this.userId){this.voice?.end();this.voice=null;this.voiceText='';this.docs.clear();this.conflicts.clear();this.signoffs.clear();this.reviews=[];this.examples=[];this.decisions=[];this.discussions.clear();this.reportHistory.clear();this.essayId=null;this.agent=null;this.history=null;this.userId=uid;}
+      if(uid!==this.userId){this.voice?.end();this.voice=null;this.voiceText='';this.docs.clear();this.conflicts.clear();this.signoffs.clear();this.reviews=[];this.examples=[];this.decisions=[];this.discussions.clear();this.reportHistory.clear();this.reviewAnnotations.clear();this.essayId=null;this.agent=null;this.history=null;this.userId=uid;}
       if(!uid)return;
       try{
         let offset=0;const docs=[];
@@ -131,7 +131,7 @@
           <div class="cmp-note">Audio and this passage go to Qwen after consent; transcripts are saved privately. Provider usage may consume quota.</div><pre id="workspace-voice-text">${e(this.voiceText)}</pre></details>
         <details><summary>Peer review</summary><select id="workspace-review-kind"><option value="translation">Current translation</option><option value="essay">Selected essay</option></select>
           <input id="workspace-reviewer" placeholder="Reviewer account ID"/><button class="c2btn" id="workspace-share">Share saved revision</button>
-          ${reviews.map(r=>`<div class="cmp-note">${e(r.document_id)} · revision ${r.revision} · ${e(r.decision||'awaiting review')} · ${e((r.snapshot_sha256||'').slice(0,12))}</div><pre>${e(r.snapshot?.content?.text||'')}</pre>
+          ${reviews.map(r=>`<div class="cmp-note">${e(r.document_id)} · revision ${r.revision} · ${e(r.decision||'awaiting review')} · ${e((r.snapshot_sha256||'').slice(0,12))}</div><pre id="workspace-review-snapshot-${e(r.id)}">${e(r.snapshot?.content?.text||'')}</pre>
             ${r.reasoning?`<div>${e(r.reasoning)}</div>`:''}${Object.entries(r.rubric||{}).filter(([,v])=>v).map(([k,v])=>`<div><b>${e(k)}:</b> ${e(v)}</div>`).join('')}
             ${r.reviewer_id===accountId?`<textarea id="workspace-review-${e(r.id)}" placeholder="Overall reasoning">${e(r.reasoning||'')}</textarea>
               <textarea id="workspace-review-argument-${e(r.id)}" placeholder="Argument and reasoning">${e(r.rubric?.argument||'')}</textarea><textarea id="workspace-review-evidence-${e(r.id)}" placeholder="Evidence and sources">${e(r.rubric?.evidence||'')}</textarea>
@@ -140,6 +140,11 @@
               <button class="c2btn workspace-decision" data-id="${e(r.id)}" data-revision="${r.report_revision||0}" data-existing="${!!r.decision}" data-decision="ACCEPT">${r.decision?'Revise: accept':'Accept'}</button><button class="c2btn workspace-decision" data-id="${e(r.id)}" data-revision="${r.report_revision||0}" data-existing="${!!r.decision}" data-decision="REQUEST_CHANGES">${r.decision?'Revise: request changes':'Request changes'}</button><button class="c2btn workspace-decision" data-id="${e(r.id)}" data-revision="${r.report_revision||0}" data-existing="${!!r.decision}" data-decision="COMMENT">${r.decision?'Revise: comment':'Comment'}</button>`:''}
             ${r.reviewer_id===accountId&&r.decision?`<button class="c2btn workspace-review-consent" data-id="${e(r.id)}" data-allow="${r.ai_consent?'false':'true'}">${r.ai_consent?'Revoke AI permission':'Allow AI use of report'}</button>`:''}
             ${r.decision?`<button class="c2btn workspace-report-history" data-id="${e(r.id)}">View review history</button>${(this.reportHistory.get(r.id)||[]).map(v=>`<div class="cmp-note">Report revision ${v.revision} · ${e(v.decision)}: ${e(v.summary)}</div>`).join('')}`:''}
+            <div class="cmp-note">Write a comment, select text in the shared snapshot above, then add the comment. It remains attached to this revision.</div>
+            <textarea id="workspace-annotation-${e(r.id)}" placeholder="Comment on selected text"></textarea>
+            <button class="c2btn workspace-annotation-add" data-id="${e(r.id)}">Add comment to selection</button>
+            <button class="c2btn workspace-annotation-load" data-id="${e(r.id)}">Load selected-text comments</button>
+            ${(this.reviewAnnotations.get(r.id)||[]).map(a=>`<div class="cmp-note"><b>${a.author_id===accountId?'You':'Participant'}:</b> “${e(a.quote)}” — ${e(a.body)}</div>`).join('')}
             <button class="c2btn workspace-thread-load" data-id="${e(r.id)}">Load private discussion</button>
             ${(this.discussions.get(r.id)||[]).map(m=>`<div class="cmp-note">${m.author_id===accountId?'You':'Participant'}: ${e(m.body)}</div>`).join('')}
             <textarea id="workspace-message-${e(r.id)}" placeholder="Reply privately"></textarea><button class="c2btn workspace-thread-send" data-id="${e(r.id)}">Send reply</button>`).join('')}</details>
@@ -282,6 +287,23 @@
         const doc=this.document(id);await this.request('/api/scholar/reviews','POST',{document_id:id,revision:doc.revision,reviewer_id:$('#workspace-reviewer').value.trim()});
         const result=await this.request('/api/scholar/reviews');if(this.profile()?.id!==accountId)return;
         this.reviews=result.reviews||[];this.render();this.status('Revision shared privately.');}catch(e){this.status(e.message);}};
+      container.querySelectorAll('.workspace-annotation-load').forEach(button=>{button.onclick=async()=>{try{
+        const uid=accountId,id=button.dataset.id;if(this.profile()?.id!==uid)return;
+        const result=await this.request('/api/scholar/reviews/'+encodeURIComponent(id)+'/annotations');
+        if(this.profile()?.id!==uid)return;this.reviewAnnotations.set(id,result.annotations||[]);this.render();
+      }catch(e){this.status(e.message);}};});
+      container.querySelectorAll('.workspace-annotation-add').forEach(button=>{button.onclick=async()=>{try{
+        const uid=accountId,id=button.dataset.id;if(this.profile()?.id!==uid)return;
+        const pre=$(`#workspace-review-snapshot-${CSS.escape(id)}`),text=$(`#workspace-annotation-${CSS.escape(id)}`).value;
+        const selection=root.getSelection?.();if(!selection||selection.rangeCount!==1)throw new Error('Select text in the shared snapshot first.');
+        const range=selection.getRangeAt(0);if(!pre.contains(range.startContainer)||!pre.contains(range.endContainer))throw new Error('Select text inside the shared snapshot.');
+        const prefix=root.document.createRange();prefix.selectNodeContents(pre);prefix.setEnd(range.startContainer,range.startOffset);
+        const start=prefix.toString().length,quote=range.toString(),end=start+quote.length;
+        if(!quote||pre.textContent.slice(start,end)!==quote||!text.trim())throw new Error('Select text and enter a comment.');
+        await this.request('/api/scholar/reviews/'+encodeURIComponent(id)+'/annotations','POST',{start,end,quote,body:text});
+        const result=await this.request('/api/scholar/reviews/'+encodeURIComponent(id)+'/annotations');
+        if(this.profile()?.id!==uid)return;this.reviewAnnotations.set(id,result.annotations||[]);this.render();this.status('Comment saved privately on this revision.');
+      }catch(e){this.status(e.message);}};});
       container.querySelectorAll('.workspace-decision').forEach(button=>{button.onclick=async()=>{try{
         if(this.profile()?.id!==accountId)return;
         const id=button.dataset.id,reasoning=$(`#workspace-review-${CSS.escape(id)}`).value;

@@ -265,3 +265,29 @@ test('private decisions attach to a saved revision and require selection for Qwe
   assert.deepEqual([...draft.decision_ids],['decision:one']);assert.equal(draft.consent_to_ai,true);
   for(const state of suite.docs.values())clearTimeout(state.timer);
 });
+
+test('review comments use exact selected snapshot offsets',async()=>{
+  const nodes=new Map(),calls=[],add={dataset:{id:'review:1'}};let comments=[];
+  const textNode={},prefix={selectNodeContents(){},setEnd(){},toString(){return '🕉 ';}};
+  const selection={rangeCount:1,getRangeAt:()=>({startContainer:textNode,endContainer:textNode,startOffset:3,toString:()=> 'Śiva'})};
+  const element=id=>{if(!nodes.has(id))nodes.set(id,{value:'',checked:false,textContent:id.includes('snapshot')?'🕉 Śiva is free':'',dataset:{},contains:n=>n===textNode,addEventListener(){}});return nodes.get(id);};
+  const container={set innerHTML(v){this.html=v;nodes.clear();},querySelector:element,querySelectorAll(key){return key==='.workspace-annotation-add'?[add]:[];}};
+  const fetch=async(url,options={})=>{const method=options.method||'GET',data=options.body?JSON.parse(options.body):null;calls.push({url:String(url),method,data});
+    if(String(url).includes('/api/scholar/documents?'))return Response.json({documents:[],next_offset:null});
+    if(String(url).endsWith('/api/scholar/reviews'))return Response.json({reviews:[{id:'review:1',owner_id:'alice',reviewer_id:'bob',work:'testwork',document_id:'a',revision:1,snapshot_sha256:'a'.repeat(64),snapshot:{content:{text:'🕉 Śiva is free'}}}]});
+    if(String(url).endsWith('/api/scholar/style-examples'))return Response.json({examples:[]});
+    if(String(url).endsWith('/api/scholar/decisions'))return Response.json({decisions:[]});
+    if(String(url).endsWith('/annotations')){if(method==='POST')comments=[{author_id:'alice',...data}];return Response.json({annotations:comments});}
+    throw new Error('Unexpected request '+url);
+  };
+  const localStorage={getItem(){return null;},setItem(){},removeItem(){},key(){},get length(){return 0;}};
+  const context=vm.createContext({fetch,localStorage,Response,URL,URLSearchParams,setTimeout,clearTimeout,
+    crypto:{randomUUID:()=> 'id'},confirm:()=>true,CSS:{escape:x=>x},getSelection:()=>selection,document:{createRange:()=>prefix}});
+  vm.runInContext(fs.readFileSync(path.join(__dirname,'../scholar-workspace-ui.js'),'utf8'),context);
+  const suite=new context.ScholarWorkspace({api:'https://api.example',work:'testwork',profile:()=>({id:'alice'})});
+  await suite.load();suite.attach({container,textarea:{value:'',addEventListener(){}},target:'p-v01',layer:'l3',baseHash:'',parent:null});
+  element('#workspace-annotation-review:1').value='Explain the source';await add.onclick();
+  const sent=calls.find(x=>x.url.endsWith('/annotations')&&x.method==='POST').data;
+  assert.equal(sent.start,3);assert.equal(sent.end,7);assert.equal(sent.quote,'Śiva');assert.equal(sent.body,'Explain the source');
+  assert.match(container.html,/Explain the source/);for(const state of suite.docs.values())clearTimeout(state.timer);
+});
