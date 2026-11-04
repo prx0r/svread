@@ -11,7 +11,7 @@ exists.** Overviews imported: `satsang/{TEXT-TO-PRACTICE,PRACTICE-ENGINE,GRAMMAR
 
 | Piece | Where | State |
 |---|---|---|
-| **text→practice machinery** (7-layer provenance pipeline: SourceText → Passages → ExtractedInstructions → Practice → Script → Timeline → Render; model fenced, every field span-traced, safety structural, `status: review` until human signs off) | satsang `engine/` + `TEXT-TO-PRACTICE.md` | **shipped** (43+65+schema checks; worked example = Ajaan Lee Method 1) |
+| **text→practice machinery** (7-layer provenance pipeline: SourceText → Passages → ExtractedInstructions → Practice → Script → Timeline → Render; model fenced, every field span-traced, safety structural, `status: review` until human signs off) | **IMPORTED 2026-11-05 → `/root/satsang-practice/`** (prx0r/satsang @ ef85d86, sparse; `IMPORT.md` = provenance) | **shipped + verified here: 110 compile checks, 43 t2p checks, 0 schema errors. Already ships `vbt-spacious` (VBT v.63 + vv.43–48 routine)** |
 | **the corpus** — Tantrāloka all 37 āhṇikas | translation-work `tantraloka-a01..a37`: `passages.jsonl` locators, ARGMAP (question/premises/unresolved per section), GATE.json, T1/L1/L2, source files | chunked + argmapped; gates vary per unit (display fail-closed) |
 | **the practice vocabulary + body map** | deitybody: eight-phase path, `protocols/daily_practice.json`, month curriculum, matrika body map, selected VBT dhāraṇās | backend + tests on box |
 | **the narration voice** | Tantrasāra slang editions (`awesome-essays/tantrasara1..22`, `shivasutrasfinal`) | landed, unused |
@@ -95,10 +95,17 @@ subgraph of Treeka, not a new store.
 
 ## 6. Build phases (folds into ENDGAME-BUILD-PLAN Phase 4.3)
 
-- **C1 pilot — one practice unit end-to-end.** Target: a VBT dhāraṇā already
-  selected in deitybody (smallest true Trika unit) OR TĀ āhṇika 6 (daily/occasional
-  rite) → through satsang's existing pipeline → rendered in the sit player.
-  *Done when:* engine preview plays a Trika practice with span-cited quotes.
+- **C1 pilot — VBT, decided (owner 2026-11-05: "vbt is perfect for this").**
+  Inputs all on disk: `satsang-practice/pilot-inputs/vbt-daily.json` (65 of 112
+  dhāraṇās mapped: technique · trains · āhṇika coord · **upāya class**),
+  `pilot-inputs/syllabus.json` (matrka-course-v1 skeleton), deitybody VBT
+  selections + matrika body map, engine's own `vbt-spacious` as the reference
+  implementation, slang editions as narration register. Path: ingest the 65-unit
+  table → unitize/type/gate (no dīkṣā issues in VBT — it's the one canonical
+  practice text built for this) → one dhāraṇā through the imported pipeline →
+  sit-player preview.
+  *Done when:* engine preview plays a VBT dhāraṇā from our table with
+  span-cited quotes (Sanskrit verse ↔ technique ↔ upāya).
 - **C2 unitize + type + gate all 37 āhṇikas** → `syllabus/tantraloka.json`
   (units, questions, eligibility classes). *Done when:* every unit is
   classified; dīkṣā-gated units are study-only, verified by a spot-check.
