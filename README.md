@@ -3,8 +3,10 @@
 New standalone site. Old readers (`ipvv/site/app`, deitybody lab) untouched.
 
 ## Working code it stands on
-- **Skeleton**: `gita-quotes` pattern (MIT) — one HTML + one JS + one JSON per
-  work + service worker. No backend, no build, offline-first.
+- **Skeleton**: `gita-quotes` pattern (MIT) — static HTML/JS, vendored JSON
+  and a service worker. No site build is required. Live reading data, chat and
+  generated audio also depend on ipvv's hosted data and Worker; chant recordings
+  and timings live in R2. Vendored reading data is the offline fallback.
 - **Data model**: SuttaCentral Bilara pattern — one chunk id, every layer
   (sa/l1/l2/c1/argmap) keyed to it ("cognates").
 - **Reader chrome**: Scaife "add parallel version" + GitaVani per-verse voice
@@ -30,3 +32,16 @@ New standalone site. Old readers (`ipvv/site/app`, deitybody lab) untouched.
 ## Run
 Any static server on this dir, e.g. `python3 -m http.server 8133`.
 Deploy: any static host (Cloudflare Pages: root = this dir, no build command).
+
+The reader prefers live ipvv layers and then its vendored copy; those can change
+independently. A `PASS` gate permits display but is not proof of an independent
+scholar review. The reader withholds English for all other gates, including in
+audio, export and its local word-gloss lookup. Sanskrit and editorial marks are
+shown from the source data, not independently checked or corrected by the reader.
+If an edition isn't recorded, the attribution says so. The last-resort root-text
+fallback assigns local section IDs and does not claim verse-by-verse alignment.
+
+Run the local checks with `node --check app.js` and
+`node --test tests/reader-integrity.test.cjs tests/service-worker-privacy.test.cjs tests/scholar-smoke.cjs`.
+The audio Worker and its versioned R2 cache are documented in ipvv's
+`worker/SVREAD-AUDIO.md` on the accompanying review branch.

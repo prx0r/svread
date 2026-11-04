@@ -3,7 +3,8 @@
 (function(){
 "use strict";
 const $ = s => document.querySelector(s);
-const esc = s => (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const esc = s => String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+  .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 const qs = new URLSearchParams(location.search);
 const WORK = qs.get('work') || 'bhairavastava';
 const SRC = qs.get('src');
@@ -41,7 +42,10 @@ async function loadL0(){
     const m = await get(`data/l0/${WORK}.json`);
     if(m && m.verses && m.verses.length){
       L0 = {};
-      for(const v of m.verses) L0[v.id] = v.tokens || [];
+      for(const v of m.verses){
+        const row=(DATA?.verses||[]).find(x=>x.id===v.id||x.chunk===v.id);
+        if(isReaderPass(row)) L0[v.id] = v.tokens || [];
+      }
       if(!LIDS.includes('l0')){ LIDS.splice(3, 0, 'l0'); RIDS.splice(3, 0, 'l0'); }
     }
   }catch(e){ L0 = null; }
@@ -51,13 +55,14 @@ if(!LIDS_BASE.includes(LEFT) && LEFT!=='l0') LEFT = 'sa-deva';
 if(!RIDS_BASE.includes(RIGHT) && RIGHT!=='l0') RIGHT = 'none';
 
 const IAST_DEVA = (()=>{
-  const VOW={a:'\u0905','\u0101':'\u0906',i:'\u0907','\u012b':'\u0908',u:'\u0909','\u016b':'\u090a','\u1e5b':'\u090b','\u1e5d':'\u090c','\u1e37':'\u090d',e:'\u090f',o:'\u0913',ai:'\u0910',au:'\u0914'};
+  const VOW={a:'\u0905','\u0101':'\u0906',i:'\u0907','\u012b':'\u0908',u:'\u0909','\u016b':'\u090a','\u1e5b':'\u090b','\u1e5d':'\u0960','\u1e37':'\u090c',e:'\u090f',o:'\u0913',ai:'\u0910',au:'\u0914'};
   const VSN={'\u0101':'\u093e',i:'\u093f','\u012b':'\u0940',u:'\u0941','\u016b':'\u0942','\u1e5b':'\u0943','\u1e5d':'\u0944','\u1e37':'\u0962',e:'\u0947',o:'\u094b',ai:'\u0948',au:'\u094c'};
   const CON={k:'\u0915',kh:'\u0916',g:'\u0917',gh:'\u0918','\u014b':'\u0919','\u1e45':'\u0919',c:'\u091a',ch:'\u091b',j:'\u091c',jh:'\u091d','\u00f1':'\u091e','\u1e6d':'\u091f','\u1e6dh':'\u0920','\u1e0d':'\u0921','\u1e0dh':'\u0922','\u1e47':'\u0923',t:'\u0924',th:'\u0925',d:'\u0926',dh:'\u0927',n:'\u0928',p:'\u092a',ph:'\u092b',b:'\u092c',bh:'\u092d',m:'\u092e',y:'\u092f',r:'\u0930',l:'\u0932',v:'\u0935','\u015b':'\u0936','\u1e63':'\u0937',s:'\u0938',h:'\u0939'};
   const OTH={'\u1e43':'\u0902','\u1e41':'\u0902','\u1e25':'\u0903',"'":'\u093d','\u2019':'\u093d','.':'\u0964','..':'\u0965','|':'\u0964','||':'\u0965',' ':' ','\n':'\n','\u2014':'\u0964'};
   const HAL='\u094d';
   const ALL=Object.keys(CON).concat(Object.keys(VOW)).sort((a,b)=>b.length-a.length);
   function convert(s){
+    s=(s||'').normalize('NFC');
     const tk=[]; let i=0;
     while(i<s.length){
       let hit=null;
@@ -81,7 +86,7 @@ const IAST_DEVA = (()=>{
   }
   return {convert};
 })();
-function cleanSA(s){ return (s||'').replace(/^# Text\s*/,'').replace(/\[[A-Za-z0-9_]+\]/g,'').replace(/\s+/g,' ').trim(); }
+function cleanSA(s){ return (s||'').replace(/^# Text\s*/,'').replace(/\s+/g,' ').trim(); }
 function cleanEN(s){ return (s||'').replace(/^#+\s*[^\n]*\n/,'').replace(/\s*\/\/\s*\S+\s*$/,'').trim(); }
 function rich(s){
   return esc(s).replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>')
@@ -119,6 +124,19 @@ function setCol(which, v){
 
 let DATA = null;
 
+// The same gate controls every reader surface, including audio and exports.
+function isReaderPass(v){return !!(v&&v.gate==='PASS'&&
+  [v.l2,v.l1].some(text=>typeof text==='string'&&text.trim()));}
+function validReaderRow(v){return !!(v&&typeof v==='object'&&!Array.isArray(v)&&
+  typeof (v.id||v.chunk)==='string'&&(v.id||v.chunk).trim()&&
+  ['sa','sanskrit','gate','l1','l2','l3','l4','c1','argmap'].every(k=>v[k]==null||typeof v[k]==='string'));}
+function safeReaderVerse(v){
+  const sa=v.sa||v.sanskrit||'';
+  if(isReaderPass(v))return {...v,sa};
+  return {id:v.id||v.chunk||'',chunk:v.chunk||v.id||'',sa,gate:v.gate||'BLOCKED',
+    model:v.model||'',date:v.date||''};
+}
+
 function engLaneId(){
   const vs = (DATA && DATA.verses) || [];
   if(vs.some(v=>v.l4)) return 'l4';
@@ -145,10 +163,11 @@ const VDEF = {
 function saWords(v, iast, vix){
   const VI = (vix!=null) ? vix : (v.n-1);
   const raw = cleanSA(v.sa||'');
-  const words = raw.split(/\s+/).filter(Boolean)
-                   .filter(w=>!/^[\u0964\u0965.,|;:]+$/.test(w))
-                   .filter(w=>!/[A-Z]/.test(w));
-  const shown = iast ? words : words.map(w=>IAST_DEVA.convert(w));
+  const tokens = raw.split(/\s+/).filter(Boolean);
+  const punctuation = w=>/^[\u0964\u0965.,|;:]+$/.test(w);
+  const words = tokens.filter(w=>!punctuation(w));
+  const shown = iast ? words : words.map(w=>/^\[lacuna\]$/i.test(w)?w:IAST_DEVA.convert(w));
+  const keepPunctuation = rendered=>{let i=0;return tokens.map(w=>punctuation(w)?esc(iast?w:IAST_DEVA.convert(w)):rendered[i++]).join(' ');};
   const roLine = iast ? '' : `<div class="ro">${esc(raw)}</div>`;
 
   // ---- compiled path (preferred): no matching, no karaoke dependency.
@@ -167,7 +186,7 @@ function saWords(v, iast, vix){
       out.push(str.slice(prev));
       return out;
     };
-    return `<div class="sa">` + shown.map((w,j)=>{
+    return `<div class="sa">` + keepPunctuation(shown.map((w,j)=>{
       const sy = relA.get(j);
       if(sy && sy.length){
         const parts = cutAt(w, Math.min(sy.length, Math.max(1, w.length)));
@@ -178,35 +197,35 @@ function saWords(v, iast, vix){
         return `<span class="kword" data-w="${esc(words[j])}" data-v="${esc(v.id)}">${inner}</span>`;
       }
       return `<span class="w" data-w="${esc(words[j])}" data-v="${esc(v.id)}">${esc(w)}</span>`;
-    }).join(' ') + `</div>` + roLine;
+    })) + `</div>` + roLine;
   }
 
   // ---- live karaoke match (works without an artifact)
   const kw = KAR && KAR.words[VI];
   if(kw && kw.length){
-    const shownK = iast ? kw.map(k=>k.r) : kw.map(k=>IAST_DEVA.convert(k.r));
     const nf = x => (x||'').replace(/\u0902$/, '\u092e\u094d');
-    return `<div class="sa">` + shownK.map((w,j)=>{
-      const kk = kw[j] || {};
+    return `<div class="sa">` + keepPunctuation(shown.map((w,j)=>{
+      const candidate=kw[j]||{};
+      const kk=candidate.r===words[j]?candidate:{};
       const t = (kk.t0!=null) ? ` data-t0="${kk.t0}" data-t1="${kk.t1}" data-i="${VI}"` : '';
       const syl = (kk.sslice && kk.sslice.length) ? kk.sslice : kk.syls;
       if(syl && syl.length && nf(syl.map(x=>x.d).join('')) === nf(w)){
         const inner = syl.map(x=>
           `<span class="w syl" data-t0="${x.t0}" data-t1="${x.t1}" data-i="${VI}">${esc(x.d)}</span>`).join('');
-        return `<span class="kword" data-w="${esc(kk.r)}" data-v="${esc(v.id)}">${inner}</span>`;
+        return `<span class="kword" data-w="${esc(words[j])}" data-v="${esc(v.id)}">${inner}</span>`;
       }
-      return `<span class="w" data-w="${esc(kk.r)}" data-v="${esc(v.id)}"${t}>${esc(w)}</span>`;
-    }).join(' ') + `</div>` + (!iast ? `<div class="ro">${esc(kw.map(k=>k.r).join(' '))}</div>` : '');
+      return `<span class="w" data-w="${esc(words[j])}" data-v="${esc(v.id)}"${t}>${esc(w)}</span>`;
+    })) + `</div>` + (!iast ? `<div class="ro">${esc(raw)}</div>` : '');
   }
 
   // ---- nothing timed: plain text
-  return `<div class="sa">` + shown.map((w,j)=>
-    `<span class="w" data-w="${esc(words[j])}" data-v="${esc(v.id)}" data-i="${VI}">${esc(w)}</span>`).join(' ')
+  return `<div class="sa">` + keepPunctuation(shown.map((w,j)=>
+    `<span class="w" data-w="${esc(words[j])}" data-v="${esc(v.id)}" data-i="${VI}">${esc(w)}</span>`))
     + `</div>` + roLine;
 }
 function verseText(v, vid, col, vix){
   const raw = cleanSA(v.sa||'');
-  const pass = v.gate==='PASS' && (v.l2||v.l1);
+  const pass = isReaderPass(v);
   if(vid==='sa-deva') return saWords(v, false, vix);
   if(vid==='sa-iast') return saWords(v, true, vix);
   if(!pass) return saWords(v, false, vix)
@@ -226,8 +245,8 @@ function verseText(v, vid, col, vix){
        every other verse of the song fans out from it (single change, all works) */
     const m = (v.id||'').match(/^(.*)-v\d+$/);
     if(m){
-      const first = (DATA.verses||[]).find(x=>x.id===m[1]+'-v01' && x.c1)
-                 || (DATA.verses||[]).find(x=>x.id && x.id.indexOf(m[1]+'-v')===0 && x.c1);
+      const first = (DATA.verses||[]).find(x=>x.id===m[1]+'-v01' && isReaderPass(x) && x.c1)
+                 || (DATA.verses||[]).find(x=>x.id && x.id.indexOf(m[1]+'-v')===0 && isReaderPass(x) && x.c1);
       if(first) return `<div class="enp c1sec">${mdSec(first.c1.replace(/^##\s+[^\n]*\n/, ''))}</div>`
         + `<div class="cmp-note">song commentary (from §${esc((first.id||'').split('-v').pop())})</div>`;
     }
@@ -629,7 +648,12 @@ async function main(){
   /* canonical-first: ipvv layers JSONs are the backend source of truth.
      Vendored data/ copy is the offline fallback, not the authority. */
   for(const u of (SRC ? [SRC] : [`${IPVV}/data/layers/${WORK}.json`, `${IPVV}/data/translations/${WORK}.json`, `data/${WORK}.json`])){
-    try{ D = await get(u); if(D && (D.verses || D.chunks)) break; else D = null; }catch(e){ D = null; }
+    try{
+      D = await get(u);
+      const rows=Array.isArray(D?.verses)?D.verses:Array.isArray(D?.chunks)?D.chunks:null;
+      if(rows?.length&&rows.every(validReaderRow))break;
+      D=null;
+    }catch(e){ D = null; }
   }
   // last resort: Sanskrit root via works-index (Sanskrit always, English never)
   if(!D){
@@ -638,8 +662,10 @@ async function main(){
       const rec = Object.values(idx||{}).find(r=>(r.translation===WORK||r.work===WORK) && r.sanskrit);
       if(rec){
         const raw = await get(`${IPVV}/data/sanskrit/${rec.sanskrit}`);
-        const paras = String(raw).split(/\n{2,}|\n(?=[\u0900-\u097F])/).map(p=>p.trim()).filter(p=>p).slice(0,80);
-        D = {title: rec.title||WORK, master: rec.author||'', verses: paras.map((p,i)=>({id:`${WORK}-s${i+1}`, sa:p, l1:'', l2:'', c1:'', argmap:'', gate:'WITHHELD'}))};
+        if(typeof raw==='string'&&!/^\s*(?:<!doctype\s+html|<html\b)/i.test(raw)){
+          const paras = raw.split(/\n{2,}|\n(?=[\u0900-\u097F])/).map(p=>p.trim()).filter(p=>p);
+          D = {title: rec.title||WORK, master: rec.author||'', verses: paras.map((p,i)=>({id:`${WORK}-s${i+1}`, sa:p, l1:'', l2:'', c1:'', argmap:'', gate:'WITHHELD'}))};
+        }
       }
     }catch(e){}
   }
@@ -650,6 +676,7 @@ async function main(){
     $('.reader-main').innerHTML = `<p id="err">Nothing on file for “${esc(WORK)}” yet.</p>`;
     return;
   }
+  verses=verses.map(safeReaderVerse);
   DATA = {title:(D.title||WORK), master:(D.master||''), source_edition:(D.source_edition||''), verses};
   DATA.verses.forEach((v,i)=>{ v.n = i+1; });
   // pretty title + master name from the library catalogue
@@ -704,8 +731,7 @@ async function main(){
       verses.forEach((v,ix)=>{
         const raw = cleanSA(v.sa||v.sanskrit||'');
         const vw = raw.split(/\s+/).filter(Boolean)
-                     .filter(w=>!/^[\u0964\u0965.,|]+$/.test(w))       // danda is not a word
-                     .filter(w=>!/[A-Z]/.test(w));                    // source refs (AgAna_1)
+                     .filter(w=>!/^[\u0964\u0965.,|;:]+$/.test(w)); // punctuation is not a timed word
         // one predicate, used both to pick the covering karaoke entry and to
         // assign timings — mismatched rules here silently killed whole works.
         const skelMatch = (t, ksk)=>{
@@ -980,7 +1006,7 @@ async function buildLeftRail(verses, LIBDATA){
       + W('search','Text Search', `<div class="wsearch"><input id="wq" placeholder="find in this work…"/><button id="wgo">go</button></div><div style="margin:.3rem 0;font-size:13px"><label><input type="radio" name="smode" value="form" checked/> Form</label> <label style="margin-left:.6rem"><input type="radio" name="smode" value="lemma"/> Lemma</label></div><div class="cmp-note">Use text input above to find text in this version.</div><div id="wres" style="margin-top:.4rem"></div>`)
       + W('attr','Attributions', `<table class="wtable">`
         + `<tr><td>work</td><td>${esc(DATA.title)}</td></tr>`
-        + `<tr><td>source</td><td>${esc(DATA.source_edition || 'root text (see Work ID)')}</td></tr>`
+        + `<tr><td>source</td><td>${esc(DATA.source_edition || 'Edition not recorded for this display.')}</td></tr>`
         + `<tr><td>translation</td><td><b>FREE</b> — our English (L1–L4, commentary) is free use. Scholar edits &amp; words: © their authors, all rights reserved.</td></tr>`
         + `<tr><td>editions</td><td>Svatantrya (L4) · Final · Literal gloss · English translation · Commentary — pipeline, machine-proposed, needs human review</td></tr>`
         + `<tr><td>gate</td><td>${verses.filter(v=>v.gate==='PASS').length}/${verses.length} passages passed</td></tr>`
@@ -1151,7 +1177,7 @@ function installResize(lay){
 /* c1sum — standardized chat intro: first C1 SUMMARY clamped to chat length */
 function c1sumLine(){
   const vs = (DATA && DATA.verses) || [];
-  const v = vs.find(x=>x.c1) || null;
+  const v = vs.find(x=>isReaderPass(x)&&x.c1) || null;
   if(!v) return '';
   const raw = (v.c1 || '').replace(/^##\s+[^\n]*\n/, '');
   const m = raw.match(/\*\*SUMMARY\.\*\*\s*([\s\S]*?)(\n\n|\n\*Rasa|$)/);
@@ -1340,12 +1366,13 @@ function stopRecite(){ bumpPlay(); quiet(); AUix = null; }
 /* ---- per-section play: starts at a section, auto-continues to the end ----
    sa = chant/browser voice via stepOnce · en/c1 = Granny via /api/read (R2-cached) */
 function readUrlFor(v, kind){
+  if(!isReaderPass(v))return Promise.reject(new Error('English withheld by the passage gate'));
   let text = '';
   if(kind === 'c1'){
     text = cleanEN((v.c1 || '').replace(/^##\s+[^\n]*\n/, ''));
     if(!text){
       const m = (v.id||'').match(/^(.*)-v\d+$/);
-      const first = m && (DATA.verses||[]).find(x=>x.id===m[1]+'-v01' && x.c1);
+      const first = m && (DATA.verses||[]).find(x=>x.id===m[1]+'-v01' && isReaderPass(x) && x.c1);
       text = first ? cleanEN(first.c1.replace(/^##\s+[^\n]*\n/, '')) : '';
     }
   } else {
@@ -1581,6 +1608,7 @@ function buildRightRail(verses){
     if(!L0) return out;
     for(const vid of Object.keys(L0)){
       const i = (DATA.verses||[]).findIndex(v=>v.id===vid||v.chunk===vid);
+      if(i<0||!isReaderPass(DATA.verses[i]))continue;
       for(const t of (L0[vid]||[])){
         const hay = `${t.iast||''} ${t.gloss||''}`.toLowerCase();
         if(hay.includes(q)){ out.push({i, vid, t}); break; }
