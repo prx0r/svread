@@ -1,0 +1,1444 @@
+{
+ "work": "spandasandoha",
+ "generated": null,
+ "source": "translation-work canonical data + scholar/ ledgers (emit_scholar.py)",
+ "source_edition": "Mukhabodha M00084 (Spandasandoha)",
+ "contract": {
+  "contract_version": "svatantrya-agent-contract/1",
+  "contract_sha256": "8f22582bd8833e43d4ed31bbdfa49cf1f2e720569d15da9edc61a2bfab34d86e",
+  "schema_version": "1.3.0",
+  "structural_schema_version": "2.0.0",
+  "structural_schema_snapshot_sha256": "7143ce16fd2fec74bcbb442937194c13abcb94e7d76e10fb35ec9e76016a9577",
+  "order": [
+   "source",
+   "t1",
+   "l0",
+   "argmap",
+   "l2",
+   "c1",
+   "l3",
+   "l4",
+   "c2"
+  ],
+  "schemas": {
+   "t1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:t1",
+    "title": "Svatantrya T1 structural schema",
+    "x-validator": "schemas.t1.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "quick_english",
+     "tokens",
+     "source_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "quick_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "source_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "tokens": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "surface",
+        "quick_gloss"
+       ],
+       "properties": {
+        "surface": {
+         "type": "string",
+         "minLength": 1
+        },
+        "quick_gloss": {
+         "type": "string",
+         "minLength": 1
+        }
+       }
+      }
+     }
+    }
+   },
+   "l0": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l0:verse",
+    "title": "Svatantrya L0 verse token list structural schema",
+    "x-validator": "schemas.l0.validate (per token)",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+     "$schema": "https://json-schema.org/draft/2020-12/schema",
+     "$id": "urn:svatantrya:schema:2.0.0:l0",
+     "title": "Svatantrya L0 structural schema",
+     "x-validator": "schemas.l0.validate",
+     "x-schema-version": "1.3.0",
+     "x-structural-schema-version": "2.0.0",
+     "type": "object",
+     "required": [
+      "id",
+      "verse_id",
+      "pada_index",
+      "surface",
+      "citation",
+      "options",
+      "chosen_index",
+      "status"
+     ],
+     "properties": {
+      "id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "verse_id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "pada_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "surface": {
+       "type": "string",
+       "minLength": 1
+      },
+      "citation": {
+       "type": "string",
+       "minLength": 1
+      },
+      "morph": {
+       "type": "string"
+      },
+      "morph_unknown": {
+       "type": "boolean"
+      },
+      "options": {
+       "type": "array",
+       "maxItems": 5,
+       "items": {
+        "type": "object",
+        "required": [
+         "gloss",
+         "rank",
+         "source",
+         "grounds"
+        ],
+        "properties": {
+         "gloss": {
+          "type": "string",
+          "minLength": 1
+         },
+         "rank": {
+          "type": "integer",
+          "minimum": 1
+         },
+         "source": {
+          "type": "string",
+          "minLength": 1
+         },
+         "grounds": {
+          "type": "string",
+          "minLength": 1
+         }
+        }
+       }
+      },
+      "chosen_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "status": {
+       "type": "string",
+       "enum": [
+        "PARSED",
+        "AMBIGUOUS",
+        "FAILED"
+       ]
+      },
+      "revised": {
+       "type": "boolean"
+      },
+      "revise_reason": {
+       "type": "string"
+      },
+      "fork": {
+       "type": "string",
+       "enum": [
+        "none",
+        "live",
+        "resolved"
+       ]
+      }
+     }
+    }
+   },
+   "argmap": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:argmap",
+    "title": "Svatantrya ARGMAP structural schema",
+    "x-validator": "schemas.argmap.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "traces",
+     "sanskrit_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "traces": {
+      "type": "object",
+      "required": [
+       "t1_verse",
+       "l0_ids"
+      ],
+      "properties": {
+       "t1_verse": {
+        "type": "string",
+        "minLength": 1
+       },
+       "l0_ids": {
+        "type": "array",
+        "items": {
+         "type": "string",
+         "minLength": 1
+        },
+        "minItems": 1
+       }
+      }
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "sanskrit_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "speaker": {
+      "type": "string",
+      "minLength": 1
+     },
+     "question": {
+      "type": "string",
+      "minLength": 1
+     },
+     "inference": {
+      "type": "string",
+      "minLength": 1
+     },
+     "reconstruction": {
+      "type": "string",
+      "minLength": 1
+     },
+     "premises": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     },
+     "uncertainties": {
+      "type": "array"
+     },
+     "structured": {
+      "type": "boolean"
+     }
+    }
+   },
+   "l2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l2",
+    "title": "Svatantrya L2 structural schema",
+    "x-validator": "schemas.l2.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "plain_english",
+     "sanskrit_cite",
+     "l0_ids"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "plain_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "supplied": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     }
+    }
+   },
+   "c1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:c1",
+    "title": "Svatantrya C1 structural schema",
+    "x-validator": "schemas.c1.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "song",
+     "essence",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "essence": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "renders": {
+      "type": "object",
+      "required": [
+       "standard"
+      ]
+     }
+    }
+   },
+   "l3": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l3",
+    "title": "Svatantrya L3 structural schema",
+    "x-validator": "schemas.l3.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "l4": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l4",
+    "title": "Svatantrya L4 structural schema",
+    "x-validator": "schemas.l4.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "c2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:c2",
+    "title": "Svatantrya C2 structural schema",
+    "x-validator": "schemas.c2.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "song",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "renders": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "style",
+        "prompt",
+        "paragraphs"
+       ],
+       "properties": {
+        "style": {
+         "type": "string",
+         "minLength": 1
+        },
+        "prompt": {
+         "type": "string",
+         "minLength": 1
+        },
+        "paragraphs": {
+         "type": "array",
+         "minItems": 1,
+         "items": {
+          "type": "object",
+          "required": [
+           "text",
+           "maps_to"
+          ],
+          "properties": {
+           "text": {
+            "type": "string",
+            "minLength": 1
+           },
+           "maps_to": {
+            "type": "array",
+            "items": {
+             "type": "integer",
+             "minimum": 0
+            },
+            "minItems": 1
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "layers": [
+   {
+    "id": "t1",
+    "scope": "verse",
+    "depends_on": [
+     "source"
+    ],
+    "validator": "schemas/t1.py",
+    "validator_sha256": "ac792ba1f0cbc06ab52dfbc41a31d3e39460f0e8a7de2977ed02e4ce63a20f27",
+    "example": {
+     "file": "sivastotravali/data/s01.t1.json",
+     "file_sha256": "a5c4cfae67571d05866d97ad6eb29b1c2956140a69c2fae554c29577330beb8e",
+     "target": "s01-v01",
+     "content_sha256": "26f027dafbe67347efd901cb2b94630cdb0e372957edeb4a3e1305e83745ba5b",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l0",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1"
+    ],
+    "validator": "schemas/l0.py",
+    "validator_sha256": "0651bc77f519897f8a4f8b41f4ea0cc6a88f3441910af99b18d55854a7e9030e",
+    "example": {
+     "file": "sivastotravali/data/s06.l0.json",
+     "file_sha256": "c2bb0ce1010315d72bdce75ee3c8901b17499202abe7adc5bd1977a26f4fea2f",
+     "target": "s06-v01",
+     "content_sha256": "91e3b04d47482757bcaf1e9705992edd0815ff7907ed2cb33c7c9586f3a9e5aa",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "argmap",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0"
+    ],
+    "validator": "schemas/argmap.py",
+    "validator_sha256": "335c1bbe809c5ae942ecef4a30ee7fd8fcb82645a43019312fa74397fe5758b0",
+    "example": {
+     "file": "sivastotravali/data/s01.argmap.json",
+     "file_sha256": "a44c8ec09a30c577f2a792c1255d4290f49a6138c456bb687bc00e78a3902949",
+     "target": "s01-v21",
+     "content_sha256": "80b69a54761b8b0b7c193058f6c88eef60323a3611008c41ba9879bcfc3cdc21",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l2",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap"
+    ],
+    "validator": "schemas/l2.py",
+    "validator_sha256": "f5653e405e0f162f78593ad6344cbbefe122d6d1c921ca3e22003e4f4d2cfaaa",
+    "example": {
+     "file": "sivastotravali/data/s01.l2.json",
+     "file_sha256": "f5a1cec55bb466c328380a0bf527e6d8906428b3436f85a79bd01df98ceb1040",
+     "target": "s01-v01",
+     "content_sha256": "f3c47f6a631f7551d4f9c8ad1117bdf65463cb8cdc92e9b42bb3bf517ae80055",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c1",
+    "scope": "song",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2"
+    ],
+    "validator": "schemas/c1.py",
+    "validator_sha256": "88ad9123135a7a18237cec1d11430992b4f43adf1771ae26a43e4df8198c69d7",
+    "example": {
+     "file": "sivastotravali/data/s01.c1.json",
+     "file_sha256": "99f4d2bbf7a8086176ee585b6e459076e2abd72b9675435267f7546beb1515f8",
+     "target": "s01",
+     "content_sha256": "5be1f3c0c3f64fafe5395b42cf5502a139a5e208be419d5804fe1a5bdd33712a",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l3",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2",
+     "c1"
+    ],
+    "validator": "schemas/l3.py",
+    "validator_sha256": "6c3df228f886207782d5250699e9e459f236f6e7d6b25ac29b00a38541956917",
+    "example": {
+     "file": "sivastotravali/data/s01.l3.json",
+     "file_sha256": "cdb4af6a4c2a851231195f4e5c940346f65199d5d5d69ea1c41d8095f98409f9",
+     "target": "s01-v01",
+     "content_sha256": "6aa20635387174b68fe4ea3baf970c06aff9838acb2c745e7afca0ed7c6751de",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l4",
+    "scope": "verse",
+    "depends_on": [
+     "l3",
+     "c1"
+    ],
+    "validator": "schemas/l4.py",
+    "validator_sha256": "3c1f7b0dfe3d83d425ed0fd84fba7b74aa3ed9e9758402369d779eedda1a8c03",
+    "example": {
+     "file": "paramarthasara/data/param-p01.l4.json",
+     "file_sha256": "db346e51e71f2f835ddfda004d4432934611817c2c73318d335f6ca2362ad4fb",
+     "target": "param-p01-v01",
+     "content_sha256": "91e9d424cf310d4e5b45c173b02f5286d837269ef9447533c153a48cb5122c14",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c2",
+    "scope": "song",
+    "depends_on": [
+     "c1",
+     "l3"
+    ],
+    "validator": "schemas/c2.py",
+    "validator_sha256": "fb8743f206e036002c780d082c7d32cf011dcdab4c21df742a5f5e59a9d851b8",
+    "example": {
+     "file": "sivastotravali/data/s01.c2.json",
+     "file_sha256": "09660a3c09679fce8c95968934e5851a22d89cdf154d2b0635d358e1ef9e8aeb",
+     "target": "s01",
+     "content_sha256": "2faa5fa86e38faca7ef5a1a967a4e261e2df294648a31ed5bad5f731001aa41c",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   }
+  ]
+ },
+ "rights": {
+  "translation": "FREE — our English (L1–L4, commentary) is free use",
+  "scholar": "Contributors declare rights; authorship and copyright depend on the work and law."
+ },
+ "originals": {
+  "t1": {
+   "sand-p01-v01": {
+    "verse_id": "sand-p01-v01",
+    "song": "sand-p01",
+    "verse": 1,
+    "quick_english": "He / is-victorious / Śiva / alone / possessing-spanda / self-established / who / inner-face / makes-taste",
+    "quick_english_source": "t1-draft",
+    "tokens": [
+     {
+      "surface": "saḥ",
+      "quick_gloss": "He"
+     },
+     {
+      "surface": "jayati",
+      "quick_gloss": "is-victorious"
+     },
+     {
+      "surface": "śivaḥ",
+      "quick_gloss": "Śiva"
+     },
+     {
+      "surface": "ekaḥ",
+      "quick_gloss": "alone"
+     },
+     {
+      "surface": "spandavān",
+      "quick_gloss": "possessing-spanda"
+     },
+     {
+      "surface": "svapratiṣṭhaḥ",
+      "quick_gloss": "self-established"
+     },
+     {
+      "surface": "yaḥ",
+      "quick_gloss": "who"
+     },
+     {
+      "surface": "antarvaktram",
+      "quick_gloss": "inner-face"
+     },
+     {
+      "surface": "rasayati",
+      "quick_gloss": "makes-taste"
+     }
+    ],
+    "source_sha": "27244f22cd6662ec",
+    "source_lines": [
+     7,
+     13
+    ]
+   },
+   "sand-p01-v02": {
+    "verse_id": "sand-p01-v02",
+    "song": "sand-p01",
+    "verse": 2,
+    "quick_english": "is-victorious / this / hero / lord-of-the-Kula",
+    "quick_english_source": "t1-draft",
+    "tokens": [
+     {
+      "surface": "jayati",
+      "quick_gloss": "is-victorious"
+     },
+     {
+      "surface": "eṣaḥ",
+      "quick_gloss": "this"
+     },
+     {
+      "surface": "vīraḥ",
+      "quick_gloss": "hero"
+     },
+     {
+      "surface": "kulendraḥ",
+      "quick_gloss": "lord-of-the-Kula"
+     }
+    ],
+    "source_sha": "4850abb8bead1248",
+    "source_lines": [
+     7,
+     13
+    ]
+   }
+  },
+  "l0": {
+   "sand-p01-v01": [
+    {
+     "id": "sand-p01-v01-p000",
+     "legacy_id": "T1:sand-p01:T0",
+     "verse_id": "sand-p01-v01",
+     "pada_index": 0,
+     "surface": "saḥ",
+     "legacy_raw": "[and]-He (saḥ)",
+     "citation": "saḥ",
+     "morph": "nom.sg.m (saḥ)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "He",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "sand-p01-v01-p001",
+     "legacy_id": "T1:sand-p01:T1",
+     "verse_id": "sand-p01-v01",
+     "pada_index": 1,
+     "surface": "jayati",
+     "legacy_raw": "[and]-is-victorious (jayati)",
+     "citation": "jayati",
+     "morph": "3sg.pres (jayati)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "is-victorious",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "sand-p01-v01-p002",
+     "legacy_id": "T1:sand-p01:T2",
+     "verse_id": "sand-p01-v01",
+     "pada_index": 2,
+     "surface": "śivaḥ",
+     "legacy_raw": "[and]-Śiva (śivaḥ)",
+     "citation": "śivaḥ",
+     "morph": "nom.sg.m (śiva)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "Śiva",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "sand-p01-v01-p003",
+     "legacy_id": "T1:sand-p01:T3",
+     "verse_id": "sand-p01-v01",
+     "pada_index": 3,
+     "surface": "ekaḥ",
+     "legacy_raw": "[and]-alone (ekaḥ)",
+     "citation": "ekaḥ",
+     "morph": "nom.sg.m (eka)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "alone",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "sand-p01-v01-p004",
+     "legacy_id": "T1:sand-p01:T4",
+     "verse_id": "sand-p01-v01",
+     "pada_index": 4,
+     "surface": "spandavān",
+     "legacy_raw": "[and]-possessing-spanda (spandavān)",
+     "citation": "spandavān",
+     "morph": "nom.sg.m (spandavān)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "possessing-spanda",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "sand-p01-v01-p005",
+     "legacy_id": "T1:sand-p01:T5",
+     "verse_id": "sand-p01-v01",
+     "pada_index": 5,
+     "surface": "svapratiṣṭhaḥ",
+     "legacy_raw": "[and]-self-established (svapratiṣṭhaḥ)",
+     "citation": "svapratiṣṭhaḥ",
+     "morph": "nom.sg.m (svapratiṣṭha)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "self-established",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "sand-p01-v01-p006",
+     "legacy_id": "T1:sand-p01:T6",
+     "verse_id": "sand-p01-v01",
+     "pada_index": 6,
+     "surface": "yaḥ",
+     "legacy_raw": "[and]-who (yaḥ)",
+     "citation": "yaḥ",
+     "morph": "rel.pron (yaḥ)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "who",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "sand-p01-v01-p007",
+     "legacy_id": "T1:sand-p01:T7",
+     "verse_id": "sand-p01-v01",
+     "pada_index": 7,
+     "surface": "antarvaktram",
+     "legacy_raw": "[and]-inner-face (antarvaktram)",
+     "citation": "antarvaktram",
+     "morph": "acc.sg.n (antarvaktra)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "inner-face",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "sand-p01-v01-p008",
+     "legacy_id": "T1:sand-p01:T8",
+     "verse_id": "sand-p01-v01",
+     "pada_index": 8,
+     "surface": "rasayati",
+     "legacy_raw": "[and]-makes-taste (rasayati)",
+     "citation": "rasayati",
+     "morph": "3sg.pres (rasayati)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "makes-taste",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "sand-p01-v02": [
+    {
+     "id": "sand-p01-v02-p000",
+     "legacy_id": "T1:sand-p01:T9",
+     "verse_id": "sand-p01-v02",
+     "pada_index": 0,
+     "surface": "jayati",
+     "legacy_raw": "[and]-is-victorious (jayati)",
+     "citation": "jayati",
+     "morph": "3sg.pres (jayati)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "is-victorious",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "sand-p01-v02-p001",
+     "legacy_id": "T1:sand-p01:T10",
+     "verse_id": "sand-p01-v02",
+     "pada_index": 1,
+     "surface": "eṣaḥ",
+     "legacy_raw": "[and]-this (eṣaḥ)",
+     "citation": "eṣaḥ",
+     "morph": "nom.sg.m (eṣaḥ)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "this",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "sand-p01-v02-p002",
+     "legacy_id": "T1:sand-p01:T11",
+     "verse_id": "sand-p01-v02",
+     "pada_index": 2,
+     "surface": "vīraḥ",
+     "legacy_raw": "[and]-hero (vīraḥ)",
+     "citation": "vīraḥ",
+     "morph": "nom.sg.m (vīra)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "hero",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "sand-p01-v02-p003",
+     "legacy_id": "T1:sand-p01:T12",
+     "verse_id": "sand-p01-v02",
+     "pada_index": 3,
+     "surface": "kulendraḥ",
+     "legacy_raw": "[and]-lord-of-the-Kula (kulendraḥ)",
+     "citation": "kulendraḥ",
+     "morph": "nom.sg.m (kulendra)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "lord-of-the-Kula",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; forks to be added on review"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ]
+  },
+  "argmap": {
+   "sand-p01-v01": {
+    "verse_id": "sand-p01-v01",
+    "song": "sand-p01",
+    "verse": 1,
+    "structured": true,
+    "speaker": "Kṣemarāja, devotional/philosophical voice",
+    "question": "Who alone is victorious, tasting the inner face?",
+    "premises": [
+     "He alone, Śiva, is victorious (sa jayati śiva ekaḥ): alone = non-dual.",
+     "Possessing spanda, self-established (spandavān svapratiṣṭhaḥ).",
+     "Who makes the inner face taste (antarvaktra rasayati): I-consciousness tasteable."
+    ],
+    "inference": "Spanda-throbbed Śiva tastes Himself inwardly, victorious.",
+    "uncertainties": [],
+    "traces": {
+     "t1_verse": "sand-p01-v01",
+     "l0_ids": [
+      "sand-p01-v01-p000",
+      "sand-p01-v01-p001",
+      "sand-p01-v01-p002",
+      "sand-p01-v01-p003",
+      "sand-p01-v01-p004",
+      "sand-p01-v01-p005",
+      "sand-p01-v01-p006",
+      "sand-p01-v01-p007",
+      "sand-p01-v01-p008"
+     ]
+    },
+    "sanskrit_sha": "3694ee9ea9c7a552"
+   },
+   "sand-p01-v02": {
+    "verse_id": "sand-p01-v02",
+    "song": "sand-p01",
+    "verse": 2,
+    "structured": true,
+    "speaker": "Kṣemarāja, devotional/philosophical voice",
+    "question": "Which hero is lord of the Kula?",
+    "premises": [
+     "This hero, lord of the Kula, is victorious (jayatyeṣa vīraḥ kulendraḥ)."
+    ],
+    "inference": "The victorious hero is Kula's lord.",
+    "uncertainties": [],
+    "traces": {
+     "t1_verse": "sand-p01-v02",
+     "l0_ids": [
+      "sand-p01-v02-p000",
+      "sand-p01-v02-p001",
+      "sand-p01-v02-p002",
+      "sand-p01-v02-p003"
+     ]
+    },
+    "sanskrit_sha": "3694ee9ea9c7a552"
+   }
+  },
+  "l2": {
+   "sand-p01-v01": {
+    "verse_id": "sand-p01-v01",
+    "song": "sand-p01",
+    "verse": 1,
+    "plain_english": "He alone — Śiva, possessing spanda, self-established — who makes the inner face taste.",
+    "sanskrit_cite": "saḥ jayati śivaḥ ekaḥ spandavān | svapratiṣṭhaḥ yaḥ antarvaktram rasayati",
+    "l0_ids": [
+     "sand-p01-v01-p000",
+     "sand-p01-v01-p001",
+     "sand-p01-v01-p002",
+     "sand-p01-v01-p003",
+     "sand-p01-v01-p004",
+     "sand-p01-v01-p005",
+     "sand-p01-v01-p006",
+     "sand-p01-v01-p007",
+     "sand-p01-v01-p008"
+    ],
+    "trace_level": "passage"
+   },
+   "sand-p01-v02": {
+    "verse_id": "sand-p01-v02",
+    "song": "sand-p01",
+    "verse": 2,
+    "plain_english": "This hero, lord of the Kula — victorious.",
+    "sanskrit_cite": "jayati eṣaḥ | vīraḥ kulendraḥ",
+    "l0_ids": [
+     "sand-p01-v02-p000",
+     "sand-p01-v02-p001",
+     "sand-p01-v02-p002",
+     "sand-p01-v02-p003"
+    ],
+    "trace_level": "passage"
+   }
+  },
+  "c1": {
+   "sand-p01": {
+    "song": "sand-p01",
+    "essence": [
+     "Śiva alone, possessing spanda, self-established, makes the inner face taste; this hero, lord of the Kula, is victorious. Kṣemarāja's commentary: whose greatness is unmeasured, who measures the world from earth to Sadāśiva in the heart, who displays creation-dissolution plays — he alone, of non-dual nature, endowed with his own autonomy-power, established in his own nature, like an ocean unmoved by world-waves, shines supreme. Recognition (pratyabhijñā) is tasting this spanda in one's own inner face."
+    ],
+    "essence_source": "human-sharpened-v2",
+    "renders": {
+     "standard": {
+      "style": "standard",
+      "sections": {
+       "SUMMARY": "",
+       "FUNCTION": "",
+       "KEY TERMS": "",
+       "LOCAL CONTEXT": "",
+       "EXPLANATION": "",
+       "RELATED": "",
+       "BOUNDARY": ""
+      }
+     }
+    },
+    "rasa": {
+     "dominant": "adbhuta (wonder at Śiva's spanda) with śānta (tranquility of self-established nature)",
+     "sthayibhava": "vismaya (wonder) resolving into śama (tranquility)",
+     "justification": "The sthāyibhāva is wonder (vismaya) at Śiva's unmeasured greatness (akalitamahimā), resolving into tranquility (śama) — the ocean unmoved by world-waves. Application: Abhinava does not explicitly name a rasa for this verse; the adbhuta/śānta reading is mine."
+    }
+   }
+  },
+  "l3": {
+   "sand-p01-v01": {
+    "verse_id": "sand-p01-v01",
+    "song": "sand-p01",
+    "verse": 1,
+    "lines": [
+     "He alone conquers — Śiva, throbbing, self-established — who savors the inner face."
+    ],
+    "sanskrit_cite": "saḥ jayati śivaḥ ekaḥ spandavān svapratiṣṭhaḥ | yaḥ antarvaktram rasayati",
+    "l0_ids": [
+     "sand-p01-v01-p000",
+     "sand-p01-v01-p001",
+     "sand-p01-v01-p002",
+     "sand-p01-v01-p003",
+     "sand-p01-v01-p004",
+     "sand-p01-v01-p005",
+     "sand-p01-v01-p006",
+     "sand-p01-v01-p007",
+     "sand-p01-v01-p008"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": [
+     "single T1/L0 record spans both verses; lines split v1/v2 positionally (9+4 tokens)"
+    ]
+   },
+   "sand-p01-v02": {
+    "verse_id": "sand-p01-v02",
+    "song": "sand-p01",
+    "verse": 2,
+    "lines": [
+     "Victorious is this hero, the Kula’s lord."
+    ],
+    "sanskrit_cite": "jayati eṣaḥ vīraḥ kulendraḥ",
+    "l0_ids": [
+     "sand-p01-v02-p000",
+     "sand-p01-v02-p001",
+     "sand-p01-v02-p002",
+     "sand-p01-v02-p003"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": [
+     "split from passage l3 2026-11-02; lines positional (v1/v2)"
+    ]
+   }
+  },
+  "l4": {
+   "sand-p01-v01": {
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "l0_ids": [
+     "sand-p01-v01-p000",
+     "sand-p01-v01-p001",
+     "sand-p01-v01-p002",
+     "sand-p01-v01-p003",
+     "sand-p01-v01-p004",
+     "sand-p01-v01-p005",
+     "sand-p01-v01-p006",
+     "sand-p01-v01-p007",
+     "sand-p01-v01-p008"
+    ],
+    "lines": [
+     "He alone conquers — Śiva, throbbing, self-standing,",
+     "tasting the inward face — conquers alone."
+    ],
+    "needs": [
+     "human-review",
+     "owner-verdict-first-verse"
+    ],
+    "notes": [
+     "first L4 verse of the work — owner verdict requested before continuing (rules 15/17)"
+    ],
+    "sanskrit_cite": "saḥ jayati śivaḥ ekaḥ spandavān svapratiṣṭhaḥ | yaḥ antarvaktram rasayati",
+    "song": "sand-p01",
+    "verse": 1,
+    "verse_id": "sand-p01-v01"
+   },
+   "sand-p01-v02": {
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "l0_ids": [
+     "sand-p01-v02-p000",
+     "sand-p01-v02-p001",
+     "sand-p01-v02-p002",
+     "sand-p01-v02-p003"
+    ],
+    "lines": [
+     "Victorious, this hero — the Kula's lord —",
+     "victorious."
+    ],
+    "needs": [
+     "human-review"
+    ],
+    "notes": [],
+    "sanskrit_cite": "jayati eṣaḥ vīraḥ kulendraḥ",
+    "song": "sand-p01",
+    "verse": 2,
+    "verse_id": "sand-p01-v02"
+   }
+  },
+  "c2": {}
+ },
+ "source_verses": {
+  "sand-p01-v01": {
+   "text": "saḥ jayati śivaḥ ekaḥ spandavān svapratiṣṭhaḥ | yaḥ antarvaktram rasayati",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC 4.0",
+   "source_origin": "Mukhabodha M00084",
+   "source_lines": [
+    7,
+    13
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "sand-p01-v02": {
+   "text": "jayati eṣaḥ vīraḥ kulendraḥ",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC 4.0",
+   "source_origin": "Mukhabodha M00084",
+   "source_lines": [
+    7,
+    13
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  }
+ },
+ "l4_craft": {
+  "sand-p01-v01": [
+   {
+    "file": "spandasandoha/L4-sand-p01-v01.DRAFT.json",
+    "file_sha256": "410cef310f186a4c0b94b0addc1ea669da2a74434ceda57fd7073cb6916a787c",
+    "l4_sha256": "7944f2c0ce654d142abc79bbb26138170a31bf83cefd0cfa56829d56fe647d0e",
+    "notes": {
+     "craft_notes": "Sthayin: vismaya (wonder at unmeasured greatness) resolving into sama (ocean unmoved) — C1 rasa block. Firing structures: verb-first jayati (victory proclaimed up front) -> open with the victory cry, close with refrain repeat 'conquers alone' (ring-composition, song device, all words grounded in L3 ids); relative clause yah...rasayati (who tastes) -> end-weight 'face' (the verse's arrival); em-dash caesuras as chant breaths; vowel arc bright (conquers/Siva) falling dark (face/alone). Minimal pass: reline L3 into sung couplet + refrain tag; no new doctrine. First L4 verse of this work: owner verdict requested before continuing (rules 15/17).",
+     "reads_against": {
+      "argmap": "premises (He alone Śiva victorious; possessing spanda, self-established; who makes inner face taste) + inference (Spanda-throbbed Śiva tastes Himself inwardly, victorious)",
+      "c1_essence": [
+       0
+      ],
+      "c1_rasa": "adbhuta (wonder at Śiva's spanda) with śānta (self-established nature); sthayibhava vismaya resolving into śama",
+      "l2": "He alone — Śiva, possessing spanda, self-established — who makes the inner face taste.",
+      "l3": [
+       "He alone conquers — Śiva, throbbing, self-established — who savors the inner face."
+      ],
+      "t1": "He / is-victorious / Śiva / alone / possessing-spanda / self-established / who / inner-face / makes-taste"
+     }
+    }
+   }
+  ],
+  "sand-p01-v02": [
+   {
+    "file": "spandasandoha/L4-sand-p01-v02.DRAFT.json",
+    "file_sha256": "9f5241a7179b294e9a35a3072ce12babcbce0340a77be379e3de34336358f15a",
+    "l4_sha256": "ed2dd397bd8dded233d497a530e8860a70313b3a52d588bb3fa1863dbac1118d",
+    "notes": {
+     "craft_notes": "Same song, same sthāyin (vismaya resolving into śama); verse color: acclamation — the hero named. Sanskrit is terse to the point of bluntness: four words (jayati eṣaḥ vīraḥ kulendraḥ), no verb but 'is victorious,' no ornament. Firing structures: brevity itself -> keep the L4 brutally short (padding a 4-word verse would be decoration, and decoration is the one thing this verse refuses); the source already repeats jayati from v1, so the refrain is given, not invented -> single-word echo line ('victorious.') as the close; end-weight 'victorious' (the verse IS the victory cry; it ends where it began). Dashes as chant breaths matching v1's caesuras so the two verses scan as one song. Minimal pass: reline L3 + refrain-drop second line.",
+     "reads_against": {
+      "argmap": "premise (This hero, lord of the Kula, is victorious) + inference (The victorious hero is Kula's lord)",
+      "c1_essence": [
+       0
+      ],
+      "c1_rasa": "adbhuta (wonder at Śiva's spanda) with śānta; sthayibhava vismaya resolving into śama",
+      "l2": "This hero, lord of the Kula — victorious.",
+      "l3": [
+       "Victorious is this hero, the Kula's lord."
+      ],
+      "t1": "is-victorious / this / hero / lord-of-the-Kula"
+     }
+    }
+   }
+  ]
+ },
+ "withheld_songs": [],
+ "original_hashes": {
+  "t1": {
+   "sand-p01-v01": "1ad7a291cc1b8a85ec1e94b159a4646047c5d6cbf961ff6fed1b304f4083bcb2",
+   "sand-p01-v02": "34227f02bd8f17d1dcb7106e348653aa2f29b4fcac84f1fc9c9b2be78f79acf2"
+  },
+  "l0": {
+   "sand-p01-v01": "c8f547e302f2e5667e064fd391fa668e6eb7fb355811b789145cdf4d79968aa4",
+   "sand-p01-v02": "069cc12a2d178363609be7623d1af9d46c4bcb1ceb3ecbffcf0619c3d37d5f24"
+  },
+  "argmap": {
+   "sand-p01-v01": "dc5a7a5095bdf09dda16e13eb56dac8d7678694afdec1dda5a6960bbeece3200",
+   "sand-p01-v02": "5d83b4dd31c1178e6a05fdfe8e862f8bb87bde9feb7f1b7340095190092a9ca6"
+  },
+  "l2": {
+   "sand-p01-v01": "3996378c99bb5fd75c15d6fac685f32b4e99c7adf78675d0218af8337945c386",
+   "sand-p01-v02": "1c33830b78b22f61b6a0f9bc67fddb07e041cdef859e5a543d24afa4ce8c4dab"
+  },
+  "c1": {
+   "sand-p01": "1e6681b6b6dd091a68c06e87d03f4ba4003c94963717c8fa13a5f645d5abe194"
+  },
+  "l3": {
+   "sand-p01-v01": "e393d58840cd50ba5d0573ca287b8f5a3717e089cda55795b835a2629233f2d7",
+   "sand-p01-v02": "027a85ee9a02ffefc39725f645c6ed229af41bc6bca8174fff112862c7487c49"
+  },
+  "l4": {
+   "sand-p01-v01": "7944f2c0ce654d142abc79bbb26138170a31bf83cefd0cfa56829d56fe647d0e",
+   "sand-p01-v02": "ed2dd397bd8dded233d497a530e8860a70313b3a52d588bb3fa1863dbac1118d"
+  },
+  "c2": {}
+ },
+ "versions": [],
+ "essays": [],
+ "reviews": [],
+ "promotions": [],
+ "signoffs": [],
+ "stack_hashes": {
+  "sand-p01": "e0cdd3593259abc904af6d9b370e1936af37baa5ae43f06cf656e6329d8e6a6b"
+ },
+ "projection_sha256": "fd860652c0d833916f6138f43043880a7a6a0f6196d7e683d04c3266bd93ee9a"
+}

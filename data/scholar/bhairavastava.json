@@ -1,0 +1,5823 @@
+{
+ "work": "bhairavastava",
+ "generated": null,
+ "source": "translation-work canonical data + scholar/ ledgers (emit_scholar.py)",
+ "source_edition": "Muktabodha M00505 (GRETIL)",
+ "contract": {
+  "contract_version": "svatantrya-agent-contract/1",
+  "contract_sha256": "8f22582bd8833e43d4ed31bbdfa49cf1f2e720569d15da9edc61a2bfab34d86e",
+  "schema_version": "1.3.0",
+  "structural_schema_version": "2.0.0",
+  "structural_schema_snapshot_sha256": "7143ce16fd2fec74bcbb442937194c13abcb94e7d76e10fb35ec9e76016a9577",
+  "order": [
+   "source",
+   "t1",
+   "l0",
+   "argmap",
+   "l2",
+   "c1",
+   "l3",
+   "l4",
+   "c2"
+  ],
+  "schemas": {
+   "t1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:t1",
+    "title": "Svatantrya T1 structural schema",
+    "x-validator": "schemas.t1.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "quick_english",
+     "tokens",
+     "source_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "quick_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "source_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "tokens": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "surface",
+        "quick_gloss"
+       ],
+       "properties": {
+        "surface": {
+         "type": "string",
+         "minLength": 1
+        },
+        "quick_gloss": {
+         "type": "string",
+         "minLength": 1
+        }
+       }
+      }
+     }
+    }
+   },
+   "l0": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l0:verse",
+    "title": "Svatantrya L0 verse token list structural schema",
+    "x-validator": "schemas.l0.validate (per token)",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+     "$schema": "https://json-schema.org/draft/2020-12/schema",
+     "$id": "urn:svatantrya:schema:2.0.0:l0",
+     "title": "Svatantrya L0 structural schema",
+     "x-validator": "schemas.l0.validate",
+     "x-schema-version": "1.3.0",
+     "x-structural-schema-version": "2.0.0",
+     "type": "object",
+     "required": [
+      "id",
+      "verse_id",
+      "pada_index",
+      "surface",
+      "citation",
+      "options",
+      "chosen_index",
+      "status"
+     ],
+     "properties": {
+      "id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "verse_id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "pada_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "surface": {
+       "type": "string",
+       "minLength": 1
+      },
+      "citation": {
+       "type": "string",
+       "minLength": 1
+      },
+      "morph": {
+       "type": "string"
+      },
+      "morph_unknown": {
+       "type": "boolean"
+      },
+      "options": {
+       "type": "array",
+       "maxItems": 5,
+       "items": {
+        "type": "object",
+        "required": [
+         "gloss",
+         "rank",
+         "source",
+         "grounds"
+        ],
+        "properties": {
+         "gloss": {
+          "type": "string",
+          "minLength": 1
+         },
+         "rank": {
+          "type": "integer",
+          "minimum": 1
+         },
+         "source": {
+          "type": "string",
+          "minLength": 1
+         },
+         "grounds": {
+          "type": "string",
+          "minLength": 1
+         }
+        }
+       }
+      },
+      "chosen_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "status": {
+       "type": "string",
+       "enum": [
+        "PARSED",
+        "AMBIGUOUS",
+        "FAILED"
+       ]
+      },
+      "revised": {
+       "type": "boolean"
+      },
+      "revise_reason": {
+       "type": "string"
+      },
+      "fork": {
+       "type": "string",
+       "enum": [
+        "none",
+        "live",
+        "resolved"
+       ]
+      }
+     }
+    }
+   },
+   "argmap": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:argmap",
+    "title": "Svatantrya ARGMAP structural schema",
+    "x-validator": "schemas.argmap.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "traces",
+     "sanskrit_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "traces": {
+      "type": "object",
+      "required": [
+       "t1_verse",
+       "l0_ids"
+      ],
+      "properties": {
+       "t1_verse": {
+        "type": "string",
+        "minLength": 1
+       },
+       "l0_ids": {
+        "type": "array",
+        "items": {
+         "type": "string",
+         "minLength": 1
+        },
+        "minItems": 1
+       }
+      }
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "sanskrit_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "speaker": {
+      "type": "string",
+      "minLength": 1
+     },
+     "question": {
+      "type": "string",
+      "minLength": 1
+     },
+     "inference": {
+      "type": "string",
+      "minLength": 1
+     },
+     "reconstruction": {
+      "type": "string",
+      "minLength": 1
+     },
+     "premises": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     },
+     "uncertainties": {
+      "type": "array"
+     },
+     "structured": {
+      "type": "boolean"
+     }
+    }
+   },
+   "l2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l2",
+    "title": "Svatantrya L2 structural schema",
+    "x-validator": "schemas.l2.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "plain_english",
+     "sanskrit_cite",
+     "l0_ids"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "plain_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "supplied": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     }
+    }
+   },
+   "c1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:c1",
+    "title": "Svatantrya C1 structural schema",
+    "x-validator": "schemas.c1.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "song",
+     "essence",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "essence": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "renders": {
+      "type": "object",
+      "required": [
+       "standard"
+      ]
+     }
+    }
+   },
+   "l3": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l3",
+    "title": "Svatantrya L3 structural schema",
+    "x-validator": "schemas.l3.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "l4": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l4",
+    "title": "Svatantrya L4 structural schema",
+    "x-validator": "schemas.l4.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "c2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:c2",
+    "title": "Svatantrya C2 structural schema",
+    "x-validator": "schemas.c2.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "song",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "renders": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "style",
+        "prompt",
+        "paragraphs"
+       ],
+       "properties": {
+        "style": {
+         "type": "string",
+         "minLength": 1
+        },
+        "prompt": {
+         "type": "string",
+         "minLength": 1
+        },
+        "paragraphs": {
+         "type": "array",
+         "minItems": 1,
+         "items": {
+          "type": "object",
+          "required": [
+           "text",
+           "maps_to"
+          ],
+          "properties": {
+           "text": {
+            "type": "string",
+            "minLength": 1
+           },
+           "maps_to": {
+            "type": "array",
+            "items": {
+             "type": "integer",
+             "minimum": 0
+            },
+            "minItems": 1
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "layers": [
+   {
+    "id": "t1",
+    "scope": "verse",
+    "depends_on": [
+     "source"
+    ],
+    "validator": "schemas/t1.py",
+    "validator_sha256": "ac792ba1f0cbc06ab52dfbc41a31d3e39460f0e8a7de2977ed02e4ce63a20f27",
+    "example": {
+     "file": "sivastotravali/data/s01.t1.json",
+     "file_sha256": "a5c4cfae67571d05866d97ad6eb29b1c2956140a69c2fae554c29577330beb8e",
+     "target": "s01-v01",
+     "content_sha256": "26f027dafbe67347efd901cb2b94630cdb0e372957edeb4a3e1305e83745ba5b",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l0",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1"
+    ],
+    "validator": "schemas/l0.py",
+    "validator_sha256": "0651bc77f519897f8a4f8b41f4ea0cc6a88f3441910af99b18d55854a7e9030e",
+    "example": {
+     "file": "sivastotravali/data/s06.l0.json",
+     "file_sha256": "c2bb0ce1010315d72bdce75ee3c8901b17499202abe7adc5bd1977a26f4fea2f",
+     "target": "s06-v01",
+     "content_sha256": "91e3b04d47482757bcaf1e9705992edd0815ff7907ed2cb33c7c9586f3a9e5aa",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "argmap",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0"
+    ],
+    "validator": "schemas/argmap.py",
+    "validator_sha256": "335c1bbe809c5ae942ecef4a30ee7fd8fcb82645a43019312fa74397fe5758b0",
+    "example": {
+     "file": "sivastotravali/data/s01.argmap.json",
+     "file_sha256": "a44c8ec09a30c577f2a792c1255d4290f49a6138c456bb687bc00e78a3902949",
+     "target": "s01-v21",
+     "content_sha256": "80b69a54761b8b0b7c193058f6c88eef60323a3611008c41ba9879bcfc3cdc21",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l2",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap"
+    ],
+    "validator": "schemas/l2.py",
+    "validator_sha256": "f5653e405e0f162f78593ad6344cbbefe122d6d1c921ca3e22003e4f4d2cfaaa",
+    "example": {
+     "file": "sivastotravali/data/s01.l2.json",
+     "file_sha256": "f5a1cec55bb466c328380a0bf527e6d8906428b3436f85a79bd01df98ceb1040",
+     "target": "s01-v01",
+     "content_sha256": "f3c47f6a631f7551d4f9c8ad1117bdf65463cb8cdc92e9b42bb3bf517ae80055",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c1",
+    "scope": "song",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2"
+    ],
+    "validator": "schemas/c1.py",
+    "validator_sha256": "88ad9123135a7a18237cec1d11430992b4f43adf1771ae26a43e4df8198c69d7",
+    "example": {
+     "file": "sivastotravali/data/s01.c1.json",
+     "file_sha256": "99f4d2bbf7a8086176ee585b6e459076e2abd72b9675435267f7546beb1515f8",
+     "target": "s01",
+     "content_sha256": "5be1f3c0c3f64fafe5395b42cf5502a139a5e208be419d5804fe1a5bdd33712a",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l3",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2",
+     "c1"
+    ],
+    "validator": "schemas/l3.py",
+    "validator_sha256": "6c3df228f886207782d5250699e9e459f236f6e7d6b25ac29b00a38541956917",
+    "example": {
+     "file": "sivastotravali/data/s01.l3.json",
+     "file_sha256": "cdb4af6a4c2a851231195f4e5c940346f65199d5d5d69ea1c41d8095f98409f9",
+     "target": "s01-v01",
+     "content_sha256": "6aa20635387174b68fe4ea3baf970c06aff9838acb2c745e7afca0ed7c6751de",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l4",
+    "scope": "verse",
+    "depends_on": [
+     "l3",
+     "c1"
+    ],
+    "validator": "schemas/l4.py",
+    "validator_sha256": "3c1f7b0dfe3d83d425ed0fd84fba7b74aa3ed9e9758402369d779eedda1a8c03",
+    "example": {
+     "file": "paramarthasara/data/param-p01.l4.json",
+     "file_sha256": "db346e51e71f2f835ddfda004d4432934611817c2c73318d335f6ca2362ad4fb",
+     "target": "param-p01-v01",
+     "content_sha256": "91e9d424cf310d4e5b45c173b02f5286d837269ef9447533c153a48cb5122c14",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c2",
+    "scope": "song",
+    "depends_on": [
+     "c1",
+     "l3"
+    ],
+    "validator": "schemas/c2.py",
+    "validator_sha256": "fb8743f206e036002c780d082c7d32cf011dcdab4c21df742a5f5e59a9d851b8",
+    "example": {
+     "file": "sivastotravali/data/s01.c2.json",
+     "file_sha256": "09660a3c09679fce8c95968934e5851a22d89cdf154d2b0635d358e1ef9e8aeb",
+     "target": "s01",
+     "content_sha256": "2faa5fa86e38faca7ef5a1a967a4e261e2df294648a31ed5bad5f731001aa41c",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   }
+  ]
+ },
+ "rights": {
+  "translation": "FREE — our English (L1–L4, commentary) is free use",
+  "scholar": "Contributors declare rights; authorship and copyright depend on the work and law."
+ },
+ "originals": {
+  "t1": {
+   "bh-p01": {
+    "verse_id": "bh-p01",
+    "song": "bh-p01",
+    "verse": 1,
+    "quick_english": "pervading-the-particular-states-of-moving-and-unmoving / consisting-of-consciousness / one / endless / beginningless / Bhairava-Lord / of-helpless-refuge / by-mind-become-Yours / in-heart / I-venerate",
+    "quick_english_source": "manual",
+    "source_lines": null,
+    "source_file": "passages.jsonl",
+    "tokens": [
+     {
+      "surface": "vyāptacarācarabhāvaviśeṣam",
+      "quick_gloss": "pervading-the-particular-states-of-moving-and-unmoving"
+     },
+     {
+      "surface": "cinmayam",
+      "quick_gloss": "consisting-of-consciousness"
+     },
+     {
+      "surface": "ekam",
+      "quick_gloss": "one"
+     },
+     {
+      "surface": "anantam",
+      "quick_gloss": "endless"
+     },
+     {
+      "surface": "anādim",
+      "quick_gloss": "beginningless"
+     },
+     {
+      "surface": "bhairavanātham",
+      "quick_gloss": "Bhairava-Lord"
+     },
+     {
+      "surface": "anāthaśaraṇyaṃ",
+      "quick_gloss": "of-helpless-refuge"
+     },
+     {
+      "surface": "tvanmayacittatayā",
+      "quick_gloss": "by-mind-become-Yours"
+     },
+     {
+      "surface": "hṛdi",
+      "quick_gloss": "in-heart"
+     },
+     {
+      "surface": "vande",
+      "quick_gloss": "I-venerate"
+     }
+    ],
+    "source_sha": "bcae8d49bc4e806b"
+   },
+   "bh-p02": {
+    "verse_id": "bh-p02",
+    "song": "bh-p02",
+    "verse": 2,
+    "quick_english": "become-of-You / this / without-remainder / now / appears / to-me / by-power-of-Your-grace / You / Maheśa / always / my / self / my / all",
+    "quick_english_source": "manual",
+    "source_lines": null,
+    "source_file": "passages.jsonl",
+    "tokens": [
+     {
+      "surface": "tvanmayam",
+      "quick_gloss": "become-of-You"
+     },
+     {
+      "surface": "etad",
+      "quick_gloss": "this"
+     },
+     {
+      "surface": "aśeṣam",
+      "quick_gloss": "without-remainder"
+     },
+     {
+      "surface": "idānīm",
+      "quick_gloss": "now"
+     },
+     {
+      "surface": "bhāti",
+      "quick_gloss": "appears"
+     },
+     {
+      "surface": "mama",
+      "quick_gloss": "to-me"
+     },
+     {
+      "surface": "tvadanugrahaśaktyā",
+      "quick_gloss": "by-power-of-Your-grace"
+     },
+     {
+      "surface": "tvaṃ ca",
+      "quick_gloss": "You"
+     },
+     {
+      "surface": "maheśa !",
+      "quick_gloss": "Maheśa"
+     },
+     {
+      "surface": "sadaiva",
+      "quick_gloss": "always"
+     },
+     {
+      "surface": "mamā'tmā",
+      "quick_gloss": "my"
+     },
+     {
+      "surface": "svātmamayam",
+      "quick_gloss": "self"
+     },
+     {
+      "surface": "mama",
+      "quick_gloss": "my"
+     },
+     {
+      "surface": "tena samastam",
+      "quick_gloss": "all"
+     }
+    ],
+    "source_sha": "44fcd28ccccb1941"
+   },
+   "bh-p03": {
+    "verse_id": "bh-p03",
+    "song": "bh-p03",
+    "verse": 3,
+    "quick_english": "in-own-self / all-pervading / in-You / as-Lord / therefore / not / of-transmigration-fear-talk / exists / Even-though / hard-to-bear / suffering / delusion / terror / causing / in-karma-hosts",
+    "quick_english_source": "manual",
+    "source_lines": null,
+    "source_file": "passages.jsonl",
+    "tokens": [
+     {
+      "surface": "svātmani",
+      "quick_gloss": "in-own-self"
+     },
+     {
+      "surface": "viśvagaye",
+      "quick_gloss": "all-pervading"
+     },
+     {
+      "surface": "tvayi",
+      "quick_gloss": "in-You"
+     },
+     {
+      "surface": "nāthe",
+      "quick_gloss": "as-Lord"
+     },
+     {
+      "surface": "tena",
+      "quick_gloss": "therefore"
+     },
+     {
+      "surface": "na",
+      "quick_gloss": "not"
+     },
+     {
+      "surface": "saṃsṛtibhītikathā",
+      "quick_gloss": "of-transmigration-fear-talk"
+     },
+     {
+      "surface": "asti",
+      "quick_gloss": "exists"
+     },
+     {
+      "surface": "satsvapi",
+      "quick_gloss": "Even-though"
+     },
+     {
+      "surface": "durdhara",
+      "quick_gloss": "hard-to-bear"
+     },
+     {
+      "surface": "duḥkha",
+      "quick_gloss": "suffering"
+     },
+     {
+      "surface": "vimoha",
+      "quick_gloss": "delusion"
+     },
+     {
+      "surface": "trāsa",
+      "quick_gloss": "terror"
+     },
+     {
+      "surface": "vidhāyiṣu",
+      "quick_gloss": "causing"
+     },
+     {
+      "surface": "karmagaṇeṣu",
+      "quick_gloss": "in-karma-hosts"
+     }
+    ],
+    "source_sha": "c91370ab81609c84"
+   },
+   "bh-p04": {
+    "verse_id": "bh-p04",
+    "song": "bh-p04",
+    "verse": 4,
+    "quick_english": "O-Ender / toward-me / toward / not / gaze / this / most-wrathful-terrible / direct / By-Śaṅkara-service / contemplation-firm / I-am / terrifying-Bhairava-power-filled",
+    "quick_english_source": "manual",
+    "source_lines": null,
+    "source_file": "passages.jsonl",
+    "tokens": [
+     {
+      "surface": "antaka",
+      "quick_gloss": "O-Ender"
+     },
+     {
+      "surface": "māṃ",
+      "quick_gloss": "toward-me"
+     },
+     {
+      "surface": "prati",
+      "quick_gloss": "toward"
+     },
+     {
+      "surface": "mā",
+      "quick_gloss": "not"
+     },
+     {
+      "surface": "dṛśam",
+      "quick_gloss": "gaze"
+     },
+     {
+      "surface": "enām",
+      "quick_gloss": "this"
+     },
+     {
+      "surface": "krodhakarālatamām",
+      "quick_gloss": "most-wrathful-terrible"
+     },
+     {
+      "surface": "vinidhehi",
+      "quick_gloss": "direct"
+     },
+     {
+      "surface": "śaṅkarasevana",
+      "quick_gloss": "By-Śaṅkara-service"
+     },
+     {
+      "surface": "cintanadhīraḥ",
+      "quick_gloss": "contemplation-firm"
+     },
+     {
+      "surface": "asmi",
+      "quick_gloss": "I-am"
+     },
+     {
+      "surface": "bhīṣaṇabhairavaśaktimayo'smi",
+      "quick_gloss": "terrifying-Bhairava-power-filled"
+     }
+    ],
+    "source_sha": "8db4e5c5c6a5e540"
+   },
+   "bh-p05": {
+    "verse_id": "bh-p05",
+    "song": "bh-p05",
+    "verse": 5,
+    "quick_english": "thus / whose-great-darkness-is-dispelled-by-rays-of-world-awareness / Death-Yama-ender-karma-ghosts / Lord / salutation / never / I-fear",
+    "quick_english_source": "manual",
+    "source_lines": null,
+    "source_file": "passages.jsonl",
+    "tokens": [
+     {
+      "surface": "ittham",
+      "quick_gloss": "thus"
+     },
+     {
+      "surface": "upoḍhabhavanmayasaṃviddīdhitidāritabhūritamisraḥ",
+      "quick_gloss": "whose-great-darkness-is-dispelled-by-rays-of-world-awareness"
+     },
+     {
+      "surface": "mṛtyuyamāntakakarmapiśācaiḥ",
+      "quick_gloss": "Death-Yama-ender-karma-ghosts"
+     },
+     {
+      "surface": "nātha !",
+      "quick_gloss": "Lord"
+     },
+     {
+      "surface": "namo'stu",
+      "quick_gloss": "salutation"
+     },
+     {
+      "surface": "na jātu",
+      "quick_gloss": "never"
+     },
+     {
+      "surface": "bibhemi",
+      "quick_gloss": "I-fear"
+     }
+    ],
+    "source_sha": "ddd43f4fcff68b70"
+   },
+   "bh-p06": {
+    "verse_id": "bh-p06",
+    "song": "bh-p06",
+    "verse": 6,
+    "quick_english": "whose-true-essence-of-world-objects-is-seen-by-rays-of-arisen-true-awakening / In-being-full / in-you / I / self / bliss / I-enter",
+    "quick_english_source": "manual",
+    "source_lines": null,
+    "source_file": "passages.jsonl",
+    "tokens": [
+     {
+      "surface": "proditasatyavibodhamarīciprekṣitaviśvapadārthasatattvaḥ",
+      "quick_gloss": "whose-true-essence-of-world-objects-is-seen-by-rays-of-arisen-true-awakening"
+     },
+     {
+      "surface": "bhāvaparāmṛtanirbharapūrṇe",
+      "quick_gloss": "In-being-full"
+     },
+     {
+      "surface": "tvayi",
+      "quick_gloss": "in-you"
+     },
+     {
+      "surface": "aham",
+      "quick_gloss": "I"
+     },
+     {
+      "surface": "ātmani",
+      "quick_gloss": "self"
+     },
+     {
+      "surface": "nirvṛtim",
+      "quick_gloss": "bliss"
+     },
+     {
+      "surface": "emi",
+      "quick_gloss": "I-enter"
+     }
+    ],
+    "source_sha": "11cd7cd97549680c"
+   },
+   "bh-p07": {
+    "verse_id": "bh-p07",
+    "song": "bh-p07",
+    "verse": 7,
+    "quick_english": "into-mind's-range / comes / when-indeed / affliction-state / producing-slight-anguish / Lord / then-alone / my / with-you-nondifference / hymn-supreme-nectar-rain / arises",
+    "quick_english_source": "manual",
+    "source_lines": null,
+    "source_file": "passages.jsonl",
+    "tokens": [
+     {
+      "surface": "mānasagocaram",
+      "quick_gloss": "into-mind's-range"
+     },
+     {
+      "surface": "eti",
+      "quick_gloss": "comes"
+     },
+     {
+      "surface": "yadaiva",
+      "quick_gloss": "when-indeed"
+     },
+     {
+      "surface": "kleśadaśā",
+      "quick_gloss": "affliction-state"
+     },
+     {
+      "surface": "tanutāpavidhātrī",
+      "quick_gloss": "producing-slight-anguish"
+     },
+     {
+      "surface": "nātha !",
+      "quick_gloss": "Lord"
+     },
+     {
+      "surface": "tadaiva",
+      "quick_gloss": "then-alone"
+     },
+     {
+      "surface": "mama",
+      "quick_gloss": "my"
+     },
+     {
+      "surface": "tvadabhedas",
+      "quick_gloss": "with-you-nondifference"
+     },
+     {
+      "surface": "stotraparāmṛtavṛṣṭiḥ",
+      "quick_gloss": "hymn-supreme-nectar-rain"
+     },
+     {
+      "surface": "udeti",
+      "quick_gloss": "arises"
+     }
+    ],
+    "source_sha": "2374acf63bc82cc8"
+   },
+   "bh-p08": {
+    "verse_id": "bh-p08",
+    "song": "bh-p08",
+    "verse": 8,
+    "quick_english": "O-Śaṅkara / truly / this / vow-giving-bathing-austerity / dispelling-becoming's-heat / Your-scripture / supreme-nectar-contemplation / in-mind / bliss-stream / flows",
+    "quick_english_source": "manual",
+    "source_lines": null,
+    "source_file": "passages.jsonl",
+    "tokens": [
+     {
+      "surface": "śaṅkara",
+      "quick_gloss": "O-Śaṅkara"
+     },
+     {
+      "surface": "satyam",
+      "quick_gloss": "truly"
+     },
+     {
+      "surface": "idam",
+      "quick_gloss": "this"
+     },
+     {
+      "surface": "vratadānasnānatapaḥ",
+      "quick_gloss": "vow-giving-bathing-austerity"
+     },
+     {
+      "surface": "bhavatāpavidāri",
+      "quick_gloss": "dispelling-becoming's-heat"
+     },
+     {
+      "surface": "tāvakaśāstra",
+      "quick_gloss": "Your-scripture"
+     },
+     {
+      "surface": "parāmṛtacintā",
+      "quick_gloss": "supreme-nectar-contemplation"
+     },
+     {
+      "surface": "cetasi",
+      "quick_gloss": "in-mind"
+     },
+     {
+      "surface": "nirvṛtidhārām",
+      "quick_gloss": "bliss-stream"
+     },
+     {
+      "surface": "syandati",
+      "quick_gloss": "flows"
+     }
+    ],
+    "source_sha": "4cca3e92aca197ce"
+   },
+   "bh-p09": {
+    "verse_id": "bh-p09",
+    "song": "bh-p09",
+    "verse": 9,
+    "quick_english": "dances / sings / rejoices / deeply / consciousness / this / my / O-Bhairava-Lord / You / dear / having-obtained / beautiful-vision-alone / hard-to-get-by-others / samaya-knower",
+    "quick_english_source": "manual",
+    "source_lines": null,
+    "source_file": "passages.jsonl",
+    "tokens": [
+     {
+      "surface": "nṛtyati",
+      "quick_gloss": "dances"
+     },
+     {
+      "surface": "gāyati",
+      "quick_gloss": "sings"
+     },
+     {
+      "surface": "hṛṣyati",
+      "quick_gloss": "rejoices"
+     },
+     {
+      "surface": "gāḍham",
+      "quick_gloss": "deeply"
+     },
+     {
+      "surface": "saṃvit",
+      "quick_gloss": "consciousness"
+     },
+     {
+      "surface": "iyam",
+      "quick_gloss": "this"
+     },
+     {
+      "surface": "mama",
+      "quick_gloss": "my"
+     },
+     {
+      "surface": "bhairavanātha",
+      "quick_gloss": "O-Bhairava-Lord"
+     },
+     {
+      "surface": "tvāṃ",
+      "quick_gloss": "You"
+     },
+     {
+      "surface": "priyam",
+      "quick_gloss": "dear"
+     },
+     {
+      "surface": "āpya",
+      "quick_gloss": "having-obtained"
+     },
+     {
+      "surface": "sudarśanamekam",
+      "quick_gloss": "beautiful-vision-alone"
+     },
+     {
+      "surface": "durlabhamanyajanaiḥ",
+      "quick_gloss": "hard-to-get-by-others"
+     },
+     {
+      "surface": "samayajñam",
+      "quick_gloss": "samaya-knower"
+     }
+    ],
+    "source_sha": "2042d69de95f5365"
+   },
+   "bh-p10": {
+    "verse_id": "bh-p10",
+    "song": "bh-p10",
+    "verse": 10,
+    "quick_english": "in-the-month-of-Pauṣa / on-the-dark-tenth / Abhinavagupta / hymn / this / made / By-whom / the-Lord / becomes / world's / great-heat / pacifies / instantly / compassionate",
+    "quick_english_source": "manual",
+    "source_lines": null,
+    "source_file": "passages.jsonl",
+    "tokens": [
+     {
+      "surface": "vasurasapauṣe",
+      "quick_gloss": "in-the-month-of-Pauṣa"
+     },
+     {
+      "surface": "kṛṣṇadaśamyām",
+      "quick_gloss": "on-the-dark-tenth"
+     },
+     {
+      "surface": "abhinavaguptaḥ",
+      "quick_gloss": "Abhinavagupta"
+     },
+     {
+      "surface": "stavam",
+      "quick_gloss": "hymn"
+     },
+     {
+      "surface": "imam",
+      "quick_gloss": "this"
+     },
+     {
+      "surface": "akarot",
+      "quick_gloss": "made"
+     },
+     {
+      "surface": "yena",
+      "quick_gloss": "By-whom"
+     },
+     {
+      "surface": "vibhuḥ",
+      "quick_gloss": "the-Lord"
+     },
+     {
+      "surface": "bhavati",
+      "quick_gloss": "becomes"
+     },
+     {
+      "surface": "janasya",
+      "quick_gloss": "world's"
+     },
+     {
+      "surface": "arusantāpaṃ",
+      "quick_gloss": "great-heat"
+     },
+     {
+      "surface": "śamayati",
+      "quick_gloss": "pacifies"
+     },
+     {
+      "surface": "jhaṭiti",
+      "quick_gloss": "instantly"
+     },
+     {
+      "surface": "dayāluḥ",
+      "quick_gloss": "compassionate"
+     }
+    ],
+    "source_sha": "6c8de0d897072c86"
+   }
+  },
+  "l0": {
+   "bh-p01": [
+    {
+     "id": "bh-p01-p000",
+     "legacy_id": "T1:bh-p01:T0",
+     "verse_id": "bh-p01",
+     "pada_index": 0,
+     "surface": "vyāptacarācarabhāvaviśeṣam",
+     "legacy_raw": "[and]-pervading-the-particular-states-of-moving-and-unmoving (vyāptacarācarabhāvaviśeṣam)",
+     "citation": "vyāptacarācarabhāvaviśeṣam",
+     "morph": "acc.sg.m comp (vyāpta+carācara+bhāva+viśeṣa)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "pervading-the-particular-states-of-moving-and-unmoving",
+       "note": "backfilled from T1 gloss",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p01-p001",
+     "legacy_id": "T1:bh-p01:T1",
+     "verse_id": "bh-p01",
+     "pada_index": 1,
+     "surface": "cinmayam",
+     "legacy_raw": "[and]-consisting-of-consciousness (cinmayam)",
+     "citation": "cinmayam",
+     "morph": "acc.sg.m adj (cinmaya)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "consisting-of-consciousness",
+       "note": "backfilled from T1 gloss",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p01-p002",
+     "legacy_id": "T1:bh-p01:T2",
+     "verse_id": "bh-p01",
+     "pada_index": 2,
+     "surface": "ekam",
+     "legacy_raw": "[and]-one (ekam)",
+     "citation": "ekam",
+     "morph": "acc.sg.m (eka)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "one",
+       "note": "backfilled from T1 gloss",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p01-p003",
+     "legacy_id": "T1:bh-p01:T3",
+     "verse_id": "bh-p01",
+     "pada_index": 3,
+     "surface": "anantam",
+     "legacy_raw": "[and]-endless (anantam)",
+     "citation": "anantam",
+     "morph": "acc.sg.m (ananta)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "endless",
+       "note": "backfilled from T1 gloss",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p01-p004",
+     "legacy_id": "T1:bh-p01:T4",
+     "verse_id": "bh-p01",
+     "pada_index": 4,
+     "surface": "anādim",
+     "legacy_raw": "[and]-beginningless (anādim)",
+     "citation": "anādim",
+     "morph": "acc.sg.m (anādi)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "beginningless",
+       "note": "backfilled from T1 gloss",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p01-p005",
+     "legacy_id": "T1:bh-p01:T5",
+     "verse_id": "bh-p01",
+     "pada_index": 5,
+     "surface": "bhairavanātham",
+     "legacy_raw": "[and]-Bhairava-Lord (bhairavanātham)",
+     "citation": "bhairavanātham",
+     "morph": "acc.sg.m (bhairavanātha)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "Bhairava-Lord",
+       "note": "backfilled from T1 gloss",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p01-p006",
+     "legacy_id": "T1:bh-p01:T6",
+     "verse_id": "bh-p01",
+     "pada_index": 6,
+     "surface": "anāthaśaraṇyaṃ",
+     "legacy_raw": "[and]-of-helpless (anāthaśaraṇyaṃ)",
+     "citation": "anāthaśaraṇyaṃ",
+     "morph": "acc.sg.m (anāthaśaraṇya)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "of-helpless",
+       "note": "backfilled from T1 gloss",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "revised": true,
+     "revise_reason": "Refinement: T1 'of-helpless-refuge' shortened to 'of-helpless' (anātha-śaraṇya compound sense kept in grounds)."
+    },
+    {
+     "id": "bh-p01-p007",
+     "legacy_id": "T1:bh-p01:T7",
+     "verse_id": "bh-p01",
+     "pada_index": 7,
+     "surface": "tvanmayacittatayā",
+     "legacy_raw": "[and]-by-mind-become-Yours (tvanmayacittatayā)",
+     "citation": "tvanmayacittatayā",
+     "morph": "instr.sg.f (tvanmayacittatā)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "by-mind-become-Yours",
+       "note": "backfilled from T1 gloss",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p01-p008",
+     "legacy_id": "T1:bh-p01:T8",
+     "verse_id": "bh-p01",
+     "pada_index": 8,
+     "surface": "hṛdi",
+     "legacy_raw": "[and]-in-heart (hṛdi)",
+     "citation": "hṛdi",
+     "morph": "loc.sg.n (hṛd)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "in-heart",
+       "note": "backfilled from T1 gloss",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p01-p009",
+     "legacy_id": "T1:bh-p01:T9",
+     "verse_id": "bh-p01",
+     "pada_index": 9,
+     "surface": "vande",
+     "legacy_raw": "[and]-I-venerate (vande)",
+     "citation": "vande",
+     "morph": "1sg.pres.mid (vande)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "I-venerate",
+       "note": "backfilled from T1 gloss",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "bh-p02": [
+    {
+     "id": "bh-p02-p000",
+     "legacy_id": "T1:bh-p02:T0",
+     "verse_id": "bh-p02",
+     "pada_index": 0,
+     "surface": "tvanmayam",
+     "legacy_raw": "[and]-become-of-You (tvanmayam)",
+     "citation": "tvanmayam",
+     "morph": "acc.sg.n (tvanmaya)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "become-of-You",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p02-p001",
+     "legacy_id": "T1:bh-p02:T1",
+     "verse_id": "bh-p02",
+     "pada_index": 1,
+     "surface": "etad",
+     "legacy_raw": "[and]-this (etad)",
+     "citation": "etad",
+     "morph": "acc.sg.n (etad)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "this",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p02-p002",
+     "legacy_id": "T1:bh-p02:T2",
+     "verse_id": "bh-p02",
+     "pada_index": 2,
+     "surface": "aśeṣam",
+     "legacy_raw": "[and]-without-remainder (aśeṣam)",
+     "citation": "aśeṣam",
+     "morph": "acc.sg.n (aśeṣa)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "without-remainder",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p02-p003",
+     "legacy_id": "T1:bh-p02:T3",
+     "verse_id": "bh-p02",
+     "pada_index": 3,
+     "surface": "idānīm",
+     "legacy_raw": "[and]-now (idānīm)",
+     "citation": "idānīm",
+     "morph": "adv (idānīm)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "now",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p02-p004",
+     "legacy_id": "T1:bh-p02:T4",
+     "verse_id": "bh-p02",
+     "pada_index": 4,
+     "surface": "bhāti",
+     "legacy_raw": "[and]-appears (bhāti)",
+     "citation": "bhāti",
+     "morph": "3sg.pres. (bhāti)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "appears",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p02-p005",
+     "legacy_id": "T1:bh-p02:T5",
+     "verse_id": "bh-p02",
+     "pada_index": 5,
+     "surface": "mama",
+     "legacy_raw": "[and]-to-me (mama)",
+     "citation": "mama",
+     "morph": "gen.sg (mama)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "to-me",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p02-p006",
+     "legacy_id": "T1:bh-p02:T6",
+     "verse_id": "bh-p02",
+     "pada_index": 6,
+     "surface": "tvadanugrahaśaktyā",
+     "legacy_raw": "[and]-by-power-of-Your-grace (tvadanugrahaśaktyā)",
+     "citation": "tvadanugrahaśaktyā",
+     "morph": "instr.sg.f (tvadanugrahaśakti)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "by-power-of-Your-grace",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p02-p007",
+     "legacy_id": "T1:bh-p02:T7",
+     "verse_id": "bh-p02",
+     "pada_index": 7,
+     "surface": "tvaṃ ca",
+     "legacy_raw": "[and]-You (tvaṃ ca)",
+     "citation": "tvaṃ ca",
+     "morph": "nom.sg+indecl (tvaṃ ca)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "You",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p02-p008",
+     "legacy_id": "T1:bh-p02:T8",
+     "verse_id": "bh-p02",
+     "pada_index": 8,
+     "surface": "maheśa !",
+     "legacy_raw": "[and]-Maheśa (maheśa !)",
+     "citation": "maheśa !",
+     "morph": "voc.sg (maheśa)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "Maheśa",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p02-p009",
+     "legacy_id": "T1:bh-p02:T9",
+     "verse_id": "bh-p02",
+     "pada_index": 9,
+     "surface": "sadaiva",
+     "legacy_raw": "[and]-always (sadaiva)",
+     "citation": "sadaiva",
+     "morph": "adv (sadaiva)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "always",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p02-p010",
+     "legacy_id": "T1:bh-p02:T10",
+     "verse_id": "bh-p02",
+     "pada_index": 10,
+     "surface": "mamā'tmā",
+     "legacy_raw": "[and]-my (mamā'tmā)",
+     "citation": "mamā'tmā",
+     "morph": "nom.sg (mamātmā)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "my",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p02-p011",
+     "legacy_id": "T1:bh-p02:T11",
+     "verse_id": "bh-p02",
+     "pada_index": 11,
+     "surface": "svātmamayam",
+     "legacy_raw": "[and]-self (svātmamayam)",
+     "citation": "svātmamayam",
+     "morph": "acc.sg.n (svātmamaya)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "self",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p02-p012",
+     "legacy_id": "T1:bh-p02:T12",
+     "verse_id": "bh-p02",
+     "pada_index": 12,
+     "surface": "mama",
+     "legacy_raw": "[and]-my (mama)",
+     "citation": "mama",
+     "morph": "gen.sg (mama)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "my",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p02-p013",
+     "legacy_id": "T1:bh-p02:T13",
+     "verse_id": "bh-p02",
+     "pada_index": 13,
+     "surface": "tena samastam",
+     "legacy_raw": "[and]-all (tena samastam)",
+     "citation": "tena samastam",
+     "morph": "instr+acc (tena samastam)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "all",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "bh-p03": [
+    {
+     "id": "bh-p03-p000",
+     "legacy_id": "T1:bh-p03:T0",
+     "verse_id": "bh-p03",
+     "pada_index": 0,
+     "surface": "svātmani",
+     "legacy_raw": "[and]-in-own-self (svātmani)",
+     "citation": "svātmani",
+     "morph": "loc.sg (svātman)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "in-own-self",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p03-p001",
+     "legacy_id": "T1:bh-p03:T1",
+     "verse_id": "bh-p03",
+     "pada_index": 1,
+     "surface": "viśvagaye",
+     "legacy_raw": "[and]-all-pervading (viśvagaye)",
+     "citation": "viśvagaye",
+     "morph": "loc.sg (viśvaga)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "all-pervading",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p03-p002",
+     "legacy_id": "T1:bh-p03:T2",
+     "verse_id": "bh-p03",
+     "pada_index": 2,
+     "surface": "tvayi",
+     "legacy_raw": "[and]-in-You (tvayi)",
+     "citation": "tvayi",
+     "morph": "loc.sg (tvayi)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "in-You",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p03-p003",
+     "legacy_id": "T1:bh-p03:T3",
+     "verse_id": "bh-p03",
+     "pada_index": 3,
+     "surface": "nāthe",
+     "legacy_raw": "[and]-as-Lord (nāthe)",
+     "citation": "nāthe",
+     "morph": "voc.sg (nātha)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "as-Lord",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p03-p004",
+     "legacy_id": "T1:bh-p03:T4",
+     "verse_id": "bh-p03",
+     "pada_index": 4,
+     "surface": "tena",
+     "legacy_raw": "[and]-therefore (tena)",
+     "citation": "tena",
+     "morph": "instr.sg (tena)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "therefore",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p03-p005",
+     "legacy_id": "T1:bh-p03:T5",
+     "verse_id": "bh-p03",
+     "pada_index": 5,
+     "surface": "na",
+     "legacy_raw": "[and]-not (na)",
+     "citation": "na",
+     "morph": "neg (na)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "not",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p03-p006",
+     "legacy_id": "T1:bh-p03:T6",
+     "verse_id": "bh-p03",
+     "pada_index": 6,
+     "surface": "saṃsṛtibhītikathā",
+     "legacy_raw": "[and]-of-transmigration-fear-talk (saṃsṛtibhītikathā)",
+     "citation": "saṃsṛtibhītikathā",
+     "morph": "comp (saṃsṛtibhītikathā)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "of-transmigration-fear-talk",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p03-p007",
+     "legacy_id": "T1:bh-p03:T7",
+     "verse_id": "bh-p03",
+     "pada_index": 7,
+     "surface": "asti",
+     "legacy_raw": "[and]-exists (asti)",
+     "citation": "asti",
+     "morph": "3sg.pres (asti)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "exists",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p03-p008",
+     "legacy_id": "T1:bh-p03:T8",
+     "verse_id": "bh-p03",
+     "pada_index": 8,
+     "surface": "satsvapi",
+     "legacy_raw": "[and]-Even-though (satsvapi)",
+     "citation": "satsvapi",
+     "morph": "part (satsvapi)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "Even-though",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p03-p009",
+     "legacy_id": "T1:bh-p03:T9",
+     "verse_id": "bh-p03",
+     "pada_index": 9,
+     "surface": "durdhara",
+     "legacy_raw": "[and]-hard-to-bear (durdhara)",
+     "citation": "durdhara",
+     "morph": "adj (durdhara)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "hard-to-bear",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p03-p010",
+     "legacy_id": "T1:bh-p03:T10",
+     "verse_id": "bh-p03",
+     "pada_index": 10,
+     "surface": "duḥkha",
+     "legacy_raw": "[and]-suffering (duḥkha)",
+     "citation": "duḥkha",
+     "morph": "nom.sg (duḥkha)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "suffering",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p03-p011",
+     "legacy_id": "T1:bh-p03:T11",
+     "verse_id": "bh-p03",
+     "pada_index": 11,
+     "surface": "vimoha",
+     "legacy_raw": "[and]-delusion (vimoha)",
+     "citation": "vimoha",
+     "morph": "nom.sg (vimoha)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "delusion",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p03-p012",
+     "legacy_id": "T1:bh-p03:T12",
+     "verse_id": "bh-p03",
+     "pada_index": 12,
+     "surface": "trāsa",
+     "legacy_raw": "[and]-terror (trāsa)",
+     "citation": "trāsa",
+     "morph": "nom.sg (trāsa)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "terror",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p03-p013",
+     "legacy_id": "T1:bh-p03:T13",
+     "verse_id": "bh-p03",
+     "pada_index": 13,
+     "surface": "vidhāyiṣu",
+     "legacy_raw": "[and]-causing (vidhāyiṣu)",
+     "citation": "vidhāyiṣu",
+     "morph": "loc.pl (vidhāyiṣu)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "causing",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p03-p014",
+     "legacy_id": "T1:bh-p03:T14",
+     "verse_id": "bh-p03",
+     "pada_index": 14,
+     "surface": "karmagaṇeṣu",
+     "legacy_raw": "[and]-in-karma-hosts (karmagaṇeṣu)",
+     "citation": "karmagaṇeṣu",
+     "morph": "loc.pl (karmagaṇa)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "in-karma-hosts",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "bh-p04": [
+    {
+     "id": "bh-p04-p000",
+     "legacy_id": "T1:bh-p04:T0",
+     "verse_id": "bh-p04",
+     "pada_index": 0,
+     "surface": "antaka",
+     "legacy_raw": "[and]-O-Ender (antaka)",
+     "citation": "antaka",
+     "morph": "voc.sg (antaka)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "O-Ender",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p04-p001",
+     "legacy_id": "T1:bh-p04:T1",
+     "verse_id": "bh-p04",
+     "pada_index": 1,
+     "surface": "māṃ",
+     "legacy_raw": "[and]-toward-me (māṃ)",
+     "citation": "māṃ",
+     "morph": "acc.sg (māṃ)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "toward-me",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p04-p002",
+     "legacy_id": "T1:bh-p04:T2",
+     "verse_id": "bh-p04",
+     "pada_index": 2,
+     "surface": "prati",
+     "legacy_raw": "[and]-toward (prati)",
+     "citation": "prati",
+     "morph": "postp (prati)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "toward",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p04-p003",
+     "legacy_id": "T1:bh-p04:T3",
+     "verse_id": "bh-p04",
+     "pada_index": 3,
+     "surface": "mā",
+     "legacy_raw": "[and]-not (mā)",
+     "citation": "mā",
+     "morph": "neg (mā)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "not",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p04-p004",
+     "legacy_id": "T1:bh-p04:T4",
+     "verse_id": "bh-p04",
+     "pada_index": 4,
+     "surface": "dṛśam",
+     "legacy_raw": "[and]-gaze (dṛśam)",
+     "citation": "dṛśam",
+     "morph": "acc.sg (dṛś)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "gaze",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p04-p005",
+     "legacy_id": "T1:bh-p04:T5",
+     "verse_id": "bh-p04",
+     "pada_index": 5,
+     "surface": "enām",
+     "legacy_raw": "[and]-this (enām)",
+     "citation": "enām",
+     "morph": "acc.sg (enām)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "this",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p04-p006",
+     "legacy_id": "T1:bh-p04:T6",
+     "verse_id": "bh-p04",
+     "pada_index": 6,
+     "surface": "krodhakarālatamām",
+     "legacy_raw": "[and]-most-wrathful-terrible (krodhakarālatamām)",
+     "citation": "krodhakarālatamām",
+     "morph": "acc.sg (krodhakarālatama)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "most-wrathful-terrible",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p04-p007",
+     "legacy_id": "T1:bh-p04:T7",
+     "verse_id": "bh-p04",
+     "pada_index": 7,
+     "surface": "vinidhehi",
+     "legacy_raw": "[and]-direct (vinidhehi)",
+     "citation": "vinidhehi",
+     "morph": "2sg.imper (vinidhehi)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "direct",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p04-p008",
+     "legacy_id": "T1:bh-p04:T8",
+     "verse_id": "bh-p04",
+     "pada_index": 8,
+     "surface": "śaṅkarasevana",
+     "legacy_raw": "[and]-By-Śaṅkara-service (śaṅkarasevana)",
+     "citation": "śaṅkarasevana",
+     "morph": "comp (śaṅkarasevana)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "By-Śaṅkara-service",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p04-p009",
+     "legacy_id": "T1:bh-p04:T9",
+     "verse_id": "bh-p04",
+     "pada_index": 9,
+     "surface": "cintanadhīraḥ",
+     "legacy_raw": "[and]-contemplation-firm (cintanadhīraḥ)",
+     "citation": "cintanadhīraḥ",
+     "morph": "adj (cintanadhīra)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "contemplation-firm",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p04-p010",
+     "legacy_id": "T1:bh-p04:T10",
+     "verse_id": "bh-p04",
+     "pada_index": 10,
+     "surface": "asmi",
+     "legacy_raw": "[and]-I-am (asmi)",
+     "citation": "asmi",
+     "morph": "1sg.pres (asmi)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "I-am",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p04-p011",
+     "legacy_id": "T1:bh-p04:T11",
+     "verse_id": "bh-p04",
+     "pada_index": 11,
+     "surface": "bhīṣaṇabhairavaśaktimayo'smi",
+     "legacy_raw": "[and]-terrifying-Bhairava-power-filled (bhīṣaṇabhairavaśaktimayo'smi)",
+     "citation": "bhīṣaṇabhairavaśaktimayo'smi",
+     "morph": "adj (bhīṣaṇabhairavaśaktimaya)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "terrifying-Bhairava-power-filled",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "bh-p05": [
+    {
+     "id": "bh-p05-p000",
+     "legacy_id": "T1:bh-p05:T0",
+     "verse_id": "bh-p05",
+     "pada_index": 0,
+     "surface": "ittham",
+     "legacy_raw": "[and]-thus (ittham)",
+     "citation": "ittham",
+     "morph": "indecl (ittham)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "thus",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p05-p001",
+     "legacy_id": "T1:bh-p05:T1",
+     "verse_id": "bh-p05",
+     "pada_index": 1,
+     "surface": "upoḍhabhavanmayasaṃviddīdhitidāritabhūritamisraḥ",
+     "legacy_raw": "[and]-whose-great-darkness-is-dispelled-by-rays-of-world-awareness (upoḍhabhavanmayasaṃviddīdhitidāritabhūritamisraḥ)",
+     "citation": "upoḍhabhavanmayasaṃviddīdhitidāritabhūritamisraḥ",
+     "morph": "comp (upoḍhabhavanmayasaṃviddīdhitidāritabhūritamisra)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "whose-great-darkness-is-dispelled-by-rays-of-world-awareness",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p05-p002",
+     "legacy_id": "T1:bh-p05:T2",
+     "verse_id": "bh-p05",
+     "pada_index": 2,
+     "surface": "mṛtyuyamāntakakarmapiśācaiḥ",
+     "legacy_raw": "[and]-Death-Yama-ender-karma-ghosts (mṛtyuyamāntakakarmapiśācaiḥ)",
+     "citation": "mṛtyuyamāntakakarmapiśācaiḥ",
+     "morph": "comp (mṛtyuyamāntakakarmapiśāca)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "Death-Yama-ender-karma-ghosts",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p05-p003",
+     "legacy_id": "T1:bh-p05:T3",
+     "verse_id": "bh-p05",
+     "pada_index": 3,
+     "surface": "nātha !",
+     "legacy_raw": "[and]-Lord (nātha !)",
+     "citation": "nātha !",
+     "morph": "voc (nātha)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "Lord",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p05-p004",
+     "legacy_id": "T1:bh-p05:T4",
+     "verse_id": "bh-p05",
+     "pada_index": 4,
+     "surface": "namo'stu",
+     "legacy_raw": "[and]-salutation (namo'stu)",
+     "citation": "namo'stu",
+     "morph": "indecl (namo'stu)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "salutation",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p05-p005",
+     "legacy_id": "T1:bh-p05:T5",
+     "verse_id": "bh-p05",
+     "pada_index": 5,
+     "surface": "na jātu",
+     "legacy_raw": "[and]-never (na jātu)",
+     "citation": "na jātu",
+     "morph": "neg (na jātu)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "never",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p05-p006",
+     "legacy_id": "T1:bh-p05:T6",
+     "verse_id": "bh-p05",
+     "pada_index": 6,
+     "surface": "bibhemi",
+     "legacy_raw": "[and]-I-fear (bibhemi)",
+     "citation": "bibhemi",
+     "morph": "1sg.pres (bibhemi)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "I-fear",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "bh-p06": [
+    {
+     "id": "bh-p06-p000",
+     "legacy_id": "T1:bh-p06:T0",
+     "verse_id": "bh-p06",
+     "pada_index": 0,
+     "surface": "proditasatyavibodhamarīciprekṣitaviśvapadārthasatattvaḥ",
+     "legacy_raw": "[and]-whose-true-essence-of-world-objects-is-seen-by-rays-of-arisen-true-awakening (proditasatyavibodhamarīciprekṣitaviśvapadārthasatattvaḥ)",
+     "citation": "proditasatyavibodhamarīciprekṣitaviśvapadārthasatattvaḥ",
+     "morph": "comp (prodita+satyavibodha+marīci+prekṣita+viśvapadārtha+satattva)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "whose-true-essence-of-world-objects-is-seen-by-rays-of-arisen-true-awakening",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p06-p001",
+     "legacy_id": "T1:bh-p06:T1",
+     "verse_id": "bh-p06",
+     "pada_index": 1,
+     "surface": "bhāvaparāmṛtanirbharapūrṇe",
+     "legacy_raw": "[and]-In-being-full (bhāvaparāmṛtanirbharapūrṇe)",
+     "citation": "bhāvaparāmṛtanirbharapūrṇe",
+     "morph": "loc.sg (bhāvaparāmṛtanirbharapūrṇa)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "In-being-full",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p06-p002",
+     "legacy_id": "T1:bh-p06:T2",
+     "verse_id": "bh-p06",
+     "pada_index": 2,
+     "surface": "tvayi",
+     "legacy_raw": "[and]-in-you (tvayi)",
+     "citation": "tvayi",
+     "morph": "loc.sg (tvayi)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "in-you",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p06-p003",
+     "legacy_id": "T1:bh-p06:T3",
+     "verse_id": "bh-p06",
+     "pada_index": 3,
+     "surface": "aham",
+     "legacy_raw": "[and]-I (aham)",
+     "citation": "aham",
+     "morph": "nom.sg (aham)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "I",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p06-p004",
+     "legacy_id": "T1:bh-p06:T4",
+     "verse_id": "bh-p06",
+     "pada_index": 4,
+     "surface": "ātmani",
+     "legacy_raw": "[and]-self (ātmani)",
+     "citation": "ātmani",
+     "morph": "loc.sg (ātman)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "self",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p06-p005",
+     "legacy_id": "T1:bh-p06:T5",
+     "verse_id": "bh-p06",
+     "pada_index": 5,
+     "surface": "nirvṛtim",
+     "legacy_raw": "[and]-bliss (nirvṛtim)",
+     "citation": "nirvṛtim",
+     "morph": "acc.sg (nirvṛti)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "bliss",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p06-p006",
+     "legacy_id": "T1:bh-p06:T6",
+     "verse_id": "bh-p06",
+     "pada_index": 6,
+     "surface": "emi",
+     "legacy_raw": "[and]-I-enter (emi)",
+     "citation": "emi",
+     "morph": "1sg.pres (emi)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "I-enter",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "bh-p07": [
+    {
+     "id": "bh-p07-p000",
+     "legacy_id": "T1:bh-p07:T0",
+     "verse_id": "bh-p07",
+     "pada_index": 0,
+     "surface": "mānasagocaram",
+     "legacy_raw": "[and]-into-mind's-range (mānasagocaram)",
+     "citation": "mānasagocaram",
+     "morph": "acc.sg (mānasagocara)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "into-mind's-range",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p07-p001",
+     "legacy_id": "T1:bh-p07:T1",
+     "verse_id": "bh-p07",
+     "pada_index": 1,
+     "surface": "eti",
+     "legacy_raw": "[and]-comes (eti)",
+     "citation": "eti",
+     "morph": "3sg.pres (eti)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "comes",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p07-p002",
+     "legacy_id": "T1:bh-p07:T2",
+     "verse_id": "bh-p07",
+     "pada_index": 2,
+     "surface": "yadaiva",
+     "legacy_raw": "[and]-when-indeed (yadaiva)",
+     "citation": "yadaiva",
+     "morph": "indecl (yadaiva)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "when-indeed",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p07-p003",
+     "legacy_id": "T1:bh-p07:T3",
+     "verse_id": "bh-p07",
+     "pada_index": 3,
+     "surface": "kleśadaśā",
+     "legacy_raw": "[and]-affliction-state (kleśadaśā)",
+     "citation": "kleśadaśā",
+     "morph": "nom.sg (kleśadaśā)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "affliction-state",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p07-p004",
+     "legacy_id": "T1:bh-p07:T4",
+     "verse_id": "bh-p07",
+     "pada_index": 4,
+     "surface": "tanutāpavidhātrī",
+     "legacy_raw": "[and]-producing-slight-anguish (tanutāpavidhātrī)",
+     "citation": "tanutāpavidhātrī",
+     "morph": "adj (tanutāpavidhātrī)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "producing-slight-anguish",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p07-p005",
+     "legacy_id": "T1:bh-p07:T5",
+     "verse_id": "bh-p07",
+     "pada_index": 5,
+     "surface": "nātha !",
+     "legacy_raw": "[and]-Lord (nātha !)",
+     "citation": "nātha !",
+     "morph": "voc (nātha)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "Lord",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p07-p006",
+     "legacy_id": "T1:bh-p07:T6",
+     "verse_id": "bh-p07",
+     "pada_index": 6,
+     "surface": "tadaiva",
+     "legacy_raw": "[and]-then-alone (tadaiva)",
+     "citation": "tadaiva",
+     "morph": "indecl (tadaiva)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "then-alone",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p07-p007",
+     "legacy_id": "T1:bh-p07:T7",
+     "verse_id": "bh-p07",
+     "pada_index": 7,
+     "surface": "mama",
+     "legacy_raw": "[and]-my (mama)",
+     "citation": "mama",
+     "morph": "gen.sg (mama)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "my",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p07-p008",
+     "legacy_id": "T1:bh-p07:T8",
+     "verse_id": "bh-p07",
+     "pada_index": 8,
+     "surface": "tvadabhedas",
+     "legacy_raw": "[and]-with-you-nondifference (tvadabhedas)",
+     "citation": "tvadabhedas",
+     "morph": "nom.sg (tvadabheda)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "with-you-nondifference",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p07-p009",
+     "legacy_id": "T1:bh-p07:T9",
+     "verse_id": "bh-p07",
+     "pada_index": 9,
+     "surface": "stotraparāmṛtavṛṣṭiḥ",
+     "legacy_raw": "[and]-hymn-supreme-nectar-rain (stotraparāmṛtavṛṣṭiḥ)",
+     "citation": "stotraparāmṛtavṛṣṭiḥ",
+     "morph": "comp (stotraparāmṛtavṛṣṭi)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "hymn-supreme-nectar-rain",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p07-p010",
+     "legacy_id": "T1:bh-p07:T10",
+     "verse_id": "bh-p07",
+     "pada_index": 10,
+     "surface": "udeti",
+     "legacy_raw": "[and]-arises (udeti)",
+     "citation": "udeti",
+     "morph": "3sg.pres (udeti)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "arises",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "bh-p08": [
+    {
+     "id": "bh-p08-p000",
+     "legacy_id": "T1:bh-p08:T0",
+     "verse_id": "bh-p08",
+     "pada_index": 0,
+     "surface": "śaṅkara",
+     "legacy_raw": "[and]-O-Śaṅkara (śaṅkara)",
+     "citation": "śaṅkara",
+     "morph": "voc (śaṅkara)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "O-Śaṅkara",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p08-p001",
+     "legacy_id": "T1:bh-p08:T1",
+     "verse_id": "bh-p08",
+     "pada_index": 1,
+     "surface": "satyam",
+     "legacy_raw": "[and]-truly (satyam)",
+     "citation": "satyam",
+     "morph": "indecl (satyam)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "truly",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p08-p002",
+     "legacy_id": "T1:bh-p08:T2",
+     "verse_id": "bh-p08",
+     "pada_index": 2,
+     "surface": "idam",
+     "legacy_raw": "[and]-this (idam)",
+     "citation": "idam",
+     "morph": "indecl (idam)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "this",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p08-p003",
+     "legacy_id": "T1:bh-p08:T3",
+     "verse_id": "bh-p08",
+     "pada_index": 3,
+     "surface": "vratadānasnānatapaḥ",
+     "legacy_raw": "[and]-vow-giving-bathing-austerity (vratadānasnānatapaḥ)",
+     "citation": "vratadānasnānatapaḥ",
+     "morph": "comp (vratadānasnānatapas)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "vow-giving-bathing-austerity",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p08-p004",
+     "legacy_id": "T1:bh-p08:T4",
+     "verse_id": "bh-p08",
+     "pada_index": 4,
+     "surface": "bhavatāpavidāri",
+     "legacy_raw": "[and]-dispelling-becoming's-heat (bhavatāpavidāri)",
+     "citation": "bhavatāpavidāri",
+     "morph": "acc.sg (bhavatāpa)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "dispelling-becoming's-heat",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p08-p005",
+     "legacy_id": "T1:bh-p08:T5",
+     "verse_id": "bh-p08",
+     "pada_index": 5,
+     "surface": "tāvakaśāstra",
+     "legacy_raw": "[and]-Your-scripture (tāvakaśāstra)",
+     "citation": "tāvakaśāstra",
+     "morph": "comp (tāvakaśāstra)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "Your-scripture",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p08-p006",
+     "legacy_id": "T1:bh-p08:T6",
+     "verse_id": "bh-p08",
+     "pada_index": 6,
+     "surface": "parāmṛtacintā",
+     "legacy_raw": "[and]-supreme-nectar-contemplation (parāmṛtacintā)",
+     "citation": "parāmṛtacintā",
+     "morph": "comp (parāmṛtacintā)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "supreme-nectar-contemplation",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p08-p007",
+     "legacy_id": "T1:bh-p08:T7",
+     "verse_id": "bh-p08",
+     "pada_index": 7,
+     "surface": "cetasi",
+     "legacy_raw": "[and]-in-mind (cetasi)",
+     "citation": "cetasi",
+     "morph": "loc.sg (cetas)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "in-mind",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p08-p008",
+     "legacy_id": "T1:bh-p08:T8",
+     "verse_id": "bh-p08",
+     "pada_index": 8,
+     "surface": "nirvṛtidhārām",
+     "legacy_raw": "[and]-bliss-stream (nirvṛtidhārām)",
+     "citation": "nirvṛtidhārām",
+     "morph": "acc.sg (nirvṛtidhārā)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "bliss-stream",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p08-p009",
+     "legacy_id": "T1:bh-p08:T9",
+     "verse_id": "bh-p08",
+     "pada_index": 9,
+     "surface": "syandati",
+     "legacy_raw": "[and]-flows (syandati)",
+     "citation": "syandati",
+     "morph": "3sg.pres (syandati)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "flows",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "bh-p09": [
+    {
+     "id": "bh-p09-p000",
+     "legacy_id": "T1:bh-p09:T0",
+     "verse_id": "bh-p09",
+     "pada_index": 0,
+     "surface": "nṛtyati",
+     "legacy_raw": "[and]-dances (nṛtyati)",
+     "citation": "nṛtyati",
+     "morph": "3sg.pres (nṛtyati)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "dances",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p09-p001",
+     "legacy_id": "T1:bh-p09:T1",
+     "verse_id": "bh-p09",
+     "pada_index": 1,
+     "surface": "gāyati",
+     "legacy_raw": "[and]-sings (gāyati)",
+     "citation": "gāyati",
+     "morph": "3sg.pres (gāyati)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "sings",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p09-p002",
+     "legacy_id": "T1:bh-p09:T2",
+     "verse_id": "bh-p09",
+     "pada_index": 2,
+     "surface": "hṛṣyati",
+     "legacy_raw": "[and]-rejoices (hṛṣyati)",
+     "citation": "hṛṣyati",
+     "morph": "3sg.pres (hṛṣyati)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "rejoices",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p09-p003",
+     "legacy_id": "T1:bh-p09:T3",
+     "verse_id": "bh-p09",
+     "pada_index": 3,
+     "surface": "gāḍham",
+     "legacy_raw": "[and]-deeply (gāḍham)",
+     "citation": "gāḍham",
+     "morph": "adv (gāḍham)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "deeply",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p09-p004",
+     "legacy_id": "T1:bh-p09:T4",
+     "verse_id": "bh-p09",
+     "pada_index": 4,
+     "surface": "saṃvit",
+     "legacy_raw": "[and]-consciousness (saṃvit)",
+     "citation": "saṃvit",
+     "morph": "nom.sg (saṃvit)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "consciousness",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p09-p005",
+     "legacy_id": "T1:bh-p09:T5",
+     "verse_id": "bh-p09",
+     "pada_index": 5,
+     "surface": "iyam",
+     "legacy_raw": "[and]-this (iyam)",
+     "citation": "iyam",
+     "morph": "indecl (iyam)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "this",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p09-p006",
+     "legacy_id": "T1:bh-p09:T6",
+     "verse_id": "bh-p09",
+     "pada_index": 6,
+     "surface": "mama",
+     "legacy_raw": "[and]-my (mama)",
+     "citation": "mama",
+     "morph": "gen.sg (mama)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "my",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p09-p007",
+     "legacy_id": "T1:bh-p09:T7",
+     "verse_id": "bh-p09",
+     "pada_index": 7,
+     "surface": "bhairavanātha",
+     "legacy_raw": "[and]-O-Bhairava-Lord (bhairavanātha)",
+     "citation": "bhairavanātha",
+     "morph": "voc (bhairavanātha)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "O-Bhairava-Lord",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p09-p008",
+     "legacy_id": "T1:bh-p09:T8",
+     "verse_id": "bh-p09",
+     "pada_index": 8,
+     "surface": "tvāṃ",
+     "legacy_raw": "[and]-You (tvāṃ)",
+     "citation": "tvāṃ",
+     "morph": "acc.sg (tvāṃ)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "You",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p09-p009",
+     "legacy_id": "T1:bh-p09:T9",
+     "verse_id": "bh-p09",
+     "pada_index": 9,
+     "surface": "priyam",
+     "legacy_raw": "[and]-dear (priyam)",
+     "citation": "priyam",
+     "morph": "adj (priyam)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "dear",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p09-p010",
+     "legacy_id": "T1:bh-p09:T10",
+     "verse_id": "bh-p09",
+     "pada_index": 10,
+     "surface": "āpya",
+     "legacy_raw": "[and]-having-obtained (āpya)",
+     "citation": "āpya",
+     "morph": "part (āpya)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "having-obtained",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p09-p011",
+     "legacy_id": "T1:bh-p09:T11",
+     "verse_id": "bh-p09",
+     "pada_index": 11,
+     "surface": "sudarśanamekam",
+     "legacy_raw": "[and]-beautiful-vision-alone (sudarśanamekam)",
+     "citation": "sudarśanamekam",
+     "morph": "comp (sudarśanamekam)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "beautiful-vision-alone",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p09-p012",
+     "legacy_id": "T1:bh-p09:T12",
+     "verse_id": "bh-p09",
+     "pada_index": 12,
+     "surface": "durlabhamanyajanaiḥ",
+     "legacy_raw": "[and]-hard-to-get-by-others (durlabhamanyajanaiḥ)",
+     "citation": "durlabhamanyajanaiḥ",
+     "morph": "adj (durlabhamanyajanaiḥ)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "hard-to-get-by-others",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p09-p013",
+     "legacy_id": "T1:bh-p09:T13",
+     "verse_id": "bh-p09",
+     "pada_index": 13,
+     "surface": "samayajñam",
+     "legacy_raw": "[and]-samaya-knower (samayajñam)",
+     "citation": "samayajñam",
+     "morph": "comp (samayajña)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "samaya-knower",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "bh-p10": [
+    {
+     "id": "bh-p10-p000",
+     "legacy_id": "T1:bh-p10:T0",
+     "verse_id": "bh-p10",
+     "pada_index": 0,
+     "surface": "vasurasapauṣe",
+     "legacy_raw": "[and]-in-the-month-of-Pauṣa (vasurasapauṣe)",
+     "citation": "vasurasapauṣe",
+     "morph": "comp (vasu+rasa+pauṣa)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "in-the-month-of-Pauṣa",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p10-p001",
+     "legacy_id": "T1:bh-p10:T1",
+     "verse_id": "bh-p10",
+     "pada_index": 1,
+     "surface": "kṛṣṇadaśamyām",
+     "legacy_raw": "[and]-on-the-dark-tenth (kṛṣṇadaśamyām)",
+     "citation": "kṛṣṇadaśamyām",
+     "morph": "loc.sg (kṛṣṇadaśamī)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "on-the-dark-tenth",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p10-p002",
+     "legacy_id": "T1:bh-p10:T2",
+     "verse_id": "bh-p10",
+     "pada_index": 2,
+     "surface": "abhinavaguptaḥ",
+     "legacy_raw": "[and]-Abhinavagupta (abhinavaguptaḥ)",
+     "citation": "abhinavaguptaḥ",
+     "morph": "nom.sg (abhinavagupta)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "Abhinavagupta",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p10-p003",
+     "legacy_id": "T1:bh-p10:T3",
+     "verse_id": "bh-p10",
+     "pada_index": 3,
+     "surface": "stavam",
+     "legacy_raw": "[and]-hymn (stavam)",
+     "citation": "stavam",
+     "morph": "acc.sg (stava)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "hymn",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p10-p004",
+     "legacy_id": "T1:bh-p10:T4",
+     "verse_id": "bh-p10",
+     "pada_index": 4,
+     "surface": "imam",
+     "legacy_raw": "[and]-this (imam)",
+     "citation": "imam",
+     "morph": "acc.sg (idam)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "this",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p10-p005",
+     "legacy_id": "T1:bh-p10:T5",
+     "verse_id": "bh-p10",
+     "pada_index": 5,
+     "surface": "akarot",
+     "legacy_raw": "[and]-made (akarot)",
+     "citation": "akarot",
+     "morph": "3sg.past (kṛ)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "made",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p10-p006",
+     "legacy_id": "T1:bh-p10:T6",
+     "verse_id": "bh-p10",
+     "pada_index": 6,
+     "surface": "yena",
+     "legacy_raw": "[and]-By-whom (yena)",
+     "citation": "yena",
+     "morph": "instr.sg (yena)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "By-whom",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p10-p007",
+     "legacy_id": "T1:bh-p10:T7",
+     "verse_id": "bh-p10",
+     "pada_index": 7,
+     "surface": "vibhuḥ",
+     "legacy_raw": "[and]-the-Lord (vibhuḥ)",
+     "citation": "vibhuḥ",
+     "morph": "nom.sg (vibhu)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "the-Lord",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p10-p008",
+     "legacy_id": "T1:bh-p10:T8",
+     "verse_id": "bh-p10",
+     "pada_index": 8,
+     "surface": "bhavati",
+     "legacy_raw": "[and]-becomes (bhavati)",
+     "citation": "bhavati",
+     "morph": "3sg.pres (bhū)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "becomes",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p10-p009",
+     "legacy_id": "T1:bh-p10:T9",
+     "verse_id": "bh-p10",
+     "pada_index": 9,
+     "surface": "janasya",
+     "legacy_raw": "[and]-world's (janasya)",
+     "citation": "janasya",
+     "morph": "gen.sg (jana)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "world's",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p10-p010",
+     "legacy_id": "T1:bh-p10:T10",
+     "verse_id": "bh-p10",
+     "pada_index": 10,
+     "surface": "arusantāpaṃ",
+     "legacy_raw": "[and]-great-heat (arusantāpaṃ)",
+     "citation": "arusantāpaṃ",
+     "morph": "acc.sg (arusantāpa)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "great-heat",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p10-p011",
+     "legacy_id": "T1:bh-p10:T11",
+     "verse_id": "bh-p10",
+     "pada_index": 11,
+     "surface": "śamayati",
+     "legacy_raw": "[and]-pacifies (śamayati)",
+     "citation": "śamayati",
+     "morph": "3sg.pres (śam)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "pacifies",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p10-p012",
+     "legacy_id": "T1:bh-p10:T12",
+     "verse_id": "bh-p10",
+     "pada_index": 12,
+     "surface": "jhaṭiti",
+     "legacy_raw": "[and]-instantly (jhaṭiti)",
+     "citation": "jhaṭiti",
+     "morph": "adv (jhaṭiti)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "instantly",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "bh-p10-p013",
+     "legacy_id": "T1:bh-p10:T13",
+     "verse_id": "bh-p10",
+     "pada_index": 13,
+     "surface": "dayāluḥ",
+     "legacy_raw": "[and]-compassionate (dayāluḥ)",
+     "citation": "dayāluḥ",
+     "morph": "nom.sg (dayālu)",
+     "morph_unknown": false,
+     "options": [
+      {
+       "gloss": "compassionate",
+       "note": "backfilled from T1 gloss; options pending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morph analyzed; no genuine fork."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ]
+  },
+  "argmap": {
+   "bh-p01": {
+    "verse_id": "bh-p01",
+    "song": "bh-p01",
+    "verse": 1,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (devotee's voice, first-person vandana)",
+    "question": "What is the object of veneration, and how does veneration relate to it?",
+    "premises": [
+     "The object is fixed in full: all-pervading (vyāpta) particular of moving-and-unmoving states (carācarabhāvaviśeṣa), consisting of consciousness (cinmaya), one (eka), endless (ananta), beginningless (anādi).",
+     "The act follows: Bhairava-Lord (bhairavanātham), refuge of the helpless (anāthaśaraṇyaṃ), venerated by mind-become-Yours (tvanmayacittatayā), in heart (hṛdi) — vande (I venerate).",
+     "Veneration is not ritual offering but mental absorption: the devotee's mind becoming His (tvanmaya).",
+     "The name Bhairava performs its own nirukta here: bearing/supporting the universe, the Roar (rava) of AHAM, benefactor of the terrified — all three senses lived in the single act of absorption (Tantrāloka 1.95-100).",
+     "Total surrender is sized to its object: the all-pervading consciousness is venerated by absorption into it, not by offering to it."
+    ],
+    "inference": "The Absolute is named in full, then venerated by absorption into it; the name is lived, not glossed. Veneration is not offering but becoming.",
+    "uncertainties": [
+     "Whether 'carācarabhāvaviśeṣa' means particular states or the particularity of states is unresolved.",
+     "Whether 'anādi' negates temporal beginning only or all limitation is unresolved.",
+     "The nirukta is performed, not stated; the verse does not gloss its own name."
+    ],
+    "traces": {
+     "t1_verse": "bh-p01",
+     "l0_ids": [
+      "bh-p01-p000",
+      "bh-p01-p001",
+      "bh-p01-p002",
+      "bh-p01-p003",
+      "bh-p01-p004",
+      "bh-p01-p005",
+      "bh-p01-p006",
+      "bh-p01-p007",
+      "bh-p01-p008",
+      "bh-p01-p009"
+     ]
+    },
+    "sanskrit_sha": "d33189d08336fb59",
+    "option_choices": []
+   },
+   "bh-p02": {
+    "verse_id": "bh-p02",
+    "song": "bh-p02",
+    "verse": 2,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (devotee's voice, first-person recognition)",
+    "question": "How does the world appear as His, and how is identity declared?",
+    "premises": [
+     "Disclosure first: all this (etad), become of You (tvanmayam), without remainder (aśeṣam), now (idānīm) appears (bhāti) to me (mama) — by the power of Your grace (tvadanugrahaśaktyā).",
+     "Then declaration: You (tvaṃ), Maheśa, always (sadaiva) my self (mamātmā); made of my own self (svātmamayaṃ), all (samastam) is mine (mama) through Him (tena).",
+     "Grace is the cause of both disclosure and declaration; merit is not.",
+     "Appearance, then ownership — the two-step is the pratyabhijñā structure."
+    ],
+    "inference": "Recognition is two-step, not one.",
+    "uncertainties": [
+     "Whether 'svātmamaya' means 'made of my self' or 'self-identical' is unresolved.",
+     "Whether 'tena' refers to grace or to Maheśa is unresolved."
+    ],
+    "traces": {
+     "t1_verse": "bh-p02",
+     "l0_ids": [
+      "bh-p02-p000",
+      "bh-p02-p001",
+      "bh-p02-p002",
+      "bh-p02-p003",
+      "bh-p02-p004",
+      "bh-p02-p005",
+      "bh-p02-p006",
+      "bh-p02-p007",
+      "bh-p02-p008",
+      "bh-p02-p009",
+      "bh-p02-p010",
+      "bh-p02-p011"
+     ]
+    },
+    "sanskrit_sha": "9978e3d60cc4a979",
+    "option_choices": []
+   },
+   "bh-p03": {
+    "verse_id": "bh-p03",
+    "song": "bh-p03",
+    "verse": 3,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (devotee's voice, first-person recognition)",
+    "question": "How can fear be denied while suffering is conceded?",
+    "premises": [
+     "Fear-talk denied: with You as Lord (nāthe) pervading (viśvagaye) own self (svātmani), therefore (tena) no talk of transmigration-fear exists (na saṃsṛtibhītikathā asti).",
+     "Affliction conceded in the same breath: even though (satsvapi) hard-to-bear suffering, delusion, terror-causing karma-hosts.",
+     "No-fear and full-suffering together — the concession framed by the denial, resolved within the verse, not deferred.",
+     "The non-dual recognition does not deny affliction; it denies fear of it: suffering is real, fear of it is not, because there is no 'other' to fear."
+    ],
+    "inference": "Fear-talk denied while suffering conceded: denial and concession in one breath, resolved within the verse.",
+    "uncertainties": [
+     "Whether 'prāyeṇa' (mostly) softens the claim or qualifies it is unresolved.",
+     "Whether 'karmagaṇa' means masses of karma or hosts of karmic beings is unresolved."
+    ],
+    "traces": {
+     "t1_verse": "bh-p03",
+     "l0_ids": [
+      "bh-p03-p000",
+      "bh-p03-p001",
+      "bh-p03-p002",
+      "bh-p03-p003",
+      "bh-p03-p004",
+      "bh-p03-p005",
+      "bh-p03-p006",
+      "bh-p03-p007",
+      "bh-p03-p008",
+      "bh-p03-p009",
+      "bh-p03-p010",
+      "bh-p03-p011",
+      "bh-p03-p012",
+      "bh-p03-p013",
+      "bh-p03-p014"
+     ]
+    },
+    "sanskrit_sha": "9d38e1a9f6937e2c",
+    "option_choices": []
+   },
+   "bh-p04": {
+    "verse_id": "bh-p04",
+    "song": "bh-p04",
+    "verse": 4,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (devotee's voice, first-person prayer and declaration)",
+    "question": "How does the devotee turn aside death's gaze?",
+    "premises": [
+     "Prayer first: O Ender (antaka), do not (mā) direct (vinidhehi) toward me (māṃ prati) this (enām) most wrathful-terrible (krodhakarālatamām) gaze (dṛśam).",
+     "Then the ground: firm (dhīra) in Śaṅkara-service (sevana) and contemplation (cintana), filled (maya) with terrifying, awe-full Bhairava-power (bhīṣaṇabhairavaśakti) — asmi (I am).",
+     "Power first invoked against death's gaze, then declared as state.",
+     "Śaṅkara here = Śiva, not Śaṅkarācārya — the context of Bhairava-service requires it."
+    ],
+    "inference": "Prayer first, then the ground: power declared as state, not begged. The devotee testifies to possessing power, grounded in service and contemplation.",
+    "uncertainties": [
+     "Whether 'asmi' is a declaration of achieved state or a performative utterance is unresolved.",
+     "Whether 'śaṅkara' could refer to Śaṅkarācārya is resolved as Śiva by context."
+    ],
+    "traces": {
+     "t1_verse": "bh-p04",
+     "l0_ids": [
+      "bh-p04-p000",
+      "bh-p04-p001",
+      "bh-p04-p002",
+      "bh-p04-p003",
+      "bh-p04-p004",
+      "bh-p04-p005",
+      "bh-p04-p006",
+      "bh-p04-p007",
+      "bh-p04-p008",
+      "bh-p04-p009",
+      "bh-p04-p010",
+      "bh-p04-p011"
+     ]
+    },
+    "sanskrit_sha": "f55150cff0418569",
+    "option_choices": []
+   },
+   "bh-p05": {
+    "verse_id": "bh-p05",
+    "song": "bh-p05",
+    "verse": 5,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (devotee's voice, first-person fearlessness)",
+    "question": "How does fearlessness follow from awareness?",
+    "premises": [
+     "Great darkness already dispelled (dārita bhūri tamisra) by rays (dīdhiti) of awareness (saṃvid) consisting of world-becoming (bhavanmaya).",
+     "Then the catalogue — death, Yama, ender, karma-ghosts — met with salutation (namo 'stu) alone.",
+     "Never (na jātu) fear (bibhemi): awareness burned the dark before the terrors were named.",
+     "Salutation finishes what light began: the terrors are met with salutation, not weapons."
+    ],
+    "inference": "Awareness first, salutation finishes: absolute fearlessness. The dark that made terrors terrifying is already gone.",
+    "uncertainties": [
+     "Whether 'bhavanmaya' (world-becoming) modifies awareness or rays is unresolved.",
+     "Whether the four terrors are a complete list or exemplary is unresolved."
+    ],
+    "traces": {
+     "t1_verse": "bh-p05",
+     "l0_ids": [
+      "bh-p05-p000",
+      "bh-p05-p001",
+      "bh-p05-p002",
+      "bh-p05-p003",
+      "bh-p05-p004",
+      "bh-p05-p005",
+      "bh-p05-p006"
+     ]
+    },
+    "sanskrit_sha": "ddd43f4fcff68b70",
+    "option_choices": []
+   },
+   "bh-p06": {
+    "verse_id": "bh-p06",
+    "song": "bh-p06",
+    "verse": 6,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (devotee's voice, first-person entry)",
+    "question": "What does true awakening disclose, and what is bliss?",
+    "premises": [
+     "Arisen (prodita) true (satya) awakening (vibodha): its rays (marīci) reveal (prekṣita) the true essence (satattva) of world-objects (viśvapadārtha).",
+     "On that ground — in You (tvayi), being-full (bhāvaparāmṛtanirbharapūrṇa), I the self (aham ātmani) enter (emi) bliss (nirvṛtim).",
+     "Awakening discloses; entry is bliss; pūrṇa (full/complete) is the Lord's nature.",
+     "Bliss is ingress into fullness, not a feeling produced."
+    ],
+    "inference": "Awakening discloses things as they are; bliss is entry into the Lord's fullness — ingress, not feeling.",
+    "uncertainties": [
+     "Whether 'prodita' (arisen) modifies awakening or rays is unresolved.",
+     "Whether 'bhāvaparāmṛtanirbharapūrṇa' is one compound or several is unresolved."
+    ],
+    "traces": {
+     "t1_verse": "bh-p06",
+     "l0_ids": [
+      "bh-p06-p000",
+      "bh-p06-p001",
+      "bh-p06-p002",
+      "bh-p06-p003",
+      "bh-p06-p004",
+      "bh-p06-p005",
+      "bh-p06-p006"
+     ]
+    },
+    "sanskrit_sha": "11cd7cd97549680c",
+    "option_choices": []
+   },
+   "bh-p07": {
+    "verse_id": "bh-p07",
+    "song": "bh-p07",
+    "verse": 7,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (devotee's voice, first-person recognition)",
+    "question": "What is the relation between affliction and nondifference?",
+    "premises": [
+     "When indeed (yadaiva) the affliction-state (kleśadaśā), producing slight anguish (tanutāpavidhātrī), comes (eti) into the mind's range (mānasagocaram) —",
+     "— then alone (tadaiva) my nondifference with You (mama tvadabhedaḥ), and the rain of supreme nectar arises (stotraparāmṛtavṛṣṭir udeti).",
+     "Affliction's arrival dated as nondifference's occasion: with it, not after it, the nectar rains.",
+     "The verse inverts the expected: suffering is not the enemy of recognition but its trigger."
+    ],
+    "inference": "Affliction is the occasion, not the obstacle: nondifference + nectar arise with it, not after it.",
+    "uncertainties": [
+     "Whether 'tanutāpa' (slight anguish) is physical or mental is unresolved.",
+     "Whether 'yadaiva' is temporal or conditional is unresolved."
+    ],
+    "traces": {
+     "t1_verse": "bh-p07",
+     "l0_ids": [
+      "bh-p07-p000",
+      "bh-p07-p001",
+      "bh-p07-p002",
+      "bh-p07-p003",
+      "bh-p07-p004",
+      "bh-p07-p005",
+      "bh-p07-p006",
+      "bh-p07-p007",
+      "bh-p07-p008",
+      "bh-p07-p009",
+      "bh-p07-p010"
+     ]
+    },
+    "sanskrit_sha": "2374acf63bc82cc8",
+    "option_choices": []
+   },
+   "bh-p08": {
+    "verse_id": "bh-p08",
+    "song": "bh-p08",
+    "verse": 8,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (devotee's voice, first-person address)",
+    "question": "What do rites and scripture each accomplish?",
+    "premises": [
+     "Truly (satyam), O Śaṅkara: vow (vrata), giving (dāna), bathing (snāna), austerity (tapas) — dispels (vidāri) becoming's heat (bhavatāpa).",
+     "Rites relativized, not despised: heat dispelled by rites.",
+     "Contemplation (cintā) of Your (tāvaka) scripture (śāstra) as supreme nectar (parāmṛta), in mind (cetasi), streams (syandati) a bliss-stream (nirvṛtidhārā).",
+     "Heat dispelled by rites; bliss streamed by contemplation."
+    ],
+    "inference": "Two means, two results: rites dispel heat, contemplation streams bliss.",
+    "uncertainties": [
+     "Whether 'vadeśakālam' is obscure or means 'place-and-time under control' is unresolved.",
+     "Whether the rites are listed exhaustively or exemplarily is unresolved."
+    ],
+    "traces": {
+     "t1_verse": "bh-p08",
+     "l0_ids": [
+      "bh-p08-p000",
+      "bh-p08-p001",
+      "bh-p08-p002",
+      "bh-p08-p003",
+      "bh-p08-p004",
+      "bh-p08-p005",
+      "bh-p08-p006",
+      "bh-p08-p007",
+      "bh-p08-p008",
+      "bh-p08-p009"
+     ]
+    },
+    "sanskrit_sha": "4cca3e92aca197ce",
+    "option_choices": []
+   },
+   "bh-p09": {
+    "verse_id": "bh-p09",
+    "song": "bh-p09",
+    "verse": 9,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (devotee's voice, first-person rejoicing)",
+    "question": "What is obtaining, and who obtains?",
+    "premises": [
+     "This consciousness of mine (saṃvid iyaṃ mama) dances (nṛtyati), sings (gāyati), deeply (gāḍham) rejoices (hṛṣyati) — O Bhairava-Lord.",
+     "Having obtained (āpya) You, the dear (priyam): the beautiful vision alone (sudarśanam ekam), hard to get by others (durlabham anyajanaiḥ).",
+     "Addressed to, and fenced to, the knower of the samaya (samayajña).",
+     "Joy first, then its cause named: obtaining = vision, rare by structure."
+    ],
+    "inference": "Joy, then its cause: obtaining is vision, rare by structure and fenced to the initiated.",
+    "uncertainties": [
+     "Whether 'samayajña' is vocative or qualifier converging on the same fence is unresolved.",
+     "Whether 'sudarśanam ekam' means 'the one beautiful vision' or 'beautiful vision alone' is unresolved."
+    ],
+    "traces": {
+     "t1_verse": "bh-p09",
+     "l0_ids": [
+      "bh-p09-p000",
+      "bh-p09-p001",
+      "bh-p09-p002",
+      "bh-p09-p003",
+      "bh-p09-p004",
+      "bh-p09-p005",
+      "bh-p09-p006",
+      "bh-p09-p007",
+      "bh-p09-p008",
+      "bh-p09-p009",
+      "bh-p09-p010",
+      "bh-p09-p011",
+      "bh-p09-p012",
+      "bh-p09-p013"
+     ]
+    },
+    "sanskrit_sha": "2042d69de95f5365",
+    "option_choices": []
+   },
+   "bh-p10": {
+    "verse_id": "bh-p10",
+    "song": "bh-p10",
+    "verse": 10,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (devotee's voice, first-person colophon)",
+    "question": "What does the dated, signed hymn accomplish?",
+    "premises": [
+     "In the month of Pauṣa, on the dark tenth, Abhinavagupta made this hymn: dated, signed.",
+     "By whom (yena) — devotee or hymn, undivided in effect — the pervasive (vibhuḥ), compassionate (dayāluḥ) Lord becomes (bhavati), pacifies (śamayati) the world's desert-heat of becoming — instantly (jhaṭiti).",
+     "The dated hymn turns outward: private recognition cools the world.",
+     "The verse moves from colophon to pacification to speed: inward dissolution (v.1) to world-pacification."
+    ],
+    "inference": "Dated and signed: the hymn turns outward, private recognition cools the world.",
+    "uncertainties": [
+     "Whether 'yena' refers to devotee or hymn is unresolved.",
+     "Whether 'bhavamarusantāpa' is physical or existential heat is unresolved."
+    ],
+    "traces": {
+     "t1_verse": "bh-p10",
+     "l0_ids": [
+      "bh-p10-p000",
+      "bh-p10-p001",
+      "bh-p10-p002",
+      "bh-p10-p003",
+      "bh-p10-p004",
+      "bh-p10-p005",
+      "bh-p10-p006",
+      "bh-p10-p007",
+      "bh-p10-p008",
+      "bh-p10-p009",
+      "bh-p10-p010",
+      "bh-p10-p011",
+      "bh-p10-p012",
+      "bh-p10-p013"
+     ]
+    },
+    "sanskrit_sha": "6c8de0d897072c86",
+    "option_choices": []
+   }
+  },
+  "l2": {
+   "bh-p01": {
+    "verse_id": "bh-p01",
+    "song": "bh-p01",
+    "verse": 1,
+    "plain_english": "Pervading the particular states of moving and unmoving — consciousness-made, one, endless, beginningless: Bhairava-Lord, refuge of the helpless — by mind become Yours, in heart I venerate.",
+    "sanskrit_cite": "vyāptacarācarabhāvaviśeṣam cinmayam ekam anantam anādim | bhairavanātham anāthaśaraṇyaṃ tvanmayacittatayā hṛdi vande",
+    "l0_ids": [
+     "bh-p01-p000",
+     "bh-p01-p001",
+     "bh-p01-p002",
+     "bh-p01-p003",
+     "bh-p01-p004",
+     "bh-p01-p005",
+     "bh-p01-p006",
+     "bh-p01-p007",
+     "bh-p01-p008",
+     "bh-p01-p009"
+    ],
+    "trace_level": "verse"
+   },
+   "bh-p02": {
+    "verse_id": "bh-p02",
+    "song": "bh-p02",
+    "verse": 2,
+    "plain_english": "All this, become of You, now appears to me by the power of Your grace. You, Maheśa, are always my self; by You all is mine.",
+    "sanskrit_cite": "tvanmayam etad aśeṣam idānīm bhāti mama tvadanugrahaśaktyā | tvaṃ ca maheśa ! sadaiva mamā'tmā svātmamayam mama tena samastam",
+    "l0_ids": [
+     "bh-p02-p000",
+     "bh-p02-p001",
+     "bh-p02-p002",
+     "bh-p02-p003",
+     "bh-p02-p004",
+     "bh-p02-p005",
+     "bh-p02-p006",
+     "bh-p02-p007",
+     "bh-p02-p008",
+     "bh-p02-p009",
+     "bh-p02-p010",
+     "bh-p02-p011",
+     "bh-p02-p012",
+     "bh-p02-p013"
+    ],
+    "trace_level": "verse"
+   },
+   "bh-p03": {
+    "verse_id": "bh-p03",
+    "song": "bh-p03",
+    "verse": 3,
+    "plain_english": "With You as Lord, all-pervading in own self — therefore no talk of transmigration-fear. Even though hard-to-bear suffering, delusion, terror-causing karmas are present.",
+    "sanskrit_cite": "svātmani viśvagaye tvayi nāthe tena na saṃsṛtibhītikathā asti | satsvapi durdhara duḥkha vimoha trāsa vidhāyiṣu karmagaṇeṣu",
+    "l0_ids": [
+     "bh-p03-p000",
+     "bh-p03-p001",
+     "bh-p03-p002",
+     "bh-p03-p003",
+     "bh-p03-p004",
+     "bh-p03-p005",
+     "bh-p03-p006",
+     "bh-p03-p007",
+     "bh-p03-p008",
+     "bh-p03-p009",
+     "bh-p03-p010",
+     "bh-p03-p011",
+     "bh-p03-p012",
+     "bh-p03-p013",
+     "bh-p03-p014"
+    ],
+    "trace_level": "verse"
+   },
+   "bh-p04": {
+    "verse_id": "bh-p04",
+    "song": "bh-p04",
+    "verse": 4,
+    "plain_english": "O Ender, turn not toward me this most wrathful-terrible gaze. Firm in Śaṅkara-service and contemplation, I am filled with terrifying Bhairava-power.",
+    "sanskrit_cite": "antaka māṃ prati mā dṛśam enām | krodhakarālatamām vinidhehi śaṅkarasevana cintanadhīraḥ asmi bhīṣaṇabhairavaśaktimayo'smi",
+    "l0_ids": [
+     "bh-p04-p000",
+     "bh-p04-p001",
+     "bh-p04-p002",
+     "bh-p04-p003",
+     "bh-p04-p004",
+     "bh-p04-p005",
+     "bh-p04-p006",
+     "bh-p04-p007",
+     "bh-p04-p008",
+     "bh-p04-p009",
+     "bh-p04-p010",
+     "bh-p04-p011"
+    ],
+    "trace_level": "verse"
+   },
+   "bh-p05": {
+    "verse_id": "bh-p05",
+    "song": "bh-p05",
+    "verse": 5,
+    "plain_english": "Thus — great darkness dispelled by rays of world-awareness: death, Yama, the ender, karma-ghosts — Lord, salutation; never do I fear.",
+    "sanskrit_cite": "ittham upoḍhabhavanmayasaṃviddīdhitidāritabhūritamisraḥ mṛtyuyamāntakakarmapiśācaiḥ nātha ! namo'stu na jātu bibhemi",
+    "l0_ids": [
+     "bh-p05-p000",
+     "bh-p05-p001",
+     "bh-p05-p002",
+     "bh-p05-p003",
+     "bh-p05-p004",
+     "bh-p05-p005",
+     "bh-p05-p006"
+    ],
+    "trace_level": "verse"
+   },
+   "bh-p06": {
+    "verse_id": "bh-p06",
+    "song": "bh-p06",
+    "verse": 6,
+    "plain_english": "The true essence of world-objects is seen by rays of arisen true awakening. In being-full in You — I, the self, enter bliss.",
+    "sanskrit_cite": "proditasatyavibodhamarīciprekṣitaviśvapadārthasatattvaḥ bhāvaparāmṛtanirbharapūrṇe tvayi aham ātmani nirvṛtim emi",
+    "l0_ids": [
+     "bh-p06-p000",
+     "bh-p06-p001",
+     "bh-p06-p002",
+     "bh-p06-p003",
+     "bh-p06-p004",
+     "bh-p06-p005",
+     "bh-p06-p006"
+    ],
+    "trace_level": "verse"
+   },
+   "bh-p07": {
+    "verse_id": "bh-p07",
+    "song": "bh-p07",
+    "verse": 7,
+    "plain_english": "When the affliction-state, producing slight anguish, comes into the mind's range — Lord, then alone is my nondifference with You; the supreme-nectar-rain arises.",
+    "sanskrit_cite": "mānasagocaram eti yadaiva kleśadaśā tanutāpavidhātrī nātha ! tadaiva mama tvadabhedas stotraparāmṛtavṛṣṭiḥ udeti",
+    "l0_ids": [
+     "bh-p07-p000",
+     "bh-p07-p001",
+     "bh-p07-p002",
+     "bh-p07-p003",
+     "bh-p07-p004",
+     "bh-p07-p005",
+     "bh-p07-p006",
+     "bh-p07-p007",
+     "bh-p07-p008",
+     "bh-p07-p009",
+     "bh-p07-p010"
+    ],
+    "trace_level": "verse"
+   },
+   "bh-p08": {
+    "verse_id": "bh-p08",
+    "song": "bh-p08",
+    "verse": 8,
+    "plain_english": "Truly, O Śaṅkara: vow, giving, bathing, austerity dispel becoming’s heat. Contemplation of Your scripture as supreme nectar streams a bliss-stream in mind.",
+    "sanskrit_cite": "śaṅkara satyam idam vratadānasnānatapaḥ bhavatāpavidāri tāvakaśāstra parāmṛtacintā cetasi nirvṛtidhārām syandati",
+    "l0_ids": [
+     "bh-p08-p000",
+     "bh-p08-p001",
+     "bh-p08-p002",
+     "bh-p08-p003",
+     "bh-p08-p004",
+     "bh-p08-p005",
+     "bh-p08-p006",
+     "bh-p08-p007",
+     "bh-p08-p008",
+     "bh-p08-p009"
+    ],
+    "trace_level": "verse"
+   },
+   "bh-p09": {
+    "verse_id": "bh-p09",
+    "song": "bh-p09",
+    "verse": 9,
+    "plain_english": "This consciousness of mine dances, sings, deeply rejoices — O Bhairava-Lord. Having obtained You, the dear: the beautiful vision alone, hard to get by others, samaya-knower.",
+    "sanskrit_cite": "nṛtyati gāyati hṛṣyati gāḍham saṃvit iyam mama bhairavanātha tvāṃ priyam āpya sudarśanamekam durlabhamanyajanaiḥ samayajñam",
+    "l0_ids": [
+     "bh-p09-p000",
+     "bh-p09-p001",
+     "bh-p09-p002",
+     "bh-p09-p003",
+     "bh-p09-p004",
+     "bh-p09-p005",
+     "bh-p09-p006",
+     "bh-p09-p007",
+     "bh-p09-p008",
+     "bh-p09-p009",
+     "bh-p09-p010",
+     "bh-p09-p011",
+     "bh-p09-p012",
+     "bh-p09-p013"
+    ],
+    "trace_level": "verse"
+   },
+   "bh-p10": {
+    "verse_id": "bh-p10",
+    "song": "bh-p10",
+    "verse": 10,
+    "plain_english": "In the month of Pauṣa, on the dark tenth, Abhinavagupta made this hymn. The pervasive, compassionate Lord pacifies the world's desert-heat — instantly.",
+    "sanskrit_cite": "vasurasapauṣe kṛṣṇadaśamyām abhinavaguptaḥ stavam imam akarot yena vibhuḥ bhavati janasya arusantāpaṃ śamayati jhaṭiti dayāluḥ",
+    "l0_ids": [
+     "bh-p10-p000",
+     "bh-p10-p001",
+     "bh-p10-p002",
+     "bh-p10-p003",
+     "bh-p10-p004",
+     "bh-p10-p005",
+     "bh-p10-p006",
+     "bh-p10-p007",
+     "bh-p10-p008",
+     "bh-p10-p009",
+     "bh-p10-p010",
+     "bh-p10-p011",
+     "bh-p10-p012",
+     "bh-p10-p013"
+    ],
+    "trace_level": "verse"
+   }
+  },
+  "c1": {
+   "bh-p01": {
+    "song": "bh-p01",
+    "essence": [
+     "Bhairava is established as all-pervading conscious reality: one, endless, beginningless — the Absolute that pervades moving and unmoving states.",
+     "The Lord is then venerated as refuge of the helpless by a mind become His — veneration as mental absorption, not ritual offering.",
+     "The nirukta of Bhairava (bearing/supporting, the Roar of AHAM, benefactor of the terrified) is here performed, not stated: the name is lived.",
+     "Total surrender is sized to its object — the all-pervading consciousness is venerated by absorption into it."
+    ],
+    "essence_source": "human-sharpened",
+    "renders": {
+     "standard": {
+      "style": "standard",
+      "sections": {
+       "SUMMARY": "The Lord is established as all-pervading conscious reality — one, endless, beginningless — then venerated as refuge of the helpless by a mind become His.",
+       "FUNCTION": "",
+       "KEY TERMS": "",
+       "LOCAL CONTEXT": "",
+       "EXPLANATION": "",
+       "BOUNDARY": "",
+       "RELATED": ""
+      }
+     }
+    },
+    "rasa": {
+     "dominant": "śānta (tranquility) with adbhuta (wonder)",
+     "sthayibhava": "śānta (tranquility) as veneration of all-pervading consciousness",
+     "justification": "The sthāyibhāva is devotion (bhakti) in the mode of veneration (vandana); the vyabhicāri is wonder (camatkāra) at consciousness pervading all. The rasa is not erotic or heroic but the tranquility of recognition beginning: the Absolute named, the devotee absorbed. Abhinava's own rasa theory (rasadhvani) is here the frame, not decoration — the verse aims at relish (camatkāra) of the Absolute, and the C1 names that relish."
+    }
+   },
+   "bh-p02": {
+    "song": "bh-p02",
+    "essence": [
+     "Grace first discloses the world as His, without remainder, now — then identity is declared outright: Maheśa, always my self, and all mine through Him.",
+     "Appearance, then ownership: grace showing the world as His before identity claims it.",
+     "The non-dual recognition (pratyabhijñā) is here performed as a two-step: disclosure, then declaration."
+    ],
+    "essence_source": "human-sharpened",
+    "renders": {
+     "standard": {
+      "style": "standard",
+      "sections": {
+       "SUMMARY": "Grace first discloses the world as His; then identity declared outright: Maheśa, always my self — and all mine through Him.",
+       "FUNCTION": "",
+       "KEY TERMS": "",
+       "LOCAL CONTEXT": "",
+       "EXPLANATION": "",
+       "BOUNDARY": "",
+       "RELATED": ""
+      }
+     }
+    },
+    "rasa": {
+     "dominant": "śānta (tranquility) with adbhuta (wonder)",
+     "sthayibhava": "śānta (tranquility) as non-dual identity",
+     "justification": "The sthāyibhāva is devotion (bhakti) in the mode of recognition (pratyabhijñā); the vyabhicāri is wonder (camatkāra) at grace disclosing the world as His. The rasa is the tranquility of non-dual identity, not the joy of acquisition — all is mine already, through Him."
+    }
+   },
+   "bh-p03": {
+    "song": "bh-p03",
+    "essence": [
+     "Fear-talk is denied while suffering is conceded: with You as Lord pervading own self, no talk of transmigration-fear.",
+     "Even though hard-to-bear suffering, delusion, terror-causing karmas stand — no-fear and full-suffering together, resolved within it, not deferred.",
+     "The non-dual recognition does not deny affliction; it denies fear of it."
+    ],
+    "essence_source": "human-sharpened",
+    "renders": {
+     "standard": {
+      "style": "standard",
+      "sections": {
+       "SUMMARY": "Fear-talk denied while suffering conceded: no discussion of transmigration-fear, yet affliction stands granted — denial and concession in one breath.",
+       "FUNCTION": "",
+       "KEY TERMS": "",
+       "LOCAL CONTEXT": "",
+       "EXPLANATION": "",
+       "BOUNDARY": "",
+       "RELATED": ""
+      }
+     }
+    },
+    "rasa": {
+     "dominant": "śānta (tranquility) with karuṇa (compassion)",
+     "sthayibhava": "śānta (tranquility) as no fear-talk, suffering conceded",
+     "justification": "The sthāyibhāva is devotion (bhakti) in the mode of fearless recognition; the vyabhicāri is concession (anukampa) of suffering without fear. The rasa is the tranquility of non-dual recognition facing suffering — not the joy of denial but the peace of no-fear."
+    }
+   },
+   "bh-p04": {
+    "song": "bh-p04",
+    "essence": [
+     "Death's gaze is turned aside by prayer: O Ender, do not direct this wrathful-terrible gaze toward me.",
+     "The ground of the prayer: firm in Śaṅkara-service and contemplation, filled with terrifying Bhairava-power — asmi (I am).",
+     "Power first invoked against death's gaze, then declared as state. Śaṅkara here is Śiva, not Śaṅkarācārya."
+    ],
+    "essence_source": "human-sharpened",
+    "renders": {
+     "standard": {
+      "style": "standard",
+      "sections": {
+       "SUMMARY": "Death's gaze turned aside by prayer; service and firm contemplation produce the power-filled state, testified with asmi — I am.",
+       "FUNCTION": "",
+       "KEY TERMS": "",
+       "LOCAL CONTEXT": "",
+       "EXPLANATION": "",
+       "BOUNDARY": "",
+       "RELATED": ""
+      }
+     }
+    },
+    "rasa": {
+     "dominant": "vīra (heroism) with adbhuta (wonder)",
+     "sthayibhava": "vīra (heroism) as the power-filled state",
+     "justification": "The sthāyibhāva is devotion (bhakti) in the mode of prayer (prārthanā); the vyabhicāri is courage (dhairya) filled with Bhairava-power. The rasa is heroic, not tranquil — the devotee declares power against death's gaze. Abhinava's rasa theory frames this as vīra: the sthāyibhāva of utsāha (energy) aimed at the Absolute."
+    }
+   },
+   "bh-p05": {
+    "song": "bh-p05",
+    "essence": [
+     "Darkness already burned away by awareness; four terrors then met with salutation alone, yielding absolute fearlessness.",
+     "Awareness burned the dark before the terrors were named; salutation finishes what light began.",
+     "It moves from accomplished fact (darkness dispelled) to catalogue (terrors) to response (salutation) to result (no fear)."
+    ],
+    "essence_source": "human-sharpened",
+    "renders": {
+     "standard": {
+      "style": "standard",
+      "sections": {
+       "SUMMARY": "Darkness already burned away by awareness; four terrors then met with salutation alone, yielding absolute fearlessness.",
+       "FUNCTION": "",
+       "KEY TERMS": "",
+       "LOCAL CONTEXT": "",
+       "EXPLANATION": "",
+       "BOUNDARY": "",
+       "RELATED": ""
+      }
+     }
+    },
+    "rasa": {
+     "dominant": "śānta (tranquility) with adbhuta (wonder)",
+     "sthayibhava": "śānta (tranquility) as fearlessness",
+     "justification": "The sthāyibhāva is devotion (bhakti) in the mode of fearlessness (abhaya); the vyabhicāri is wonder (camatkāra) at darkness dispelled. The rasa is the tranquility of no-fear, not the thrill of confrontation — the terrors are met with salutation, not defiance."
+    }
+   },
+   "bh-p06": {
+    "song": "bh-p06",
+    "essence": [
+     "True awakening discloses things as they are: its rays reveal the true essence of world-objects.",
+     "In You, being-full, I the self enter bliss — ingress, not feeling.",
+     "Awakening discloses; entry is bliss; pūrṇa (full/complete) is the Lord's nature."
+    ],
+    "essence_source": "human-sharpened",
+    "renders": {
+     "standard": {
+      "style": "standard",
+      "sections": {
+       "SUMMARY": "True awakening discloses things as they are; bliss is entry into the Lord's fullness — ingress, not feeling.",
+       "FUNCTION": "",
+       "KEY TERMS": "",
+       "LOCAL CONTEXT": "",
+       "EXPLANATION": "",
+       "BOUNDARY": "",
+       "RELATED": ""
+      }
+     }
+    },
+    "rasa": {
+     "dominant": "ānanda (bliss) with adbhuta (wonder)",
+     "sthayibhava": "ānanda (bliss) as entry into the Lord's fullness",
+     "justification": "The sthāyibhāva is devotion (bhakti) in the mode of entry (praveśa); the vyabhicāri is bliss (ānanda) of awakening. The rasa is bliss as ingress, not as feeling — the devotee enters what the Lord already is."
+    }
+   },
+   "bh-p07": {
+    "song": "bh-p07",
+    "essence": [
+     "Affliction's arrival is the occasion, not the obstacle: with it comes nondifference, and nectar arises.",
+     "Affliction's arrival dated as nondifference's occasion: with it, not after it, the nectar rains.",
+     "It inverts the expected: suffering is not the enemy of recognition but its trigger."
+    ],
+    "essence_source": "human-sharpened",
+    "renders": {
+     "standard": {
+      "style": "standard",
+      "sections": {
+       "SUMMARY": "Affliction's arrival is the occasion, not the obstacle: with it comes nondifference, and nectar arises.",
+       "FUNCTION": "",
+       "KEY TERMS": "",
+       "LOCAL CONTEXT": "",
+       "EXPLANATION": "",
+       "BOUNDARY": "",
+       "RELATED": ""
+      }
+     }
+    },
+    "rasa": {
+     "dominant": "śānta (tranquility) with adbhuta (wonder)",
+     "sthayibhava": "śānta (tranquility) as nondifference arising",
+     "justification": "The sthāyibhāva is devotion (bhakti) in the mode of nondifference (abheda); the vyabhicāri is joy (harṣa) that affliction is the occasion. The rasa is the tranquility of recognition in suffering — not the joy of pain but the peace that suffering is not other."
+    }
+   },
+   "bh-p08": {
+    "song": "bh-p08",
+    "essence": [
+     "Rites are relativized: vow, giving, bathing, austerity dispel becoming's heat — while scripture contemplated as nectar irrigates the mind with a bliss-stream.",
+     "Heat dispelled by rites; bliss streamed by contemplation. Two means, two results.",
+     "Rites are not despised; they are relativized, then the higher means offered."
+    ],
+    "essence_source": "human-sharpened",
+    "renders": {
+     "standard": {
+      "style": "standard",
+      "sections": {
+       "SUMMARY": "Rites relativized — vow, giving, bathing, austerity dispel heat — while scripture contemplated as nectar irrigates the mind with a bliss-stream.",
+       "FUNCTION": "",
+       "KEY TERMS": "",
+       "LOCAL CONTEXT": "",
+       "EXPLANATION": "",
+       "BOUNDARY": "",
+       "RELATED": ""
+      }
+     }
+    },
+    "rasa": {
+     "dominant": "śānta (tranquility)",
+     "sthayibhava": "śānta (tranquility) as rites relativized",
+     "justification": "The sthāyibhāva is devotion (bhakti) in the mode of contemplation (cintā); the vyabhicāri is peace (śānti) of the bliss-streamed mind. The rasa is the tranquility of contemplation, not the austerity of rites."
+    }
+   },
+   "bh-p09": {
+    "song": "bh-p09",
+    "essence": [
+     "Consciousness dances and sings; obtaining the Lord is defined as rare vision — fenced to the initiated.",
+     "Joy first, then its cause named: obtaining = vision, rare by structure.",
+     "It moves from rejoicing to the definition of obtaining as vision, fenced to the knower of the samaya."
+    ],
+    "essence_source": "human-sharpened",
+    "renders": {
+     "standard": {
+      "style": "standard",
+      "sections": {
+       "SUMMARY": "Consciousness dances and sings; obtaining the Lord is defined as rare vision — fenced to the initiated.",
+       "FUNCTION": "",
+       "KEY TERMS": "",
+       "LOCAL CONTEXT": "",
+       "EXPLANATION": "",
+       "BOUNDARY": "",
+       "RELATED": ""
+      }
+     }
+    },
+    "rasa": {
+     "dominant": "ānanda (bliss) with adbhuta (wonder)",
+     "sthayibhava": "ānanda (bliss) as rejoicing consciousness",
+     "justification": "The sthāyibhāva is devotion (bhakti) in the mode of rejoicing (hṛṣṭi); the vyabhicāri is joy (camatkāra) of obtaining the vision. The rasa is bliss as spontaneous joy, then defined as vision — not emotion but recognition."
+    }
+   },
+   "bh-p10": {
+    "song": "bh-p10",
+    "essence": [
+     "Dated and signed, it turns outward: the compassionate Lord pacifies the world's heat instantly.",
+     "What began in the heart ends in the world: private recognition cools the world.",
+     "The colophon dates the composition (Pauṣa, Kṛṣṇa Daśamī) and signs it (Abhinavagupta), then turns to the world."
+    ],
+    "essence_source": "human-sharpened",
+    "renders": {
+     "standard": {
+      "style": "standard",
+      "sections": {
+       "SUMMARY": "Dated and signed, it turns outward: the compassionate Lord pacifies the world's heat instantly — what began in the heart ends in the world.",
+       "FUNCTION": "",
+       "KEY TERMS": "",
+       "LOCAL CONTEXT": "",
+       "EXPLANATION": "",
+       "BOUNDARY": "",
+       "RELATED": ""
+      }
+     }
+    },
+    "rasa": {
+     "dominant": "śānta (tranquility) with karuṇa (compassion)",
+     "sthayibhava": "śānta (tranquility) as pacification of the world",
+     "justification": "The sthāyibhāva is devotion (bhakti) in the mode of pacification (śamana); the vyabhicāri is compassion (karuṇā) of the dated hymn. The rasa is the tranquility of compassion — the hymn that began in inward dissolution ends in world-pacification."
+    }
+   }
+  },
+  "l3": {
+   "bh-p01": {
+    "verse_id": "bh-p01",
+    "song": "bh-p01",
+    "verse": 1,
+    "lines": [
+     "Pervading every state of moving and unmoving, consciousness itself is one — without end or beginning.",
+     "Bhairava, Lord, refuge of the helpless — with a mind become Yours, in my heart, I bow."
+    ],
+    "sanskrit_cite": "vyāptacarācarabhāvaviśeṣaṃ cinmayam ekam anantam anādim bhairavanātham anāthaśaraṇyaṃ tvanmayacittatayā hṛdi vande",
+    "l0_ids": [
+     "bh-p01-p000",
+     "bh-p01-p001",
+     "bh-p01-p002",
+     "bh-p01-p003",
+     "bh-p01-p004",
+     "bh-p01-p005",
+     "bh-p01-p006",
+     "bh-p01-p007",
+     "bh-p01-p008",
+     "bh-p01-p009"
+    ],
+    "essence_maps": [
+     0,
+     1
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "bh-p02": {
+    "verse_id": "bh-p02",
+    "song": "bh-p02",
+    "verse": 2,
+    "lines": [
+     "All this, become Yours without remainder, now appears to me by the power of Your grace.",
+     "You, Maheśa, are ever my own self — made of You, all is mine through You."
+    ],
+    "sanskrit_cite": "tvanmayam etad aśeṣam idānīṃ bhāti mama tvadanugrahaśaktyā tvaṃ ca maheśa sadaiva mamātmā svātmamayaṃ mama tena samastam",
+    "l0_ids": [
+     "bh-p02-p000",
+     "bh-p02-p001",
+     "bh-p02-p002",
+     "bh-p02-p003",
+     "bh-p02-p004",
+     "bh-p02-p005",
+     "bh-p02-p006",
+     "bh-p02-p007",
+     "bh-p02-p008",
+     "bh-p02-p009",
+     "bh-p02-p010",
+     "bh-p02-p011",
+     "bh-p02-p012",
+     "bh-p02-p013"
+    ],
+    "essence_maps": [
+     0,
+     1,
+     2
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": [
+     "svātmamaya kept constitutive (‘made of You’), not identity — see NOTE boundary"
+    ]
+   },
+   "bh-p03": {
+    "verse_id": "bh-p03",
+    "song": "bh-p03",
+    "verse": 3,
+    "lines": [
+     "You, Lord, pervade my own self — so there is no talk of transmigration-fear.",
+     "Even while hard-to-bear suffering, delusion, and terror-causing karma-hosts stand."
+    ],
+    "sanskrit_cite": "svātmani viśvagaye tvayi nāthe tena na saṃsṛtibhītikathāsti satsv api durdharaduḥkhavimohatrāsavidhāyiṣu karmagaṇeṣu",
+    "l0_ids": [
+     "bh-p03-p000",
+     "bh-p03-p001",
+     "bh-p03-p002",
+     "bh-p03-p003",
+     "bh-p03-p004",
+     "bh-p03-p005",
+     "bh-p03-p006",
+     "bh-p03-p007",
+     "bh-p03-p008",
+     "bh-p03-p009",
+     "bh-p03-p010",
+     "bh-p03-p011",
+     "bh-p03-p012",
+     "bh-p03-p013",
+     "bh-p03-p014"
+    ],
+    "essence_maps": [
+     0,
+     1,
+     2
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "bh-p04": {
+    "verse_id": "bh-p04",
+    "song": "bh-p04",
+    "verse": 4,
+    "lines": [
+     "O Ender — turn from me this most wrathful and terrible gaze.",
+     "Steadfast in Śaṅkara’s service and contemplation, I am filled with dread Bhairava-power."
+    ],
+    "sanskrit_cite": "antaka māṃ prati mā dṛśam enāṃ krodhakarālatamāṃ vinidhehi śaṅkarasevanacintanadhīro bhīṣaṇabhairavaśaktimayo 'smi",
+    "l0_ids": [
+     "bh-p04-p000",
+     "bh-p04-p001",
+     "bh-p04-p002",
+     "bh-p04-p003",
+     "bh-p04-p004",
+     "bh-p04-p005",
+     "bh-p04-p006",
+     "bh-p04-p007",
+     "bh-p04-p008",
+     "bh-p04-p009",
+     "bh-p04-p010",
+     "bh-p04-p011"
+    ],
+    "essence_maps": [
+     0,
+     1
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "bh-p05": {
+    "verse_id": "bh-p05",
+    "song": "bh-p05",
+    "verse": 5,
+    "lines": [
+     "Thus — the great darkness, taken on with becoming, is dispelled by awareness’s rays:",
+     "Death, Yama, the Ender, karma-ghosts — Lord, salutation: never shall I fear."
+    ],
+    "sanskrit_cite": "ittham upoḍhabhavanmayasaṃviddīdhitidāritabhūritamisraḥ mṛtyuyamāntakakarmapiśācaiḥ nātha ! namo'stu na jātu bibhemi",
+    "l0_ids": [
+     "bh-p05-p000",
+     "bh-p05-p001",
+     "bh-p05-p002",
+     "bh-p05-p003",
+     "bh-p05-p004",
+     "bh-p05-p005",
+     "bh-p05-p006"
+    ],
+    "essence_maps": [
+     0,
+     1,
+     2
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": [
+     "upoḍha read ‘taken on’ (against L0 ‘torn-asunder’); tamisra is darkness (against L0 ‘mixed’)"
+    ]
+   },
+   "bh-p06": {
+    "verse_id": "bh-p06",
+    "song": "bh-p06",
+    "verse": 6,
+    "lines": [
+     "True awakening has dawned — its rays reveal each thing’s true essence:",
+     "In You — brimming full of supreme nectar — I myself enter bliss."
+    ],
+    "sanskrit_cite": "proditasatyavibodhamarīciprekṣitaviśvapadārthasatattvaḥ bhāvaparāmṛtanirbharapūrṇe tvayi aham ātmani nirvṛtim emi",
+    "l0_ids": [
+     "bh-p06-p000",
+     "bh-p06-p001",
+     "bh-p06-p002",
+     "bh-p06-p003",
+     "bh-p06-p004",
+     "bh-p06-p005",
+     "bh-p06-p006"
+    ],
+    "essence_maps": [
+     0,
+     1,
+     2
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "bh-p07": {
+    "verse_id": "bh-p07",
+    "song": "bh-p07",
+    "verse": 7,
+    "lines": [
+     "Whenever affliction, dealing slight anguish, comes within the mind’s reach —",
+     "then alone, Lord, my nondifference from You: the hymn rains supreme nectar."
+    ],
+    "sanskrit_cite": "mānasagocaram eti yadaiva kleśadaśā tanutāpavidhātrī nātha ! tadaiva mama tvadabhedas stotraparāmṛtavṛṣṭiḥ udeti",
+    "l0_ids": [
+     "bh-p07-p000",
+     "bh-p07-p001",
+     "bh-p07-p002",
+     "bh-p07-p003",
+     "bh-p07-p004",
+     "bh-p07-p005",
+     "bh-p07-p006",
+     "bh-p07-p007",
+     "bh-p07-p008",
+     "bh-p07-p009",
+     "bh-p07-p010"
+    ],
+    "essence_maps": [
+     0,
+     1,
+     2
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "bh-p08": {
+    "verse_id": "bh-p08",
+    "song": "bh-p08",
+    "verse": 8,
+    "lines": [
+     "Truly, Śaṅkara — vow, giving, bathing, austerity: they dispel becoming’s heat.",
+     "But contemplating Your scripture as supreme nectar pours a bliss-stream in the mind."
+    ],
+    "sanskrit_cite": "śaṅkara satyam idam vratadānasnānatapaḥ bhavatāpavidāri tāvakaśāstra parāmṛtacintā cetasi nirvṛtidhārām syandati",
+    "l0_ids": [
+     "bh-p08-p000",
+     "bh-p08-p001",
+     "bh-p08-p002",
+     "bh-p08-p003",
+     "bh-p08-p004",
+     "bh-p08-p005",
+     "bh-p08-p006",
+     "bh-p08-p007",
+     "bh-p08-p008",
+     "bh-p08-p009"
+    ],
+    "essence_maps": [
+     0,
+     1
+    ],
+    "fidelity": "supplied",
+    "needs": [
+     "human-review"
+    ],
+    "supplied": [
+     "they (plural subject of dispel)",
+     "But (lower/higher means contrast)"
+    ]
+   },
+   "bh-p09": {
+    "verse_id": "bh-p09",
+    "song": "bh-p09",
+    "verse": 9,
+    "lines": [
+     "This consciousness of mine dances, sings, rejoices deeply — O Bhairava, Lord:",
+     "having won You, my dear — a single beautiful vision, hard for others to obtain, kept for knowers of the covenant."
+    ],
+    "sanskrit_cite": "nṛtyati gāyati hṛṣyati gāḍham saṃvit iyam mama bhairavanātha tvāṃ priyam āpya sudarśanamekam durlabhamanyajanaiḥ samayajñam",
+    "l0_ids": [
+     "bh-p09-p000",
+     "bh-p09-p001",
+     "bh-p09-p002",
+     "bh-p09-p003",
+     "bh-p09-p004",
+     "bh-p09-p005",
+     "bh-p09-p006",
+     "bh-p09-p007",
+     "bh-p09-p008",
+     "bh-p09-p009",
+     "bh-p09-p010",
+     "bh-p09-p011",
+     "bh-p09-p012",
+     "bh-p09-p013"
+    ],
+    "essence_maps": [
+     0,
+     1,
+     2
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": [
+     "sudarśanam ekam as ‘a single beautiful vision’ (boundary open); samayajñam as qualifier (fence), with C1"
+    ]
+   },
+   "bh-p10": {
+    "verse_id": "bh-p10",
+    "song": "bh-p10",
+    "verse": 10,
+    "lines": [
+     "In the Vasura year, in Pauṣa, on the dark tenth — Abhinavagupta composed this hymn —",
+     "by which the pervasive, compassionate Lord in a flash stills the people’s desert-heat of becoming."
+    ],
+    "sanskrit_cite": "vasurasapauṣe kṛṣṇadaśamyām abhinavaguptaḥ stavam imam akarot yena vibhuḥ bhavati janasya arusantāpaṃ śamayati jhaṭiti dayāluḥ",
+    "l0_ids": [
+     "bh-p10-p000",
+     "bh-p10-p001",
+     "bh-p10-p002",
+     "bh-p10-p003",
+     "bh-p10-p004",
+     "bh-p10-p005",
+     "bh-p10-p006",
+     "bh-p10-p007",
+     "bh-p10-p008",
+     "bh-p10-p009",
+     "bh-p10-p010",
+     "bh-p10-p011",
+     "bh-p10-p012",
+     "bh-p10-p013"
+    ],
+    "essence_maps": [
+     0,
+     1,
+     2
+    ],
+    "fidelity": "not-resolved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": [
+     "follows bhavamaru (desert-heat of becoming) with L0/NOTE-terms against printed bhavati…arusantāpaṃ; SA untouched pending adjudication",
+     "vasurasa kept as year-name (cf. Dyczkowski Vasura-saṃvatsara)"
+    ]
+   }
+  },
+  "l4": {
+   "bh-p01": {
+    "verse_id": "bh-p01",
+    "song": "bh-p01",
+    "verse": 1,
+    "lines": [
+     "Pervading every state of moving and unmoving, consciousness itself is one — without end or beginning.",
+     "Bhairava, Lord, refuge of the helpless — with a mind become Yours, in my heart, I bow."
+    ],
+    "sanskrit_cite": "vyāptacarācarabhāvaviśeṣaṃ cinmayam ekam anantam anādim bhairavanātham anāthaśaraṇyaṃ tvanmayacittatayā hṛdi vande",
+    "l0_ids": [
+     "bh-p01-p000",
+     "bh-p01-p001",
+     "bh-p01-p002",
+     "bh-p01-p003",
+     "bh-p01-p004",
+     "bh-p01-p005",
+     "bh-p01-p006",
+     "bh-p01-p007",
+     "bh-p01-p008",
+     "bh-p01-p009"
+    ],
+    "essence_maps": [
+     0,
+     1
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "bh-p02": {
+    "verse_id": "bh-p02",
+    "song": "bh-p02",
+    "verse": 2,
+    "lines": [
+     "All this, become Yours without remainder, now appears to me by the power of Your grace.",
+     "You, Maheśa, are ever my own self — made of You, all is mine through You."
+    ],
+    "sanskrit_cite": "tvanmayam etad aśeṣam idānīṃ bhāti mama tvadanugrahaśaktyā tvaṃ ca maheśa sadaiva mamātmā svātmamayaṃ mama tena samastam",
+    "l0_ids": [
+     "bh-p02-p000",
+     "bh-p02-p001",
+     "bh-p02-p002",
+     "bh-p02-p003",
+     "bh-p02-p004",
+     "bh-p02-p005",
+     "bh-p02-p006",
+     "bh-p02-p007",
+     "bh-p02-p008",
+     "bh-p02-p009",
+     "bh-p02-p010",
+     "bh-p02-p011",
+     "bh-p02-p012",
+     "bh-p02-p013"
+    ],
+    "essence_maps": [
+     0,
+     1,
+     2
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": [
+     "svātmamaya kept constitutive (‘made of You’), not identity — see NOTE boundary"
+    ]
+   },
+   "bh-p03": {
+    "verse_id": "bh-p03",
+    "song": "bh-p03",
+    "verse": 3,
+    "lines": [
+     "You, Lord, pervade my own self — so there is no talk of transmigration-fear.",
+     "Even while hard-to-bear suffering, delusion, and terror-causing karma-hosts stand."
+    ],
+    "sanskrit_cite": "svātmani viśvagaye tvayi nāthe tena na saṃsṛtibhītikathāsti satsv api durdharaduḥkhavimohatrāsavidhāyiṣu karmagaṇeṣu",
+    "l0_ids": [
+     "bh-p03-p000",
+     "bh-p03-p001",
+     "bh-p03-p002",
+     "bh-p03-p003",
+     "bh-p03-p004",
+     "bh-p03-p005",
+     "bh-p03-p006",
+     "bh-p03-p007",
+     "bh-p03-p008",
+     "bh-p03-p009",
+     "bh-p03-p010",
+     "bh-p03-p011",
+     "bh-p03-p012",
+     "bh-p03-p013",
+     "bh-p03-p014"
+    ],
+    "essence_maps": [
+     0,
+     1,
+     2
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "bh-p04": {
+    "verse_id": "bh-p04",
+    "song": "bh-p04",
+    "verse": 4,
+    "lines": [
+     "O Ender — turn from me this most wrathful and terrible gaze.",
+     "Steadfast in Śaṅkara’s service and contemplation, I am filled with dread Bhairava-power."
+    ],
+    "sanskrit_cite": "antaka māṃ prati mā dṛśam enāṃ krodhakarālatamāṃ vinidhehi śaṅkarasevanacintanadhīro bhīṣaṇabhairavaśaktimayo 'smi",
+    "l0_ids": [
+     "bh-p04-p000",
+     "bh-p04-p001",
+     "bh-p04-p002",
+     "bh-p04-p003",
+     "bh-p04-p004",
+     "bh-p04-p005",
+     "bh-p04-p006",
+     "bh-p04-p007",
+     "bh-p04-p008",
+     "bh-p04-p009",
+     "bh-p04-p010",
+     "bh-p04-p011"
+    ],
+    "essence_maps": [
+     0,
+     1
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "bh-p05": {
+    "verse_id": "bh-p05",
+    "song": "bh-p05",
+    "verse": 5,
+    "lines": [
+     "Thus — the great darkness, taken on with becoming, is dispelled by awareness’s rays:",
+     "Death, Yama, the Ender, karma-ghosts — Lord, salutation: never shall I fear."
+    ],
+    "sanskrit_cite": "ittham upoḍhabhavanmayasaṃviddīdhitidāritabhūritamisraḥ mṛtyuyamāntakakarmapiśācaiḥ nātha ! namo'stu na jātu bibhemi",
+    "l0_ids": [
+     "bh-p05-p000",
+     "bh-p05-p001",
+     "bh-p05-p002",
+     "bh-p05-p003",
+     "bh-p05-p004",
+     "bh-p05-p005",
+     "bh-p05-p006"
+    ],
+    "essence_maps": [
+     0,
+     1,
+     2
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": [
+     "upoḍha read ‘taken on’ (against L0 ‘torn-asunder’); tamisra is darkness (against L0 ‘mixed’)"
+    ]
+   },
+   "bh-p06": {
+    "verse_id": "bh-p06",
+    "song": "bh-p06",
+    "verse": 6,
+    "lines": [
+     "True awakening has dawned — its rays reveal each thing’s true essence:",
+     "In You — brimming full of supreme nectar — I myself enter bliss."
+    ],
+    "sanskrit_cite": "proditasatyavibodhamarīciprekṣitaviśvapadārthasatattvaḥ bhāvaparāmṛtanirbharapūrṇe tvayi aham ātmani nirvṛtim emi",
+    "l0_ids": [
+     "bh-p06-p000",
+     "bh-p06-p001",
+     "bh-p06-p002",
+     "bh-p06-p003",
+     "bh-p06-p004",
+     "bh-p06-p005",
+     "bh-p06-p006"
+    ],
+    "essence_maps": [
+     0,
+     1,
+     2
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "bh-p07": {
+    "verse_id": "bh-p07",
+    "song": "bh-p07",
+    "verse": 7,
+    "lines": [
+     "Whenever affliction, dealing slight anguish, comes within the mind’s reach —",
+     "then alone, Lord, my nondifference from You: the hymn rains supreme nectar."
+    ],
+    "sanskrit_cite": "mānasagocaram eti yadaiva kleśadaśā tanutāpavidhātrī nātha ! tadaiva mama tvadabhedas stotraparāmṛtavṛṣṭiḥ udeti",
+    "l0_ids": [
+     "bh-p07-p000",
+     "bh-p07-p001",
+     "bh-p07-p002",
+     "bh-p07-p003",
+     "bh-p07-p004",
+     "bh-p07-p005",
+     "bh-p07-p006",
+     "bh-p07-p007",
+     "bh-p07-p008",
+     "bh-p07-p009",
+     "bh-p07-p010"
+    ],
+    "essence_maps": [
+     0,
+     1,
+     2
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "bh-p08": {
+    "verse_id": "bh-p08",
+    "song": "bh-p08",
+    "verse": 8,
+    "lines": [
+     "Truly, Śaṅkara — vow, giving, bathing, austerity: they dispel becoming’s heat.",
+     "But contemplating Your scripture as supreme nectar pours a bliss-stream in the mind."
+    ],
+    "sanskrit_cite": "śaṅkara satyam idam vratadānasnānatapaḥ bhavatāpavidāri tāvakaśāstra parāmṛtacintā cetasi nirvṛtidhārām syandati",
+    "l0_ids": [
+     "bh-p08-p000",
+     "bh-p08-p001",
+     "bh-p08-p002",
+     "bh-p08-p003",
+     "bh-p08-p004",
+     "bh-p08-p005",
+     "bh-p08-p006",
+     "bh-p08-p007",
+     "bh-p08-p008",
+     "bh-p08-p009"
+    ],
+    "essence_maps": [
+     0,
+     1
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "bh-p09": {
+    "verse_id": "bh-p09",
+    "song": "bh-p09",
+    "verse": 9,
+    "lines": [
+     "This consciousness of mine dances, sings, rejoices deeply — O Bhairava, Lord:",
+     "having won You, my dear — a single beautiful vision, hard for others to obtain, kept for knowers of the covenant."
+    ],
+    "sanskrit_cite": "nṛtyati gāyati hṛṣyati gāḍham saṃvit iyam mama bhairavanātha tvāṃ priyam āpya sudarśanamekam durlabhamanyajanaiḥ samayajñam",
+    "l0_ids": [
+     "bh-p09-p000",
+     "bh-p09-p001",
+     "bh-p09-p002",
+     "bh-p09-p003",
+     "bh-p09-p004",
+     "bh-p09-p005",
+     "bh-p09-p006",
+     "bh-p09-p007",
+     "bh-p09-p008",
+     "bh-p09-p009",
+     "bh-p09-p010",
+     "bh-p09-p011",
+     "bh-p09-p012",
+     "bh-p09-p013"
+    ],
+    "essence_maps": [
+     0,
+     1,
+     2
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": [
+     "sudarśanam ekam as ‘a single beautiful vision’ (boundary open); samayajñam as qualifier (fence), with C1"
+    ]
+   },
+   "bh-p10": {
+    "verse_id": "bh-p10",
+    "song": "bh-p10",
+    "verse": 10,
+    "lines": [
+     "In the Vasura year, in Pauṣa, on the dark tenth — Abhinavagupta composed this hymn —",
+     "by which the pervasive, compassionate Lord in a flash stills the people’s desert-heat of becoming."
+    ],
+    "sanskrit_cite": "vasurasapauṣe kṛṣṇadaśamyām abhinavaguptaḥ stavam imam akarot yena vibhuḥ bhavati janasya arusantāpaṃ śamayati jhaṭiti dayāluḥ",
+    "l0_ids": [
+     "bh-p10-p000",
+     "bh-p10-p001",
+     "bh-p10-p002",
+     "bh-p10-p003",
+     "bh-p10-p004",
+     "bh-p10-p005",
+     "bh-p10-p006",
+     "bh-p10-p007",
+     "bh-p10-p008",
+     "bh-p10-p009",
+     "bh-p10-p010",
+     "bh-p10-p011",
+     "bh-p10-p012",
+     "bh-p10-p013"
+    ],
+    "essence_maps": [
+     0,
+     1,
+     2
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": [
+     "follows bhavamaru (desert-heat of becoming) with L0/NOTE-terms against printed bhavati…arusantāpaṃ; SA untouched pending adjudication",
+     "vasurasa kept as year-name (cf. Dyczkowski Vasura-saṃvatsara)"
+    ]
+   }
+  },
+  "c2": {}
+ },
+ "source_verses": {
+  "bh-p01": {
+   "text": "vyāptacarācarabhāvaviśeṣaṃ cinmayam ekam anantam anādim bhairavanātham anāthaśaraṇyaṃ tvanmayacittatayā hṛdi vande",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": null,
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "bh-p02": {
+   "text": "tvanmayam etad aśeṣam idānīṃ bhāti mama tvadanugrahaśaktyā tvaṃ ca maheśa sadaiva mamātmā svātmamayaṃ mama tena samastam",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": null,
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "bh-p03": {
+   "text": "svātmani viśvagaye tvayi nāthe tena na saṃsṛtibhītikathāsti satsv api durdharaduḥkhavimohatrāsavidhāyiṣu karmagaṇeṣu",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": null,
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "bh-p04": {
+   "text": "antaka māṃ prati mā dṛśam enāṃ krodhakarālatamāṃ vinidhehi śaṅkarasevanacintanadhīro bhīṣaṇabhairavaśaktimayo 'smi",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": null,
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "bh-p05": {
+   "text": "ittham upoḍhabhavanmayasaṃviddīdhitidāritabhūritamisraḥ mṛtyuyamāntakakarmapiśācaiḥ nātha ! namo'stu na jātu bibhemi",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": null,
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "bh-p06": {
+   "text": "proditasatyavibodhamarīciprekṣitaviśvapadārthasatattvaḥ bhāvaparāmṛtanirbharapūrṇe tvayi aham ātmani nirvṛtim emi",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": null,
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "bh-p07": {
+   "text": "mānasagocaram eti yadaiva kleśadaśā tanutāpavidhātrī nātha ! tadaiva mama tvadabhedas stotraparāmṛtavṛṣṭiḥ udeti",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": null,
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "bh-p08": {
+   "text": "śaṅkara satyam idam vratadānasnānatapaḥ bhavatāpavidāri tāvakaśāstra parāmṛtacintā cetasi nirvṛtidhārām syandati",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": null,
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "bh-p09": {
+   "text": "nṛtyati gāyati hṛṣyati gāḍham saṃvit iyam mama bhairavanātha tvāṃ priyam āpya sudarśanamekam durlabhamanyajanaiḥ samayajñam",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": null,
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "bh-p10": {
+   "text": "vasurasapauṣe kṛṣṇadaśamyām abhinavaguptaḥ stavam imam akarot yena vibhuḥ bhavati janasya arusantāpaṃ śamayati jhaṭiti dayāluḥ",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": null,
+   "note": "Site source display; check the cited edition and full source coverage."
+  }
+ },
+ "l4_craft": {
+  "bh-p01": [
+   {
+    "file": "bhairavastava/L4-bh-p01.DRAFT.json",
+    "file_sha256": "1cf28757f1d33bd53bc0e9b9a99d4bff117bfba9d1a040f6aa256c88b074c272",
+    "l4_sha256": "ef034cf8a08c2fa61abee6dcd556878a8e1d81535ef29cc8f9a6ea0a4543709f",
+    "notes": {
+     "craft": "Full naming then bow-by-becoming (absorption not offering); nirukta performed-not-stated; carācara/anādi opens kept open.",
+     "rejected": "(a) glossing the name → killed: performed, never stated. (b) resolving particularity/negation scope → killed by UNC.",
+     "reads": "argmap Q+INF (+UNC [\"Whether 'carācarabhāvaviśeṣa' means particular states or the particularity of states is unresolved.\", \"Whether 'anādi' negates temporal beginning only or all limitation is unresolved.\", 'The nirukta is performed, not stated; the verse does not gloss its own name.']) / C1 essence / rasa śānta (tranquility) with adbhuta (wonder) / L2+L3 voice"
+    }
+   }
+  ],
+  "bh-p02": [
+   {
+    "file": "bhairavastava/L4-bh-p02.DRAFT.json",
+    "file_sha256": "a39e69d3bd2ed056a5bd74d2c13bf1da992e30e02128c328173bce3fc02dac7b",
+    "l4_sha256": "18e695558d8e7c9392079decb5ba7bbb213faf619a792ded1897c1a0e86264fb",
+    "notes": {
+     "craft": "Two-step recognition (disclosure then declaration); svātmamaya constitutive per NOTE-boundary; tena open kept open.",
+     "rejected": "(a) identity reading → killed by NOTE. (b) resolving tena → killed by UNC.",
+     "reads": "argmap Q+INF (+UNC [\"Whether 'svātmamaya' means 'made of my self' or 'self-identical' is unresolved.\", \"Whether 'tena' refers to grace or to Maheśa is unresolved.\"]) / C1 essence / rasa śānta (tranquility) with adbhuta (wonder) / L2+L3 voice"
+    }
+   }
+  ],
+  "bh-p03": [
+   {
+    "file": "bhairavastava/L4-bh-p03.DRAFT.json",
+    "file_sha256": "473e51790f3251b22cda8c9f27c2773bb3933ce2ff8fe68594cc43e8b7df59bb",
+    "l4_sha256": "7cad72a7534cde36de5b15dc3621c43546874902490ab73f086512b336432ae2",
+    "notes": {
+     "craft": "Denial-and-concession in one breath (no-fear-talk + full-suffering together); prāyeṇa/karmagaṇa opens kept.",
+     "rejected": "(a) deferring resolution → killed: resolved within, not deferred. (b) universalizing fear → killed: fear-talk denied, suffering conceded — both kept.",
+     "reads": "argmap Q+INF (+UNC [\"Whether 'prāyeṇa' (mostly) softens the claim or qualifies it is unresolved.\", \"Whether 'karmagaṇa' means masses of karma or hosts of karmic beings is unresolved.\"]) / C1 essence / rasa śānta (tranquility) with karuṇa (compassion) / L2+L3 voice"
+    }
+   }
+  ],
+  "bh-p04": [
+   {
+    "file": "bhairavastava/L4-bh-p04.DRAFT.json",
+    "file_sha256": "31c32fa6ea9ee3636ef8b6fd3663abe713ee5ef0dfd468aaf8d7be4928fe2a10",
+    "l4_sha256": "9d9a224c286c33d45f38906fb22b107934740253a10a7d1fdd51e16c6938e3ae",
+    "notes": {
+     "craft": "Prayer then ground (power declared as state); asmi open kept (achieved vs performative); Śaṅkara=Śiva resolved by context.",
+     "rejected": "(a) resolving asmi → killed by UNC. (b) begging tone → killed: state, not begging.",
+     "reads": "argmap Q+INF (+UNC [\"Whether 'asmi' is a declaration of achieved state or a performative utterance is unresolved.\", \"Whether 'śaṅkara' could refer to Śaṅkarācārya is resolved as Śiva by context.\"]) / C1 essence / rasa vīra (heroism) with adbhuta (wonder) / L2+L3 voice"
+    }
+   }
+  ],
+  "bh-p05": [
+   {
+    "file": "bhairavastava/L4-bh-p05.DRAFT.json",
+    "file_sha256": "59e4e88b1f3c641ee54070153d5cc3576c8e423b1efef2d7f48b8733bdb91af8",
+    "l4_sha256": "73b4b93c27c0dbdc7dd6454cb8311643b720a0c1cbdccee8d4e849de0929cbb5",
+    "notes": {
+     "craft": "Accomplished-fact → catalogue → salutation → result (order kept); upoḍha/tamisra per NOTE; four-terrors exemplary-or-complete open; bhavanmaya open.",
+     "rejected": "(a) L0 torn-asunder/mixed → killed by NOTE readings. (b) completing the list → killed by UNC.",
+     "reads": "argmap Q+INF (+UNC [\"Whether 'bhavanmaya' (world-becoming) modifies awareness or rays is unresolved.\", 'Whether the four terrors are a complete list or exemplary is unresolved.']) / C1 essence / rasa śānta (tranquility) with adbhuta (wonder) / L2+L3 voice"
+    }
+   }
+  ],
+  "bh-p06": [
+   {
+    "file": "bhairavastava/L4-bh-p06.DRAFT.json",
+    "file_sha256": "6c82ad12b5508842a2e98fcc255a36c1c783fb35ebe66987cd6dbf140ebbe366",
+    "l4_sha256": "a9556e902099f32b61b8ddc7c01a7b5c37a6ce4198aaff4851e415235b9156d4",
+    "notes": {
+     "craft": "Disclosure then ingress (bliss = entry, not feeling); prodita/compound opens kept.",
+     "rejected": "(a) bliss-as-feeling → killed: ingress is the verse. (b) resolving compound → killed by UNC.",
+     "reads": "argmap Q+INF (+UNC [\"Whether 'prodita' (arisen) modifies awakening or rays is unresolved.\", \"Whether 'bhāvaparāmṛtanirbharapūrṇa' is one compound or several is unresolved.\"]) / C1 essence / rasa ānanda (bliss) with adbhuta (wonder) / L2+L3 voice"
+    }
+   }
+  ],
+  "bh-p07": [
+   {
+    "file": "bhairavastava/L4-bh-p07.DRAFT.json",
+    "file_sha256": "955a5bf7fdd4597bdd23c9d0ee91b16da7c2fed3f8460f5deadcb2b875f03dc9",
+    "l4_sha256": "e1799baf3b884427c7db84db10b83c8510d4eadd37149c9d0b363396be15ec8b",
+    "notes": {
+     "craft": "Affliction-as-occasion (with-it-not-after-it); yadaiva/tanutāpa opens kept.",
+     "rejected": "(a) after-it sequencing → killed: with-it is the inversion. (b) nectar→rain soften → killed: rains.",
+     "reads": "argmap Q+INF (+UNC [\"Whether 'tanutāpa' (slight anguish) is physical or mental is unresolved.\", \"Whether 'yadaiva' is temporal or conditional is unresolved.\"]) / C1 essence / rasa śānta (tranquility) with adbhuta (wonder) / L2+L3 voice"
+    }
+   }
+  ],
+  "bh-p08": [
+   {
+    "file": "bhairavastava/L4-bh-p08.DRAFT.json",
+    "file_sha256": "73dfe0b31fcbdc35a540d10b2ff06913ae718a5f37253fe1dd645457eb6ea727",
+    "l4_sha256": "8c8814ba8f03d4fee8d4b12462cf381581fabc7e8e6cf1c5e8fa643de07da299",
+    "notes": {
+     "craft": "Two-means-two-results; rites relativized-not-despised (But-hinge kept); vadeśakālam open.",
+     "rejected": "(a) despising rites → killed: relativized. (b) cutting But → killed: hinge is the doctrine.",
+     "reads": "argmap Q+INF (+UNC [\"Whether 'vadeśakālam' is obscure or means 'place-and-time under control' is unresolved.\", 'Whether the rites are listed exhaustively or exemplarily is unresolved.']) / C1 essence / rasa śānta (tranquility) / L2+L3 voice"
+    }
+   }
+  ],
+  "bh-p09": [
+   {
+    "file": "bhairavastava/L4-bh-p09.DRAFT.json",
+    "file_sha256": "92528f021cc096b0a264596767ac8ad45216b189130cdb00741e84e407d2ac69",
+    "l4_sha256": "0957709100a5a15a45710fd95bb28a307cefba8c9c597c89a480ffb1b2365505",
+    "notes": {
+     "craft": "Joy first, cause named (obtaining=vision); fence kept (covenant-knowers); samayajña/sudarśanam-ekam opens per NOTE.",
+     "rejected": "(a) dances→dance-syntax flatten → killed: three verbs dance. (b) resolving fence-address → killed by UNC.",
+     "reads": "argmap Q+INF (+UNC [\"Whether 'samayajña' is vocative or qualifier converging on the same fence is unresolved.\", \"Whether 'sudarśanam ekam' means 'the one beautiful vision' or 'beautiful vision alone' is unresolved.\"]) / C1 essence / rasa ānanda (bliss) with adbhuta (wonder) / L2+L3 voice"
+    }
+   }
+  ],
+  "bh-p10": [
+   {
+    "file": "bhairavastava/L4-bh-p10.DRAFT.json",
+    "file_sha256": "a27aed96314238b999fc971a3c593e285221178040dfcfa61551aea06427b036",
+    "l4_sha256": "9ffbcc9af84425cfe44a5cbe536afd85f440126fcc4aa606d97bfece2db39f99",
+    "notes": {
+     "craft": "Dated-signed-outward: private recognition cools the world; bhavamaru reading per NOTE (SA untouched); yena/heat opens kept; Vasura year-name kept.",
+     "rejected": "(a) normalizing SA → killed: untouched pending adjudication. (b) resolving yena → killed by UNC.",
+     "reads": "argmap Q+INF (+UNC [\"Whether 'yena' refers to devotee or hymn is unresolved.\", \"Whether 'bhavamarusantāpa' is physical or existential heat is unresolved.\"]) / C1 essence / rasa śānta (tranquility) with karuṇa (compassion) / L2+L3 voice"
+    }
+   }
+  ]
+ },
+ "withheld_songs": [],
+ "original_hashes": {
+  "t1": {
+   "bh-p01": "50177d453bc4e224386252235947ff73736bbc70de34b54e2e4139d86e597172",
+   "bh-p02": "55dca1c2cf6dd774c17293d32f29dc8fd89c0f428696057607c6d1983002228a",
+   "bh-p03": "4b68287d7bef19f891af83a2ac07262209a9a1048c59c4a1671e11602c75b2a0",
+   "bh-p04": "257764ad6e34a57f75336c5656091f2dbc91f03153db943a665d4e3ae90394ee",
+   "bh-p05": "49ba3f0a1a0c239933d95745662e5791369635e85a48d3f43ba85198c7784696",
+   "bh-p06": "b4412e86eddf687cf15ab966d3ead24082597994c6353d63819b00f32b8c48fa",
+   "bh-p07": "86769d851620e207bad66bcf7338d9961dbf53d9e455124abb9523283709d0cc",
+   "bh-p08": "4a3934d6bc4aa8b46da59598f1f490e733549cc238f057019aef3d3c9ea03c44",
+   "bh-p09": "ee6f990318a3feb3eb8153bfaaa49bf72ae7a78f622a5c4e43ad971d15a1bd1a",
+   "bh-p10": "e988f99c1d2794b772e8eb76f86f3d4727b450bcc410819d4a512d6a4174ddab"
+  },
+  "l0": {
+   "bh-p01": "1edc4d3b39dc5cfab45b4386d364a7cb3108bcaaabf5394c20d5468fd1592ec9",
+   "bh-p02": "2676cafa837a59c75ded11f2d91ebef062adf451fde6e604fc86347d6572c9c4",
+   "bh-p03": "bea55fd5dc7911456360af0073858f348c45e630008b4194897a4932e7f0d4ba",
+   "bh-p04": "73938732e67b90f327bd8b8b34f2b71c61de426c1c02a4a282ba19312b0735ce",
+   "bh-p05": "b655b9ac5699c4a476d10ec737aa4944769f0a2c3a17d71696933c1ec7c11ef9",
+   "bh-p06": "347da73e07ecc9b4a776aa8fe112cfafa2821da9a1c3002fe39816c08a143cc8",
+   "bh-p07": "3a96fe20bb16649c07cbc8e30f5953d4b31f02b8e8a2bd15b0beb49f63e26ce9",
+   "bh-p08": "25325ed35acd94fd3147c7f10ab441be0ea09ecd4221086c1e35673133daa343",
+   "bh-p09": "5c752899a0618e13a7e7fbf2212f157c2f606d211160b6e19bd16ca6515d5aa8",
+   "bh-p10": "890cbb612b5e40d9e5aa51d065888c52292a30bb4086a2eaa61eb103f0e138f4"
+  },
+  "argmap": {
+   "bh-p01": "f919501119316af8652a610bbfb349a6f153ebe86caf4b08ef98c29c7939ef51",
+   "bh-p02": "5015958cb6aa12e911801b635c06f450c0f3dd4369da2df8e89cd8bc24b8e8fc",
+   "bh-p03": "ab233f99f6d957577c9d2f39dc3670b93fa2c4ac0f389024aa4ea81eaa9635df",
+   "bh-p04": "d919d6aa22b5d41d28d87a0a2e349244bcaffc904a55b9ff9fc669a1498361d5",
+   "bh-p05": "3462e6b9da4d690890172bb6c27343151f5745645b3eddcd7ed726458c43e7cc",
+   "bh-p06": "a48d46c695578346a328e512bd9bd9cf4fb59b8dce7d5d46667e9587807a2b19",
+   "bh-p07": "a2ee144589dfa69f972c5176baba970d7eb459a71c73dace88805c02f018b334",
+   "bh-p08": "2cf66cda7ccaa18cd614dacab3fd218e803593bd875a8a029fb0b53243f1fb91",
+   "bh-p09": "f963fc1202fa3333381582d9376ebab5258fff9e9eb1cbca951e36eb56791562",
+   "bh-p10": "881f8bdc41ed53b8dd824bdf6ba45b429f86279d54590188daeea9b1434c0ec7"
+  },
+  "l2": {
+   "bh-p01": "f3ca4ab8bfdf12981d139ab37d0cff52036d5172d39d11d864c3b1c2da310073",
+   "bh-p02": "b7817229faddc18049573068f9c255b59ba05f23935f8703dd32b05b4661c0f4",
+   "bh-p03": "715404030467ee35f3cea8d62d1012cc943d7f7edfcb935c5e16643e81749fbb",
+   "bh-p04": "b879f7ff0b39ba69f26de0b9b410a4a717eae8cfbe55db3dc920a2476e65ad24",
+   "bh-p05": "a97fedc7af8b8accf04a5eae629af855339467395b71213a5f1afdab5cdcdf04",
+   "bh-p06": "6ef70de0a1fe58ac7f8bccaa29e4db09d91e21c774bb6b99874b92212e1b47b0",
+   "bh-p07": "043e8796e3ebb13263b1809ebc56122603f8ceffb518cd3e1dbf6577b84d045b",
+   "bh-p08": "526e01267aca624b1b64c3a247aa885e00a0659b3aed335ab2381547fa3f2b35",
+   "bh-p09": "8775a7934c4a8a66a9d202eacde8ae10783aa9ac8d1961ee38528ae85224626b",
+   "bh-p10": "57843b673dbe2108595b2ce1580d72466e1b32ab3f518d5cd4835dc8b859b33e"
+  },
+  "c1": {
+   "bh-p01": "3c60b48cd4153c11ffa61fc9b6a5361a992c0a50c70e0aa2a84947c320683ca6",
+   "bh-p02": "2b107e56183767b91907f013be61b4ff7a1cb769c341b5de01670d0671594d21",
+   "bh-p03": "f9eb818cebb0aa5084a1b1f37d0a3188966b781c6fdcd0160c24d815c5508946",
+   "bh-p04": "11822e7351e2ca74c91a5bd75d0222ee3787cae8434dc723f0a60d2ae1adf1ac",
+   "bh-p05": "1cafec5df3f54fd1d8db105a9ccc47b55e7e09fc6afb0b02608f8b31a9b49c2a",
+   "bh-p06": "fd0d4b5beecd5083f9fd477aa329c4706a507492767074629ea6f376299200c3",
+   "bh-p07": "e74470b9c3334416fab9f66d7d30e4d3ae71dab1ad6f43d814bcae2a0a1cb8c5",
+   "bh-p08": "a8abcab7a2ce7a0a1524cacac0b3a52d4feaa2536e2e50ce534f994ebb358d6d",
+   "bh-p09": "4b1925f3c9bda0d83fe5194bfafffbe413170ed7760d59dd0f4638a18fb199fe",
+   "bh-p10": "90ee338757871e0092ec96cc286da7ae2e83b8367c81e5218b12c678433ddfbe"
+  },
+  "l3": {
+   "bh-p01": "2144931309ecdfdd1417455ce991ecb18d8903ffcb56e195cd70c0cb32559ca1",
+   "bh-p02": "d0b9fd45bb04dadc453ac4d50a3e3c58a703938229cbb97a9fb25f7c9779fb7f",
+   "bh-p03": "77a127d339d8da93a3da15f274686ce123617821c9391737a567624918412f12",
+   "bh-p04": "cc44fbf8da7f8b2b67ea3e34b874a27a4790ee9c616b1afc20a2c7ef1ed7e857",
+   "bh-p05": "3d888c21a97b191685aac3a5c676d6b1b66c3b2090f30ed9dfbd3cff224e4e33",
+   "bh-p06": "bdd4c436be7393c51dd595eaf19038d008d1b140793b7dc0f3620e527a05d819",
+   "bh-p07": "eb811070165dd1d4417e9b93e3f1178bc979242a7a69064c81e0cca6b7077f87",
+   "bh-p08": "ed03e9061de2613c5cc6a6c560c0bc2c50cd1932a57f41f4b380421dab5de867",
+   "bh-p09": "8930bfe119a75a216af141ebe4e11fb09d97f09cca4261259ce7cdd4fb93930d",
+   "bh-p10": "240c46baa364d2c8d1ffe2dcc43ed7380659892b1c3c83ff07ecdcdc82423b51"
+  },
+  "l4": {
+   "bh-p01": "ef034cf8a08c2fa61abee6dcd556878a8e1d81535ef29cc8f9a6ea0a4543709f",
+   "bh-p02": "18e695558d8e7c9392079decb5ba7bbb213faf619a792ded1897c1a0e86264fb",
+   "bh-p03": "7cad72a7534cde36de5b15dc3621c43546874902490ab73f086512b336432ae2",
+   "bh-p04": "9d9a224c286c33d45f38906fb22b107934740253a10a7d1fdd51e16c6938e3ae",
+   "bh-p05": "73b4b93c27c0dbdc7dd6454cb8311643b720a0c1cbdccee8d4e849de0929cbb5",
+   "bh-p06": "a9556e902099f32b61b8ddc7c01a7b5c37a6ce4198aaff4851e415235b9156d4",
+   "bh-p07": "e1799baf3b884427c7db84db10b83c8510d4eadd37149c9d0b363396be15ec8b",
+   "bh-p08": "8c8814ba8f03d4fee8d4b12462cf381581fabc7e8e6cf1c5e8fa643de07da299",
+   "bh-p09": "0957709100a5a15a45710fd95bb28a307cefba8c9c597c89a480ffb1b2365505",
+   "bh-p10": "9ffbcc9af84425cfe44a5cbe536afd85f440126fcc4aa606d97bfece2db39f99"
+  },
+  "c2": {}
+ },
+ "versions": [],
+ "essays": [],
+ "reviews": [],
+ "promotions": [],
+ "signoffs": [],
+ "stack_hashes": {
+  "bh-p01": "f96be162d4690863a6867df65091ec4c4414c43f0c6e6a41a5679fd3c344cd94",
+  "bh-p02": "7073623cb01c1e1a2267a07c8ae826a886369ed217f68422609cb43818eb279b",
+  "bh-p03": "9cda454aa5a42e62a680c08075349b9cde7c2c3c7b6e19d0cf396e7c640912aa",
+  "bh-p04": "cd2899957129756353edb1a2bb2186b0bfc7971f75113c8e0803bcca706ab59d",
+  "bh-p05": "64368334a27a0cb5fb564c0f85cd27cab805d8e844845ba720cf7c0f1c0dfef5",
+  "bh-p06": "d27bb3ca54ca435d161b9ea8d319062230bd6ca2397a46d8cca097bfe9b299b3",
+  "bh-p07": "d1b88c488857549f8e59dc826f834578cc300dca2bac0c76e574823d47133c3e",
+  "bh-p08": "c43ec384f5a251e0b7228e7e7bee73c049385b3f205a4dd8cbec4f7e9a6cb5b8",
+  "bh-p09": "76ec792d1130bade5d12fa6095885b1c68016cc6fdf233d2c77f1f6060fb628a",
+  "bh-p10": "9908bf5e6854ecab98e2e3d01ca2f92e328971f3dc9bbeee7acb4291b5fe8f6a"
+ },
+ "projection_sha256": "e8456fcd5f75134d1732441c192eae0558d4275416554bd6f3ba4bda79ca839c"
+}

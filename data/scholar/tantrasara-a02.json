@@ -1,0 +1,3147 @@
+{
+ "work": "tantrasara-a02",
+ "generated": null,
+ "source": "translation-work canonical data + scholar/ ledgers (emit_scholar.py)",
+ "source_edition": "gretil_tantrasara_clean.txt (Nirnaya Sagara 1918, GRETIL)",
+ "contract": {
+  "contract_version": "svatantrya-agent-contract/1",
+  "contract_sha256": "8f22582bd8833e43d4ed31bbdfa49cf1f2e720569d15da9edc61a2bfab34d86e",
+  "schema_version": "1.3.0",
+  "structural_schema_version": "2.0.0",
+  "structural_schema_snapshot_sha256": "7143ce16fd2fec74bcbb442937194c13abcb94e7d76e10fb35ec9e76016a9577",
+  "order": [
+   "source",
+   "t1",
+   "l0",
+   "argmap",
+   "l2",
+   "c1",
+   "l3",
+   "l4",
+   "c2"
+  ],
+  "schemas": {
+   "t1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:t1",
+    "title": "Svatantrya T1 structural schema",
+    "x-validator": "schemas.t1.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "quick_english",
+     "tokens",
+     "source_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "quick_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "source_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "tokens": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "surface",
+        "quick_gloss"
+       ],
+       "properties": {
+        "surface": {
+         "type": "string",
+         "minLength": 1
+        },
+        "quick_gloss": {
+         "type": "string",
+         "minLength": 1
+        }
+       }
+      }
+     }
+    }
+   },
+   "l0": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l0:verse",
+    "title": "Svatantrya L0 verse token list structural schema",
+    "x-validator": "schemas.l0.validate (per token)",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+     "$schema": "https://json-schema.org/draft/2020-12/schema",
+     "$id": "urn:svatantrya:schema:2.0.0:l0",
+     "title": "Svatantrya L0 structural schema",
+     "x-validator": "schemas.l0.validate",
+     "x-schema-version": "1.3.0",
+     "x-structural-schema-version": "2.0.0",
+     "type": "object",
+     "required": [
+      "id",
+      "verse_id",
+      "pada_index",
+      "surface",
+      "citation",
+      "options",
+      "chosen_index",
+      "status"
+     ],
+     "properties": {
+      "id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "verse_id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "pada_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "surface": {
+       "type": "string",
+       "minLength": 1
+      },
+      "citation": {
+       "type": "string",
+       "minLength": 1
+      },
+      "morph": {
+       "type": "string"
+      },
+      "morph_unknown": {
+       "type": "boolean"
+      },
+      "options": {
+       "type": "array",
+       "maxItems": 5,
+       "items": {
+        "type": "object",
+        "required": [
+         "gloss",
+         "rank",
+         "source",
+         "grounds"
+        ],
+        "properties": {
+         "gloss": {
+          "type": "string",
+          "minLength": 1
+         },
+         "rank": {
+          "type": "integer",
+          "minimum": 1
+         },
+         "source": {
+          "type": "string",
+          "minLength": 1
+         },
+         "grounds": {
+          "type": "string",
+          "minLength": 1
+         }
+        }
+       }
+      },
+      "chosen_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "status": {
+       "type": "string",
+       "enum": [
+        "PARSED",
+        "AMBIGUOUS",
+        "FAILED"
+       ]
+      },
+      "revised": {
+       "type": "boolean"
+      },
+      "revise_reason": {
+       "type": "string"
+      },
+      "fork": {
+       "type": "string",
+       "enum": [
+        "none",
+        "live",
+        "resolved"
+       ]
+      }
+     }
+    }
+   },
+   "argmap": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:argmap",
+    "title": "Svatantrya ARGMAP structural schema",
+    "x-validator": "schemas.argmap.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "traces",
+     "sanskrit_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "traces": {
+      "type": "object",
+      "required": [
+       "t1_verse",
+       "l0_ids"
+      ],
+      "properties": {
+       "t1_verse": {
+        "type": "string",
+        "minLength": 1
+       },
+       "l0_ids": {
+        "type": "array",
+        "items": {
+         "type": "string",
+         "minLength": 1
+        },
+        "minItems": 1
+       }
+      }
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "sanskrit_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "speaker": {
+      "type": "string",
+      "minLength": 1
+     },
+     "question": {
+      "type": "string",
+      "minLength": 1
+     },
+     "inference": {
+      "type": "string",
+      "minLength": 1
+     },
+     "reconstruction": {
+      "type": "string",
+      "minLength": 1
+     },
+     "premises": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     },
+     "uncertainties": {
+      "type": "array"
+     },
+     "structured": {
+      "type": "boolean"
+     }
+    }
+   },
+   "l2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l2",
+    "title": "Svatantrya L2 structural schema",
+    "x-validator": "schemas.l2.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "plain_english",
+     "sanskrit_cite",
+     "l0_ids"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "plain_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "supplied": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     }
+    }
+   },
+   "c1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:c1",
+    "title": "Svatantrya C1 structural schema",
+    "x-validator": "schemas.c1.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "song",
+     "essence",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "essence": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "renders": {
+      "type": "object",
+      "required": [
+       "standard"
+      ]
+     }
+    }
+   },
+   "l3": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l3",
+    "title": "Svatantrya L3 structural schema",
+    "x-validator": "schemas.l3.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "l4": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l4",
+    "title": "Svatantrya L4 structural schema",
+    "x-validator": "schemas.l4.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "c2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:c2",
+    "title": "Svatantrya C2 structural schema",
+    "x-validator": "schemas.c2.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "song",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "renders": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "style",
+        "prompt",
+        "paragraphs"
+       ],
+       "properties": {
+        "style": {
+         "type": "string",
+         "minLength": 1
+        },
+        "prompt": {
+         "type": "string",
+         "minLength": 1
+        },
+        "paragraphs": {
+         "type": "array",
+         "minItems": 1,
+         "items": {
+          "type": "object",
+          "required": [
+           "text",
+           "maps_to"
+          ],
+          "properties": {
+           "text": {
+            "type": "string",
+            "minLength": 1
+           },
+           "maps_to": {
+            "type": "array",
+            "items": {
+             "type": "integer",
+             "minimum": 0
+            },
+            "minItems": 1
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "layers": [
+   {
+    "id": "t1",
+    "scope": "verse",
+    "depends_on": [
+     "source"
+    ],
+    "validator": "schemas/t1.py",
+    "validator_sha256": "ac792ba1f0cbc06ab52dfbc41a31d3e39460f0e8a7de2977ed02e4ce63a20f27",
+    "example": {
+     "file": "sivastotravali/data/s01.t1.json",
+     "file_sha256": "a5c4cfae67571d05866d97ad6eb29b1c2956140a69c2fae554c29577330beb8e",
+     "target": "s01-v01",
+     "content_sha256": "26f027dafbe67347efd901cb2b94630cdb0e372957edeb4a3e1305e83745ba5b",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l0",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1"
+    ],
+    "validator": "schemas/l0.py",
+    "validator_sha256": "0651bc77f519897f8a4f8b41f4ea0cc6a88f3441910af99b18d55854a7e9030e",
+    "example": {
+     "file": "sivastotravali/data/s06.l0.json",
+     "file_sha256": "c2bb0ce1010315d72bdce75ee3c8901b17499202abe7adc5bd1977a26f4fea2f",
+     "target": "s06-v01",
+     "content_sha256": "91e3b04d47482757bcaf1e9705992edd0815ff7907ed2cb33c7c9586f3a9e5aa",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "argmap",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0"
+    ],
+    "validator": "schemas/argmap.py",
+    "validator_sha256": "335c1bbe809c5ae942ecef4a30ee7fd8fcb82645a43019312fa74397fe5758b0",
+    "example": {
+     "file": "sivastotravali/data/s01.argmap.json",
+     "file_sha256": "a44c8ec09a30c577f2a792c1255d4290f49a6138c456bb687bc00e78a3902949",
+     "target": "s01-v21",
+     "content_sha256": "80b69a54761b8b0b7c193058f6c88eef60323a3611008c41ba9879bcfc3cdc21",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l2",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap"
+    ],
+    "validator": "schemas/l2.py",
+    "validator_sha256": "f5653e405e0f162f78593ad6344cbbefe122d6d1c921ca3e22003e4f4d2cfaaa",
+    "example": {
+     "file": "sivastotravali/data/s01.l2.json",
+     "file_sha256": "f5a1cec55bb466c328380a0bf527e6d8906428b3436f85a79bd01df98ceb1040",
+     "target": "s01-v01",
+     "content_sha256": "f3c47f6a631f7551d4f9c8ad1117bdf65463cb8cdc92e9b42bb3bf517ae80055",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c1",
+    "scope": "song",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2"
+    ],
+    "validator": "schemas/c1.py",
+    "validator_sha256": "88ad9123135a7a18237cec1d11430992b4f43adf1771ae26a43e4df8198c69d7",
+    "example": {
+     "file": "sivastotravali/data/s01.c1.json",
+     "file_sha256": "99f4d2bbf7a8086176ee585b6e459076e2abd72b9675435267f7546beb1515f8",
+     "target": "s01",
+     "content_sha256": "5be1f3c0c3f64fafe5395b42cf5502a139a5e208be419d5804fe1a5bdd33712a",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l3",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2",
+     "c1"
+    ],
+    "validator": "schemas/l3.py",
+    "validator_sha256": "6c3df228f886207782d5250699e9e459f236f6e7d6b25ac29b00a38541956917",
+    "example": {
+     "file": "sivastotravali/data/s01.l3.json",
+     "file_sha256": "cdb4af6a4c2a851231195f4e5c940346f65199d5d5d69ea1c41d8095f98409f9",
+     "target": "s01-v01",
+     "content_sha256": "6aa20635387174b68fe4ea3baf970c06aff9838acb2c745e7afca0ed7c6751de",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l4",
+    "scope": "verse",
+    "depends_on": [
+     "l3",
+     "c1"
+    ],
+    "validator": "schemas/l4.py",
+    "validator_sha256": "3c1f7b0dfe3d83d425ed0fd84fba7b74aa3ed9e9758402369d779eedda1a8c03",
+    "example": {
+     "file": "paramarthasara/data/param-p01.l4.json",
+     "file_sha256": "db346e51e71f2f835ddfda004d4432934611817c2c73318d335f6ca2362ad4fb",
+     "target": "param-p01-v01",
+     "content_sha256": "91e9d424cf310d4e5b45c173b02f5286d837269ef9447533c153a48cb5122c14",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c2",
+    "scope": "song",
+    "depends_on": [
+     "c1",
+     "l3"
+    ],
+    "validator": "schemas/c2.py",
+    "validator_sha256": "fb8743f206e036002c780d082c7d32cf011dcdab4c21df742a5f5e59a9d851b8",
+    "example": {
+     "file": "sivastotravali/data/s01.c2.json",
+     "file_sha256": "09660a3c09679fce8c95968934e5851a22d89cdf154d2b0635d358e1ef9e8aeb",
+     "target": "s01",
+     "content_sha256": "2faa5fa86e38faca7ef5a1a967a4e261e2df294648a31ed5bad5f731001aa41c",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   }
+  ]
+ },
+ "rights": {
+  "translation": "FREE — our English (L1–L4, commentary) is free use",
+  "scholar": "Contributors declare rights; authorship and copyright depend on the work and law."
+ },
+ "originals": {
+  "t1": {
+   "tsa-a02-v01": {
+    "verse_id": "tsa-a02-v01",
+    "song": "tsa-a02",
+    "verse": 1,
+    "quick_english": "Now / the-means-less-itself / first / we-shall-expound",
+    "tokens": [
+     {
+      "surface": "atha",
+      "quick_gloss": "Now"
+     },
+     {
+      "surface": "anupāyam eva",
+      "quick_gloss": "the-means-less-itself"
+     },
+     {
+      "surface": "tāvat",
+      "quick_gloss": "first"
+     },
+     {
+      "surface": "vyākhyāsyāmaḥ",
+      "quick_gloss": "we-shall-expound"
+     }
+    ],
+    "source_sha": "1608521ff947c836",
+    "source_lines": [
+     41,
+     41
+    ]
+   },
+   "tsa-a02-v02": {
+    "verse_id": "tsa-a02-v02",
+    "song": "tsa-a02",
+    "verse": 2,
+    "quick_english": "When / pierced-by-firm-descent / by-himself / thus / discriminates / having-heeded / the-teacher's-word / once-only / then / means-devoid / ever-risen / his-immersion",
+    "tokens": [
+     {
+      "surface": "yadā khalu",
+      "quick_gloss": "When"
+     },
+     {
+      "surface": "dṛḍhaśaktipātāviddhaḥ",
+      "quick_gloss": "pierced-by-firm-descent"
+     },
+     {
+      "surface": "svayam eva",
+      "quick_gloss": "by-himself"
+     },
+     {
+      "surface": "ittham",
+      "quick_gloss": "thus"
+     },
+     {
+      "surface": "vivecayati",
+      "quick_gloss": "discriminates"
+     },
+     {
+      "surface": "avadhārya",
+      "quick_gloss": "having-heeded"
+     },
+     {
+      "surface": "guruvacanam",
+      "quick_gloss": "the-teacher's-word"
+     },
+     {
+      "surface": "sakṛd eva",
+      "quick_gloss": "once-only"
+     },
+     {
+      "surface": "tadā",
+      "quick_gloss": "then"
+     },
+     {
+      "surface": "upāyavirahitaḥ",
+      "quick_gloss": "means-devoid"
+     },
+     {
+      "surface": "nityoditaḥ",
+      "quick_gloss": "ever-risen"
+     },
+     {
+      "surface": "asya samāveśaḥ",
+      "quick_gloss": "his-immersion"
+     }
+    ],
+    "source_sha": "1608521ff947c836",
+    "source_lines": [
+     42,
+     42
+    ]
+   },
+   "tsa-a02-v03": {
+    "verse_id": "tsa-a02-v03",
+    "song": "tsa-a02",
+    "verse": 3,
+    "quick_english": "Here / reason-itself-is-the-yoga-limb / thus / how / does-he-discriminate / If-asked / it-is-said / this / Lord / self-light-natured / own-self / Therein / what / is-done / by-means / Not-attainment-of-nature / from-eternity / not-notification / from-self-shiningness / not-removal-of-covering / since-covering-of-any-kind-is-impossible / not-entry-into-it / since-there-is-no-distinct-enterer",
+    "tokens": [
+     {
+      "surface": "atra ca",
+      "quick_gloss": "Here"
+     },
+     {
+      "surface": "tarkaḥ eva yogāṅgam",
+      "quick_gloss": "reason-itself-is-the-yoga-limb"
+     },
+     {
+      "surface": "iti",
+      "quick_gloss": "thus"
+     },
+     {
+      "surface": "katham",
+      "quick_gloss": "how"
+     },
+     {
+      "surface": "vivecayati",
+      "quick_gloss": "does-he-discriminate"
+     },
+     {
+      "surface": "iti cet",
+      "quick_gloss": "If-asked"
+     },
+     {
+      "surface": "ucyate",
+      "quick_gloss": "it-is-said"
+     },
+     {
+      "surface": "yaḥ ayam",
+      "quick_gloss": "this"
+     },
+     {
+      "surface": "parameśvaraḥ",
+      "quick_gloss": "Lord"
+     },
+     {
+      "surface": "svaprakāśarūpaḥ",
+      "quick_gloss": "self-light-natured"
+     },
+     {
+      "surface": "svātmā",
+      "quick_gloss": "own-self"
+     },
+     {
+      "surface": "tatra",
+      "quick_gloss": "Therein"
+     },
+     {
+      "surface": "kim",
+      "quick_gloss": "what"
+     },
+     {
+      "surface": "kriyate",
+      "quick_gloss": "is-done"
+     },
+     {
+      "surface": "upāyena",
+      "quick_gloss": "by-means"
+     },
+     {
+      "surface": "na svarūpalābhaḥ",
+      "quick_gloss": "Not-attainment-of-nature"
+     },
+     {
+      "surface": "nityatvāt",
+      "quick_gloss": "from-eternity"
+     },
+     {
+      "surface": "na jñaptiḥ",
+      "quick_gloss": "not-notification"
+     },
+     {
+      "surface": "svayaṃprakāśamānatvāt",
+      "quick_gloss": "from-self-shiningness"
+     },
+     {
+      "surface": "na āvaraṇavigamaḥ",
+      "quick_gloss": "not-removal-of-covering"
+     },
+     {
+      "surface": "āvaraṇasya kasyacid api asaṃbhavāt",
+      "quick_gloss": "since-covering-of-any-kind-is-impossible"
+     },
+     {
+      "surface": "na tadanupraveśaḥ",
+      "quick_gloss": "not-entry-into-it"
+     },
+     {
+      "surface": "anupraveṣṭuḥ vyatiriktasya abhāvāt",
+      "quick_gloss": "since-there-is-no-distinct-enterer"
+     }
+    ],
+    "source_sha": "1608521ff947c836",
+    "source_lines": [
+     43,
+     43
+    ]
+   },
+   "tsa-a02-v04": {
+    "verse_id": "tsa-a02-v04",
+    "song": "tsa-a02",
+    "verse": 4,
+    "quick_english": "What-means-here / of-it-too / as-distinct / impossibility / Hence / all-this / one / consciousness-only-reality / unmeasured-by-time / undelimited-by-place / unfaded-by-attributes / uncontrolled-by-forms / unindicated-by-words / unelaborated-by-valid-means / and-the-cause-of-own-nature-attainment / of-time-to-valid-means / by-own-will-alone / autonomous / bliss-dense / reality / that-itself / I / therein / within-me / the-universe / reflected / For-one-thus-firmly-discriminating / ever / Lordly-immersion / means-less-itself / for-it / no-constraint-at-all / by-mantra-worship-meditation-conduct",
+    "tokens": [
+     {
+      "surface": "kaś ca atra upāyaḥ",
+      "quick_gloss": "What-means-here"
+     },
+     {
+      "surface": "tasyāpi",
+      "quick_gloss": "of-it-too"
+     },
+     {
+      "surface": "vyatiriktasya",
+      "quick_gloss": "as-distinct"
+     },
+     {
+      "surface": "anupapatteḥ",
+      "quick_gloss": "impossibility"
+     },
+     {
+      "surface": "tasmāt",
+      "quick_gloss": "Hence"
+     },
+     {
+      "surface": "samastam idam",
+      "quick_gloss": "all-this"
+     },
+     {
+      "surface": "ekam",
+      "quick_gloss": "one"
+     },
+     {
+      "surface": "cinmātratattvam",
+      "quick_gloss": "consciousness-only-reality"
+     },
+     {
+      "surface": "kālena akalitam",
+      "quick_gloss": "unmeasured-by-time"
+     },
+     {
+      "surface": "deśena aparicchinnam",
+      "quick_gloss": "undelimited-by-place"
+     },
+     {
+      "surface": "upādhibhir amlānam",
+      "quick_gloss": "unfaded-by-attributes"
+     },
+     {
+      "surface": "ākṛtibhir aniyantritam",
+      "quick_gloss": "uncontrolled-by-forms"
+     },
+     {
+      "surface": "śabdair asaṃdiṣṭam",
+      "quick_gloss": "unindicated-by-words"
+     },
+     {
+      "surface": "pramāṇair aprapañcitam",
+      "quick_gloss": "unelaborated-by-valid-means"
+     },
+     {
+      "surface": "svarūpa-lābhanimittam ca",
+      "quick_gloss": "and-the-cause-of-own-nature-attainment"
+     },
+     {
+      "surface": "kālādeḥ pramāṇaparyantasya",
+      "quick_gloss": "of-time-to-valid-means"
+     },
+     {
+      "surface": "svecchayaiva",
+      "quick_gloss": "by-own-will-alone"
+     },
+     {
+      "surface": "svatantram",
+      "quick_gloss": "autonomous"
+     },
+     {
+      "surface": "ānandaghanam",
+      "quick_gloss": "bliss-dense"
+     },
+     {
+      "surface": "tattvam",
+      "quick_gloss": "reality"
+     },
+     {
+      "surface": "tad eva ca",
+      "quick_gloss": "that-itself"
+     },
+     {
+      "surface": "aham",
+      "quick_gloss": "I"
+     },
+     {
+      "surface": "tatra eva",
+      "quick_gloss": "therein"
+     },
+     {
+      "surface": "antar mayi",
+      "quick_gloss": "within-me"
+     },
+     {
+      "surface": "viśvam",
+      "quick_gloss": "the-universe"
+     },
+     {
+      "surface": "pratibimbitam",
+      "quick_gloss": "reflected"
+     },
+     {
+      "surface": "evaṃ dṛḍhaṃ viviñcānasya",
+      "quick_gloss": "For-one-thus-firmly-discriminating"
+     },
+     {
+      "surface": "śaśvad eva",
+      "quick_gloss": "ever"
+     },
+     {
+      "surface": "pārameśvaraḥ samāveśaḥ",
+      "quick_gloss": "Lordly-immersion"
+     },
+     {
+      "surface": "nirupāyakaḥ eva",
+      "quick_gloss": "means-less-itself"
+     },
+     {
+      "surface": "tasya ca",
+      "quick_gloss": "for-it"
+     },
+     {
+      "surface": "na niyantraṇā kācit",
+      "quick_gloss": "no-constraint-at-all"
+     },
+     {
+      "surface": "mantrapūjādhyānacaryādiniyantraṇā",
+      "quick_gloss": "by-mantra-worship-meditation-conduct"
+     }
+    ],
+    "source_sha": "1608521ff947c836",
+    "source_lines": [
+     44,
+     44
+    ]
+   }
+  },
+  "l0": {
+   "tsa-a02-v01": [
+    {
+     "id": "tsa-a02-v01-p000",
+     "verse_id": "tsa-a02-v01",
+     "pada_index": 0,
+     "surface": "atha",
+     "citation": "atha",
+     "options": [
+      {
+       "gloss": "Now",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl. (adv.)"
+    },
+    {
+     "id": "tsa-a02-v01-p001",
+     "verse_id": "tsa-a02-v01",
+     "pada_index": 1,
+     "surface": "anupāyam eva",
+     "citation": "anupāyam eva",
+     "options": [
+      {
+       "gloss": "the-means-less-itself",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.acc.sg + indecl. (eva)"
+    },
+    {
+     "id": "tsa-a02-v01-p002",
+     "verse_id": "tsa-a02-v01",
+     "pada_index": 2,
+     "surface": "tāvat",
+     "citation": "tāvat",
+     "options": [
+      {
+       "gloss": "first",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl. (adv.)"
+    },
+    {
+     "id": "tsa-a02-v01-p003",
+     "verse_id": "tsa-a02-v01",
+     "pada_index": 3,
+     "surface": "vyākhyāsyāmaḥ",
+     "citation": "vyākhyāsyāmaḥ",
+     "options": [
+      {
+       "gloss": "we-shall-expound",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "1pl.fut.act √khyā+vi+ā (we-shall-expound)"
+    }
+   ],
+   "tsa-a02-v02": [
+    {
+     "id": "tsa-a02-v02-p000",
+     "verse_id": "tsa-a02-v02",
+     "pada_index": 0,
+     "surface": "yadā khalu",
+     "citation": "yadā khalu",
+     "options": [
+      {
+       "gloss": "When",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl. (yadā) + indecl. (khalu)"
+    },
+    {
+     "id": "tsa-a02-v02-p001",
+     "verse_id": "tsa-a02-v02",
+     "pada_index": 1,
+     "surface": "dṛḍhaśaktipātāviddhaḥ",
+     "citation": "dṛḍhaśaktipātāviddhaḥ",
+     "options": [
+      {
+       "gloss": "pierced-by-firm-descent",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg ppp √vyadh+ā (pierced)"
+    },
+    {
+     "id": "tsa-a02-v02-p002",
+     "verse_id": "tsa-a02-v02",
+     "pada_index": 2,
+     "surface": "svayam eva",
+     "citation": "svayam eva",
+     "options": [
+      {
+       "gloss": "by-himself",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl. (reflexive) + indecl. (eva)"
+    },
+    {
+     "id": "tsa-a02-v02-p003",
+     "verse_id": "tsa-a02-v02",
+     "pada_index": 3,
+     "surface": "ittham",
+     "citation": "ittham",
+     "options": [
+      {
+       "gloss": "thus",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl. (adv.)"
+    },
+    {
+     "id": "tsa-a02-v02-p004",
+     "verse_id": "tsa-a02-v02",
+     "pada_index": 4,
+     "surface": "vivecayati",
+     "citation": "vivecayati",
+     "options": [
+      {
+       "gloss": "discriminates",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "3sg.pres.act √vic+vi (discriminates)"
+    },
+    {
+     "id": "tsa-a02-v02-p005",
+     "verse_id": "tsa-a02-v02",
+     "pada_index": 5,
+     "surface": "avadhārya",
+     "citation": "avadhārya",
+     "options": [
+      {
+       "gloss": "having-heeded",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "absolutive √dhṛ+ava (having heeded)"
+    },
+    {
+     "id": "tsa-a02-v02-p006",
+     "verse_id": "tsa-a02-v02",
+     "pada_index": 6,
+     "surface": "guruvacanam",
+     "citation": "guruvacanam",
+     "options": [
+      {
+       "gloss": "the-teacher's-word",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.acc.sg (comp.)"
+    },
+    {
+     "id": "tsa-a02-v02-p007",
+     "verse_id": "tsa-a02-v02",
+     "pada_index": 7,
+     "surface": "sakṛd eva",
+     "citation": "sakṛd eva",
+     "options": [
+      {
+       "gloss": "once-only",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl. (sakṛt) + indecl. (eva)"
+    },
+    {
+     "id": "tsa-a02-v02-p008",
+     "verse_id": "tsa-a02-v02",
+     "pada_index": 8,
+     "surface": "tadā",
+     "citation": "tadā",
+     "options": [
+      {
+       "gloss": "then",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl. (adv.)"
+    },
+    {
+     "id": "tsa-a02-v02-p009",
+     "verse_id": "tsa-a02-v02",
+     "pada_index": 9,
+     "surface": "upāyavirahitaḥ",
+     "citation": "upāyavirahitaḥ",
+     "options": [
+      {
+       "gloss": "means-devoid",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg (comp.)"
+    },
+    {
+     "id": "tsa-a02-v02-p010",
+     "verse_id": "tsa-a02-v02",
+     "pada_index": 10,
+     "surface": "nityoditaḥ",
+     "citation": "nityoditaḥ",
+     "options": [
+      {
+       "gloss": "ever-risen",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg (comp. ppp)"
+    },
+    {
+     "id": "tsa-a02-v02-p011",
+     "verse_id": "tsa-a02-v02",
+     "pada_index": 11,
+     "surface": "asya samāveśaḥ",
+     "citation": "asya samāveśaḥ",
+     "options": [
+      {
+       "gloss": "his-immersion",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.gen.sg + m.nom.sg (samāveśa)"
+    }
+   ],
+   "tsa-a02-v03": [
+    {
+     "id": "tsa-a02-v03-p000",
+     "verse_id": "tsa-a02-v03",
+     "pada_index": 0,
+     "surface": "atra ca",
+     "citation": "atra ca",
+     "options": [
+      {
+       "gloss": "Here",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl. (adv.) + indecl. (ca)"
+    },
+    {
+     "id": "tsa-a02-v03-p001",
+     "verse_id": "tsa-a02-v03",
+     "pada_index": 1,
+     "surface": "tarkaḥ eva yogāṅgam",
+     "citation": "tarkaḥ eva yogāṅgam",
+     "options": [
+      {
+       "gloss": "reason-itself-is-the-yoga-limb",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg + indecl. (eva) + n.acc.sg (yoga)"
+    },
+    {
+     "id": "tsa-a02-v03-p002",
+     "verse_id": "tsa-a02-v03",
+     "pada_index": 2,
+     "surface": "iti",
+     "citation": "iti",
+     "options": [
+      {
+       "gloss": "thus",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl. (quotative)"
+    },
+    {
+     "id": "tsa-a02-v03-p003",
+     "verse_id": "tsa-a02-v03",
+     "pada_index": 3,
+     "surface": "katham",
+     "citation": "katham",
+     "options": [
+      {
+       "gloss": "how",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl. (interrogative adv.)"
+    },
+    {
+     "id": "tsa-a02-v03-p004",
+     "verse_id": "tsa-a02-v03",
+     "pada_index": 4,
+     "surface": "vivecayati",
+     "citation": "vivecayati",
+     "options": [
+      {
+       "gloss": "does-he-discriminate",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "3sg.pres.act √vic+vi"
+    },
+    {
+     "id": "tsa-a02-v03-p005",
+     "verse_id": "tsa-a02-v03",
+     "pada_index": 5,
+     "surface": "iti cet",
+     "citation": "iti cet",
+     "options": [
+      {
+       "gloss": "If-asked",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl. (iti) + indecl. (cet)"
+    },
+    {
+     "id": "tsa-a02-v03-p006",
+     "verse_id": "tsa-a02-v03",
+     "pada_index": 6,
+     "surface": "ucyate",
+     "citation": "ucyate",
+     "options": [
+      {
+       "gloss": "it-is-said",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "3sg.pres.pass √vac (it is said)"
+    },
+    {
+     "id": "tsa-a02-v03-p007",
+     "verse_id": "tsa-a02-v03",
+     "pada_index": 7,
+     "surface": "yaḥ ayam",
+     "citation": "yaḥ ayam",
+     "options": [
+      {
+       "gloss": "this",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg (yad) + m.nom.sg (idam)"
+    },
+    {
+     "id": "tsa-a02-v03-p008",
+     "verse_id": "tsa-a02-v03",
+     "pada_index": 8,
+     "surface": "parameśvaraḥ",
+     "citation": "parameśvaraḥ",
+     "options": [
+      {
+       "gloss": "Lord",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg (parameśvara)"
+    },
+    {
+     "id": "tsa-a02-v03-p009",
+     "verse_id": "tsa-a02-v03",
+     "pada_index": 9,
+     "surface": "svaprakāśarūpaḥ",
+     "citation": "svaprakāśarūpaḥ",
+     "options": [
+      {
+       "gloss": "self-light-natured",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg (comp.)"
+    },
+    {
+     "id": "tsa-a02-v03-p010",
+     "verse_id": "tsa-a02-v03",
+     "pada_index": 10,
+     "surface": "svātmā",
+     "citation": "svātmā",
+     "options": [
+      {
+       "gloss": "own-self",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg (reflexive substantive)"
+    },
+    {
+     "id": "tsa-a02-v03-p011",
+     "verse_id": "tsa-a02-v03",
+     "pada_index": 11,
+     "surface": "tatra",
+     "citation": "tatra",
+     "options": [
+      {
+       "gloss": "Therein",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl. (adv.)"
+    },
+    {
+     "id": "tsa-a02-v03-p012",
+     "verse_id": "tsa-a02-v03",
+     "pada_index": 12,
+     "surface": "kim",
+     "citation": "kim",
+     "options": [
+      {
+       "gloss": "what",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.nom-acc.sg (interrogative)"
+    },
+    {
+     "id": "tsa-a02-v03-p013",
+     "verse_id": "tsa-a02-v03",
+     "pada_index": 13,
+     "surface": "kriyate",
+     "citation": "kriyate",
+     "options": [
+      {
+       "gloss": "is-done",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "3sg.pres.pass √kṛ (is done)"
+    },
+    {
+     "id": "tsa-a02-v03-p014",
+     "verse_id": "tsa-a02-v03",
+     "pada_index": 14,
+     "surface": "upāyena",
+     "citation": "upāyena",
+     "options": [
+      {
+       "gloss": "by-means",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.inst.sg (upāya)"
+    },
+    {
+     "id": "tsa-a02-v03-p015",
+     "verse_id": "tsa-a02-v03",
+     "pada_index": 15,
+     "surface": "na svarūpalābhaḥ",
+     "citation": "na svarūpalābhaḥ",
+     "options": [
+      {
+       "gloss": "Not-attainment-of-nature",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl. (na) + m.nom.sg (comp.)"
+    },
+    {
+     "id": "tsa-a02-v03-p016",
+     "verse_id": "tsa-a02-v03",
+     "pada_index": 16,
+     "surface": "nityatvāt",
+     "citation": "nityatvāt",
+     "options": [
+      {
+       "gloss": "from-eternity",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.abl.sg (nitya + tva)"
+    },
+    {
+     "id": "tsa-a02-v03-p017",
+     "verse_id": "tsa-a02-v03",
+     "pada_index": 17,
+     "surface": "na jñaptiḥ",
+     "citation": "na jñaptiḥ",
+     "options": [
+      {
+       "gloss": "not-notification",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl. (na) + f.nom.sg (jñapti)"
+    },
+    {
+     "id": "tsa-a02-v03-p018",
+     "verse_id": "tsa-a02-v03",
+     "pada_index": 18,
+     "surface": "svayaṃprakāśamānatvāt",
+     "citation": "svayaṃprakāśamānatvāt",
+     "options": [
+      {
+       "gloss": "from-self-shiningness",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.abl.sg (comp.)"
+    },
+    {
+     "id": "tsa-a02-v03-p019",
+     "verse_id": "tsa-a02-v03",
+     "pada_index": 19,
+     "surface": "na āvaraṇavigamaḥ",
+     "citation": "na āvaraṇavigamaḥ",
+     "options": [
+      {
+       "gloss": "not-removal-of-covering",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl. (na) + m.nom.sg (comp.)"
+    },
+    {
+     "id": "tsa-a02-v03-p020",
+     "verse_id": "tsa-a02-v03",
+     "pada_index": 20,
+     "surface": "āvaraṇasya kasyacid api asaṃbhavāt",
+     "citation": "āvaraṇasya kasyacid api asaṃbhavāt",
+     "options": [
+      {
+       "gloss": "since-covering-of-any-kind-is-impossible",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.gen.sg + m./n.gen.sg + indecl. (api) + m.abl.sg (comp.)"
+    },
+    {
+     "id": "tsa-a02-v03-p021",
+     "verse_id": "tsa-a02-v03",
+     "pada_index": 21,
+     "surface": "na tadanupraveśaḥ",
+     "citation": "na tadanupraveśaḥ",
+     "options": [
+      {
+       "gloss": "not-entry-into-it",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl. (na) + m.nom.sg (comp.)"
+    },
+    {
+     "id": "tsa-a02-v03-p022",
+     "verse_id": "tsa-a02-v03",
+     "pada_index": 22,
+     "surface": "anupraveṣṭuḥ vyatiriktasya abhāvāt",
+     "citation": "anupraveṣṭuḥ vyatiriktasya abhāvāt",
+     "options": [
+      {
+       "gloss": "since-there-is-no-distinct-enterer",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.gen.sg (agent noun) + m./n.gen.sg + m.abl.sg"
+    }
+   ],
+   "tsa-a02-v04": [
+    {
+     "id": "tsa-a02-v04-p000",
+     "verse_id": "tsa-a02-v04",
+     "pada_index": 0,
+     "surface": "kaś ca atra upāyaḥ",
+     "citation": "kaś ca atra upāyaḥ",
+     "options": [
+      {
+       "gloss": "What-means-here",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg + indecl. (ca) + indecl. (atra) + m.nom.sg (upāya)"
+    },
+    {
+     "id": "tsa-a02-v04-p001",
+     "verse_id": "tsa-a02-v04",
+     "pada_index": 1,
+     "surface": "tasyāpi",
+     "citation": "tasyāpi",
+     "options": [
+      {
+       "gloss": "of-it-too",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m./n.gen.sg + indecl. (api)"
+    },
+    {
+     "id": "tsa-a02-v04-p002",
+     "verse_id": "tsa-a02-v04",
+     "pada_index": 2,
+     "surface": "vyatiriktasya",
+     "citation": "vyatiriktasya",
+     "options": [
+      {
+       "gloss": "as-distinct",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m./n.gen.sg (vyatirikta adj.)"
+    },
+    {
+     "id": "tsa-a02-v04-p003",
+     "verse_id": "tsa-a02-v04",
+     "pada_index": 3,
+     "surface": "anupapatteḥ",
+     "citation": "anupapatteḥ",
+     "options": [
+      {
+       "gloss": "impossibility",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "f.gen.sg (anupapatti)"
+    },
+    {
+     "id": "tsa-a02-v04-p004",
+     "verse_id": "tsa-a02-v04",
+     "pada_index": 4,
+     "surface": "tasmāt",
+     "citation": "tasmāt",
+     "options": [
+      {
+       "gloss": "Hence",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m./n.abl.sg (tad)"
+    },
+    {
+     "id": "tsa-a02-v04-p005",
+     "verse_id": "tsa-a02-v04",
+     "pada_index": 5,
+     "surface": "samastam idam",
+     "citation": "samastam idam",
+     "options": [
+      {
+       "gloss": "all-this",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.nom.sg + n.nom.sg (idam)"
+    },
+    {
+     "id": "tsa-a02-v04-p006",
+     "verse_id": "tsa-a02-v04",
+     "pada_index": 6,
+     "surface": "ekam",
+     "citation": "ekam",
+     "options": [
+      {
+       "gloss": "one",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.nom.sg (eka)"
+    },
+    {
+     "id": "tsa-a02-v04-p007",
+     "verse_id": "tsa-a02-v04",
+     "pada_index": 7,
+     "surface": "cinmātratattvam",
+     "citation": "cinmātratattvam",
+     "options": [
+      {
+       "gloss": "consciousness-only-reality",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.nom.sg (comp.)"
+    },
+    {
+     "id": "tsa-a02-v04-p008",
+     "verse_id": "tsa-a02-v04",
+     "pada_index": 8,
+     "surface": "kālena akalitam",
+     "citation": "kālena akalitam",
+     "options": [
+      {
+       "gloss": "unmeasured-by-time",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m./n.inst.sg + n.nom.sg ppp √kal+a"
+    },
+    {
+     "id": "tsa-a02-v04-p009",
+     "verse_id": "tsa-a02-v04",
+     "pada_index": 9,
+     "surface": "deśena aparicchinnam",
+     "citation": "deśena aparicchinnam",
+     "options": [
+      {
+       "gloss": "undelimited-by-place",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m./n.inst.sg + n.nom.sg ppp √chid+pari+apa"
+    },
+    {
+     "id": "tsa-a02-v04-p010",
+     "verse_id": "tsa-a02-v04",
+     "pada_index": 10,
+     "surface": "upādhibhir amlānam",
+     "citation": "upādhibhir amlānam",
+     "options": [
+      {
+       "gloss": "unfaded-by-attributes",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m./n.inst.pl + n.nom.sg √mlai+a (unfaded)"
+    },
+    {
+     "id": "tsa-a02-v04-p011",
+     "verse_id": "tsa-a02-v04",
+     "pada_index": 11,
+     "surface": "ākṛtibhir aniyantritam",
+     "citation": "ākṛtibhir aniyantritam",
+     "options": [
+      {
+       "gloss": "uncontrolled-by-forms",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "f.inst.pl + n.nom.sg ppp √yam+ni"
+    },
+    {
+     "id": "tsa-a02-v04-p012",
+     "verse_id": "tsa-a02-v04",
+     "pada_index": 12,
+     "surface": "śabdair asaṃdiṣṭam",
+     "citation": "śabdair asaṃdiṣṭam",
+     "options": [
+      {
+       "gloss": "unindicated-by-words",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m./n.inst.pl + n.nom.sg ppp √diś+sam"
+    },
+    {
+     "id": "tsa-a02-v04-p013",
+     "verse_id": "tsa-a02-v04",
+     "pada_index": 13,
+     "surface": "pramāṇair aprapañcitam",
+     "citation": "pramāṇair aprapañcitam",
+     "options": [
+      {
+       "gloss": "unelaborated-by-valid-means",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.inst.pl + n.nom.sg ppp √pañc+pra"
+    },
+    {
+     "id": "tsa-a02-v04-p014",
+     "verse_id": "tsa-a02-v04",
+     "pada_index": 14,
+     "surface": "svarūpa-lābhanimittam ca",
+     "citation": "svarūpa-lābhanimittam ca",
+     "options": [
+      {
+       "gloss": "and-the-cause-of-own-nature-attainment",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.acc.sg (comp.) + indecl. (ca)"
+    },
+    {
+     "id": "tsa-a02-v04-p015",
+     "verse_id": "tsa-a02-v04",
+     "pada_index": 15,
+     "surface": "kālādeḥ pramāṇaparyantasya",
+     "citation": "kālādeḥ pramāṇaparyantasya",
+     "options": [
+      {
+       "gloss": "of-time-to-valid-means",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.abl.sg + m./n.gen.sg (comp.)"
+    },
+    {
+     "id": "tsa-a02-v04-p016",
+     "verse_id": "tsa-a02-v04",
+     "pada_index": 16,
+     "surface": "svecchayaiva",
+     "citation": "svecchayaiva",
+     "options": [
+      {
+       "gloss": "by-own-will-alone",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "f.inst.sg + indecl. (eva)"
+    },
+    {
+     "id": "tsa-a02-v04-p017",
+     "verse_id": "tsa-a02-v04",
+     "pada_index": 17,
+     "surface": "svatantram",
+     "citation": "svatantram",
+     "options": [
+      {
+       "gloss": "autonomous",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.acc.sg (svatantra)"
+    },
+    {
+     "id": "tsa-a02-v04-p018",
+     "verse_id": "tsa-a02-v04",
+     "pada_index": 18,
+     "surface": "ānandaghanam",
+     "citation": "ānandaghanam",
+     "options": [
+      {
+       "gloss": "bliss-dense",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.acc.sg (comp.)"
+    },
+    {
+     "id": "tsa-a02-v04-p019",
+     "verse_id": "tsa-a02-v04",
+     "pada_index": 19,
+     "surface": "tattvam",
+     "citation": "tattvam",
+     "options": [
+      {
+       "gloss": "reality",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.nom.sg (tattva)"
+    },
+    {
+     "id": "tsa-a02-v04-p020",
+     "verse_id": "tsa-a02-v04",
+     "pada_index": 20,
+     "surface": "tad eva ca",
+     "citation": "tad eva ca",
+     "options": [
+      {
+       "gloss": "that-itself",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.nom.sg (tad) + indecl. x2"
+    },
+    {
+     "id": "tsa-a02-v04-p021",
+     "verse_id": "tsa-a02-v04",
+     "pada_index": 21,
+     "surface": "aham",
+     "citation": "aham",
+     "options": [
+      {
+       "gloss": "I",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.nom.sg (mad)"
+    },
+    {
+     "id": "tsa-a02-v04-p022",
+     "verse_id": "tsa-a02-v04",
+     "pada_index": 22,
+     "surface": "tatra eva",
+     "citation": "tatra eva",
+     "options": [
+      {
+       "gloss": "therein",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl. (tatra) + indecl. (eva)"
+    },
+    {
+     "id": "tsa-a02-v04-p023",
+     "verse_id": "tsa-a02-v04",
+     "pada_index": 23,
+     "surface": "antar mayi",
+     "citation": "antar mayi",
+     "options": [
+      {
+       "gloss": "within-me",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl. (antar) + loc.sg (mad)"
+    },
+    {
+     "id": "tsa-a02-v04-p024",
+     "verse_id": "tsa-a02-v04",
+     "pada_index": 24,
+     "surface": "viśvam",
+     "citation": "viśvam",
+     "options": [
+      {
+       "gloss": "the-universe",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.nom.sg (viśva)"
+    },
+    {
+     "id": "tsa-a02-v04-p025",
+     "verse_id": "tsa-a02-v04",
+     "pada_index": 25,
+     "surface": "pratibimbitam",
+     "citation": "pratibimbitam",
+     "options": [
+      {
+       "gloss": "reflected",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.nom.sg ppp √bimb+prati"
+    },
+    {
+     "id": "tsa-a02-v04-p026",
+     "verse_id": "tsa-a02-v04",
+     "pada_index": 26,
+     "surface": "evaṃ dṛḍhaṃ viviñcānasya",
+     "citation": "evaṃ dṛḍhaṃ viviñcānasya",
+     "options": [
+      {
+       "gloss": "For-one-thus-firmly-discriminating",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl. (evam) + n.acc.sg + m./n.gen.sg prp.mid √vic+vi"
+    },
+    {
+     "id": "tsa-a02-v04-p027",
+     "verse_id": "tsa-a02-v04",
+     "pada_index": 27,
+     "surface": "śaśvad eva",
+     "citation": "śaśvad eva",
+     "options": [
+      {
+       "gloss": "ever",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl. (śaśvat) + indecl. (eva)"
+    },
+    {
+     "id": "tsa-a02-v04-p028",
+     "verse_id": "tsa-a02-v04",
+     "pada_index": 28,
+     "surface": "pārameśvaraḥ samāveśaḥ",
+     "citation": "pārameśvaraḥ samāveśaḥ",
+     "options": [
+      {
+       "gloss": "Lordly-immersion",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg (comp.) + m.nom.sg"
+    },
+    {
+     "id": "tsa-a02-v04-p029",
+     "verse_id": "tsa-a02-v04",
+     "pada_index": 29,
+     "surface": "nirupāyakaḥ eva",
+     "citation": "nirupāyakaḥ eva",
+     "options": [
+      {
+       "gloss": "means-less-itself",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg (comp.) + indecl. (eva)"
+    },
+    {
+     "id": "tsa-a02-v04-p030",
+     "verse_id": "tsa-a02-v04",
+     "pada_index": 30,
+     "surface": "tasya ca",
+     "citation": "tasya ca",
+     "options": [
+      {
+       "gloss": "for-it",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m./n.gen.sg + indecl. (ca)"
+    },
+    {
+     "id": "tsa-a02-v04-p031",
+     "verse_id": "tsa-a02-v04",
+     "pada_index": 31,
+     "surface": "na niyantraṇā kācit",
+     "citation": "na niyantraṇā kācit",
+     "options": [
+      {
+       "gloss": "no-constraint-at-all",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl. (na) + f.nom.sg + f.nom.sg (kiṃcid)"
+    },
+    {
+     "id": "tsa-a02-v04-p032",
+     "verse_id": "tsa-a02-v04",
+     "pada_index": 32,
+     "surface": "mantrapūjādhyānacaryādiniyantraṇā",
+     "citation": "mantrapūjādhyānacaryādiniyantraṇā",
+     "options": [
+      {
+       "gloss": "by-mantra-worship-meditation-conduct",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "f.nom.sg (long comp.)"
+    }
+   ]
+  },
+  "argmap": {
+   "tsa-a02-v01": {
+    "inference": "The means-less itself is announced first: exposition promised.",
+    "option_choices": [],
+    "premises": [
+     "Now the means-less itself, first of all.",
+     "We shall expound."
+    ],
+    "question": "What comes first, and what is promised?",
+    "scope": "verse",
+    "song": "tsa-a02",
+    "speaker": "Abhinavagupta (teacher voice, promising)",
+    "structured": true,
+    "traces": {
+     "l0_ids": [
+      "tsa-a02-v01-p000",
+      "tsa-a02-v01-p001",
+      "tsa-a02-v01-p002",
+      "tsa-a02-v01-p003"
+     ],
+     "sanskrit_sha": "1608521ff947c836",
+     "t1_verse": "tsa-a02-v01"
+    },
+    "uncertainties": [],
+    "verse": 1,
+    "verse_id": "tsa-a02-v01",
+    "sanskrit_sha": "1608521ff947c836"
+   },
+   "tsa-a02-v02": {
+    "inference": "The struck one's immersion is means-devoid and ever-risen.",
+    "option_choices": [],
+    "premises": [
+     "Pierced by firm descent of power, discriminating of oneself, teacher's word heeded but once.",
+     "Then: means-devoid, ever-risen — his immersion."
+    ],
+    "question": "Whose immersion needs no means?",
+    "scope": "verse",
+    "song": "tsa-a02",
+    "speaker": "Abhinavagupta (teacher voice, describing)",
+    "structured": true,
+    "traces": {
+     "l0_ids": [
+      "tsa-a02-v02-p000",
+      "tsa-a02-v02-p001",
+      "tsa-a02-v02-p002",
+      "tsa-a02-v02-p003",
+      "tsa-a02-v02-p004",
+      "tsa-a02-v02-p005",
+      "tsa-a02-v02-p006",
+      "tsa-a02-v02-p007",
+      "tsa-a02-v02-p008",
+      "tsa-a02-v02-p009",
+      "tsa-a02-v02-p010",
+      "tsa-a02-v02-p011"
+     ],
+     "sanskrit_sha": "1608521ff947c836",
+     "t1_verse": "tsa-a02-v02"
+    },
+    "uncertainties": [],
+    "verse": 2,
+    "verse_id": "tsa-a02-v02",
+    "sanskrit_sha": "1608521ff947c836"
+   },
+   "tsa-a02-v03": {
+    "inference": "Every use of means is void: nothing to attain, notify, unveil, or enter — all is Śiva already.",
+    "option_choices": [],
+    "premises": [
+     "Reasoning itself is yoga's limb — but how discern at all?",
+     "This Lord, self-light-natured, is own self: what could means do?",
+     "No attaining of nature — eternal.",
+     "No notifying — self-luminous manifestation needs none.",
+     "No veil-removal — no covering of any kind exists.",
+     "No entering the non-entered — enterer and entered not distinct."
+    ],
+    "question": "What can means accomplish?",
+    "scope": "verse",
+    "song": "tsa-a02",
+    "speaker": "Abhinavagupta (teacher voice, reasoning)",
+    "structured": true,
+    "traces": {
+     "l0_ids": [
+      "tsa-a02-v03-p000",
+      "tsa-a02-v03-p001",
+      "tsa-a02-v03-p002",
+      "tsa-a02-v03-p003",
+      "tsa-a02-v03-p004",
+      "tsa-a02-v03-p005",
+      "tsa-a02-v03-p006",
+      "tsa-a02-v03-p007",
+      "tsa-a02-v03-p008",
+      "tsa-a02-v03-p009",
+      "tsa-a02-v03-p010",
+      "tsa-a02-v03-p011",
+      "tsa-a02-v03-p012",
+      "tsa-a02-v03-p013",
+      "tsa-a02-v03-p014",
+      "tsa-a02-v03-p015",
+      "tsa-a02-v03-p016",
+      "tsa-a02-v03-p017",
+      "tsa-a02-v03-p018",
+      "tsa-a02-v03-p019",
+      "tsa-a02-v03-p020",
+      "tsa-a02-v03-p021",
+      "tsa-a02-v03-p022"
+     ],
+     "sanskrit_sha": "1608521ff947c836",
+     "t1_verse": "tsa-a02-v03"
+    },
+    "uncertainties": [],
+    "verse": 3,
+    "verse_id": "tsa-a02-v03",
+    "sanskrit_sha": "1608521ff947c836"
+   },
+   "tsa-a02-v04": {
+    "inference": "I am That; the universe mirrors in me; immersion is ever-present and means-less.",
+    "option_choices": [],
+    "premises": [
+     "What means here? Of it too, as distinct — impossible.",
+     "Hence all this is one consciousness-only reality: unmeasured, unbounded, unfaded, uncontrolled, unindicated, unelaborated.",
+     "By own will alone: autonomous, bliss-dense reality.",
+     "That am I; therein, within me, the universe reflected.",
+     "For one firmly discerning, ever: Lordly immersion, means-less itself.",
+     "For it no constraint at all — by mantra, worship, meditation, conduct."
+    ],
+    "question": "Who am I, and what need of means?",
+    "scope": "verse",
+    "song": "tsa-a02",
+    "speaker": "Abhinavagupta (teacher voice, concluding)",
+    "structured": true,
+    "traces": {
+     "l0_ids": [
+      "tsa-a02-v04-p000",
+      "tsa-a02-v04-p001",
+      "tsa-a02-v04-p002",
+      "tsa-a02-v04-p003",
+      "tsa-a02-v04-p004",
+      "tsa-a02-v04-p005",
+      "tsa-a02-v04-p006",
+      "tsa-a02-v04-p007",
+      "tsa-a02-v04-p008",
+      "tsa-a02-v04-p009",
+      "tsa-a02-v04-p010",
+      "tsa-a02-v04-p011",
+      "tsa-a02-v04-p012",
+      "tsa-a02-v04-p013",
+      "tsa-a02-v04-p014",
+      "tsa-a02-v04-p015",
+      "tsa-a02-v04-p016",
+      "tsa-a02-v04-p017",
+      "tsa-a02-v04-p018",
+      "tsa-a02-v04-p019",
+      "tsa-a02-v04-p020",
+      "tsa-a02-v04-p021",
+      "tsa-a02-v04-p022",
+      "tsa-a02-v04-p023",
+      "tsa-a02-v04-p024",
+      "tsa-a02-v04-p025",
+      "tsa-a02-v04-p026",
+      "tsa-a02-v04-p027",
+      "tsa-a02-v04-p028",
+      "tsa-a02-v04-p029",
+      "tsa-a02-v04-p030",
+      "tsa-a02-v04-p031",
+      "tsa-a02-v04-p032"
+     ],
+     "sanskrit_sha": "1608521ff947c836",
+     "t1_verse": "tsa-a02-v04"
+    },
+    "uncertainties": [],
+    "verse": 4,
+    "verse_id": "tsa-a02-v04",
+    "sanskrit_sha": "1608521ff947c836"
+   }
+  },
+  "l2": {
+   "tsa-a02-v01": {
+    "verse_id": "tsa-a02-v01",
+    "song": "tsa-a02",
+    "verse": 1,
+    "plain_english": "First of the four ways in: the way with no way. We shall expound it.",
+    "sanskrit_cite": "atha anupāyam eva tāvat vyākhyāsyāmaḥ",
+    "l0_ids": [
+     "tsa-a02-v01-p000",
+     "tsa-a02-v01-p001",
+     "tsa-a02-v01-p002",
+     "tsa-a02-v01-p003"
+    ]
+   },
+   "tsa-a02-v02": {
+    "verse_id": "tsa-a02-v02",
+    "song": "tsa-a02",
+    "verse": 2,
+    "plain_english": "When grace has struck firm, a person hears the teacher's word once — and then discriminates for himself. From that point his immersion needs nothing and never sets.",
+    "sanskrit_cite": "yadā khalu dṛḍhaśaktipātāviddhaḥ svayam eva itthaṃ vivecayati sakṛd eva guruvacanam avadhārya tadā punar upāyavirahito nityoditaḥ asya samāveśaḥ",
+    "l0_ids": [
+     "tsa-a02-v02-p000",
+     "tsa-a02-v02-p001",
+     "tsa-a02-v02-p002",
+     "tsa-a02-v02-p003",
+     "tsa-a02-v02-p004",
+     "tsa-a02-v02-p005",
+     "tsa-a02-v02-p006",
+     "tsa-a02-v02-p007",
+     "tsa-a02-v02-p008",
+     "tsa-a02-v02-p009",
+     "tsa-a02-v02-p010",
+     "tsa-a02-v02-p011"
+    ]
+   },
+   "tsa-a02-v03": {
+    "verse_id": "tsa-a02-v03",
+    "song": "tsa-a02",
+    "verse": 3,
+    "plain_english": "Here \"yoga-limb\" means one thing only: thinking it through. But what is there to think? The Lord, who is self-shining, is yourself. So what could a means do? It can't get you your nature — you have it eternally. It can't inform you — you shine already. It can't strip a covering — there is none. It can't take you inside — there's no outsider to go in.",
+    "sanskrit_cite": "atra ca tarka eva yogāṅgam iti kathaṃ vivecayati iti cet ucyate yo 'yaṃ parameśvaraḥ svaprakāśarūpaḥ svātmā tatra kim upāyena kriyate na svarūpalābho nityatvāt na jñaptiḥ svayaṃprakāśamānatvāt nāvaraṇavigamaḥ āvaraṇasya kasyacid api asaṃbhavāt na tadanupraveśaḥ anupraveṣṭuḥ vyatiriktasya abhāvāt",
+    "l0_ids": [
+     "tsa-a02-v03-p000",
+     "tsa-a02-v03-p001",
+     "tsa-a02-v03-p002",
+     "tsa-a02-v03-p003",
+     "tsa-a02-v03-p004",
+     "tsa-a02-v03-p005",
+     "tsa-a02-v03-p006",
+     "tsa-a02-v03-p007",
+     "tsa-a02-v03-p008",
+     "tsa-a02-v03-p009",
+     "tsa-a02-v03-p010",
+     "tsa-a02-v03-p011",
+     "tsa-a02-v03-p012",
+     "tsa-a02-v03-p013",
+     "tsa-a02-v03-p014",
+     "tsa-a02-v03-p015",
+     "tsa-a02-v03-p016",
+     "tsa-a02-v03-p017",
+     "tsa-a02-v03-p018",
+     "tsa-a02-v03-p019",
+     "tsa-a02-v03-p020",
+     "tsa-a02-v03-p021",
+     "tsa-a02-v03-p022"
+    ]
+   },
+   "tsa-a02-v04": {
+    "verse_id": "tsa-a02-v04",
+    "song": "tsa-a02",
+    "verse": 4,
+    "plain_english": "And the means itself, as something separate from you, is equally impossible. So: all this is one reality, consciousness and nothing else — time can't measure it, place can't bound it, qualities can't fade it, shapes can't rule it, words can't point it out, proofs can't build it up. By its own will it is what lets everything from time to proof arrive at its nature; free, thick bliss; and that is I, with the universe mirrored inside me. Who sees this steadily is immersed in the Lord always, without means — no mantra binds him, no worship, no sitting, no observance.",
+    "sanskrit_cite": "kaś cātra upāyaḥ tasyāpi vyatiriktasya anupapatteḥ tasmāt samastam idam ekaṃ cinmātratattvaṃ kālena akalitaṃ deśena aparicchinnam upādhibhir amlānam ākṛtibhir aniyantritaṃ śabdair asaṃdiṣṭaṃ pramāṇair aprapañcitaṃ kālādeḥ pramāṇaparyantasya svecchayaiva svarūpalābhanimittaṃ ca svatantram ānandaghanaṃ tattvaṃ tad eva ca aham tatraiva antar mayi viśvaṃ pratibimbitam evaṃ dṛḍhaṃ viviñcānasya śaśvad eva pārameśvaraḥ samāveśo nirupāyaka eva tasya ca na mantrapūjādhyānacaryādiniyantraṇā kācit",
+    "l0_ids": [
+     "tsa-a02-v04-p000",
+     "tsa-a02-v04-p001",
+     "tsa-a02-v04-p002",
+     "tsa-a02-v04-p003",
+     "tsa-a02-v04-p004",
+     "tsa-a02-v04-p005",
+     "tsa-a02-v04-p006",
+     "tsa-a02-v04-p007",
+     "tsa-a02-v04-p008",
+     "tsa-a02-v04-p009",
+     "tsa-a02-v04-p010",
+     "tsa-a02-v04-p011",
+     "tsa-a02-v04-p012",
+     "tsa-a02-v04-p013",
+     "tsa-a02-v04-p014",
+     "tsa-a02-v04-p015",
+     "tsa-a02-v04-p016",
+     "tsa-a02-v04-p017",
+     "tsa-a02-v04-p018",
+     "tsa-a02-v04-p019",
+     "tsa-a02-v04-p020",
+     "tsa-a02-v04-p021",
+     "tsa-a02-v04-p022",
+     "tsa-a02-v04-p023",
+     "tsa-a02-v04-p024",
+     "tsa-a02-v04-p025",
+     "tsa-a02-v04-p026",
+     "tsa-a02-v04-p027",
+     "tsa-a02-v04-p028",
+     "tsa-a02-v04-p029",
+     "tsa-a02-v04-p030",
+     "tsa-a02-v04-p031",
+     "tsa-a02-v04-p032"
+    ]
+   }
+  },
+  "c1": {
+   "tsa-a02": {
+    "song": "tsa-a02",
+    "essence": [
+     "The way with no way: when grace has struck firm, one word from the teacher and the immersion is ever-risen — no means required.",
+     "Four impossibilities: no nature to attain, nothing to notify, no covering to remove, no one to enter; the means itself impossible.",
+     "All is one consciousness-only reality — unmeasured, unbounded, unfaded, uncontrolled, unindicated, unelaborated — autonomous, bliss-dense; I am that, with the universe mirrored in me.",
+     "No mantra, worship, meditation, or conduct binds one who sees this steadily."
+    ],
+    "essence_source": "human-sharpened",
+    "renders": {
+     "standard": {
+      "style": "standard",
+      "sections": {
+       "SUMMARY": "",
+       "FUNCTION": "",
+       "KEY TERMS": "",
+       "LOCAL CONTEXT": "",
+       "EXPLANATION": "",
+       "BOUNDARY": "",
+       "RELATED": ""
+      }
+     }
+    },
+    "rasa": {
+     "dominant": "adbhuta-śānta of immediate recognition",
+     "sthayibhava": "vismaya-śama",
+     "justification": "Immediate recognition (anupāya) as wonder settling into taught peace: the four impossibilities end in identity."
+    }
+   }
+  },
+  "l3": {
+   "tsa-a02-v01": {
+    "verse_id": "tsa-a02-v01",
+    "song": "tsa-a02",
+    "verse": 1,
+    "lines": [
+     "First of the four ways in — the way with no way.",
+     "We shall expound it."
+    ],
+    "sanskrit_cite": "atha anupāyam eva tāvat vyākhyāsyāmaḥ",
+    "l0_ids": [
+     "tsa-a02-v01-p000",
+     "tsa-a02-v01-p001",
+     "tsa-a02-v01-p002",
+     "tsa-a02-v01-p003"
+    ],
+    "essence_maps": [
+     0
+    ]
+   },
+   "tsa-a02-v02": {
+    "verse_id": "tsa-a02-v02",
+    "song": "tsa-a02",
+    "verse": 2,
+    "lines": [
+     "When grace has struck firm, a person hears the teacher's word once —",
+     "from that point his immersion needs nothing and never sets."
+    ],
+    "sanskrit_cite": "yadā khalu dṛḍhaśaktipātāviddhaḥ svayam eva itthaṃ vivecayati sakṛd eva guruvacanam avadhārya tadā punar upāyavirahito nityoditaḥ asya samāveśaḥ",
+    "l0_ids": [
+     "tsa-a02-v02-p000",
+     "tsa-a02-v02-p001",
+     "tsa-a02-v02-p002",
+     "tsa-a02-v02-p003",
+     "tsa-a02-v02-p004",
+     "tsa-a02-v02-p005",
+     "tsa-a02-v02-p006",
+     "tsa-a02-v02-p007",
+     "tsa-a02-v02-p008",
+     "tsa-a02-v02-p009",
+     "tsa-a02-v02-p010",
+     "tsa-a02-v02-p011"
+    ],
+    "essence_maps": [
+     0
+    ]
+   },
+   "tsa-a02-v03": {
+    "verse_id": "tsa-a02-v03",
+    "song": "tsa-a02",
+    "verse": 3,
+    "lines": [
+     "Here \"yoga-limb\" means one thing only — thinking it through.",
+     "But what is there to think? The Lord is self-shining, and that Lord is you.",
+     "So what could a means do? It cannot get you your nature — you have it eternally.",
+     "It cannot inform you — you shine already.",
+     "It cannot strip a covering — there is none.",
+     "It cannot take you inside — there is no outsider to go in."
+    ],
+    "sanskrit_cite": "atra ca tarka eva yogāṅgam iti kathaṃ vivecayati iti cet ucyate yo 'yaṃ parameśvaraḥ svaprakāśarūpaḥ svātmā tatra kim upāyena kriyate na svarūpalābho nityatvāt na jñaptiḥ svayaṃprakāśamānatvāt nāvaraṇavigamaḥ āvaraṇasya kasyacid api asaṃbhavāt na tadanupraveśaḥ anupraveṣṭuḥ vyatiriktasya abhāvāt",
+    "l0_ids": [
+     "tsa-a02-v03-p000",
+     "tsa-a02-v03-p001",
+     "tsa-a02-v03-p002",
+     "tsa-a02-v03-p003",
+     "tsa-a02-v03-p004",
+     "tsa-a02-v03-p005",
+     "tsa-a02-v03-p006",
+     "tsa-a02-v03-p007",
+     "tsa-a02-v03-p008",
+     "tsa-a02-v03-p009",
+     "tsa-a02-v03-p010",
+     "tsa-a02-v03-p011",
+     "tsa-a02-v03-p012",
+     "tsa-a02-v03-p013",
+     "tsa-a02-v03-p014",
+     "tsa-a02-v03-p015",
+     "tsa-a02-v03-p016",
+     "tsa-a02-v03-p017",
+     "tsa-a02-v03-p018",
+     "tsa-a02-v03-p019",
+     "tsa-a02-v03-p020",
+     "tsa-a02-v03-p021",
+     "tsa-a02-v03-p022"
+    ],
+    "essence_maps": [
+     0
+    ]
+   },
+   "tsa-a02-v04": {
+    "verse_id": "tsa-a02-v04",
+    "song": "tsa-a02",
+    "verse": 4,
+    "lines": [
+     "And the means itself, as something separate from you, is equally impossible —",
+     "so: all this is one reality, consciousness and nothing else.",
+     "Time cannot measure it, place cannot bound it, qualities cannot fade it, shapes cannot rule it, words cannot point it out, proofs cannot build it up.",
+     "By its own will it lets everything from time to proof arrive at its nature; free, thick bliss; and that is I, with the universe mirrored inside me.",
+     "Who sees this steadily is immersed in the Lord always — no mantra, no worship, no sitting, no observance binds him."
+    ],
+    "sanskrit_cite": "kaś cātra upāyaḥ tasyāpi vyatiriktasya anupapatteḥ tasmāt samastam idam ekaṃ cinmātratattvaṃ kālena akalitaṃ deśena aparicchinnam upādhibhir amlānam ākṛtibhir aniyantritaṃ śabdair asaṃdiṣṭaṃ pramāṇair aprapañcitaṃ kālādeḥ pramāṇaparyantasya svecchayaiva svarūpalābhanimittaṃ ca svatantram ānandaghanaṃ tattvaṃ tad eva ca aham tatraiva antar mayi viśvaṃ pratibimbitam evaṃ dṛḍhaṃ viviñcānasya śaśvad eva pārameśvaraḥ samāveśo nirupāyaka eva tasya ca na mantrapūjādhyānacaryādiniyantraṇā kācit",
+    "l0_ids": [
+     "tsa-a02-v04-p000",
+     "tsa-a02-v04-p001",
+     "tsa-a02-v04-p002",
+     "tsa-a02-v04-p003",
+     "tsa-a02-v04-p004",
+     "tsa-a02-v04-p005",
+     "tsa-a02-v04-p006",
+     "tsa-a02-v04-p007",
+     "tsa-a02-v04-p008",
+     "tsa-a02-v04-p009",
+     "tsa-a02-v04-p010",
+     "tsa-a02-v04-p011",
+     "tsa-a02-v04-p012",
+     "tsa-a02-v04-p013",
+     "tsa-a02-v04-p014",
+     "tsa-a02-v04-p015",
+     "tsa-a02-v04-p016",
+     "tsa-a02-v04-p017",
+     "tsa-a02-v04-p018",
+     "tsa-a02-v04-p019",
+     "tsa-a02-v04-p020",
+     "tsa-a02-v04-p021",
+     "tsa-a02-v04-p022",
+     "tsa-a02-v04-p023",
+     "tsa-a02-v04-p024",
+     "tsa-a02-v04-p025",
+     "tsa-a02-v04-p026",
+     "tsa-a02-v04-p027",
+     "tsa-a02-v04-p028",
+     "tsa-a02-v04-p029",
+     "tsa-a02-v04-p030",
+     "tsa-a02-v04-p031",
+     "tsa-a02-v04-p032"
+    ],
+    "essence_maps": [
+     0
+    ]
+   }
+  },
+  "l4": {
+   "tsa-a02-v01": {
+    "verse_id": "tsa-a02-v01",
+    "song": "tsa-a02",
+    "verse": 1,
+    "lines": [
+     "First of the four ways in: the way with no way.",
+     "We shall expound it."
+    ],
+    "sanskrit_cite": "atha anupāyam eva tāvat vyākhyāsyāmaḥ",
+    "l0_ids": [
+     "tsa-a02-v01-p000",
+     "tsa-a02-v01-p001",
+     "tsa-a02-v01-p002",
+     "tsa-a02-v01-p003"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "tsa-a02-v02": {
+    "verse_id": "tsa-a02-v02",
+    "song": "tsa-a02",
+    "verse": 2,
+    "lines": [
+     "When grace has struck firm, a person hears the teacher's word once — and then discriminates for himself.",
+     "From that point his immersion needs nothing and never sets."
+    ],
+    "sanskrit_cite": "yadā khalu dṛḍhaśaktipātāviddhaḥ svayam eva itthaṃ vivecayati sakṛd eva guruvacanam avadhārya tadā punar upāyavirahito nityoditaḥ asya samāveśaḥ",
+    "l0_ids": [
+     "tsa-a02-v02-p000",
+     "tsa-a02-v02-p001",
+     "tsa-a02-v02-p002",
+     "tsa-a02-v02-p003",
+     "tsa-a02-v02-p004",
+     "tsa-a02-v02-p005",
+     "tsa-a02-v02-p006",
+     "tsa-a02-v02-p007",
+     "tsa-a02-v02-p008",
+     "tsa-a02-v02-p009",
+     "tsa-a02-v02-p010",
+     "tsa-a02-v02-p011"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "tsa-a02-v03": {
+    "verse_id": "tsa-a02-v03",
+    "song": "tsa-a02",
+    "verse": 3,
+    "lines": [
+     "Here \"yoga-limb\" means one thing only: thinking it through.",
+     "But what is there to think? The Lord, who is self-shining, is yourself.",
+     "So what could a means do? It can't get you your nature — you have it eternally.",
+     "It can't inform you — you shine already.",
+     "It can't strip a covering — there is none.",
+     "It can't take you inside — there's no outsider to go in."
+    ],
+    "sanskrit_cite": "atra ca tarka eva yogāṅgam iti kathaṃ vivecayati iti cet ucyate yo 'yaṃ parameśvaraḥ svaprakāśarūpaḥ svātmā tatra kim upāyena kriyate na svarūpalābho nityatvāt na jñaptiḥ svayaṃprakāśamānatvāt nāvaraṇavigamaḥ āvaraṇasya kasyacid api asaṃbhavāt na tadanupraveśaḥ anupraveṣṭuḥ vyatiriktasya abhāvāt",
+    "l0_ids": [
+     "tsa-a02-v03-p000",
+     "tsa-a02-v03-p001",
+     "tsa-a02-v03-p002",
+     "tsa-a02-v03-p003",
+     "tsa-a02-v03-p004",
+     "tsa-a02-v03-p005",
+     "tsa-a02-v03-p006",
+     "tsa-a02-v03-p007",
+     "tsa-a02-v03-p008",
+     "tsa-a02-v03-p009",
+     "tsa-a02-v03-p010",
+     "tsa-a02-v03-p011",
+     "tsa-a02-v03-p012",
+     "tsa-a02-v03-p013",
+     "tsa-a02-v03-p014",
+     "tsa-a02-v03-p015",
+     "tsa-a02-v03-p016",
+     "tsa-a02-v03-p017",
+     "tsa-a02-v03-p018",
+     "tsa-a02-v03-p019",
+     "tsa-a02-v03-p020",
+     "tsa-a02-v03-p021",
+     "tsa-a02-v03-p022"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "sextet",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "tsa-a02-v04": {
+    "verse_id": "tsa-a02-v04",
+    "song": "tsa-a02",
+    "verse": 4,
+    "lines": [
+     "And the means itself, as something separate from you, is equally impossible.",
+     "So: all this is one reality, consciousness and nothing else — time cannot measure it, place cannot bound it, qualities cannot fade it, shapes cannot rule it, words cannot point it out, proofs cannot build it up.",
+     "By its own will it is what lets everything from time to proof arrive at its nature; free, thick bliss; and that is I, with the universe mirrored inside me.",
+     "Who sees this steadily is immersed in the Lord always, without means — no mantra binds him, no worship, no sitting, no observance."
+    ],
+    "sanskrit_cite": "kaś cātra upāyaḥ tasyāpi vyatiriktasya anupapatteḥ tasmāt samastam idam ekaṃ cinmātratattvaṃ kālena akalitaṃ deśena aparicchinnam upādhibhir amlānam ākṛtibhir aniyantritaṃ śabdair asaṃdiṣṭaṃ pramāṇair aprapañcitaṃ kālādeḥ pramāṇaparyantasya svecchayaiva svarūpalābhanimittaṃ ca svatantram ānandaghanaṃ tattvaṃ tad eva ca aham tatraiva antar mayi viśvaṃ pratibimbitam evaṃ dṛḍhaṃ viviñcānasya śaśvad eva pārameśvaraḥ samāveśo nirupāyaka eva tasya ca na mantrapūjādhyānacaryādiniyantraṇā kācit",
+    "l0_ids": [
+     "tsa-a02-v04-p000",
+     "tsa-a02-v04-p001",
+     "tsa-a02-v04-p002",
+     "tsa-a02-v04-p003",
+     "tsa-a02-v04-p004",
+     "tsa-a02-v04-p005",
+     "tsa-a02-v04-p006",
+     "tsa-a02-v04-p007",
+     "tsa-a02-v04-p008",
+     "tsa-a02-v04-p009",
+     "tsa-a02-v04-p010",
+     "tsa-a02-v04-p011",
+     "tsa-a02-v04-p012",
+     "tsa-a02-v04-p013",
+     "tsa-a02-v04-p014",
+     "tsa-a02-v04-p015",
+     "tsa-a02-v04-p016",
+     "tsa-a02-v04-p017",
+     "tsa-a02-v04-p018",
+     "tsa-a02-v04-p019",
+     "tsa-a02-v04-p020",
+     "tsa-a02-v04-p021",
+     "tsa-a02-v04-p022",
+     "tsa-a02-v04-p023",
+     "tsa-a02-v04-p024",
+     "tsa-a02-v04-p025",
+     "tsa-a02-v04-p026",
+     "tsa-a02-v04-p027",
+     "tsa-a02-v04-p028",
+     "tsa-a02-v04-p029",
+     "tsa-a02-v04-p030",
+     "tsa-a02-v04-p031",
+     "tsa-a02-v04-p032"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ]
+   }
+  },
+  "c2": {}
+ },
+ "source_verses": {
+  "tsa-a02-v01": {
+   "text": "atha anupāyam eva tāvat vyākhyāsyāmaḥ",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL Nirnaya Sagara 1918 KSTS 17",
+   "source_lines": [
+    41,
+    41
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "tsa-a02-v02": {
+   "text": "yadā khalu dṛḍhaśaktipātāviddhaḥ svayam eva itthaṃ vivecayati sakṛd eva guruvacanam avadhārya tadā punar upāyavirahito nityoditaḥ asya samāveśaḥ",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL Nirnaya Sagara 1918 KSTS 17",
+   "source_lines": [
+    42,
+    42
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "tsa-a02-v03": {
+   "text": "atra ca tarka eva yogāṅgam iti kathaṃ vivecayati iti cet ucyate yo 'yaṃ parameśvaraḥ svaprakāśarūpaḥ svātmā tatra kim upāyena kriyate na svarūpalābho nityatvāt na jñaptiḥ svayaṃprakāśamānatvāt nāvaraṇavigamaḥ āvaraṇasya kasyacid api asaṃbhavāt na tadanupraveśaḥ anupraveṣṭuḥ vyatiriktasya abhāvāt",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL Nirnaya Sagara 1918 KSTS 17",
+   "source_lines": [
+    43,
+    43
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "tsa-a02-v04": {
+   "text": "kaś cātra upāyaḥ tasyāpi vyatiriktasya anupapatteḥ tasmāt samastam idam ekaṃ cinmātratattvaṃ kālena akalitaṃ deśena aparicchinnam upādhibhir amlānam ākṛtibhir aniyantritaṃ śabdair asaṃdiṣṭaṃ pramāṇair aprapañcitaṃ kālādeḥ pramāṇaparyantasya svecchayaiva svarūpalābhanimittaṃ ca svatantram ānandaghanaṃ tattvaṃ tad eva ca aham tatraiva antar mayi viśvaṃ pratibimbitam evaṃ dṛḍhaṃ viviñcānasya śaśvad eva pārameśvaraḥ samāveśo nirupāyaka eva tasya ca na mantrapūjādhyānacaryādiniyantraṇā kācit",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL Nirnaya Sagara 1918 KSTS 17",
+   "source_lines": [
+    44,
+    44
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  }
+ },
+ "l4_craft": {},
+ "withheld_songs": [],
+ "original_hashes": {
+  "t1": {
+   "tsa-a02-v01": "68fd5e643da87be709afd6012f5bde2b16d554bb6a1c0d74f39a99bd2d3e9dcd",
+   "tsa-a02-v02": "d2065b50f639cdb6859fd34d00e9382cf3d887010df292a821e6c24682ea6a27",
+   "tsa-a02-v03": "c0a56983c10d34bb1dd1e156d4a9c699fa501ac0886f67a604445faa262ae41b",
+   "tsa-a02-v04": "4cae32f3f933b2747ab60d7bc29c802aa1a68aad98c076f7296d0f43797c0da7"
+  },
+  "l0": {
+   "tsa-a02-v01": "1cf4b0e5f17dfce3d81ad48fe563cbdf2b8bf0daacbe44d15bda0da3641d4ce6",
+   "tsa-a02-v02": "4f59ab05c905e3c6e149516010bcb3089ef8b9f5b0ca5272ba192d059dacf69a",
+   "tsa-a02-v03": "1ac1df62a14a4bbc4789e937d9bda175026c7bab601937ad70f41564929a5669",
+   "tsa-a02-v04": "068b4e199ca9846ecdd5e413d32bbdf6c0f51efb8d24aff39287d3ef63ee1727"
+  },
+  "argmap": {
+   "tsa-a02-v01": "74c045a8120d2881a5c94fb963837f275713f4fc204ae3ab1b87ce206fc03a50",
+   "tsa-a02-v02": "b51508673a69afe4ab947ee9a8619b30dd55ff92d46819a7fc1a968ea6c3c058",
+   "tsa-a02-v03": "21e2dc1e37b9822fc493b1c5a44053117ee108648f68aba0796fc2756f9f5a10",
+   "tsa-a02-v04": "db580f0bcbe096f89a3303fb45e349840b7145619f26ff55598f7ab116a0cc50"
+  },
+  "l2": {
+   "tsa-a02-v01": "10a095670838c7e551640b9c4da0940c105951e2ad1cb6381f645201a32946b3",
+   "tsa-a02-v02": "9196bde00d113a8f31988c93d6e01a96419c1e281baa4c35069526bf2007c70f",
+   "tsa-a02-v03": "23331b898d2cc2e568b680477f9a0710252da7ad5e9845dbe3e2dc7d4444424b",
+   "tsa-a02-v04": "c5a659ca2422c8541b6732a3c775ca38e5b3f13858e2fa24fdf2d9f19229a8d4"
+  },
+  "c1": {
+   "tsa-a02": "1834258bdefd5cbac92b0f54c7c4c45f1fb48a89fecf993424e49664d3a68cd4"
+  },
+  "l3": {
+   "tsa-a02-v01": "1af505c4e43824b973555d875f1808c8744825f04f7a56142829baccd15ae927",
+   "tsa-a02-v02": "42cbbeb3b1715cf9e8c83f5032bc33c970299070bf2e3bd6628378bc9754dac3",
+   "tsa-a02-v03": "cbef20393ba1fbaa73794985bb0b69e3d9bc811ca0c9f2fefc41baa6a7f1cae7",
+   "tsa-a02-v04": "db6ac8b3935b8c2608bcde6763dc16b8a43021d2631868815cfb51035bcac7c3"
+  },
+  "l4": {
+   "tsa-a02-v01": "5c387cb0901bb690dd345091def90adfffc04a0f1528382c83bf59c16c5e422c",
+   "tsa-a02-v02": "4e94956abfb51e9e9c8202d1e77f15faac6a1247345b25a6479b1cf01675e7d7",
+   "tsa-a02-v03": "b223d615efa4348f1e3aae58ce30a38fc2ac13fe6b7bfe9aa91d025a363133b1",
+   "tsa-a02-v04": "cda4dac2efc4639cafa5c273661f29a34279a9d7c7c1fd8f6480a2cbcf6cca75"
+  },
+  "c2": {}
+ },
+ "versions": [],
+ "essays": [],
+ "reviews": [],
+ "promotions": [],
+ "signoffs": [],
+ "stack_hashes": {
+  "tsa-a02": "cba9cdb05c02317f60fcc22ca4dc3016a2217f09750bb284870dc08296ed6ce6"
+ },
+ "projection_sha256": "c8d2b105729c22ca047b7e3139f008d22bcf13664f33ce859fde7cb4aab1d63f"
+}

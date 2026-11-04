@@ -1,0 +1,4543 @@
+{
+ "work": "phrdaya",
+ "generated": null,
+ "source": "translation-work canonical data + scholar/ ledgers (emit_scholar.py)",
+ "source_edition": "GRETIL",
+ "contract": {
+  "contract_version": "svatantrya-agent-contract/1",
+  "contract_sha256": "8f22582bd8833e43d4ed31bbdfa49cf1f2e720569d15da9edc61a2bfab34d86e",
+  "schema_version": "1.3.0",
+  "structural_schema_version": "2.0.0",
+  "structural_schema_snapshot_sha256": "7143ce16fd2fec74bcbb442937194c13abcb94e7d76e10fb35ec9e76016a9577",
+  "order": [
+   "source",
+   "t1",
+   "l0",
+   "argmap",
+   "l2",
+   "c1",
+   "l3",
+   "l4",
+   "c2"
+  ],
+  "schemas": {
+   "t1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:t1",
+    "title": "Svatantrya T1 structural schema",
+    "x-validator": "schemas.t1.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "quick_english",
+     "tokens",
+     "source_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "quick_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "source_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "tokens": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "surface",
+        "quick_gloss"
+       ],
+       "properties": {
+        "surface": {
+         "type": "string",
+         "minLength": 1
+        },
+        "quick_gloss": {
+         "type": "string",
+         "minLength": 1
+        }
+       }
+      }
+     }
+    }
+   },
+   "l0": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l0:verse",
+    "title": "Svatantrya L0 verse token list structural schema",
+    "x-validator": "schemas.l0.validate (per token)",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+     "$schema": "https://json-schema.org/draft/2020-12/schema",
+     "$id": "urn:svatantrya:schema:2.0.0:l0",
+     "title": "Svatantrya L0 structural schema",
+     "x-validator": "schemas.l0.validate",
+     "x-schema-version": "1.3.0",
+     "x-structural-schema-version": "2.0.0",
+     "type": "object",
+     "required": [
+      "id",
+      "verse_id",
+      "pada_index",
+      "surface",
+      "citation",
+      "options",
+      "chosen_index",
+      "status"
+     ],
+     "properties": {
+      "id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "verse_id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "pada_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "surface": {
+       "type": "string",
+       "minLength": 1
+      },
+      "citation": {
+       "type": "string",
+       "minLength": 1
+      },
+      "morph": {
+       "type": "string"
+      },
+      "morph_unknown": {
+       "type": "boolean"
+      },
+      "options": {
+       "type": "array",
+       "maxItems": 5,
+       "items": {
+        "type": "object",
+        "required": [
+         "gloss",
+         "rank",
+         "source",
+         "grounds"
+        ],
+        "properties": {
+         "gloss": {
+          "type": "string",
+          "minLength": 1
+         },
+         "rank": {
+          "type": "integer",
+          "minimum": 1
+         },
+         "source": {
+          "type": "string",
+          "minLength": 1
+         },
+         "grounds": {
+          "type": "string",
+          "minLength": 1
+         }
+        }
+       }
+      },
+      "chosen_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "status": {
+       "type": "string",
+       "enum": [
+        "PARSED",
+        "AMBIGUOUS",
+        "FAILED"
+       ]
+      },
+      "revised": {
+       "type": "boolean"
+      },
+      "revise_reason": {
+       "type": "string"
+      },
+      "fork": {
+       "type": "string",
+       "enum": [
+        "none",
+        "live",
+        "resolved"
+       ]
+      }
+     }
+    }
+   },
+   "argmap": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:argmap",
+    "title": "Svatantrya ARGMAP structural schema",
+    "x-validator": "schemas.argmap.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "traces",
+     "sanskrit_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "traces": {
+      "type": "object",
+      "required": [
+       "t1_verse",
+       "l0_ids"
+      ],
+      "properties": {
+       "t1_verse": {
+        "type": "string",
+        "minLength": 1
+       },
+       "l0_ids": {
+        "type": "array",
+        "items": {
+         "type": "string",
+         "minLength": 1
+        },
+        "minItems": 1
+       }
+      }
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "sanskrit_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "speaker": {
+      "type": "string",
+      "minLength": 1
+     },
+     "question": {
+      "type": "string",
+      "minLength": 1
+     },
+     "inference": {
+      "type": "string",
+      "minLength": 1
+     },
+     "reconstruction": {
+      "type": "string",
+      "minLength": 1
+     },
+     "premises": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     },
+     "uncertainties": {
+      "type": "array"
+     },
+     "structured": {
+      "type": "boolean"
+     }
+    }
+   },
+   "l2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l2",
+    "title": "Svatantrya L2 structural schema",
+    "x-validator": "schemas.l2.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "plain_english",
+     "sanskrit_cite",
+     "l0_ids"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "plain_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "supplied": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     }
+    }
+   },
+   "c1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:c1",
+    "title": "Svatantrya C1 structural schema",
+    "x-validator": "schemas.c1.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "song",
+     "essence",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "essence": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "renders": {
+      "type": "object",
+      "required": [
+       "standard"
+      ]
+     }
+    }
+   },
+   "l3": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l3",
+    "title": "Svatantrya L3 structural schema",
+    "x-validator": "schemas.l3.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "l4": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l4",
+    "title": "Svatantrya L4 structural schema",
+    "x-validator": "schemas.l4.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "c2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:c2",
+    "title": "Svatantrya C2 structural schema",
+    "x-validator": "schemas.c2.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "song",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "renders": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "style",
+        "prompt",
+        "paragraphs"
+       ],
+       "properties": {
+        "style": {
+         "type": "string",
+         "minLength": 1
+        },
+        "prompt": {
+         "type": "string",
+         "minLength": 1
+        },
+        "paragraphs": {
+         "type": "array",
+         "minItems": 1,
+         "items": {
+          "type": "object",
+          "required": [
+           "text",
+           "maps_to"
+          ],
+          "properties": {
+           "text": {
+            "type": "string",
+            "minLength": 1
+           },
+           "maps_to": {
+            "type": "array",
+            "items": {
+             "type": "integer",
+             "minimum": 0
+            },
+            "minItems": 1
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "layers": [
+   {
+    "id": "t1",
+    "scope": "verse",
+    "depends_on": [
+     "source"
+    ],
+    "validator": "schemas/t1.py",
+    "validator_sha256": "ac792ba1f0cbc06ab52dfbc41a31d3e39460f0e8a7de2977ed02e4ce63a20f27",
+    "example": {
+     "file": "sivastotravali/data/s01.t1.json",
+     "file_sha256": "a5c4cfae67571d05866d97ad6eb29b1c2956140a69c2fae554c29577330beb8e",
+     "target": "s01-v01",
+     "content_sha256": "26f027dafbe67347efd901cb2b94630cdb0e372957edeb4a3e1305e83745ba5b",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l0",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1"
+    ],
+    "validator": "schemas/l0.py",
+    "validator_sha256": "0651bc77f519897f8a4f8b41f4ea0cc6a88f3441910af99b18d55854a7e9030e",
+    "example": {
+     "file": "sivastotravali/data/s06.l0.json",
+     "file_sha256": "c2bb0ce1010315d72bdce75ee3c8901b17499202abe7adc5bd1977a26f4fea2f",
+     "target": "s06-v01",
+     "content_sha256": "91e3b04d47482757bcaf1e9705992edd0815ff7907ed2cb33c7c9586f3a9e5aa",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "argmap",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0"
+    ],
+    "validator": "schemas/argmap.py",
+    "validator_sha256": "335c1bbe809c5ae942ecef4a30ee7fd8fcb82645a43019312fa74397fe5758b0",
+    "example": {
+     "file": "sivastotravali/data/s01.argmap.json",
+     "file_sha256": "a44c8ec09a30c577f2a792c1255d4290f49a6138c456bb687bc00e78a3902949",
+     "target": "s01-v21",
+     "content_sha256": "80b69a54761b8b0b7c193058f6c88eef60323a3611008c41ba9879bcfc3cdc21",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l2",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap"
+    ],
+    "validator": "schemas/l2.py",
+    "validator_sha256": "f5653e405e0f162f78593ad6344cbbefe122d6d1c921ca3e22003e4f4d2cfaaa",
+    "example": {
+     "file": "sivastotravali/data/s01.l2.json",
+     "file_sha256": "f5a1cec55bb466c328380a0bf527e6d8906428b3436f85a79bd01df98ceb1040",
+     "target": "s01-v01",
+     "content_sha256": "f3c47f6a631f7551d4f9c8ad1117bdf65463cb8cdc92e9b42bb3bf517ae80055",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c1",
+    "scope": "song",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2"
+    ],
+    "validator": "schemas/c1.py",
+    "validator_sha256": "88ad9123135a7a18237cec1d11430992b4f43adf1771ae26a43e4df8198c69d7",
+    "example": {
+     "file": "sivastotravali/data/s01.c1.json",
+     "file_sha256": "99f4d2bbf7a8086176ee585b6e459076e2abd72b9675435267f7546beb1515f8",
+     "target": "s01",
+     "content_sha256": "5be1f3c0c3f64fafe5395b42cf5502a139a5e208be419d5804fe1a5bdd33712a",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l3",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2",
+     "c1"
+    ],
+    "validator": "schemas/l3.py",
+    "validator_sha256": "6c3df228f886207782d5250699e9e459f236f6e7d6b25ac29b00a38541956917",
+    "example": {
+     "file": "sivastotravali/data/s01.l3.json",
+     "file_sha256": "cdb4af6a4c2a851231195f4e5c940346f65199d5d5d69ea1c41d8095f98409f9",
+     "target": "s01-v01",
+     "content_sha256": "6aa20635387174b68fe4ea3baf970c06aff9838acb2c745e7afca0ed7c6751de",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l4",
+    "scope": "verse",
+    "depends_on": [
+     "l3",
+     "c1"
+    ],
+    "validator": "schemas/l4.py",
+    "validator_sha256": "3c1f7b0dfe3d83d425ed0fd84fba7b74aa3ed9e9758402369d779eedda1a8c03",
+    "example": {
+     "file": "paramarthasara/data/param-p01.l4.json",
+     "file_sha256": "db346e51e71f2f835ddfda004d4432934611817c2c73318d335f6ca2362ad4fb",
+     "target": "param-p01-v01",
+     "content_sha256": "91e9d424cf310d4e5b45c173b02f5286d837269ef9447533c153a48cb5122c14",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c2",
+    "scope": "song",
+    "depends_on": [
+     "c1",
+     "l3"
+    ],
+    "validator": "schemas/c2.py",
+    "validator_sha256": "fb8743f206e036002c780d082c7d32cf011dcdab4c21df742a5f5e59a9d851b8",
+    "example": {
+     "file": "sivastotravali/data/s01.c2.json",
+     "file_sha256": "09660a3c09679fce8c95968934e5851a22d89cdf154d2b0635d358e1ef9e8aeb",
+     "target": "s01",
+     "content_sha256": "2faa5fa86e38faca7ef5a1a967a4e261e2df294648a31ed5bad5f731001aa41c",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   }
+  ]
+ },
+ "rights": {
+  "translation": "FREE — our English (L1–L4, commentary) is free use",
+  "scholar": "Contributors declare rights; authorship and copyright depend on the work and law."
+ },
+ "originals": {
+  "t1": {
+   "phr-p01-v01": {
+    "verse_id": "phr-p01-v01",
+    "song": "phr-p01",
+    "verse": 1,
+    "quick_english": "consciousness / independent / cause-of-universe's-proving threefold",
+    "quick_english_source": "t1-draft",
+    "tokens": [
+     {
+      "surface": "citiḥ",
+      "quick_gloss": "consciousness"
+     },
+     {
+      "surface": "svatantrā",
+      "quick_gloss": "independent"
+     },
+     {
+      "surface": "viśvasiddhihetuḥ",
+      "quick_gloss": "cause-of-universe's-proving threefold"
+     }
+    ],
+    "source_sha": "8f898521dc720d45",
+    "source_lines": [
+     21,
+     22
+    ]
+   },
+   "phr-p01-v02": {
+    "verse_id": "phr-p01-v02",
+    "song": "phr-p01",
+    "verse": 2,
+    "quick_english": "by-own-will / on-own-screen / universe / unfolds",
+    "quick_english_source": "t1-draft",
+    "tokens": [
+     {
+      "surface": "svecchayā",
+      "quick_gloss": "by-own-will"
+     },
+     {
+      "surface": "svabhittau",
+      "quick_gloss": "on-own-screen"
+     },
+     {
+      "surface": "viśvam",
+      "quick_gloss": "universe"
+     },
+     {
+      "surface": "unmīlayati",
+      "quick_gloss": "unfolds"
+     }
+    ],
+    "source_sha": "d1f480ec284daf76",
+    "source_lines": [
+     68,
+     69
+    ]
+   },
+   "phr-p01-v03": {
+    "verse_id": "phr-p01-v03",
+    "song": "phr-p01",
+    "verse": 3,
+    "quick_english": "that / manifold / from-difference-of-suitable-objects-and-subjects",
+    "quick_english_source": "t1-draft",
+    "tokens": [
+     {
+      "surface": "tan",
+      "quick_gloss": "that"
+     },
+     {
+      "surface": "nānā",
+      "quick_gloss": "manifold"
+     },
+     {
+      "surface": "anurūpagrāhyagrāhakabhedāt",
+      "quick_gloss": "from-difference-of-suitable-objects-and-subjects"
+     }
+    ],
+    "source_sha": "2eb9189ad78c07c5",
+    "source_lines": [
+     80,
+     81
+    ]
+   },
+   "phr-p01-v04": {
+    "verse_id": "phr-p01-v04",
+    "song": "phr-p01",
+    "verse": 4,
+    "quick_english": "whose-nature-is-contraction-of-consciousness / even-conscious-being / consisting-of-contracted-universe",
+    "quick_english_source": "t1-draft",
+    "tokens": [
+     {
+      "surface": "citisaṃkocātmā",
+      "quick_gloss": "whose-nature-is-contraction-of-consciousness"
+     },
+     {
+      "surface": "cetano 'pi",
+      "quick_gloss": "even-conscious-being"
+     },
+     {
+      "surface": "saṃkucitaviśvamayaḥ",
+      "quick_gloss": "consisting-of-contracted-universe"
+     }
+    ],
+    "source_sha": "1fed508f14513cd9",
+    "source_lines": [
+     108,
+     109
+    ]
+   },
+   "phr-p02-v05": {
+    "verse_id": "phr-p02-v05",
+    "song": "phr-p02",
+    "verse": 5,
+    "quick_english": "mind",
+    "quick_english_source": "t1-draft",
+    "tokens": [
+     {
+      "surface": "cittam",
+      "quick_gloss": "mind"
+     }
+    ],
+    "source_sha": "315039b687fbe736",
+    "source_lines": [
+     155,
+     156
+    ]
+   },
+   "phr-p02-v06": {
+    "verse_id": "phr-p02-v06",
+    "song": "phr-p02",
+    "verse": 6,
+    "quick_english": "consisting-of-that / māyā-knower",
+    "quick_english_source": "t1-draft",
+    "tokens": [
+     {
+      "surface": "tanmayaḥ",
+      "quick_gloss": "consisting-of-that"
+     },
+     {
+      "surface": "māyāpramātā",
+      "quick_gloss": "māyā-knower"
+     }
+    ],
+    "source_sha": "c057022169fffa1b",
+    "source_lines": [
+     184,
+     185
+    ]
+   },
+   "phr-p02-v07": {
+    "verse_id": "phr-p02-v07",
+    "song": "phr-p02",
+    "verse": 7,
+    "quick_english": "having-nature-of-seven-pentads",
+    "quick_english_source": "t1-draft",
+    "tokens": [
+     {
+      "surface": "saptapañcakasvabhāvaḥ",
+      "quick_gloss": "having-nature-of-seven-pentads"
+     }
+    ],
+    "source_sha": "fb4288c1f18b0a91",
+    "source_lines": [
+     198,
+     199
+    ]
+   },
+   "phr-p02-v08": {
+    "verse_id": "phr-p02-v08",
+    "song": "phr-p02",
+    "verse": 8,
+    "quick_english": "stages-based-on-that / positions-of-all-philosophies",
+    "quick_english_source": "t1-draft",
+    "tokens": [
+     {
+      "surface": "tadbhūmikāḥ",
+      "quick_gloss": "stages-based-on-that"
+     },
+     {
+      "surface": "sarvadarśanasthitayaḥ",
+      "quick_gloss": "positions-of-all-philosophies"
+     }
+    ],
+    "source_sha": "1bb0934a2000372b",
+    "source_lines": [
+     218,
+     219
+    ]
+   },
+   "phr-p03-v09": {
+    "verse_id": "phr-p03-v09",
+    "song": "phr-p03",
+    "verse": 9,
+    "quick_english": "like-consciousness / that / from-contraction-of-power / covered-by-impurity / transmigrator",
+    "quick_english_source": "t1-draft",
+    "tokens": [
+     {
+      "surface": "cidvat",
+      "quick_gloss": "like-consciousness"
+     },
+     {
+      "surface": "tac",
+      "quick_gloss": "that"
+     },
+     {
+      "surface": "chaktisaṃkocāt",
+      "quick_gloss": "from-contraction-of-power"
+     },
+     {
+      "surface": "malāvṛtaḥ",
+      "quick_gloss": "covered-by-impurity"
+     },
+     {
+      "surface": "saṃsārī",
+      "quick_gloss": "transmigrator"
+     }
+    ],
+    "source_sha": "107119a9196e1526",
+    "source_lines": [
+     289,
+     290
+    ]
+   },
+   "phr-p03-v10": {
+    "verse_id": "phr-p03-v10",
+    "song": "phr-p03",
+    "verse": 10,
+    "quick_english": "nevertheless / in-that-way / five-acts / performs",
+    "quick_english_source": "t1-draft",
+    "tokens": [
+     {
+      "surface": "tathāpi",
+      "quick_gloss": "nevertheless"
+     },
+     {
+      "surface": "tadvat",
+      "quick_gloss": "in-that-way"
+     },
+     {
+      "surface": "pañcakṛtyāni",
+      "quick_gloss": "five-acts"
+     },
+     {
+      "surface": "karoti",
+      "quick_gloss": "performs"
+     }
+    ],
+    "source_sha": "2333b4b21b36588f",
+    "source_lines": [
+     310,
+     311
+    ]
+   },
+   "phr-p03-v11": {
+    "verse_id": "phr-p03-v11",
+    "song": "phr-p03",
+    "verse": 11,
+    "quick_english": "those",
+    "quick_english_source": "t1-draft",
+    "tokens": [
+     {
+      "surface": "tāni",
+      "quick_gloss": "those"
+     }
+    ],
+    "source_sha": "9aa97f29fe53d5c7",
+    "source_lines": [
+     344,
+     345
+    ]
+   },
+   "phr-p03-v12": {
+    "verse_id": "phr-p03-v12",
+    "song": "phr-p03",
+    "verse": 12,
+    "quick_english": "state-of-transmigration",
+    "quick_english_source": "t1-draft",
+    "tokens": [
+     {
+      "surface": "saṃsāritvam",
+      "quick_gloss": "state-of-transmigration"
+     }
+    ],
+    "source_sha": "d437951c65883f3a",
+    "source_lines": [
+     370,
+     371
+    ]
+   },
+   "phr-p04-v13": {
+    "verse_id": "phr-p04-v13",
+    "song": "phr-p04",
+    "verse": 13,
+    "quick_english": "by-ascent-to-status-of-consciousness / consciousness",
+    "quick_english_source": "t1-draft",
+    "tokens": [
+     {
+      "surface": "cetanapadādhyārohāt",
+      "quick_gloss": "by-ascent-to-status-of-consciousness"
+     },
+     {
+      "surface": "citiḥ",
+      "quick_gloss": "consciousness"
+     }
+    ],
+    "source_sha": "aad7c58ddb7b9dfa",
+    "source_lines": [
+     450,
+     451
+    ]
+   },
+   "phr-p04-v14": {
+    "verse_id": "phr-p04-v14",
+    "song": "phr-p04",
+    "verse": 14,
+    "quick_english": "fuel-of-objects / burns",
+    "quick_english_source": "t1-draft",
+    "tokens": [
+     {
+      "surface": "meyendhanam",
+      "quick_gloss": "fuel-of-objects"
+     },
+     {
+      "surface": "pluṣyati",
+      "quick_gloss": "burns"
+     }
+    ],
+    "source_sha": "de2d4443f0f8f8ff",
+    "source_lines": [
+     466,
+     467
+    ]
+   },
+   "phr-p04-v15": {
+    "verse_id": "phr-p04-v15",
+    "song": "phr-p04",
+    "verse": 15,
+    "quick_english": "on-gaining-strength / universe / makes-one's-own",
+    "quick_english_source": "t1-draft",
+    "tokens": [
+     {
+      "surface": "balalābhe",
+      "quick_gloss": "on-gaining-strength"
+     },
+     {
+      "surface": "viśvam",
+      "quick_gloss": "universe"
+     },
+     {
+      "surface": "ātmasātkaroti",
+      "quick_gloss": "makes-one's-own"
+     }
+    ],
+    "source_sha": "51a70250c4e84d91",
+    "source_lines": [
+     482,
+     483
+    ]
+   },
+   "phr-p04-v16": {
+    "verse_id": "phr-p04-v16",
+    "song": "phr-p04",
+    "verse": 16,
+    "quick_english": "firmness-of-realization-of-oneness-with-consciousness / liberation-while-living",
+    "quick_english_source": "t1-draft",
+    "tokens": [
+     {
+      "surface": "cidaikātmyapratipattidārḍhyaṃ",
+      "quick_gloss": "firmness-of-realization-of-oneness-with-consciousness"
+     },
+     {
+      "surface": "jīvanmuktiḥ",
+      "quick_gloss": "liberation-while-living"
+     }
+    ],
+    "source_sha": "e9645fb99d3d8faa",
+    "source_lines": [
+     507,
+     508
+    ]
+   },
+   "phr-p05-v17": {
+    "verse_id": "phr-p05-v17",
+    "song": "phr-p05",
+    "verse": 17,
+    "quick_english": "from-expansion-of-the-middle / attainment-of-consciousness-bliss",
+    "quick_english_source": "t1-draft",
+    "tokens": [
+     {
+      "surface": "madhyavikāsāc",
+      "quick_gloss": "from-expansion-of-the-middle"
+     },
+     {
+      "surface": "cidānandalābhaḥ",
+      "quick_gloss": "attainment-of-consciousness-bliss"
+     }
+    ],
+    "source_sha": "7e4edd1ccaa3ab65",
+    "source_lines": [
+     523,
+     524
+    ]
+   },
+   "phr-p05-v18": {
+    "verse_id": "phr-p05-v18",
+    "song": "phr-p05",
+    "verse": 18,
+    "quick_english": "here / means",
+    "quick_english_source": "t1-draft",
+    "tokens": [
+     {
+      "surface": "iha",
+      "quick_gloss": "here"
+     },
+     {
+      "surface": "upāyāḥ",
+      "quick_gloss": "means"
+     }
+    ],
+    "source_sha": "025bc3eb82775a78",
+    "source_lines": [
+     543,
+     544
+    ]
+   },
+   "phr-p05-v19": {
+    "verse_id": "phr-p05-v19",
+    "song": "phr-p05",
+    "verse": 19,
+    "quick_english": "from-recollection-of-oneness-with-consciousness / attainment-of-ever-risen-samādhi",
+    "quick_english_source": "t1-draft",
+    "tokens": [
+     {
+      "surface": "cidaikyāmarśān",
+      "quick_gloss": "from-recollection-of-oneness-with-consciousness"
+     },
+     {
+      "surface": "nityoditasamādhilābhaḥ",
+      "quick_gloss": "attainment-of-ever-risen-samādhi"
+     }
+    ],
+    "source_sha": "342dcb282ec85336",
+    "source_lines": [
+     655,
+     656
+    ]
+   },
+   "phr-p05-v20": {
+    "verse_id": "phr-p05-v20",
+    "song": "phr-p05",
+    "verse": 20,
+    "quick_english": "becomes-thus / Śiva",
+    "quick_english_source": "t1-draft",
+    "tokens": [
+     {
+      "surface": "bhavatīti",
+      "quick_gloss": "becomes-thus"
+     },
+     {
+      "surface": "śivam",
+      "quick_gloss": "Śiva"
+     }
+    ],
+    "source_sha": "ac0b0074d33382f4",
+    "source_lines": [
+     688,
+     689
+    ]
+   }
+  },
+  "l0": {
+   "phr-p01-v01": [
+    {
+     "id": "phr-p01-v01-p000",
+     "verse_id": "phr-p01-v01",
+     "pada_index": 0,
+     "surface": "citiḥ",
+     "citation": "citiḥ",
+     "options": [
+      {
+       "gloss": "consciousness",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "f.nom.sg (citi)"
+    },
+    {
+     "id": "phr-p01-v01-p001",
+     "verse_id": "phr-p01-v01",
+     "pada_index": 1,
+     "surface": "svatantrā",
+     "citation": "svatantrā",
+     "options": [
+      {
+       "gloss": "independent",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "f.nom.sg"
+    },
+    {
+     "id": "phr-p01-v01-p002",
+     "verse_id": "phr-p01-v01",
+     "pada_index": 2,
+     "surface": "viśvasiddhihetuḥ",
+     "citation": "viśvasiddhihetuḥ",
+     "options": [
+      {
+       "gloss": "cause-of-universe's-proving threefold",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Revised T1 gloss: siddhi here the triple process (vṛtti: niṣpatti/prakāśana/saṃhāra; Pradipaka note), not supernormal power."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "revised": true,
+     "reason": "siddhi here the triple process (vṛtti: niṣpatti/prakāśana/saṃhāra; Pradipaka note), not supernormal power.",
+     "morph": "m.nom.sg (long comp.; triple-process sense — see revised grounds)"
+    }
+   ],
+   "phr-p01-v02": [
+    {
+     "id": "phr-p01-v02-p000",
+     "verse_id": "phr-p01-v02",
+     "pada_index": 0,
+     "surface": "svecchayā",
+     "citation": "svecchayā",
+     "options": [
+      {
+       "gloss": "by-own-will",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "f.inst.sg (comp.)"
+    },
+    {
+     "id": "phr-p01-v02-p001",
+     "verse_id": "phr-p01-v02",
+     "pada_index": 1,
+     "surface": "svabhittau",
+     "citation": "svabhittau",
+     "options": [
+      {
+       "gloss": "on-own-screen",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "f.loc.sg (comp.)"
+    },
+    {
+     "id": "phr-p01-v02-p002",
+     "verse_id": "phr-p01-v02",
+     "pada_index": 2,
+     "surface": "viśvam",
+     "citation": "viśvam",
+     "options": [
+      {
+       "gloss": "universe",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.acc.sg (viśva)"
+    },
+    {
+     "id": "phr-p01-v02-p003",
+     "verse_id": "phr-p01-v02",
+     "pada_index": 3,
+     "surface": "unmīlayati",
+     "citation": "unmīlayati",
+     "options": [
+      {
+       "gloss": "unfolds",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "3sg.pres.act √mīl+ud"
+    }
+   ],
+   "phr-p01-v03": [
+    {
+     "id": "phr-p01-v03-p000",
+     "verse_id": "phr-p01-v03",
+     "pada_index": 0,
+     "surface": "tan",
+     "citation": "tan",
+     "options": [
+      {
+       "gloss": "that",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "neut.nom.sg (tad)"
+    },
+    {
+     "id": "phr-p01-v03-p001",
+     "verse_id": "phr-p01-v03",
+     "pada_index": 1,
+     "surface": "nānā",
+     "citation": "nānā",
+     "options": [
+      {
+       "gloss": "manifold",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl."
+    },
+    {
+     "id": "phr-p01-v03-p002",
+     "verse_id": "phr-p01-v03",
+     "pada_index": 2,
+     "surface": "anurūpagrāhyagrāhakabhedāt",
+     "citation": "anurūpagrāhyagrāhakabhedāt",
+     "options": [
+      {
+       "gloss": "from-difference-of-suitable-objects-and-subjects",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.abl.sg (long comp.)"
+    }
+   ],
+   "phr-p01-v04": [
+    {
+     "id": "phr-p01-v04-p000",
+     "verse_id": "phr-p01-v04",
+     "pada_index": 0,
+     "surface": "citisaṃkocātmā",
+     "citation": "citisaṃkocātmā",
+     "options": [
+      {
+       "gloss": "whose-nature-is-contraction-of-consciousness",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg (comp.)"
+    },
+    {
+     "id": "phr-p01-v04-p001",
+     "verse_id": "phr-p01-v04",
+     "pada_index": 1,
+     "surface": "cetano 'pi",
+     "citation": "cetano",
+     "options": [
+      {
+       "gloss": "even-conscious-being",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg + api (cetanaḥ)"
+    },
+    {
+     "id": "phr-p01-v04-p002",
+     "verse_id": "phr-p01-v04",
+     "pada_index": 2,
+     "surface": "saṃkucitaviśvamayaḥ",
+     "citation": "saṃkucitaviśvamayaḥ",
+     "options": [
+      {
+       "gloss": "consisting-of-contracted-universe",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg (long comp.)"
+    }
+   ],
+   "phr-p02-v05": [
+    {
+     "id": "phr-p02-v05-p000",
+     "verse_id": "phr-p02-v05",
+     "pada_index": 0,
+     "surface": "cittam",
+     "citation": "cittam",
+     "options": [
+      {
+       "gloss": "mind",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.nom.sg"
+    }
+   ],
+   "phr-p02-v06": [
+    {
+     "id": "phr-p02-v06-p000",
+     "verse_id": "phr-p02-v06",
+     "pada_index": 0,
+     "surface": "tanmayaḥ",
+     "citation": "tanmayaḥ",
+     "options": [
+      {
+       "gloss": "consisting-of-that",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Print tanmayo (correct sandhi before m-); lexical tanmayaḥ carried."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg (comp.)"
+    },
+    {
+     "id": "phr-p02-v06-p001",
+     "verse_id": "phr-p02-v06",
+     "pada_index": 1,
+     "surface": "māyāpramātā",
+     "citation": "māyāpramātā",
+     "options": [
+      {
+       "gloss": "māyā-knower",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg (comp.)"
+    }
+   ],
+   "phr-p02-v07": [
+    {
+     "id": "phr-p02-v07-p000",
+     "verse_id": "phr-p02-v07",
+     "pada_index": 0,
+     "surface": "saptapañcakasvabhāvaḥ",
+     "citation": "saptapañcakasvabhāvaḥ",
+     "options": [
+      {
+       "gloss": "having-nature-of-seven-pentads",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg (comp.)"
+    }
+   ],
+   "phr-p02-v08": [
+    {
+     "id": "phr-p02-v08-p000",
+     "verse_id": "phr-p02-v08",
+     "pada_index": 0,
+     "surface": "tadbhūmikāḥ",
+     "citation": "tadbhūmikāḥ",
+     "options": [
+      {
+       "gloss": "stages-based-on-that",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "f.nom.pl (comp.)"
+    },
+    {
+     "id": "phr-p02-v08-p001",
+     "verse_id": "phr-p02-v08",
+     "pada_index": 1,
+     "surface": "sarvadarśanasthitayaḥ",
+     "citation": "sarvadarśanasthitayaḥ",
+     "options": [
+      {
+       "gloss": "positions-of-all-philosophies",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "f.nom.pl (long comp.)"
+    }
+   ],
+   "phr-p03-v09": [
+    {
+     "id": "phr-p03-v09-p000",
+     "verse_id": "phr-p03-v09",
+     "pada_index": 0,
+     "surface": "cidvat",
+     "citation": "cidvat",
+     "options": [
+      {
+       "gloss": "like-consciousness",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl. (vat)"
+    },
+    {
+     "id": "phr-p03-v09-p001",
+     "verse_id": "phr-p03-v09",
+     "pada_index": 1,
+     "surface": "tac",
+     "citation": "tac",
+     "options": [
+      {
+       "gloss": "that",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "neut.nom.sg (tad)"
+    },
+    {
+     "id": "phr-p03-v09-p002",
+     "verse_id": "phr-p03-v09",
+     "pada_index": 2,
+     "surface": "chaktisaṃkocāt",
+     "citation": "chaktisaṃkocāt",
+     "options": [
+      {
+       "gloss": "from-contraction-of-power",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.abl.sg (print ch- after tac)"
+    },
+    {
+     "id": "phr-p03-v09-p003",
+     "verse_id": "phr-p03-v09",
+     "pada_index": 3,
+     "surface": "malāvṛtaḥ",
+     "citation": "malāvṛtaḥ",
+     "options": [
+      {
+       "gloss": "covered-by-impurity",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg ppp √vṛ+ā"
+    },
+    {
+     "id": "phr-p03-v09-p004",
+     "verse_id": "phr-p03-v09",
+     "pada_index": 4,
+     "surface": "saṃsārī",
+     "citation": "saṃsārī",
+     "options": [
+      {
+       "gloss": "transmigrator",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg (saṃsārin)"
+    }
+   ],
+   "phr-p03-v10": [
+    {
+     "id": "phr-p03-v10-p000",
+     "verse_id": "phr-p03-v10",
+     "pada_index": 0,
+     "surface": "tathāpi",
+     "citation": "tathāpi",
+     "options": [
+      {
+       "gloss": "nevertheless",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl."
+    },
+    {
+     "id": "phr-p03-v10-p001",
+     "verse_id": "phr-p03-v10",
+     "pada_index": 1,
+     "surface": "tadvat",
+     "citation": "tadvat",
+     "options": [
+      {
+       "gloss": "in-that-way",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl. (vat)"
+    },
+    {
+     "id": "phr-p03-v10-p002",
+     "verse_id": "phr-p03-v10",
+     "pada_index": 2,
+     "surface": "pañcakṛtyāni",
+     "citation": "pañcakṛtyāni",
+     "options": [
+      {
+       "gloss": "five-acts",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.nom.pl (comp.)"
+    },
+    {
+     "id": "phr-p03-v10-p003",
+     "verse_id": "phr-p03-v10",
+     "pada_index": 3,
+     "surface": "karoti",
+     "citation": "karoti",
+     "options": [
+      {
+       "gloss": "performs",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "3sg.pres.act √kṛ"
+    }
+   ],
+   "phr-p03-v11": [
+    {
+     "id": "phr-p03-v11-p000",
+     "verse_id": "phr-p03-v11",
+     "pada_index": 0,
+     "surface": "tāni",
+     "citation": "tāni",
+     "options": [
+      {
+       "gloss": "those",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.nom.pl (tad)"
+    }
+   ],
+   "phr-p03-v12": [
+    {
+     "id": "phr-p03-v12-p000",
+     "verse_id": "phr-p03-v12",
+     "pada_index": 0,
+     "surface": "saṃsāritvam",
+     "citation": "saṃsāritvam",
+     "options": [
+      {
+       "gloss": "state-of-transmigration",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.nom.sg"
+    }
+   ],
+   "phr-p04-v13": [
+    {
+     "id": "phr-p04-v13-p000",
+     "verse_id": "phr-p04-v13",
+     "pada_index": 0,
+     "surface": "cetanapadādhyārohāt",
+     "citation": "cetanapadādhyārohāt",
+     "options": [
+      {
+       "gloss": "by-ascent-to-status-of-consciousness",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.abl.sg (long comp.)"
+    },
+    {
+     "id": "phr-p04-v13-p001",
+     "verse_id": "phr-p04-v13",
+     "pada_index": 1,
+     "surface": "citiḥ",
+     "citation": "citiḥ",
+     "options": [
+      {
+       "gloss": "consciousness",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "f.nom.sg"
+    }
+   ],
+   "phr-p04-v14": [
+    {
+     "id": "phr-p04-v14-p000",
+     "verse_id": "phr-p04-v14",
+     "pada_index": 0,
+     "surface": "meyendhanam",
+     "citation": "meyendhanam",
+     "options": [
+      {
+       "gloss": "fuel-of-objects",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Print meyendhanaṃ; ṃ→m normalized."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.nom.sg (comp.)"
+    },
+    {
+     "id": "phr-p04-v14-p001",
+     "verse_id": "phr-p04-v14",
+     "pada_index": 1,
+     "surface": "pluṣyati",
+     "citation": "pluṣyati",
+     "options": [
+      {
+       "gloss": "burns",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "3sg.pres.act √pluṣ"
+    }
+   ],
+   "phr-p04-v15": [
+    {
+     "id": "phr-p04-v15-p000",
+     "verse_id": "phr-p04-v15",
+     "pada_index": 0,
+     "surface": "balalābhe",
+     "citation": "balalābhe",
+     "options": [
+      {
+       "gloss": "on-gaining-strength",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.loc.sg (comp.)"
+    },
+    {
+     "id": "phr-p04-v15-p001",
+     "verse_id": "phr-p04-v15",
+     "pada_index": 1,
+     "surface": "viśvam",
+     "citation": "viśvam",
+     "options": [
+      {
+       "gloss": "universe",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.acc.sg"
+    },
+    {
+     "id": "phr-p04-v15-p002",
+     "verse_id": "phr-p04-v15",
+     "pada_index": 2,
+     "surface": "ātmasātkaroti",
+     "citation": "ātmasātkaroti",
+     "options": [
+      {
+       "gloss": "makes-one's-own",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "3sg.pres.act (sāt + karoti)"
+    }
+   ],
+   "phr-p04-v16": [
+    {
+     "id": "phr-p04-v16-p000",
+     "verse_id": "phr-p04-v16",
+     "pada_index": 0,
+     "surface": "cidaikātmyapratipattidārḍhyaṃ",
+     "citation": "cidaikātmyapratipattidārḍhyaṃ",
+     "options": [
+      {
+       "gloss": "firmness-of-realization-of-oneness-with-consciousness",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.nom.sg (long comp.)"
+    },
+    {
+     "id": "phr-p04-v16-p001",
+     "verse_id": "phr-p04-v16",
+     "pada_index": 1,
+     "surface": "jīvanmuktiḥ",
+     "citation": "jīvanmuktiḥ",
+     "options": [
+      {
+       "gloss": "liberation-while-living",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "f.nom.sg (comp.)"
+    }
+   ],
+   "phr-p05-v17": [
+    {
+     "id": "phr-p05-v17-p000",
+     "verse_id": "phr-p05-v17",
+     "pada_index": 0,
+     "surface": "madhyavikāsāc",
+     "citation": "madhyavikāsāc",
+     "options": [
+      {
+       "gloss": "from-expansion-of-the-middle",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.abl.sg (comp.)"
+    },
+    {
+     "id": "phr-p05-v17-p001",
+     "verse_id": "phr-p05-v17",
+     "pada_index": 1,
+     "surface": "cidānandalābhaḥ",
+     "citation": "cidānandalābhaḥ",
+     "options": [
+      {
+       "gloss": "attainment-of-consciousness-bliss",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg (comp.)"
+    }
+   ],
+   "phr-p05-v18": [
+    {
+     "id": "phr-p05-v18-p000",
+     "verse_id": "phr-p05-v18",
+     "pada_index": 0,
+     "surface": "iha",
+     "citation": "iha",
+     "options": [
+      {
+       "gloss": "here",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "indecl."
+    },
+    {
+     "id": "phr-p05-v18-p001",
+     "verse_id": "phr-p05-v18",
+     "pada_index": 1,
+     "surface": "upāyāḥ",
+     "citation": "upāyāḥ",
+     "options": [
+      {
+       "gloss": "means",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.pl (upāya)"
+    }
+   ],
+   "phr-p05-v19": [
+    {
+     "id": "phr-p05-v19-p000",
+     "verse_id": "phr-p05-v19",
+     "pada_index": 0,
+     "surface": "cidaikyāmarśān",
+     "citation": "cidaikyāmarśān",
+     "options": [
+      {
+       "gloss": "from-recollection-of-oneness-with-consciousness",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.abl.sg (comp.)"
+    },
+    {
+     "id": "phr-p05-v19-p001",
+     "verse_id": "phr-p05-v19",
+     "pada_index": 1,
+     "surface": "nityoditasamādhilābhaḥ",
+     "citation": "nityoditasamādhilābhaḥ",
+     "options": [
+      {
+       "gloss": "attainment-of-ever-risen-samādhi",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "m.nom.sg (long comp.)"
+    }
+   ],
+   "phr-p05-v20": [
+    {
+     "id": "phr-p05-v20-p000",
+     "verse_id": "phr-p05-v20",
+     "pada_index": 0,
+     "surface": "bhavatīti",
+     "citation": "bhavatīti",
+     "options": [
+      {
+       "gloss": "becomes-thus",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "3sg.pres.act + iti √bhū"
+    },
+    {
+     "id": "phr-p05-v20-p001",
+     "verse_id": "phr-p05-v20",
+     "pada_index": 1,
+     "surface": "śivam",
+     "citation": "śivam",
+     "options": [
+      {
+       "gloss": "Śiva",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "T1 quick gloss carried; morphology as stated."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none",
+     "morph": "n.acc.sg (śiva)"
+    }
+   ]
+  },
+  "argmap": {
+   "phr-p01-v01": {
+    "verse_id": "phr-p01-v01",
+    "song": "phr-p01",
+    "verse": 1,
+    "structured": true,
+    "speaker": "Kṣemarāja (sūtra voice)",
+    "question": "How does free consciousness become the bound knower?",
+    "premises": [
+     "Sūtra 1: free consciousness causes the world's triple proving.",
+     "Sūtra 2: by own will on own ground she opens the world (no borrowed means).",
+     "Sūtra 3: manifoldness through fit perceiver-perceived division.",
+     "Sūtra 4: contraction of consciousness — yet a knower, world-shrunk."
+    ],
+    "inference": "Cause stated, means refused, manifold explained, veil named: descent promised.",
+    "uncertainties": [
+     "viśvasiddhi gloss revised to triple process (vṛtti + Pradipaka); siddhi≠powers."
+    ],
+    "traces": {
+     "t1_verse": "phr-p01-v01",
+     "l0_ids": [
+      "phr-p01-v01-p000",
+      "phr-p01-v01-p001",
+      "phr-p01-v01-p002"
+     ]
+    },
+    "sanskrit_sha": "4f0d6fd890b1f09b"
+   },
+   "phr-p01-v02": {
+    "verse_id": "phr-p01-v02",
+    "song": "phr-p01",
+    "verse": 2,
+    "structured": true,
+    "speaker": "Kṣemarāja (sūtra voice)",
+    "question": "How does free consciousness become the bound knower?",
+    "premises": [
+     "Sūtra 1: free consciousness causes the world's triple proving.",
+     "Sūtra 2: by own will on own ground she opens the world (no borrowed means).",
+     "Sūtra 3: manifoldness through fit perceiver-perceived division.",
+     "Sūtra 4: contraction of consciousness — yet a knower, world-shrunk."
+    ],
+    "inference": "Cause stated, means refused, manifold explained, veil named: descent promised.",
+    "uncertainties": [
+     "viśvasiddhi gloss revised to triple process (vṛtti + Pradipaka); siddhi≠powers."
+    ],
+    "traces": {
+     "t1_verse": "phr-p01-v02",
+     "l0_ids": [
+      "phr-p01-v02-p000",
+      "phr-p01-v02-p001",
+      "phr-p01-v02-p002",
+      "phr-p01-v02-p003"
+     ]
+    },
+    "sanskrit_sha": "4f0d6fd890b1f09b"
+   },
+   "phr-p01-v03": {
+    "verse_id": "phr-p01-v03",
+    "song": "phr-p01",
+    "verse": 3,
+    "structured": true,
+    "speaker": "Kṣemarāja (sūtra voice)",
+    "question": "How does free consciousness become the bound knower?",
+    "premises": [
+     "Sūtra 1: free consciousness causes the world's triple proving.",
+     "Sūtra 2: by own will on own ground she opens the world (no borrowed means).",
+     "Sūtra 3: manifoldness through fit perceiver-perceived division.",
+     "Sūtra 4: contraction of consciousness — yet a knower, world-shrunk."
+    ],
+    "inference": "Cause stated, means refused, manifold explained, veil named: descent promised.",
+    "uncertainties": [
+     "viśvasiddhi gloss revised to triple process (vṛtti + Pradipaka); siddhi≠powers."
+    ],
+    "traces": {
+     "t1_verse": "phr-p01-v03",
+     "l0_ids": [
+      "phr-p01-v03-p000",
+      "phr-p01-v03-p001",
+      "phr-p01-v03-p002"
+     ]
+    },
+    "sanskrit_sha": "4f0d6fd890b1f09b"
+   },
+   "phr-p01-v04": {
+    "verse_id": "phr-p01-v04",
+    "song": "phr-p01",
+    "verse": 4,
+    "structured": true,
+    "speaker": "Kṣemarāja (sūtra voice)",
+    "question": "How does free consciousness become the bound knower?",
+    "premises": [
+     "Sūtra 1: free consciousness causes the world's triple proving.",
+     "Sūtra 2: by own will on own ground she opens the world (no borrowed means).",
+     "Sūtra 3: manifoldness through fit perceiver-perceived division.",
+     "Sūtra 4: contraction of consciousness — yet a knower, world-shrunk."
+    ],
+    "inference": "Cause stated, means refused, manifold explained, veil named: descent promised.",
+    "uncertainties": [
+     "viśvasiddhi gloss revised to triple process (vṛtti + Pradipaka); siddhi≠powers."
+    ],
+    "traces": {
+     "t1_verse": "phr-p01-v04",
+     "l0_ids": [
+      "phr-p01-v04-p000",
+      "phr-p01-v04-p001",
+      "phr-p01-v04-p002"
+     ]
+    },
+    "sanskrit_sha": "4f0d6fd890b1f09b"
+   },
+   "phr-p02-v05": {
+    "verse_id": "phr-p02-v05",
+    "song": "phr-p02",
+    "verse": 5,
+    "structured": true,
+    "speaker": "Kṣemarāja (sūtra voice)",
+    "question": "What lies on the way down?",
+    "premises": [
+     "Sūtra 5: mind — contracted consciousness.",
+     "Sūtra 6: the māyā-knower consists of that.",
+     "Sūtra 7: seven pentads — 35 stations Śiva-to-bound-soul (text does not enumerate).",
+     "Sūtra 8: all philosophies stand as stages on that descent."
+    ],
+    "inference": "Descent inventoried: mind, knower, pentads, every school seated.",
+    "uncertainties": [
+     "Seven pentads unenumerated (standard Trika grouping in NOTE); schools unenumerated."
+    ],
+    "traces": {
+     "t1_verse": "phr-p02-v05",
+     "l0_ids": [
+      "phr-p02-v05-p000"
+     ]
+    },
+    "sanskrit_sha": "303b48a6678dd776"
+   },
+   "phr-p02-v06": {
+    "verse_id": "phr-p02-v06",
+    "song": "phr-p02",
+    "verse": 6,
+    "structured": true,
+    "speaker": "Kṣemarāja (sūtra voice)",
+    "question": "What lies on the way down?",
+    "premises": [
+     "Sūtra 5: mind — contracted consciousness.",
+     "Sūtra 6: the māyā-knower consists of that.",
+     "Sūtra 7: seven pentads — 35 stations Śiva-to-bound-soul (text does not enumerate).",
+     "Sūtra 8: all philosophies stand as stages on that descent."
+    ],
+    "inference": "Descent inventoried: mind, knower, pentads, every school seated.",
+    "uncertainties": [
+     "Seven pentads unenumerated (standard Trika grouping in NOTE); schools unenumerated."
+    ],
+    "traces": {
+     "t1_verse": "phr-p02-v06",
+     "l0_ids": [
+      "phr-p02-v06-p000",
+      "phr-p02-v06-p001"
+     ]
+    },
+    "sanskrit_sha": "303b48a6678dd776"
+   },
+   "phr-p02-v07": {
+    "verse_id": "phr-p02-v07",
+    "song": "phr-p02",
+    "verse": 7,
+    "structured": true,
+    "speaker": "Kṣemarāja (sūtra voice)",
+    "question": "What lies on the way down?",
+    "premises": [
+     "Sūtra 5: mind — contracted consciousness.",
+     "Sūtra 6: the māyā-knower consists of that.",
+     "Sūtra 7: seven pentads — 35 stations Śiva-to-bound-soul (text does not enumerate).",
+     "Sūtra 8: all philosophies stand as stages on that descent."
+    ],
+    "inference": "Descent inventoried: mind, knower, pentads, every school seated.",
+    "uncertainties": [
+     "Seven pentads unenumerated (standard Trika grouping in NOTE); schools unenumerated."
+    ],
+    "traces": {
+     "t1_verse": "phr-p02-v07",
+     "l0_ids": [
+      "phr-p02-v07-p000"
+     ]
+    },
+    "sanskrit_sha": "303b48a6678dd776"
+   },
+   "phr-p02-v08": {
+    "verse_id": "phr-p02-v08",
+    "song": "phr-p02",
+    "verse": 8,
+    "structured": true,
+    "speaker": "Kṣemarāja (sūtra voice)",
+    "question": "What lies on the way down?",
+    "premises": [
+     "Sūtra 5: mind — contracted consciousness.",
+     "Sūtra 6: the māyā-knower consists of that.",
+     "Sūtra 7: seven pentads — 35 stations Śiva-to-bound-soul (text does not enumerate).",
+     "Sūtra 8: all philosophies stand as stages on that descent."
+    ],
+    "inference": "Descent inventoried: mind, knower, pentads, every school seated.",
+    "uncertainties": [
+     "Seven pentads unenumerated (standard Trika grouping in NOTE); schools unenumerated."
+    ],
+    "traces": {
+     "t1_verse": "phr-p02-v08",
+     "l0_ids": [
+      "phr-p02-v08-p000",
+      "phr-p02-v08-p001"
+     ]
+    },
+    "sanskrit_sha": "303b48a6678dd776"
+   },
+   "phr-p03-v09": {
+    "verse_id": "phr-p03-v09",
+    "song": "phr-p03",
+    "verse": 9,
+    "structured": true,
+    "speaker": "Kṣemarāja (sūtra voice)",
+    "question": "How does the bound one still act divinely?",
+    "premises": [
+     "Sūtra 9: like consciousness, impure by tightened power — a wanderer.",
+     "Sūtra 10: yet likewise does the five acts (creation/keeping/loosing/veiling/blessing).",
+     "Sūtra 11-12: those doings are wanderinghood."
+    ],
+    "inference": "Agency kept through contraction: likeness stained, five acts still done.",
+    "uncertainties": [
+     "Five acts standard Trika (cf. Bodhavilāsa, Paramārthasāra); śaktisaṃkoca unspecified (citi→citta via māyā)."
+    ],
+    "traces": {
+     "t1_verse": "phr-p03-v09",
+     "l0_ids": [
+      "phr-p03-v09-p000",
+      "phr-p03-v09-p001",
+      "phr-p03-v09-p002",
+      "phr-p03-v09-p003",
+      "phr-p03-v09-p004"
+     ]
+    },
+    "sanskrit_sha": "e372af9a8e5ec662"
+   },
+   "phr-p03-v10": {
+    "verse_id": "phr-p03-v10",
+    "song": "phr-p03",
+    "verse": 10,
+    "structured": true,
+    "speaker": "Kṣemarāja (sūtra voice)",
+    "question": "How does the bound one still act divinely?",
+    "premises": [
+     "Sūtra 9: like consciousness, impure by tightened power — a wanderer.",
+     "Sūtra 10: yet likewise does the five acts (creation/keeping/loosing/veiling/blessing).",
+     "Sūtra 11-12: those doings are wanderinghood."
+    ],
+    "inference": "Agency kept through contraction: likeness stained, five acts still done.",
+    "uncertainties": [
+     "Five acts standard Trika (cf. Bodhavilāsa, Paramārthasāra); śaktisaṃkoca unspecified (citi→citta via māyā)."
+    ],
+    "traces": {
+     "t1_verse": "phr-p03-v10",
+     "l0_ids": [
+      "phr-p03-v10-p000",
+      "phr-p03-v10-p001",
+      "phr-p03-v10-p002",
+      "phr-p03-v10-p003"
+     ]
+    },
+    "sanskrit_sha": "e372af9a8e5ec662"
+   },
+   "phr-p03-v11": {
+    "verse_id": "phr-p03-v11",
+    "song": "phr-p03",
+    "verse": 11,
+    "structured": true,
+    "speaker": "Kṣemarāja (sūtra voice)",
+    "question": "How does the bound one still act divinely?",
+    "premises": [
+     "Sūtra 9: like consciousness, impure by tightened power — a wanderer.",
+     "Sūtra 10: yet likewise does the five acts (creation/keeping/loosing/veiling/blessing).",
+     "Sūtra 11-12: those doings are wanderinghood."
+    ],
+    "inference": "Agency kept through contraction: likeness stained, five acts still done.",
+    "uncertainties": [
+     "Five acts standard Trika (cf. Bodhavilāsa, Paramārthasāra); śaktisaṃkoca unspecified (citi→citta via māyā)."
+    ],
+    "traces": {
+     "t1_verse": "phr-p03-v11",
+     "l0_ids": [
+      "phr-p03-v11-p000"
+     ]
+    },
+    "sanskrit_sha": "e372af9a8e5ec662"
+   },
+   "phr-p03-v12": {
+    "verse_id": "phr-p03-v12",
+    "song": "phr-p03",
+    "verse": 12,
+    "structured": true,
+    "speaker": "Kṣemarāja (sūtra voice)",
+    "question": "How does the bound one still act divinely?",
+    "premises": [
+     "Sūtra 9: like consciousness, impure by tightened power — a wanderer.",
+     "Sūtra 10: yet likewise does the five acts (creation/keeping/loosing/veiling/blessing).",
+     "Sūtra 11-12: those doings are wanderinghood."
+    ],
+    "inference": "Agency kept through contraction: likeness stained, five acts still done.",
+    "uncertainties": [
+     "Five acts standard Trika (cf. Bodhavilāsa, Paramārthasāra); śaktisaṃkoca unspecified (citi→citta via māyā)."
+    ],
+    "traces": {
+     "t1_verse": "phr-p03-v12",
+     "l0_ids": [
+      "phr-p03-v12-p000"
+     ]
+    },
+    "sanskrit_sha": "e372af9a8e5ec662"
+   },
+   "phr-p04-v13": {
+    "verse_id": "phr-p04-v13",
+    "song": "phr-p04",
+    "verse": 13,
+    "structured": true,
+    "speaker": "Kṣemarāja (sūtra voice)",
+    "question": "How is freedom won back?",
+    "premises": [
+     "Sūtra 13: by climbing to knowing's seat — knowing (method unspecified: śaktipāta + grace).",
+     "Sūtra 14: it burns knowables for fuel (malas: āṇava/māyīya/kārma).",
+     "Sūtra 15: grown strong, the world owned.",
+     "Sūtra 16: fast-held oneness-with-knowing is living freedom."
+    ],
+    "inference": "Return by recognition, not effort: climb, burn, own, hold fast.",
+    "uncertainties": [
+     "Ascent-method and fuel-identity from standard Trika, marked as such."
+    ],
+    "traces": {
+     "t1_verse": "phr-p04-v13",
+     "l0_ids": [
+      "phr-p04-v13-p000",
+      "phr-p04-v13-p001"
+     ]
+    },
+    "sanskrit_sha": "9b65f8bc3c9870e4"
+   },
+   "phr-p04-v14": {
+    "verse_id": "phr-p04-v14",
+    "song": "phr-p04",
+    "verse": 14,
+    "structured": true,
+    "speaker": "Kṣemarāja (sūtra voice)",
+    "question": "How is freedom won back?",
+    "premises": [
+     "Sūtra 13: by climbing to knowing's seat — knowing (method unspecified: śaktipāta + grace).",
+     "Sūtra 14: it burns knowables for fuel (malas: āṇava/māyīya/kārma).",
+     "Sūtra 15: grown strong, the world owned.",
+     "Sūtra 16: fast-held oneness-with-knowing is living freedom."
+    ],
+    "inference": "Return by recognition, not effort: climb, burn, own, hold fast.",
+    "uncertainties": [
+     "Ascent-method and fuel-identity from standard Trika, marked as such."
+    ],
+    "traces": {
+     "t1_verse": "phr-p04-v14",
+     "l0_ids": [
+      "phr-p04-v14-p000",
+      "phr-p04-v14-p001"
+     ]
+    },
+    "sanskrit_sha": "9b65f8bc3c9870e4"
+   },
+   "phr-p04-v15": {
+    "verse_id": "phr-p04-v15",
+    "song": "phr-p04",
+    "verse": 15,
+    "structured": true,
+    "speaker": "Kṣemarāja (sūtra voice)",
+    "question": "How is freedom won back?",
+    "premises": [
+     "Sūtra 13: by climbing to knowing's seat — knowing (method unspecified: śaktipāta + grace).",
+     "Sūtra 14: it burns knowables for fuel (malas: āṇava/māyīya/kārma).",
+     "Sūtra 15: grown strong, the world owned.",
+     "Sūtra 16: fast-held oneness-with-knowing is living freedom."
+    ],
+    "inference": "Return by recognition, not effort: climb, burn, own, hold fast.",
+    "uncertainties": [
+     "Ascent-method and fuel-identity from standard Trika, marked as such."
+    ],
+    "traces": {
+     "t1_verse": "phr-p04-v15",
+     "l0_ids": [
+      "phr-p04-v15-p000",
+      "phr-p04-v15-p001",
+      "phr-p04-v15-p002"
+     ]
+    },
+    "sanskrit_sha": "9b65f8bc3c9870e4"
+   },
+   "phr-p04-v16": {
+    "verse_id": "phr-p04-v16",
+    "song": "phr-p04",
+    "verse": 16,
+    "structured": true,
+    "speaker": "Kṣemarāja (sūtra voice)",
+    "question": "How is freedom won back?",
+    "premises": [
+     "Sūtra 13: by climbing to knowing's seat — knowing (method unspecified: śaktipāta + grace).",
+     "Sūtra 14: it burns knowables for fuel (malas: āṇava/māyīya/kārma).",
+     "Sūtra 15: grown strong, the world owned.",
+     "Sūtra 16: fast-held oneness-with-knowing is living freedom."
+    ],
+    "inference": "Return by recognition, not effort: climb, burn, own, hold fast.",
+    "uncertainties": [
+     "Ascent-method and fuel-identity from standard Trika, marked as such."
+    ],
+    "traces": {
+     "t1_verse": "phr-p04-v16",
+     "l0_ids": [
+      "phr-p04-v16-p000",
+      "phr-p04-v16-p001"
+     ]
+    },
+    "sanskrit_sha": "9b65f8bc3c9870e4"
+   },
+   "phr-p05-v17": {
+    "verse_id": "phr-p05-v17",
+    "song": "phr-p05",
+    "verse": 17,
+    "structured": true,
+    "speaker": "Kṣemarāja (sūtra voice)",
+    "question": "What seals the Heart?",
+    "premises": [
+     "Sūtra 17: middle's opening — knowing-bliss (heart-center via grace).",
+     "Sūtra 18: here — means (four upāyas unenumerated).",
+     "Sūtra 19: recalling oneness — ever-risen samādhi (recognized, not acquired).",
+     "Sūtra 20: become Śiva."
+    ],
+    "inference": "Close in becoming: opening, means, recall, Śiva.",
+    "uncertainties": [
+     "Middle/upāyas/samādhi methods from standard Trika, marked as such."
+    ],
+    "traces": {
+     "t1_verse": "phr-p05-v17",
+     "l0_ids": [
+      "phr-p05-v17-p000",
+      "phr-p05-v17-p001"
+     ]
+    },
+    "sanskrit_sha": "8686280ccba313af"
+   },
+   "phr-p05-v18": {
+    "verse_id": "phr-p05-v18",
+    "song": "phr-p05",
+    "verse": 18,
+    "structured": true,
+    "speaker": "Kṣemarāja (sūtra voice)",
+    "question": "What seals the Heart?",
+    "premises": [
+     "Sūtra 17: middle's opening — knowing-bliss (heart-center via grace).",
+     "Sūtra 18: here — means (four upāyas unenumerated).",
+     "Sūtra 19: recalling oneness — ever-risen samādhi (recognized, not acquired).",
+     "Sūtra 20: become Śiva."
+    ],
+    "inference": "Close in becoming: opening, means, recall, Śiva.",
+    "uncertainties": [
+     "Middle/upāyas/samādhi methods from standard Trika, marked as such."
+    ],
+    "traces": {
+     "t1_verse": "phr-p05-v18",
+     "l0_ids": [
+      "phr-p05-v18-p000",
+      "phr-p05-v18-p001"
+     ]
+    },
+    "sanskrit_sha": "8686280ccba313af"
+   },
+   "phr-p05-v19": {
+    "verse_id": "phr-p05-v19",
+    "song": "phr-p05",
+    "verse": 19,
+    "structured": true,
+    "speaker": "Kṣemarāja (sūtra voice)",
+    "question": "What seals the Heart?",
+    "premises": [
+     "Sūtra 17: middle's opening — knowing-bliss (heart-center via grace).",
+     "Sūtra 18: here — means (four upāyas unenumerated).",
+     "Sūtra 19: recalling oneness — ever-risen samādhi (recognized, not acquired).",
+     "Sūtra 20: become Śiva."
+    ],
+    "inference": "Close in becoming: opening, means, recall, Śiva.",
+    "uncertainties": [
+     "Middle/upāyas/samādhi methods from standard Trika, marked as such."
+    ],
+    "traces": {
+     "t1_verse": "phr-p05-v19",
+     "l0_ids": [
+      "phr-p05-v19-p000",
+      "phr-p05-v19-p001"
+     ]
+    },
+    "sanskrit_sha": "8686280ccba313af"
+   },
+   "phr-p05-v20": {
+    "verse_id": "phr-p05-v20",
+    "song": "phr-p05",
+    "verse": 20,
+    "structured": true,
+    "speaker": "Kṣemarāja (sūtra voice)",
+    "question": "What seals the Heart?",
+    "premises": [
+     "Sūtra 17: middle's opening — knowing-bliss (heart-center via grace).",
+     "Sūtra 18: here — means (four upāyas unenumerated).",
+     "Sūtra 19: recalling oneness — ever-risen samādhi (recognized, not acquired).",
+     "Sūtra 20: become Śiva."
+    ],
+    "inference": "Close in becoming: opening, means, recall, Śiva.",
+    "uncertainties": [
+     "Middle/upāyas/samādhi methods from standard Trika, marked as such."
+    ],
+    "traces": {
+     "t1_verse": "phr-p05-v20",
+     "l0_ids": [
+      "phr-p05-v20-p000",
+      "phr-p05-v20-p001"
+     ]
+    },
+    "sanskrit_sha": "8686280ccba313af"
+   }
+  },
+  "l2": {
+   "phr-p01-v01": {
+    "verse_id": "phr-p01-v01",
+    "song": "phr-p01",
+    "verse": 1,
+    "plain_english": "Consciousness stands free — cause of the world's proving.",
+    "sanskrit_cite": "citiḥ svatantrā viśvasiddhihetuḥ",
+    "l0_ids": [
+     "phr-p01-v01-p000",
+     "phr-p01-v01-p001",
+     "phr-p01-v01-p002"
+    ],
+    "trace_level": "verse"
+   },
+   "phr-p01-v02": {
+    "verse_id": "phr-p01-v02",
+    "song": "phr-p01",
+    "verse": 2,
+    "plain_english": "By her own will, on her own ground, she opens the world.",
+    "sanskrit_cite": "svecchayā svabhittau viśvam unmīlayati",
+    "l0_ids": [
+     "phr-p01-v02-p000",
+     "phr-p01-v02-p001",
+     "phr-p01-v02-p002",
+     "phr-p01-v02-p003"
+    ],
+    "trace_level": "verse"
+   },
+   "phr-p01-v03": {
+    "verse_id": "phr-p01-v03",
+    "song": "phr-p01",
+    "verse": 3,
+    "plain_english": "That grows manifold through fit perceivers and perceived dividing.",
+    "sanskrit_cite": "tan nānā anurūpagrāhyagrāhakabhedāt",
+    "l0_ids": [
+     "phr-p01-v03-p000",
+     "phr-p01-v03-p001",
+     "phr-p01-v03-p002"
+    ],
+    "trace_level": "verse"
+   },
+   "phr-p01-v04": {
+    "verse_id": "phr-p01-v04",
+    "song": "phr-p01",
+    "verse": 4,
+    "plain_english": "A contraction of knowing, yet a knower even so, clothed in a contracted world.",
+    "sanskrit_cite": "citisaṃkocātmā cetano 'pi saṃkucitaviśvamayaḥ",
+    "l0_ids": [
+     "phr-p01-v04-p000",
+     "phr-p01-v04-p001",
+     "phr-p01-v04-p002"
+    ],
+    "trace_level": "verse"
+   },
+   "phr-p02-v05": {
+    "verse_id": "phr-p02-v05",
+    "song": "phr-p02",
+    "verse": 5,
+    "plain_english": "Mind.",
+    "sanskrit_cite": "cittam",
+    "l0_ids": [
+     "phr-p02-v05-p000"
+    ],
+    "trace_level": "verse"
+   },
+   "phr-p02-v06": {
+    "verse_id": "phr-p02-v06",
+    "song": "phr-p02",
+    "verse": 6,
+    "plain_english": "Made of that — the māyā-knower.",
+    "sanskrit_cite": "tanmayo māyāpramātā",
+    "l0_ids": [
+     "phr-p02-v06-p000",
+     "phr-p02-v06-p001"
+    ],
+    "trace_level": "verse"
+   },
+   "phr-p02-v07": {
+    "verse_id": "phr-p02-v07",
+    "song": "phr-p02",
+    "verse": 7,
+    "plain_english": "Seven pentads its nature.",
+    "sanskrit_cite": "saptapañcakasvabhāvaḥ",
+    "l0_ids": [
+     "phr-p02-v07-p000"
+    ],
+    "trace_level": "verse"
+   },
+   "phr-p02-v08": {
+    "verse_id": "phr-p02-v08",
+    "song": "phr-p02",
+    "verse": 8,
+    "plain_english": "Stages on that — every philosophy's standing-ground.",
+    "sanskrit_cite": "tadbhūmikāḥ sarvadarśanasthitayaḥ",
+    "l0_ids": [
+     "phr-p02-v08-p000",
+     "phr-p02-v08-p001"
+    ],
+    "trace_level": "verse"
+   },
+   "phr-p03-v09": {
+    "verse_id": "phr-p03-v09",
+    "song": "phr-p03",
+    "verse": 9,
+    "plain_english": "Like knowing, yet by tightened power impure — stained, it wanders.",
+    "sanskrit_cite": "cidvat tac chaktisaṃkocāt malāvṛtaḥ saṃsārī",
+    "l0_ids": [
+     "phr-p03-v09-p000",
+     "phr-p03-v09-p001",
+     "phr-p03-v09-p002",
+     "phr-p03-v09-p003",
+     "phr-p03-v09-p004"
+    ],
+    "trace_level": "verse"
+   },
+   "phr-p03-v10": {
+    "verse_id": "phr-p03-v10",
+    "song": "phr-p03",
+    "verse": 10,
+    "plain_english": "Yet even so, likewise, it does the five acts.",
+    "sanskrit_cite": "tathāpi tadvat pañcakṛtyāni karoti",
+    "l0_ids": [
+     "phr-p03-v10-p000",
+     "phr-p03-v10-p001",
+     "phr-p03-v10-p002",
+     "phr-p03-v10-p003"
+    ],
+    "trace_level": "verse"
+   },
+   "phr-p03-v11": {
+    "verse_id": "phr-p03-v11",
+    "song": "phr-p03",
+    "verse": 11,
+    "plain_english": "Those — the fivefold doing.",
+    "sanskrit_cite": "tāni",
+    "l0_ids": [
+     "phr-p03-v11-p000"
+    ],
+    "trace_level": "verse"
+   },
+   "phr-p03-v12": {
+    "verse_id": "phr-p03-v12",
+    "song": "phr-p03",
+    "verse": 12,
+    "plain_english": "Wanderinghood.",
+    "sanskrit_cite": "saṃsāritvam",
+    "l0_ids": [
+     "phr-p03-v12-p000"
+    ],
+    "trace_level": "verse"
+   },
+   "phr-p04-v13": {
+    "verse_id": "phr-p04-v13",
+    "song": "phr-p04",
+    "verse": 13,
+    "plain_english": "By climbing to knowing's seat — knowing.",
+    "sanskrit_cite": "cetanapadādhyārohāt citiḥ",
+    "l0_ids": [
+     "phr-p04-v13-p000",
+     "phr-p04-v13-p001"
+    ],
+    "trace_level": "verse"
+   },
+   "phr-p04-v14": {
+    "verse_id": "phr-p04-v14",
+    "song": "phr-p04",
+    "verse": 14,
+    "plain_english": "It burns knowables for fuel.",
+    "sanskrit_cite": "meyendhanaṃ pluṣyati",
+    "l0_ids": [
+     "phr-p04-v14-p000",
+     "phr-p04-v14-p001"
+    ],
+    "trace_level": "verse"
+   },
+   "phr-p04-v15": {
+    "verse_id": "phr-p04-v15",
+    "song": "phr-p04",
+    "verse": 15,
+    "plain_english": "Grown strong, it makes the world its own.",
+    "sanskrit_cite": "balalābhe viśvam ātmasātkaroti",
+    "l0_ids": [
+     "phr-p04-v15-p000",
+     "phr-p04-v15-p001",
+     "phr-p04-v15-p002"
+    ],
+    "trace_level": "verse"
+   },
+   "phr-p04-v16": {
+    "verse_id": "phr-p04-v16",
+    "song": "phr-p04",
+    "verse": 16,
+    "plain_english": "Holding oneness with knowing fast — freedom while living.",
+    "sanskrit_cite": "cidaikātmyapratipattidārḍhyaṃ jīvanmuktiḥ",
+    "l0_ids": [
+     "phr-p04-v16-p000",
+     "phr-p04-v16-p001"
+    ],
+    "trace_level": "verse"
+   },
+   "phr-p05-v17": {
+    "verse_id": "phr-p05-v17",
+    "song": "phr-p05",
+    "verse": 17,
+    "plain_english": "From the middle's opening — knowing-bliss won.",
+    "sanskrit_cite": "madhyavikāsāc cidānandalābhaḥ",
+    "l0_ids": [
+     "phr-p05-v17-p000",
+     "phr-p05-v17-p001"
+    ],
+    "trace_level": "verse"
+   },
+   "phr-p05-v18": {
+    "verse_id": "phr-p05-v18",
+    "song": "phr-p05",
+    "verse": 18,
+    "plain_english": "Here — the means.",
+    "sanskrit_cite": "iha upāyāḥ",
+    "l0_ids": [
+     "phr-p05-v18-p000",
+     "phr-p05-v18-p001"
+    ],
+    "trace_level": "verse"
+   },
+   "phr-p05-v19": {
+    "verse_id": "phr-p05-v19",
+    "song": "phr-p05",
+    "verse": 19,
+    "plain_english": "From recalling oneness with knowing — samādhi ever risen.",
+    "sanskrit_cite": "cidaikyāmarśān nityoditasamādhilābhaḥ",
+    "l0_ids": [
+     "phr-p05-v19-p000",
+     "phr-p05-v19-p001"
+    ],
+    "trace_level": "verse"
+   },
+   "phr-p05-v20": {
+    "verse_id": "phr-p05-v20",
+    "song": "phr-p05",
+    "verse": 20,
+    "plain_english": "And so it becomes — Śiva.",
+    "sanskrit_cite": "bhavatīti śivam",
+    "l0_ids": [
+     "phr-p05-v20-p000",
+     "phr-p05-v20-p001"
+    ],
+    "trace_level": "verse"
+   }
+  },
+  "c1": {
+   "phr-p01": {
+    "song": "phr-p01",
+    "essence": [
+     "Free consciousness causes, unborrowing opens, divides by fitness, veils by tightening — descent promised."
+    ],
+    "essence_source": "human-sharpened",
+    "renders": {
+     "standard": {
+      "style": "standard",
+      "sections": {
+       "SUMMARY": "Consciousness free causes the world's triple proving; by own will unborrowing she opens; fitness divides; tightening veils into knowerhood.",
+       "FUNCTION": "",
+       "KEY TERMS": "",
+       "LOCAL CONTEXT": "",
+       "EXPLANATION": "",
+       "BOUNDARY": "",
+       "RELATED": ""
+      }
+     }
+    },
+    "rasa": {
+     "dominant": "adbhuta of free cause",
+     "sthayibhava": "vismaya (wonder) at unborrowing opening",
+     "justification": "The sthāyibhāva is wonder: free, unborrowing, dividing, veiling. Opening relished."
+    }
+   },
+   "phr-p02": {
+    "song": "phr-p02",
+    "essence": [
+     "Mind tightened, knower measured, pentads stationed, schools seated on the descent."
+    ],
+    "essence_source": "human-sharpened",
+    "renders": {
+     "standard": {
+      "style": "standard",
+      "sections": {
+       "SUMMARY": "Mind is tightened knowing; the māyā-knower measured to it; seven pentads station the fall; every school stands somewhere on the rungs.",
+       "FUNCTION": "",
+       "KEY TERMS": "",
+       "LOCAL CONTEXT": "",
+       "EXPLANATION": "",
+       "BOUNDARY": "",
+       "RELATED": ""
+      }
+     }
+    },
+    "rasa": {
+     "dominant": "adbhuta of total descent",
+     "sthayibhava": "vismaya (wonder) at every school seated",
+     "justification": "The sthāyibhāva is wonder: mind to schools, all seated. Descent relished."
+    }
+   },
+   "phr-p03": {
+    "song": "phr-p03",
+    "essence": [
+     "Stained likeness keeps divine office: five acts done small is wandering."
+    ],
+    "essence_source": "human-sharpened",
+    "renders": {
+     "standard": {
+      "style": "standard",
+      "sections": {
+       "SUMMARY": "Almost-knowing, power-tightened, stained — yet the fivefold office kept: done small, that doing is wandering.",
+       "FUNCTION": "",
+       "KEY TERMS": "",
+       "LOCAL CONTEXT": "",
+       "EXPLANATION": "",
+       "BOUNDARY": "",
+       "RELATED": ""
+      }
+     }
+    },
+    "rasa": {
+     "dominant": "vīra of kept office",
+     "sthayibhava": "utsāha (exultation) at divinity done small",
+     "justification": "The sthāyibhāva is exultation: chained yet officed. Kept agency relished."
+    }
+   },
+   "phr-p04": {
+    "song": "phr-p04",
+    "essence": [
+     "Return climbs, burns, owns, holds fast — freedom alive."
+    ],
+    "essence_source": "human-sharpened",
+    "renders": {
+     "standard": {
+      "style": "standard",
+      "sections": {
+       "SUMMARY": "Climb to knowing's seat turns climber to knowing; knowables burn; grown strong the world is owned; fast-held oneness is living freedom.",
+       "FUNCTION": "",
+       "KEY TERMS": "",
+       "LOCAL CONTEXT": "",
+       "EXPLANATION": "",
+       "BOUNDARY": "",
+       "RELATED": ""
+      }
+     }
+    },
+    "rasa": {
+     "dominant": "vīra-śānta of return",
+     "sthayibhava": "dhṛti-utsāha (steadfast exultation) at won-back freedom",
+     "justification": "The sthāyibhāva is steadfast exultation: climbed, burnt, owned, held. Return relished."
+    }
+   },
+   "phr-p05": {
+    "song": "phr-p05",
+    "essence": [
+     "Opening middle, given means, recalled oneness, become Śiva."
+    ],
+    "essence_source": "human-sharpened",
+    "renders": {
+     "standard": {
+      "style": "standard",
+      "sections": {
+       "SUMMARY": "Middle opens into knowing-bliss; means given here; recalled oneness rises ever-waking samādhi; become Śiva.",
+       "FUNCTION": "",
+       "KEY TERMS": "",
+       "LOCAL CONTEXT": "",
+       "EXPLANATION": "",
+       "BOUNDARY": "",
+       "RELATED": ""
+      }
+     }
+    },
+    "rasa": {
+     "dominant": "śānta of arrival",
+     "sthayibhava": "śama (peace) at become-Śiva",
+     "justification": "The sthāyibhāva is peace: opened, given, recalled, become. Arrival relished."
+    }
+   }
+  },
+  "l3": {
+   "phr-p01-v01": {
+    "verse_id": "phr-p01-v01",
+    "song": "phr-p01",
+    "verse": 1,
+    "lines": [
+     "Knowing stands free — the world's threefold turning",
+     "comes from it alone: arising, abiding, returning."
+    ],
+    "sanskrit_cite": "citiḥ svatantrā viśvasiddhihetuḥ",
+    "l0_ids": [
+     "phr-p01-v01-p000",
+     "phr-p01-v01-p001",
+     "phr-p01-v01-p002"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "phr-p01-v02": {
+    "verse_id": "phr-p01-v02",
+    "song": "phr-p01",
+    "verse": 2,
+    "lines": [
+     "By her own will she blooms it, on her own ground —",
+     "no borrowed hands, no borrowed earth, in the opening."
+    ],
+    "sanskrit_cite": "svecchayā svabhittau viśvam unmīlayati",
+    "l0_ids": [
+     "phr-p01-v02-p000",
+     "phr-p01-v02-p001",
+     "phr-p01-v02-p002",
+     "phr-p01-v02-p003"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "phr-p01-v03": {
+    "verse_id": "phr-p01-v03",
+    "song": "phr-p01",
+    "verse": 3,
+    "lines": [
+     "One, yet many — where fit seer meets fit seen,",
+     "the same light breaks into shares."
+    ],
+    "sanskrit_cite": "tan nānā anurūpagrāhyagrāhakabhedāt",
+    "l0_ids": [
+     "phr-p01-v03-p000",
+     "phr-p01-v03-p001",
+     "phr-p01-v03-p002"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "phr-p01-v04": {
+    "verse_id": "phr-p01-v04",
+    "song": "phr-p01",
+    "verse": 4,
+    "lines": [
+     "A knot of knowing, yet a knower —",
+     "wearing a world shrunk to fit."
+    ],
+    "sanskrit_cite": "citisaṃkocātmā cetano 'pi saṃkucitaviśvamayaḥ",
+    "l0_ids": [
+     "phr-p01-v04-p000",
+     "phr-p01-v04-p001",
+     "phr-p01-v04-p002"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "phr-p02-v05": {
+    "verse_id": "phr-p02-v05",
+    "song": "phr-p02",
+    "verse": 5,
+    "lines": [
+     "Mind —",
+     "knowing tightened into thought."
+    ],
+    "sanskrit_cite": "cittam",
+    "l0_ids": [
+     "phr-p02-v05-p000"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "phr-p02-v06": {
+    "verse_id": "phr-p02-v06",
+    "song": "phr-p02",
+    "verse": 6,
+    "lines": [
+     "Made of that tightening — the māyā-measurer,",
+     "fit to a world of measures."
+    ],
+    "sanskrit_cite": "tanmayo māyāpramātā",
+    "l0_ids": [
+     "phr-p02-v06-p000",
+     "phr-p02-v06-p001"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "phr-p02-v07": {
+    "verse_id": "phr-p02-v07",
+    "song": "phr-p02",
+    "verse": 7,
+    "lines": [
+     "Seven fives —",
+     "thirty-five rungs of the descent."
+    ],
+    "sanskrit_cite": "saptapañcakasvabhāvaḥ",
+    "l0_ids": [
+     "phr-p02-v07-p000"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "phr-p02-v08": {
+    "verse_id": "phr-p02-v08",
+    "song": "phr-p02",
+    "verse": 8,
+    "lines": [
+     "Every school stands somewhere",
+     "on those rungs."
+    ],
+    "sanskrit_cite": "tadbhūmikāḥ sarvadarśanasthitayaḥ",
+    "l0_ids": [
+     "phr-p02-v08-p000",
+     "phr-p02-v08-p001"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "phr-p03-v09": {
+    "verse_id": "phr-p03-v09",
+    "song": "phr-p03",
+    "verse": 9,
+    "lines": [
+     "Almost knowing — but power drawn tight has stained it;",
+     "look: a wanderer."
+    ],
+    "sanskrit_cite": "cidvat tac chaktisaṃkocāt malāvṛtaḥ saṃsārī",
+    "l0_ids": [
+     "phr-p03-v09-p000",
+     "phr-p03-v09-p001",
+     "phr-p03-v09-p002",
+     "phr-p03-v09-p003",
+     "phr-p03-v09-p004"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "phr-p03-v10": {
+    "verse_id": "phr-p03-v10",
+    "song": "phr-p03",
+    "verse": 10,
+    "lines": [
+     "Chained, yet it keeps the fivefold office —",
+     "making, keeping, loosing, veiling, blessing."
+    ],
+    "sanskrit_cite": "tathāpi tadvat pañcakṛtyāni karoti",
+    "l0_ids": [
+     "phr-p03-v10-p000",
+     "phr-p03-v10-p001",
+     "phr-p03-v10-p002",
+     "phr-p03-v10-p003"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "phr-p03-v11": {
+    "verse_id": "phr-p03-v11",
+    "song": "phr-p03",
+    "verse": 11,
+    "lines": [
+     "Those very acts —",
+     "done small."
+    ],
+    "sanskrit_cite": "tāni",
+    "l0_ids": [
+     "phr-p03-v11-p000"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "phr-p03-v12": {
+    "verse_id": "phr-p03-v12",
+    "song": "phr-p03",
+    "verse": 12,
+    "lines": [
+     "That doing-small",
+     "is called wandering."
+    ],
+    "sanskrit_cite": "saṃsāritvam",
+    "l0_ids": [
+     "phr-p03-v12-p000"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "phr-p04-v13": {
+    "verse_id": "phr-p04-v13",
+    "song": "phr-p04",
+    "verse": 13,
+    "lines": [
+     "Climb to knowing's seat —",
+     "and the climber is knowing."
+    ],
+    "sanskrit_cite": "cetanapadādhyārohāt citiḥ",
+    "l0_ids": [
+     "phr-p04-v13-p000",
+     "phr-p04-v13-p001"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "phr-p04-v14": {
+    "verse_id": "phr-p04-v14",
+    "song": "phr-p04",
+    "verse": 14,
+    "lines": [
+     "Feed it every knowable —",
+     "watch it burn."
+    ],
+    "sanskrit_cite": "meyendhanaṃ pluṣyati",
+    "l0_ids": [
+     "phr-p04-v14-p000",
+     "phr-p04-v14-p001"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "phr-p04-v15": {
+    "verse_id": "phr-p04-v15",
+    "song": "phr-p04",
+    "verse": 15,
+    "lines": [
+     "Grow strong —",
+     "and call the world your own."
+    ],
+    "sanskrit_cite": "balalābhe viśvam ātmasātkaroti",
+    "l0_ids": [
+     "phr-p04-v15-p000",
+     "phr-p04-v15-p001",
+     "phr-p04-v15-p002"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "phr-p04-v16": {
+    "verse_id": "phr-p04-v16",
+    "song": "phr-p04",
+    "verse": 16,
+    "lines": [
+     "Grip oneness with knowing and never let go —",
+     "that grip is freedom, alive."
+    ],
+    "sanskrit_cite": "cidaikātmyapratipattidārḍhyaṃ jīvanmuktiḥ",
+    "l0_ids": [
+     "phr-p04-v16-p000",
+     "phr-p04-v16-p001"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "phr-p05-v17": {
+    "verse_id": "phr-p05-v17",
+    "song": "phr-p05",
+    "verse": 17,
+    "lines": [
+     "The middle opens —",
+     "bliss of knowing floods."
+    ],
+    "sanskrit_cite": "madhyavikāsāc cidānandalābhaḥ",
+    "l0_ids": [
+     "phr-p05-v17-p000",
+     "phr-p05-v17-p001"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "phr-p05-v18": {
+    "verse_id": "phr-p05-v18",
+    "song": "phr-p05",
+    "verse": 18,
+    "lines": [
+     "Here —",
+     "ways are given."
+    ],
+    "sanskrit_cite": "iha upāyāḥ",
+    "l0_ids": [
+     "phr-p05-v18-p000",
+     "phr-p05-v18-p001"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "phr-p05-v19": {
+    "verse_id": "phr-p05-v19",
+    "song": "phr-p05",
+    "verse": 19,
+    "lines": [
+     "Remember oneness with knowing —",
+     "samādhi that never set, and never will."
+    ],
+    "sanskrit_cite": "cidaikyāmarśān nityoditasamādhilābhaḥ",
+    "l0_ids": [
+     "phr-p05-v19-p000",
+     "phr-p05-v19-p001"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   },
+   "phr-p05-v20": {
+    "verse_id": "phr-p05-v20",
+    "song": "phr-p05",
+    "verse": 20,
+    "lines": [
+     "Become, then —",
+     "Śiva."
+    ],
+    "sanskrit_cite": "bhavatīti śivam",
+    "l0_ids": [
+     "phr-p05-v20-p000",
+     "phr-p05-v20-p001"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ]
+   }
+  },
+  "l4": {
+   "phr-p01-v01": {
+    "verse_id": "phr-p01-v01",
+    "song": "phr-p01",
+    "verse": 1,
+    "lines": [
+     "Knowing stands free — the world's threefold turning",
+     "comes from it alone: arising, abiding, returning."
+    ],
+    "sanskrit_cite": "citiḥ svatantrā viśvasiddhihetuḥ",
+    "l0_ids": [
+     "phr-p01-v01-p000",
+     "phr-p01-v01-p001",
+     "phr-p01-v01-p002"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "phr-p01-v02": {
+    "verse_id": "phr-p01-v02",
+    "song": "phr-p01",
+    "verse": 2,
+    "lines": [
+     "By her own will she blooms it, on her own ground —",
+     "no borrowed hands, no borrowed earth, in the opening."
+    ],
+    "sanskrit_cite": "svecchayā svabhittau viśvam unmīlayati",
+    "l0_ids": [
+     "phr-p01-v02-p000",
+     "phr-p01-v02-p001",
+     "phr-p01-v02-p002",
+     "phr-p01-v02-p003"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "phr-p01-v03": {
+    "verse_id": "phr-p01-v03",
+    "song": "phr-p01",
+    "verse": 3,
+    "lines": [
+     "One, yet many — where fit seer meets fit seen,",
+     "the same light breaks into shares."
+    ],
+    "sanskrit_cite": "tan nānā anurūpagrāhyagrāhakabhedāt",
+    "l0_ids": [
+     "phr-p01-v03-p000",
+     "phr-p01-v03-p001",
+     "phr-p01-v03-p002"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "phr-p01-v04": {
+    "verse_id": "phr-p01-v04",
+    "song": "phr-p01",
+    "verse": 4,
+    "lines": [
+     "A knot of knowing, yet a knower —",
+     "wearing a world shrunk to fit."
+    ],
+    "sanskrit_cite": "citisaṃkocātmā cetano 'pi saṃkucitaviśvamayaḥ",
+    "l0_ids": [
+     "phr-p01-v04-p000",
+     "phr-p01-v04-p001",
+     "phr-p01-v04-p002"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "phr-p02-v05": {
+    "verse_id": "phr-p02-v05",
+    "song": "phr-p02",
+    "verse": 5,
+    "lines": [
+     "Mind —",
+     "knowing tightened into thought."
+    ],
+    "sanskrit_cite": "cittam",
+    "l0_ids": [
+     "phr-p02-v05-p000"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "phr-p02-v06": {
+    "verse_id": "phr-p02-v06",
+    "song": "phr-p02",
+    "verse": 6,
+    "lines": [
+     "Made of that tightening — the māyā-measurer,",
+     "fit to a world of measures."
+    ],
+    "sanskrit_cite": "tanmayo māyāpramātā",
+    "l0_ids": [
+     "phr-p02-v06-p000",
+     "phr-p02-v06-p001"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "phr-p02-v07": {
+    "verse_id": "phr-p02-v07",
+    "song": "phr-p02",
+    "verse": 7,
+    "lines": [
+     "Seven fives —",
+     "thirty-five rungs of the descent."
+    ],
+    "sanskrit_cite": "saptapañcakasvabhāvaḥ",
+    "l0_ids": [
+     "phr-p02-v07-p000"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "phr-p02-v08": {
+    "verse_id": "phr-p02-v08",
+    "song": "phr-p02",
+    "verse": 8,
+    "lines": [
+     "Every school stands somewhere",
+     "on those rungs."
+    ],
+    "sanskrit_cite": "tadbhūmikāḥ sarvadarśanasthitayaḥ",
+    "l0_ids": [
+     "phr-p02-v08-p000",
+     "phr-p02-v08-p001"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "phr-p03-v09": {
+    "verse_id": "phr-p03-v09",
+    "song": "phr-p03",
+    "verse": 9,
+    "lines": [
+     "Almost knowing — but power drawn tight has stained it;",
+     "look: a wanderer."
+    ],
+    "sanskrit_cite": "cidvat tac chaktisaṃkocāt malāvṛtaḥ saṃsārī",
+    "l0_ids": [
+     "phr-p03-v09-p000",
+     "phr-p03-v09-p001",
+     "phr-p03-v09-p002",
+     "phr-p03-v09-p003",
+     "phr-p03-v09-p004"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "phr-p03-v10": {
+    "verse_id": "phr-p03-v10",
+    "song": "phr-p03",
+    "verse": 10,
+    "lines": [
+     "Chained, yet it keeps the fivefold office —",
+     "making, keeping, loosing, veiling, blessing."
+    ],
+    "sanskrit_cite": "tathāpi tadvat pañcakṛtyāni karoti",
+    "l0_ids": [
+     "phr-p03-v10-p000",
+     "phr-p03-v10-p001",
+     "phr-p03-v10-p002",
+     "phr-p03-v10-p003"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "phr-p03-v11": {
+    "verse_id": "phr-p03-v11",
+    "song": "phr-p03",
+    "verse": 11,
+    "lines": [
+     "Those very acts —",
+     "done small."
+    ],
+    "sanskrit_cite": "tāni",
+    "l0_ids": [
+     "phr-p03-v11-p000"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "phr-p03-v12": {
+    "verse_id": "phr-p03-v12",
+    "song": "phr-p03",
+    "verse": 12,
+    "lines": [
+     "That doing-small",
+     "is called wandering."
+    ],
+    "sanskrit_cite": "saṃsāritvam",
+    "l0_ids": [
+     "phr-p03-v12-p000"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "phr-p04-v13": {
+    "verse_id": "phr-p04-v13",
+    "song": "phr-p04",
+    "verse": 13,
+    "lines": [
+     "Climb to knowing's seat —",
+     "and the climber is knowing."
+    ],
+    "sanskrit_cite": "cetanapadādhyārohāt citiḥ",
+    "l0_ids": [
+     "phr-p04-v13-p000",
+     "phr-p04-v13-p001"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "phr-p04-v14": {
+    "verse_id": "phr-p04-v14",
+    "song": "phr-p04",
+    "verse": 14,
+    "lines": [
+     "Feed it every knowable —",
+     "watch it burn."
+    ],
+    "sanskrit_cite": "meyendhanaṃ pluṣyati",
+    "l0_ids": [
+     "phr-p04-v14-p000",
+     "phr-p04-v14-p001"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "phr-p04-v15": {
+    "verse_id": "phr-p04-v15",
+    "song": "phr-p04",
+    "verse": 15,
+    "lines": [
+     "Grow strong —",
+     "and call the world your own."
+    ],
+    "sanskrit_cite": "balalābhe viśvam ātmasātkaroti",
+    "l0_ids": [
+     "phr-p04-v15-p000",
+     "phr-p04-v15-p001",
+     "phr-p04-v15-p002"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "phr-p04-v16": {
+    "verse_id": "phr-p04-v16",
+    "song": "phr-p04",
+    "verse": 16,
+    "lines": [
+     "Grip oneness with knowing and never let go —",
+     "that grip is freedom, alive."
+    ],
+    "sanskrit_cite": "cidaikātmyapratipattidārḍhyaṃ jīvanmuktiḥ",
+    "l0_ids": [
+     "phr-p04-v16-p000",
+     "phr-p04-v16-p001"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "phr-p05-v17": {
+    "verse_id": "phr-p05-v17",
+    "song": "phr-p05",
+    "verse": 17,
+    "lines": [
+     "The middle opens —",
+     "bliss of knowing floods."
+    ],
+    "sanskrit_cite": "madhyavikāsāc cidānandalābhaḥ",
+    "l0_ids": [
+     "phr-p05-v17-p000",
+     "phr-p05-v17-p001"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "phr-p05-v18": {
+    "verse_id": "phr-p05-v18",
+    "song": "phr-p05",
+    "verse": 18,
+    "lines": [
+     "Here —",
+     "ways are given."
+    ],
+    "sanskrit_cite": "iha upāyāḥ",
+    "l0_ids": [
+     "phr-p05-v18-p000",
+     "phr-p05-v18-p001"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "phr-p05-v19": {
+    "verse_id": "phr-p05-v19",
+    "song": "phr-p05",
+    "verse": 19,
+    "lines": [
+     "Remember oneness with knowing —",
+     "samādhi that never set, and never will."
+    ],
+    "sanskrit_cite": "cidaikyāmarśān nityoditasamādhilābhaḥ",
+    "l0_ids": [
+     "phr-p05-v19-p000",
+     "phr-p05-v19-p001"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "phr-p05-v20": {
+    "verse_id": "phr-p05-v20",
+    "song": "phr-p05",
+    "verse": 20,
+    "lines": [
+     "Become, then —",
+     "Śiva."
+    ],
+    "sanskrit_cite": "bhavatīti śivam",
+    "l0_ids": [
+     "phr-p05-v20-p000",
+     "phr-p05-v20-p001"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   }
+  },
+  "c2": {}
+ },
+ "source_verses": {
+  "phr-p01-v01": {
+   "text": "citiḥ svatantrā viśvasiddhihetuḥ",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": [
+    21,
+    22
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "phr-p01-v02": {
+   "text": "svecchayā svabhittau viśvam unmīlayati",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": [
+    68,
+    69
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "phr-p01-v03": {
+   "text": "tan nānā anurūpagrāhyagrāhakabhedāt",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": [
+    80,
+    81
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "phr-p01-v04": {
+   "text": "citisaṃkocātmā cetano 'pi saṃkucitaviśvamayaḥ",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": [
+    108,
+    109
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "phr-p02-v05": {
+   "text": "cittam",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": [
+    155,
+    156
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "phr-p02-v06": {
+   "text": "tanmayo māyāpramātā",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": [
+    184,
+    185
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "phr-p02-v07": {
+   "text": "saptapañcakasvabhāvaḥ",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": [
+    198,
+    199
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "phr-p02-v08": {
+   "text": "tadbhūmikāḥ sarvadarśanasthitayaḥ",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": [
+    218,
+    219
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "phr-p03-v09": {
+   "text": "cidvat tac chaktisaṃkocāt malāvṛtaḥ saṃsārī",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": [
+    289,
+    290
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "phr-p03-v10": {
+   "text": "tathāpi tadvat pañcakṛtyāni karoti",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": [
+    310,
+    311
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "phr-p03-v11": {
+   "text": "tāni",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": [
+    344,
+    345
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "phr-p03-v12": {
+   "text": "saṃsāritvam",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": [
+    370,
+    371
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "phr-p04-v13": {
+   "text": "cetanapadādhyārohāt citiḥ",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": [
+    450,
+    451
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "phr-p04-v14": {
+   "text": "meyendhanaṃ pluṣyati",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": [
+    466,
+    467
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "phr-p04-v15": {
+   "text": "balalābhe viśvam ātmasātkaroti",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": [
+    482,
+    483
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "phr-p04-v16": {
+   "text": "cidaikātmyapratipattidārḍhyaṃ jīvanmuktiḥ",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": [
+    507,
+    508
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "phr-p05-v17": {
+   "text": "madhyavikāsāc cidānandalābhaḥ",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": [
+    523,
+    524
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "phr-p05-v18": {
+   "text": "iha upāyāḥ",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": [
+    543,
+    544
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "phr-p05-v19": {
+   "text": "cidaikyāmarśān nityoditasamādhilābhaḥ",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": [
+    655,
+    656
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  },
+  "phr-p05-v20": {
+   "text": "bhavatīti śivam",
+   "source_file": "passages.jsonl",
+   "source_license": "CC BY-NC-SA 4.0",
+   "source_origin": "GRETIL",
+   "source_lines": [
+    688,
+    689
+   ],
+   "note": "Site source display; check the cited edition and full source coverage."
+  }
+ },
+ "l4_craft": {
+  "phr-p01-v01": [
+   {
+    "file": "phrdaya/L4-phr-p01.DRAFT.json",
+    "file_sha256": "8c49ae5be04a673d19e5e22a1c80b7ef6690e53443ddad7a4b7b07d14c8c0e35",
+    "l4_sha256": "4086d809a77975083a7a5a0c104f5c6bf2f3a3f165b056d2b084d8f06fbc5657",
+    "notes": {
+     "craft": "Free-cause stated; threefold-turning (arising/abiding/returning) — descent promised.",
+     "rejected": "(a) cause→ground → killed: cause causes.",
+     "reads": "argmap Q+INF (+UNC ['viśvasiddhi gloss revised to triple process (vṛtti + Pradipaka); siddhi≠powers.']) / C1 essence / rasa / L2+L3 voice"
+    }
+   }
+  ],
+  "phr-p01-v02": [
+   {
+    "file": "phrdaya/L4-phr-p01.DRAFT.json",
+    "file_sha256": "8c49ae5be04a673d19e5e22a1c80b7ef6690e53443ddad7a4b7b07d14c8c0e35",
+    "l4_sha256": "2bff0b3baee9dd58bc7eaa0b5ef50c9bfe62ca91439ff1e8a7926f7633cfa4ed",
+    "notes": {
+     "craft": "Unborrowing doubled (no-borrowed-hands/earth); blooms kept feminine.",
+     "rejected": "(a) blooms→opens → killed: blooms blooms.",
+     "reads": "argmap Q+INF (+UNC ['viśvasiddhi gloss revised to triple process (vṛtti + Pradipaka); siddhi≠powers.']) / C1 essence / rasa / L2+L3 voice"
+    }
+   }
+  ],
+  "phr-p01-v03": [
+   {
+    "file": "phrdaya/L4-phr-p01.DRAFT.json",
+    "file_sha256": "8c49ae5be04a673d19e5e22a1c80b7ef6690e53443ddad7a4b7b07d14c8c0e35",
+    "l4_sha256": "19cfbdd237e3c41d1c284ab1a58d33463936a8eb4a0d336f025dfcf89540d071",
+    "notes": {
+     "craft": "One-yet-many; fit-seer-fit-seen; shares-break.",
+     "rejected": "(a) shares→parts → killed: shares are held-in-common.",
+     "reads": "argmap Q+INF (+UNC ['viśvasiddhi gloss revised to triple process (vṛtti + Pradipaka); siddhi≠powers.']) / C1 essence / rasa / L2+L3 voice"
+    }
+   }
+  ],
+  "phr-p01-v04": [
+   {
+    "file": "phrdaya/L4-phr-p01.DRAFT.json",
+    "file_sha256": "8c49ae5be04a673d19e5e22a1c80b7ef6690e53443ddad7a4b7b07d14c8c0e35",
+    "l4_sha256": "8462acc6d9e08dbe39cdb014faaeb6f306fa01cf6543f53b5eecbf0ccd430c50",
+    "notes": {
+     "craft": "Knot-yet-knower; shrunk-to-fit world. viśvasiddhi triple-process per UNC (siddhi≠powers).",
+     "rejected": "(a) knot→lump → killed: knot binds. (b) powers-reading → killed by UNC.",
+     "reads": "argmap Q+INF (+UNC ['viśvasiddhi gloss revised to triple process (vṛtti + Pradipaka); siddhi≠powers.']) / C1 essence / rasa / L2+L3 voice"
+    }
+   }
+  ],
+  "phr-p02-v05": [
+   {
+    "file": "phrdaya/L4-phr-p02.DRAFT.json",
+    "file_sha256": "67391ca603b4c031a693cce9aa3e79a2b14fb5ae2440c13a80c745257b8c6aac",
+    "l4_sha256": "0400ffee1ba5d2b91168fe82d41bafd85f3b3ca46588ce3bf90c5600889b55c6",
+    "notes": {
+     "craft": "Mind: single-word line + gloss-line (definition-form).",
+     "rejected": "(a) joining lines → killed: word-then-sense is the form.",
+     "reads": "argmap Q+INF (+UNC ['Seven pentads unenumerated (standard Trika grouping in NOTE); schools unenumerated.']) / C1 essence / rasa / L2+L3 voice"
+    }
+   }
+  ],
+  "phr-p02-v06": [
+   {
+    "file": "phrdaya/L4-phr-p02.DRAFT.json",
+    "file_sha256": "67391ca603b4c031a693cce9aa3e79a2b14fb5ae2440c13a80c745257b8c6aac",
+    "l4_sha256": "47f9ec6c26077a02f606037df3dd933dc8956489e11e855ce8b29f970af8a401",
+    "notes": {
+     "craft": "Māyā-measurer fit-to-measures; pentads unenumerated per UNC.",
+     "rejected": "(a) enumerating → killed by UNC (NOTE holds standard).",
+     "reads": "argmap Q+INF (+UNC ['Seven pentads unenumerated (standard Trika grouping in NOTE); schools unenumerated.']) / C1 essence / rasa / L2+L3 voice"
+    }
+   }
+  ],
+  "phr-p02-v07": [
+   {
+    "file": "phrdaya/L4-phr-p02.DRAFT.json",
+    "file_sha256": "67391ca603b4c031a693cce9aa3e79a2b14fb5ae2440c13a80c745257b8c6aac",
+    "l4_sha256": "a85bac710a137a59c18fd49df91fc67cd1a41af55fd9b3d5b3d2203e7fd047f8",
+    "notes": {
+     "craft": "Seven-fives counted then summed (35 rungs); count IS content.",
+     "rejected": "(a) 35→thirty-five words → killed: digits count. (b) rungs→steps → killed: rungs descend.",
+     "reads": "argmap Q+INF (+UNC ['Seven pentads unenumerated (standard Trika grouping in NOTE); schools unenumerated.']) / C1 essence / rasa / L2+L3 voice"
+    }
+   }
+  ],
+  "phr-p02-v08": [
+   {
+    "file": "phrdaya/L4-phr-p02.DRAFT.json",
+    "file_sha256": "67391ca603b4c031a693cce9aa3e79a2b14fb5ae2440c13a80c745257b8c6aac",
+    "l4_sha256": "bb09ae7c8268566943f36f08246fdbcbff6ff4b8850ec88156e06cd6b01558db",
+    "notes": {
+     "craft": "Every-school seated; schools unenumerated per UNC.",
+     "rejected": "(a) naming schools → killed by UNC.",
+     "reads": "argmap Q+INF (+UNC ['Seven pentads unenumerated (standard Trika grouping in NOTE); schools unenumerated.']) / C1 essence / rasa / L2+L3 voice"
+    }
+   }
+  ],
+  "phr-p03-v09": [
+   {
+    "file": "phrdaya/L4-phr-p03.DRAFT.json",
+    "file_sha256": "a932c484e7e8435a66a7dfe0798be6058ec62c9864da35ee6c404f5916a139c2",
+    "l4_sha256": "46205484d77074008570968eb2ad81f54ab1e3618faa5d0ebd2b55d8bbb53646",
+    "notes": {
+     "craft": "Almost-knowing + look-a-wanderer (deixis: look points).",
+     "rejected": "(a) look→behold → killed: look is sudden.",
+     "reads": "argmap Q+INF (+UNC ['Five acts standard Trika (cf. Bodhavilāsa, Paramārthasāra); śaktisaṃkoca unspecified (citi→citta via māyā).']) / C1 essence / rasa / L2+L3 voice"
+    }
+   }
+  ],
+  "phr-p03-v10": [
+   {
+    "file": "phrdaya/L4-phr-p03.DRAFT.json",
+    "file_sha256": "a932c484e7e8435a66a7dfe0798be6058ec62c9864da35ee6c404f5916a139c2",
+    "l4_sha256": "66e33ad052f58b2d49415739c541cfbe5e58a139f4f59159c9d17254639efcc6",
+    "notes": {
+     "craft": "Chained-yet-office; five-acts named whole (standard Trika per UNC).",
+     "rejected": "(a) trimming acts → killed: five are the office.",
+     "reads": "argmap Q+INF (+UNC ['Five acts standard Trika (cf. Bodhavilāsa, Paramārthasāra); śaktisaṃkoca unspecified (citi→citta via māyā).']) / C1 essence / rasa / L2+L3 voice"
+    }
+   }
+  ],
+  "phr-p03-v11": [
+   {
+    "file": "phrdaya/L4-phr-p03.DRAFT.json",
+    "file_sha256": "a932c484e7e8435a66a7dfe0798be6058ec62c9864da35ee6c404f5916a139c2",
+    "l4_sha256": "2cb072cd5e50cf0834845c144095bd79bb18f2ff23203d35b46be16d4a4e2610",
+    "notes": {
+     "craft": "Two-beat verse (acts — done-small); smallness kept.",
+     "rejected": "(a) small→lesser → killed: small is size-true.",
+     "reads": "argmap Q+INF (+UNC ['Five acts standard Trika (cf. Bodhavilāsa, Paramārthasāra); śaktisaṃkoca unspecified (citi→citta via māyā).']) / C1 essence / rasa / L2+L3 voice"
+    }
+   }
+  ],
+  "phr-p03-v12": [
+   {
+    "file": "phrdaya/L4-phr-p03.DRAFT.json",
+    "file_sha256": "a932c484e7e8435a66a7dfe0798be6058ec62c9864da35ee6c404f5916a139c2",
+    "l4_sha256": "1700dee77376cec851163267cc3ab0e76ff939ea275e7005f1abd85a0eb80ee8",
+    "notes": {
+     "craft": "Definition seal: doing-small = wandering; śaktisaṃkoca unspecified per UNC.",
+     "rejected": "(a) explaining contraction → killed unspecified.",
+     "reads": "argmap Q+INF (+UNC ['Five acts standard Trika (cf. Bodhavilāsa, Paramārthasāra); śaktisaṃkoca unspecified (citi→citta via māyā).']) / C1 essence / rasa / L2+L3 voice"
+    }
+   }
+  ],
+  "phr-p04-v13": [
+   {
+    "file": "phrdaya/L4-phr-p04.DRAFT.json",
+    "file_sha256": "c7eb9ae1093065d1ea3d999ef1afa656684eafca42b5e1ebb791166f3eb8aa1e",
+    "l4_sha256": "7326a04d29684ae423c31cc06217e691006d05aa5fe08bff27ef9d57374ef02b",
+    "notes": {
+     "craft": "Climb-and-climber-are-knowing; ascent-method standard-marked per UNC.",
+     "rejected": "(a) climber→one-who-climbs → killed: climber climbs.",
+     "reads": "argmap Q+INF (+UNC ['Ascent-method and fuel-identity from standard Trika, marked as such.']) / C1 essence / rasa / L2+L3 voice"
+    }
+   }
+  ],
+  "phr-p04-v14": [
+   {
+    "file": "phrdaya/L4-phr-p04.DRAFT.json",
+    "file_sha256": "c7eb9ae1093065d1ea3d999ef1afa656684eafca42b5e1ebb791166f3eb8aa1e",
+    "l4_sha256": "e5311586a0527a14907342e0bde4b5ac82e3931f40d089f08d378fd35b3ad2ce",
+    "notes": {
+     "craft": "Feed-and-watch (imperative pair); fuel-identity standard-marked per UNC.",
+     "rejected": "(a) watch→see → killed: watch keeps vigil.",
+     "reads": "argmap Q+INF (+UNC ['Ascent-method and fuel-identity from standard Trika, marked as such.']) / C1 essence / rasa / L2+L3 voice"
+    }
+   }
+  ],
+  "phr-p04-v15": [
+   {
+    "file": "phrdaya/L4-phr-p04.DRAFT.json",
+    "file_sha256": "c7eb9ae1093065d1ea3d999ef1afa656684eafca42b5e1ebb791166f3eb8aa1e",
+    "l4_sha256": "ab654e6208f800f41069fee872c70559ecb549cd6d28743aa956161485628990",
+    "notes": {
+     "craft": "Grow-strong-own-world; second-person turn kept.",
+     "rejected": "(a) your→its → killed: address claims.",
+     "reads": "argmap Q+INF (+UNC ['Ascent-method and fuel-identity from standard Trika, marked as such.']) / C1 essence / rasa / L2+L3 voice"
+    }
+   }
+  ],
+  "phr-p04-v16": [
+   {
+    "file": "phrdaya/L4-phr-p04.DRAFT.json",
+    "file_sha256": "c7eb9ae1093065d1ea3d999ef1afa656684eafca42b5e1ebb791166f3eb8aa1e",
+    "l4_sha256": "f62984e467ce0bd8ab4bf4e4024fd93f97ded4c1fcb6732ada115b2b460c7692",
+    "notes": {
+     "craft": "Grip-never-let-go; freedom-alive close (jīvanmukti in two beats).",
+     "rejected": "(a) alive→living → killed: alive breathes.",
+     "reads": "argmap Q+INF (+UNC ['Ascent-method and fuel-identity from standard Trika, marked as such.']) / C1 essence / rasa / L2+L3 voice"
+    }
+   }
+  ],
+  "phr-p05-v17": [
+   {
+    "file": "phrdaya/L4-phr-p05.DRAFT.json",
+    "file_sha256": "63f7fedeb3c34990ed5dad830805db3fe61c82dcb177ba0404573773d106fa68",
+    "l4_sha256": "da18aafda7d5bda5853f12904ad18e12a27360b763b386f9604db7e6e33154ad",
+    "notes": {
+     "craft": "Middle-opens; bliss-floods; middle/upāyas standard-marked per UNC.",
+     "rejected": "(a) floods→flows → killed: floods flood.",
+     "reads": "argmap Q+INF (+UNC ['Middle/upāyas/samādhi methods from standard Trika, marked as such.']) / C1 essence / rasa / L2+L3 voice"
+    }
+   }
+  ],
+  "phr-p05-v18": [
+   {
+    "file": "phrdaya/L4-phr-p05.DRAFT.json",
+    "file_sha256": "63f7fedeb3c34990ed5dad830805db3fe61c82dcb177ba0404573773d106fa68",
+    "l4_sha256": "2f6a7cd21eea55af3d62713553b1574faaa9183b21dcd8802be75bf8772fe01b",
+    "notes": {
+     "craft": "Two-beat gift (Here — ways-given).",
+     "rejected": "(a) joining beats → killed: gift-pauses.",
+     "reads": "argmap Q+INF (+UNC ['Middle/upāyas/samādhi methods from standard Trika, marked as such.']) / C1 essence / rasa / L2+L3 voice"
+    }
+   }
+  ],
+  "phr-p05-v19": [
+   {
+    "file": "phrdaya/L4-phr-p05.DRAFT.json",
+    "file_sha256": "63f7fedeb3c34990ed5dad830805db3fe61c82dcb177ba0404573773d106fa68",
+    "l4_sha256": "530d865fae2f7a1fb1052fc30979617dbb3175ef7c30c42a0922f63692af0f53",
+    "notes": {
+     "craft": "Remember-oneness; never-set samādhi (double-negative kept).",
+     "rejected": "(a) single never → killed: double holds past+future.",
+     "reads": "argmap Q+INF (+UNC ['Middle/upāyas/samādhi methods from standard Trika, marked as such.']) / C1 essence / rasa / L2+L3 voice"
+    }
+   }
+  ],
+  "phr-p05-v20": [
+   {
+    "file": "phrdaya/L4-phr-p05.DRAFT.json",
+    "file_sha256": "63f7fedeb3c34990ed5dad830805db3fe61c82dcb177ba0404573773d106fa68",
+    "l4_sha256": "6d8292b596a11f1c8c380217c0319b67441e8ba8309801c75fcf297bb393bc1e",
+    "notes": {
+     "craft": "SEAL: Become-then — Śiva. Single-word close; the whole Heart in one name.",
+     "rejected": "(a) anything more → killed: Śiva is the period.",
+     "reads": "argmap Q+INF (+UNC ['Middle/upāyas/samādhi methods from standard Trika, marked as such.']) / C1 essence / rasa / L2+L3 voice"
+    }
+   }
+  ]
+ },
+ "withheld_songs": [],
+ "original_hashes": {
+  "t1": {
+   "phr-p01-v01": "ea70554fd66c0ce198938dfb59a456e09e94a3055ce496f9cee8224dc4aac94b",
+   "phr-p01-v02": "92511c6f587a1141affdf6d529475ad3bd59745143d93c006bd83f9944fd6dde",
+   "phr-p01-v03": "eac92bc6c4621b0ddf0def89f7306cde1d8b205c045ebf5958cb66851ab04d31",
+   "phr-p01-v04": "44da14adb90bb712ba9d7001b2008fe338e679dcf4aafc3e056c643fcff4ae40",
+   "phr-p02-v05": "e6da60bb7ca9b96cc994c24280e90c95d9f3d9fb43ca29bfa730256b4546063c",
+   "phr-p02-v06": "759cf4136291fc0874914fa9bbe9f2b51b9fc816652271cb7dd2f0867bcc8876",
+   "phr-p02-v07": "3c3d73f6a6b0c8a7594a33155575771d548042e7a73218346adaa84be74ac3a6",
+   "phr-p02-v08": "dc328fb16949f15f993e8ccf37378dcd6e600f6f0d8b9d3b9a38d1d4849faf50",
+   "phr-p03-v09": "f3cc879ebd6605c4f4eef4518a18fe78142a3a19d9e886e5eba677a11446636b",
+   "phr-p03-v10": "c51a8885081398a7167aa00349ed144fa1ececd0554256dd4434d1c7cba120ca",
+   "phr-p03-v11": "8b43a23d682490ef91148e88c81d62573d941e5d2c4db10f1fef83d0daf49980",
+   "phr-p03-v12": "9c6994299c843c9e257a8d0fa59e40932c18681d22c5d650ee568fada3a5de6b",
+   "phr-p04-v13": "9b51a0dce68522bba81036dd731c0ed0974f994dca9d8a91c142e00cdf1bae47",
+   "phr-p04-v14": "cd5ff2265ffafa368c8953a7ca4f09276763a59eaaffb91517dbcdfe18163924",
+   "phr-p04-v15": "b80f9fcbda9cc7a9314cace50e564dd155f9f526361b37f16371ddf038c04c45",
+   "phr-p04-v16": "ee3591b985f948db3181329b7a01ada8cf0fabc968e002adeec90e4dbba8c650",
+   "phr-p05-v17": "fee2d9fc1f99314b39dba53db3cfdb8aa05836a4695a1d0a03511264c16a86a4",
+   "phr-p05-v18": "8ba0e9507a2cbf00cd79d33b95ad516a0af7a94b777315bfdbe7b1565c9bdc05",
+   "phr-p05-v19": "7b325c4174bb0043570212c5e987ebdf05e6c1d3777521fd7c2e3cd905b6931e",
+   "phr-p05-v20": "9843a2c56b2efc4c334e52d4247bccfd87394ec2c3c2fdf58eb53b873646beb6"
+  },
+  "l0": {
+   "phr-p01-v01": "4511f96065ab180ef245f8ee7f046b778162a622599bd5c12dcbd33168d952e6",
+   "phr-p01-v02": "4007fb261c98697f0ef8d835a80134845405b59baeb756da4a8a854740dedfe1",
+   "phr-p01-v03": "b2a29026b0d5cc0927c7e4ea1aac8251045a98ed25e51e8795841462b16e99d3",
+   "phr-p01-v04": "0f75f1045a44a08f05d1d67f24ee9a4fa94374dde2174dc04b6794127cfa895c",
+   "phr-p02-v05": "69bd060a4c8c59c304a2c33a0bfc50a4a66304574f0c1626126d377d4e2dcbda",
+   "phr-p02-v06": "778d1282f4fa03b93dde0df7d434d36562bfb25aa9029992fcc379e9670c9cc7",
+   "phr-p02-v07": "57b119b405daa37fc28a1cd99b731a6d863a70d657945efd05355010c7c1378b",
+   "phr-p02-v08": "02980ff24d6ead206dc610db99a23465c36fd60b8ae492b8a20516d555f4fa87",
+   "phr-p03-v09": "92bf584fcfb161bc6e4ed798c20f819595b77bbbfd6e082c9f2a0718ae3564f6",
+   "phr-p03-v10": "a46c8e40ee1ea05b4766c0fa9558d24159d537fc48e29fe8b9c8636e0216680c",
+   "phr-p03-v11": "67f99cd5a47486da7a312a5abdb41c8ae0ce728a47d2ffb8e8151e3ddabeacd9",
+   "phr-p03-v12": "fc982a738b17fa8310a2435e5bb7f33982ec6fcddf3381560d7d8d4dd3104734",
+   "phr-p04-v13": "1bc86a9ba9779bc1505a403500dc04515cda58b83c1ba44e8f8cf1448a05b9f0",
+   "phr-p04-v14": "2516a79bd9f31d09df4a24efbde8225fa6992d19109a41e8afd60151566f3104",
+   "phr-p04-v15": "94cc6a8ffefe3fd89154de35fcf8f9f957b8667ec59b5d268f14513aa985ee83",
+   "phr-p04-v16": "12c8838c36ec91697ed38e36ed481af577c6a7f72829e88db35c1a724f4d5a81",
+   "phr-p05-v17": "d14bcb2200b17486d479603d6a2fbf514c73efb791b8fce2f6870b143edfc40e",
+   "phr-p05-v18": "8c7c2caea33712d36cdcfca4dec82287386f776f27e111f8ba48c58cb68978ba",
+   "phr-p05-v19": "42d15a02828cc4b05a3f61018348ec3153a016cbb90c33b46c4d6acc5c610a39",
+   "phr-p05-v20": "8f6f8d76c09ec4ea240a430193259b38cc63778921b52ce8b7e986566df04c20"
+  },
+  "argmap": {
+   "phr-p01-v01": "738c79c9c47968bb39043e5bf6839365d2e120e03c2cb82cb2054b1a49ca69ee",
+   "phr-p01-v02": "17d51e5a3931c16901afc8b93abd0dd76ace54cb274e397cbda783347d2cf3b0",
+   "phr-p01-v03": "ee227503ddf13e01cabc58ddd5b9b5669d71538327bcdbc0e51033b0555f09ac",
+   "phr-p01-v04": "e6a549f8d0a622c662685091f0c3e0f4ca62c37ac96a28527d3807f7263956d5",
+   "phr-p02-v05": "cc3a60551d02960c004f843fb503e771824f0aef1b7a3e50817279f07530daf1",
+   "phr-p02-v06": "dac9880c362b5746fc9eacb1a665e88156952731c69fa27e71617c3f2f40df76",
+   "phr-p02-v07": "af701d001ddeee30fc0b1e6451dacdbac9d5a98d8c1a77b375928aa4d446ab2f",
+   "phr-p02-v08": "a7e329968edfe294a3bdd3ac9846d2057934f177d78df5af14a5c3354407a500",
+   "phr-p03-v09": "c8fc332cee278c0e984b7ce29299a9263a7aab552a21b43d39f5472b9e70a3e5",
+   "phr-p03-v10": "b103fae9a4357f0db100438595c489f211c117e48941d335b7de491b1fd5416d",
+   "phr-p03-v11": "f0f749df0b8a3f15ecd557d43b29ad8e13bffabf326c591418347f0faa7661ab",
+   "phr-p03-v12": "afd2cd5ff82aa07233ad3f780970f9f1fbd43706a570fa59336f486820b99d7d",
+   "phr-p04-v13": "c92f196fa9039085de8e43c3a32209a6d1735f8e886b76d78d0451da6e2e0f0f",
+   "phr-p04-v14": "0cd32d3120e7efb9651e8f0d144270ff08be8c4d7ff817cfb0007aabf77048d3",
+   "phr-p04-v15": "db990a8d2c83cae6a5c17087642c5968ed1cd6c8c22f55adb92e1f72722c716a",
+   "phr-p04-v16": "e623d739186c47141a56601aa38dd74f7d7c2019688485a8f74991419d4c93e7",
+   "phr-p05-v17": "fdb7d9df4a19c3350ca7eaee8388d7a747dadce38e72865069664432ab78fc1a",
+   "phr-p05-v18": "fd203a291556f59f50c7dd9cfa266f1cbcedee9ab72cae5398545b09bddf8174",
+   "phr-p05-v19": "57b0166f17b4c6c15256216617e8dbce9f9ecae78dc92d53a666b2340787b629",
+   "phr-p05-v20": "58f952d1eac808e620c36be78b0625c9fa2a7a97de3e05e8f93aac734ca0bbe8"
+  },
+  "l2": {
+   "phr-p01-v01": "c840e549ee4252de5ea2ec91eea5e259a5bddaf319c927bffd3b74ef30abe725",
+   "phr-p01-v02": "a2e828c74f8ad1000bf101f9fa95f27b05a2c8749d4729b4e64dcc21f22c125f",
+   "phr-p01-v03": "b4aa5e880f1aba6c2c928c01aeffb7ad2279624b306eb2c774c7279d9f933524",
+   "phr-p01-v04": "1851f181dc6bf014ae4d71490773f506c30803f9c4e1935b4a8d40d5739d3cfc",
+   "phr-p02-v05": "263b4d7509436a5d8c336720caa5086f9a505da004bedabc9a6065ff9aa4902d",
+   "phr-p02-v06": "dd24d052da4efe42d4c3e52a226067fcf1a8157f1f0c3cbbd1d9f91148075b5b",
+   "phr-p02-v07": "3be89898d5158cf70bbe4107283ab3ade40ba9cbf307af5cc4e626181f55af9f",
+   "phr-p02-v08": "f41c178042be0989f7ebb795b9d60a975a9639d4bdff620a485aee4379bf4cd0",
+   "phr-p03-v09": "8e232f524183d5158d8f23ae6570a8d87bff0edf293821546ee829da0925e662",
+   "phr-p03-v10": "3c5aa8bc83dd36996b1d0419e1a28b58e6630831870a7283b51429b515e75a47",
+   "phr-p03-v11": "00e60452be1c5812ab6303ceb1dc292f18e09eb40fe85e2f6305aeb5d1e1a239",
+   "phr-p03-v12": "f2d6522222f0cd27bf96224b158428655edd58cbfa1716f05bdd66f06ccaaf02",
+   "phr-p04-v13": "ff469fafa3c10e70de41a9b601110cad368672e1170fb90b6f37e1937cd995fe",
+   "phr-p04-v14": "1f0223fb588840f8af47af93e32303d63c49cca3575cefb4afccebd2c90c67e9",
+   "phr-p04-v15": "4ad03d21d9b05a29008f507d9a5555d092f022f1747ac4b148a45f1ec001f9f5",
+   "phr-p04-v16": "f38c6c4e05b110fc323f2b3735caebd0cfefdd54c75797ceca0927b0babafe27",
+   "phr-p05-v17": "3c85353ce5db26877194d5ae3ed624be4308b738e518c05003addc544ba0e87e",
+   "phr-p05-v18": "aeab8cb133365f4d9e070ff21cfe4c9e13a25daaba45aa46b22202430b07a8a3",
+   "phr-p05-v19": "c62eddfc6ea2827d330571a74ef6ab480e31752b5b364b45f1bbe693400127b8",
+   "phr-p05-v20": "70d187a69d65d5a423ce959ea339155399339f59f9b30009e9b950cd93f3b70e"
+  },
+  "c1": {
+   "phr-p01": "2662c3a1e3dc1e439f4914d3ea9fec674620371a7cdc3aae4065f4325923f441",
+   "phr-p02": "ad227d499f402cae90ef7b9e260bd4c5ad16dd5dc002d092e161533a5c3e288f",
+   "phr-p03": "de2219cc900fea1c5980f162d90da5195c51799af9e03237e7051b53c70b9cf9",
+   "phr-p04": "b2f684661b93de50b4e4e54ee383bb96dbf38f77af953769f93cc8c436f63324",
+   "phr-p05": "33c212210550092f9605a435266ee9800db595580cd791c0938ec617de198108"
+  },
+  "l3": {
+   "phr-p01-v01": "a24f29b24febd3c4b1838201c49aa22c1fc3027859ab6b6151aad4aa1bae99de",
+   "phr-p01-v02": "da801d56fa436c6c786055536f23a50418e5bb9cd777d9ea9c0ee6863bca48d5",
+   "phr-p01-v03": "cbd491f011c1ae7bd7e6fa1f09a929de983ec749167aec2dd2548533ba333370",
+   "phr-p01-v04": "754e263ffa20785081ae6dc0232490a2e4dac0ea70936a736d440848a642ea15",
+   "phr-p02-v05": "cd724f59ef911ee2959ff292713d30c37108b45dffd6e258fd0efac67dff3e67",
+   "phr-p02-v06": "ce245bb742d7da241639699ebe8287ebe0ae1cac70f2ba7e34e16afcc6edffb1",
+   "phr-p02-v07": "ad08f695befd33009e0e5feff7df178128dfda5f928d9e6bac8e4c70a696f88e",
+   "phr-p02-v08": "ce4d4f4571cb4b7de65a3703ca1c0bee520c1d021bef6ce339d4e5222bc1d96b",
+   "phr-p03-v09": "dd6e068d6337b961b4ddf448a347925a2be01ae962c8769e4362839ac81dcd3e",
+   "phr-p03-v10": "d7cd413e89552240f0ef6529aacf31295c30c5bbef5e3f0cde8e3715be4a5fb2",
+   "phr-p03-v11": "1ce35f25f8d7f1d7d2b1860db60db47e3586bc1f8ecb6751823aa7dece9de3b6",
+   "phr-p03-v12": "c0512abe6f19cf6f2a643311c5ba1e3a835a0649a13cf1ad2bb915bb07609f68",
+   "phr-p04-v13": "1b0fdbba8e9c92feda8f2fd462d3fbd8f91abe953214730777e3c7804582a704",
+   "phr-p04-v14": "ac490d1d9c521902c0f789089045c9bb5b6d22599bea1a3ea70c2cc8addeffdb",
+   "phr-p04-v15": "0a950f38982835752fe1a5655448b98971160918e2158ec133a2ac9248d43e88",
+   "phr-p04-v16": "9fbe50f975459f1c69a62280ba1cb99cffb7ca618616e5ea3c060b3292d40a58",
+   "phr-p05-v17": "844db850a0ee7635b41ddbe4e62c543b529f30e445273cc8070a7923b17c4e39",
+   "phr-p05-v18": "dd025998c7b842dadca256cbb9da9f9e6b165fb7b5ad1c38e923588b06b33275",
+   "phr-p05-v19": "109bd92b38b3bd4615b001702befc24b2282b26b86bb5f3b86df059e6712c65c",
+   "phr-p05-v20": "24e66485df7be5b4845b127757fcb5015939e8fa90c51fe640213b1b5854976f"
+  },
+  "l4": {
+   "phr-p01-v01": "4086d809a77975083a7a5a0c104f5c6bf2f3a3f165b056d2b084d8f06fbc5657",
+   "phr-p01-v02": "2bff0b3baee9dd58bc7eaa0b5ef50c9bfe62ca91439ff1e8a7926f7633cfa4ed",
+   "phr-p01-v03": "19cfbdd237e3c41d1c284ab1a58d33463936a8eb4a0d336f025dfcf89540d071",
+   "phr-p01-v04": "8462acc6d9e08dbe39cdb014faaeb6f306fa01cf6543f53b5eecbf0ccd430c50",
+   "phr-p02-v05": "0400ffee1ba5d2b91168fe82d41bafd85f3b3ca46588ce3bf90c5600889b55c6",
+   "phr-p02-v06": "47f9ec6c26077a02f606037df3dd933dc8956489e11e855ce8b29f970af8a401",
+   "phr-p02-v07": "a85bac710a137a59c18fd49df91fc67cd1a41af55fd9b3d5b3d2203e7fd047f8",
+   "phr-p02-v08": "bb09ae7c8268566943f36f08246fdbcbff6ff4b8850ec88156e06cd6b01558db",
+   "phr-p03-v09": "46205484d77074008570968eb2ad81f54ab1e3618faa5d0ebd2b55d8bbb53646",
+   "phr-p03-v10": "66e33ad052f58b2d49415739c541cfbe5e58a139f4f59159c9d17254639efcc6",
+   "phr-p03-v11": "2cb072cd5e50cf0834845c144095bd79bb18f2ff23203d35b46be16d4a4e2610",
+   "phr-p03-v12": "1700dee77376cec851163267cc3ab0e76ff939ea275e7005f1abd85a0eb80ee8",
+   "phr-p04-v13": "7326a04d29684ae423c31cc06217e691006d05aa5fe08bff27ef9d57374ef02b",
+   "phr-p04-v14": "e5311586a0527a14907342e0bde4b5ac82e3931f40d089f08d378fd35b3ad2ce",
+   "phr-p04-v15": "ab654e6208f800f41069fee872c70559ecb549cd6d28743aa956161485628990",
+   "phr-p04-v16": "f62984e467ce0bd8ab4bf4e4024fd93f97ded4c1fcb6732ada115b2b460c7692",
+   "phr-p05-v17": "da18aafda7d5bda5853f12904ad18e12a27360b763b386f9604db7e6e33154ad",
+   "phr-p05-v18": "2f6a7cd21eea55af3d62713553b1574faaa9183b21dcd8802be75bf8772fe01b",
+   "phr-p05-v19": "530d865fae2f7a1fb1052fc30979617dbb3175ef7c30c42a0922f63692af0f53",
+   "phr-p05-v20": "6d8292b596a11f1c8c380217c0319b67441e8ba8309801c75fcf297bb393bc1e"
+  },
+  "c2": {}
+ },
+ "versions": [],
+ "essays": [],
+ "reviews": [],
+ "promotions": [],
+ "signoffs": [],
+ "stack_hashes": {
+  "phr-p01": "bbdbd31db982dc863d43ba903341d213793742b639e0373ece1a972892404fb7",
+  "phr-p02": "2418e4c66dcdf8391a1b52caf101dc3f1e95822dfc4ef8fc7c7a140272c66563",
+  "phr-p03": "080afb93e5c3891734d902577c543a2ff91086ced8c1e1ed0230df061b20d235",
+  "phr-p04": "e2cf1133fe071aa60f14843c1686a7697a88289b3b3b403ed03dbf5ac5d3772a",
+  "phr-p05": "9faaa850cff43229dbe2d98583550073a102103211afb27f7becf35fc6f0274f"
+ },
+ "projection_sha256": "19bf022856eb156f1e07e1efa3d08b6ee985fb710c7bde7d8819e81b5fa7984d"
+}

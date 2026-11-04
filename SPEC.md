@@ -64,12 +64,15 @@ The **Scholar** nav tab. Same functions (`$`/`esc`/`get`/`W`/`dl`/`norm`) and sa
   append-only `scholar/` ledgers (git).
 - **Sign-offs widget:** per-song `accepted_by · date · scope · stack_sha · review_id` from the
   same ledgers (ReviewEvent bound to an exact stack hash + Ed25519 signature; PromotionEvent
-  is the only path to reviewed).
+  is the only path to reviewed). Historical signatures without a signature version sign
+  only the review ID; the newer v2 signature covers the full event hash. Signatures prove
+  key possession, not reviewer identity or independence. An account sign-off is a
+  self-attested approval rather than independent peer review.
 - Data: `data/scholar/<work>.json` + `index.json` (works with scholar data). Reader path is
   untouched: without `?view=scholar` main() runs exactly as before.
 - **Rights (owner directive):** our English translation (L1–L4 + commentary) = **FREE**;
-  scholar edits/versions/reviews/sign-offs = **(c) their authors** — carried in the emitted
-  `rights` block and shown in the reader's Attributions.
+  scholar contributions carry a contributor rights declaration in the emitted `rights`
+  block and reader Attributions. The declaration is not proof of copyright ownership.
 
 ## Right-column dropdown (minimal)
 
