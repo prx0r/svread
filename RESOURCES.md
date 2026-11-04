@@ -95,6 +95,14 @@ pack contract (`read|comic|parable|diagram`, evidence fail-closed).
 
 ---
 
+## Endgame reading folder (agent entry point)
+
+`endgame/` — collated high-level docs for any agent: vision (CORE-BIBLE, INDEX,
+endgame2, V06/V07, essayguide, live-stack review) + openpatala overviews +
+sanskritbench VISION/GOALS/HOW-IT-WORKS, with `endgame/README.md` as the map
+(roles, reading order, the pristine-foundation invariant). Byte-identical
+snapshots; sources stay authoritative.
+
 ## THE AUTONOMOUS SCHOLAR LOOP — "AI is the scholar"
 
 Every stage below maps to something that exists. The human holds one lever:
