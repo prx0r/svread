@@ -126,3 +126,22 @@ authorized host, ghatakarpara repair, source_edition backfill.
   by design (redirects off, loopback HTTP only, no logging of drafts).
 - Voice architecture matches our existing Qwen/DashScope usage — same
   provider as the ipvv worker's `/api/read` path; keep the free-cap rule.
+
+## DEPLOYED — 2026-11-04 15:30 UTC
+
+| Item | Result |
+|---|---|
+| translation-work #7 | merged (`d54fe03`), 29 py tests pass |
+| ipvv #9+#11 merged, #10 on top | `609b96fc` (test-harness fix), 20 worker tests pass |
+| svread #3+#5 merged, #4 closed superseded | `b8418fc` main |
+| D1 backup | `/root/backups/ipvv-2026-11-04-1527.sql` (268 KB) |
+| D1 migrations 0002–0012 | all applied remote ✅ |
+| Worker deploy | version `b99671ec` |
+| svread deploy | `92e7c07c` → svread.pages.dev (SW cache bumped) |
+| Smoke (prod) | signup → me → PUT draft rev1 → GET → DELETE all pass; test account cleaned |
+| Voice | correctly disabled (401 anon / "not configured" auth) |
+| Qwen text | still off (no `SCHOLAR_DASHSCOPE_API_KEY`) |
+
+Wiring verified: CORS echoes `https://svread.pages.dev` with credentials;
+`/api/scholar/documents` 401 anon; projection data + manifest 200 on the
+reader.
