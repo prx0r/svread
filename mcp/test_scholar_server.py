@@ -67,6 +67,16 @@ class TestMcp(unittest.TestCase):
             self.assertEqual(content(rs[0]),{'ok':True});self.assertEqual(content(rs[1]),{'ok':True})
             self.assertEqual(Mock.seen[-2][1],decision);self.assertEqual(Mock.seen[-1][1],task)
         finally: server.shutdown();server.server_close();t.join()
+    def test_published_essay_retrieval_and_explicit_draft_arguments(self):
+        server=ThreadingHTTPServer(('127.0.0.1',0),Mock);t=threading.Thread(target=server.serve_forever,daemon=True);t.start()
+        try:
+            env=dict(os.environ,SCHOLAR_API_ORIGIN='http://127.0.0.1:'+str(server.server_port),SCHOLAR_SESSION_COOKIE='session=private')
+            task={'work':'paramarthasara','target':'','layer':'l3','kind':'enquiry','instruction':'Why?','consent_to_ai':True,'scholar_essays':[{'work':'paramarthasara','essay_id':'essay:'+'a'*64}]}
+            refs={'passages':[{'work':'paramarthasara','target':'param-p01-v01'}]}
+            rs=run([tool(1,'list_published_essays',{'work':'paramarthasara'}),tool(2,'draft_with_qwen',task),tool(3,'prepare_citations',refs)],env)
+            self.assertEqual(content(rs[1]),{'ok':True});self.assertEqual(content(rs[2]),{'ok':True})
+            self.assertIn('/api/scholar/published-essays?work=paramarthasara',[x[0] for x in Mock.seen]);self.assertEqual(Mock.seen[-2][1],task);self.assertEqual(Mock.seen[-1][1],refs)
+        finally: server.shutdown();server.server_close();t.join()
     def test_account_api_conflict_and_redirect(self):
         server=ThreadingHTTPServer(('127.0.0.1',0),Mock);t=threading.Thread(target=server.serve_forever,daemon=True);t.start()
         try:

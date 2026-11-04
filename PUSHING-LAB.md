@@ -39,14 +39,21 @@ python3 -m http.server 8000
   enquiry. Its account, revision and snapshot hash remain attached locally. A
   different signed-in account cannot send or save that referenced excerpt. The
   local copy remains on the device after sign-out; the user is told before adding it.
-- Ask Qwen about the selected branch and a chosen passage only after confirmation.
-  The existing Worker fetches the passage and layers and saves its response as an
-  agent draft; the user chooses whether to add that response to the tree. No
-  other branch, private essay ID or account ID is sent as branch context. This
-  uses the existing Scholar `essay` assist task with a pushing-specific request.
-- Prepare an editable Markdown essay brief and explicitly create a new private
-  Scholar essay draft. The brief does not contain private document/account IDs.
-  Scholar's existing human review, sign-off and publication flows remain separate.
+- Select saved passage references, including their private notes, and published
+  scholar essays whose authors have permitted the requested use. Authors can grant
+  answers and essay drafting separately for an exact published version, or revoke
+  those grants. No permission is inferred from copyright or publication alone.
+- Ask Qwen about the selected branch only after confirmation. The Worker retrieves
+  chosen passage layers, including available C1, and bounded permissioned essay
+  excerpts. A scholar citation identifies the exact essay and paragraph. The user
+  chooses whether to add the proposal to the tree. No other branch, private essay
+  ID or account ID is sent as branch context.
+- Draft an essay from the selected enquiry with Qwen; optionally select the
+  scholar's own prior human edit pairs as style examples. The draft is private
+  and marked AI-assisted. The selected passage references are prepared and
+  rechecked before saving; the author's bibliography is added to the draft.
+  Model-generated arguments and citation relevance still require human review.
+  Scholar's existing review, sign-off and publication flows remain separate.
 
 For development against a local Worker, configure its `CORS_ORIGIN` as
 `http://127.0.0.1:8000`, start it on `127.0.0.1:8787`, and open:
@@ -58,8 +65,8 @@ loopback host; a public page cannot be redirected to another API this way. The
 Worker currently fetches its evidence from the public svread projection URL, so
 its evidence must also be available there or supplied by a test adapter.
 
-The matching Scholar Worker and migrations are needed for account and Qwen
-buttons. A configured provider and explicit consent are needed for Qwen; the
+The matching ipvv #11 Worker and migrations 0002–0012 are needed for account,
+author permission, source, essay and Qwen buttons. A configured provider and explicit consent are needed for Qwen; the
 prototype's local enquiry, prompts and JSON import/export do not need either.
 Tantrāloka Scholar projections are not available in this bundle, so its archive
 sessions can be explored but cannot be attached as verified Scholar passages.
@@ -76,9 +83,10 @@ python3 scripts/release_manifest.py
 ```
 
 The optional browser test runs the actual page and local Worker against SQLite,
-with the Qwen provider and Worker projection fetch mocked; the browser reads the
-actual bundled projection. It checks selected-branch isolation, declined
-consent, source hold, private essay/snapshot saving, account switching and
+with the Qwen provider and Worker projection fetch mocked; the browser reads a
+hash-valid projection containing a test published essay. It checks scoped author
+permission, selected C1 and style examples, cited AI essay drafting, selected-branch
+isolation, declined consent, source holds, private saving, account switching and
 untrusted text rendering. It does not establish real D1, provider, deployment,
 philological correctness or independent peer review.
 
@@ -101,7 +109,7 @@ philological correctness or independent peer review.
 | --- | --- | --- |
 | Crux cards | Collect questions such as the Q1 move from “manifest to me” to a universal perceiver, with the claimed inference, strongest objection and what could resolve it. | A card stays an attributed proposal until a person accepts it. |
 | Two readings | Put two rival reconstructions side by side and ask where they rely on different premises or passages. | Preserve tradition, scope and unresolved disagreement. |
-| Examiner for an essay | Select a saved passage of your essay and ask which inference needs evidence, then turn the response into a private revision-bound review question. | Do not send a reviewer’s private report without their permission and the author's selection. |
+| Examiner for an essay | Select a saved passage of your essay and ask which inference needs evidence; the selected excerpt retains its exact private revision. | Revision-bound review questions remain a next step; do not send a reviewer’s private report without their permission and the author's selection. |
 | Curiosity path | Use the learner's own chosen branches to suggest the next source, counterexample and small exercise. | Suggestions are not an assessment of mastery. |
 | Argument-to-essay trail | Assemble a working thesis from selected notes, show the sources and objections beside it, then hand it to Scholar for editing and review. | No automatic publication; do not present a hash as a proof. |
 | Cross-work crux map | Compare how Tantrāloka, IPVV and another tradition respond to one question. | Require actual passage coverage before calling an answer grounded. |

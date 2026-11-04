@@ -42,3 +42,10 @@ test('local API override only accepts loopback and cannot redirect production tr
  assert.throws(()=>C.resolveApi('http://localhost:8000/pushing.html?api=https://attacker.example'),/loopback/);
  assert.throws(()=>C.resolveApi('http://localhost:8000/pushing.html?api=http%3A%2F%2Flocalhost%3A8787%2Fx'),/loopback/);
 });
+
+test('essay request retains the selected enquiry, objection and boundary without other branches',()=>{
+ let s=C.makeSession();s=C.addNode(s,{id:'node:1',type:'question',origin:'human',text:'Why?'});
+ s=C.addNode(s,{id:'node:2',parent:'node:1',type:'objection',origin:'human',text:'What justifies this?'});
+ s=C.addNode(s,{id:'node:3',parent:'node:1',type:'crux',origin:'human',text:'OTHER PRIVATE BRANCH'});
+ const q=C.essayInstruction(s,'node:2');assert.match(q,/What justifies this/);assert.match(q,/strongest objection/);assert.doesNotMatch(q,/OTHER PRIVATE BRANCH/);
+});

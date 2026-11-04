@@ -27,3 +27,15 @@ Selected source notebook entries can be turned into public-safe passage
 references using `prepare_citations`. Private notes are omitted. Attaching the
 result to an essay, signing off and submitting remain separate actions. A public
 submission requires the matching Worker and translation-work bridge checkpoints.
+
+
+## Permissioned scholarly essays and enquiry drafting
+
+With the matching ipvv #11 Worker and migration 0012, `list_published_essays`
+returns exact published essay IDs and the author's current answer/draft grants.
+`draft_with_qwen` accepts explicitly selected `scholar_essays` references and
+`kind: enquiry` or `essay`; the Worker checks the author grant for that use.
+`prepare_citations` accepts selected notebook IDs and/or explicit passage IDs.
+Consent to send selected context is required per request. This client does not
+provide a tool to change another author's permissions. The returned paragraph
+references are traceable excerpts, not proof that the generated prose follows.

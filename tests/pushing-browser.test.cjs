@@ -3,7 +3,7 @@ let chromium;try{({chromium}=require('playwright'));}catch{}
 const executable=process.env.SCHOLAR_BROWSER_EXECUTABLE,ipvv=process.env.SCHOLAR_WORKER_ROOT;
 test('Pushing Lab: real browser, local Scholar Worker, private branch and essay',
  {skip:!chromium||!executable||!ipvv},async()=>{
-  const fs=require('node:fs'),http=require('node:http'),{DatabaseSync}=require('node:sqlite');const root=path.join(__dirname,'..');
+  const fs=require('node:fs'),http=require('node:http'),{DatabaseSync}=require('node:sqlite'),{createHash}=require('node:crypto');const root=path.join(__dirname,'..');
   const source=fs.readFileSync(path.join(ipvv,'worker/src/scholar-workspace.js'),'utf8');
   const moduleUrl=`data:text/javascript;base64,${Buffer.from(source).toString('base64')}`;
   const index=fs.readFileSync(path.join(ipvv,'worker/src/index.js'),'utf8').replace("'./scholar-workspace.js'",JSON.stringify(moduleUrl));
@@ -15,12 +15,22 @@ test('Pushing Lab: real browser, local Scholar Worker, private branch and essay'
   const call=(url,method='GET',data,cookie)=>worker.fetch(new Request('https://worker.example'+url,{method,headers:{Origin:'https://svread.pages.dev',...(data?{'Content-Type':'application/json'}:{}),...(cookie?{Cookie:cookie}:{})},...(data?{body:JSON.stringify(data)}:{})}),env);
   async function login(email){const r=await call('/api/auth/access','POST',{email,password:'strong-password',name:email.split('@')[0]});return {cookie:r.headers.get('Set-Cookie').split(';')[0],profile:(await r.json()).profile};}
   const alice=await login('alice@example.org'),bob=await login('bob@example.org');
+  const styleDoc={expected_revision:0,kind:'essay',work:'paramarthasara',target:'param-p01-v01',layer:'l3',title:'Style source',content:{text:'Initial human phrasing.'}};
+  assert.equal((await call('/api/scholar/documents/essay:style','PUT',styleDoc,alice.cookie)).status,200);
+  assert.equal((await call('/api/scholar/documents/essay:style','PUT',{...styleDoc,expected_revision:1,content:{text:'My revised human phrasing.'}},alice.cookie)).status,200);
+  assert.equal((await call('/api/scholar/style-examples','POST',{document_id:'essay:style',before_revision:1,after_revision:2,confirmed:true},alice.cookie)).status,201);
+  const canonical=v=>Array.isArray(v)?'['+v.map(canonical).join(',')+']':v&&typeof v==='object'?'{'+Object.keys(v).sort().map(k=>JSON.stringify(k)+':'+canonical(v[k])).join(',')+'}':JSON.stringify(v),hash=v=>createHash('sha256').update(canonical(v)).digest('hex');
   const projection=JSON.parse(fs.readFileSync(path.join(root,'data/scholar/paramarthasara.json'),'utf8'));
+  const title='A published scholarly position',text='Recognition is a possible interpretation.\n\nThis paragraph raises an objection.',target='param-p01-v01',work='paramarthasara';
+  const snapshot={kind:'essay',work,target,layer:'l3',title,content:{text}},signoff={id:'signoff:test-1',snapshot_sha256:hash(snapshot),rights:'all-rights-reserved',created_at:'2026-11-04'};
+  const published={format:'scholar-essay/1',work,target,title,text,author:'Alice Scholar',author_id:alice.profile.id,identity_state:'SELF_ATTESTED',rights:signoff.rights,signoff,snapshot,assisted:false,model:'',validation_scope:'essay structure and declared source links'};published.essay_id='essay:'+hash(published);
+  projection.essays=[published];delete projection.projection_sha256;projection.projection_sha256=hash(projection);
   const oldFetch=globalThis.fetch;let prompt='',modelCalls=0;globalThis.fetch=async(url,options)=>{
     if(String(url).includes('/data/scholar/paramarthasara.json'))return Response.json(projection);
-    if(String(url).includes('dashscope')){prompt=JSON.parse(options.body).messages[0].content;modelCalls++;return Response.json({choices:[{message:{content:'Proposed crux: why must it follow?'}}]});}return oldFetch(url,options);};
+    if(String(url).includes('dashscope')){prompt=JSON.parse(options.body).messages[0].content;modelCalls++;return Response.json({choices:[{message:{content:'Proposed crux: why must it follow? [E1:p1]'}}]});}return oldFetch(url,options);};
   const site=http.createServer((req,res)=>{const rel=decodeURIComponent(new URL(req.url,'http://localhost').pathname).replace(/^\/+/, '')||'index.html',name=path.resolve(root,rel);
     if(!name.startsWith(root+path.sep)){res.writeHead(403);return res.end();}
+    if(rel==='data/scholar/paramarthasara.json'){res.writeHead(200,{'Content-Type':'application/json'});return res.end(JSON.stringify(projection));}
     fs.readFile(name,(err,data)=>{if(err){res.writeHead(404);return res.end();}const ext=path.extname(name);res.writeHead(200,{'Content-Type':{'.html':'text/html','.js':'text/javascript','.json':'application/json','.css':'text/css'}[ext]||'application/octet-stream'});res.end(data);});});
   await new Promise(resolve=>site.listen(0,'127.0.0.1',resolve));const origin=`http://127.0.0.1:${site.address().port}`;env.CORS_ORIGIN=origin;
   const api=http.createServer(async(req,res)=>{try{const chunks=[];for await(const chunk of req)chunks.push(chunk);const raw=Buffer.concat(chunks);
@@ -41,23 +51,26 @@ test('Pushing Lab: real browser, local Scholar Worker, private branch and essay'
     await page.waitForSelector('#work option[value="paramarthasara"]',{state:'attached'});await page.locator('#work').selectOption('paramarthasara');
     await page.waitForSelector('#target option[value="param-p01-v01"]',{state:'attached'});await page.locator('#target').selectOption('param-p01-v01');
     await page.waitForFunction(()=>!document.querySelector('#attach-source').disabled);assert.match(await page.locator('#source').textContent(),/paraṃ/);
-    await page.locator('#attach-source').click();assert.match(await page.getByText('Open passage in Scholar ↗').getAttribute('href'),/paramarthasara/);approveDialogs=false;const declined=page.waitForEvent('dialog');await page.locator('#ask').click();await declined;assert.equal(modelCalls,0);approveDialogs=true;await page.locator('#ask').click();await page.waitForFunction(()=>document.querySelector('#agent-output').value.includes('Proposed crux'));
-    assert.match(prompt,/Where is the actual proof/);assert.doesNotMatch(prompt,/PRIVATE UNSELECTED BRANCH/);assert.equal(modelCalls,1);
+    await page.locator('#attach-source').click();assert.match(await page.getByText('Open passage in Scholar ↗').getAttribute('href'),/paramarthasara/);
+    await page.locator('#save-source').click();await page.waitForFunction(()=>document.querySelector('#status').textContent.includes('source notebook'));await page.locator('#load-sources').click();await page.waitForSelector('.notebook-choice');await page.locator('.notebook-choice').check();
+    await page.locator('#load-scholarship').click();await page.waitForSelector('.grant-answers');await page.locator('.grant-answers').check();await page.locator('.grant-drafts').check();await page.getByRole('button',{name:'Save my permissions'}).click();await page.waitForFunction(()=>document.querySelector('#status').textContent.includes('Permissions updated'));await page.locator('.scholar-choice').check();
+    approveDialogs=false;const declined=page.waitForEvent('dialog');await page.locator('#ask').click();await declined;assert.equal(modelCalls,0);approveDialogs=true;await page.locator('#ask').click();await page.waitForFunction(()=>document.querySelector('#agent-output').value.includes('Proposed crux'));
+    assert.match(prompt,/Where is the actual proof/);assert.match(prompt,/AUTHOR-PERMITTED SCHOLARSHIP/);assert.match(prompt,/Refuge in all-abiding/);assert.doesNotMatch(prompt,/PRIVATE UNSELECTED BRANCH/);assert.equal(modelCalls,1);assert.match(await page.locator('#agent-citations').textContent(),/Alice Scholar/);
     const before=await page.locator('.node').count();await page.locator('#add-agent').click();assert.equal(await page.locator('.node').count(),before+1);
     assert.equal(await page.locator('.node img').count(),0);assert.equal(await page.evaluate(()=>window.broken),undefined);
-    await page.locator('#essay-preview').click();await page.locator('#save-essay').click();await page.waitForFunction(()=>document.querySelector('#status').textContent.includes('Private essay draft saved'));
+    await page.locator('#load-style').click();await page.waitForSelector('.style-choice');await page.locator('.style-choice').check();await page.locator('#draft-essay').click();await page.waitForFunction(()=>document.querySelector('#status').textContent.includes('AI essay draft prepared'));assert.match(prompt,/My revised human phrasing/);assert.match(await page.locator('#essay').inputValue(),/Scholarly sources to check/);assert.match(await page.locator('#essay-citations').textContent(),/Alice Scholar/);await page.locator('#save-essay').click();await page.waitForFunction(()=>document.querySelector('#status').textContent.includes('Private essay draft saved'));
     let docs=(await (await call('/api/scholar/documents?work=paramarthasara','GET',undefined,alice.cookie)).json()).documents;
-    const essay=docs.find(d=>d.kind==='essay');assert.ok(essay);assert.equal(essay.content.assisted,true);assert.match(essay.content.text,/Where is the actual proof/);
+    const essay=docs.find(d=>d.kind==='essay'&&d.id.startsWith('essay:pushing-'));assert.ok(essay);assert.equal(essay.content.assisted,true);assert.equal(essay.content.citations.length,1);assert.match(essay.content.text,/essay:[a-f0-9]{64}/);assert.equal(essay.content.agent_source.startsWith('agent:'),true);
     await page.locator('#save-account').click();await page.waitForFunction(()=>document.querySelector('#status').textContent.includes('snapshot saved to Scholar'));
     docs=(await (await call('/api/scholar/documents?work=paramarthasara','GET',undefined,alice.cookie)).json()).documents;assert.ok(docs.find(d=>d.kind==='conversation'));
     await page.locator('#list-account').click();await page.waitForSelector('#account-enquiries option[value="0"]',{state:'attached'});await page.locator('#account-enquiries').selectOption('0');await page.locator('#open-account').click();await page.waitForFunction(()=>document.querySelector('#status').textContent.includes('snapshot opened'));assert.ok((await page.locator('.node').count())>0);
     await page.locator('summary').filter({hasText:'Bring an excerpt'}).click();await page.locator('#load-essays').click();await page.waitForSelector('#scholar-essays option[value="0"]',{state:'attached'});
-    await page.locator('#scholar-essays').selectOption('0');await page.waitForFunction(()=>document.querySelector('#scholar-excerpt').value.length>0);
+    await page.locator('#scholar-essays').selectOption({label:'My enquiry · revision 1'});await page.waitForFunction(()=>document.querySelector('#scholar-excerpt').value.length>0);
     await page.locator('#scholar-excerpt').evaluate(x=>{x.focus();x.setSelectionRange(0,20);});await page.locator('#add-essay-excerpt').click();
     await page.waitForFunction(()=>document.querySelector('#status').textContent.includes('Excerpt added'));
     const stored=JSON.parse(await page.evaluate(()=>localStorage.getItem('svv-pushing-lab/1'))),ref=stored.nodes.at(-1).private_ref;
     assert.equal(ref.owner_id,alice.profile.id);assert.equal(ref.document_id,essay.id);assert.equal(ref.revision,essay.revision);
-    await page.context().clearCookies();await page.context().addCookies([{name:'svsess',value:bob.cookie.slice('svsess='.length),url:apiOrigin}]);await page.locator('#ask').click();await page.waitForFunction(()=>document.querySelector('#status').textContent.includes('different Scholar account'));assert.equal(modelCalls,1);
+    await page.context().clearCookies();await page.context().addCookies([{name:'svsess',value:bob.cookie.slice('svsess='.length),url:apiOrigin}]);await page.locator('#ask').click();await page.waitForFunction(()=>document.querySelector('#status').textContent.includes('different Scholar account'));assert.equal(modelCalls,2);
     await page.reload();await page.waitForFunction(()=>document.querySelectorAll('.node').length>0);assert.equal(await page.locator('.node img').count(),0);await page.locator('#work').selectOption('ghatakarpara');await page.waitForFunction(()=>document.querySelector('#source').textContent.includes('No available source'));assert.equal(await page.locator('#attach-source').isDisabled(),true);assert.deepEqual(errors,[]);
   }catch(e){if(page)console.error('Pushing test status:',await page.locator('#status').textContent().catch(()=>''));throw e;}finally{if(browser)await browser.close();await new Promise(resolve=>api.close(resolve));await new Promise(resolve=>site.close(resolve));globalThis.fetch=oldFetch;db.close();}
 });

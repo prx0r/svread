@@ -155,6 +155,10 @@ def call(name,a):
     if name=='list_source_links': return api('GET','/api/scholar/source-links')
     if name=='save_source_link': return api('POST','/api/scholar/source-links',a)
     if name=='delete_source_link': return api('DELETE','/api/scholar/source-links/'+ident(a.get('link_id')),{})
+    if name=='list_published_essays':
+        w=a.get('work')
+        if not isinstance(w,str) or not WORK.fullmatch(w): raise ValueError('Invalid work ID')
+        return api('GET','/api/scholar/published-essays?'+urllib.parse.urlencode({'work':w}))
     if name=='list_sources': return api('GET','/api/scholar/sources')
     if name=='save_source': return api('POST','/api/scholar/sources',a)
     if name=='prepare_citations': return api('POST','/api/scholar/citations/prepare',a)
@@ -184,16 +188,17 @@ TOOLS=[
  ('list_source_links','List your private typed source relationships.',S({})),
  ('save_source_link','Save a private relationship between two owned sources.',S({'from_source_id':T,'to_source_id':T,'relation':{'type':'string','enum':['comments_on','quotes','parallels','responds_to','possibly_related']},'note':T},['from_source_id','to_source_id','relation','note'])),
  ('delete_source_link','Remove an owned private source relationship.',S({'link_id':T},['link_id'])),
+ ('list_published_essays','List published essay versions and their author-approved AI use scopes.',S({'work':T},['work'])),
  ('list_sources','List your private source notebook.',S({})),
  ('save_source','Save a hash-pinned private source reference.',S({'work':T,'target':T,'note':T},['work','target','note'])),
- ('prepare_citations','Prepare publishable citation references from selected notebook sources.',S({'source_ids':{'type':'array','items':T,'minItems':1,'maxItems':10}},['source_ids'])),
+ ('prepare_citations','Prepare citation references from selected notebook sources and/or explicit passages.',S({'source_ids':{'type':'array','items':T,'maxItems':10},'passages':{'type':'array','items':S({'work':T,'target':T},['work','target']),'maxItems':10}})),
  ('delete_source','Remove an owned source reference.',S({'source_id':T},['source_id'])),
  ('list_decisions','List your private revision-bound editorial decisions.',S({})),
  ('save_decision','Save a private editorial decision against an owned revision.',S({'document_id':T,'revision':{'type':'integer'},'subject':T,'before':T,'after':T,'reason':T},['document_id','revision','subject','before','after','reason'])),
  ('delete_decision','Remove an owned private editorial decision.',S({'decision_id':T},['decision_id'])),
  ('save_document','Save a private draft with expected_revision; conflicts are rejected.',S({'document_id':T,'document':{'type':'object'}},['document_id','document'])),
  ('request_review','Request private review of an exact saved revision.',S({'document_id':T,'reviewer_id':T,'revision':{'type':'integer'}},['document_id','reviewer_id','revision'])),
- ('draft_with_qwen','Request an agent draft; the Scholar API requires explicit consent and configured quotas.',S({'work':T,'target':T,'layer':T,'kind':T,'instruction':T,'consent_to_ai':{'type':'boolean'},'use_style':{'type':'boolean'},'style_example_ids':{'type':'array','items':T},'decision_ids':{'type':'array','items':T},'source_ids':{'type':'array','items':T},'review_ids':{'type':'array','items':T},'document_id':T,'revision':{'type':'integer'}},['work','target','layer','kind','instruction','consent_to_ai']))]
+ ('draft_with_qwen','Request an agent draft; the Scholar API requires explicit consent and configured quotas.',S({'work':T,'target':T,'layer':T,'kind':T,'instruction':T,'consent_to_ai':{'type':'boolean'},'use_style':{'type':'boolean'},'style_example_ids':{'type':'array','items':T},'decision_ids':{'type':'array','items':T},'source_ids':{'type':'array','items':T},'scholar_essays':{'type':'array','items':S({'work':T,'essay_id':T},['work','essay_id']),'maxItems':3},'review_ids':{'type':'array','items':T},'document_id':T,'revision':{'type':'integer'}},['work','target','layer','kind','instruction','consent_to_ai']))]
 
 def handle(req):
     method=req.get('method'); params=req.get('params') or {}
