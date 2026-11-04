@@ -18,6 +18,12 @@ These checks establish consistency of the checked-in bytes, not source fidelity,
 translation quality, human review, or independent authorship. The manifest is not
 a cryptographic signature. Current missing edition names are enumerated in it.
 
+The Scholar emitter in translation-work #7 rebuilds the full index from the
+current work set and sorts its keys. On 2026-11-04, two independent full emissions
+of the 21 bundled projections and index matched byte-for-byte, including when one
+output directory started with a pre-existing index. This reproducibility check
+does not independently validate the texts or translations.
+
 The Scholar projection is produced by translation-work's `tools/emit_scholar.py`;
 its content hash and schema pin are checked, but the live versioned Scholar
 suite and its private account service are separate pending deployment work.

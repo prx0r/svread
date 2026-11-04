@@ -16,6 +16,10 @@ test('release check detects changed assets and refuses an invalid Scholar projec
     let result=check();assert.equal(result.status,0,result.stderr);
     fs.appendFileSync(path.join(tmp,'data/bhairavastava.json'),' ');
     result=check();assert.notEqual(result.status,0);assert.match(result.stderr,/manifest.*stale/);
+    const index=path.join(tmp,'data/scholar/index.json'),originalIndex=fs.readFileSync(index,'utf8');
+    const catalogue=JSON.parse(originalIndex);catalogue.paramarthasara.versions=999;fs.writeFileSync(index,JSON.stringify(catalogue));
+    result=check('--write');assert.notEqual(result.status,0);assert.match(result.stderr,/index metadata/);
+    fs.writeFileSync(index,originalIndex);
     const projection=path.join(tmp,'data/scholar/paramarthasara.json');
     const doc=JSON.parse(fs.readFileSync(projection,'utf8'));doc.source_edition='Altered edition';
     fs.writeFileSync(projection,JSON.stringify(doc));
