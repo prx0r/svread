@@ -37,11 +37,14 @@
         typeof n.text!=='string'||!n.text.trim()||n.text.length>12000||
         (n.parent!==null&&!seen.has(n.parent)))throw Error('Invalid enquiry node or parent.');
       if(n.turn!==null&&(!Number.isInteger(n.turn)||n.turn<0||n.turn>=s.turns.length))throw Error('Invalid conversation reference.');
-      if(n.link!==null){const l=n.link;let u;try{u=new URL(l?.url);}catch{throw Error('Invalid enquiry link.');}
+      if(n.link!=null){const l=n.link;let u;try{u=new URL(l?.url);}catch{throw Error('Invalid enquiry link.');}
         if(u.protocol!=='https:'||u.username||u.password||typeof l.label!=='string'||l.label.length>300||l.url.length>2000)throw Error('Invalid enquiry link.');}
-      if(n.reference!==null){const r=n.reference;
+      if(n.reference!=null){const r=n.reference;
         if(!r||!WORK.test(r.work||'')||!ID.test(r.target||'')||!HASH.test(r.projection_sha256||'')||!HASH.test(r.t1_sha256||'')||
           typeof r.source_edition!=='string'||r.source_edition.length>500)throw Error('Invalid passage reference.');
+      }
+      if(n.private_ref!=null){const r=n.private_ref;
+        if(!r||typeof r.owner_id!=='string'||!r.owner_id||r.owner_id.length>256||/[\x00-\x1f\x7f]/.test(r.owner_id)||!ID.test(r.document_id||'')||!Number.isInteger(r.revision)||r.revision<1||!HASH.test(r.snapshot_sha256||''))throw Error('Invalid private essay reference.');
       }
       seen.add(n.id);
     }
@@ -51,7 +54,7 @@
     validateSession(s);
     if(s.nodes.length>=200)throw Error('This enquiry has reached 200 nodes; export it to start another.');
     const node={id:opts.id||'node:'+newId(),parent:opts.parent||null,type:opts.type,origin:opts.origin,
-      text:typeof opts.text==='string'?opts.text.trim():'',turn:opts.turn??null,reference:opts.reference??null,link:opts.link??null};
+      text:typeof opts.text==='string'?opts.text.trim():'',turn:opts.turn??null,reference:opts.reference??null,link:opts.link??null,private_ref:opts.private_ref??null};
     const next={...s,nodes:[...s.nodes,node]};validateSession(next);return next;
   }
   function path(s,id){
@@ -64,7 +67,7 @@
   }
   function editNode(s,id,text){
     validateSession(s);const old=s.nodes.find(n=>n.id===id);if(!old)throw Error('Node not found.');
-    if(old.reference)throw Error('Keep source text intact; add your interpretation as a child.');
+    if(old.reference||old.private_ref)throw Error('Keep quoted text intact; add your interpretation as a child.');
     const next={...s,nodes:s.nodes.map(n=>n.id===id?{...n,text:String(text).trim()}:n)};validateSession(next);return next;
   }
   function questions(node){
@@ -85,6 +88,7 @@
     if(s.work)lines.push(`Selected work: ${s.work}${s.target?' / '+s.target:''}`,'');
     const depths=new Map();for(const n of s.nodes){const depth=n.parent?(depths.get(n.parent)||0)+1:0;depths.set(n.id,depth);
       lines.push(`${'  '.repeat(Math.min(depth,8))}- **${n.type} · ${n.origin}**: ${n.text.replace(/\n/g,'\n  ')}`);
+      if(n.private_ref)lines.push(`${'  '.repeat(Math.min(depth+1,8))}Private essay excerpt, revision ${n.private_ref.revision}. Recheck before relying on it.`);
       if(n.link)lines.push(`${'  '.repeat(Math.min(depth+1,8))}Prior enquiry: ${n.link.label} — ${n.link.url}. This is not primary-source evidence.`);
       if(n.reference)lines.push(`${'  '.repeat(Math.min(depth+1,8))}Reference: ${n.reference.work} / ${n.reference.target}; projection SHA-256 ${n.reference.projection_sha256}. Recheck the source.`);
     }

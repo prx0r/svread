@@ -26,7 +26,8 @@ def canonical(value) -> bytes:
 def build() -> tuple[dict, list[str]]:
     errors: list[str] = []
     assets = [ROOT / name for name in ('index.html', 'app.js', 'styles.css', 'sw.js',
-                                        'manifest.webmanifest', 'README.md', 'SPEC.md', 'READER-ARCHITECTURE.md')]
+                                        'manifest.webmanifest', 'README.md', 'SPEC.md', 'READER-ARCHITECTURE.md',
+                                        'PUSHING-LAB.md', 'pushing.html', 'pushing.css', 'pushing-core.js', 'pushing-ui.js')]
     assets += [ROOT / name for name in ('scholar-voice.js', 'scholar-workspace-ui.js', 'SCHOLAR-PRIVACY.md')
                if (ROOT / name).is_file()]
     assets += [p for p in (ROOT / '.github' / 'workflows').glob('*') if p.is_file()]

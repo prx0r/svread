@@ -27,3 +27,10 @@ test('Qwen context contains only the selected branch and has an honest size limi
  const p=C.modelInstruction(s,'node:2');assert.match(p,/Selected/);assert.doesNotMatch(p,/PRIVATE UNSELECTED/);
  assert.throws(()=>C.modelInstruction(C.addNode(s,{id:'node:4',type:'answer',origin:'human',text:'x'.repeat(5000)}),'node:4'),/too long/);
 });
+
+test('private essay references retain revision but do not leak account or document IDs into model or essay text',()=>{
+ let s=C.makeSession();s=C.addNode(s,{id:'node:1',type:'answer',origin:'human',text:'A claim',private_ref:{owner_id:'alice-private-id',document_id:'essay:secret-id',revision:3,snapshot_sha256:'c'.repeat(64)}});
+ assert.throws(()=>C.editNode(s,'node:1','Changed'),/intact/);
+ for(const out of [C.modelInstruction(s,'node:1'),C.essaySeed(s)]){assert.doesNotMatch(out,/alice-private-id|essay:secret-id/);}
+ assert.match(C.essaySeed(s),/revision 3/);
+});

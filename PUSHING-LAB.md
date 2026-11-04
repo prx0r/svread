@@ -15,28 +15,61 @@ then construct, question the inference and record the honest boundary. Keep
 modern comparisons distinct from textual assertions. Never call an AI extraction
 or a discussion an accepted, verified or publicly promoted claim.
 
-## Smallest useful build
+## Working prototype
 
-1. A static, local-first page with a starter enquiry from the existing Tantrāloka
-   pushing sessions and an empty enquiry. Paste chat, preserve who said each
-   line, and choose lines to add as editable question, answer, evidence, objection,
-   crux, branch or essay idea. Nodes retain their parent and their stated origin.
-2. Store the working enquiry only on the current device by default, with JSON
-   import/export. Show the next questions the person could ask. Export an essay
-   seed in Markdown. Nothing is published or added to the shared knowledge graph.
-3. When the matching Scholar Worker is available, explicitly save an essay seed
-   to the signed-in account as a private draft. The existing review, sign-off and
-   publication controls remain the only route onward.
-4. Offer Qwen pushing only through the existing consented Scholar assist endpoint,
-   against a chosen available Scholar work and passage. Only the selected branch
-   is sent, with the passage/layers fetched by the Worker. The reply is an agent
-   proposal and enters the tree only if the person selects it. Qwen and Scholar
-   accounts require their separately deployed Worker and provider configuration.
+Open `pushing.html` from the reader navigation. For local use:
 
-No new database, vector service, automated publication, source certification or
-independent peer-review claim is needed for this prototype. Tantrāloka Scholar
-projections are not yet available here: its pinned historical pushing sessions
-can be explored, but they must not be presented as source-verified verse evidence.
+```sh
+python3 -m http.server 8000
+# Open http://localhost:8000/pushing.html
+```
+
+- Start with a pinned link to one of four existing Tantrāloka enquiries, or type
+  your own question. The old enquiries are working research, not primary sources.
+- Paste a labelled conversation and select turns into an editable tree. Add an
+  answer, inference, objection, crux or branch; choose suggested questions or write
+  your own. Speaker labels are as provided, not identity verification.
+- Choose an available Scholar passage. The page checks the projection and T1
+  hashes, displays the source and records its reference. A hash verifies bundled
+  bytes, not edition accuracy, complete coverage or an interpretation.
+- Everything stays in this browser by default; export/import JSON for a backup.
+  A Scholar account can explicitly save or reopen a private snapshot containing
+  the complete pasted conversation. Each save creates a new private snapshot.
+- Load **your own** saved Scholar essay, select an exact excerpt and add it to the
+  enquiry. Its account, revision and snapshot hash remain attached locally. A
+  different signed-in account cannot send or save that referenced excerpt. The
+  local copy remains on the device after sign-out; the user is told before adding it.
+- Ask Qwen about the selected branch and a chosen passage only after confirmation.
+  The existing Worker fetches the passage and layers and saves its response as an
+  agent draft; the user chooses whether to add that response to the tree. No
+  other branch, private essay ID or account ID is sent as branch context. This
+  uses the existing Scholar `essay` assist task with a pushing-specific request.
+- Prepare an editable Markdown essay brief and explicitly create a new private
+  Scholar essay draft. The brief does not contain private document/account IDs.
+  Scholar's existing human review, sign-off and publication flows remain separate.
+
+The matching Scholar Worker and migrations are needed for account and Qwen
+buttons. A configured provider and explicit consent are needed for Qwen; the
+prototype's local enquiry, prompts and JSON import/export do not need either.
+Tantrāloka Scholar projections are not available in this bundle, so its archive
+sessions can be explored but cannot be attached as verified Scholar passages.
+Ghaṭakarpara is withheld while its source coverage is repaired.
+
+## Checks
+
+```sh
+node --test tests/pushing-core.test.cjs
+SCHOLAR_BROWSER_EXECUTABLE=/path/to/chromium \
+SCHOLAR_WORKER_ROOT=/path/to/ipvv \
+node --test tests/pushing-browser.test.cjs
+python3 scripts/release_manifest.py
+```
+
+The optional browser test runs the actual page and local Worker against SQLite,
+with the Qwen provider mocked. It checks selected-branch isolation, declined
+consent, source hold, private essay/snapshot saving, account switching and
+untrusted text rendering. It does not establish real D1, provider, deployment,
+philological correctness or independent peer review.
 
 ## Ideas borrowed, not copied
 
@@ -51,15 +84,20 @@ can be explored, but they must not be presented as source-verified verse evidenc
 - [OpenReview](https://docs.openreview.net/how-to-guides/submissions-comments-reviews-and-decisions/how-to-submit-a-review-revision):
   keep review bound to a particular revision; reuse Scholar's existing workflow.
 
-## Next, if the prototype earns it
+## Ideas to develop next
 
-Add curated source-linked crux cards, opposing reconstructions and evidence gaps;
-compare a question across works without flattening distinct traditions; offer a
-reviewer's permissioned "push this premise" action against an immutable essay
-revision; derive a learning route from the questions a reader chooses. Promotion
-to a shared knowledge tree must be an explicit human action with provenance and
-revision history. Do not send private peer-review reports to a model without the
-reviewer's existing permission and the author's selection.
+| Idea | Concrete use | Constraint |
+| --- | --- | --- |
+| Crux cards | Collect questions such as the Q1 move from “manifest to me” to a universal perceiver, with the claimed inference, strongest objection and what could resolve it. | A card stays an attributed proposal until a person accepts it. |
+| Two readings | Put two rival reconstructions side by side and ask where they rely on different premises or passages. | Preserve tradition, scope and unresolved disagreement. |
+| Examiner for an essay | Select a saved passage of your essay and ask which inference needs evidence, then turn the response into a private revision-bound review question. | Do not send a reviewer’s private report without their permission and the author's selection. |
+| Curiosity path | Use the learner's own chosen branches to suggest the next source, counterexample and small exercise. | Suggestions are not an assessment of mastery. |
+| Argument-to-essay trail | Assemble a working thesis from selected notes, show the sources and objections beside it, then hand it to Scholar for editing and review. | No automatic publication; do not present a hash as a proof. |
+| Cross-work crux map | Compare how Tantrāloka, IPVV and another tradition respond to one question. | Require actual passage coverage before calling an answer grounded. |
+
+Promotion to a shared knowledge tree must be an explicit human action with
+provenance and revision history. Search, embeddings and graph databases can wait
+until people have used the small workflow and its limits are clear.
 
 ## Release boundary
 

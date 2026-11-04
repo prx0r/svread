@@ -59,3 +59,12 @@ See `READER-ARCHITECTURE.md` for the data flow, release checks and the active
 Ghaṭakarpara source-coverage hold.
 
 For the local Scholar MCP bridge, account privacy, and tests, see [mcp/README.md](mcp/README.md).
+
+
+### Pushing Lab (prototype)
+
+Open `pushing.html` from the navigation to turn pasted conversation turns into a
+private, editable enquiry tree. Attach an available Scholar passage, branch into
+cruxes and questions, and prepare an essay brief. Optional private Scholar saves
+and Qwen assistance require the matching configured Worker. Read
+[`PUSHING-LAB.md`](PUSHING-LAB.md) for boundaries, tests and the handoff.
