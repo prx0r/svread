@@ -21,6 +21,7 @@ scarce provenance.
 | **sanskritbench** | **VERIFY** — gold sets, deterministic proof gate, COMET-vs-chrF meta-eval (Kendall's tau), content-addressed experiment records, lemma spine (Vidyut + ByT5 → school/period sense) | `sanskritbench/VISION.md` (north star) · `GOALS.md` (checkable build path) · `HOW-IT-WORKS.md` (skills/goals/kanban-gate mechanics) |
 | **openpatala** | **IDENTITY** — the witness root: Work→Edition→Witness→Surrogate→EText ladder, 1,099 works, 11 adapters, Merkle event ledger, R0–R5 resolver. Answers "which edition is this passage from?" | `openpatala/README.md` (what it is) · `MASTER.md` (file map) |
 | **translation-work + Scholar stack** | **EVIDENCE + AUTHORITY** — chunk ledgers, layered texts (T1→L4) with gates/proofs, ARGMAP arguments, Scholar workspace: drafts, decisions, review, signoff with rights → bridge → git → release → permissions | live docs below (not copied here — they change) |
+| **nibbanahelp** | **PERSONAL + ORGANISM** — the second tension ontology (same open→loosening→resolved lifecycle), the live consumer/relay surface (canon/lineage/lived/trika tiers, never advises), the demand signal (logged questions), the lived-experience corpus; journey-ledger spec (owner-gated) | `NIBBANAHELP-INTEGRATION.md` (role + what needs doing) |
 | **The estate** | **RAW MATERIAL** — the owner's essays (awesome-essays 90-categorized), research-library, essay kits (STRUCTURE/ACQUIRE/WEAVE/PUSHBACK), pushing cruxes, slang editions | see `../RESOURCES.md` §A |
 
 ## Reading order (high level, ~15 minutes)
@@ -43,6 +44,8 @@ scarce provenance.
    docs vs what actually shipped; what to adopt, what to skip.
 8. **`sanskritbench/` + `openpatala/`** — the VERIFY and IDENTITY systems in
    their own words.
+9. **`NIBBANAHELP-INTEGRATION.md`** — the fifth system: how the personal
+   tension surface and the organism fit, and the five tasks (N1–N5) to wire it.
 
 ## The invariant (never violate)
 

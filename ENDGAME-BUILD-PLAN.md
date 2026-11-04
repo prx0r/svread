@@ -34,6 +34,7 @@ signature; nothing publishes without it.
 | **sanskritbench** | **VERIFY** — the legitimacy engine. Gold control (5,601 exemplars + Mitrasāmgraha 5,552 + IPVV 49 + frontier 14,138 + MQM annotation), the deterministic proof gate (SOURCE_BINDING/COVERAGE/ABSTENTION/TERM_CONSISTENCY/CITATION_GROUNDING — *the lineage of translation-work's GATE.json*), the COMET-vs-chrF meta-eval (Kendall's tau, WMT protocol), `experiment_lab` + `run_recorder` (content-addressed logged numbers), lemma spine (ByT5 + Vidyut → school/period sense → persona LoRA). Hermes skills/goals/kanban: cannot mark done without a logged verified result. | Foundation DONE; Phase 1 (tau table) pending |
 | **openpatala** | **IDENTITY** — the witness root. 1,099 works, 11 adapters, Work→Edition→Witness→Surrogate→EText ladder, R0–R5 resolver, Merkle event ledger, run_recorder/trace. Answers "which edition/witness is this passage?" Machine-verified (6 proofs, 26 gates, red-team 4/4). Mirrored to `patala` R2 bucket. | Built; bridge to our chunks = next |
 | **translation-work + scholar stack** | **EVIDENCE + AUTHORITY** — the layers (T1→L0→L2→L200→C1→L3→L4) with per-song gates and proofs; ARGMAP (question/premises/conclusion/unresolved per passage); Scholar workspace (drafts, decisions, review, signoff with rights, bridge → git → release → permissions, MCP 30 tools, Qwen text live, voice wire-proven). | Live; `scholar/` on 1 work, source binding uneven |
+| **nibbanahelp** | **PERSONAL + ORGANISM** — second tension ontology, relay chat (canon/lineage/lived/trika), demand signal, lived corpus, journey-ledger spec (owner-gated). Spec: `endgame/NIBBANAHELP-INTEGRATION.md` | Live; sessions→queue exporter missing |
 | **The estate** | **RAW MATERIAL** — awesome-essays (1,195; 90 curated), research-library (~900), philosophy archive (1,933) with the STRUCTURE/ACQUIRE/WEAVE/PUSHBACK kits, 22 IPVV essays, slang editions (tantrasara1–22 + shivasutrasfinal), pushing catalog (57 cruxes), nibbanahelp tensions. | Indexed (1,177 starters) |
 
 **Integration (how they connect):**
@@ -126,6 +127,9 @@ unsigned lower rungs. This is the ordering law.
 - **2.3 Zenodo** — owner token → first sandbox DOI → prod.
 - **2.4 Slang register** into chat mode (consent-gated context) + voice browser
   session observation.
+- **2.5 nibbanahelp N1** — sessions → tension/crux queue exporter (read-only,
+  our lane): recurring unresolved questions feed the Treeka gap report and the
+  Phase-3 crux queue. See `endgame/NIBBANAHELP-INTEGRATION.md`.
 
 ### Phase 3 — Autonomy (the propose loop)
 - **3.1 Crux queue** — §2.1 gap report + pushing catalog → prioritized queue.
@@ -134,6 +138,10 @@ unsigned lower rungs. This is the ordering law.
   scholar; scholar edits → signs → publish. Quota-limited, never auto-sign.
 - **3.3 Video** — slang chapters → packs → tantrasara factory; packs carry
   evidence refs (already fail-closed).
+- **3.4 nibbanahelp N2/N3/N5** — slang tier in relay (owner decision), journey
+  ledger build under ONE shared legitimacy design with openpatala (owner-gated),
+  personal-essay publishing reuse (decide later). Guardrails: VOICE RULE,
+  visibility defaults, grants explicit.
 - **3.4 External scholars (later)** — V08 economics: paid adjudication, ORCID/
   CRediT credit; only after Phases 0–2 are pristine.
 
