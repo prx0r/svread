@@ -154,6 +154,7 @@ def call(name,a):
     if name=='list_style_examples': return api('GET','/api/scholar/style-examples')
     if name=='list_sources': return api('GET','/api/scholar/sources')
     if name=='save_source': return api('POST','/api/scholar/sources',a)
+    if name=='prepare_citations': return api('POST','/api/scholar/citations/prepare',a)
     if name=='delete_source': return api('DELETE','/api/scholar/sources/'+ident(a.get('source_id')),{})
     if name=='list_decisions': return api('GET','/api/scholar/decisions')
     if name=='save_decision': return api('POST','/api/scholar/decisions',a)
@@ -179,6 +180,7 @@ TOOLS=[
  ('list_style_examples','List this account’s explicitly saved private edit examples.',S({})),
  ('list_sources','List your private source notebook.',S({})),
  ('save_source','Save a hash-pinned private source reference.',S({'work':T,'target':T,'note':T},['work','target','note'])),
+ ('prepare_citations','Prepare publishable citation references from selected notebook sources.',S({'source_ids':{'type':'array','items':T,'minItems':1,'maxItems':10}},['source_ids'])),
  ('delete_source','Remove an owned source reference.',S({'source_id':T},['source_id'])),
  ('list_decisions','List your private revision-bound editorial decisions.',S({})),
  ('save_decision','Save a private editorial decision against an owned revision.',S({'document_id':T,'revision':{'type':'integer'},'subject':T,'before':T,'after':T,'reason':T},['document_id','revision','subject','before','after','reason'])),

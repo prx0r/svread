@@ -107,7 +107,8 @@
         ${conflicts.length?`<details open><summary>Conflicting local edits (${conflicts.length})</summary><div class="cmp-note">Restoring a local copy will replace the newer account draft.</div>${conflicts.map(([id,s])=>`<div>${e(id)}</div><pre>${e(s.data.content?.text||'')}</pre><button class="c2btn workspace-restore" data-id="${e(id)}">Restore local copy</button>`).join('')}</details>`:''}
         <label>Private passage notes<textarea id="workspace-note" rows="3">${e(note)}</textarea></label>
         <details><summary>Essay</summary><select id="workspace-essay"><option value="">Choose an essay</option>${essays.map(x=>`<option value="${e(x.id)}"${x.id===this.essayId?' selected':''}>${e(x.title||'Untitled')}</option>`).join('')}</select>
-          <button class="c2btn" id="workspace-new">New essay</button><input id="workspace-title" placeholder="Title" value="${e(essay?.title||'')}"/><textarea id="workspace-text" rows="6">${e(essay?.content?.text||'')}</textarea></details>
+          <button class="c2btn" id="workspace-new">New essay</button><input id="workspace-title" placeholder="Title" value="${e(essay?.title||'')}"/><textarea id="workspace-text" rows="6">${e(essay?.content?.text||'')}</textarea>
+          ${(essay?.content?.citations||[]).length?`<div class="cmp-note">Passage references that will be included if this essay is submitted:</div>${essay.content.citations.map((c,i)=>`<div class="cmp-note">${e(c.work)} · ${e(c.target)} · T1 ${e((c.t1_sha256||'').slice(0,12))} <button class="c2btn workspace-citation-remove" data-index="${i}">Remove reference</button></div>`).join('')}`:''}</details>
         <details${history?' open':''}><summary>Private revision history</summary>
           <select id="workspace-history-kind"><option value="translation"${history?.id!==this.essayId?' selected':''}>Current translation</option><option value="essay"${history&&history.id===this.essayId?' selected':''}>Selected essay</option></select>
           <button class="c2btn" id="workspace-history-load">Load revisions</button>
@@ -131,7 +132,7 @@
           <div class="cmp-note">Select saved edits below, or leave them unchecked to use at least three human-written examples from this work.</div>
           ${this.examples.map(x=>`<div><label><input type="checkbox" class="workspace-style-choice" value="${e(x.id)}"/> ${e(x.kind)} · ${e(x.work)} · revisions ${x.before_revision} → ${x.after_revision}</label> <button class="c2btn workspace-style-delete" data-id="${e(x.id)}">Remove example</button></div>`).join('')}
           ${this.decisions.length?`<div class="cmp-note">Select decisions to include:</div>${this.decisions.map(d=>`<label><input type="checkbox" class="workspace-decision-choice" value="${e(d.id)}"/> ${e(d.subject)} · ${e(d.work)} · ${e(d.target)}</label>`).join('')}`:''}
-          ${this.sources.length?`<div class="cmp-note">For essay drafts, select up to three notebook sources:</div>${this.sources.map(x=>`<label><input type="checkbox" class="workspace-source-choice" value="${e(x.id)}"/> ${e(x.work)} · ${e(x.target)}</label>`).join('')}`:''}
+          ${this.sources.length?`<div class="cmp-note">Select sources for an essay draft or to attach references to your saved essay (up to three per AI request):</div>${this.sources.map(x=>`<label><input type="checkbox" class="workspace-source-choice" value="${e(x.id)}"/> ${e(x.work)} · ${e(x.target)}</label>`).join('')}<button class="c2btn" id="workspace-cite-sources">Attach selected references to essay</button>`:''}
           ${essayReviews.length?`<div class="cmp-note">Feedback for the selected essay (only a current revision with reviewer permission can be sent to Qwen):</div>${essayReviews.map(r=>`<label><input type="checkbox" class="workspace-feedback-choice" value="${e(r.id)}"${!r.ai_consent||!r.decision||r.revision!==essay?.revision?' disabled':''}/> Revision ${r.revision} · ${e(r.decision||'awaiting review')} · ${r.ai_consent?'AI use permitted':'AI use not permitted'}</label>`).join('')}`:''}
           <button class="c2btn" id="workspace-ask">Ask Qwen</button><div class="cmp-note">Your selected passage, essay, examples and feedback are sent to Qwen only after your confirmation.</div>
           <pre id="workspace-output">${e(this.agent?.content?.text||'')}</pre><button class="c2btn" id="workspace-use">Use agent draft</button></details>
@@ -182,7 +183,7 @@
       const saveEssay=()=>{if(!this.essayId)return this.status('Create or choose an essay first.');
         const old=this.document(this.essayId), prior=old?.content||{};
         this.remember({id:this.essayId,kind:'essay',work:this.work,target:old?.target||target,layer:old?.layer||layer,
-          title:$('#workspace-title').value,content:{text:$('#workspace-text').value,assisted:!!prior.assisted,...(prior.model?{model:prior.model}:{})}});};
+          title:$('#workspace-title').value,content:{...prior,text:$('#workspace-text').value,assisted:!!prior.assisted}});};
       $('#workspace-title').oninput=saveEssay;$('#workspace-text').oninput=saveEssay;
       $('#workspace-decision-save').onclick=async()=>{try{
         if(this.profile()?.id!==accountId)return this.status('Account changed; reopen the workspace.');
@@ -213,6 +214,27 @@
         const result=await this.request('/api/scholar/sources');if(this.profile()?.id!==accountId)return;
         this.sources=result.sources||[];this.render();this.status('Source removed.');
       }catch(e){this.status(e.message);}};});
+      container.querySelectorAll('.workspace-citation-remove').forEach(button=>{button.onclick=()=>{
+        if(this.profile()?.id!==accountId||!this.essayId)return;const doc=this.document(this.essayId);if(!doc)return;
+        const index=Number(button.dataset.index),citations=doc.content?.citations||[];
+        if(!Number.isInteger(index)||index<0||index>=citations.length)return;
+        this.remember({...doc,content:{...doc.content,citations:citations.filter((_,i)=>i!==index)}});this.render();
+      };});
+      if(this.sources.length)$('#workspace-cite-sources').onclick=async()=>{try{
+        const uid=accountId,id=this.essayId,ids=[...container.querySelectorAll('.workspace-source-choice:checked')].map(x=>x.value);
+        if(this.profile()?.id!==uid)return;if(!id)throw new Error('Choose an essay first.');
+        if(!ids.length||ids.length>10)throw new Error('Choose up to ten notebook sources.');
+        if(!root.confirm('Attach these passage references to your essay? They will be public if you later sign off and submit it.'))return;
+        await this.flush(id);if(this.profile()?.id!==uid||this.essayId!==id)return;
+        const result=await this.request('/api/scholar/citations/prepare','POST',{source_ids:ids});
+        if(this.profile()?.id!==uid||this.essayId!==id)return;
+        if(this.docs.get(id)?.dirty)throw new Error('Essay changed; save it and try adding the references again.');
+        const doc=this.document(id),combined=new Map((doc.content?.citations||[]).map(x=>[x.work+'\0'+x.target,x]));
+        for(const ref of result.citations||[])combined.set(ref.work+'\0'+ref.target,ref);
+        if(combined.size>10)throw new Error('An essay can have at most ten passage references.');
+        this.remember({...doc,content:{...doc.content,citations:[...combined.values()]}});await this.flush(id);
+        if(this.profile()?.id!==uid)return;this.render();this.status('Passage references saved with your private essay.');
+      }catch(e){this.status(e.message);}};
       $('#workspace-ask').onclick=async()=>{
         if(this.profile()?.id!==accountId)return this.status('Account changed; reopen the workspace.');
         const kind=$('#workspace-task').value,useStyle=$('#workspace-style').checked;
@@ -245,7 +267,7 @@
           if(this.agent.content.task==='essay_revision'&&(this.agent.content.source_document_id!==old.id||
               this.agent.content.source_revision!==old.revision||this.docs.get(old.id)?.dirty))
             return this.status('The essay changed since this draft was generated. Request a fresh revision.');
-          this.remember({...old,content:{text:this.agent.content.text,assisted:true,model:this.agent.content.model}});this.render();
+          this.remember({...old,content:{...old.content,text:this.agent.content.text,assisted:true,model:this.agent.content.model,agent_source:this.agent.id}});this.render();
         }else{textarea.value=this.agent.content.text;this.saveTranslation({assisted:true,model:this.agent.content.model,agent_source:this.agent.id});}
         this.status('Agent draft copied privately. Review it against the source.');
       };

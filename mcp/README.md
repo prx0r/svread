@@ -22,3 +22,8 @@ meter file and explicitly request `meter: true` to obtain an experimental
 classification. The file's hash is recorded; the tool does not modify any
 translation layers. Verify source coverage and all candidates independently.
 Vidyut code and each data/model package have separate rights.
+
+Selected source notebook entries can be turned into public-safe passage
+references using `prepare_citations`. Private notes are omitted. Attaching the
+result to an essay, signing off and submitting remain separate actions. A public
+submission requires the matching Worker and translation-work bridge checkpoints.

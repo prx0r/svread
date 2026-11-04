@@ -417,7 +417,10 @@ async function scholarView(){
     return;
   }
   const st0 = (()=>{ try{ return JSON.parse(localStorage.getItem(`svv-schol-${WORK}`)) || {}; }catch(e){ return {}; } })();
-  const st = { layer: SLAY[st0.layer] ? st0.layer : 'l3', target: st0.target || null, base: null };
+  const q=new URL(globalThis.location?.href||'https://svread.invalid/').searchParams;
+  const qLayer=q.get('layer'),qTarget=q.get('target');
+  const linked=!!(SLAY[qLayer]&&qTarget&&Object.hasOwn(SCH.originals?.[qLayer]||{},qTarget));
+  const st = { layer: linked?qLayer:(SLAY[st0.layer] ? st0.layer : 'l3'), target: linked?qTarget:(st0.target || null), base: null };
   let publicationEndpoint = '';
   const workspace=typeof ScholarWorkspace==='function'?new ScholarWorkspace({api:API,work:WORK,
     profile:()=>SCHPROF,onStatus:message=>{const node=$('#schmsg');if(node)node.textContent=message;}}):null;
@@ -615,8 +618,18 @@ async function scholarView(){
         + `<tr><td>generated</td><td>${esc(SCH.generated||'')}</td></tr>`
         + `</table><div class="cmp-note" style="margin-top:.4rem"><a class="redlink" href="?work=${esc(WORK)}">← back to the reader</a></div>`)
       + W('schessays','Scholar essays',
-          (SCH.essays||[]).length ? SCH.essays.map(a=>
-            `<details><summary>${esc(a.title)} · ${esc(a.author)}</summary><div class="cmp-note">${esc(a.rights)}${a.assisted?' · AI-assisted':''}</div><div class="enp">${esc(a.text).replace(/\n/g,'<br>')}</div></details>`).join('')
+          (SCH.essays||[]).length ? SCH.essays.map(a=>{
+            const refs=Array.isArray(a.snapshot?.content?.citations)?a.snapshot.content.citations:[];
+            const commit=/^[a-f0-9]{40,64}$/.test(a.source_git_commit||'')?a.source_git_commit:'';
+            const references=refs.filter(c=>c&&/^[a-z0-9][a-z0-9_-]{0,79}$/.test(c.work||'')&&/^[A-Za-z0-9][A-Za-z0-9_.-]{0,159}$/.test(c.target||''));
+            return `<details><summary>${esc(a.title)} · ${esc(a.author)}</summary><div class="cmp-note">${esc(a.rights)}${a.assisted?' · AI-assisted':''}</div><div class="enp">${esc(a.text).replace(/\n/g,'<br>')}</div>`+
+              (references.length?`<div class="cmp-note">Passage references (T1 hashes checked at submission; not proof that the argument is correct):</div>${references.map(c=>{
+                const current=`?work=${encodeURIComponent(c.work)}&view=scholar&layer=t1&target=${encodeURIComponent(c.target)}`;
+                const song=c.target.replace(/-v\d+$/,'');
+                const pinned=commit?`https://github.com/prx0r/translation-work/blob/${commit}/${encodeURIComponent(c.work)}/data/${encodeURIComponent(song)}.t1.json`:'';
+                return `<div class="cmp-note">${esc(c.work)} · ${esc(c.target)} · T1 ${esc((c.t1_sha256||'').slice(0,12))} · <a href="${esc(current)}">open current</a>${pinned?` · <a href="${esc(pinned)}" target="_blank" rel="noopener">view pinned Git source</a>`:''}</div>`;
+              }).join('')}`:'')+`</details>`;
+          }).join('')
             : `<div class="milestone">No published essays for this work yet.</div>`)
       + W('schsign','Sign-offs',
           ((SCH.signoffs||[]).length

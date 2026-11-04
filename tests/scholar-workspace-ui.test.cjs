@@ -318,3 +318,31 @@ test('essay draft uses only selected notebook references after consent',async()=
   const draft=calls.find(x=>x.url.endsWith('/assist')).data;assert.deepEqual([...draft.source_ids],['source:1']);assert.equal(draft.consent_to_ai,true);
   assert.match(container.html,/Compare the commentary/);for(const state of suite.docs.values())clearTimeout(state.timer);
 });
+
+test('selected notebook references are explicitly attached to signed essay content',async()=>{
+  const storage=new Map(),nodes=new Map(),calls=[],saved=new Map();
+  const source={id:'source:1',work:'testwork',target:'p-v01',projection_sha256:'a'.repeat(64),note:'Private note'};
+  const citation={work:'testwork',target:'p-v01',projection_sha256:'a'.repeat(64),t1_sha256:'b'.repeat(64)};
+  const localStorage={getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v),removeItem:k=>storage.delete(k),key:i=>[...storage.keys()][i],get length(){return storage.size;}};
+  const element=id=>{if(!nodes.has(id))nodes.set(id,{value:'',checked:false,textContent:'',dataset:{},addEventListener(){}});return nodes.get(id);};
+  const container={set innerHTML(v){this.html=v;nodes.clear();},querySelector:element,querySelectorAll(key){return key==='.workspace-source-choice:checked'?[{value:'source:1'}]:[];}};
+  const fetch=async(url,options={})=>{const method=options.method||'GET',data=options.body?JSON.parse(options.body):null;calls.push({url:String(url),method,data});
+    if(String(url).includes('/api/scholar/documents?'))return Response.json({documents:[],next_offset:null});
+    if(String(url).endsWith('/api/scholar/reviews'))return Response.json({reviews:[]});
+    if(String(url).endsWith('/api/scholar/style-examples'))return Response.json({examples:[]});
+    if(String(url).endsWith('/api/scholar/decisions'))return Response.json({decisions:[]});
+    if(String(url).endsWith('/api/scholar/sources'))return Response.json({sources:[source]});
+    if(String(url).endsWith('/api/scholar/citations/prepare'))return Response.json({citations:[citation]});
+    if(method==='PUT'){const {expected_revision,...doc}=data;const value={...doc,revision:expected_revision+1};saved.set(doc.id,value);return Response.json({document:value});}
+    throw new Error('Unexpected request '+url);
+  };
+  const context=vm.createContext({fetch,localStorage,Response,URL,URLSearchParams,setTimeout,clearTimeout,crypto:{randomUUID:()=> 'id'},confirm:()=>true,CSS:{escape:x=>x}});
+  vm.runInContext(fs.readFileSync(path.join(__dirname,'../scholar-workspace-ui.js'),'utf8'),context);
+  const suite=new context.ScholarWorkspace({api:'https://api.example',work:'testwork',profile:()=>({id:'alice'})});
+  await suite.load();suite.attach({container,textarea:{value:'',addEventListener(){}},target:'p-v01',layer:'l3',baseHash:'',parent:null});
+  element('#workspace-new').onclick();element('#workspace-title').value='Essay';element('#workspace-text').value='Argument';element('#workspace-text').oninput();
+  await element('#workspace-cite-sources').onclick();const essay=saved.get('essay:id');
+  assert.equal(essay.content.citations[0].target,'p-v01');assert.equal(JSON.stringify(essay).includes('Private note'),false);
+  assert.match(container.html,/Passage references/);assert.equal(calls.find(x=>x.url.endsWith('/citations/prepare')).data.source_ids[0],'source:1');
+  for(const state of suite.docs.values())clearTimeout(state.timer);
+});

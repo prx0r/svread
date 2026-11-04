@@ -9,7 +9,7 @@ test('Scholar keeps a local fork chain and submits the same data', async () => {
   const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
   const code = app.slice(app.indexOf('let SCH = null;'), app.indexOf('\nasync function main(){'));
   const data = JSON.parse(fs.readFileSync(path.join(root, 'data/scholar/paramarthasara.json'), 'utf8'));
-  data.essays = [{title:'A considered essay',author:'A Scholar',rights:'cc-by-4.0',text:'A public essay.'}];
+  data.essays = [{title:'A considered essay',author:'A Scholar',rights:'cc-by-4.0',text:'A public essay.',source_git_commit:'a'.repeat(40),snapshot:{content:{citations:[{work:'paramarthasara',target:'param-p01-v01',t1_sha256:'b'.repeat(64)}]}}}];
   const storage = new Map([['svv-scholar-author', 'Test scholar']]);
   const nodes = new Map();
   let download;
@@ -52,6 +52,8 @@ test('Scholar keeps a local fork chain and submits the same data', async () => {
   await vm.runInContext('scholarView()', context);
   assert.match(node('#lib').innerHTML, /A considered essay/);
   assert.match(node('#lib').innerHTML, /A public essay/);
+  assert.match(node('#lib').innerHTML,/view pinned Git source/);
+  assert.match(node('#lib').innerHTML,/layer=t1&amp;target=|layer=t1&target=/);
   assert.match(node('#cols').innerHTML,/Compare saved versions/);
   assert.match(node('#schcompare-left-text').textContent,/Supreme/);
   node('#schcompare-right').value='sv:ac094e65ee9be6aa';node('#schcompare-right').onchange();
@@ -73,4 +75,8 @@ test('Scholar keeps a local fork chain and submits the same data', async () => {
   assert.equal(submitted.versions.length, 2);
   assert.equal(node('#schtoken').value, '');
   assert.match(node('#schmsg').textContent, /Submitted for review/);
+  context.location={href:'https://svread.example/?work=paramarthasara&view=scholar&layer=t1&target=param-p01-v02'};
+  await vm.runInContext('scholarView()',context);
+  assert.match(node('#cols').innerHTML,/param-p01-v02/);
+  assert.match(node('#cols').innerHTML,/T1/);
 });
