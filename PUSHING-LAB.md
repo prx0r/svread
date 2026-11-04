@@ -107,6 +107,9 @@ philological correctness or independent peer review.
 
 ## Ideas to develop next
 
+For an implementable, prioritised plan with proposed contracts, repository
+ownership and acceptance tests, see [PUSHING-NEXT.md](PUSHING-NEXT.md).
+
 | Idea | Concrete use | Constraint |
 | --- | --- | --- |
 | Crux cards | Collect questions such as the Q1 move from “manifest to me” to a universal perceiver, with the claimed inference, strongest objection and what could resolve it. | A card stays an attributed proposal until a person accepts it. |
