@@ -61,6 +61,12 @@ right im seeing it now the endgame is this machine right with structure that you
   kappa) + sampling audits. Legitimacy = five records per published claim:
   source bytes+witness id, decision rows with grounds, audit receipt, human
   review+signoff, eval scores with model/threshold stamps.
+- **IPVV imported (2026-11-05, owner: "get all ipvv stuff off r2… datastructures
+  like ours… flag it to them")**: all R2 sources (sanskritree 153.6MB, patala
+  published, uploads) → `translation-work/ipvv/` (49-chunk canonical work,
+  GATE=PROOF_NOT_RUN, source volumes sha-pinned), `IPVV-IMPORT.md` flag doc for
+  the gold lane, projection registered (49 withheld until proofs), pushed
+  `c221324` after rebasing onto the gold batch's newest commits.
 - **P0 tools live**: scholar_apply, scholar_memo (pm2 */30), essay_starters
   (1,177 starters), build_search_index (1,102 vectors), audit_draft
   (verbatim gate + receipts), zenodo_publish (bundle proven, token pending),

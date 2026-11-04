@@ -36,6 +36,16 @@ away. Secrets are referenced by path only, never by value.
   dossiers (DEV-PLAN). Bridge to our chunk ledgers = Treeka's root.
   Durable mirror: `patala` R2 bucket → `projects/openpatala/snapshots/
   2026-11-05/` (tar.gz + manifest, sha256 round-trip verified).
+- **ipvv work dir** (`translation-work/ipvv/`, imported 2026-11-05): the
+  flagship IPVV as a canonical work — passages (49, locator-normalized,
+  vol/line ranges), 49 frozen T1 + 14 detail, 35 l0 reports, 49 L2 data rows,
+  49 published bundles (byte-spans into M00020/21/22), pilot 109 (L2 reads +
+  argument maps), CL-3 themes, GATE = PROOF_NOT_RUN (honest). Source volumes
+  sha-pinned in STATUS. **`translation-work/IPVV-IMPORT.md` = the flag doc**
+  (every recipe for the gold lane: intake spans → L0 contract → proofs →
+  emit → Scholar edits/L3/L4). Projection registered on the hub
+  (`data/scholar/ipvv.json`, 49 withheld until proofs). R2 staging:
+  `/root/ipvv-r2-staging/` (150 MB).
 - **svread**: reader + projections + pushing catalog (57) + release manifest
   (309 assets, hash-gated) + PUSHING-LAB (crux briefs, essay seeds).
 

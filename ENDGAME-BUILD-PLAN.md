@@ -17,7 +17,10 @@ Verbatim in `SCHOLAR-ENDGAME-VISION.md`. Execute in this order:
    gate-vs-gold calibration + proof-gate sweep over existing translations
    (state: 951/1,240 site rows PASS; TĀ 0/605 gate-PASS).
 3. **IPVV + Tantrāloka fully translated and sanskritbenched** → the
-   translation track. **Lane note:** translation-work is owned by other agents
+   translation track. **DONE 2026-11-05: ipvv datastructures imported** (all
+   R2 material → `translation-work/ipvv/` + projection registered withheld;
+   recipes flagged in `IPVV-IMPORT.md`); the gold-lane work (intake → L0
+   contract → proofs → emit) starts there. **Lane note:** translation-work is owned by other agents
    (gold batch running: 42/42 CANONICAL pattern proven) — coordinate; this plan
    tracks it, does not write it. sanskrithelp's TRANSLATION_FRONTIER targets
    (5 phonemic-body texts) queue here (`endgame/SANSKRITHELP-INTEGRATION.md` SH3).
