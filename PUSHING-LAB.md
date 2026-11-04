@@ -71,6 +71,12 @@ python3 -m http.server 8000
   Copy the comparison or use it as an essay brief locally. An optional Qwen
   comparison sends only those two paths and the explicitly selected evidence
   after confirmation. A suggestion cannot be added if either path has changed.
+- **Prepare a prompt for another AI** builds a focused question or comparison
+  locally so the person can review and copy it into their chosen assistant,
+  then paste its answer into the tree. Pasting into that other service shares
+  the selected branch text with it. The originating branch or branches must
+  still match before the response can be added. This works without an account
+  or model provider; it does not fetch passage layers automatically.
 
 For development against a local Worker, configure its `CORS_ORIGIN` as
 `http://127.0.0.1:8000`, start it on `127.0.0.1:8787`, and open:

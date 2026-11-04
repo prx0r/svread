@@ -120,6 +120,13 @@ test('Pushing Lab: real browser, local Scholar Worker, private branch and essay'
       catch{await route.fulfill({status:404});}});
     await preview.goto('https://prx0r.github.io/svread/pushing.html');assert.equal(await preview.locator('#preview-warning').isVisible(),true);
     await preview.locator('#add-seed').click();assert.match(await preview.locator('#crux-brief').textContent(),/perceiver is universal/);
+    await preview.locator('summary').filter({hasText:'Prepare a prompt for another AI'}).click();await preview.locator('#external-challenge').click();
+    assert.match(await preview.locator('#external-prompt').inputValue(),/premise that needs justification/);assert.match(await preview.locator('#external-prompt').inputValue(),/perceiver is universal/);
+    await preview.locator('#agent-output').fill('A pasted AI objection.');await preview.locator('#add-agent').click();
+    await preview.waitForFunction(()=>document.querySelector('#status').textContent.includes('proposal added'));assert.match(await preview.locator('.node.selected .node-meta').textContent(),/Objection · agent/);
+    const pa=await preview.locator('#compare-a option').filter({hasText:'perceiver is universal'}).getAttribute('value'),pb=await preview.locator('#compare-b option').filter({hasText:'A pasted AI objection'}).getAttribute('value');
+    await preview.locator('#compare-a').selectOption(pa);await preview.locator('#compare-b').selectOption(pb);await preview.locator('#external-compare').click();
+    assert.match(await preview.locator('#external-prompt').inputValue(),/A pasted AI objection/);
     await preview.locator('#load-style').click();await preview.waitForFunction(()=>document.querySelector('#status').textContent.includes('not connected on this reader preview'));assert.equal(apiRequests,0);await preview.close();
   }catch(e){if(page)console.error('Pushing test status:',await page.locator('#status').textContent().catch(()=>''));throw e;}finally{if(browser)await browser.close();await new Promise(resolve=>api.close(resolve));await new Promise(resolve=>site.close(resolve));globalThis.fetch=oldFetch;db.close();}
 });

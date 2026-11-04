@@ -13,7 +13,7 @@
     {label:'Freedom · why the five coverings?',question:'Why does freedom conceal itself in these particular ways?',file:'tantraloka/LOGICVID-session-kancukas-self-emptying.md'}
   ];
   const typeNames={'question':'Question','source':'Source note','answer':'Proposed answer','inference':'Inference','objection':'Objection','crux':'Crux / honest limit','branch':'Next branch','essay-idea':'Essay idea'};
-  let session,selected=null,projection=null,verifiedSource=null,loadSerial=0,proposalParent=null,proposalSession=null,proposalSnapshot=null,proposalOwner=null,proposalType='answer';
+  let session,selected=null,projection=null,verifiedSource=null,loadSerial=0,proposalParent=null,proposalSession=null,proposalSnapshot=null,proposalOwner=null,proposalType='answer',proposalGeneration=0;
   let accountEssays=[],accountEnquiries=[],accountEssayOwner=null,accountEnquiryOwner=null;
   let notebook=[],published=[],styles=[],notebookOwner=null,publishedOwner=null,styleOwner=null,generatedEssay=null;
   const selectedScholarKeys=new Set();
@@ -75,7 +75,7 @@
     left.value=session.nodes.some(n=>n.id===a)?a:'';right.value=session.nodes.some(n=>n.id===b)?b:'';
     const ready=!!left.value&&!!right.value&&left.value!==right.value;
     $('compare-brief').textContent=ready?C.comparisonBrief(session,left.value,right.value):'Choose two different enquiry nodes.';
-    for(const id of ['compare-use','compare-copy','compare-ask'])$(id).disabled=!ready;
+    for(const id of ['compare-use','compare-copy','compare-ask','external-compare'])$(id).disabled=!ready;
   }
   function render(){ $('title').value=session.title;renderTurns();renderTree();renderNext();renderCrux();renderComparison(); }
   function selectedSeed(){const value=$('seed').value;return value===''?null:seeds[Number(value)]||null;}
@@ -91,7 +91,7 @@
   $('title').oninput=()=>{session={...session,title:$('title').value};save();renderCrux();renderComparison();};
   $('compare-a').onchange=renderComparison;$('compare-b').onchange=renderComparison;
   $('new').onclick=()=>{if((session.nodes.length||session.turns.length)&&!confirm('Start a new enquiry? Export the current one first if you want a copy.'))return;
-    session=C.makeSession();selected=null;projection=null;verifiedSource=null;proposalParent=null;proposalSession=null;proposalSnapshot=null;proposalOwner=null;proposalType='answer';generatedEssay=null;clearPrivateViews();$('agent-citations').replaceChildren();$('essay-citations').replaceChildren();
+    session=C.makeSession();selected=null;projection=null;verifiedSource=null;proposalParent=null;proposalSession=null;proposalSnapshot=null;proposalOwner=null;proposalType='answer';proposalGeneration++;generatedEssay=null;clearPrivateViews();$('agent-citations').replaceChildren();$('essay-citations').replaceChildren();$('external-prompt').value='';
     $('work').value='';$('target').replaceChildren(option('','Choose a passage'));$('source').textContent='Choose a work and passage to inspect its source.';
     $('attach-source').disabled=true;$('save-source').disabled=true;$('essay').value='';$('agent-output').value='';save();render();status('New private enquiry.');};
   $('parse').onclick=()=>{try{const turns=C.parseTranscript($('transcript').value);if(!turns.length)throw Error('Paste a conversation first.');
@@ -105,7 +105,7 @@
   $('import').onchange=async event=>{const file=event.target.files?.[0];if(!file)return;try{
     if(file.size>1000000)throw Error('Choose an enquiry file under 1 MB.');const loaded=C.validateSession(JSON.parse(await file.text()));
     if((session.nodes.length||session.turns.length)&&!confirm('Replace the enquiry on this device with the imported file?'))return;
-    session=loaded;selected=null;projection=null;verifiedSource=null;proposalParent=null;proposalSession=null;proposalSnapshot=null;proposalOwner=null;proposalType='answer';generatedEssay=null;clearPrivateViews();$('essay-citations').replaceChildren();$('agent-citations').replaceChildren();$('essay').value='';$('agent-output').value='';
+    session=loaded;selected=null;projection=null;verifiedSource=null;proposalParent=null;proposalSession=null;proposalSnapshot=null;proposalOwner=null;proposalType='answer';proposalGeneration++;generatedEssay=null;clearPrivateViews();$('essay-citations').replaceChildren();$('agent-citations').replaceChildren();$('essay').value='';$('agent-output').value='';$('external-prompt').value='';
     save();render();await loadWork(session.work,session.target);status('Imported. Passage references in a file are claims until rechecked.');
   }catch(e){status('Could not import: '+e.message);}finally{event.target.value='';}};
   function canonical(v){if(Array.isArray(v))return '['+v.map(canonical).join(',')+']';
@@ -222,7 +222,7 @@
     const val=$('account-enquiries').value;if(val==='')throw Error('Choose a saved enquiry.');const doc=accountEnquiries[Number(val)],owner=await profile();
     if(!doc||owner.id!==accountEnquiryOwner)throw Error('Account changed; find your enquiries again.');
     const loaded=C.validateSession(JSON.parse(doc.content.text));if((session.nodes.length||session.turns.length)&&!confirm('Replace this device’s current enquiry with the private Scholar snapshot?'))return;
-    if((await profile()).id!==owner.id)throw Error('Account changed; try again.');session=loaded;selected=null;proposalParent=null;proposalSession=null;proposalSnapshot=null;proposalOwner=null;proposalType='answer';generatedEssay=null;clearPrivateViews();$('essay-citations').replaceChildren();$('agent-citations').replaceChildren();$('essay').value='';$('agent-output').value='';save();render();await loadWork(session.work,session.target);
+    if((await profile()).id!==owner.id)throw Error('Account changed; try again.');session=loaded;selected=null;proposalParent=null;proposalSession=null;proposalSnapshot=null;proposalOwner=null;proposalType='answer';proposalGeneration++;generatedEssay=null;clearPrivateViews();$('essay-citations').replaceChildren();$('agent-citations').replaceChildren();$('essay').value='';$('agent-output').value='';$('external-prompt').value='';save();render();await loadWork(session.work,session.target);
     status('Private Scholar snapshot opened on this device.');
   }catch(e){status(e.message);}};
   $('load-essays').onclick=async()=>{try{
@@ -270,11 +270,25 @@
     if(!result.document?.content?.text)throw Error('The model returned no proposal.');
     return {doc:result.document,owner:owner.id,source,ids,refs,parent,session:capturedSession,work,target,branchSnapshots:paths.map(branch=>({id:branch.at(-1).id,bytes:JSON.stringify(branch)}))};
   }
-  async function ask(mode){try{
-    const result=await assist('enquiry',mode);if(!result)return;$('agent-output').value=result.doc.content.text;proposalParent=result.parent;proposalSession=result.session;proposalSnapshot=result.branchSnapshots;proposalOwner=result.owner;proposalType=mode==='examine'?'objection':'answer';
+  async function ask(mode){const generation=++proposalGeneration;try{
+    const result=await assist('enquiry',mode);if(!result)return;
+    if(generation!==proposalGeneration)throw Error('A newer request replaced this proposal; the earlier response remains in its private account.');
+    $('agent-output').value=result.doc.content.text;proposalParent=result.parent;proposalSession=result.session;proposalSnapshot=result.branchSnapshots;proposalOwner=result.owner;proposalType=mode==='examine'?'objection':'answer';
     showCitations('agent-citations',result.doc.content.scholar_citations);status('Agent proposal saved privately by Scholar. Check it; add it to the tree only if useful.');
   }catch(e){status(e.message);}}
   $('ask').onclick=()=>ask('enquiry');$('challenge').onclick=()=>ask('examine');$('compare-ask').onclick=()=>ask('compare');
+  function prepareExternal(mode){try{
+    const compare=mode==='compare',parent=compare?$('compare-a').value:selected,other=compare?$('compare-b').value:null;
+    const paths=compare?C.comparisonPaths(session,parent,other):[C.path(session,parent)];
+    const prompt=compare?C.comparisonInstruction(session,parent,other):C.modelInstruction(session,parent,'examine');
+    const owners=[...new Set(paths.flat().flatMap(n=>[n.private_owner,n.private_ref?.owner_id]).filter(Boolean))];
+    if(owners.length>1)throw Error('These branches contain material from different Scholar accounts.');
+    if($('agent-output').value.trim()&&!confirm('Replace the current proposal with a new prompt?'))return;
+    proposalGeneration++;proposalParent=parent;proposalSession=session.id;proposalSnapshot=paths.map(branch=>({id:branch.at(-1).id,bytes:JSON.stringify(branch)}));proposalOwner=owners[0]||null;proposalType=compare?'answer':'objection';
+    $('external-prompt').value=prompt;$('agent-output').value='';$('agent-citations').replaceChildren();status('Prompt prepared on this device. Review it before sharing.');
+  }catch(e){status(e.message);}}
+  $('external-challenge').onclick=()=>prepareExternal('examine');$('external-compare').onclick=()=>prepareExternal('compare');
+  $('external-copy').onclick=async()=>{try{if(!$('external-prompt').value)throw Error('Prepare a prompt first.');await navigator.clipboard.writeText($('external-prompt').value);status('Prompt copied. Review it before sharing.');}catch(e){status(e.message||'Select the prompt and copy it manually.');}};
   $('add-agent').onclick=async()=>{try{if(proposalOwner&&(await profile()).id!==proposalOwner)throw Error('This proposal belongs to a different Scholar account.');
     if(proposalSession&&proposalSession!==session.id)throw Error('This proposal belongs to a different enquiry.');
     const parent=proposalParent||selected;if(parent&&!session.nodes.some(n=>n.id===parent))throw Error('The original branch is no longer present.');
