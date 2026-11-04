@@ -34,3 +34,11 @@ test('private essay references retain revision but do not leak account or docume
  for(const out of [C.modelInstruction(s,'node:1'),C.essaySeed(s)]){assert.doesNotMatch(out,/alice-private-id|essay:secret-id/);}
  assert.match(C.essaySeed(s),/revision 3/);
 });
+
+test('local API override only accepts loopback and cannot redirect production traffic',()=>{
+ const live='https://ipvv-api.tradesprior.workers.dev';
+ assert.equal(C.resolveApi('https://svread.pages.dev/pushing.html?api=https://attacker.example'),live);
+ assert.equal(C.resolveApi('http://127.0.0.1:8000/pushing.html?api=http%3A%2F%2F127.0.0.1%3A8787'),'http://127.0.0.1:8787');
+ assert.throws(()=>C.resolveApi('http://localhost:8000/pushing.html?api=https://attacker.example'),/loopback/);
+ assert.throws(()=>C.resolveApi('http://localhost:8000/pushing.html?api=http%3A%2F%2Flocalhost%3A8787%2Fx'),/loopback/);
+});

@@ -8,6 +8,14 @@
   const WORK=/^[a-z0-9][a-z0-9_-]{0,79}$/;
   const HASH=/^[0-9a-f]{64}$/;
   const newId=()=>globalThis.crypto?.randomUUID?.()||`${Date.now()}-${Math.random().toString(36).slice(2)}`;
+  function resolveApi(href){
+    const live='https://ipvv-api.tradesprior.workers.dev',page=new URL(href),requested=page.searchParams.get('api');
+    const loopback=host=>['localhost','127.0.0.1','[::1]'].includes(host);
+    if(!requested||!loopback(page.hostname))return live;
+    let u;try{u=new URL(requested);}catch{throw Error('Invalid local Scholar API origin.');}
+    if(!['http:','https:'].includes(u.protocol)||!loopback(u.hostname)||u.username||u.password||u.pathname!=='/'||u.search||u.hash)throw Error('Only a loopback Scholar API origin is allowed for local development.');
+    return u.origin;
+  }
   function makeSession(title='My enquiry'){
     return {format:FORMAT,id:'enquiry:'+newId(),title:String(title).slice(0,300),work:'',target:'',turns:[],nodes:[]};
   }
@@ -102,5 +110,5 @@
     if(prompt.length>4000)throw Error('This branch is too long for one request. Choose a shorter branch or edit the notes.');
     return prompt;
   }
-  return {FORMAT,TYPES,ORIGINS,makeSession,parseTranscript,validateSession,addNode,path,removeLeaf,editNode,questions,essaySeed,modelInstruction};
+  return {FORMAT,TYPES,ORIGINS,resolveApi,makeSession,parseTranscript,validateSession,addNode,path,removeLeaf,editNode,questions,essaySeed,modelInstruction};
 });

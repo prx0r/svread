@@ -2,7 +2,7 @@
 (function(){
   'use strict';
   const C=globalThis.PushingCore, $=id=>document.getElementById(id);
-  const API='https://ipvv-api.tradesprior.workers.dev', KEY='svv-pushing-lab/1';
+  const KEY='svv-pushing-lab/1';let API,apiError='';try{API=C.resolveApi(location.href);}catch(e){apiError=e.message;}
   const BASE='https://github.com/prx0r/ipvv/blob/941ac2ecf1f8e5791a887d9d769159ecbffd7c04/site/data/pushing/tantraloka/';
   const seeds=[
     {label:'The perceiver · why is blue mine?',question:'If the perceiver is universal, why is blue manifest to me and not everyone?',file:'LOGICVID-session-Q1-reflexivity.md'},
@@ -115,7 +115,7 @@
   $('work').onchange=async()=>{const work=$('work').value;session={...session,work,target:''};save();try{await loadWork(work);}catch(e){status(e.message);}};
   $('target').onchange=async()=>{try{await chooseSource();}catch(e){status(e.message);}};
   $('attach-source').onclick=()=>{if(!verifiedSource)return;const {text,...reference}=verifiedSource;try{add({parent:selected,type:'source',origin:'source',text,reference});status('Source added. Add your interpretation as a separate node.');}catch(e){status(e.message);}};
-  async function request(path,method='GET',data){const r=await fetch(API+path,{method,credentials:'include',...(data?{headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}:{})});
+  async function request(path,method='GET',data){if(!API)throw Error(apiError||'Scholar API unavailable.');const r=await fetch(API+path,{method,credentials:'include',...(data?{headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}:{})});
     let value;try{value=await r.json();}catch{throw Error('Scholar backend returned an unexpected response.');}if(!r.ok)throw Error(value.error||'Scholar request failed.');return value;}
   async function profile(){const me=await request('/api/auth/me');if(!me.profile?.id)throw Error('Sign in to Scholar first.');return me.profile;}
   function checkPrivateOwners(nodes,uid){if(nodes.some(n=>n.private_ref&&n.private_ref.owner_id!==uid))throw Error('This enquiry includes an excerpt from a different Scholar account. Open that account or remove the excerpt before sending or saving it.');}
@@ -196,7 +196,7 @@
     status('Private essay draft saved. Open Scholar to review, invite review and sign off.');
   }catch(e){status(e.message);}};
   async function init(){
-    render();if(initialMessage)status(initialMessage);
+    render();if(initialMessage||apiError)status(initialMessage||apiError);
     try{const idx=await readJson('data/scholar/index.json');Object.keys(idx).sort().forEach(work=>$('work').append(option(work,work)));
       const q=new URL(location.href).searchParams;if(!session.work&&q.get('work')){session={...session,work:q.get('work'),target:q.get('target')||''};C.validateSession(session);save();}
       if(session.work)await loadWork(session.work,session.target);

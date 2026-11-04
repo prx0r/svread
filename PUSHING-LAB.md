@@ -21,7 +21,7 @@ Open `pushing.html` from the reader navigation. For local use:
 
 ```sh
 python3 -m http.server 8000
-# Open http://localhost:8000/pushing.html
+# Open http://127.0.0.1:8000/pushing.html
 ```
 
 - Start with a pinned link to one of four existing Tantrāloka enquiries, or type
@@ -48,6 +48,16 @@ python3 -m http.server 8000
   Scholar essay draft. The brief does not contain private document/account IDs.
   Scholar's existing human review, sign-off and publication flows remain separate.
 
+For development against a local Worker, configure its `CORS_ORIGIN` as
+`http://127.0.0.1:8000`, start it on `127.0.0.1:8787`, and open:
+
+`http://127.0.0.1:8000/pushing.html?api=http%3A%2F%2F127.0.0.1%3A8787`
+
+The `api` override is accepted only when both the page and the API are on a
+loopback host; a public page cannot be redirected to another API this way. The
+Worker currently fetches its evidence from the public svread projection URL, so
+its evidence must also be available there or supplied by a test adapter.
+
 The matching Scholar Worker and migrations are needed for account and Qwen
 buttons. A configured provider and explicit consent are needed for Qwen; the
 prototype's local enquiry, prompts and JSON import/export do not need either.
@@ -66,7 +76,8 @@ python3 scripts/release_manifest.py
 ```
 
 The optional browser test runs the actual page and local Worker against SQLite,
-with the Qwen provider mocked. It checks selected-branch isolation, declined
+with the Qwen provider and Worker projection fetch mocked; the browser reads the
+actual bundled projection. It checks selected-branch isolation, declined
 consent, source hold, private essay/snapshot saving, account switching and
 untrusted text rendering. It does not establish real D1, provider, deployment,
 philological correctness or independent peer review.
