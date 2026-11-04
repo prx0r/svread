@@ -17,7 +17,7 @@ invite peer review, sign off a revision privately and ask Qwen with explicit con
 The matching ipvv Worker branch and D1 migrations `0002_scholar_workspace.sql`,
 `0003_scholar_history.sql`, `0004_scholar_ai_limits.sql`,
 `0005_scholar_peer_review.sql`, `0006_scholar_style_examples.sql` and
-`0007_scholar_review_versions.sql` must be deployed first.
+`0007_scholar_review_versions.sql` through `0011_scholar_source_links.sql` must be deployed first.
 The revision history panel compares two private saved snapshots and can restore the
 second as a new revision;
 that invalidates any earlier sign-off. The history migration can recover only the
@@ -43,3 +43,26 @@ Before deployment run `node --check app.js` and
 `node --test tests/scholar-smoke.cjs tests/service-worker-privacy.test.cjs
 tests/scholar-workspace-ui.test.cjs`, and a real browser smoke test covering login,
 account switch, sign-out, offline fallback and actual Qwen voice with permission.
+
+
+The workspace also supports revision-bound private decisions, selected-text review
+comments, a source notebook, typed private source relationships and explicitly
+attached essay passage references. Private source notes and review comments are
+not included in public citations. Only selected, consented evidence is sent to
+Qwen; the source links themselves are not sent automatically.
+
+### Optional real-browser integration check
+
+With Playwright available to Node and a compatible Chromium binary, run:
+
+```sh
+SCHOLAR_BROWSER_EXECUTABLE=/path/to/chromium \
+SCHOLAR_WORKER_ROOT=/path/to/ipvv \
+node --test tests/scholar-browser.test.cjs
+```
+
+The first test uses a mocked account API; the second uses the local Worker and
+SQLite with two test accounts. Both use a local static site and mock external
+Qwen access. The tests do not establish production credentials, Cloudflare D1
+migrations, real provider usage, microphone permissions or deployment. They skip
+when the optional browser and Worker paths are not supplied.
