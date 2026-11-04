@@ -1,0 +1,172 @@
+#!/usr/bin/env python3
+"""Tests for lingua.py — the shared language. Fixture trees by env override,
+plus read-only probes against the live repos (reads only, never writes)."""
+import json
+import os
+import sys
+import tempfile
+import unittest
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import lingua
+from lingua import Unresolvable
+
+
+def write(p: Path, s: str) -> Path:
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(s)
+    return p
+
+
+class Fixture(unittest.TestCase):
+    def setUp(self):
+        self.tmp = Path(tempfile.mkdtemp())
+        self.env = {
+            "SVREAD_ROOT": str(self.tmp / "svread"),
+            "TRANSLATION_WORK_ROOT": str(self.tmp / "tw"),
+            "NIBBANAHELP_ROOT": str(self.tmp / "nib"),
+            "IPVV_ROOT": str(self.tmp / "ipvv"),
+            "AOC_ROOT": str(self.tmp / "aoc"),
+        }
+        self.old = {k: os.environ.get(k) for k in self.env}
+        os.environ.update(self.env)
+        for mod in (lingua,):
+            mod.SVREAD = Path(self.env["SVREAD_ROOT"])
+            mod.TW = Path(self.env["TRANSLATION_WORK_ROOT"])
+            mod.NIB = Path(self.env["NIBBANAHELP_ROOT"])
+            mod.IPVV = Path(self.env["IPVV_ROOT"])
+            mod.AOC = Path(self.env["AOC_ROOT"])
+        r = self.tmp
+        write(r / "tw" / "demo-a01" / "STATUS.json",
+              '{"counts": {"passages": 2}}')
+        write(r / "tw" / "demo-a01" / "passages.jsonl",
+              '{"locator": "d01-p01", "verses": "1.1", "order": 1}\n')
+        write(r / "svread" / "data" / "scholar" / "demo-a01.json",
+              '{"work": "demo-a01", "essays": []}')
+        write(r / "svread" / "data" / "pushing-catalog.json",
+              '{"format": "x", "revision": "r", "records": ['
+              '{"file": "demo-a01/LOGICVID-x.md", "git_blob": "abc", '
+              '"question": "why?", "title": "T", "work": "demo-a01"}]}')
+        write(r / "nib" / "tensions" / "t1.md",
+              "id: t1\nvisibility: public\nstatus: loosening\n"
+              "domain: doubt\nroots: [moha]\nsummary: a test knot\n---\nbody\n")
+        write(r / "nib" / "essays" / "e1.md",
+              "day: 1\nvisibility: public\nvoice: own\naudio: -\n"
+              "resolves: t1\n---\n# Title\n\nSome text here.\n")
+        write(r / "nib" / "tensions" / "_links.json", json.dumps({
+            "t1": {"essays": ["essays/e1.md"], "videos": ["videos/e1.read.pack.md"],
+                   "packs": ["videos/e1.read.pack.md"],
+                   "evidence": ["tension:t1", "demo-a01:d01-p01"]}}))
+        write(r / "nib" / "videos" / "e1.read.pack.md",
+              "essay: essays/e1.md\ntension: t1\nvisibility: public\nform: read\n"
+              "evidence: tension:t1, demo-a01:d01-p01\ncontract: c\nbeats: 1\n"
+              "runtime_seconds: 10\n---\n# P\n\n## Beat 1 (~10s)\n\nSome text here.\n")
+        write(r / "aoc" / "receipts" / "content.jsonl",
+              '{"receipt_id": "r1", "event": "carousel_built", "at": "t", '
+              '"data": {"content_id": "aoc_x", "hook": "h", "template": "t", '
+              '"slides": 7, "zip": "z"}}\n')
+
+    def tearDown(self):
+        for k, v in self.old.items():
+            if v is None:
+                os.environ.pop(k, None)
+            else:
+                os.environ[k] = v
+        import lingua as m
+        m.SVREAD = Path(os.environ.get("SVREAD_ROOT", "/root/svread"))
+        m.TW = Path(os.environ.get("TRANSLATION_WORK_ROOT", "/root/translation-work"))
+        m.NIB = Path(os.environ.get("NIBBANAHELP_ROOT", "/root/nibbanahelp"))
+        m.IPVV = Path(os.environ.get("IPVV_ROOT", "/root/ipvv"))
+        m.AOC = Path(os.environ.get("AOC_ROOT", "/root/aoc"))
+
+    def test_resolve_each_atom(self):
+        self.assertEqual(lingua.resolve("work:demo-a01")["passages"], 1)
+        c = lingua.resolve("chunk:demo-a01:d01-p01")
+        self.assertEqual(c["verses"], "1.1")
+        self.assertTrue(c["projection"])
+        t = lingua.resolve("tension:t1")
+        self.assertEqual(t["status"], "loosening")
+        self.assertEqual(t["essays"], ["essays/e1.md"])
+        cr = lingua.resolve("crux:demo-a01:LOGICVID-x")
+        self.assertEqual(cr["question"], "why?")
+        e = lingua.resolve("essay:personal:essays/e1.md")
+        self.assertEqual(e["resolves"], "t1")
+        self.assertIn("Some text", e["excerpt"])
+        p = lingua.resolve("pack:videos/e1.read.pack.md")
+        self.assertEqual(p["form"], "read")
+        self.assertEqual(p["evidence"], ["tension:t1", "demo-a01:d01-p01"])
+        a = lingua.resolve("aoc:aoc_x")
+        self.assertEqual(a["hook"], "h")
+
+    def test_resolve_fails_closed(self):
+        for bad in ("work:nope", "chunk:demo-a01:nope", "tension:ghost",
+                    "crux:demo-a01:nope", "essay:personal:essays/nope.md",
+                    "pack:videos/nope.pack.md", "aoc:nope", "frobnicate:x",
+                    "essay:scholar:demo-a01:essay:123"):
+            with self.assertRaises(Unresolvable, msg=bad):
+                lingua.resolve(bad)
+
+    def test_links_tension_is_the_hub(self):
+        got = lingua.links("tension:t1")
+        self.assertIn("essay:personal:essays/e1.md", got)
+        self.assertIn("pack:videos/e1.read.pack.md", got)
+        self.assertIn("chunk:demo-a01:d01-p01", got)
+        # reverse directions meet at the same hub
+        self.assertIn("tension:t1", lingua.links("essay:personal:essays/e1.md"))
+        self.assertIn("tension:t1", lingua.links("pack:videos/e1.read.pack.md"))
+        self.assertIn("pack:videos/e1.read.pack.md",
+                      lingua.links("chunk:demo-a01:d01-p01"))
+        self.assertIn("crux:demo-a01:LOGICVID-x", lingua.links("work:demo-a01"))
+
+    def test_private_essay_body_withheld(self):
+        write(self.tmp / "nib" / "essays" / "priv.md",
+              "day: 1\nvisibility: private\nvoice: own\naudio: -\n---\n# P\n\nsecret\n")
+        rec = lingua.resolve("essay:personal:essays/priv.md")
+        self.assertEqual(rec["excerpt"], "(withheld: not public)")
+
+    def test_check_clean_and_broken(self):
+        self.assertEqual(lingua.check(), 0)
+        (self.tmp / "nib" / "videos" / "e1.read.pack.md").write_text(
+            (self.tmp / "nib" / "videos" / "e1.read.pack.md").read_text().replace(
+                "demo-a01:d01-p01", "demo-a01:ghost"))
+        self.assertEqual(lingua.check(), 1)
+
+    def test_tensions_lists_both_kinds(self):
+        ids = [t["id"] for t in lingua.all_tensions()]
+        self.assertIn("tension:t1", ids)
+        self.assertIn("crux:demo-a01:LOGICVID-x", ids)
+
+
+class LiveReadOnly(unittest.TestCase):
+    """Probes against the real repos. Reads only — fails if repos move."""
+
+    def test_live_chunk_and_work(self):
+        c = lingua.resolve("chunk:tantrasara-a01:tsa01-p01")
+        self.assertEqual(c["verses"], "1.1-1.5")
+        w = lingua.resolve("work:tantrasara-a01")
+        self.assertGreaterEqual(w["passages"], 1)
+
+    def test_live_tensions_and_cruxes(self):
+        t = lingua.resolve("tension:debt-1500")
+        self.assertEqual(t["status"], "loosening")
+        ids = [x["id"] for x in lingua.all_tensions()]
+        self.assertIn("tension:debt-1500", ids)
+        self.assertTrue(any(x.startswith("crux:") for x in ids))
+
+    def test_live_scholar_essay_and_links(self):
+        from lingua import load_json
+        d = load_json(Path("/root/svread/data/scholar/paramarthasara.json"))
+        eid = d["essays"][0]["essay_id"]
+        rec = lingua.resolve(f"essay:scholar:paramarthasara:{eid}")
+        self.assertEqual(rec["author"], "Svatantrya Editorial")
+        self.assertIn(f"work:paramarthasara",
+                      lingua.links(f"essay:scholar:paramarthasara:{eid}"))
+
+    def test_live_aoc_receipt(self):
+        rec = lingua.resolve("aoc:aoc_66b19fb4c46b")
+        self.assertEqual(rec["template"], "opportunity")
+
+
+if __name__ == "__main__":
+    unittest.main()

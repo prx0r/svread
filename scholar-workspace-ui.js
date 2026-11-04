@@ -146,7 +146,8 @@
           <button class="c2btn" id="workspace-ask">Ask Qwen</button><div class="cmp-note">Your selected passage, essay, examples and feedback are sent to Qwen only after your confirmation.</div>
           <pre id="workspace-output">${e(this.agent?.content?.text||'')}</pre><button class="c2btn" id="workspace-use">Use agent draft</button></details>
         <details><summary>Voice conversation</summary><button class="c2btn" id="workspace-talk">Talk</button><button class="c2btn" id="workspace-send">Send</button><button class="c2btn" id="workspace-end">End</button>
-          <div class="cmp-note">Audio and this passage go to Qwen after consent; transcripts are saved privately. Provider usage may consume quota.</div><pre id="workspace-voice-text">${e(this.voiceText)}</pre></details>
+          <label><input type="checkbox" id="workspace-voice-essay"/> Include my selected essay draft</label>
+          <div class="cmp-note">Audio and this passage go to Qwen after consent; transcripts are saved privately. Provider usage may consume quota. The essay draft is sent only if checked, and only the exact saved revision.</div><pre id="workspace-voice-text">${e(this.voiceText)}</pre></details>
         <details><summary>Peer review</summary><select id="workspace-review-kind"><option value="translation">Current translation</option><option value="essay">Selected essay</option></select>
           <input id="workspace-reviewer" placeholder="Reviewer account ID"/><button class="c2btn" id="workspace-share">Share saved revision</button>
           ${reviews.map(r=>`<div class="cmp-note">${e(r.document_id)} · revision ${r.revision} · ${e(r.decision||'awaiting review')} · ${e((r.snapshot_sha256||'').slice(0,12))}</div><pre id="workspace-review-snapshot-${e(r.id)}">${e(r.snapshot?.content?.text||'')}</pre>
@@ -297,9 +298,14 @@
       };
       $('#workspace-talk').onclick=async()=>{
         if(!this.voice){
-          if(!root.confirm('Send your voice and this passage to Qwen? Provider realtime usage may consume quota.'))return;
+          const withEssay=$('#workspace-voice-essay')?.checked;
+          const essayDoc=withEssay&&this.essayId?this.docs.get(this.essayId):null;
+          if(withEssay&&(!this.essayId||!essayDoc)){this.status('Select or create an essay first to include it.');return;}
+          if(!root.confirm(withEssay?'Send your voice, this passage and your saved essay revision to Qwen? Provider realtime usage may consume quota.':'Send your voice and this passage to Qwen? Provider realtime usage may consume quota.'))return;
           const url=new URL(this.api);url.protocol=url.protocol==='https:'?'wss:':'ws:';url.pathname='/api/scholar/voice';
-          url.search=new URLSearchParams({work:this.work,target}).toString();const owner=accountId;
+          const params={work:this.work,target};
+          if(withEssay){params.document_id=this.essayId;params.revision=String(essayDoc.revision);params.consent_to_ai='true';}
+          url.search=new URLSearchParams(params).toString();const owner=accountId;
           this.voice=new root.ScholarVoice({url:url.toString(),onStatus:message=>this.status(message),
             onTranscript:(who,text)=>{if(this.profile()?.id!==owner)return;this.voiceText=who+': '+text;const node=$('#workspace-voice-text');if(node)node.textContent=this.voiceText;},
             onComplete:turn=>{if(this.profile()?.id!==owner||(!turn.user&&!turn.agent))return;

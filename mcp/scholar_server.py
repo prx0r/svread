@@ -2,6 +2,13 @@
 """Local stdio MCP bridge to bundled evidence and the authenticated Scholar API."""
 import difflib, hashlib, importlib.metadata, json, os, re, sys, tempfile, urllib.error, urllib.parse, urllib.request
 from pathlib import Path
+import audit as draft_audit
+import search as corpus_search
+try:
+    sys.path.insert(0, '/root/svread/tools')
+    import lingua as lingua_resolver
+except ImportError:
+    lingua_resolver = None
 
 ROOT = Path(__file__).resolve().parent.parent
 IDENT = re.compile(r'^[A-Za-z0-9][A-Za-z0-9_.:-]{0,159}$')
@@ -170,6 +177,22 @@ def call(name,a):
     if name=='save_document': return api('PUT','/api/scholar/documents/'+ident(a.get('document_id')),a.get('document'))
     if name=='request_review': return api('POST','/api/scholar/reviews',a)
     if name=='draft_with_qwen': return api('POST','/api/scholar/assist',a)
+    if name=='search_texts':
+        return corpus_search.search_texts(a.get('query'),work=a.get('work'),kind=a.get('kind'),
+            top_k=a.get('top_k',8) if a.get('top_k') is not None else 8,gates=a.get('gates'))
+    if name=='text_themes':
+        return corpus_search.text_themes(work=a.get('work'),ref=a.get('ref'),query=a.get('query'))
+    if name=='audit_draft':
+        return draft_audit.audit(a.get('text'),refs=a.get('refs'),sources=a.get('sources'),
+            identity=a.get('identity') or 'scholar-mcp/audit',model=a.get('model') or '')
+    if name in ('resolve_ref','ref_links'):
+        if lingua_resolver is None: raise ValueError('Shared-language resolver unavailable')
+        ident(a.get('id'))
+        if name=='resolve_ref':
+            try: return lingua_resolver.resolve(a.get('id'))
+            except lingua_resolver.Unresolvable as e: raise ValueError(str(e))
+        try: return {'id':a.get('id'),'links':lingua_resolver.links(a.get('id'))}
+        except lingua_resolver.Unresolvable as e: raise ValueError(str(e))
     raise ValueError('Unknown tool')
 
 S= lambda props, required=[]: {'type':'object','properties':props,'required':required,'additionalProperties':False}
@@ -199,7 +222,12 @@ TOOLS=[
  ('delete_decision','Remove an owned private editorial decision.',S({'decision_id':T},['decision_id'])),
  ('save_document','Save a private draft with expected_revision; conflicts are rejected.',S({'document_id':T,'document':{'type':'object'}},['document_id','document'])),
  ('request_review','Request private review of an exact saved revision.',S({'document_id':T,'reviewer_id':T,'revision':{'type':'integer'}},['document_id','reviewer_id','revision'])),
- ('draft_with_qwen','Request an agent draft; the Scholar API requires explicit consent and configured quotas.',S({'work':T,'target':T,'layer':T,'kind':T,'instruction':T,'consent_to_ai':{'type':'boolean'},'use_style':{'type':'boolean'},'style_example_ids':{'type':'array','items':T},'decision_ids':{'type':'array','items':T},'source_ids':{'type':'array','items':T},'scholar_essays':{'type':'array','items':S({'work':T,'essay_id':T},['work','essay_id']),'maxItems':3},'review_ids':{'type':'array','items':T},'document_id':T,'revision':{'type':'integer'}},['work','target','layer','kind','instruction','consent_to_ai']))]
+ ('draft_with_qwen','Request an agent draft; the Scholar API requires explicit consent and configured quotas.',S({'work':T,'target':T,'layer':T,'kind':T,'instruction':T,'consent_to_ai':{'type':'boolean'},'use_style':{'type':'boolean'},'style_example_ids':{'type':'array','items':T},'decision_ids':{'type':'array','items':T},'source_ids':{'type':'array','items':T},'scholar_essays':{'type':'array','items':S({'work':T,'essay_id':T},['work','essay_id']),'maxItems':3},'review_ids':{'type':'array','items':T},'document_id':T,'revision':{'type':'integer'}},['work','target','layer','kind','instruction','consent_to_ai'])),
+ ('search_texts','Semantic search over the gate-labeled corpus (passages, probes, essays, themes). BLOCKED English is never returned.',S({'query':T,'work':T,'kind':T,'top_k':{'type':'integer'},'gates':{'type':'array','items':T}},['query'])),
+ ('text_themes','Themes evidence for a work or ref: labels, core claims, certificates, members.',S({'work':T,'ref':T,'query':T})),
+ ('audit_draft','Audit a draft: every citation must resolve, every quote verify verbatim, externals need retrieval notes. Returns a content-hash receipt.',S({'text':T,'refs':{'type':'array','items':{'type':'object'}},'sources':{'type':'object'},'identity':T,'model':T},['text'])),
+ ('resolve_ref','Resolve any shared-language ID (work/chunk/tension/crux/essay/pack/aoc) to bytes, status and license. Fails closed.',S({'id':T},['id'])),
+ ('ref_links','Every ID connected to the given one — tension is the hub, links are verified both directions.',S({'id':T},['id']))]
 
 def handle(req):
     method=req.get('method'); params=req.get('params') or {}
