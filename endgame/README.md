@@ -50,6 +50,9 @@ scarce provenance.
 10. **`SATSANG-INTEGRATION.md`** — the surfaces: TV, video gen, practice,
     community; the seven-surface spine and tasks S1–S7 (day counter, guided
     Qwen-from-source, syllabus compiler, courses, content loop).
+11. **`SYLLABUS-COMPILER.md`** — the pathways endgame: retarget satsang's
+    shipped text→practice machinery at Tantrāloka (three spines, eligibility
+    gate, IDs on Treeka); phases C1–C4.
 
 ## The invariant (never violate)
 

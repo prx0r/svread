@@ -151,8 +151,14 @@ unsigned lower rungs. This is the ordering law.
   one journey truth across satsang, nibbanahelp, journey ledger.
 - **4.2 S2 guided-session proof** — source → deitybody protocol → Qwen realtime
   speaks from gated passages → logged journey block.
-- **4.3 S3 syllabus compiler** — text → units → practices + standardized
-  visualization grammar (northstar verbatim).
+- **4.3 S3 syllabus compiler — Trika, aimed at Tantrāloka** (full spec:
+  `endgame/SYLLABUS-COMPILER.md`) — retarget satsang's shipped text→practice
+  pipeline (keep machinery + laws, replace content target): three spines
+  (TS six questions · TĀ 37-āhṇika order · deitybody eight-phase), unitize →
+  type → **eligibility gate** (text-study vs doable vs requires-dīkṣā) → path
+  assembly with lingua IDs. Phases: C1 one practice unit rendered → C2 all 37
+  āhṇikas classified → C3 path IDs + Series + practice proposals → C4 loop
+  closure (day-gate, request→vid, For-You).
 - **4.4 S4/S5 content loop** — packs/chapters → tantrasara factory → satsang
   Watch/For-You; generated-vs-catalogue labels always on.
 - **4.5 S6/S7** — journey-ledger witnesses shared (owner-gated); three
