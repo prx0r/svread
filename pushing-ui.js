@@ -14,6 +14,7 @@
   let session,selected=null,projection=null,verifiedSource=null,loadSerial=0,proposalParent=null,proposalSession=null;
   let accountEssays=[],accountEnquiries=[],accountEssayOwner=null,accountEnquiryOwner=null;
   let notebook=[],published=[],styles=[],notebookOwner=null,publishedOwner=null,styleOwner=null,generatedEssay=null;
+  const selectedScholarKeys=new Set();
   let initialMessage='';
   try{const raw=localStorage.getItem(KEY);session=raw?C.validateSession(JSON.parse(raw)):C.makeSession();}
   catch{session=C.makeSession();initialMessage='The saved enquiry could not be read. Import a backup before replacing it.';}
@@ -112,14 +113,14 @@
     verifiedSource={work:session.work,target,projection_sha256:projection.projection_sha256,t1_sha256:hash,source_edition:edition,text:v.text};
     $('source').textContent=`${target} · ${edition}\n\n${v.text}\n\nBundle hash checked. Verify edition and full passage coverage independently.`;$('attach-source').disabled=false;$('save-source').disabled=false;
   }
-  $('work').onchange=async()=>{const work=$('work').value;published=[];publishedOwner=null;$('scholarship').replaceChildren();session={...session,work,target:''};save();try{await loadWork(work);}catch(e){status(e.message);}};
+  $('work').onchange=async()=>{const work=$('work').value;$('scholar-work').value=work;session={...session,work,target:''};save();try{await loadWork(work);}catch(e){status(e.message);}};
   $('target').onchange=async()=>{try{await chooseSource();}catch(e){status(e.message);}};
   $('attach-source').onclick=()=>{if(!verifiedSource)return;const {text,...reference}=verifiedSource;try{add({parent:selected,type:'source',origin:'source',text,reference});status('Source added. Add your interpretation as a separate node.');}catch(e){status(e.message);}};
   async function request(path,method='GET',data){if(!API)throw Error(apiError||'Scholar API unavailable.');const r=await fetch(API+path,{method,credentials:'include',...(data?{headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}:{})});
     let value;try{value=await r.json();}catch{throw Error('Scholar backend returned an unexpected response.');}if(!r.ok)throw Error(value.error||'Scholar request failed.');return value;}
   async function profile(){const me=await request('/api/auth/me');if(!me.profile?.id)throw Error('Sign in to Scholar first.');return me.profile;}
   function checkPrivateOwners(nodes,uid){if(nodes.some(n=>n.private_ref&&n.private_ref.owner_id!==uid))throw Error('This enquiry includes an excerpt from a different Scholar account. Open that account or remove the excerpt before sending or saving it.');}
-  function clearPrivateViews(){accountEssays=[];accountEnquiries=[];accountEssayOwner=null;accountEnquiryOwner=null;notebook=[];published=[];styles=[];notebookOwner=null;publishedOwner=null;styleOwner=null;$('style-choices').replaceChildren();$('source-choices').replaceChildren();$('scholarship').replaceChildren();$('scholar-essays').replaceChildren(option('','Choose an essay'));$('scholar-excerpt').value='';$('account-enquiries').replaceChildren(option('','Choose a saved enquiry'));}
+  function clearPrivateViews(){accountEssays=[];accountEnquiries=[];accountEssayOwner=null;accountEnquiryOwner=null;notebook=[];published=[];styles=[];notebookOwner=null;publishedOwner=null;styleOwner=null;selectedScholarKeys.clear();$('style-choices').replaceChildren();$('source-choices').replaceChildren();$('scholarship').replaceChildren();$('scholar-essays').replaceChildren(option('','Choose an essay'));$('scholar-excerpt').value='';$('account-enquiries').replaceChildren(option('','Choose a saved enquiry'));}
   async function checkVisibleAccount(){if(!accountEssayOwner&&!accountEnquiryOwner&&!notebookOwner&&!publishedOwner&&!styleOwner)return;try{const owner=await profile();if((accountEssayOwner&&owner.id!==accountEssayOwner)||(accountEnquiryOwner&&owner.id!==accountEnquiryOwner)||(notebookOwner&&owner.id!==notebookOwner)||(publishedOwner&&owner.id!==publishedOwner)||(styleOwner&&owner.id!==styleOwner)){clearPrivateViews();status('Account changed; private Scholar lists were cleared.');}}catch{clearPrivateViews();status('Signed out; private Scholar lists were cleared.');}}
   addEventListener('focus',checkVisibleAccount);
   $('save-source').onclick=async()=>{try{
@@ -150,7 +151,9 @@
   function renderPublished(){const box=$('scholarship');box.replaceChildren();
     if(!published.length){box.append(el('p','No published essays in this work yet.','note'));return;}
     published.forEach((essay,index)=>{const row=el('div',undefined,'citation'),label=el('label'),choice=el('input');choice.type='checkbox';choice.className='scholar-choice';choice.value=String(index);
-      choice.disabled=!essay.allow_answers&&!essay.allow_drafts;label.append(choice,document.createTextNode(` ${essay.title} · ${essay.author}`));row.append(label);
+      const key=essay.work+'\0'+essay.essay_id;choice.disabled=!essay.allow_answers&&!essay.allow_drafts;choice.checked=selectedScholarKeys.has(key)&&!choice.disabled;
+      choice.onchange=()=>{if(choice.checked)selectedScholarKeys.add(key);else selectedScholarKeys.delete(key);};
+      label.append(choice,document.createTextNode(` ${essay.title} · ${essay.author} · ${essay.work}`));row.append(label);
       row.append(el('div',`Allowed: ${essay.allow_answers?'answers':'no answers'} · ${essay.allow_drafts?'drafts':'no drafts'}`,'note'));
       if(essay.owned){const panel=el('div',undefined,'grant-controls'),a=el('input'),d=el('input'),al=el('label'),dl=el('label');a.type=d.type='checkbox';a.className='grant-answers';d.className='grant-drafts';a.checked=essay.allow_answers;d.checked=essay.allow_drafts;
         al.append(a,document.createTextNode('Allow AI answers from this version'));dl.append(d,document.createTextNode('Allow AI essay drafting from this version'));
@@ -158,14 +161,16 @@
           if(!confirm(`For this exact published essay, ${allowAnswers?'allow':'disallow'} AI answers and ${allowDrafts?'allow':'disallow'} AI essay drafts?`))return;
           if((await profile()).id!==owner.id||a.checked!==allowAnswers||d.checked!==allowDrafts)throw Error('Account or permissions changed; try again.');
           await request('/api/scholar/essay-permissions','PUT',{work:essay.work,essay_id:essay.essay_id,allow_answers:allowAnswers,allow_drafts:allowDrafts,confirmed:true});
-          essay.allow_answers=allowAnswers;essay.allow_drafts=allowDrafts;renderPublished();status('Permissions updated for this published version.');
+          essay.allow_answers=allowAnswers;essay.allow_drafts=allowDrafts;if(!allowAnswers&&!allowDrafts)selectedScholarKeys.delete(key);renderPublished();status('Permissions updated for this published version.');
         }catch(e){status(e.message);}}));row.append(panel);}
       box.append(row);});
   }
   $('load-scholarship').onclick=async()=>{try{
-    if(!session.work)throw Error('Choose a work first.');const owner=await profile(),work=session.work,result=await request('/api/scholar/published-essays?work='+encodeURIComponent(work));
-    if((await profile()).id!==owner.id||session.work!==work)throw Error('Account or work changed; try again.');
-    publishedOwner=owner.id;published=result.essays||[];renderPublished();status(`${published.length} published essay(s) found.`);
+    const work=$('scholar-work').value;if(!work)throw Error('Choose a work for the scholarship.');const owner=await profile();
+    if(publishedOwner&&publishedOwner!==owner.id)clearPrivateViews();
+    const result=await request('/api/scholar/published-essays?work='+encodeURIComponent(work));
+    if((await profile()).id!==owner.id||$('scholar-work').value!==work)throw Error('Account or work changed; try again.');
+    publishedOwner=owner.id;published=[...published.filter(x=>x.work!==work),...(result.essays||[])];renderPublished();status(`${(result.essays||[]).length} published essay(s) found for ${work}.`);
   }catch(e){status(e.message);}};
   function showCitations(id,items){const box=$(id);box.replaceChildren();for(const c of items||[]){const row=el('div',undefined,'citation');
     row.append(el('strong',`[${c.marker}] ${c.author} · ${c.title} · paragraph ${c.paragraph}`));
@@ -280,9 +285,9 @@
   }catch(e){status(e.message);}};
   async function init(){
     render();if(initialMessage||apiError)status(initialMessage||apiError);
-    try{const idx=await readJson('data/scholar/index.json');Object.keys(idx).sort().forEach(work=>$('work').append(option(work,work)));
+    try{const idx=await readJson('data/scholar/index.json');Object.keys(idx).sort().forEach(work=>{$('work').append(option(work,work));$('scholar-work').append(option(work,work));});
       const q=new URL(location.href).searchParams;if(!session.work&&q.get('work')){session={...session,work:q.get('work'),target:q.get('target')||''};C.validateSession(session);save();}
-      if(session.work)await loadWork(session.work,session.target);
+      if(session.work){$('scholar-work').value=session.work;await loadWork(session.work,session.target);}
     }catch(e){status('Passage lookup: '+e.message);}
   }
   init();

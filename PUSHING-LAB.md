@@ -40,7 +40,7 @@ python3 -m http.server 8000
   different signed-in account cannot send or save that referenced excerpt. The
   local copy remains on the device after sign-out; the user is told before adding it.
 - Select saved passage references, including their private notes, and published
-  scholar essays whose authors have permitted the requested use. Authors can grant
+  scholar essays from one or more works whose authors have permitted the requested use. Authors can grant
   answers and essay drafting separately for an exact published version, or revoke
   those grants. No permission is inferred from copyright or publication alone.
 - Ask Qwen about the selected branch only after confirmation. The Worker retrieves
@@ -83,9 +83,9 @@ python3 scripts/release_manifest.py
 ```
 
 The optional browser test runs the actual page and local Worker against SQLite,
-with the Qwen provider and Worker projection fetch mocked; the browser reads a
-hash-valid projection containing a test published essay. It checks scoped author
-permission, selected C1 and style examples, cited AI essay drafting, selected-branch
+with the Qwen provider and Worker projection fetch mocked; the browser reads
+hash-valid projections containing test published essays from two works. It checks
+scoped author permission, selected C1 and style examples, cited AI essay drafting, selected-branch
 isolation, declined consent, source holds, private saving, account switching and
 untrusted text rendering. It does not establish real D1, provider, deployment,
 philological correctness or independent peer review.
