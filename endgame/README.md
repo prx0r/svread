@@ -22,6 +22,7 @@ scarce provenance.
 | **openpatala** | **IDENTITY** — the witness root: Work→Edition→Witness→Surrogate→EText ladder, 1,099 works, 11 adapters, Merkle event ledger, R0–R5 resolver. Answers "which edition is this passage from?" | `openpatala/README.md` (what it is) · `MASTER.md` (file map) |
 | **translation-work + Scholar stack** | **EVIDENCE + AUTHORITY** — chunk ledgers, layered texts (T1→L4) with gates/proofs, ARGMAP arguments, Scholar workspace: drafts, decisions, review, signoff with rights → bridge → git → release → permissions | live docs below (not copied here — they change) |
 | **nibbanahelp** | **PERSONAL + ORGANISM** — the second tension ontology (same open→loosening→resolved lifecycle), the live consumer/relay surface (canon/lineage/lived/trika tiers, never advises), the demand signal (logged questions), the lived-experience corpus; journey-ledger spec (owner-gated) | `NIBBANAHELP-INTEGRATION.md` (role + what needs doing) |
+| **sanskrithelp** | **STUDY + BODY-DATA + TRANSLATION FRONTIER** — grammar/drills/readings surface (sanskrit.help); mātrikā body loci = verse-literal **TĀ 15.117–120, 50 loci** (the visualization truth source); VBT daily (65/112) + matrka syllabus (pilot inputs); phonemic-body translation queue (5 targets) | `SANSKRITHELP-INTEGRATION.md` (SH1–SH3) |
 | **satsang + tantrasara + deitybody** | **SURFACES — TV · video gen · practice · community** — satsang: directory, Watch/TV, Series courses, day-gated journeys, For-You tension blocks, open MCP API (live); tantrasara: the chapter video factory; deitybody: text→syllabus→practice→body map | `SATSANG-INTEGRATION.md` (roles + tasks S1–S7) |
 | **The estate** | **RAW MATERIAL** — the owner's essays (awesome-essays 90-categorized), research-library, essay kits (STRUCTURE/ACQUIRE/WEAVE/PUSHBACK), pushing cruxes, slang editions | see `../RESOURCES.md` §A |
 
@@ -51,8 +52,11 @@ scarce provenance.
     community; the seven-surface spine and tasks S1–S7 (day counter, guided
     Qwen-from-source, syllabus compiler, courses, content loop).
 11. **`SYLLABUS-COMPILER.md`** — the pathways endgame: retarget satsang's
-    shipped text→practice machinery at Tantrāloka (three spines, eligibility
-    gate, IDs on Treeka); phases C1–C4.
+    shipped text→practice machinery at Trika — **pilot = VBT** (module imported
+    at `/root/satsang-practice`, tests green), eligibility gate, Treeka IDs;
+    phases C1–C4.
+12. **`SANSKRITHELP-INTEGRATION.md`** — the study surface + body-data truth
+    source (TĀ 15.117–120 loci) + translation frontier feeding step 3.
 
 ## The invariant (never violate)
 

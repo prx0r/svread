@@ -66,3 +66,15 @@ right im seeing it now the endgame is this machine right with structure that you
   (verbatim gate + receipts), zenodo_publish (bundle proven, token pending),
   resolve.py (tension→essay→video, 4 forms), lingua (60 tensions), MCP
   30 tools, Qwen text live, voice wire-proven.
+
+```text
+ok i gues we can import it oooh fuck yeah vbt is perfect for this remember our interactive viz.. might also be in /sanskrithelp oh yeah tahts another one we can have ahaha sanskrit study whats the main plan of attack here I reckon get everything openpatala, get all translations sanskritbenched, get ipvv and tantraloka fully translsated and sanskritbenched and then from there sort out all the datastructures adn make pathways content etc
+```
+
+### Master sequence mapped (agent note, 2026-11-05) — follow this order tomorrow
+
+1. **Get everything openpatala** → source records for all 86 works + chunk↔openpatala bridge + register **IPVV** (currently absent from its translation-availability) and our projected works.
+2. **All translations sanskritbenched** → sanskritbench Phase 1 tau table + gate-vs-gold calibration + proof-gate sweep (state: 951/1240 site rows PASS; TĀ 0/605 gate-PASS).
+3. **IPVV + TĀ fully translated and sanskritbenched** → translation track (translation-work lane; coordinate with its agents; the 42/42 gold pattern is proven).
+4. **All datastructures** → decision trail at ingest, ARGMAP nodes, source-map (Phase 0 remainder).
+5. **Pathways + content** → Treeka, syllabus C1–C4 (VBT pilot, module imported at /root/satsang-practice), courses, vids.

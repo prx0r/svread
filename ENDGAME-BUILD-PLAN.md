@@ -5,9 +5,29 @@ Session handover, 2026-11-05. Read this first tomorrow. Companion docs:
 (operational contract), `SCHOLAR-ENDGAME-VISION.md` (owner words verbatim),
 `translation-work/BUILD-2026-11-04-P0.md` (P0 build log).
 
-**Tomorrow's first move: sanskritbench Phase 1 — the Kendall's-tau table on our own
-gold (no GPU, free models, `validate_benchmark.py --dry-run` first).** The why is
-in §4.1.
+## 0. MASTER SEQUENCE (owner, 2026-11-05 — this is the order)
+
+Verbatim in `SCHOLAR-ENDGAME-VISION.md`. Execute in this order:
+
+1. **Get everything openpatala** → uniform source records (§Phase 0.1) +
+   chunk↔openpatala bridge (§Phase 0.2) + register **IPVV and our 86 works**
+   (IPVV is currently absent from openpatala's translation-availability; our
+   chunk ledgers point nowhere upstream).
+2. **All translations sanskritbenched** → sanskritbench Phase 1 tau table +
+   gate-vs-gold calibration + proof-gate sweep over existing translations
+   (state: 951/1,240 site rows PASS; TĀ 0/605 gate-PASS).
+3. **IPVV + Tantrāloka fully translated and sanskritbenched** → the
+   translation track. **Lane note:** translation-work is owned by other agents
+   (gold batch running: 42/42 CANONICAL pattern proven) — coordinate; this plan
+   tracks it, does not write it. sanskrithelp's TRANSLATION_FRONTIER targets
+   (5 phonemic-body texts) queue here (`endgame/SANSKRITHELP-INTEGRATION.md` SH3).
+4. **All datastructures** → Phase 0 remainder: decision trail at ingest,
+   ARGMAP nodes, source-map sidecar.
+5. **Pathways + content** → Treeka view, syllabus C1–C4 (VBT pilot; module
+   imported at `/root/satsang-practice`), courses, vids.
+
+**Tomorrow's first move: step 1 — openpatala-ize.** (The tau table of §4.1 is
+step 2's opener and stays ready: `validate_benchmark.py --dry-run` first.)
 
 ---
 
