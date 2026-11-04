@@ -22,6 +22,7 @@ scarce provenance.
 | **openpatala** | **IDENTITY** — the witness root: Work→Edition→Witness→Surrogate→EText ladder, 1,099 works, 11 adapters, Merkle event ledger, R0–R5 resolver. Answers "which edition is this passage from?" | `openpatala/README.md` (what it is) · `MASTER.md` (file map) |
 | **translation-work + Scholar stack** | **EVIDENCE + AUTHORITY** — chunk ledgers, layered texts (T1→L4) with gates/proofs, ARGMAP arguments, Scholar workspace: drafts, decisions, review, signoff with rights → bridge → git → release → permissions | live docs below (not copied here — they change) |
 | **nibbanahelp** | **PERSONAL + ORGANISM** — the second tension ontology (same open→loosening→resolved lifecycle), the live consumer/relay surface (canon/lineage/lived/trika tiers, never advises), the demand signal (logged questions), the lived-experience corpus; journey-ledger spec (owner-gated) | `NIBBANAHELP-INTEGRATION.md` (role + what needs doing) |
+| **satsang + tantrasara + deitybody** | **SURFACES — TV · video gen · practice · community** — satsang: directory, Watch/TV, Series courses, day-gated journeys, For-You tension blocks, open MCP API (live); tantrasara: the chapter video factory; deitybody: text→syllabus→practice→body map | `SATSANG-INTEGRATION.md` (roles + tasks S1–S7) |
 | **The estate** | **RAW MATERIAL** — the owner's essays (awesome-essays 90-categorized), research-library, essay kits (STRUCTURE/ACQUIRE/WEAVE/PUSHBACK), pushing cruxes, slang editions | see `../RESOURCES.md` §A |
 
 ## Reading order (high level, ~15 minutes)
@@ -46,6 +47,9 @@ scarce provenance.
    their own words.
 9. **`NIBBANAHELP-INTEGRATION.md`** — the fifth system: how the personal
    tension surface and the organism fit, and the five tasks (N1–N5) to wire it.
+10. **`SATSANG-INTEGRATION.md`** — the surfaces: TV, video gen, practice,
+    community; the seven-surface spine and tasks S1–S7 (day counter, guided
+    Qwen-from-source, syllabus compiler, courses, content loop).
 
 ## The invariant (never violate)
 

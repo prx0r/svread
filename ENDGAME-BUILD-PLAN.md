@@ -34,6 +34,7 @@ signature; nothing publishes without it.
 | **sanskritbench** | **VERIFY** — the legitimacy engine. Gold control (5,601 exemplars + Mitrasāmgraha 5,552 + IPVV 49 + frontier 14,138 + MQM annotation), the deterministic proof gate (SOURCE_BINDING/COVERAGE/ABSTENTION/TERM_CONSISTENCY/CITATION_GROUNDING — *the lineage of translation-work's GATE.json*), the COMET-vs-chrF meta-eval (Kendall's tau, WMT protocol), `experiment_lab` + `run_recorder` (content-addressed logged numbers), lemma spine (ByT5 + Vidyut → school/period sense → persona LoRA). Hermes skills/goals/kanban: cannot mark done without a logged verified result. | Foundation DONE; Phase 1 (tau table) pending |
 | **openpatala** | **IDENTITY** — the witness root. 1,099 works, 11 adapters, Work→Edition→Witness→Surrogate→EText ladder, R0–R5 resolver, Merkle event ledger, run_recorder/trace. Answers "which edition/witness is this passage?" Machine-verified (6 proofs, 26 gates, red-team 4/4). Mirrored to `patala` R2 bucket. | Built; bridge to our chunks = next |
 | **translation-work + scholar stack** | **EVIDENCE + AUTHORITY** — the layers (T1→L0→L2→L200→C1→L3→L4) with per-song gates and proofs; ARGMAP (question/premises/conclusion/unresolved per passage); Scholar workspace (drafts, decisions, review, signoff with rights, bridge → git → release → permissions, MCP 30 tools, Qwen text live, voice wire-proven). | Live; `scholar/` on 1 work, source binding uneven |
+| **satsang · tantrasara · deitybody** | **SURFACES** — TV/distribution + community + day-gated journeys (satsang, live), video gen factory (tantrasara, running), practice/syllabus (deitybody). Spec: `endgame/SATSANG-INTEGRATION.md` | Live / batch / backend; day-counter + syllabus compiler + content loop to wire |
 | **nibbanahelp** | **PERSONAL + ORGANISM** — second tension ontology, relay chat (canon/lineage/lived/trika), demand signal, lived corpus, journey-ledger spec (owner-gated). Spec: `endgame/NIBBANAHELP-INTEGRATION.md` | Live; sessions→queue exporter missing |
 | **The estate** | **RAW MATERIAL** — awesome-essays (1,195; 90 curated), research-library (~900), philosophy archive (1,933) with the STRUCTURE/ACQUIRE/WEAVE/PUSHBACK kits, 22 IPVV essays, slang editions (tantrasara1–22 + shivasutrasfinal), pushing catalog (57 cruxes), nibbanahelp tensions. | Indexed (1,177 starters) |
 
@@ -144,6 +145,18 @@ unsigned lower rungs. This is the ordering law.
   visibility defaults, grants explicit.
 - **3.4 External scholars (later)** — V08 economics: paid adjudication, ORCID/
   CRediT credit; only after Phases 0–2 are pristine.
+
+### Phase 4 — Surfaces (owner-driven, per `endgame/SATSANG-INTEGRATION.md`)
+- **4.1 S1 day-counter** — Day N = count of posting days only (never calendar);
+  one journey truth across satsang, nibbanahelp, journey ledger.
+- **4.2 S2 guided-session proof** — source → deitybody protocol → Qwen realtime
+  speaks from gated passages → logged journey block.
+- **4.3 S3 syllabus compiler** — text → units → practices + standardized
+  visualization grammar (northstar verbatim).
+- **4.4 S4/S5 content loop** — packs/chapters → tantrasara factory → satsang
+  Watch/For-You; generated-vs-catalogue labels always on.
+- **4.5 S6/S7** — journey-ledger witnesses shared (owner-gated); three
+  owner flips (domain, sit player, OAuth origin).
 
 ### Definition of done for the whole plan
 One question asked in chat → agent retrieves witness-pinned passages → drafts in
