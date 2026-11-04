@@ -19,6 +19,10 @@ class Mock(BaseHTTPRequestHandler):
         if self.path=='/api/scholar/reviews':
             self.send_response(302);self.send_header('Location','http://127.0.0.1:1/leak');self.end_headers();return
         self.send_response(200);self.send_header('Content-Type','application/json');self.end_headers();self.wfile.write(b'{"documents":[]}')
+    def do_POST(self):
+        data=json.loads(self.rfile.read(int(self.headers['Content-Length'])))
+        self.seen.append((self.path,data))
+        self.send_response(200);self.send_header('Content-Type','application/json');self.end_headers();self.wfile.write(b'{"ok":true}')
     def do_PUT(self):
         data=json.loads(self.rfile.read(int(self.headers['Content-Length'])))
         self.send_response(409 if data['expected_revision']!=0 else 200);self.end_headers();self.wfile.write(b'{"error":"revision conflict"}' if data['expected_revision']!=0 else b'{"document":{"revision":1}}')
@@ -31,6 +35,16 @@ class TestMcp(unittest.TestCase):
         self.assertIn('paramarthasara',content(rs[2])['works'])
         ev=content(rs[3]);self.assertIn('śambhuṃ',ev['source']['text']);self.assertIn('l0',ev['layers']);self.assertEqual(len(ev['projection_sha256']),64)
         self.assertTrue(rs[4]['result']['isError']);self.assertTrue(rs[5]['result']['isError'])
+    def test_decisions_and_drafting_are_explicit_account_requests(self):
+        server=ThreadingHTTPServer(('127.0.0.1',0),Mock);t=threading.Thread(target=server.serve_forever,daemon=True);t.start()
+        try:
+            env=dict(os.environ,SCHOLAR_API_ORIGIN='http://127.0.0.1:'+str(server.server_port),SCHOLAR_SESSION_COOKIE='session=private')
+            decision={'document_id':'a','revision':1,'subject':'svātantrya','before':'freedom','after':'sovereignty','reason':'context'}
+            task={'work':'testwork','target':'p-v01','layer':'l3','kind':'translation','instruction':'','consent_to_ai':True,'use_style':True,'decision_ids':['decision:1']}
+            rs=run([tool(1,'save_decision',decision),tool(2,'draft_with_qwen',task)],env)
+            self.assertEqual(content(rs[0]),{'ok':True});self.assertEqual(content(rs[1]),{'ok':True})
+            self.assertEqual(Mock.seen[-2][1],decision);self.assertEqual(Mock.seen[-1][1],task)
+        finally: server.shutdown();server.server_close();t.join()
     def test_account_api_conflict_and_redirect(self):
         server=ThreadingHTTPServer(('127.0.0.1',0),Mock);t=threading.Thread(target=server.serve_forever,daemon=True);t.start()
         try:

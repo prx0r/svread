@@ -81,6 +81,9 @@ def call(name,a):
     if name=='document_history': return api('GET','/api/scholar/documents/'+ident(a.get('document_id'))+'/history')
     if name=='list_reviews': return api('GET','/api/scholar/reviews')
     if name=='list_style_examples': return api('GET','/api/scholar/style-examples')
+    if name=='list_decisions': return api('GET','/api/scholar/decisions')
+    if name=='save_decision': return api('POST','/api/scholar/decisions',a)
+    if name=='delete_decision': return api('DELETE','/api/scholar/decisions/'+ident(a.get('decision_id')),{})
     if name=='save_document': return api('PUT','/api/scholar/documents/'+ident(a.get('document_id')),a.get('document'))
     if name=='request_review': return api('POST','/api/scholar/reviews',a)
     if name=='draft_with_qwen': return api('POST','/api/scholar/assist',a)
@@ -95,9 +98,12 @@ TOOLS=[
  ('document_history','Read this account’s private document revision history.',S({'document_id':T},['document_id'])),
  ('list_reviews','List reviews accessible to this account.',S({})),
  ('list_style_examples','List this account’s explicitly saved private edit examples.',S({})),
+ ('list_decisions','List your private revision-bound editorial decisions.',S({})),
+ ('save_decision','Save a private editorial decision against an owned revision.',S({'document_id':T,'revision':{'type':'integer'},'subject':T,'before':T,'after':T,'reason':T},['document_id','revision','subject','before','after','reason'])),
+ ('delete_decision','Remove an owned private editorial decision.',S({'decision_id':T},['decision_id'])),
  ('save_document','Save a private draft with expected_revision; conflicts are rejected.',S({'document_id':T,'document':{'type':'object'}},['document_id','document'])),
  ('request_review','Request private review of an exact saved revision.',S({'document_id':T,'reviewer_id':T,'revision':{'type':'integer'}},['document_id','reviewer_id','revision'])),
- ('draft_with_qwen','Request an agent draft; the Scholar API requires explicit consent and configured quotas.',S({'work':T,'target':T,'layer':T,'kind':T,'instruction':T,'consent_to_ai':{'type':'boolean'},'use_style':{'type':'boolean'},'style_example_ids':{'type':'array','items':T},'review_ids':{'type':'array','items':T},'document_id':T,'revision':{'type':'integer'}},['work','target','layer','kind','instruction','consent_to_ai']))]
+ ('draft_with_qwen','Request an agent draft; the Scholar API requires explicit consent and configured quotas.',S({'work':T,'target':T,'layer':T,'kind':T,'instruction':T,'consent_to_ai':{'type':'boolean'},'use_style':{'type':'boolean'},'style_example_ids':{'type':'array','items':T},'decision_ids':{'type':'array','items':T},'review_ids':{'type':'array','items':T},'document_id':T,'revision':{'type':'integer'}},['work','target','layer','kind','instruction','consent_to_ai']))]
 
 def handle(req):
     method=req.get('method'); params=req.get('params') or {}

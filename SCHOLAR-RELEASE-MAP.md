@@ -20,3 +20,12 @@ Private drafts, edits, style examples and reviews remain account-scoped. AI use 
 
 ## Checkpoints
 Push small testable commits to review branches; never force push. At each checkpoint record repo, commit, tests, dependencies, live status and unresolved gates. An open PR is not a deployment.
+
+## Decision-memory checkpoint
+
+ipvv #9 now contains migration 0008 and account-scoped decisions tied to exact
+saved revision hashes. The svread Scholar desk and local MCP bridge can create,
+list, remove and explicitly select those decisions for consented Qwen drafts.
+Deploy the matching Worker and migration before enabling this UI; this checkpoint
+is not a production deployment. Tests mock the provider. The ipvv full site gate
+remains blocked by missing receipts and source/build inputs.

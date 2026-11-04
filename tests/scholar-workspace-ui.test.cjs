@@ -231,3 +231,37 @@ test('a stale workspace cannot copy an agent draft after the account changes',as
   assert.match(status.at(-1),/Account changed/);assert.equal([...suite.docs.values()].some(x=>x.data?.content?.text==='Alice private draft'),false);
   for(const state of suite.docs.values())clearTimeout(state.timer);
 });
+
+test('private decisions attach to a saved revision and require selection for Qwen',async()=>{
+  const storage=new Map(),saved=new Map(),nodes=new Map(),calls=[];let decisions=[];
+  const localStorage={getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v),removeItem:k=>storage.delete(k),
+    key:i=>[...storage.keys()][i],get length(){return storage.size;}};
+  const element=id=>{if(!nodes.has(id))nodes.set(id,{value:'',checked:false,textContent:'',dataset:{},addEventListener(type,fn){this[type]=fn;}});return nodes.get(id);};
+  const container={set innerHTML(v){this.html=v;nodes.clear();},querySelector:element,
+    querySelectorAll(key){return key==='.workspace-decision-choice:checked'&&decisions.length?[{value:decisions[0].id}]:[];}};
+  const editor={value:'The sovereign',addEventListener(type,fn){this[type]=fn;}};
+  const fetch=async(url,options={})=>{const method=options.method||'GET',data=options.body?JSON.parse(options.body):null;calls.push({url:String(url),method,data});
+    if(String(url).includes('/api/scholar/documents?'))return Response.json({documents:[],next_offset:null});
+    if(String(url).endsWith('/api/scholar/reviews'))return Response.json({reviews:[]});
+    if(String(url).endsWith('/api/scholar/style-examples'))return Response.json({examples:[]});
+    if(String(url).endsWith('/api/scholar/decisions')){
+      if(method==='POST'){decisions=[{id:'decision:one',work:'testwork',target:'p-v01',revision:data.revision,subject:data.subject,before_text:data.before,after_text:data.after,reason:data.reason}];return Response.json({id:'decision:one'});}
+      return Response.json({decisions});}
+    if(method==='PUT'){const {expected_revision,...payload}=data;const doc={...payload,revision:expected_revision+1};saved.set(doc.id,doc);return Response.json({document:doc});}
+    if(String(url).endsWith('/api/scholar/assist'))return Response.json({document:{id:'agent:1',revision:1,content:{text:'Draft'}},message:'Saved'});
+    throw new Error('Unexpected request '+url);
+  };
+  const context=vm.createContext({fetch,localStorage,Response,URL,URLSearchParams,setTimeout,clearTimeout,
+    crypto:{randomUUID:()=> 'id'},confirm:()=>true,CSS:{escape:x=>x}});
+  vm.runInContext(fs.readFileSync(path.join(__dirname,'../scholar-workspace-ui.js'),'utf8'),context);
+  const suite=new context.ScholarWorkspace({api:'https://api.example',work:'testwork',profile:()=>({id:'alice'})});
+  await suite.load();suite.attach({container,textarea:editor,target:'p-v01',layer:'l3',baseHash:'',parent:null});
+  element('#workspace-decision-subject').value='svātantrya';element('#workspace-decision-before').value='freedom';
+  element('#workspace-decision-after').value='sovereignty';element('#workspace-decision-reason').value='Agency';
+  await element('#workspace-decision-save').onclick();
+  const sent=calls.find(x=>x.url.endsWith('/decisions')&&x.method==='POST');assert.equal(sent.data.revision,1);assert.equal(sent.data.subject,'svātantrya');
+  assert.match(container.html,/svātantrya/);element('#workspace-task').value='translation';element('#workspace-style').checked=true;
+  await element('#workspace-ask').onclick();const draft=calls.find(x=>x.url.endsWith('/assist')).data;
+  assert.deepEqual([...draft.decision_ids],['decision:one']);assert.equal(draft.consent_to_ai,true);
+  for(const state of suite.docs.values())clearTimeout(state.timer);
+});

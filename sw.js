@@ -1,7 +1,7 @@
 /* offline-first: cache shell + vendored work data. MIT (skeleton: gita-quotes).
    Bump C on every site update — the fetch handler is cache-first, so return
    visitors only see new content when the cache version changes. */
-const C = 'svread-integrated-20261104d';
+const C = 'svread-integrated-20261104e';
 const SHELL = ['./index.html','./styles.css','./app.js','./scholar-voice.js','./scholar-workspace-ui.js','./manifest.webmanifest','./data/bhairavastava.json','./data/library.json'];
 self.addEventListener('install', e=>{
   e.waitUntil(caches.open(C).then(c=>c.addAll(SHELL)).then(()=>self.skipWaiting()).catch(()=>{}));
