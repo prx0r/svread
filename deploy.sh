@@ -11,5 +11,6 @@ s = re.sub(r"const C = 'svread-[^']+'", f"const C = 'svread-{v}'", s, count=1)
 p.write_text(s)
 print("SW cache ->", re.search(r"const C = '([^']+)'", s).group(1))
 PY
+python3 scripts/release_manifest.py --write
 export CLOUDFLARE_API_TOKEN="$(cat /root/.cf-api-token)"
 wrangler pages deploy . --project-name svread "$@"

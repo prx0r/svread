@@ -151,7 +151,7 @@ Filled by the live run on 2026-11-04. See §10 for commands.
 
 - Two-account author/reviewer loop: **PASS**. Author `Svatantrya Editorial` (`f1399a67-9ce1-45c9-a4f0-9a263bb52eec`) saved a draft, requested review; reviewer `Peer Reviewer` (`90513e3d-3a42-4b42-87ad-3f5fb7ee60c9`) recorded `ACCEPT` (`review:b9e7f1c9-6cfa-4af0-aff0-6a5c8b4f533f`); author signed off `cc-by-4.0` (`signoff:20971909-93c4-4c8d-9414-b6c6f30d3c19`) and submitted.
 - Publish via bridge (branch + commit): **PASS**. Bridge accepted the signed submission with a fresh HMAC (±120 s), wrote `paramarthasara/scholar/essays/62e62283….json`, and pushed branch `scholar/essay-62e62283ac8d5aa4a927ecbdcc064eeac4a38d8291a5dcd39db976f1b794e51b` at commit `55e9216f` to `prx0r/translation-work`. Merged fast-forward to `master` (`55e9216`) — never auto-merged by the bridge.
-- Release + projection hash: **PASS**. `emit_scholar.py --work paramarthasara` produced 1 essay (`essay:62e62283…`, 1327 KB projection); manifest `303 asset hashes, 55 works, 22 Scholar projections`; live deploy `f53b23fb` serves the essay at `/data/scholar/paramarthasara.json`.
+- Release + projection hash: **PASS**. `emit_scholar.py --work paramarthasara` produced 1 essay (`essay:62e62283…`, 1327 KB projection); manifest `303 asset hashes, 55 works, 22 Scholar projections`; live deploy `f53b23fb` served the essay; redeployed `f399f0ba` after making `deploy.sh` regenerate the manifest *after* the SW bump (the live manifest had been one hash stale), and the live manifest now matches the live `sw.js`.
 - Permission grant → visible → revoke → visible → re-grant: **PASS**. Author `allow_answers=true` → `published-essays` returns `allowed.answers=true`; revoke → `false`; final state `allow_answers=true, allow_drafts=false`.
 - Non-author grant refused: **PASS**. Reviewer POST to the permission endpoint → `403 {"error":"Only the author can change these permissions."}`.
 - MCP published-essay visibility: **PASS**. `list_published_essays` returns the essay with rights; evidence tools unaffected; 25 tools total.
@@ -181,7 +181,8 @@ printf %s https://bridge.sanskrit.help/ | wrangler secret put SCHOLAR_BRIDGE_URL
 # Release (after a submission branch exists)
 git merge --ff-only scholar/essay-<digest>
 python3 tools/emit_scholar.py --work <work>
-cd /root/svread && python3 scripts/release_manifest.py --write && ./deploy.sh
+# ./deploy.sh bumps sw.js, then regenerates data/release-manifest.json, then uploads
+cd /root/svread && ./deploy.sh
 ```
 
 Rollback: revoke the branch by not merging it; to unpublish a released essay,
