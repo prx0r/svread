@@ -86,6 +86,11 @@ def build() -> tuple[dict, list[str]]:
                     errors.append(f'{path.name}: {layer}/{target} original hash mismatch')
         if set(doc.get('source_verses', {})) - set(originals.get('t1', {})):
             errors.append(f'{path.name}: displayed source without a T1 target')
+        index_entry = projection_index.get(path.stem, {}) if isinstance(projection_index, dict) else {}
+        expected = {'versions': len(doc.get('versions', [])), 'reviews': len(doc.get('reviews', [])),
+                    'signoffs': len(doc.get('signoffs', [])), 'generated': doc.get('generated')}
+        if not isinstance(index_entry, dict) or any(index_entry.get(key) != value for key, value in expected.items()):
+            errors.append(f'{path.name}: Scholar index metadata does not match the projection')
         contract = doc.get('contract', {})
         projected[path.stem] = {'projection_sha256': recorded,
                                 'schema_version': contract.get('structural_schema_version'),
