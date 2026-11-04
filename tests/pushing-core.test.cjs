@@ -83,3 +83,18 @@ test('private proposal ownership survives an enquiry export but is not sent to t
  assert.doesNotMatch(C.cruxBrief(reopened,'a'),/alice-private-id/);
  assert.throws(()=>C.addNode(s,{id:'bad',type:'answer',origin:'agent',text:'X',private_owner:''}),/owner/);
 });
+
+test('comparison keeps two paths and their provenance, without including other branches or account IDs',()=>{
+ let s=C.makeSession('Two readings');s=C.addNode(s,{id:'q',type:'question',origin:'human',text:'What follows?'});
+ s=C.addNode(s,{id:'a',parent:'q',type:'answer',origin:'human',text:'First reading'});
+ s=C.addNode(s,{id:'b',parent:'q',type:'answer',origin:'agent',text:'Second reading',private_owner:'alice-private-id'});
+ s=C.addNode(s,{id:'c',parent:'q',type:'answer',origin:'human',text:'UNSELECTED SECRET'});
+ const brief=C.comparisonBrief(s,'a','b'),instruction=C.comparisonInstruction(s,'a','b');
+ for(const result of [brief,instruction]){
+   assert.match(result,/First reading/);assert.match(result,/Second reading/);
+   assert.doesNotMatch(result,/UNSELECTED SECRET|alice-private-id/);
+ }
+ assert.match(brief,/Reading A/);assert.match(brief,/Reading B/);
+ assert.throws(()=>C.comparisonBrief(s,'a','a'),/two different/);
+ assert.throws(()=>C.comparisonInstruction(s,'a','missing'),/no longer available/);
+});

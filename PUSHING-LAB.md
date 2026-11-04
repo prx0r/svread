@@ -67,6 +67,10 @@ python3 -m http.server 8000
   different Scholar account. They remain visible in the browser's local copy;
   this is a client-side safeguard, not protection against someone with access
   to the device or a deliberately edited export.
+- **Compare the branches** shows two chosen nodes with their separate ancestry.
+  Copy the comparison or use it as an essay brief locally. An optional Qwen
+  comparison sends only those two paths and the explicitly selected evidence
+  after confirmation. A suggestion cannot be added if either path has changed.
 
 For development against a local Worker, configure its `CORS_ORIGIN` as
 `http://127.0.0.1:8000`, start it on `127.0.0.1:8787`, and open:
@@ -124,7 +128,7 @@ ownership and acceptance tests, see [PUSHING-NEXT.md](PUSHING-NEXT.md).
 | Idea | Concrete use | Constraint |
 | --- | --- | --- |
 | Crux cards | The selected-branch brief groups the question, inference, objection and open limits; persistent shareable cards are future work. | A brief is an attributed working note, not an accepted finding. |
-| Two readings | Put two rival reconstructions side by side and ask where they rely on different premises or passages. | Preserve tradition, scope and unresolved disagreement. |
+| Two readings | Compare two chosen branches, their ancestry and optionally ask Qwen where their premises diverge. | Preserve tradition, scope and unresolved disagreement. |
 | Examiner for an essay | Add an excerpt from your own saved essay to a branch and use the focused challenge. The excerpt retains the saved revision reference. | This is not an independently verified annotation; revision-bound review suggestions remain a next step. Do not send a reviewer's private report without their permission and the author's selection. |
 | Curiosity path | Use the learner's own chosen branches to suggest the next source, counterexample and small exercise. | Suggestions are not an assessment of mastery. |
 | Argument-to-essay trail | Assemble a working thesis from selected notes, show the sources and objections beside it, then hand it to Scholar for editing and review. | No automatic publication; do not present a hash as a proof. |
@@ -139,3 +143,7 @@ until people have used the small workflow and its limits are clear.
 This branch is for review and testing, not a live release. The recovered Scholar
 suite is in svread #3, ipvv #9 and translation-work #7. Its production Worker,
 D1 migrations, bridge and Qwen provider are not yet established by this prototype.
+A GitHub Pages preview, if enabled from this branch, is labelled as a reader
+preview and deliberately does not call the Scholar Worker: its account and AI
+features require the matching deployed service. It does not replace svread's
+production Cloudflare Pages site.

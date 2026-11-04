@@ -2,6 +2,8 @@
 (function(){
   'use strict';
   const C=globalThis.PushingCore, $=id=>document.getElementById(id);
+  const readOnlyPreview=location.hostname==='prx0r.github.io';
+  if(readOnlyPreview)$('preview-warning').hidden=false;
   const KEY='svv-pushing-lab/1';let API,apiError='';try{API=C.resolveApi(location.href);}catch(e){apiError=e.message;}
   const BASE='https://github.com/prx0r/ipvv/blob/941ac2ecf1f8e5791a887d9d769159ecbffd7c04/site/data/pushing/';
   const seeds=[
@@ -64,7 +66,18 @@
     $('crux-brief').textContent=available?C.cruxBrief(session,selected):'Select a node in your enquiry to make a brief.';
     $('crux-use').disabled=!available;$('crux-copy').disabled=!available;
   }
-  function render(){ $('title').value=session.title;renderTurns();renderTree();renderNext();renderCrux(); }
+  function renderComparison(){
+    const left=$('compare-a'),right=$('compare-b'),a=left.value,b=right.value;
+    for(const select of [left,right]){
+      select.replaceChildren(option('','Choose a thought'));
+      for(const n of session.nodes)select.append(option(n.id,`${typeNames[n.type]} · ${n.origin}: ${n.text.replace(/\s+/g,' ').slice(0,90)}`));
+    }
+    left.value=session.nodes.some(n=>n.id===a)?a:'';right.value=session.nodes.some(n=>n.id===b)?b:'';
+    const ready=!!left.value&&!!right.value&&left.value!==right.value;
+    $('compare-brief').textContent=ready?C.comparisonBrief(session,left.value,right.value):'Choose two different enquiry nodes.';
+    for(const id of ['compare-use','compare-copy','compare-ask'])$(id).disabled=!ready;
+  }
+  function render(){ $('title').value=session.title;renderTurns();renderTree();renderNext();renderCrux();renderComparison(); }
   function selectedSeed(){const value=$('seed').value;return value===''?null:seeds[Number(value)]||null;}
   function setSeedLink(){const seed=selectedSeed();$('add-seed').disabled=!seed;$('seed-link').hidden=!seed;if(seed)$('seed-link').href=BASE+seed.file;}
   function renderSeedOptions(){const query=$('seed-search').value.trim().toLowerCase(),prior=$('seed').value;$('seed').replaceChildren();
@@ -75,7 +88,8 @@
     add({parent:null,type:'question',origin:'unknown',text:seed.question,link:{label:seed.label,url:BASE+seed.file}});
     status('Added a question from an earlier enquiry; check the underlying source before treating it as evidence.');
   }catch(e){status(e.message);}};
-  $('title').oninput=()=>{session={...session,title:$('title').value};save();renderCrux();};
+  $('title').oninput=()=>{session={...session,title:$('title').value};save();renderCrux();renderComparison();};
+  $('compare-a').onchange=renderComparison;$('compare-b').onchange=renderComparison;
   $('new').onclick=()=>{if((session.nodes.length||session.turns.length)&&!confirm('Start a new enquiry? Export the current one first if you want a copy.'))return;
     session=C.makeSession();selected=null;projection=null;verifiedSource=null;proposalParent=null;proposalSession=null;proposalSnapshot=null;proposalOwner=null;proposalType='answer';generatedEssay=null;clearPrivateViews();$('agent-citations').replaceChildren();$('essay-citations').replaceChildren();
     $('work').value='';$('target').replaceChildren(option('','Choose a passage'));$('source').textContent='Choose a work and passage to inspect its source.';
@@ -126,7 +140,7 @@
   $('work').onchange=async()=>{const work=$('work').value;$('scholar-work').value=work;session={...session,work,target:''};save();try{await loadWork(work);}catch(e){status(e.message);}};
   $('target').onchange=async()=>{try{await chooseSource();}catch(e){status(e.message);}};
   $('attach-source').onclick=()=>{if(!verifiedSource)return;const {text,...reference}=verifiedSource;try{add({parent:selected,type:'source',origin:'source',text,reference});status('Source added. Add your interpretation as a separate node.');}catch(e){status(e.message);}};
-  async function request(path,method='GET',data){if(!API)throw Error(apiError||'Scholar API unavailable.');const r=await fetch(API+path,{method,credentials:'include',...(data?{headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}:{})});
+  async function request(path,method='GET',data){if(readOnlyPreview)throw Error('Scholar accounts and Qwen are not connected on this reader preview.');if(!API)throw Error(apiError||'Scholar API unavailable.');const r=await fetch(API+path,{method,credentials:'include',...(data?{headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}:{})});
     let value;try{value=await r.json();}catch{throw Error('Scholar backend returned an unexpected response.');}if(!r.ok)throw Error(value.error||'Scholar request failed.');return value;}
   async function profile(){const me=await request('/api/auth/me');if(!me.profile?.id)throw Error('Sign in to Scholar first.');return me.profile;}
   function checkPrivateOwners(nodes,uid){if(nodes.some(n=>(n.private_ref&&n.private_ref.owner_id!==uid)||(n.private_owner&&n.private_owner!==uid)))throw Error('This enquiry includes material from a different Scholar account. Open that account or remove that material before sending or saving it.');}
@@ -237,40 +251,43 @@
     if(source&&(source.work!==session.work||source.target!==session.target))throw Error('The selected passage changed; choose it again.');
     if(kind==='essay'&&!source)throw Error('Choose a verified Scholar passage for the essay first.');
     if(!source&&!ids.length&&!refs.length)throw Error('Choose a passage, a notebook source or permitted scholarship first.');
-    const capturedSession=session.id,parent=selected,path=C.path(session,parent),work=session.work,target=source?.target||'';
-    const instruction=kind==='essay'?C.essayInstruction(session,parent):C.modelInstruction(session,parent,mode),owner=await profile();
-    checkPrivateOwners(path,owner.id);if(ids.length&&notebookOwner!==owner.id)throw Error('Account changed; reload your sources.');
+    const compare=kind==='enquiry'&&mode==='compare',capturedSession=session.id,parent=compare?$('compare-a').value:selected,other=compare?$('compare-b').value:null,work=session.work,target=source?.target||'';
+    const paths=compare?C.comparisonPaths(session,parent,other):[C.path(session,parent)],path=paths[0];
+    const instruction=kind==='essay'?C.essayInstruction(session,parent):compare?C.comparisonInstruction(session,parent,other):C.modelInstruction(session,parent,mode),owner=await profile();
+    checkPrivateOwners(paths.flat(),owner.id);if(ids.length&&notebookOwner!==owner.id)throw Error('Account changed; reload your sources.');
     if(refs.length&&publishedOwner!==owner.id)throw Error('Account changed; reload published essays.');
     if(styleIds.length&&styleOwner!==owner.id)throw Error('Account changed; reload your style edits.');
     const signature=JSON.stringify({ids,refs,styleIds});
-    const current=()=>session.id===capturedSession&&selected===parent&&session.work===work&&
+    const current=()=>session.id===capturedSession&&(compare?$('compare-a').value===parent&&$('compare-b').value===other:selected===parent)&&session.work===work&&
       (source?(verifiedSource?.work===source.work&&verifiedSource?.target===source.target):!verifiedSource)&&
-      (kind==='essay'?C.essayInstruction(session,parent):C.modelInstruction(session,parent,mode))===instruction&&
+      (kind==='essay'?C.essayInstruction(session,parent):compare?C.comparisonInstruction(session,parent,other):C.modelInstruction(session,parent,mode))===instruction&&
       JSON.stringify({ids:selectedSources(),refs:selectedScholars(kind==='essay'?'drafts':'answers'),styleIds:kind==='essay'?selectedStyle():[]})===signature;
     if(!current())throw Error('The branch, sources or passage changed; try again.');
-    if(!confirm(`Send the selected ${path.length}-node branch${source?', '+source.work+' / '+source.target+' and its available layers':''}${ids.length?', '+ids.length+' notebook source(s) and their notes':''}${refs.length?', '+refs.length+' author-permitted essay(s)':''}${styleIds.length?', and '+styleIds.length+' selected private style edit(s)':''} to Qwen using ${owner.display_name||'your Scholar account'}? Other conversation turns are not sent.`))return null;
+    if(!confirm(`Send the selected ${path.length}-node branch${compare?' and '+paths[1].length+'-node comparison branch':''}${source?', '+source.work+' / '+source.target+' and its available layers':''}${ids.length?', '+ids.length+' notebook source(s) and their notes':''}${refs.length?', '+refs.length+' author-permitted essay(s)':''}${styleIds.length?', and '+styleIds.length+' selected private style edit(s)':''} to Qwen using ${owner.display_name||'your Scholar account'}? Other conversation turns are not sent.`))return null;
     if((await profile()).id!==owner.id||!current())throw Error('The account, branch or selected evidence changed; try again.');
     const result=await request('/api/scholar/assist','POST',{work,target,layer:'l3',kind,instruction,use_style:styleIds.length>0,style_example_ids:styleIds,source_ids:ids,scholar_essays:refs,consent_to_ai:true});
     if((await profile()).id!==owner.id||!current())throw Error('Account or enquiry changed; the response remains in the original private account.');
     if(!result.document?.content?.text)throw Error('The model returned no proposal.');
-    return {doc:result.document,owner:owner.id,source,ids,refs,parent,session:capturedSession,work,target,branchSnapshot:JSON.stringify(path)};
+    return {doc:result.document,owner:owner.id,source,ids,refs,parent,session:capturedSession,work,target,branchSnapshots:paths.map(branch=>({id:branch.at(-1).id,bytes:JSON.stringify(branch)}))};
   }
   async function ask(mode){try{
-    const result=await assist('enquiry',mode);if(!result)return;$('agent-output').value=result.doc.content.text;proposalParent=result.parent;proposalSession=result.session;proposalSnapshot=result.branchSnapshot;proposalOwner=result.owner;proposalType=mode==='examine'?'objection':'answer';
+    const result=await assist('enquiry',mode);if(!result)return;$('agent-output').value=result.doc.content.text;proposalParent=result.parent;proposalSession=result.session;proposalSnapshot=result.branchSnapshots;proposalOwner=result.owner;proposalType=mode==='examine'?'objection':'answer';
     showCitations('agent-citations',result.doc.content.scholar_citations);status('Agent proposal saved privately by Scholar. Check it; add it to the tree only if useful.');
   }catch(e){status(e.message);}}
-  $('ask').onclick=()=>ask('enquiry');$('challenge').onclick=()=>ask('examine');
+  $('ask').onclick=()=>ask('enquiry');$('challenge').onclick=()=>ask('examine');$('compare-ask').onclick=()=>ask('compare');
   $('add-agent').onclick=async()=>{try{if(proposalOwner&&(await profile()).id!==proposalOwner)throw Error('This proposal belongs to a different Scholar account.');
     if(proposalSession&&proposalSession!==session.id)throw Error('This proposal belongs to a different enquiry.');
     const parent=proposalParent||selected;if(parent&&!session.nodes.some(n=>n.id===parent))throw Error('The original branch is no longer present.');
-    if(proposalSnapshot&&JSON.stringify(C.path(session,parent))!==proposalSnapshot)throw Error('The original branch changed; ask again before adding the proposal.');
+    if(proposalSnapshot&&proposalSnapshot.some(x=>JSON.stringify(C.path(session,x.id))!==x.bytes))throw Error('The original branch changed; ask again before adding the proposal.');
     add({parent,type:proposalType,origin:'agent',text:$('agent-output').value,private_owner:proposalOwner});$('agent-output').value='';proposalParent=null;proposalSession=null;proposalSnapshot=null;proposalOwner=null;proposalType='answer';status('Agent proposal added as an unverified node.');
   }catch(e){status(e.message);}};
-  $('crux-use').onclick=()=>{try{
-    const brief=C.cruxBrief(session,selected);if($('essay').value.trim()&&!confirm('Replace the current working brief with this selected branch?'))return;
+  function useBrief(brief){if($('essay').value.trim()&&!confirm('Replace the current working brief?'))return;
     generatedEssay=null;$('essay-citations').replaceChildren();$('essay').value=brief;status('Selected branch prepared as an editable essay brief.');
-  }catch(e){status(e.message);}};
+  }
+  $('crux-use').onclick=()=>{try{useBrief(C.cruxBrief(session,selected));}catch(e){status(e.message);}};
   $('crux-copy').onclick=async()=>{try{await navigator.clipboard.writeText(C.cruxBrief(session,selected));status('Selected branch brief copied.');}catch(e){status(e.message||'Could not copy on this device.');}};
+  $('compare-use').onclick=()=>{try{useBrief(C.comparisonBrief(session,$('compare-a').value,$('compare-b').value));}catch(e){status(e.message);}};
+  $('compare-copy').onclick=async()=>{try{await navigator.clipboard.writeText(C.comparisonBrief(session,$('compare-a').value,$('compare-b').value));status('Comparison copied.');}catch(e){status(e.message||'Could not copy on this device.');}};
   $('essay-preview').onclick=()=>{try{generatedEssay=null;$('essay-citations').replaceChildren();$('essay').value=C.essaySeed(session);status('Essay seed prepared. You can edit it before saving.');}catch(e){status(e.message);}};
   async function prepareDraftCitations(result){
     const passages=result.source?[{work:result.source.work,target:result.source.target}]:[],data=await request('/api/scholar/citations/prepare','POST',{source_ids:result.ids,passages});
