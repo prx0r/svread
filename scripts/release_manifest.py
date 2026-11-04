@@ -79,6 +79,11 @@ def build() -> tuple[dict, list[str]]:
         if doc.get('work') != path.stem or recorded != sha(canonical(body)):
             errors.append(f'{path.name}: projection hash or work ID mismatch')
         originals, hashes = doc.get('originals', {}), doc.get('original_hashes', {})
+        if path.stem == 'ghatakarpara' and (
+            any(doc.get('originals', {}).values()) or
+            any(doc.get(key) for key in ('source_verses','l4_craft','versions','essays','reviews','promotions','signoffs'))
+        ):
+            errors.append(f'{path.name}: source coverage hold contains Scholar evidence')
         for layer, values in originals.items():
             layer_hashes = hashes.get(layer, {})
             if set(values) != set(layer_hashes):

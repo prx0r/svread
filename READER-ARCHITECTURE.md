@@ -83,3 +83,9 @@ source, their coverage and source identity are audited, and the release gates pa
 None of those projects or a cryptographic hash by itself validates the Sanskrit or
 the reader's scholarly claims. Record and cite edition, contributor, exact version,
 passage and review scope separately as those fields become available.
+
+The bundled Ghaṭakarpara Scholar projection is now generated with all source
+evidence and dependent layers withheld. The release manifest refuses to
+rebaseline a projection that contains that material. This is a stopgap until
+the authoritative source alignment, dependent layers and review are repaired;
+it does not repair the live ipvv backend or establish copyright status.
