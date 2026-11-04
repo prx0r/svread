@@ -3,12 +3,15 @@
 (function(){
 "use strict";
 const $ = s => document.querySelector(s);
-const esc = s => (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const esc = s => String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+  .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 const qs = new URLSearchParams(location.search);
 const WORK = qs.get('work') || 'bhairavastava';
 const SRC = qs.get('src');
 const IPVV = 'https://ipvv-a8u.pages.dev';
 const API = 'https://ipvv-api.tradesprior.workers.dev';
+const GHATA_SOURCE = `${IPVV}/data/sanskrit/ghatakarpara.txt`;
+const GHATA_SOURCE_SHA256 = 'c3025effdb6ed0ea7eeb83fc3b5b4955aed8086bc5a8a9ee4646d689ffe73783';
 // Chant audio + karaoke timings live in the public R2 bucket (CORS-open).
 const R2 = 'https://pub-87169194562a44fcb8279a799d626c62.r2.dev';
 /* studio chant: karaoke timings + mp3s live on the ipvv origin.
@@ -41,7 +44,10 @@ async function loadL0(){
     const m = await get(`data/l0/${WORK}.json`);
     if(m && m.verses && m.verses.length){
       L0 = {};
-      for(const v of m.verses) L0[v.id] = v.tokens || [];
+      for(const v of m.verses){
+        const row=(DATA?.verses||[]).find(x=>x.id===v.id||x.chunk===v.id);
+        if(isReaderPass(row)) L0[v.id] = v.tokens || [];
+      }
       if(!LIDS.includes('l0')){ LIDS.splice(3, 0, 'l0'); RIDS.splice(3, 0, 'l0'); }
     }
   }catch(e){ L0 = null; }
@@ -51,13 +57,14 @@ if(!LIDS_BASE.includes(LEFT) && LEFT!=='l0') LEFT = 'sa-deva';
 if(!RIDS_BASE.includes(RIGHT) && RIGHT!=='l0') RIGHT = 'none';
 
 const IAST_DEVA = (()=>{
-  const VOW={a:'\u0905','\u0101':'\u0906',i:'\u0907','\u012b':'\u0908',u:'\u0909','\u016b':'\u090a','\u1e5b':'\u090b','\u1e5d':'\u090c','\u1e37':'\u090d',e:'\u090f',o:'\u0913',ai:'\u0910',au:'\u0914'};
+  const VOW={a:'\u0905','\u0101':'\u0906',i:'\u0907','\u012b':'\u0908',u:'\u0909','\u016b':'\u090a','\u1e5b':'\u090b','\u1e5d':'\u0960','\u1e37':'\u090c',e:'\u090f',o:'\u0913',ai:'\u0910',au:'\u0914'};
   const VSN={'\u0101':'\u093e',i:'\u093f','\u012b':'\u0940',u:'\u0941','\u016b':'\u0942','\u1e5b':'\u0943','\u1e5d':'\u0944','\u1e37':'\u0962',e:'\u0947',o:'\u094b',ai:'\u0948',au:'\u094c'};
   const CON={k:'\u0915',kh:'\u0916',g:'\u0917',gh:'\u0918','\u014b':'\u0919','\u1e45':'\u0919',c:'\u091a',ch:'\u091b',j:'\u091c',jh:'\u091d','\u00f1':'\u091e','\u1e6d':'\u091f','\u1e6dh':'\u0920','\u1e0d':'\u0921','\u1e0dh':'\u0922','\u1e47':'\u0923',t:'\u0924',th:'\u0925',d:'\u0926',dh:'\u0927',n:'\u0928',p:'\u092a',ph:'\u092b',b:'\u092c',bh:'\u092d',m:'\u092e',y:'\u092f',r:'\u0930',l:'\u0932',v:'\u0935','\u015b':'\u0936','\u1e63':'\u0937',s:'\u0938',h:'\u0939'};
   const OTH={'\u1e43':'\u0902','\u1e41':'\u0902','\u1e25':'\u0903',"'":'\u093d','\u2019':'\u093d','.':'\u0964','..':'\u0965','|':'\u0964','||':'\u0965',' ':' ','\n':'\n','\u2014':'\u0964'};
   const HAL='\u094d';
   const ALL=Object.keys(CON).concat(Object.keys(VOW)).sort((a,b)=>b.length-a.length);
   function convert(s){
+    s=(s||'').normalize('NFC');
     const tk=[]; let i=0;
     while(i<s.length){
       let hit=null;
@@ -81,7 +88,7 @@ const IAST_DEVA = (()=>{
   }
   return {convert};
 })();
-function cleanSA(s){ return (s||'').replace(/^# Text\s*/,'').replace(/\[[A-Za-z0-9_]+\]/g,'').replace(/\s+/g,' ').trim(); }
+function cleanSA(s){ return (s||'').replace(/^# Text\s*/,'').replace(/\s+/g,' ').trim(); }
 function cleanEN(s){ return (s||'').replace(/^#+\s*[^\n]*\n/,'').replace(/\s*\/\/\s*\S+\s*$/,'').trim(); }
 function rich(s){
   return esc(s).replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>')
@@ -107,6 +114,35 @@ async function get(p){
   const ct = r.headers.get('content-type')||'';
   return ct.includes('json') ? r.json() : r.text();
 }
+async function getReaderData(p){
+  const response=await fetch(p);if(!response.ok)throw new Error('Reader data unavailable');
+  const bytes=await response.arrayBuffer();
+  const data=JSON.parse(new TextDecoder().decode(bytes));
+  return {data,sha256:await sha256Bytes(bytes)};
+}
+async function sha256Bytes(bytes){
+  try{const digest=await crypto.subtle.digest('SHA-256',bytes);
+    return Array.from(new Uint8Array(digest),b=>b.toString(16).padStart(2,'0')).join('');}catch{return '';}
+}
+function parseGhatakarparaSource(text){
+  const verses=new Map();
+  for(const paragraph of text.split(/\n\s*\n/)){
+    const matches=[...paragraph.matchAll(/\/\/\s*Ghk_(\d+)\s*\/\//g)];
+    if(matches.length>1)return null;
+    if(!matches.length)continue;
+    const number=Number(matches[0][1]);
+    if(number<1||number>21||verses.has(number))return null;
+    verses.set(number,paragraph.replace(/\/\/\s*Ghk_\d+\s*\/\//,'').trim());
+  }
+  return verses.size===21?verses:null;
+}
+async function pinnedGhatakarpara(fetcher=fetch,pin=GHATA_SOURCE_SHA256){
+  try{
+    const response=await fetcher(GHATA_SOURCE);if(!response.ok)return null;
+    const bytes=await response.arrayBuffer();if(await sha256Bytes(bytes)!==pin)return null;
+    return parseGhatakarparaSource(new TextDecoder().decode(bytes));
+  }catch{return null;}
+}
 function norm(s){ return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z]/g,''); }
 function getVar(id){ try{ return localStorage.getItem(`svv-${WORK}-${id}`) || ''; }catch(e){ return ''; } }
 function setVar(id, v){ try{ localStorage.setItem(`svv-${WORK}-${id}`, v); }catch(e){} }
@@ -118,6 +154,20 @@ function setCol(which, v){
 }
 
 let DATA = null;
+let DATA_SOURCE = null;
+
+// The same gate controls every reader surface, including audio and exports.
+function isReaderPass(v){return !!(v&&v.gate==='PASS'&&
+  [v.l2,v.l1].some(text=>typeof text==='string'&&text.trim()));}
+function validReaderRow(v){return !!(v&&typeof v==='object'&&!Array.isArray(v)&&
+  typeof (v.id||v.chunk)==='string'&&(v.id||v.chunk).trim()&&
+  ['sa','sanskrit','gate','l1','l2','l3','l4','c1','argmap'].every(k=>v[k]==null||typeof v[k]==='string'));}
+function safeReaderVerse(v){
+  const sa=v.sa||v.sanskrit||'';
+  if(isReaderPass(v))return {...v,sa};
+  return {id:v.id||v.chunk||'',chunk:v.chunk||v.id||'',sa,gate:v.gate||'BLOCKED',
+    model:v.model||'',date:v.date||'',source_issue:v.source_issue||'',source_complete:!!v.source_complete};
+}
 
 function engLaneId(){
   const vs = (DATA && DATA.verses) || [];
@@ -145,10 +195,11 @@ const VDEF = {
 function saWords(v, iast, vix){
   const VI = (vix!=null) ? vix : (v.n-1);
   const raw = cleanSA(v.sa||'');
-  const words = raw.split(/\s+/).filter(Boolean)
-                   .filter(w=>!/^[\u0964\u0965.,|;:]+$/.test(w))
-                   .filter(w=>!/[A-Z]/.test(w));
-  const shown = iast ? words : words.map(w=>IAST_DEVA.convert(w));
+  const tokens = raw.split(/\s+/).filter(Boolean);
+  const punctuation = w=>/^[\u0964\u0965.,|;:]+$/.test(w);
+  const words = tokens.filter(w=>!punctuation(w));
+  const shown = iast ? words : words.map(w=>/^\[lacuna\]$/i.test(w)?w:IAST_DEVA.convert(w));
+  const keepPunctuation = rendered=>{let i=0;return tokens.map(w=>punctuation(w)?esc(iast?w:IAST_DEVA.convert(w)):rendered[i++]).join(' ');};
   const roLine = iast ? '' : `<div class="ro">${esc(raw)}</div>`;
 
   // ---- compiled path (preferred): no matching, no karaoke dependency.
@@ -167,7 +218,7 @@ function saWords(v, iast, vix){
       out.push(str.slice(prev));
       return out;
     };
-    return `<div class="sa">` + shown.map((w,j)=>{
+    return `<div class="sa">` + keepPunctuation(shown.map((w,j)=>{
       const sy = relA.get(j);
       if(sy && sy.length){
         const parts = cutAt(w, Math.min(sy.length, Math.max(1, w.length)));
@@ -178,38 +229,39 @@ function saWords(v, iast, vix){
         return `<span class="kword" data-w="${esc(words[j])}" data-v="${esc(v.id)}">${inner}</span>`;
       }
       return `<span class="w" data-w="${esc(words[j])}" data-v="${esc(v.id)}">${esc(w)}</span>`;
-    }).join(' ') + `</div>` + roLine;
+    })) + `</div>` + roLine;
   }
 
   // ---- live karaoke match (works without an artifact)
   const kw = KAR && KAR.words[VI];
   if(kw && kw.length){
-    const shownK = iast ? kw.map(k=>k.r) : kw.map(k=>IAST_DEVA.convert(k.r));
     const nf = x => (x||'').replace(/\u0902$/, '\u092e\u094d');
-    return `<div class="sa">` + shownK.map((w,j)=>{
-      const kk = kw[j] || {};
+    return `<div class="sa">` + keepPunctuation(shown.map((w,j)=>{
+      const candidate=kw[j]||{};
+      const kk=candidate.r===words[j]?candidate:{};
       const t = (kk.t0!=null) ? ` data-t0="${kk.t0}" data-t1="${kk.t1}" data-i="${VI}"` : '';
       const syl = (kk.sslice && kk.sslice.length) ? kk.sslice : kk.syls;
       if(syl && syl.length && nf(syl.map(x=>x.d).join('')) === nf(w)){
         const inner = syl.map(x=>
           `<span class="w syl" data-t0="${x.t0}" data-t1="${x.t1}" data-i="${VI}">${esc(x.d)}</span>`).join('');
-        return `<span class="kword" data-w="${esc(kk.r)}" data-v="${esc(v.id)}">${inner}</span>`;
+        return `<span class="kword" data-w="${esc(words[j])}" data-v="${esc(v.id)}">${inner}</span>`;
       }
-      return `<span class="w" data-w="${esc(kk.r)}" data-v="${esc(v.id)}"${t}>${esc(w)}</span>`;
-    }).join(' ') + `</div>` + (!iast ? `<div class="ro">${esc(kw.map(k=>k.r).join(' '))}</div>` : '');
+      return `<span class="w" data-w="${esc(words[j])}" data-v="${esc(v.id)}"${t}>${esc(w)}</span>`;
+    })) + `</div>` + (!iast ? `<div class="ro">${esc(raw)}</div>` : '');
   }
 
   // ---- nothing timed: plain text
-  return `<div class="sa">` + shown.map((w,j)=>
-    `<span class="w" data-w="${esc(words[j])}" data-v="${esc(v.id)}" data-i="${VI}">${esc(w)}</span>`).join(' ')
+  return `<div class="sa">` + keepPunctuation(shown.map((w,j)=>
+    `<span class="w" data-w="${esc(words[j])}" data-v="${esc(v.id)}" data-i="${VI}">${esc(w)}</span>`))
     + `</div>` + roLine;
 }
 function verseText(v, vid, col, vix){
   const raw = cleanSA(v.sa||'');
-  const pass = v.gate==='PASS' && (v.l2||v.l1);
-  if(vid==='sa-deva') return saWords(v, false, vix);
-  if(vid==='sa-iast') return saWords(v, true, vix);
-  if(!pass) return saWords(v, false, vix)
+  const pass = isReaderPass(v);
+  const issue=v.source_issue?`<div class="milestone">${esc(v.source_issue)}</div>`:'';
+  if(vid==='sa-deva') return saWords(v, false, vix)+issue;
+  if(vid==='sa-iast') return saWords(v, true, vix)+issue;
+  if(!pass) return saWords(v, false, vix)+issue
     + `<div class="milestone">English withheld — gate ${esc(v.gate||'BLOCKED')}</div>`;
   if(vid==='l1') return `<div class="enp">${esc(cleanEN(v.l1||v.l2||''))}</div>`;
   if(vid==='l2'){
@@ -218,7 +270,12 @@ function verseText(v, vid, col, vix){
     if(t.includes('\n\n')) return `<div class="enp">${t.split(/\n{2,}/).map(p=>`<p>${p.replace(/\n/g,'<br>')}</p>`).join('')}</div>`;
     return `<div class="enp">${t}</div>`;
   }
-  if(vid==='l4') return v.l4 ? `<div class="enp finalsec">${esc(v.l4).replace(/\n/g, '<br>')}</div>` : `<div class="milestone">Svatantrya (L4) pending — falls back to Final (L3) below.</div>`;
+  if(vid==='l4'){
+    if(v.l4)return `<div class="enp finalsec">${esc(v.l4).replace(/\n/g, '<br>')}</div>`;
+    const fallback=v.l3||v.l2||v.l1||'',label=v.l3?'Final (L3)':v.l2?'English translation (L2)':'Literal (L1)';
+    return `<div class="milestone">Svatantrya (L4) pending — showing ${label}.</div>`
+      + `<div class="enp finalsec">${esc(cleanEN(fallback)).replace(/\n/g,'<br>')}</div>`;
+  }
   if(vid==='l3') return v.l3 ? `<div class="enp finalsec">${esc(v.l3).replace(/\n/g, '<br>')}</div>` : `<div class="milestone">Final translation pending — needs human review.</div>`;
   if(vid==='c1'){
     if(v.c1) return `<div class="enp c1sec">${mdSec(v.c1.replace(/^##\s+[^\n]*\n/, ''))}</div>`;
@@ -226,8 +283,8 @@ function verseText(v, vid, col, vix){
        every other verse of the song fans out from it (single change, all works) */
     const m = (v.id||'').match(/^(.*)-v\d+$/);
     if(m){
-      const first = (DATA.verses||[]).find(x=>x.id===m[1]+'-v01' && x.c1)
-                 || (DATA.verses||[]).find(x=>x.id && x.id.indexOf(m[1]+'-v')===0 && x.c1);
+      const first = (DATA.verses||[]).find(x=>x.id===m[1]+'-v01' && isReaderPass(x) && x.c1)
+                 || (DATA.verses||[]).find(x=>x.id && x.id.indexOf(m[1]+'-v')===0 && isReaderPass(x) && x.c1);
       if(first) return `<div class="enp c1sec">${mdSec(first.c1.replace(/^##\s+[^\n]*\n/, ''))}</div>`
         + `<div class="cmp-note">song commentary (from §${esc((first.id||'').split('-v').pop())})</div>`;
     }
@@ -635,6 +692,10 @@ async function main(){
   const ns = $('#navscholar');
   if(ns) ns.onclick = e=>{ e.preventDefault(); location.href = `?work=${encodeURIComponent(WORK)}&view=scholar`; };
   if(qs.get('view')==='scholar'){
+    if(WORK==='ghatakarpara'){
+      $('.reader-main').innerHTML = `<p id="err">Ghaṭakarpara Scholar data is withheld while incomplete source passages and their dependent translations are rechecked. <a href="${GHATA_SOURCE}" target="_blank" rel="noopener">Open the source edition</a>.</p>`;
+      return;
+    }
     try{ await scholarView(); }
     catch(err){ $('.reader-main').innerHTML = `<p id="err">Scholar view: ${esc(String(err&&err.message||err))}</p>`; }
     return;
@@ -643,7 +704,20 @@ async function main(){
   /* canonical-first: ipvv layers JSONs are the backend source of truth.
      Vendored data/ copy is the offline fallback, not the authority. */
   for(const u of (SRC ? [SRC] : [`${IPVV}/data/layers/${WORK}.json`, `${IPVV}/data/translations/${WORK}.json`, `data/${WORK}.json`])){
-    try{ D = await get(u); if(D && (D.verses || D.chunks)) break; else D = null; }catch(e){ D = null; }
+    try{
+      const loaded=await getReaderData(u);D=loaded.data;
+      const rows=Array.isArray(D?.verses)?D.verses:Array.isArray(D?.chunks)?D.chunks:null;
+      if(rows?.length&&rows.every(validReaderRow)){
+        DATA_SOURCE={kind:SRC?'Custom source':u.startsWith(IPVV)?'Live ipvv data (mutable)':'Bundled snapshot',sha256:loaded.sha256};
+        if(!SRC&&!u.startsWith(IPVV)){
+          try{const manifest=await get('data/release-manifest.json'),expected=manifest?.assets?.[`data/${WORK}.json`];
+            DATA_SOURCE.manifest=expected&&loaded.sha256?(expected===loaded.sha256?'matches bundled manifest':'does not match bundled manifest'):'manifest unavailable';}
+          catch{DATA_SOURCE.manifest='manifest unavailable';}
+        }
+        break;
+      }
+      D=null;
+    }catch(e){ D = null; }
   }
   // last resort: Sanskrit root via works-index (Sanskrit always, English never)
   if(!D){
@@ -652,8 +726,12 @@ async function main(){
       const rec = Object.values(idx||{}).find(r=>(r.translation===WORK||r.work===WORK) && r.sanskrit);
       if(rec){
         const raw = await get(`${IPVV}/data/sanskrit/${rec.sanskrit}`);
-        const paras = String(raw).split(/\n{2,}|\n(?=[\u0900-\u097F])/).map(p=>p.trim()).filter(p=>p).slice(0,80);
-        D = {title: rec.title||WORK, master: rec.author||'', verses: paras.map((p,i)=>({id:`${WORK}-s${i+1}`, sa:p, l1:'', l2:'', c1:'', argmap:'', gate:'WITHHELD'}))};
+        if(typeof raw==='string'&&!/^\s*(?:<!doctype\s+html|<html\b)/i.test(raw)){
+          const paras = raw.split(/\n{2,}|\n(?=[\u0900-\u097F])/).map(p=>p.trim()).filter(p=>p);
+          D = {title: rec.title||WORK, master: rec.author||'', source:`ipvv/data/sanskrit/${rec.sanskrit}`,
+            verses: paras.map((p,i)=>({id:`${WORK}-s${i+1}`, sa:p, l1:'', l2:'', c1:'', argmap:'', gate:'WITHHELD'}))};
+          DATA_SOURCE={kind:'Live Sanskrit source fallback (unversioned)',sha256:''};
+        }
       }
     }catch(e){}
   }
@@ -664,7 +742,19 @@ async function main(){
     $('.reader-main').innerHTML = `<p id="err">Nothing on file for “${esc(WORK)}” yet.</p>`;
     return;
   }
-  DATA = {title:(D.title||WORK), master:(D.master||''), source_edition:(D.source_edition||''), verses};
+  if(WORK==='ghatakarpara'){
+    const pinned=await pinnedGhatakarpara();
+    verses=verses.map(v=>{
+      const match=String(v.id||v.chunk||'').match(/-v(\d+)$/),full=match&&pinned?.get(Number(match[1]));
+      return {...v,sa:full||v.sa||v.sanskrit||'',gate:'WITHHELD',source_complete:!!full,source_issue:full
+        ?'Sanskrit restored from the pinned source. English is withheld until translation coverage is rechecked.'
+        :'This Sanskrit display is incomplete. Open the source edition; English is withheld until coverage is rechecked.'};
+    });
+    if(pinned&&DATA_SOURCE)DATA_SOURCE.sourceSha=GHATA_SOURCE_SHA256;
+  }
+  verses=verses.map(safeReaderVerse);
+  DATA = {title:(D.title||WORK), master:(D.master||''), source_edition:(D.source_edition||''),
+    source:typeof D.source==='string'?D.source:'', verses};
   DATA.verses.forEach((v,i)=>{ v.n = i+1; });
   // pretty title + master name from the library catalogue
   try{
@@ -718,8 +808,7 @@ async function main(){
       verses.forEach((v,ix)=>{
         const raw = cleanSA(v.sa||v.sanskrit||'');
         const vw = raw.split(/\s+/).filter(Boolean)
-                     .filter(w=>!/^[\u0964\u0965.,|]+$/.test(w))       // danda is not a word
-                     .filter(w=>!/[A-Z]/.test(w));                    // source refs (AgAna_1)
+                     .filter(w=>!/^[\u0964\u0965.,|;:]+$/.test(w)); // punctuation is not a timed word
         // one predicate, used both to pick the covering karaoke entry and to
         // assign timings — mismatched rules here silently killed whole works.
         const skelMatch = (t, ksk)=>{
@@ -817,6 +906,8 @@ async function main(){
       });
     }
   }catch(e){ ART = null; }
+  // Existing alignments were created against the partial source display.
+  if(WORK==='ghatakarpara'){KAR=null;ART=null;ART_CLIPS={};ART_REL={};}
 
   await loadMorph();
   await loadL0();
@@ -988,13 +1079,17 @@ async function buildLeftRail(verses, LIBDATA){
       W('workid','Work ID', (DATA.source_edition
           ? `<div class="urn">${esc(DATA.source_edition)}</div><div class="cmp-note">${esc(urn)}</div>`
           : `<div class="urn">${esc(urn)}</div>`))
+      + (WORK==='ghatakarpara'?W('sourcehold','Source notice',`<div class="cmp-note">The translation was produced from incomplete passages and is withheld for rechecking. <a class="redlink" href="${GHATA_SOURCE}" target="_blank" rel="noopener">Open the full GRETIL source</a> · Parlier edition, CC BY-NC-SA 4.0.</div>`):'')
       + W('verses','Verses', `<a href="#" id="vcount" style="color:#B45141">${verses.length}</a>`)
       + W('library','Library', `<div id="liblist">${libraryHtml(lib)}</div>`)
       + W('ref','Passage Reference', `<div class="wsearch"><input id="wjump" placeholder="§ number…" inputmode="numeric"/><button id="wgo2">go</button></div><div class="vref-list" style="margin-top:.4rem">${verses.map((v,i)=>`<a href="#v${i}" data-i="${i}">§${i+1}</a>`).join('')}</div>`)
       + W('search','Text Search', `<div class="wsearch"><input id="wq" placeholder="find in this work…"/><button id="wgo">go</button></div><div style="margin:.3rem 0;font-size:13px"><label><input type="radio" name="smode" value="form" checked/> Form</label> <label style="margin-left:.6rem"><input type="radio" name="smode" value="lemma"/> Lemma</label></div><div class="cmp-note">Use text input above to find text in this version.</div><div id="wres" style="margin-top:.4rem"></div>`)
       + W('attr','Attributions', `<table class="wtable">`
         + `<tr><td>work</td><td>${esc(DATA.title)}</td></tr>`
-        + `<tr><td>source</td><td>${esc(DATA.source_edition || 'root text (see Work ID)')}</td></tr>`
+        + `<tr><td>source</td><td>${esc(DATA.source_edition || 'Edition not recorded for this display.')}</td></tr>`
+        + (DATA.source?`<tr><td>source file</td><td>${esc(DATA.source)}</td></tr>`:'')
+        + (DATA_SOURCE?`<tr><td>data</td><td>${esc(DATA_SOURCE.kind)}${DATA_SOURCE.sha256?` · SHA-256 <span title="${esc(DATA_SOURCE.sha256)}">${esc(DATA_SOURCE.sha256.slice(0,16))}</span>`:' · fingerprint unavailable'}${DATA_SOURCE.manifest?` · ${esc(DATA_SOURCE.manifest)}`:''}</td></tr>`:'')
+        + (DATA_SOURCE?.sourceSha?`<tr><td>pinned source</td><td><span title="${esc(DATA_SOURCE.sourceSha)}">SHA-256 ${esc(DATA_SOURCE.sourceSha.slice(0,16))}</span></td></tr>`:'')
         + `<tr><td>translation</td><td><b>FREE</b> — our English (L1–L4, commentary) is free use. Scholar edits &amp; words: © their authors, all rights reserved.</td></tr>`
         + `<tr><td>editions</td><td>Svatantrya (L4) · Final · Literal gloss · English translation · Commentary — pipeline, machine-proposed, needs human review</td></tr>`
         + `<tr><td>gate</td><td>${verses.filter(v=>v.gate==='PASS').length}/${verses.length} passages passed</td></tr>`
@@ -1165,7 +1260,7 @@ function installResize(lay){
 /* c1sum — standardized chat intro: first C1 SUMMARY clamped to chat length */
 function c1sumLine(){
   const vs = (DATA && DATA.verses) || [];
-  const v = vs.find(x=>x.c1) || null;
+  const v = vs.find(x=>isReaderPass(x)&&x.c1) || null;
   if(!v) return '';
   const raw = (v.c1 || '').replace(/^##\s+[^\n]*\n/, '');
   const m = raw.match(/\*\*SUMMARY\.\*\*\s*([\s\S]*?)(\n\n|\n\*Rasa|$)/);
@@ -1259,6 +1354,7 @@ let MORPH = null; // data/morph/<wid>.json {verses:[{id,tags:{word:{src,lemma?,p
 let PROOF = null; // data/proof/<wid>.json {verses:{id:{gate,blocking,checks,source_sha,result_id,model,date}}}
 let PROBES = null; // data/probes/<wid>.json {probes:[{id,question,verses:[n],verdict}]} — pushing hounds
 async function loadProbes(){
+  if(WORK==='ghatakarpara'){PROBES=null;PROBES_SOURCE='';return;}
   try{
     const p = await get(`data/probes/${WORK}.json`);
     PROBES = (p && p.probes) || null;
@@ -1267,6 +1363,7 @@ async function loadProbes(){
 }
 let PROBES_SOURCE = '';
 async function loadMorph(){
+  if(WORK==='ghatakarpara'){MORPH=null;PROOF=null;return;}
   try{
     const m = await get(`data/morph/${WORK}.json`);
     MORPH = {};
@@ -1354,12 +1451,13 @@ function stopRecite(){ bumpPlay(); quiet(); AUix = null; }
 /* ---- per-section play: starts at a section, auto-continues to the end ----
    sa = chant/browser voice via stepOnce · en/c1 = Granny via /api/read (R2-cached) */
 function readUrlFor(v, kind){
+  if(!isReaderPass(v))return Promise.reject(new Error('English withheld by the passage gate'));
   let text = '';
   if(kind === 'c1'){
     text = cleanEN((v.c1 || '').replace(/^##\s+[^\n]*\n/, ''));
     if(!text){
       const m = (v.id||'').match(/^(.*)-v\d+$/);
-      const first = m && (DATA.verses||[]).find(x=>x.id===m[1]+'-v01' && x.c1);
+      const first = m && (DATA.verses||[]).find(x=>x.id===m[1]+'-v01' && isReaderPass(x) && x.c1);
       text = first ? cleanEN(first.c1.replace(/^##\s+[^\n]*\n/, '')) : '';
     }
   } else {
@@ -1472,13 +1570,15 @@ function tickAU(){
 }
 function speakThen(i, next){
   try{
-    const el = document.querySelector(`#textL .verse[data-i="${i}"], #textR .verse[data-i="${i}"]`);
-    const u = new SpeechSynthesisUtterance((el ? el.innerText : '').slice(0,1200));
+    const source=(DATA?.verses||[])[i]?.sa||'';
+    const u = new SpeechSynthesisUtterance(IAST_DEVA.convert(cleanSA(source)).slice(0,1200));
     u.rate = 0.95; u.onend = next;
     speechSynthesis.speak(u);
   }catch(e){ next(); }
 }
 function stepOnce(i, next){
+  const verse=(DATA?.verses||[])[i];
+  if(verse?.source_issue){if(verse.source_complete)speakThen(i,next);else next();return;}
   const q = ART_CLIPS[i];
   if(q && q.length){
     QUEUE = q; QIDX = 0; QBASE = 0; QNEXT = next;
@@ -1595,6 +1695,7 @@ function buildRightRail(verses){
     if(!L0) return out;
     for(const vid of Object.keys(L0)){
       const i = (DATA.verses||[]).findIndex(v=>v.id===vid||v.chunk===vid);
+      if(i<0||!isReaderPass(DATA.verses[i]))continue;
       for(const t of (L0[vid]||[])){
         const hay = `${t.iast||''} ${t.gloss||''}`.toLowerCase();
         if(hay.includes(q)){ out.push({i, vid, t}); break; }
@@ -1691,7 +1792,8 @@ function buildRightRail(verses){
     /* first message = c1sum mini-essay (compiled from argmaps+C1 by
        translation-work/tools/build_c1sum.py); no "ask" link — the box IS the ask */
     const openerFallback = 'I wonder what this work is really asking…';
-    fetch(`data/chatsum/${encodeURIComponent(WORK)}.json`).then(r=>r.ok?r.json():null).catch(()=>null).then(cs0=>{
+    if(WORK==='ghatakarpara')qsay('a','This work is being rechecked against the complete source. Translation and AI answers are temporarily withheld.');
+    else fetch(`data/chatsum/${encodeURIComponent(WORK)}.json`).then(r=>r.ok?r.json():null).catch(()=>null).then(cs0=>{
       if(cs0 && cs0.text){                       // authored chatsum (datatype: chatsum)
         qsay('a', `<b>${esc(cs0.title||WORK)}</b> — ${esc(cs0.text)}`);
         return;
@@ -1747,6 +1849,10 @@ function buildRightRail(verses){
     const thinking = document.createElement('div');
     thinking.className = 'qbub a thinking'; thinking.textContent = '…';
     convo.appendChild(thinking); convo.scrollTop = convo.scrollHeight;
+    if(WORK==='ghatakarpara'){
+      thinking.remove();qsay('a','Answers are withheld until the complete source and translation have been rechecked.');
+      inp.disabled=false;return;
+    }
     let sid = null;
     try{ sid = localStorage.getItem('svv-chat-'+WORK) || null; }catch(e){}
     const ctrl = new AbortController();
