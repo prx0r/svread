@@ -434,7 +434,7 @@ async function scholarView(){
 
   const allV = ()=>(SCH.versions||[]).concat(schDrafts());
   const basesList = ()=>[{id:null, name:'Original (canonical)'}]
-    .concat(schAllVersions(st.layer, st.target).map(v=>({id:v.version_id, name:`${v.version_id.startsWith('local:')?'◇':'◆'} ${v.author}${v.version_id.startsWith('local:')?' · this device':''}`})));
+    .concat(schAllVersions(st.layer, st.target).map(v=>({id:v.version_id, name:`${v.version_id.startsWith('local:')?'◇':'◆'} ${v.author||'unattributed'} · ${v.author_kind||'author type unspecified'} · ${v.status||'status unspecified'} · ${v.version_id}${v.version_id.startsWith('local:')?' · this device':''}`})));
 
   function currentBaseContent(){
     if(!st.base) return {content: (SCH.originals[st.layer]||{})[st.target], label:'Original (canonical)'};
@@ -460,6 +460,13 @@ async function scholarView(){
          <div class="text">${origHtml}
            <div class="c2box"><div class="cmp-note" style="text-transform:uppercase;letter-spacing:.15em;font-size:.68rem">Forks of this target</div>
            ${schTreeHtml(st.layer, st.target)}</div>
+           <details class="c2box"><summary>Compare saved versions</summary>
+             <div class="cmp-note">Read-only comparison for this passage and layer. Version status does not imply human review.</div>
+             <label>First version <select id="schcompare-left">${basesList().map(v=>`<option value="${esc(v.id||'original')}">${esc(v.name)}</option>`).join('')}</select></label>
+             <pre id="schcompare-left-text"></pre>
+             <label>Second version <select id="schcompare-right">${basesList().map(v=>`<option value="${esc(v.id||'original')}">${esc(v.name)}</option>`).join('')}</select></label>
+             <pre id="schcompare-right-text"></pre>
+           </details>
          </div>
        </section>
        <section class="col right">
@@ -479,6 +486,18 @@ async function scholarView(){
            <div class="cmp-note" id="schmsg"></div>
          </div>
        </section>`;
+    const comparable=schAllVersions(st.layer,st.target);
+    $('#schcompare-left').value='original';
+    $('#schcompare-right').value=st.base||comparable[0]?.version_id||'original';
+    const updateComparison=()=>{
+      for(const side of ['left','right']){
+        const id=$('#schcompare-'+side).value;
+        const version=id==='original'?null:comparable.find(v=>v.version_id===id);
+        const content=id==='original'?orig:version?.content;
+        $('#schcompare-'+side+'-text').textContent=content?schTextOf(st.layer,content):'Version unavailable for this passage.';
+      }
+    };
+    $('#schcompare-left').onchange=updateComparison;$('#schcompare-right').onchange=updateComparison;updateComparison();
     // base = click a fork
     $('#cols').querySelectorAll('a.schbase').forEach(a=>{
       a.onclick = e=>{

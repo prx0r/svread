@@ -35,6 +35,15 @@ class TestMcp(unittest.TestCase):
         self.assertIn('paramarthasara',content(rs[2])['works'])
         ev=content(rs[3]);self.assertIn('śambhuṃ',ev['source']['text']);self.assertIn('l0',ev['layers']);self.assertEqual(len(ev['projection_sha256']),64)
         self.assertTrue(rs[4]['result']['isError']);self.assertTrue(rs[5]['result']['isError'])
+    def test_version_comparison_uses_real_bundled_fork_and_exact_passage(self):
+        args={'work':'paramarthasara','target':'param-p01-v01','layer':'l3'}
+        rs=run([tool(1,'list_versions',args),tool(2,'compare_versions',{**args,'left':'original','right':'sv:ac094e65ee9be6aa'}),
+                tool(3,'compare_versions',{**args,'left':'original','right':'sv:missing'})])
+        rows=content(rs[0])['versions'];self.assertEqual(rows[0]['version_id'],'original');self.assertEqual(len(rows),4)
+        comparison=content(rs[1]);self.assertEqual(comparison['right']['version_id'],'sv:ac094e65ee9be6aa')
+        self.assertEqual(comparison['right']['status'],'MACHINE_DRAFT');self.assertTrue(rs[2]['result']['isError'])
+        self.assertNotIn('content',rows[0])
+
     def test_decisions_and_drafting_are_explicit_account_requests(self):
         server=ThreadingHTTPServer(('127.0.0.1',0),Mock);t=threading.Thread(target=server.serve_forever,daemon=True);t.start()
         try:

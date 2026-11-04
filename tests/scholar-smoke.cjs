@@ -52,6 +52,12 @@ test('Scholar keeps a local fork chain and submits the same data', async () => {
   await vm.runInContext('scholarView()', context);
   assert.match(node('#lib').innerHTML, /A considered essay/);
   assert.match(node('#lib').innerHTML, /A public essay/);
+  assert.match(node('#cols').innerHTML,/Compare saved versions/);
+  assert.match(node('#schcompare-left-text').textContent,/Supreme/);
+  node('#schcompare-right').value='sv:ac094e65ee9be6aa';node('#schcompare-right').onchange();
+  assert.match(node('#schcompare-right-text').textContent,/Supreme/);
+  node('#schcompare-right').value='sv:missing';node('#schcompare-right').onchange();
+  assert.match(node('#schcompare-right-text').textContent,/Version unavailable/);
   node('#schta').value = 'First version';
   node('#schsave').onclick();
   node('#schta').value = 'Second version';

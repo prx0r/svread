@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Local stdio MCP bridge to bundled evidence and the authenticated Scholar API."""
-import hashlib, json, os, re, sys, urllib.error, urllib.parse, urllib.request
+import difflib, hashlib, json, os, re, sys, urllib.error, urllib.parse, urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -21,10 +21,10 @@ def projection(work):
         raise ValueError('Projection hash or work ID mismatch')
     return d
 
-def evidence(a):
+def evidence(a, data=None):
     work, target = a.get('work'), a.get('target')
     if not isinstance(target, str) or not IDENT.fullmatch(target): raise ValueError('Invalid target ID')
-    d = projection(work); song = re.sub(r'-v\d+$', '', target)
+    d = data if data is not None else projection(work); song = re.sub(r'-v\d+$', '', target)
     if song in d.get('withheld_songs', []) or not d.get('source_verses', {}).get(target) or not d.get('originals', {}).get('t1', {}).get(target):
         raise ValueError('Passage unavailable or withheld')
     layers = {}
@@ -38,6 +38,40 @@ def evidence(a):
     return {'work':work, 'target':target, 'source':d['source_verses'][target], 'layers':layers,
             'l4_craft':d.get('l4_craft', {}).get(target, []), 'projection_sha256':d['projection_sha256'],
             'warning':'Bundled snapshot; hashes establish integrity, not philological correctness or human review.'}
+
+def versions(a, include_content=False):
+    work, target, layer = a.get('work'), a.get('target'), a.get('layer')
+    if layer not in ('t1','l0','argmap','l2','c1','l3','l4','c2'): raise ValueError('Invalid layer')
+    d=projection(work); evidence(a,d)
+    key=re.sub(r'-v\d+$','',target) if layer in ('c1','c2') else target
+    original=d.get('originals',{}).get(layer,{}).get(key)
+    if original is None: raise ValueError('Layer unavailable for this passage')
+    original_hash=d.get('original_hashes',{}).get(layer,{}).get(key)
+    if hashlib.sha256(canonical(original)).hexdigest()!=original_hash: raise ValueError('Original layer hash mismatch')
+    rows=[{'version_id':'original','author':None,'author_kind':'unknown','status':'canonical-source-layer',
+           'parent':None,'content_sha256':original_hash,'content':original}]
+    for v in d.get('versions',[]):
+        if v.get('work')!=work or v.get('target')!=key or v.get('layer')!=layer: continue
+        content=v.get('content');digest=v.get('content_sha256')
+        if not isinstance(content,dict) or hashlib.sha256(canonical(content)).hexdigest()!=digest: raise ValueError('Version content hash mismatch')
+        rows.append({'version_id':v.get('version_id'),'author':v.get('author'),'author_kind':v.get('author_kind','unknown'),
+                     'status':v.get('status','unknown'),'parent':v.get('parent'),'content_sha256':digest,'content':content})
+    if not include_content:
+        rows=[{k:v for k,v in row.items() if k!='content'} for row in rows]
+    return {'work':work,'target':target,'layer_target':key,'layer':layer,'projection_sha256':d['projection_sha256'],
+            'versions':rows,'warning':'A stored version or hash does not establish human review or approval.'}
+
+def compare_versions(a):
+    result=versions(a,True); left=a.get('left');right=a.get('right')
+    if not isinstance(left,str) or not isinstance(right,str): raise ValueError('Choose two version IDs')
+    lookup={v['version_id']:v for v in result['versions']}
+    if left not in lookup or right not in lookup: raise ValueError('Version not found for this passage and layer')
+    one=json.dumps(lookup[left]['content'],ensure_ascii=False,sort_keys=True,indent=2).splitlines(keepends=True)
+    two=json.dumps(lookup[right]['content'],ensure_ascii=False,sort_keys=True,indent=2).splitlines(keepends=True)
+    diff=''.join(difflib.unified_diff(one,two,fromfile=left,tofile=right))
+    result.pop('versions');result.update({'left':{k:v for k,v in lookup[left].items() if k!='content'},
+      'right':{k:v for k,v in lookup[right].items() if k!='content'},'diff':diff[:60000],'truncated':len(diff)>60000})
+    return result
 
 class NoRedirect(urllib.request.HTTPRedirectHandler):
     def redirect_request(self, *args, **kwargs): return None
@@ -74,6 +108,8 @@ def call(name,a):
         index=json.loads((ROOT/'data/scholar/index.json').read_text(encoding='utf-8'))
         return {'works':sorted(index), 'note':'Bundled projections; Ghaṭakarpara is withheld pending source repair.'}
     if name=='passage_evidence': return evidence(a)
+    if name=='list_versions': return versions(a)
+    if name=='compare_versions': return compare_versions(a)
     if name=='list_documents':
         w=a.get('work');
         if not isinstance(w,str) or not WORK.fullmatch(w): raise ValueError('Invalid work ID')
@@ -97,6 +133,8 @@ T={'type':'string'}
 TOOLS=[
  ('list_works','List available bundled Scholar projections.',S({})),
  ('passage_evidence','Read hash-checked Sanskrit and editorial layers for a passage.',S({'work':T,'target':T},['work','target'])),
+ ('list_versions','List stored versions for an exact passage and layer.',S({'work':T,'target':T,'layer':T},['work','target','layer'])),
+ ('compare_versions','Compare two hash-checked versions for an exact passage and layer.',S({'work':T,'target':T,'layer':T,'left':T,'right':T},['work','target','layer','left','right'])),
  ('list_documents','List this account’s private documents for a work.',S({'work':T,'offset':{'type':'integer','minimum':0}},['work'])),
  ('document_history','Read this account’s private document revision history.',S({'document_id':T},['document_id'])),
  ('list_reviews','List reviews accessible to this account.',S({})),
