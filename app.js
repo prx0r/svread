@@ -10,6 +10,8 @@ const WORK = qs.get('work') || 'bhairavastava';
 const SRC = qs.get('src');
 const IPVV = 'https://ipvv-a8u.pages.dev';
 const API = 'https://ipvv-api.tradesprior.workers.dev';
+const GHATA_SOURCE = `${IPVV}/data/sanskrit/ghatakarpara.txt`;
+const GHATA_SOURCE_SHA256 = 'c3025effdb6ed0ea7eeb83fc3b5b4955aed8086bc5a8a9ee4646d689ffe73783';
 // Chant audio + karaoke timings live in the public R2 bucket (CORS-open).
 const R2 = 'https://pub-87169194562a44fcb8279a799d626c62.r2.dev';
 /* studio chant: karaoke timings + mp3s live on the ipvv origin.
@@ -116,10 +118,30 @@ async function getReaderData(p){
   const response=await fetch(p);if(!response.ok)throw new Error('Reader data unavailable');
   const bytes=await response.arrayBuffer();
   const data=JSON.parse(new TextDecoder().decode(bytes));
-  let sha256='';
+  return {data,sha256:await sha256Bytes(bytes)};
+}
+async function sha256Bytes(bytes){
   try{const digest=await crypto.subtle.digest('SHA-256',bytes);
-    sha256=Array.from(new Uint8Array(digest),b=>b.toString(16).padStart(2,'0')).join('');}catch{}
-  return {data,sha256};
+    return Array.from(new Uint8Array(digest),b=>b.toString(16).padStart(2,'0')).join('');}catch{return '';}
+}
+function parseGhatakarparaSource(text){
+  const verses=new Map();
+  for(const paragraph of text.split(/\n\s*\n/)){
+    const matches=[...paragraph.matchAll(/\/\/\s*Ghk_(\d+)\s*\/\//g)];
+    if(matches.length>1)return null;
+    if(!matches.length)continue;
+    const number=Number(matches[0][1]);
+    if(number<1||number>21||verses.has(number))return null;
+    verses.set(number,paragraph.replace(/\/\/\s*Ghk_\d+\s*\/\//,'').trim());
+  }
+  return verses.size===21?verses:null;
+}
+async function pinnedGhatakarpara(fetcher=fetch,pin=GHATA_SOURCE_SHA256){
+  try{
+    const response=await fetcher(GHATA_SOURCE);if(!response.ok)return null;
+    const bytes=await response.arrayBuffer();if(await sha256Bytes(bytes)!==pin)return null;
+    return parseGhatakarparaSource(new TextDecoder().decode(bytes));
+  }catch{return null;}
 }
 function norm(s){ return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z]/g,''); }
 function getVar(id){ try{ return localStorage.getItem(`svv-${WORK}-${id}`) || ''; }catch(e){ return ''; } }
@@ -144,7 +166,7 @@ function safeReaderVerse(v){
   const sa=v.sa||v.sanskrit||'';
   if(isReaderPass(v))return {...v,sa};
   return {id:v.id||v.chunk||'',chunk:v.chunk||v.id||'',sa,gate:v.gate||'BLOCKED',
-    model:v.model||'',date:v.date||''};
+    model:v.model||'',date:v.date||'',source_issue:v.source_issue||'',source_complete:!!v.source_complete};
 }
 
 function engLaneId(){
@@ -236,9 +258,10 @@ function saWords(v, iast, vix){
 function verseText(v, vid, col, vix){
   const raw = cleanSA(v.sa||'');
   const pass = isReaderPass(v);
-  if(vid==='sa-deva') return saWords(v, false, vix);
-  if(vid==='sa-iast') return saWords(v, true, vix);
-  if(!pass) return saWords(v, false, vix)
+  const issue=v.source_issue?`<div class="milestone">${esc(v.source_issue)}</div>`:'';
+  if(vid==='sa-deva') return saWords(v, false, vix)+issue;
+  if(vid==='sa-iast') return saWords(v, true, vix)+issue;
+  if(!pass) return saWords(v, false, vix)+issue
     + `<div class="milestone">English withheld — gate ${esc(v.gate||'BLOCKED')}</div>`;
   if(vid==='l1') return `<div class="enp">${esc(cleanEN(v.l1||v.l2||''))}</div>`;
   if(vid==='l2'){
@@ -655,6 +678,10 @@ async function main(){
   const ns = $('#navscholar');
   if(ns) ns.onclick = e=>{ e.preventDefault(); location.href = `?work=${encodeURIComponent(WORK)}&view=scholar`; };
   if(qs.get('view')==='scholar'){
+    if(WORK==='ghatakarpara'){
+      $('.reader-main').innerHTML = `<p id="err">Ghaṭakarpara Scholar data is withheld while incomplete source passages and their dependent translations are rechecked. <a href="${GHATA_SOURCE}" target="_blank" rel="noopener">Open the source edition</a>.</p>`;
+      return;
+    }
     try{ await scholarView(); }
     catch(err){ $('.reader-main').innerHTML = `<p id="err">Scholar view: ${esc(String(err&&err.message||err))}</p>`; }
     return;
@@ -700,6 +727,16 @@ async function main(){
   if(!verses || !verses.length){
     $('.reader-main').innerHTML = `<p id="err">Nothing on file for “${esc(WORK)}” yet.</p>`;
     return;
+  }
+  if(WORK==='ghatakarpara'){
+    const pinned=await pinnedGhatakarpara();
+    verses=verses.map(v=>{
+      const match=String(v.id||v.chunk||'').match(/-v(\d+)$/),full=match&&pinned?.get(Number(match[1]));
+      return {...v,sa:full||v.sa||v.sanskrit||'',gate:'WITHHELD',source_complete:!!full,source_issue:full
+        ?'Sanskrit restored from the pinned source. English is withheld until translation coverage is rechecked.'
+        :'This Sanskrit display is incomplete. Open the source edition; English is withheld until coverage is rechecked.'};
+    });
+    if(pinned&&DATA_SOURCE)DATA_SOURCE.sourceSha=GHATA_SOURCE_SHA256;
   }
   verses=verses.map(safeReaderVerse);
   DATA = {title:(D.title||WORK), master:(D.master||''), source_edition:(D.source_edition||''),
@@ -855,6 +892,8 @@ async function main(){
       });
     }
   }catch(e){ ART = null; }
+  // Existing alignments were created against the partial source display.
+  if(WORK==='ghatakarpara'){KAR=null;ART=null;ART_CLIPS={};ART_REL={};}
 
   await loadMorph();
   await loadL0();
@@ -1026,6 +1065,7 @@ async function buildLeftRail(verses, LIBDATA){
       W('workid','Work ID', (DATA.source_edition
           ? `<div class="urn">${esc(DATA.source_edition)}</div><div class="cmp-note">${esc(urn)}</div>`
           : `<div class="urn">${esc(urn)}</div>`))
+      + (WORK==='ghatakarpara'?W('sourcehold','Source notice',`<div class="cmp-note">The translation was produced from incomplete passages and is withheld for rechecking. <a class="redlink" href="${GHATA_SOURCE}" target="_blank" rel="noopener">Open the full GRETIL source</a> · Parlier edition, CC BY-NC-SA 4.0.</div>`):'')
       + W('verses','Verses', `<a href="#" id="vcount" style="color:#B45141">${verses.length}</a>`)
       + W('library','Library', `<div id="liblist">${libraryHtml(lib)}</div>`)
       + W('ref','Passage Reference', `<div class="wsearch"><input id="wjump" placeholder="§ number…" inputmode="numeric"/><button id="wgo2">go</button></div><div class="vref-list" style="margin-top:.4rem">${verses.map((v,i)=>`<a href="#v${i}" data-i="${i}">§${i+1}</a>`).join('')}</div>`)
@@ -1035,6 +1075,7 @@ async function buildLeftRail(verses, LIBDATA){
         + `<tr><td>source</td><td>${esc(DATA.source_edition || 'Edition not recorded for this display.')}</td></tr>`
         + (DATA.source?`<tr><td>source file</td><td>${esc(DATA.source)}</td></tr>`:'')
         + (DATA_SOURCE?`<tr><td>data</td><td>${esc(DATA_SOURCE.kind)}${DATA_SOURCE.sha256?` · SHA-256 <span title="${esc(DATA_SOURCE.sha256)}">${esc(DATA_SOURCE.sha256.slice(0,16))}</span>`:' · fingerprint unavailable'}${DATA_SOURCE.manifest?` · ${esc(DATA_SOURCE.manifest)}`:''}</td></tr>`:'')
+        + (DATA_SOURCE?.sourceSha?`<tr><td>pinned source</td><td><span title="${esc(DATA_SOURCE.sourceSha)}">SHA-256 ${esc(DATA_SOURCE.sourceSha.slice(0,16))}</span></td></tr>`:'')
         + `<tr><td>translation</td><td><b>FREE</b> — our English (L1–L4, commentary) is free use. Scholar edits &amp; words: © their authors, all rights reserved.</td></tr>`
         + `<tr><td>editions</td><td>Svatantrya (L4) · Final · Literal gloss · English translation · Commentary — pipeline, machine-proposed, needs human review</td></tr>`
         + `<tr><td>gate</td><td>${verses.filter(v=>v.gate==='PASS').length}/${verses.length} passages passed</td></tr>`
@@ -1299,6 +1340,7 @@ let MORPH = null; // data/morph/<wid>.json {verses:[{id,tags:{word:{src,lemma?,p
 let PROOF = null; // data/proof/<wid>.json {verses:{id:{gate,blocking,checks,source_sha,result_id,model,date}}}
 let PROBES = null; // data/probes/<wid>.json {probes:[{id,question,verses:[n],verdict}]} — pushing hounds
 async function loadProbes(){
+  if(WORK==='ghatakarpara'){PROBES=null;PROBES_SOURCE='';return;}
   try{
     const p = await get(`data/probes/${WORK}.json`);
     PROBES = (p && p.probes) || null;
@@ -1307,6 +1349,7 @@ async function loadProbes(){
 }
 let PROBES_SOURCE = '';
 async function loadMorph(){
+  if(WORK==='ghatakarpara'){MORPH=null;PROOF=null;return;}
   try{
     const m = await get(`data/morph/${WORK}.json`);
     MORPH = {};
@@ -1513,13 +1556,15 @@ function tickAU(){
 }
 function speakThen(i, next){
   try{
-    const el = document.querySelector(`#textL .verse[data-i="${i}"], #textR .verse[data-i="${i}"]`);
-    const u = new SpeechSynthesisUtterance((el ? el.innerText : '').slice(0,1200));
+    const source=(DATA?.verses||[])[i]?.sa||'';
+    const u = new SpeechSynthesisUtterance(IAST_DEVA.convert(cleanSA(source)).slice(0,1200));
     u.rate = 0.95; u.onend = next;
     speechSynthesis.speak(u);
   }catch(e){ next(); }
 }
 function stepOnce(i, next){
+  const verse=(DATA?.verses||[])[i];
+  if(verse?.source_issue){if(verse.source_complete)speakThen(i,next);else next();return;}
   const q = ART_CLIPS[i];
   if(q && q.length){
     QUEUE = q; QIDX = 0; QBASE = 0; QNEXT = next;
@@ -1733,7 +1778,8 @@ function buildRightRail(verses){
     /* first message = c1sum mini-essay (compiled from argmaps+C1 by
        translation-work/tools/build_c1sum.py); no "ask" link — the box IS the ask */
     const openerFallback = 'I wonder what this work is really asking…';
-    fetch(`data/chatsum/${encodeURIComponent(WORK)}.json`).then(r=>r.ok?r.json():null).catch(()=>null).then(cs0=>{
+    if(WORK==='ghatakarpara')qsay('a','This work is being rechecked against the complete source. Translation and AI answers are temporarily withheld.');
+    else fetch(`data/chatsum/${encodeURIComponent(WORK)}.json`).then(r=>r.ok?r.json():null).catch(()=>null).then(cs0=>{
       if(cs0 && cs0.text){                       // authored chatsum (datatype: chatsum)
         qsay('a', `<b>${esc(cs0.title||WORK)}</b> — ${esc(cs0.text)}`);
         return;
@@ -1789,6 +1835,10 @@ function buildRightRail(verses){
     const thinking = document.createElement('div');
     thinking.className = 'qbub a thinking'; thinking.textContent = '…';
     convo.appendChild(thinking); convo.scrollTop = convo.scrollHeight;
+    if(WORK==='ghatakarpara'){
+      thinking.remove();qsay('a','Answers are withheld until the complete source and translation have been rechecked.');
+      inp.disabled=false;return;
+    }
     let sid = null;
     try{ sid = localStorage.getItem('svv-chat-'+WORK) || null; }catch(e){}
     const ctrl = new AbortController();

@@ -26,7 +26,7 @@ def canonical(value) -> bytes:
 def build() -> tuple[dict, list[str]]:
     errors: list[str] = []
     assets = [ROOT / name for name in ('index.html', 'app.js', 'styles.css', 'sw.js',
-                                        'manifest.webmanifest', 'README.md', 'SPEC.md')]
+                                        'manifest.webmanifest', 'README.md', 'SPEC.md', 'READER-ARCHITECTURE.md')]
     assets += [p for folder in ('data', 'align', 'scripts') for p in (ROOT / folder).rglob('*')
                if p.is_file() and p != MANIFEST and '__pycache__' not in p.parts and not p.name.endswith('.pyc')]
     files = {p.relative_to(ROOT).as_posix(): sha(p.read_bytes()) for p in sorted(assets)}

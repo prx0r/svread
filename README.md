@@ -54,3 +54,6 @@ Run the local checks with `node --check app.js` and
 `node --test tests/reader-integrity.test.cjs tests/release-manifest.test.cjs tests/service-worker-privacy.test.cjs tests/scholar-smoke.cjs`.
 The audio Worker and its versioned R2 cache are documented in ipvv's
 `worker/SVREAD-AUDIO.md` on the accompanying review branch.
+
+See `READER-ARCHITECTURE.md` for the data flow, release checks and the active
+Ghaṭakarpara source-coverage hold.

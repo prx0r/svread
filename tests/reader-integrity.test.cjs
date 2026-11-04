@@ -10,7 +10,7 @@ function harness(fetch){
   const context=vm.createContext({fetch,URL,URLSearchParams,TextEncoder,TextDecoder,Response,crypto:webcrypto,
     location:{search:'?work=testwork',href:'https://svread.pages.dev/?work=testwork'},window:{},
     localStorage:{getItem:()=>null,setItem(){}},document:{querySelector:()=>null}});
-  const source=app.replace('main();\n})();',`globalThis.readerTest={safeReaderVerse,isReaderPass,verseText,readUrlFor,saWords,IAST_DEVA,esc,loadL0,getReaderData,
+  const source=app.replace('main();\n})();',`globalThis.readerTest={safeReaderVerse,isReaderPass,verseText,readUrlFor,saWords,IAST_DEVA,esc,loadL0,getReaderData,pinnedGhatakarpara,
     setData:value=>{DATA=value;},setKaraoke:value=>{KAR=value;},getL0:()=>L0};\n})();`);
   assert.notEqual(source,app);vm.runInContext(source,context);return context.readerTest;
 }
@@ -20,6 +20,34 @@ test('reader fingerprints the exact response bytes, including formatting',async(
   const reader=harness(async()=>new Response(bytes,{headers:{'Content-Type':'application/json'}}));
   const result=await reader.getReaderData('data/testwork.json');
   assert.equal(result.data.work,'testwork');assert.equal(result.sha256,createHash('sha256').update(bytes).digest('hex'));
+});
+
+test('Ghaṭakarpara uses a hash-pinned complete source while withholding the partial translation',async()=>{
+  const full=Array.from({length:21},(_,i)=>`first half ${i+1} /\nsecond half ${i+1} // Ghk_${i+1} //`).join('\n\n');
+  const pin=createHash('sha256').update(full).digest('hex');
+  const reader=harness(async()=>new Response(full));
+  const parsed=await reader.pinnedGhatakarpara(async()=>new Response(full),pin);
+  assert.match(parsed.get(1),/^first half 1/);assert.match(parsed.get(1),/second half 1/);
+  assert.equal(await reader.pinnedGhatakarpara(async()=>new Response(full+'changed'),pin),null);
+  const run=async source=>{
+    const fetch=async url=>{
+      if(String(url).endsWith('/data/layers/ghatakarpara.json'))return Response.json({work:'ghatakarpara',chunks:[
+        {chunk:'ghat-p01-v01',sanskrit:'second half 1',gate:'PASS',l1:'incomplete gloss',l2:'incomplete translation'}]});
+      if(String(url).endsWith('/data/sanskrit/ghatakarpara.txt'))return new Response(source);
+      return new Response('',{status:404});
+    };
+    const nodes=new Map(),context=vm.createContext({fetch,URL,URLSearchParams,Response,TextDecoder,crypto:webcrypto,
+      location:{search:'?work=ghatakarpara',href:'https://svread.pages.dev/?work=ghatakarpara'},window:{},
+      localStorage:{getItem:()=>null,setItem(){}},document:{querySelector:s=>s==='#navscholar'?null:(nodes.get(s)||{})}});
+    const code=app.replace('c3025effdb6ed0ea7eeb83fc3b5b4955aed8086bc5a8a9ee4646d689ffe73783',pin)
+      .replace('DATA.verses.forEach((v,i)=>{ v.n = i+1; });','globalThis.loaded=DATA; return;')
+      .replace('main();\n})();','globalThis.start=main;\n})();');
+    vm.runInContext(code,context);await context.start();return context.loaded.verses[0];
+  };
+  const restored=await run(full);assert.match(restored.sa,/first half 1/);assert.equal(restored.gate,'WITHHELD');
+  assert.equal(restored.source_complete,true);assert.equal(restored.l2,undefined);
+  const unavailable=await run(full+'changed');assert.equal(unavailable.sa,'second half 1');assert.equal(unavailable.source_complete,false);
+  assert.match(unavailable.source_issue,/incomplete/);assert.equal(unavailable.l2,undefined);
 });
 
 test('blocked English is removed from every exported row and cannot reach audio',async()=>{

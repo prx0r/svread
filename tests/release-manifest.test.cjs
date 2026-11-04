@@ -8,7 +8,7 @@ const {spawnSync}=require('node:child_process');
 test('release check detects changed assets and refuses an invalid Scholar projection',()=>{
   const root=path.join(__dirname,'..'),tmp=fs.mkdtempSync(path.join(os.tmpdir(),'svread-release-'));
   try{
-    for(const name of ['index.html','app.js','styles.css','sw.js','manifest.webmanifest','README.md','SPEC.md','data','align','scripts'])
+    for(const name of ['index.html','app.js','styles.css','sw.js','manifest.webmanifest','README.md','SPEC.md','READER-ARCHITECTURE.md','data','align','scripts'])
       fs.cpSync(path.join(root,name),path.join(tmp,name),{recursive:true});
     const check=(...args)=>spawnSync('python3',[path.join(tmp,'scripts/release_manifest.py'),...args],{cwd:tmp,encoding:'utf8'});
     let result=check();assert.equal(result.status,0,result.stderr);
