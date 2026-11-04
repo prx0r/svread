@@ -3,7 +3,7 @@
   class ScholarWorkspace {
     constructor({api,work,profile,onStatus}){
       this.api=api;this.work=work;this.profile=profile;this.status=onStatus||(()=>{});
-      this.docs=new Map();this.conflicts=new Map();this.reviews=[];this.examples=[];this.decisions=[];this.sources=[];this.discussions=new Map();this.reportHistory=new Map();this.reviewAnnotations=new Map();this.userId=null;
+      this.docs=new Map();this.conflicts=new Map();this.reviews=[];this.examples=[];this.decisions=[];this.sources=[];this.sourceLinks=[];this.discussions=new Map();this.reportHistory=new Map();this.reviewAnnotations=new Map();this.userId=null;
       this.current=null;this.essayId=null;this.agent=null;this.voice=null;this.voiceText='';this.signoffs=new Map();this.history=null;
     }
     esc(x){return String(x??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
@@ -17,7 +17,7 @@
     id(kind,target,layer=''){return `${kind}:${layer||'work'}:${target||this.work}`;}
     async load(){
       const uid=this.profile()?.id||null;
-      if(uid!==this.userId){this.voice?.end();this.voice=null;this.voiceText='';this.docs.clear();this.conflicts.clear();this.signoffs.clear();this.reviews=[];this.examples=[];this.decisions=[];this.sources=[];this.discussions.clear();this.reportHistory.clear();this.reviewAnnotations.clear();this.essayId=null;this.agent=null;this.history=null;this.userId=uid;}
+      if(uid!==this.userId){this.voice?.end();this.voice=null;this.voiceText='';this.docs.clear();this.conflicts.clear();this.signoffs.clear();this.reviews=[];this.examples=[];this.decisions=[];this.sources=[];this.sourceLinks=[];this.discussions.clear();this.reportHistory.clear();this.reviewAnnotations.clear();this.essayId=null;this.agent=null;this.history=null;this.userId=uid;}
       if(!uid)return;
       try{
         let offset=0;const docs=[];
@@ -28,6 +28,7 @@
         const examples=await this.request('/api/scholar/style-examples');
         const decisions=await this.request('/api/scholar/decisions').catch(()=>({decisions:[]}));
         const sources=await this.request('/api/scholar/sources').catch(()=>({sources:[]}));
+        const sourceLinks=await this.request('/api/scholar/source-links').catch(()=>({links:[]}));
         if(this.profile()?.id!==uid)return;
         for(const doc of docs)this.docs.set(doc.id,{data:doc,revision:doc.revision,dirty:false});
         const normal=`svv-private-${uid}-`,conflict=`svv-conflict-${uid}-`;
@@ -47,6 +48,7 @@
         this.examples=examples.examples||[];
         this.decisions=decisions.decisions||[];
         this.sources=sources.sources||[];
+        this.sourceLinks=sourceLinks.links||[];
       }catch(e){this.status('Private workspace unavailable: '+e.message);}
     }
     remember(data){
@@ -126,7 +128,14 @@
           <div class="cmp-note">Save passages for essays. Each reference records the current evidence hash; if it changes, check the passage and add it again.</div>
           <textarea id="workspace-source-note" placeholder="Private note about this passage (optional)"></textarea>
           <button class="c2btn" id="workspace-source-save">Save current passage</button>
-          ${this.sources.map(x=>`<div class="cmp-note">${e(x.work)} · ${e(x.target)} · ${e((x.projection_sha256||'').slice(0,12))}${x.note?`<br/>${e(x.note)}`:''} <button class="c2btn workspace-source-delete" data-id="${e(x.id)}">Remove</button></div>`).join('')}</details>
+          ${this.sources.map(x=>`<div class="cmp-note">${e(x.work)} · ${e(x.target)} · ${e((x.projection_sha256||'').slice(0,12))}${x.note?`<br/>${e(x.note)}`:''} <button class="c2btn workspace-source-delete" data-id="${e(x.id)}">Remove</button></div>`).join('')}
+          ${this.sources.length>=2?`<div class="cmp-note">Link two saved sources. These private relationships are your assertions, not verified historical claims.</div>
+            <select id="workspace-link-from">${this.sources.map(x=>`<option value="${e(x.id)}">${e(x.work)} · ${e(x.target)}</option>`).join('')}</select>
+            <select id="workspace-link-relation"><option value="comments_on">comments on</option><option value="quotes">quotes</option><option value="parallels">parallels</option><option value="responds_to">responds to</option><option value="possibly_related">possibly related</option></select>
+            <select id="workspace-link-to">${this.sources.map(x=>`<option value="${e(x.id)}">${e(x.work)} · ${e(x.target)}</option>`).join('')}</select>
+            <textarea id="workspace-link-note" placeholder="Why are they related? (optional)"></textarea><button class="c2btn" id="workspace-link-save">Save private relationship</button>`:''}
+          ${this.sourceLinks.map(l=>{const from=this.sources.find(x=>x.id===l.from_source_id),to=this.sources.find(x=>x.id===l.to_source_id);
+            return `<div class="cmp-note">${e(from?.work||'unavailable')} ${e(from?.target||'')} · ${e(l.relation.replaceAll('_',' '))} · ${e(to?.work||'unavailable')} ${e(to?.target||'')}${l.note?`<br/>${e(l.note)}`:''} <button class="c2btn workspace-link-delete" data-id="${e(l.id)}">Remove</button></div>`;}).join('')}</details>
         <details><summary>Ask Qwen</summary><select id="workspace-task"><option value="readings">Compare three readings</option><option value="translation">Draft translation</option><option value="essay">Draft essay</option><option value="essay_revision">Revise selected essay</option></select>
           <textarea id="workspace-prompt" placeholder="What should it explore?"></textarea><label><input type="checkbox" id="workspace-style"/> Use my private style examples</label>
           <div class="cmp-note">Select saved edits below, or leave them unchecked to use at least three human-written examples from this work.</div>
@@ -211,8 +220,23 @@
       container.querySelectorAll('.workspace-source-delete').forEach(button=>{button.onclick=async()=>{try{
         if(this.profile()?.id!==accountId)return;if(!root.confirm('Remove this source from your private notebook?'))return;
         await this.request('/api/scholar/sources/'+encodeURIComponent(button.dataset.id),'DELETE',{});
-        const result=await this.request('/api/scholar/sources');if(this.profile()?.id!==accountId)return;
-        this.sources=result.sources||[];this.render();this.status('Source removed.');
+        const result=await this.request('/api/scholar/sources');const links=await this.request('/api/scholar/source-links').catch(()=>({links:[]}));if(this.profile()?.id!==accountId)return;
+        this.sources=result.sources||[];this.sourceLinks=links.links||[];this.render();this.status('Source removed.');
+      }catch(e){this.status(e.message);}};});
+      if(this.sources.length>=2)$('#workspace-link-save').onclick=async()=>{try{
+        if(this.profile()?.id!==accountId)return;
+        const data={from_source_id:$('#workspace-link-from').value,to_source_id:$('#workspace-link-to').value,
+          relation:$('#workspace-link-relation').value,note:$('#workspace-link-note').value};
+        if(!data.from_source_id||!data.to_source_id||data.from_source_id===data.to_source_id)throw new Error('Choose two different sources.');
+        await this.request('/api/scholar/source-links','POST',data);
+        const result=await this.request('/api/scholar/source-links');if(this.profile()?.id!==accountId)return;
+        this.sourceLinks=result.links||[];this.render();this.status('Relationship saved privately.');
+      }catch(e){this.status(e.message);}};
+      container.querySelectorAll('.workspace-link-delete').forEach(button=>{button.onclick=async()=>{try{
+        if(this.profile()?.id!==accountId)return;if(!root.confirm('Remove this private relationship?'))return;
+        await this.request('/api/scholar/source-links/'+encodeURIComponent(button.dataset.id),'DELETE',{});
+        const result=await this.request('/api/scholar/source-links');if(this.profile()?.id!==accountId)return;
+        this.sourceLinks=result.links||[];this.render();this.status('Relationship removed.');
       }catch(e){this.status(e.message);}};});
       container.querySelectorAll('.workspace-citation-remove').forEach(button=>{button.onclick=()=>{
         if(this.profile()?.id!==accountId||!this.essayId)return;const doc=this.document(this.essayId);if(!doc)return;

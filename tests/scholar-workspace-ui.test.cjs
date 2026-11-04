@@ -346,3 +346,30 @@ test('selected notebook references are explicitly attached to signed essay conte
   assert.match(container.html,/Passage references/);assert.equal(calls.find(x=>x.url.endsWith('/citations/prepare')).data.source_ids[0],'source:1');
   for(const state of suite.docs.values())clearTimeout(state.timer);
 });
+
+test('scholars can record a private typed relationship between saved sources',async()=>{
+  const storage=new Map(),nodes=new Map(),calls=[];let links=[];
+  const sources=[{id:'source:1',work:'workone',target:'p-v01',projection_sha256:'a'.repeat(64)},
+    {id:'source:2',work:'worktwo',target:'q-v01',projection_sha256:'b'.repeat(64)}];
+  const localStorage={getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v),removeItem:k=>storage.delete(k),key:i=>[...storage.keys()][i],get length(){return storage.size;}};
+  const element=id=>{if(!nodes.has(id))nodes.set(id,{value:'',checked:false,textContent:'',dataset:{},addEventListener(){}});return nodes.get(id);};
+  const container={set innerHTML(v){this.html=v;nodes.clear();},querySelector:element,querySelectorAll(){return [];}};
+  const fetch=async(url,options={})=>{const method=options.method||'GET',data=options.body?JSON.parse(options.body):null;calls.push({url:String(url),method,data});
+    if(String(url).includes('/api/scholar/documents?'))return Response.json({documents:[],next_offset:null});
+    if(String(url).endsWith('/api/scholar/reviews'))return Response.json({reviews:[]});
+    if(String(url).endsWith('/api/scholar/style-examples'))return Response.json({examples:[]});
+    if(String(url).endsWith('/api/scholar/decisions'))return Response.json({decisions:[]});
+    if(String(url).endsWith('/api/scholar/sources'))return Response.json({sources});
+    if(String(url).endsWith('/api/scholar/source-links')){if(method==='POST')links=[{id:'source-link:1',...data}];return Response.json({links});}
+    throw new Error('Unexpected request '+url);
+  };
+  const context=vm.createContext({fetch,localStorage,Response,URL,URLSearchParams,setTimeout,clearTimeout,crypto:{randomUUID:()=> 'id'},confirm:()=>true,CSS:{escape:x=>x}});
+  vm.runInContext(fs.readFileSync(path.join(__dirname,'../scholar-workspace-ui.js'),'utf8'),context);
+  const suite=new context.ScholarWorkspace({api:'https://api.example',work:'workone',profile:()=>({id:'alice'})});
+  await suite.load();suite.attach({container,textarea:{value:'',addEventListener(){}},target:'p-v01',layer:'l3',baseHash:'',parent:null});
+  element('#workspace-link-from').value='source:1';element('#workspace-link-to').value='source:2';
+  element('#workspace-link-relation').value='possibly_related';element('#workspace-link-note').value='Compare';await element('#workspace-link-save').onclick();
+  const sent=calls.find(x=>x.url.endsWith('/source-links')&&x.method==='POST').data;
+  assert.equal(sent.from_source_id,'source:1');assert.equal(sent.relation,'possibly_related');assert.match(container.html,/possibly related/);
+  for(const state of suite.docs.values())clearTimeout(state.timer);
+});

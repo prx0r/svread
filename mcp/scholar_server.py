@@ -152,6 +152,9 @@ def call(name,a):
     if name=='add_review_annotation':
         review=ident(a.get('review_id')); return api('POST','/api/scholar/reviews/'+review+'/annotations',{k:v for k,v in a.items() if k!='review_id'})
     if name=='list_style_examples': return api('GET','/api/scholar/style-examples')
+    if name=='list_source_links': return api('GET','/api/scholar/source-links')
+    if name=='save_source_link': return api('POST','/api/scholar/source-links',a)
+    if name=='delete_source_link': return api('DELETE','/api/scholar/source-links/'+ident(a.get('link_id')),{})
     if name=='list_sources': return api('GET','/api/scholar/sources')
     if name=='save_source': return api('POST','/api/scholar/sources',a)
     if name=='prepare_citations': return api('POST','/api/scholar/citations/prepare',a)
@@ -178,6 +181,9 @@ TOOLS=[
  ('list_review_annotations','List private selected-text comments for an accessible review.',S({'review_id':T},['review_id'])),
  ('add_review_annotation','Comment on exact UTF-16 offsets in an immutable review snapshot.',S({'review_id':T,'start':{'type':'integer','minimum':0},'end':{'type':'integer','minimum':1},'quote':T,'body':T},['review_id','start','end','quote','body'])),
  ('list_style_examples','List this account’s explicitly saved private edit examples.',S({})),
+ ('list_source_links','List your private typed source relationships.',S({})),
+ ('save_source_link','Save a private relationship between two owned sources.',S({'from_source_id':T,'to_source_id':T,'relation':{'type':'string','enum':['comments_on','quotes','parallels','responds_to','possibly_related']},'note':T},['from_source_id','to_source_id','relation','note'])),
+ ('delete_source_link','Remove an owned private source relationship.',S({'link_id':T},['link_id'])),
  ('list_sources','List your private source notebook.',S({})),
  ('save_source','Save a hash-pinned private source reference.',S({'work':T,'target':T,'note':T},['work','target','note'])),
  ('prepare_citations','Prepare publishable citation references from selected notebook sources.',S({'source_ids':{'type':'array','items':T,'minItems':1,'maxItems':10}},['source_ids'])),
