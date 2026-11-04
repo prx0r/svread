@@ -145,3 +145,24 @@ authorized host, ghatakarpara repair, source_edition backfill.
 Wiring verified: CORS echoes `https://svread.pages.dev` with credentials;
 `/api/scholar/documents` 401 anon; projection data + manifest 200 on the
 reader.
+
+## POST-DEPLOY INTEGRATION — 2026-11-04 15:55 UTC
+
+| Item | Result |
+|---|---|
+| svread reader-integrity commits | merged `647d4f3` (keep pushing shell + held-work tests; manifest regenerated: 303 asset hashes, 55 works, 22 projections) |
+| svread tests | 35 pass, 3 skip (38) |
+| Reader redeploy | `6be87a3c` → svread.pages.dev |
+| Pushing Lab live | `/pushing` → "Pushing Lab · Svatantrya"; `pushing-core/ui.js`, `pushing.css` 200; catalog `57` records; source index live |
+| Permission routes (live) | anon 401; bad payload 400; unknown essay 404; published-essays 200 `[]`; assist without consent 400 |
+| MCP protocol | initialize + tools/list: 25 tools (`list_works` → 22 works) |
+| MCP evidence | real `bh-p01` source + layers (12.9 KB); ghatakarpara correctly withheld ("source alignment needs upstream repair") |
+| MCP versions/compare | paramarthasara 4 versions, diff 1004 chars |
+| MCP vidyut | installed — candidates return slp1 + meter hash, marked unreviewed |
+| MCP account tools | live worker: list/save/history/published-essays pass; Qwen drafting blocked by consent gate |
+| MCP fix | Cloudflare 1010 blocked python-urllib UA → explicit `User-Agent: svread-scholar-mcp/0.1` + regression assertion |
+| Cross-repo e2e | `scholar-mcp-e2e` 1/1; permissions+orcid 3/3 |
+| `/api/read` | $0 TTS rendered bh-p01 (124,550 B, `cached:false`), R2 audio HEAD 200 |
+| opencode wiring | `scholar` local MCP server added to `~/.config/opencode/opencode.jsonc` |
+| Smoke cleanup | test profile + rows deleted (0 `@svread.test` profiles remain) |
+| Remaining gate | voice/Qwen provider creds + caps; ORCID client — unchanged |

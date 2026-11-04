@@ -13,17 +13,21 @@ def content(r): return json.loads(r['result']['content'][0]['text'])
 
 class Mock(BaseHTTPRequestHandler):
     seen=[]
+    uas=[]
     def log_message(self,*args): pass
     def do_GET(self):
+        self.uas.append(self.headers.get('User-Agent') or '')
         self.seen.append((self.path,self.headers.get('Cookie')))
         if self.path=='/api/scholar/reviews':
             self.send_response(302);self.send_header('Location','http://127.0.0.1:1/leak');self.end_headers();return
         self.send_response(200);self.send_header('Content-Type','application/json');self.end_headers();self.wfile.write(b'{"documents":[]}')
     def do_POST(self):
+        self.uas.append(self.headers.get('User-Agent') or '')
         data=json.loads(self.rfile.read(int(self.headers['Content-Length'])))
         self.seen.append((self.path,data))
         self.send_response(200);self.send_header('Content-Type','application/json');self.end_headers();self.wfile.write(b'{"ok":true}')
     def do_PUT(self):
+        self.uas.append(self.headers.get('User-Agent') or '')
         data=json.loads(self.rfile.read(int(self.headers['Content-Length'])))
         self.send_response(409 if data['expected_revision']!=0 else 200);self.end_headers();self.wfile.write(b'{"error":"revision conflict"}' if data['expected_revision']!=0 else b'{"document":{"revision":1}}')
 
@@ -66,6 +70,7 @@ class TestMcp(unittest.TestCase):
             rs=run([tool(1,'save_decision',decision),tool(2,'draft_with_qwen',task)],env)
             self.assertEqual(content(rs[0]),{'ok':True});self.assertEqual(content(rs[1]),{'ok':True})
             self.assertEqual(Mock.seen[-2][1],decision);self.assertEqual(Mock.seen[-1][1],task)
+            self.assertIn('svread-scholar-mcp/0.1',Mock.uas[-1])
         finally: server.shutdown();server.server_close();t.join()
     def test_published_essay_retrieval_and_explicit_draft_arguments(self):
         server=ThreadingHTTPServer(('127.0.0.1',0),Mock);t=threading.Thread(target=server.serve_forever,daemon=True);t.start()

@@ -117,7 +117,8 @@ def api(method, path, data=None):
     if not cookie or '\n' in cookie or '\r' in cookie: raise ValueError('Configure SCHOLAR_SESSION_COOKIE privately')
     raw = None if data is None else json.dumps(data).encode()
     req = urllib.request.Request(origin.rstrip('/') + path, data=raw, method=method,
-                                 headers={'Cookie':cookie, 'Content-Type':'application/json', 'Accept':'application/json'})
+                                 headers={'Cookie':cookie, 'Content-Type':'application/json', 'Accept':'application/json',
+                                          'User-Agent':'svread-scholar-mcp/0.1'})
     try:
         with urllib.request.build_opener(NoRedirect).open(req, timeout=30) as response:
             payload = response.read(1024*1024+1)
