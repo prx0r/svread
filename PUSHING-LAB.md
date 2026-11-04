@@ -24,8 +24,10 @@ python3 -m http.server 8000
 # Open http://127.0.0.1:8000/pushing.html
 ```
 
-- Start with a pinned link to one of four existing Tantrāloka enquiries, or type
-  your own question. The old enquiries are working research, not primary sources.
+- Search 57 pinned enquiries from the IPVV Pushing index, including the
+  Tantrāloka and IPVV sessions, or type your own question. The old enquiries
+  are working research, not primary sources. Rebuild the catalogue with
+  `python3 scripts/build_pushing_catalog.py --ipvv /path/to/ipvv`.
 - Paste a labelled conversation and select turns into an editable tree. Add an
   answer, inference, objection, crux or branch; choose suggested questions or write
   your own. Speaker labels are as provided, not identity verification.

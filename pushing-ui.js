@@ -3,12 +3,12 @@
   'use strict';
   const C=globalThis.PushingCore, $=id=>document.getElementById(id);
   const KEY='svv-pushing-lab/1';let API,apiError='';try{API=C.resolveApi(location.href);}catch(e){apiError=e.message;}
-  const BASE='https://github.com/prx0r/ipvv/blob/941ac2ecf1f8e5791a887d9d769159ecbffd7c04/site/data/pushing/tantraloka/';
+  const BASE='https://github.com/prx0r/ipvv/blob/941ac2ecf1f8e5791a887d9d769159ecbffd7c04/site/data/pushing/';
   const seeds=[
-    {label:'The perceiver · why is blue mine?',question:'If the perceiver is universal, why is blue manifest to me and not everyone?',file:'LOGICVID-session-Q1-reflexivity.md'},
-    {label:'Love and fear · what is fear?',question:'If everything is rooted in love, then what is fear?',file:'LOGICVID-session-fear-love-recoil.md'},
-    {label:'Suffering · the hardest objection',question:'Why would Śiva play when people suffer?',file:'LOGICVID-session-hardest-objections.md'},
-    {label:'Freedom · why the five coverings?',question:'Why does freedom conceal itself in these particular ways?',file:'LOGICVID-session-kancukas-self-emptying.md'}
+    {label:'The perceiver · why is blue mine?',question:'If the perceiver is universal, why is blue manifest to me and not everyone?',file:'tantraloka/LOGICVID-session-Q1-reflexivity.md'},
+    {label:'Love and fear · what is fear?',question:'If everything is rooted in love, then what is fear?',file:'tantraloka/LOGICVID-session-fear-love-recoil.md'},
+    {label:'Suffering · the hardest objection',question:'Why would Śiva play when people suffer?',file:'tantraloka/LOGICVID-session-hardest-objections.md'},
+    {label:'Freedom · why the five coverings?',question:'Why does freedom conceal itself in these particular ways?',file:'tantraloka/LOGICVID-session-kancukas-self-emptying.md'}
   ];
   const typeNames={'question':'Question','source':'Source note','answer':'Proposed answer','inference':'Inference','objection':'Objection','crux':'Crux / honest limit','branch':'Next branch','essay-idea':'Essay idea'};
   let session,selected=null,projection=null,verifiedSource=null,loadSerial=0,proposalParent=null,proposalSession=null;
@@ -59,9 +59,13 @@
     for(const q of C.questions(n))area.append(button(q,()=>{try{add({parent:n.id,type:'question',origin:'agent',text:q});status('Question prompt added; follow or edit it.');}catch(e){status(e.message);}}));
   }
   function render(){ $('title').value=session.title;renderTurns();renderTree();renderNext(); }
-  function setSeedLink(){const seed=seeds[Number($('seed').value)]||seeds[0];$('seed-link').href=BASE+seed.file;}
-  seeds.forEach((s,i)=>$('seed').append(option(String(i),s.label)));$('seed').onchange=setSeedLink;setSeedLink();
-  $('add-seed').onclick=()=>{const seed=seeds[Number($('seed').value)]||seeds[0];try{
+  function selectedSeed(){const value=$('seed').value;return value===''?null:seeds[Number(value)]||null;}
+  function setSeedLink(){const seed=selectedSeed();$('add-seed').disabled=!seed;$('seed-link').hidden=!seed;if(seed)$('seed-link').href=BASE+seed.file;}
+  function renderSeedOptions(){const query=$('seed-search').value.trim().toLowerCase(),prior=$('seed').value;$('seed').replaceChildren();
+    seeds.forEach((seed,index)=>{if((seed.label+' '+seed.question).toLowerCase().includes(query))$('seed').append(option(String(index),seed.label));});
+    if([...$('seed').options].some(x=>x.value===prior))$('seed').value=prior;setSeedLink();}
+  $('seed').onchange=setSeedLink;$('seed-search').oninput=renderSeedOptions;renderSeedOptions();
+  $('add-seed').onclick=()=>{const seed=selectedSeed();if(!seed)return;try{
     add({parent:null,type:'question',origin:'unknown',text:seed.question,link:{label:seed.label,url:BASE+seed.file}});
     status('Added a question from an earlier enquiry; check the underlying source before treating it as evidence.');
   }catch(e){status(e.message);}};
@@ -285,6 +289,10 @@
   }catch(e){status(e.message);}};
   async function init(){
     render();if(initialMessage||apiError)status(initialMessage||apiError);
+    try{const catalog=await readJson('data/pushing-catalog.json');if(catalog.format!=='svread-pushing-catalog/1'||catalog.revision!=='941ac2ecf1f8e5791a887d9d769159ecbffd7c04'||!Array.isArray(catalog.records))throw Error('Archive index is invalid.');
+      for(const row of catalog.records){if(typeof row.file!=='string'||! /^[A-Za-z0-9_./-]+\.md$/.test(row.file)||row.file.split('/').includes('..')||typeof row.question!=='string'||typeof row.title!=='string'||seeds.some(x=>x.file===row.file))continue;
+        seeds.push({label:`${row.work||'pushing'} · ${row.title}`.slice(0,180),question:row.question.slice(0,1000),file:row.file});}renderSeedOptions();
+    }catch(e){status('Archive index: '+e.message);}
     try{const idx=await readJson('data/scholar/index.json');Object.keys(idx).sort().forEach(work=>{$('work').append(option(work,work));$('scholar-work').append(option(work,work));});
       const q=new URL(location.href).searchParams;if(!session.work&&q.get('work')){session={...session,work:q.get('work'),target:q.get('target')||''};C.validateSession(session);save();}
       if(session.work){$('scholar-work').value=session.work;await loadWork(session.work,session.target);}

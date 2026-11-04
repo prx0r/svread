@@ -48,7 +48,8 @@ test('Pushing Lab: real browser, local Scholar Worker, private branch and essay'
     browser=await chromium.launch({executablePath:executable,args:['--no-sandbox','--disable-gpu'],headless:true});page=await browser.newPage();page.setDefaultTimeout(6000);const errors=[];
     let approveDialogs=true;page.on('pageerror',e=>errors.push(e.message));page.on('dialog',d=>approveDialogs?d.accept():d.dismiss());
     await page.context().addCookies([{name:'svsess',value:alice.cookie.slice('svsess='.length),url:apiOrigin}]);
-    await page.goto(origin+'/pushing.html?api='+encodeURIComponent(apiOrigin));await page.locator('#add-seed').click();
+    await page.goto(origin+'/pushing.html?api='+encodeURIComponent(apiOrigin));await page.waitForFunction(()=>document.querySelectorAll('#seed option').length>=50);
+    await page.locator('#seed-search').fill('fear');assert.ok((await page.locator('#seed option').count())>=1);await page.locator('#seed-search').fill('');await page.locator('#seed').selectOption('0');await page.locator('#add-seed').click();
     await page.locator('#transcript').fill('Me: What is missing?\nQwen: A possible inference.');await page.locator('#parse').click();
     await page.locator('.turn').first().getByRole('button',{name:'Add to tree'}).click();
     await page.locator('#node-type').selectOption('crux');await page.locator('#node-text').fill('Where is the actual proof?');await page.locator('#add-node').click();
