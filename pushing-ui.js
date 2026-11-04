@@ -3,7 +3,7 @@
   'use strict';
   const C=globalThis.PushingCore, $=id=>document.getElementById(id);
   const API='https://ipvv-api.tradesprior.workers.dev', KEY='svv-pushing-lab/1';
-  const BASE='https://github.com/prx0r/ipvv/blob/ebedc011463886892e09982a82706a9d4677bbd6/site/data/pushing/tantraloka/';
+  const BASE='https://github.com/prx0r/ipvv/blob/941ac2ecf1f8e5791a887d9d769159ecbffd7c04/site/data/pushing/tantraloka/';
   const seeds=[
     {label:'The perceiver · why is blue mine?',question:'If the perceiver is universal, why is blue manifest to me and not everyone?',file:'LOGICVID-session-Q1-reflexivity.md'},
     {label:'Love and fear · what is fear?',question:'If everything is rooted in love, then what is fear?',file:'LOGICVID-session-fear-love-recoil.md'},
@@ -42,7 +42,7 @@
         card.append(el('div',`${typeNames[n.type]} · ${n.origin}`,'node-meta'),el('div',n.text,'node-text'));
         if(n.link){const a=el('a',`Prior enquiry: ${n.link.label} ↗`,'node-link');a.href=n.link.url;a.target='_blank';a.rel='noopener noreferrer';card.append(a);}
         if(n.private_ref)card.append(el('div',`Private essay revision ${n.private_ref.revision}; stored reference, recheck before relying on it.`,'note'));
-        if(n.reference){const r=n.reference;card.append(el('div',`Passage: ${r.work} / ${r.target} · ${r.source_edition}. Stored reference; recheck before relying on it.`,'note'));}
+        if(n.reference){const r=n.reference;card.append(el('div',`Passage: ${r.work} / ${r.target} · ${r.source_edition}. Stored reference; recheck before relying on it.`,'note'));const a=el('a','Open passage in Scholar ↗','node-link');a.href=`./?work=${encodeURIComponent(r.work)}&view=scholar&layer=t1&target=${encodeURIComponent(r.target)}`;card.append(a);}
         const controls=el('div');controls.append(button(n.id===selected?'Selected':'Select',()=>{selected=n.id;renderTree();renderNext();}));
         if(!n.reference&&!n.private_ref)controls.append(button('Edit',()=>{const value=prompt('Edit this note:',n.text);if(value===null)return;try{session=C.editNode(session,n.id,value);save();render();status('Note updated.');}catch(e){status(e.message);}}));
         controls.append(button('Remove',()=>{if(!confirm('Remove this node?'))return;try{session=C.removeLeaf(session,n.id);if(selected===n.id)selected=n.parent;save();render();status('Node removed.');}catch(e){status(e.message);}}));
