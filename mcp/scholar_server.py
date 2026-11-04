@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Local stdio MCP bridge to bundled evidence and the authenticated Scholar API."""
-import difflib, hashlib, json, os, re, sys, urllib.error, urllib.parse, urllib.request
+import difflib, hashlib, importlib.metadata, json, os, re, sys, tempfile, urllib.error, urllib.parse, urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -73,6 +73,37 @@ def compare_versions(a):
       'right':{k:v for k,v in lookup[right].items() if k!='content'},'diff':diff[:60000],'truncated':len(diff)>60000})
     return result
 
+def vidyut_candidates(a):
+    ev=evidence(a)
+    source=ev['source'].get('text') if isinstance(ev['source'],dict) else None
+    if not isinstance(source,str) or not source.strip(): raise ValueError('Source text unavailable')
+    try:
+        version=importlib.metadata.version('vidyut')
+        from vidyut.lipi import Scheme,transliterate
+    except (ImportError,importlib.metadata.PackageNotFoundError) as exc:
+        raise ValueError('Install the optional vidyut==0.4.0 package') from exc
+    if version!='0.4.0': raise ValueError('Expected vidyut 0.4.0')
+    scheme=a.get('scheme','iast');src={'iast':Scheme.Iast,'devanagari':Scheme.Devanagari}.get(scheme)
+    if src is None: raise ValueError('Choose iast or devanagari')
+    slp=transliterate(source,src,Scheme.Slp1)
+    result={'work':ev['work'],'target':ev['target'],'projection_sha256':ev['projection_sha256'],
+            'source_text_sha256':hashlib.sha256(source.encode()).hexdigest(),'source_scheme':scheme,
+            'slp1_candidate':slp,'generator':{'name':'vidyut','version':version},
+            'status':'machine-generated-unreviewed','warning':'Verify source coverage, script and analysis independently.'}
+    if a.get('meter') is True:
+        meter=os.environ.get('SCHOLAR_VIDYUT_METERS','')
+        if not meter: raise ValueError('Set SCHOLAR_VIDYUT_METERS to a licensed meter file')
+        try: raw=Path(meter).read_bytes()
+        except OSError as exc: raise ValueError('Meter file unavailable') from exc
+        if not raw or len(raw)>2_000_000: raise ValueError('Meter file must be nonempty and no larger than 2 MB')
+        from vidyut.chandas import Chandas
+        with tempfile.NamedTemporaryFile() as pinned:
+            pinned.write(raw);pinned.flush();match=Chandas(pinned.name).classify(slp)
+        result['meter_candidate']={'name_slp1':match.padya,'meter_data_sha256':hashlib.sha256(raw).hexdigest(),
+          'syllables':[[{'text':x.text,'weight':x.weight} for x in row] for row in match.aksharas],
+          'warning':'Experimental; not a verified metre.'}
+    return result
+
 class NoRedirect(urllib.request.HTTPRedirectHandler):
     def redirect_request(self, *args, **kwargs): return None
 
@@ -110,6 +141,7 @@ def call(name,a):
     if name=='passage_evidence': return evidence(a)
     if name=='list_versions': return versions(a)
     if name=='compare_versions': return compare_versions(a)
+    if name=='vidyut_candidates': return vidyut_candidates(a)
     if name=='list_documents':
         w=a.get('work');
         if not isinstance(w,str) or not WORK.fullmatch(w): raise ValueError('Invalid work ID')
@@ -138,6 +170,7 @@ TOOLS=[
  ('passage_evidence','Read hash-checked Sanskrit and editorial layers for a passage.',S({'work':T,'target':T},['work','target'])),
  ('list_versions','List stored versions for an exact passage and layer.',S({'work':T,'target':T,'layer':T},['work','target','layer'])),
  ('compare_versions','Compare two hash-checked versions for an exact passage and layer.',S({'work':T,'target':T,'layer':T,'left':T,'right':T},['work','target','layer','left','right'])),
+ ('vidyut_candidates','Generate unreviewed transliteration and optional metre candidates from a bundled passage.',S({'work':T,'target':T,'scheme':{'type':'string','enum':['iast','devanagari']},'meter':{'type':'boolean'}},['work','target'])),
  ('list_documents','List this account’s private documents for a work.',S({'work':T,'offset':{'type':'integer','minimum':0}},['work'])),
  ('document_history','Read this account’s private document revision history.',S({'document_id':T},['document_id'])),
  ('list_reviews','List reviews accessible to this account.',S({})),

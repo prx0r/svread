@@ -11,3 +11,14 @@ The API enforces account access, revision conflicts, review permissions and mode
 Run `python3 -m unittest discover -s mcp -p 'test_*.py' -v` for protocol, real bundled passage, account API conflict and redirect tests. The account service in that test is a local mock; it does not prove a production deployment, Qwen call or Git publication.
 
 Design references: [Bilara](https://github.com/suttacentral/bilara) uses stable segments; [OpenReview](https://github.com/openreview/openreview-py) provides role-scoped reviews; [Weblate](https://docs.weblate.org/en/latest/admin/memory.html) supports per-user translation memory. These inform the workflow; no code was copied from them.
+
+## Optional Vidyut candidates
+
+Install `vidyut==0.4.0` in the MCP server's isolated Python environment to
+enable the read-only `vidyut_candidates` tool. It transliterates the exact
+bundled source and records its source and projection hashes. Set
+`SCHOLAR_VIDYUT_METERS` to a separately obtained, licensed Vidyut-compatible
+meter file and explicitly request `meter: true` to obtain an experimental
+classification. The file's hash is recorded; the tool does not modify any
+translation layers. Verify source coverage and all candidates independently.
+Vidyut code and each data/model package have separate rights.

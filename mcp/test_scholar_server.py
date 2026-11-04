@@ -1,4 +1,4 @@
-import json, os, subprocess, sys, threading, unittest
+import hashlib, importlib.util, json, os, subprocess, sys, tempfile, threading, unittest
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 SERVER = Path(__file__).with_name('scholar_server.py')
@@ -35,6 +35,19 @@ class TestMcp(unittest.TestCase):
         self.assertIn('paramarthasara',content(rs[2])['works'])
         ev=content(rs[3]);self.assertIn('śambhuṃ',ev['source']['text']);self.assertIn('l0',ev['layers']);self.assertEqual(len(ev['projection_sha256']),64)
         self.assertTrue(rs[4]['result']['isError']);self.assertTrue(rs[5]['result']['isError'])
+    @unittest.skipUnless(importlib.util.find_spec('vidyut'), 'optional Vidyut is not installed')
+    def test_vidyut_candidates_use_bundled_source_and_are_unreviewed(self):
+        args={'work':'paramarthasara','target':'param-p01-v01','scheme':'iast'}
+        rs=run([tool(1,'vidyut_candidates',args),tool(2,'vidyut_candidates',{**args,'meter':True})])
+        result=content(rs[0]);self.assertIn('paraM',result['slp1_candidate']);self.assertEqual(result['status'],'machine-generated-unreviewed')
+        self.assertEqual(result['generator']['version'],'0.4.0');self.assertTrue(rs[1]['result']['isError'])
+        with tempfile.NamedTemporaryFile() as f:
+            raw=b'test\tvrtta\tGGLGLLLGLLGLGG\n';f.write(raw);f.flush()
+            env=dict(os.environ,SCHOLAR_VIDYUT_METERS=f.name)
+            measured=content(run([tool(3,'vidyut_candidates',{**args,'meter':True})],env)[0])
+            self.assertEqual(measured['meter_candidate']['meter_data_sha256'],hashlib.sha256(raw).hexdigest())
+            self.assertTrue(measured['meter_candidate']['syllables'])
+
     def test_version_comparison_uses_real_bundled_fork_and_exact_passage(self):
         args={'work':'paramarthasara','target':'param-p01-v01','layer':'l3'}
         rs=run([tool(1,'list_versions',args),tool(2,'compare_versions',{**args,'left':'original','right':'sv:ac094e65ee9be6aa'}),
