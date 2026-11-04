@@ -120,6 +120,9 @@ def call(name,a):
     if name=='add_review_annotation':
         review=ident(a.get('review_id')); return api('POST','/api/scholar/reviews/'+review+'/annotations',{k:v for k,v in a.items() if k!='review_id'})
     if name=='list_style_examples': return api('GET','/api/scholar/style-examples')
+    if name=='list_sources': return api('GET','/api/scholar/sources')
+    if name=='save_source': return api('POST','/api/scholar/sources',a)
+    if name=='delete_source': return api('DELETE','/api/scholar/sources/'+ident(a.get('source_id')),{})
     if name=='list_decisions': return api('GET','/api/scholar/decisions')
     if name=='save_decision': return api('POST','/api/scholar/decisions',a)
     if name=='delete_decision': return api('DELETE','/api/scholar/decisions/'+ident(a.get('decision_id')),{})
@@ -141,12 +144,15 @@ TOOLS=[
  ('list_review_annotations','List private selected-text comments for an accessible review.',S({'review_id':T},['review_id'])),
  ('add_review_annotation','Comment on exact UTF-16 offsets in an immutable review snapshot.',S({'review_id':T,'start':{'type':'integer','minimum':0},'end':{'type':'integer','minimum':1},'quote':T,'body':T},['review_id','start','end','quote','body'])),
  ('list_style_examples','List this account’s explicitly saved private edit examples.',S({})),
+ ('list_sources','List your private source notebook.',S({})),
+ ('save_source','Save a hash-pinned private source reference.',S({'work':T,'target':T,'note':T},['work','target','note'])),
+ ('delete_source','Remove an owned source reference.',S({'source_id':T},['source_id'])),
  ('list_decisions','List your private revision-bound editorial decisions.',S({})),
  ('save_decision','Save a private editorial decision against an owned revision.',S({'document_id':T,'revision':{'type':'integer'},'subject':T,'before':T,'after':T,'reason':T},['document_id','revision','subject','before','after','reason'])),
  ('delete_decision','Remove an owned private editorial decision.',S({'decision_id':T},['decision_id'])),
  ('save_document','Save a private draft with expected_revision; conflicts are rejected.',S({'document_id':T,'document':{'type':'object'}},['document_id','document'])),
  ('request_review','Request private review of an exact saved revision.',S({'document_id':T,'reviewer_id':T,'revision':{'type':'integer'}},['document_id','reviewer_id','revision'])),
- ('draft_with_qwen','Request an agent draft; the Scholar API requires explicit consent and configured quotas.',S({'work':T,'target':T,'layer':T,'kind':T,'instruction':T,'consent_to_ai':{'type':'boolean'},'use_style':{'type':'boolean'},'style_example_ids':{'type':'array','items':T},'decision_ids':{'type':'array','items':T},'review_ids':{'type':'array','items':T},'document_id':T,'revision':{'type':'integer'}},['work','target','layer','kind','instruction','consent_to_ai']))]
+ ('draft_with_qwen','Request an agent draft; the Scholar API requires explicit consent and configured quotas.',S({'work':T,'target':T,'layer':T,'kind':T,'instruction':T,'consent_to_ai':{'type':'boolean'},'use_style':{'type':'boolean'},'style_example_ids':{'type':'array','items':T},'decision_ids':{'type':'array','items':T},'source_ids':{'type':'array','items':T},'review_ids':{'type':'array','items':T},'document_id':T,'revision':{'type':'integer'}},['work','target','layer','kind','instruction','consent_to_ai']))]
 
 def handle(req):
     method=req.get('method'); params=req.get('params') or {}

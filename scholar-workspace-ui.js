@@ -3,7 +3,7 @@
   class ScholarWorkspace {
     constructor({api,work,profile,onStatus}){
       this.api=api;this.work=work;this.profile=profile;this.status=onStatus||(()=>{});
-      this.docs=new Map();this.conflicts=new Map();this.reviews=[];this.examples=[];this.decisions=[];this.discussions=new Map();this.reportHistory=new Map();this.reviewAnnotations=new Map();this.userId=null;
+      this.docs=new Map();this.conflicts=new Map();this.reviews=[];this.examples=[];this.decisions=[];this.sources=[];this.discussions=new Map();this.reportHistory=new Map();this.reviewAnnotations=new Map();this.userId=null;
       this.current=null;this.essayId=null;this.agent=null;this.voice=null;this.voiceText='';this.signoffs=new Map();this.history=null;
     }
     esc(x){return String(x??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
@@ -17,7 +17,7 @@
     id(kind,target,layer=''){return `${kind}:${layer||'work'}:${target||this.work}`;}
     async load(){
       const uid=this.profile()?.id||null;
-      if(uid!==this.userId){this.voice?.end();this.voice=null;this.voiceText='';this.docs.clear();this.conflicts.clear();this.signoffs.clear();this.reviews=[];this.examples=[];this.decisions=[];this.discussions.clear();this.reportHistory.clear();this.reviewAnnotations.clear();this.essayId=null;this.agent=null;this.history=null;this.userId=uid;}
+      if(uid!==this.userId){this.voice?.end();this.voice=null;this.voiceText='';this.docs.clear();this.conflicts.clear();this.signoffs.clear();this.reviews=[];this.examples=[];this.decisions=[];this.sources=[];this.discussions.clear();this.reportHistory.clear();this.reviewAnnotations.clear();this.essayId=null;this.agent=null;this.history=null;this.userId=uid;}
       if(!uid)return;
       try{
         let offset=0;const docs=[];
@@ -27,6 +27,7 @@
         const reviews=await this.request('/api/scholar/reviews');
         const examples=await this.request('/api/scholar/style-examples');
         const decisions=await this.request('/api/scholar/decisions').catch(()=>({decisions:[]}));
+        const sources=await this.request('/api/scholar/sources').catch(()=>({sources:[]}));
         if(this.profile()?.id!==uid)return;
         for(const doc of docs)this.docs.set(doc.id,{data:doc,revision:doc.revision,dirty:false});
         const normal=`svv-private-${uid}-`,conflict=`svv-conflict-${uid}-`;
@@ -45,6 +46,7 @@
         this.reviews=reviews.reviews||[];
         this.examples=examples.examples||[];
         this.decisions=decisions.decisions||[];
+        this.sources=sources.sources||[];
       }catch(e){this.status('Private workspace unavailable: '+e.message);}
     }
     remember(data){
@@ -119,11 +121,17 @@
           <input id="workspace-decision-after" placeholder="My chosen wording"/><textarea id="workspace-decision-reason" placeholder="Why did you choose it? (optional)"></textarea>
           <button class="c2btn" id="workspace-decision-save">Save decision for this passage</button>
           ${this.decisions.map(d=>`<div class="cmp-note"><b>${e(d.subject)}</b> · ${e(d.work)} · ${e(d.target)} · revision ${d.revision}<br/>${e(d.before_text)} → ${e(d.after_text)}${d.reason?`<br/>${e(d.reason)}`:''} <button class="c2btn workspace-decision-delete" data-id="${e(d.id)}">Remove</button></div>`).join('')}</details>
+        <details><summary>My source notebook (${this.sources.length})</summary>
+          <div class="cmp-note">Save passages for essays. Each reference records the current evidence hash; if it changes, check the passage and add it again.</div>
+          <textarea id="workspace-source-note" placeholder="Private note about this passage (optional)"></textarea>
+          <button class="c2btn" id="workspace-source-save">Save current passage</button>
+          ${this.sources.map(x=>`<div class="cmp-note">${e(x.work)} · ${e(x.target)} · ${e((x.projection_sha256||'').slice(0,12))}${x.note?`<br/>${e(x.note)}`:''} <button class="c2btn workspace-source-delete" data-id="${e(x.id)}">Remove</button></div>`).join('')}</details>
         <details><summary>Ask Qwen</summary><select id="workspace-task"><option value="readings">Compare three readings</option><option value="translation">Draft translation</option><option value="essay">Draft essay</option><option value="essay_revision">Revise selected essay</option></select>
           <textarea id="workspace-prompt" placeholder="What should it explore?"></textarea><label><input type="checkbox" id="workspace-style"/> Use my private style examples</label>
           <div class="cmp-note">Select saved edits below, or leave them unchecked to use at least three human-written examples from this work.</div>
           ${this.examples.map(x=>`<div><label><input type="checkbox" class="workspace-style-choice" value="${e(x.id)}"/> ${e(x.kind)} · ${e(x.work)} · revisions ${x.before_revision} → ${x.after_revision}</label> <button class="c2btn workspace-style-delete" data-id="${e(x.id)}">Remove example</button></div>`).join('')}
           ${this.decisions.length?`<div class="cmp-note">Select decisions to include:</div>${this.decisions.map(d=>`<label><input type="checkbox" class="workspace-decision-choice" value="${e(d.id)}"/> ${e(d.subject)} · ${e(d.work)} · ${e(d.target)}</label>`).join('')}`:''}
+          ${this.sources.length?`<div class="cmp-note">For essay drafts, select up to three notebook sources:</div>${this.sources.map(x=>`<label><input type="checkbox" class="workspace-source-choice" value="${e(x.id)}"/> ${e(x.work)} · ${e(x.target)}</label>`).join('')}`:''}
           ${essayReviews.length?`<div class="cmp-note">Feedback for the selected essay (only a current revision with reviewer permission can be sent to Qwen):</div>${essayReviews.map(r=>`<label><input type="checkbox" class="workspace-feedback-choice" value="${e(r.id)}"${!r.ai_consent||!r.decision||r.revision!==essay?.revision?' disabled':''}/> Revision ${r.revision} · ${e(r.decision||'awaiting review')} · ${r.ai_consent?'AI use permitted':'AI use not permitted'}</label>`).join('')}`:''}
           <button class="c2btn" id="workspace-ask">Ask Qwen</button><div class="cmp-note">Your selected passage, essay, examples and feedback are sent to Qwen only after your confirmation.</div>
           <pre id="workspace-output">${e(this.agent?.content?.text||'')}</pre><button class="c2btn" id="workspace-use">Use agent draft</button></details>
@@ -193,12 +201,25 @@
         const result=await this.request('/api/scholar/decisions');if(this.profile()?.id!==accountId)return;
         this.decisions=result.decisions||[];this.render();this.status('Decision removed.');
       }catch(e){this.status(e.message);}};});
+      $('#workspace-source-save').onclick=async()=>{try{
+        if(this.profile()?.id!==accountId)return;
+        await this.request('/api/scholar/sources','POST',{work:this.work,target,note:$('#workspace-source-note').value});
+        const result=await this.request('/api/scholar/sources');if(this.profile()?.id!==accountId)return;
+        this.sources=result.sources||[];this.render();this.status('Passage saved privately in your source notebook.');
+      }catch(e){this.status(e.message);}};
+      container.querySelectorAll('.workspace-source-delete').forEach(button=>{button.onclick=async()=>{try{
+        if(this.profile()?.id!==accountId)return;if(!root.confirm('Remove this source from your private notebook?'))return;
+        await this.request('/api/scholar/sources/'+encodeURIComponent(button.dataset.id),'DELETE',{});
+        const result=await this.request('/api/scholar/sources');if(this.profile()?.id!==accountId)return;
+        this.sources=result.sources||[];this.render();this.status('Source removed.');
+      }catch(e){this.status(e.message);}};});
       $('#workspace-ask').onclick=async()=>{
         if(this.profile()?.id!==accountId)return this.status('Account changed; reopen the workspace.');
         const kind=$('#workspace-task').value,useStyle=$('#workspace-style').checked;
         const styleIds=[...container.querySelectorAll('.workspace-style-choice:checked')].map(x=>x.value);
         const decisionIds=[...container.querySelectorAll('.workspace-decision-choice:checked')].map(x=>x.value);
         const reviewIds=kind==='essay_revision'?[...container.querySelectorAll('.workspace-feedback-choice:checked')].map(x=>x.value):[];
+        const sourceIds=['essay','essay_revision'].includes(kind)?[...container.querySelectorAll('.workspace-source-choice:checked')].map(x=>x.value):[];
         if((styleIds.length||decisionIds.length)&&!useStyle)return this.status('Select “Use my private style examples” first.');
         try{
           let source=null;if(kind==='essay_revision'){
@@ -206,10 +227,10 @@
             await this.flush(this.essayId);source=this.document(this.essayId);if(!source)throw new Error('Choose a saved essay.');
           }
           if(this.profile()?.id!==accountId)return;
-          if(!root.confirm(`Send the passage${source?', your saved essay':''}${useStyle?', your selected private style examples and decisions':''}${reviewIds.length?', and the selected permitted peer feedback':''} to Qwen?`))return;
+          if(!root.confirm(`Send the passage${source?', your saved essay':''}${useStyle?', your selected private style examples and decisions':''}${reviewIds.length?', and the selected permitted peer feedback':''}${sourceIds.length?', and your selected source notebook passages and notes':''} to Qwen?`))return;
           const result=await this.request('/api/scholar/assist','POST',{work:source?.work||this.work,target:source?.target||target,
             layer:['l2','l3','l4'].includes(source?.layer||layer)?(source?.layer||layer):'l3',
-            kind,instruction:$('#workspace-prompt').value,use_style:useStyle,style_example_ids:styleIds,decision_ids:decisionIds,review_ids:reviewIds,consent_to_ai:true,
+            kind,instruction:$('#workspace-prompt').value,use_style:useStyle,style_example_ids:styleIds,decision_ids:decisionIds,source_ids:sourceIds,review_ids:reviewIds,consent_to_ai:true,
             ...(source?{document_id:source.id,revision:source.revision}:{})});
           if(this.profile()?.id!==accountId)return;
           this.agent=result.document;this.docs.set(result.document.id,{data:result.document,revision:result.document.revision,dirty:false});
