@@ -5,18 +5,17 @@ Every claim traceable or refused (adapted from LucaAmerio's lit-review
 non-negotiables + TADDLE's defect taxonomy as a self-gate):
 
 - no chunk cited without a hash check (projection verify)
-- no quote without a verbatim match in a cited source (quote + location)
+- no quote without a verbatim match in a source cited in the same paragraph
 - no citation marker without a supplied source (invented citations fail)
 - no external ref without a retrieval note (low-confidence refused)
 - uncited paragraphs warn, never fail
 - withheld-work chunks fail (unlicensed use)
 
 Output is a receipt: content hash, verifier identity, per-check results,
-verdict. The receipt plus sign-off is the signature chain: who (account),
-what (hash), under which rights, checked by whom.
+verdict. These checks do not establish entailment, peer review or a digital
+signature. User-supplied sources are not independently authenticated.
 """
 import hashlib
-import json
 import re
 import time
 
@@ -30,16 +29,33 @@ MARKER_RE = re.compile(r"\[([A-Za-z0-9][A-Za-z0-9_.:-]{0,159})\]")
 QUOTE_RE = re.compile(r"[\"“]([^\"”]{8,400})[\"”]")
 URL_RE = re.compile(r"https?://\S+|doi:\S+|arXiv:\S+", re.IGNORECASE)
 CHUNK_MARKER_RE = re.compile(r"^([a-z0-9][a-z0-9_-]*):([A-Za-z0-9][A-Za-z0-9_.-]{0,159})$")
+QUOTABLE_FIELDS = frozenset({
+    "text", "surface", "citation", "sanskrit_cite", "quick_english", "quick_gloss",
+    "plain_english", "final_english", "gloss", "grounds", "morph", "reconstruction",
+    "reason", "reasoning", "inference", "question", "argument", "summary",
+    "lines", "essence", "premises", "uncertainties", "paragraphs",
+})
 
 
 def source_texts(work, target):
-    """All quotable bytes for one chunk, joined. Raises on withheld/mismatch."""
+    """Actual source/layer text fields, excluding JSON metadata and IDs."""
     _canonical, evidence = _server()
     ev = evidence({"work": work, "target": target})
-    bits = [str(ev.get("source", ""))]
-    for _layer, value in (ev.get("layers") or {}).items():
-        bits.append(json.dumps(value, ensure_ascii=False))
-    return " ".join(bits)
+    bits = []
+    def collect(value, field=""):
+        if isinstance(value, str):
+            if field in QUOTABLE_FIELDS:
+                bits.append(value)
+        elif isinstance(value, list):
+            for item in value:
+                collect(item, field)
+        elif isinstance(value, dict):
+            for key, item in value.items():
+                collect(item, key)
+    collect(ev.get("source", {}))
+    for value in (ev.get("layers") or {}).values():
+        collect(value)
+    return bits
 
 
 def audit(text, refs=None, sources=None, identity="scholar-mcp/audit",
@@ -48,6 +64,8 @@ def audit(text, refs=None, sources=None, identity="scholar-mcp/audit",
     sources = sources or {}
     if not isinstance(text, str) or not text.strip():
         raise ValueError("Draft text is required")
+    if not isinstance(refs, list) or not isinstance(sources, dict) or not isinstance(sources.get('markers', {}), dict):
+        raise ValueError("References must be a list and sources/markers must be objects")
     checks = []
 
     def record(name, status, detail=""):
@@ -55,7 +73,8 @@ def audit(text, refs=None, sources=None, identity="scholar-mcp/audit",
 
     chunks = [r for r in refs if isinstance(r, dict) and r.get("kind", "chunk") == "chunk"]
     supplied = {m: s for m, s in (sources.get("markers", {}) or {}).items()
-                if isinstance(m, str) and isinstance(s, dict)}
+                if isinstance(m, str) and isinstance(s, dict) and
+                isinstance(s.get("text"), str) and s["text"].strip()}
 
     # 1. chunk refs resolve + hash-check
     chunk_texts = {}
@@ -79,17 +98,29 @@ def audit(text, refs=None, sources=None, identity="scholar-mcp/audit",
             continue
         record("marker-mapped", "fail", f"[{m}] has no supplied source (invented citation?)")
 
-    # 3. quotes verify verbatim against cited sources
-    pool = " ".join(chunk_texts.values())
-    pool += " " + " ".join(str(s.get("text", "")) for s in supplied.values())
-    quotes = sorted(set(QUOTE_RE.findall(text)))
-    if not quotes:
+    # 3. A quote can match only an actual text field belonging to a source
+    # cited in the same paragraph. Do not pool unrelated chunks or JSON keys.
+    paras = [p for p in re.split(r"\n\s*\n", text) if p.strip()]
+    checked_quotes = 0
+    for para in paras:
+        markers = set(MARKER_RE.findall(para))
+        candidates = []
+        for marker in markers:
+            cm = CHUNK_MARKER_RE.match(marker)
+            key = (cm.group(1), cm.group(2)) if cm else None
+            if key in chunk_texts:
+                candidates.extend((marker, passage) for passage in chunk_texts[key])
+            elif marker in supplied and isinstance(supplied[marker].get('text'), str):
+                candidates.append((marker, supplied[marker]['text']))
+        for q in QUOTE_RE.findall(para):
+            checked_quotes += 1
+            matching = sorted({marker for marker, passage in candidates if q.strip() and q in passage})
+            if matching:
+                record("quotes-verify", "pass", f"{q[:80]} — [{matching[0]}]")
+            else:
+                record("quotes-verify", "fail", f"no same-paragraph cited source matches: {q[:80]}")
+    if not checked_quotes:
         record("quotes-verify", "pass", "no quoted spans to check")
-    for q in quotes:
-        if q.strip() in pool:
-            record("quotes-verify", "pass", q[:80])
-        else:
-            record("quotes-verify", "fail", f"unverified verbatim: {q[:80]}")
 
     # 4. external refs need a retrieval note
     supplied_ext = {str(x.get("ref", "")) for x in (sources.get("external", []) or [])
@@ -101,7 +132,6 @@ def audit(text, refs=None, sources=None, identity="scholar-mcp/audit",
             record("external-ref", "fail", f"{u[:80]} lacks a retrieval note (refused)")
 
     # 5. uncited paragraphs warn
-    paras = [p for p in re.split(r"\n\s*\n", text) if p.strip()]
     bare = [p for p in paras if not MARKER_RE.search(p) and len(p.split()) > 12]
     if bare:
         record("uncited-paragraphs", "warn", f"{len(bare)} paragraphs carry no citation")
@@ -113,4 +143,7 @@ def audit(text, refs=None, sources=None, identity="scholar-mcp/audit",
     return {"content_sha256": hashlib.sha256(text.encode()).hexdigest(),
             "verifier": identity, "model": model or "",
             "checks": checks, "verdict": verdict,
+            "scope": "draft-source-check/2",
+            "limitations": ["A match is not proof of entailment, peer review or identity.",
+                            "User-supplied source text is not independently authenticated."],
             "at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}

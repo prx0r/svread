@@ -34,11 +34,47 @@ class AuditTest(unittest.TestCase):
         self.assertTrue(any(c["check"] == "quotes-verify" and c["status"] == "fail"
                             for c in r["checks"]))
 
+    def test_quote_must_match_a_source_cited_in_same_paragraph(self):
+        sources = {"markers": {"A": {"text": "different source text"},
+                               "B": {"text": "a unique quoted sentence"}}}
+        wrong = audit.audit('The phrase "a unique quoted sentence" [A].\n\nOther source [B].',
+                            sources=sources)
+        self.assertEqual(wrong["verdict"], "FAIL")
+        right = audit.audit('The phrase "a unique quoted sentence" [B].', sources=sources)
+        self.assertEqual(right["verdict"], "PASS")
+        self.assertTrue(any(c["check"] == "quotes-verify" and "[B]" in c["detail"]
+                            for c in right["checks"]))
+
+    def test_json_metadata_is_not_quotable_passage_text(self):
+        result = audit.audit('The passage says "param-p01-v01" [paramarthasara:param-p01-v01].',
+                             refs=[CHUNK])
+        self.assertEqual(result["verdict"], "FAIL")
+
+    def test_uncited_quote_cannot_borrow_a_referenced_source(self):
+        result = audit.audit('He says "I resort to You".', refs=[CHUNK])
+        self.assertEqual(result["verdict"], "FAIL")
+
+    def test_scope_does_not_claim_entailment_or_authenticate_supplied_sources(self):
+        result = audit.audit('Text "a unique sentence" [A].',
+                             sources={"markers": {"A": {"text": "a unique sentence"}}})
+        self.assertEqual(result["scope"], "draft-source-check/2")
+        self.assertTrue(any("not proof of entailment" in item for item in result["limitations"]))
+        self.assertTrue(any("not independently authenticated" in item for item in result["limitations"]))
+
     def test_mapped_marker_passes(self):
         text = "As the note says [M1], things hold."
         src = {"markers": {"M1": {"text": "As the note says"}}}
         r = audit.audit(text, refs=[CHUNK], sources=src)
         self.assertEqual(r["verdict"], "PASS")
+
+    def test_empty_supplied_source_is_not_a_citation(self):
+        result = audit.audit('A claim [M1].', sources={"markers": {"M1": {"text": "  "}}})
+        self.assertEqual(result['verdict'], 'FAIL')
+
+    def test_quote_check_does_not_trim_the_quoted_bytes(self):
+        result = audit.audit('A quote " quoted words " [A].',
+                             sources={"markers": {"A": {"text": "quoted words"}}})
+        self.assertEqual(result['verdict'], 'FAIL')
 
     def test_external_needs_retrieval_note(self):
         text = "See https://example.com/paper for background [paramarthasara:param-p01-v01]."

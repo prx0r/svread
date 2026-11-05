@@ -8,6 +8,13 @@ For account tools, set `SCHOLAR_API_ORIGIN` to the intended HTTPS Scholar backen
 
 The API enforces account access, revision conflicts, review permissions and model consent. This bridge is a local client, not an authentication service. Do not expose it to untrusted clients or treat a caller's claims as human identity. It implements the initialization and tools subset needed here, not every optional MCP capability.
 
+`audit_draft` checks that quoted spans appear in actual text fields of a source
+cited in the **same paragraph**. It records the matching marker and excludes JSON
+IDs and metadata; it does not combine unrelated sources to make a quote pass.
+Caller-supplied source text is not independently authenticated. A passing draft
+check does not establish that claims follow, that a person reviewed them, or that
+the receipt is digitally signed; long uncited paragraphs remain warnings.
+
 Run `python3 -m unittest discover -s mcp -p 'test_*.py' -v` for protocol, real bundled passage, account API conflict and redirect tests. The account service in that test is a local mock; it does not prove a production deployment, Qwen call or Git publication.
 
 Design references: [Bilara](https://github.com/suttacentral/bilara) uses stable segments; [OpenReview](https://github.com/openreview/openreview-py) provides role-scoped reviews; [Weblate](https://docs.weblate.org/en/latest/admin/memory.html) supports per-user translation memory. These inform the workflow; no code was copied from them.

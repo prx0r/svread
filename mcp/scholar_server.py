@@ -5,7 +5,7 @@ from pathlib import Path
 import audit as draft_audit
 import search as corpus_search
 try:
-    sys.path.insert(0, '/root/svread/tools')
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent / 'tools'))
     import lingua as lingua_resolver
 except ImportError:
     lingua_resolver = None
