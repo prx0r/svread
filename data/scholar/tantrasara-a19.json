@@ -1,0 +1,5468 @@
+{
+ "work": "tantrasara-a19",
+ "generated": null,
+ "source": "translation-work canonical data + scholar/ ledgers (emit_scholar.py)",
+ "source_edition": "gretil_tantrasara_clean.txt (Nirnaya Sagara 1918, GRETIL)",
+ "contract": {
+  "contract_version": "svatantrya-agent-contract/1",
+  "contract_sha256": "bdd5b9150aa5f3d73ebd8a19517ef5116c3c5bf652b3638841f5b4eeb1e0cf04",
+  "schema_version": "1.3.0",
+  "structural_schema_version": "2.0.0",
+  "structural_schema_snapshot_sha256": "7143ce16fd2fec74bcbb442937194c13abcb94e7d76e10fb35ec9e76016a9577",
+  "order": [
+   "source",
+   "t1",
+   "l0",
+   "argmap",
+   "l2",
+   "c1",
+   "l3",
+   "l4",
+   "c2"
+  ],
+  "schemas": {
+   "t1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:t1",
+    "title": "Svatantrya T1 structural schema",
+    "x-validator": "schemas.t1.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "quick_english",
+     "tokens",
+     "source_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "quick_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "source_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "tokens": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "surface",
+        "quick_gloss"
+       ],
+       "properties": {
+        "surface": {
+         "type": "string",
+         "minLength": 1
+        },
+        "quick_gloss": {
+         "type": "string",
+         "minLength": 1
+        }
+       }
+      }
+     }
+    }
+   },
+   "l0": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l0:verse",
+    "title": "Svatantrya L0 verse token list structural schema",
+    "x-validator": "schemas.l0.validate (per token)",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+     "$schema": "https://json-schema.org/draft/2020-12/schema",
+     "$id": "urn:svatantrya:schema:2.0.0:l0",
+     "title": "Svatantrya L0 structural schema",
+     "x-validator": "schemas.l0.validate",
+     "x-schema-version": "1.3.0",
+     "x-structural-schema-version": "2.0.0",
+     "type": "object",
+     "required": [
+      "id",
+      "verse_id",
+      "pada_index",
+      "surface",
+      "citation",
+      "options",
+      "chosen_index",
+      "status"
+     ],
+     "properties": {
+      "id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "verse_id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "pada_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "surface": {
+       "type": "string",
+       "minLength": 1
+      },
+      "citation": {
+       "type": "string",
+       "minLength": 1
+      },
+      "morph": {
+       "type": "string"
+      },
+      "morph_unknown": {
+       "type": "boolean"
+      },
+      "options": {
+       "type": "array",
+       "maxItems": 5,
+       "items": {
+        "type": "object",
+        "required": [
+         "gloss",
+         "rank",
+         "source",
+         "grounds"
+        ],
+        "properties": {
+         "gloss": {
+          "type": "string",
+          "minLength": 1
+         },
+         "rank": {
+          "type": "integer",
+          "minimum": 1
+         },
+         "source": {
+          "type": "string",
+          "minLength": 1
+         },
+         "grounds": {
+          "type": "string",
+          "minLength": 1
+         }
+        }
+       }
+      },
+      "chosen_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "status": {
+       "type": "string",
+       "enum": [
+        "PARSED",
+        "AMBIGUOUS",
+        "FAILED"
+       ]
+      },
+      "revised": {
+       "type": "boolean"
+      },
+      "revise_reason": {
+       "type": "string"
+      },
+      "fork": {
+       "type": "string",
+       "enum": [
+        "none",
+        "live",
+        "resolved"
+       ]
+      }
+     }
+    }
+   },
+   "argmap": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:argmap",
+    "title": "Svatantrya ARGMAP structural schema",
+    "x-validator": "schemas.argmap.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "traces",
+     "sanskrit_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "traces": {
+      "type": "object",
+      "required": [
+       "t1_verse",
+       "l0_ids"
+      ],
+      "properties": {
+       "t1_verse": {
+        "type": "string",
+        "minLength": 1
+       },
+       "l0_ids": {
+        "type": "array",
+        "items": {
+         "type": "string",
+         "minLength": 1
+        },
+        "minItems": 1
+       }
+      }
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "sanskrit_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "speaker": {
+      "type": "string",
+      "minLength": 1
+     },
+     "question": {
+      "type": "string",
+      "minLength": 1
+     },
+     "inference": {
+      "type": "string",
+      "minLength": 1
+     },
+     "reconstruction": {
+      "type": "string",
+      "minLength": 1
+     },
+     "premises": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     },
+     "uncertainties": {
+      "type": "array"
+     },
+     "structured": {
+      "type": "boolean"
+     }
+    }
+   },
+   "l2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l2",
+    "title": "Svatantrya L2 structural schema",
+    "x-validator": "schemas.l2.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "plain_english",
+     "sanskrit_cite",
+     "l0_ids"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "plain_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "supplied": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     }
+    }
+   },
+   "c1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:c1",
+    "title": "Svatantrya C1 structural schema",
+    "x-validator": "schemas.c1.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "song",
+     "essence",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "essence": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "renders": {
+      "type": "object",
+      "required": [
+       "standard"
+      ]
+     }
+    }
+   },
+   "l3": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l3",
+    "title": "Svatantrya L3 structural schema",
+    "x-validator": "schemas.l3.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "l4": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l4",
+    "title": "Svatantrya L4 structural schema",
+    "x-validator": "schemas.l4.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "c2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:c2",
+    "title": "Svatantrya C2 structural schema",
+    "x-validator": "schemas.c2.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "song",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "renders": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "style",
+        "prompt",
+        "paragraphs"
+       ],
+       "properties": {
+        "style": {
+         "type": "string",
+         "minLength": 1
+        },
+        "prompt": {
+         "type": "string",
+         "minLength": 1
+        },
+        "paragraphs": {
+         "type": "array",
+         "minItems": 1,
+         "items": {
+          "type": "object",
+          "required": [
+           "text",
+           "maps_to"
+          ],
+          "properties": {
+           "text": {
+            "type": "string",
+            "minLength": 1
+           },
+           "maps_to": {
+            "type": "array",
+            "items": {
+             "type": "integer",
+             "minimum": 0
+            },
+            "minItems": 1
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "layers": [
+   {
+    "id": "t1",
+    "scope": "verse",
+    "depends_on": [
+     "source"
+    ],
+    "validator": "schemas/t1.py",
+    "validator_sha256": "ac792ba1f0cbc06ab52dfbc41a31d3e39460f0e8a7de2977ed02e4ce63a20f27",
+    "example": {
+     "file": "sivastotravali/data/s01.t1.json",
+     "file_sha256": "a5c4cfae67571d05866d97ad6eb29b1c2956140a69c2fae554c29577330beb8e",
+     "target": "s01-v01",
+     "content_sha256": "26f027dafbe67347efd901cb2b94630cdb0e372957edeb4a3e1305e83745ba5b",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l0",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1"
+    ],
+    "validator": "schemas/l0.py",
+    "validator_sha256": "0651bc77f519897f8a4f8b41f4ea0cc6a88f3441910af99b18d55854a7e9030e",
+    "example": {
+     "file": "sivastotravali/data/s06.l0.json",
+     "file_sha256": "c2bb0ce1010315d72bdce75ee3c8901b17499202abe7adc5bd1977a26f4fea2f",
+     "target": "s06-v01",
+     "content_sha256": "91e3b04d47482757bcaf1e9705992edd0815ff7907ed2cb33c7c9586f3a9e5aa",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "argmap",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0"
+    ],
+    "validator": "schemas/argmap.py",
+    "validator_sha256": "335c1bbe809c5ae942ecef4a30ee7fd8fcb82645a43019312fa74397fe5758b0",
+    "example": {
+     "file": "sivastotravali/data/s01.argmap.json",
+     "file_sha256": "a44c8ec09a30c577f2a792c1255d4290f49a6138c456bb687bc00e78a3902949",
+     "target": "s01-v21",
+     "content_sha256": "80b69a54761b8b0b7c193058f6c88eef60323a3611008c41ba9879bcfc3cdc21",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l2",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap"
+    ],
+    "validator": "schemas/l2.py",
+    "validator_sha256": "f5653e405e0f162f78593ad6344cbbefe122d6d1c921ca3e22003e4f4d2cfaaa",
+    "example": {
+     "file": "sivastotravali/data/s01.l2.json",
+     "file_sha256": "f5a1cec55bb466c328380a0bf527e6d8906428b3436f85a79bd01df98ceb1040",
+     "target": "s01-v01",
+     "content_sha256": "f3c47f6a631f7551d4f9c8ad1117bdf65463cb8cdc92e9b42bb3bf517ae80055",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c1",
+    "scope": "song",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2"
+    ],
+    "validator": "schemas/c1.py",
+    "validator_sha256": "88ad9123135a7a18237cec1d11430992b4f43adf1771ae26a43e4df8198c69d7",
+    "example": {
+     "file": "sivastotravali/data/s01.c1.json",
+     "file_sha256": "99f4d2bbf7a8086176ee585b6e459076e2abd72b9675435267f7546beb1515f8",
+     "target": "s01",
+     "content_sha256": "5be1f3c0c3f64fafe5395b42cf5502a139a5e208be419d5804fe1a5bdd33712a",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l3",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2",
+     "c1"
+    ],
+    "validator": "schemas/l3.py",
+    "validator_sha256": "6c3df228f886207782d5250699e9e459f236f6e7d6b25ac29b00a38541956917",
+    "example": {
+     "file": "sivastotravali/data/s01.l3.json",
+     "file_sha256": "cdb4af6a4c2a851231195f4e5c940346f65199d5d5d69ea1c41d8095f98409f9",
+     "target": "s01-v01",
+     "content_sha256": "6aa20635387174b68fe4ea3baf970c06aff9838acb2c745e7afca0ed7c6751de",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l4",
+    "scope": "verse",
+    "depends_on": [
+     "l3",
+     "c1"
+    ],
+    "validator": "schemas/l4.py",
+    "validator_sha256": "3c1f7b0dfe3d83d425ed0fd84fba7b74aa3ed9e9758402369d779eedda1a8c03",
+    "example": {
+     "file": "paramarthasara/data/param-p01.l4.json",
+     "file_sha256": "db346e51e71f2f835ddfda004d4432934611817c2c73318d335f6ca2362ad4fb",
+     "target": "param-p01-v01",
+     "content_sha256": "91e9d424cf310d4e5b45c173b02f5286d837269ef9447533c153a48cb5122c14",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c2",
+    "scope": "song",
+    "depends_on": [
+     "c1",
+     "l3"
+    ],
+    "validator": "schemas/c2.py",
+    "validator_sha256": "fb8743f206e036002c780d082c7d32cf011dcdab4c21df742a5f5e59a9d851b8",
+    "example": {
+     "file": "sivastotravali/data/s01.c2.json",
+     "file_sha256": "09660a3c09679fce8c95968934e5851a22d89cdf154d2b0635d358e1ef9e8aeb",
+     "target": "s01",
+     "content_sha256": "2faa5fa86e38faca7ef5a1a967a4e261e2df294648a31ed5bad5f731001aa41c",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   }
+  ]
+ },
+ "rights": {
+  "translation": "FREE — our English (L1–L4, commentary) is free use",
+  "scholar": "Contributors declare rights; authorship and copyright depend on the work and law."
+ },
+ "originals": {
+  "t1": {
+   "tsa-a19-v01": {
+    "verse_id": "tsa-a19-v01",
+    "song": "tsa-a19",
+    "verse": 1,
+    "quick_english": "Now, for those standing in lower doctrines, even up to gurus — immediately after death, solely by the power-descent arisen for raising the dead, let him perform the initiation called the final sacrament; and for those standing in higher doctrines, who have lost their observance and performed no expiation — thus is the Lord's command.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "atha",
+      "quick_gloss": "now"
+     },
+     {
+      "surface": "adharaśāsanasthānāṃ",
+      "quick_gloss": "of-lower-doctrine-standers"
+     },
+     {
+      "surface": "gurvantānām",
+      "quick_gloss": "even-up-to-gurus"
+     },
+     {
+      "surface": "api",
+      "quick_gloss": "even"
+     },
+     {
+      "surface": "maraṇasamanantaraṃ",
+      "quick_gloss": "immediately-after-death"
+     },
+     {
+      "surface": "mṛtoddhāroditaśaktipātayogād",
+      "quick_gloss": "solely-by-raising-dead-arisen-power-descent-yoga"
+     },
+     {
+      "surface": "eva",
+      "quick_gloss": "solely"
+     },
+     {
+      "surface": "antyasaṃskārākhyāṃ",
+      "quick_gloss": "final-sacrament-called"
+     },
+     {
+      "surface": "dīkṣāṃ",
+      "quick_gloss": "initiation"
+     },
+     {
+      "surface": "kuryāt",
+      "quick_gloss": "let-perform"
+     },
+     {
+      "surface": "ūrdhvaśāsanasthānām",
+      "quick_gloss": "of-higher-doctrine-standers"
+     },
+     {
+      "surface": "api",
+      "quick_gloss": "even"
+     },
+     {
+      "surface": "luptasamayānām",
+      "quick_gloss": "of-lost-observance"
+     },
+     {
+      "surface": "akṛtaprāyaścittānām",
+      "quick_gloss": "of-unperformed-expiation"
+     },
+     {
+      "surface": "iti",
+      "quick_gloss": "thus"
+     },
+     {
+      "surface": "parameśvarājñā",
+      "quick_gloss": "Lords-command"
+     }
+    ],
+    "source_sha": "8a7bab540c4eb23c"
+   },
+   "tsa-a19-v02": {
+    "verse_id": "tsa-a19-v02",
+    "song": "tsa-a19",
+    "verse": 2,
+    "quick_english": "Therein, whatever rite was told for raising the dead — all of it is to be done to the body: by the full oblation, the burning of the corpse-body. But for the deluded, to plant conviction, let him perform, with the force of ritual-knowledge-yoga, a trust-bearing funeral rite; therein, on the corpse-body, having placed mantras in the withdrawing order, having drawn them in by the net-sequence, having done curbing-piercing-rubbing and the rest, let him do, by the breath-moving sequence, in heart, throat, forehead — and lo, the corpse-body trembles.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "tatra",
+      "quick_gloss": "therein"
+     },
+     {
+      "surface": "yo",
+      "quick_gloss": "whatever"
+     },
+     {
+      "surface": "mṛtoddhāre",
+      "quick_gloss": "in-raising-dead"
+     },
+     {
+      "surface": "vidhiḥ",
+      "quick_gloss": "rite"
+     },
+     {
+      "surface": "uktaḥ",
+      "quick_gloss": "told"
+     },
+     {
+      "surface": "sa",
+      "quick_gloss": "that"
+     },
+     {
+      "surface": "sarva",
+      "quick_gloss": "all"
+     },
+     {
+      "surface": "eva",
+      "quick_gloss": "indeed"
+     },
+     {
+      "surface": "śarīre",
+      "quick_gloss": "to-body"
+     },
+     {
+      "surface": "kartavyaḥ",
+      "quick_gloss": "to-be-done"
+     },
+     {
+      "surface": "pūrṇāhutyā",
+      "quick_gloss": "by-full-oblation"
+     },
+     {
+      "surface": "śavaśarīradāhaḥ",
+      "quick_gloss": "corpse-body-burning"
+     },
+     {
+      "surface": "mūḍhānāṃ",
+      "quick_gloss": "of-deluded"
+     },
+     {
+      "surface": "tu",
+      "quick_gloss": "but"
+     },
+     {
+      "surface": "pratītirūḍhaye",
+      "quick_gloss": "for-planting-conviction"
+     },
+     {
+      "surface": "sapratyayām",
+      "quick_gloss": "trust-bearing"
+     },
+     {
+      "surface": "antyeṣṭiṃ",
+      "quick_gloss": "funeral-rite"
+     },
+     {
+      "surface": "kriyājñānayogabalāt",
+      "quick_gloss": "by-ritual-knowledge-yoga-force"
+     },
+     {
+      "surface": "kuryāt",
+      "quick_gloss": "let-perform"
+     },
+     {
+      "surface": "tatra",
+      "quick_gloss": "therein"
+     },
+     {
+      "surface": "śavaśarīre",
+      "quick_gloss": "on-corpse-body"
+     },
+     {
+      "surface": "saṃhārakrameṇa",
+      "quick_gloss": "in-withdrawing-order"
+     },
+     {
+      "surface": "mantrān",
+      "quick_gloss": "mantras"
+     },
+     {
+      "surface": "nyasya",
+      "quick_gloss": "having-placed"
+     },
+     {
+      "surface": "jālakrameṇa",
+      "quick_gloss": "by-net-sequence"
+     },
+     {
+      "surface": "ākṛṣya",
+      "quick_gloss": "having-drawn"
+     },
+     {
+      "surface": "rodhanavedhanaghaṭṭanādi",
+      "quick_gloss": "curbing-piercing-rubbing-and-rest"
+     },
+     {
+      "surface": "kuryāt",
+      "quick_gloss": "let-do"
+     },
+     {
+      "surface": "prāṇasaṃcārakrameṇa",
+      "quick_gloss": "by-breath-moving-sequence"
+     },
+     {
+      "surface": "hṛdi",
+      "quick_gloss": "in-heart"
+     },
+     {
+      "surface": "kaṇṭhe",
+      "quick_gloss": "in-throat"
+     },
+     {
+      "surface": "lalāṭe",
+      "quick_gloss": "in-forehead"
+     },
+     {
+      "surface": "ca",
+      "quick_gloss": "and"
+     },
+     {
+      "surface": "ity",
+      "quick_gloss": "lo"
+     },
+     {
+      "surface": "evaṃ",
+      "quick_gloss": "thus"
+     },
+     {
+      "surface": "śavaśarīraṃ",
+      "quick_gloss": "corpse-body"
+     },
+     {
+      "surface": "kampate",
+      "quick_gloss": "trembles"
+     }
+    ],
+    "source_sha": "8a7bab540c4eb23c"
+   },
+   "tsa-a19-v03": {
+    "verse_id": "tsa-a19-v03",
+    "song": "tsa-a19",
+    "verse": 3,
+    "quick_english": "Then, having made the joining with the supreme Śiva, let him burn it with the full oblation; for the purified by funeral, and for the others too — or: a three-day śrāddha-initiation: on the fourth day, month by month, year by year, let him perform it.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "tataḥ",
+      "quick_gloss": "then"
+     },
+     {
+      "surface": "paramaśive",
+      "quick_gloss": "with-supreme-Śiva"
+     },
+     {
+      "surface": "yojanikāṃ",
+      "quick_gloss": "joining"
+     },
+     {
+      "surface": "kṛtvā",
+      "quick_gloss": "having-made"
+     },
+     {
+      "surface": "tat",
+      "quick_gloss": "it"
+     },
+     {
+      "surface": "dahet",
+      "quick_gloss": "let-burn"
+     },
+     {
+      "surface": "pūrṇāhutyā",
+      "quick_gloss": "by-full-oblation"
+     },
+     {
+      "surface": "antyeṣṭyā",
+      "quick_gloss": "by-funeral"
+     },
+     {
+      "surface": "śuddhānām",
+      "quick_gloss": "of-purified"
+     },
+     {
+      "surface": "anyeṣām",
+      "quick_gloss": "of-others"
+     },
+     {
+      "surface": "api",
+      "quick_gloss": "even"
+     },
+     {
+      "surface": "vā",
+      "quick_gloss": "or"
+     },
+     {
+      "surface": "śrāddhadīkṣāṃ",
+      "quick_gloss": "śrāddha-initiation"
+     },
+     {
+      "surface": "tryahaṃ",
+      "quick_gloss": "three-day"
+     },
+     {
+      "surface": "turye",
+      "quick_gloss": "on-fourth"
+     },
+     {
+      "surface": "dine",
+      "quick_gloss": "on-day"
+     },
+     {
+      "surface": "māsi",
+      "quick_gloss": "monthly"
+     },
+     {
+      "surface": "māsi",
+      "quick_gloss": "monthly"
+     },
+     {
+      "surface": "saṃvatsare",
+      "quick_gloss": "yearly"
+     },
+     {
+      "surface": "saṃvatsare",
+      "quick_gloss": "yearly"
+     },
+     {
+      "surface": "kuryāt",
+      "quick_gloss": "let-perform"
+     }
+    ],
+    "source_sha": "8a7bab540c4eb23c"
+   },
+   "tsa-a19-v04": {
+    "verse_id": "tsa-a19-v04",
+    "song": "tsa-a19",
+    "verse": 4,
+    "quick_english": "Therein, having performed the rite ending in oblation, having made a food-offering in one hand, having meditated on his power of virile form, knowable-formed, that has attained identity with the knowable-power present in the beast — let him offer it to the Lord as enjoyer. Thus, when knowable-being ceases, he becomes the Lord himself. Whether by funeral-raising-śrāddha-initiations one has succeeded or not, still, for one desiring enjoyment, multitude of rites for multitude of fruit — thus, let him perform all.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "tatra",
+      "quick_gloss": "therein"
+     },
+     {
+      "surface": "homāntaṃ",
+      "quick_gloss": "oblation-ending"
+     },
+     {
+      "surface": "vidhiṃ",
+      "quick_gloss": "rite"
+     },
+     {
+      "surface": "kṛtvā",
+      "quick_gloss": "having-performed"
+     },
+     {
+      "surface": "naivedyam",
+      "quick_gloss": "food-offering"
+     },
+     {
+      "surface": "ekahaste",
+      "quick_gloss": "in-one-hand"
+     },
+     {
+      "surface": "kṛtvā",
+      "quick_gloss": "having-made"
+     },
+     {
+      "surface": "tadīyāṃ",
+      "quick_gloss": "his"
+     },
+     {
+      "surface": "vīryarūpāṃ",
+      "quick_gloss": "virile-formed"
+     },
+     {
+      "surface": "śaktiṃ",
+      "quick_gloss": "power"
+     },
+     {
+      "surface": "bhogyākārāṃ",
+      "quick_gloss": "knowable-formed"
+     },
+     {
+      "surface": "paśugatabhogyaśaktitādātmyapratipannāṃ",
+      "quick_gloss": "beast-present-knowable-power-identity-attained"
+     },
+     {
+      "surface": "dhyātvā",
+      "quick_gloss": "having-meditated"
+     },
+     {
+      "surface": "parameśvare",
+      "quick_gloss": "in-Lord"
+     },
+     {
+      "surface": "bhoktari",
+      "quick_gloss": "as-enjoyer"
+     },
+     {
+      "surface": "arpayet",
+      "quick_gloss": "let-offer"
+     },
+     {
+      "surface": "ity",
+      "quick_gloss": "thus"
+     },
+     {
+      "surface": "evaṃ",
+      "quick_gloss": "thus"
+     },
+     {
+      "surface": "bhogyabhāve",
+      "quick_gloss": "in-knowable-being"
+     },
+     {
+      "surface": "nivṛtte",
+      "quick_gloss": "ceased"
+     },
+     {
+      "surface": "patir",
+      "quick_gloss": "Lord"
+     },
+     {
+      "surface": "eva",
+      "quick_gloss": "himself"
+     },
+     {
+      "surface": "bhavati",
+      "quick_gloss": "becomes"
+     },
+     {
+      "surface": "antyeṣṭimṛtoddharaṇaśrāddhadīkṣāṇām",
+      "quick_gloss": "of-funeral-raising-śrāddha-initiations"
+     },
+     {
+      "surface": "anyatamenāpi",
+      "quick_gloss": "by-any-one-even"
+     },
+     {
+      "surface": "yadyapi",
+      "quick_gloss": "whether"
+     },
+     {
+      "surface": "kṛtārthatā",
+      "quick_gloss": "success"
+     },
+     {
+      "surface": "tathāpi",
+      "quick_gloss": "still"
+     },
+     {
+      "surface": "bubhukṣoḥ",
+      "quick_gloss": "of-enjoyment-desirer"
+     },
+     {
+      "surface": "kriyābhūyastvaṃ",
+      "quick_gloss": "multitude-of-rites"
+     },
+     {
+      "surface": "phalabhūyastvāya",
+      "quick_gloss": "for-multitude-of-fruit"
+     },
+     {
+      "surface": "iti",
+      "quick_gloss": "thus"
+     },
+     {
+      "surface": "sarvam",
+      "quick_gloss": "all"
+     },
+     {
+      "surface": "ācaret",
+      "quick_gloss": "let-perform"
+     }
+    ],
+    "source_sha": "8a7bab540c4eb23c"
+   },
+   "tsa-a19-v05": {
+    "verse_id": "tsa-a19-v05",
+    "song": "tsa-a19",
+    "verse": 5,
+    "quick_english": "Even of the liberation-seeker, for the attainment of made-of-That-ness, this — of the living, daily, like sustained practice.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "mumukṣor",
+      "quick_gloss": "of-liberation-seeker"
+     },
+     {
+      "surface": "api",
+      "quick_gloss": "even"
+     },
+     {
+      "surface": "tanmayībhāvasiddhaye",
+      "quick_gloss": "for-made-of-That-attainment"
+     },
+     {
+      "surface": "ayam",
+      "quick_gloss": "this"
+     },
+     {
+      "surface": "jīvataḥ",
+      "quick_gloss": "of-living"
+     },
+     {
+      "surface": "pratyaham",
+      "quick_gloss": "daily"
+     },
+     {
+      "surface": "anuṣṭhānābhyāsavat",
+      "quick_gloss": "like-sustained-practice"
+     }
+    ],
+    "source_sha": "8a7bab540c4eb23c"
+   },
+   "tsa-a19-v06": {
+    "verse_id": "tsa-a19-v06",
+    "song": "tsa-a19",
+    "verse": 6,
+    "quick_english": "But for the knower of reality, no rite here ending in funeral and śrāddha is of any use: his death is a festival day for those continuing his knowledge-lineage, from the filling of consciousness-portion — of so much lineage, since the sole reality is mere consciousness — like the day of the lineage's attainment of knowledge while living.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "tattvajñāninas",
+      "quick_gloss": "of-knower-of-reality"
+     },
+     {
+      "surface": "tu",
+      "quick_gloss": "but"
+     },
+     {
+      "surface": "na",
+      "quick_gloss": "no"
+     },
+     {
+      "surface": "ko",
+      "quick_gloss": "any"
+     },
+     {
+      "surface": "'py",
+      "quick_gloss": "even"
+     },
+     {
+      "surface": "ayam",
+      "quick_gloss": "this"
+     },
+     {
+      "surface": "antyeṣṭyādiśrāddhānto",
+      "quick_gloss": "funeral-onward-śrāddha-ending"
+     },
+     {
+      "surface": "vidhiḥ",
+      "quick_gloss": "rite"
+     },
+     {
+      "surface": "upayogī",
+      "quick_gloss": "of-use"
+     },
+     {
+      "surface": "tanmaraṇaṃ",
+      "quick_gloss": "his-death"
+     },
+     {
+      "surface": "tadvidyāsaṃtānināṃ",
+      "quick_gloss": "of-his-knowledge-lineage-continuers"
+     },
+     {
+      "surface": "parvadinaṃ",
+      "quick_gloss": "festival-day"
+     },
+     {
+      "surface": "saṃvidaṃśapūraṇāt",
+      "quick_gloss": "from-consciousness-portion-filling"
+     },
+     {
+      "surface": "tāvataḥ",
+      "quick_gloss": "of-so-much"
+     },
+     {
+      "surface": "saṃtānasya",
+      "quick_gloss": "of-lineage"
+     },
+     {
+      "surface": "ekasaṃvinmātraparamārthatvāt",
+      "quick_gloss": "since-sole-reality-is-mere-consciousness"
+     },
+     {
+      "surface": "jīvato",
+      "quick_gloss": "of-living"
+     },
+     {
+      "surface": "jñānalābhasaṃtānadivasavat",
+      "quick_gloss": "like-day-of-lineages-knowledge-attainment-while-living"
+     }
+    ],
+    "source_sha": "8a7bab540c4eb23c"
+   },
+   "tsa-a19-v07": {
+    "verse_id": "tsa-a19-v07",
+    "song": "tsa-a19",
+    "verse": 7,
+    "quick_english": "But everywhere here, in the śrāddha rite, image-abandonment is chief — so holds the revered Siddhāmata; and its rule will be told in the exposition of the occasional.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "sarvatra",
+      "quick_gloss": "everywhere"
+     },
+     {
+      "surface": "ca",
+      "quick_gloss": "but"
+     },
+     {
+      "surface": "atra",
+      "quick_gloss": "here"
+     },
+     {
+      "surface": "śrāddhādividhau",
+      "quick_gloss": "in-śrāddha-rite"
+     },
+     {
+      "surface": "mūrtiyāgaḥ",
+      "quick_gloss": "image-abandonment"
+     },
+     {
+      "surface": "pradhānam",
+      "quick_gloss": "chief"
+     },
+     {
+      "surface": "iti",
+      "quick_gloss": "thus"
+     },
+     {
+      "surface": "śrīsiddhāmatam",
+      "quick_gloss": "revered-Siddhāmata-holds"
+     },
+     {
+      "surface": "tadvidhiś",
+      "quick_gloss": "and-its-rule"
+     },
+     {
+      "surface": "ca",
+      "quick_gloss": "and"
+     },
+     {
+      "surface": "vakṣyate",
+      "quick_gloss": "will-be-told"
+     },
+     {
+      "surface": "naimittikaprakāśane",
+      "quick_gloss": "in-occasional-exposition"
+     }
+    ],
+    "source_sha": "8a7bab540c4eb23c"
+   }
+  },
+  "l0": {
+   "tsa-a19-v01": [
+    {
+     "id": "tsa-a19-v01-p000",
+     "verse_id": "tsa-a19-v01",
+     "pada_index": 0,
+     "surface": "atha",
+     "citation": "atha",
+     "morph": "indecl",
+     "options": [
+      {
+       "gloss": "now",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "now"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v01-p001",
+     "verse_id": "tsa-a19-v01",
+     "pada_index": 1,
+     "surface": "adharaśāsanasthānāṃ",
+     "citation": "adhara+śāsana+stha",
+     "morph": "gen.pl.m (adhara+śāsana+stha)",
+     "options": [
+      {
+       "gloss": "of-lower-doctrine-standers",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "of-lower-doctrine-standers"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v01-p002",
+     "verse_id": "tsa-a19-v01",
+     "pada_index": 2,
+     "surface": "gurvantānām",
+     "citation": "guru+anta",
+     "morph": "adj (guru+anta)",
+     "options": [
+      {
+       "gloss": "even-up-to-gurus",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "even-up-to-gurus"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v01-p003",
+     "verse_id": "tsa-a19-v01",
+     "pada_index": 3,
+     "surface": "api",
+     "citation": "api",
+     "morph": "emphatic",
+     "options": [
+      {
+       "gloss": "even",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "even"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v01-p004",
+     "verse_id": "tsa-a19-v01",
+     "pada_index": 4,
+     "surface": "maraṇasamanantaraṃ",
+     "citation": "maraṇa+sam+antara",
+     "morph": "adv (maraṇa+sam+antara)",
+     "options": [
+      {
+       "gloss": "immediately-after-death",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "immediately-after-death"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v01-p005",
+     "verse_id": "tsa-a19-v01",
+     "pada_index": 5,
+     "surface": "mṛtoddhāroditaśaktipātayogād",
+     "citation": "mṛta+uddhāra+udita+śakti+pāta+yoga",
+     "morph": "m.abl.sg (mṛta+uddhāra+udita+śakti+pāta+yoga+āt)",
+     "options": [
+      {
+       "gloss": "solely-by-raising-dead-arisen-power-descent-yoga",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "solely-by-raising-dead-arisen-power-descent-yoga"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v01-p006",
+     "verse_id": "tsa-a19-v01",
+     "pada_index": 6,
+     "surface": "eva",
+     "citation": "eva",
+     "morph": "emphatic",
+     "options": [
+      {
+       "gloss": "solely",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "solely"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v01-p007",
+     "verse_id": "tsa-a19-v01",
+     "pada_index": 7,
+     "surface": "antyasaṃskārākhyāṃ",
+     "citation": "antya+saṃskāra+ākhyā",
+     "morph": "f.acc.sg",
+     "options": [
+      {
+       "gloss": "final-sacrament-called",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "final-sacrament-called"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v01-p008",
+     "verse_id": "tsa-a19-v01",
+     "pada_index": 8,
+     "surface": "dīkṣāṃ",
+     "citation": "dīkṣā",
+     "morph": "f.acc.sg",
+     "options": [
+      {
+       "gloss": "initiation",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "initiation"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v01-p009",
+     "verse_id": "tsa-a19-v01",
+     "pada_index": 9,
+     "surface": "kuryāt",
+     "citation": "√kṛ",
+     "morph": "3sg opt act",
+     "options": [
+      {
+       "gloss": "let-perform",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "let-perform"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v01-p010",
+     "verse_id": "tsa-a19-v01",
+     "pada_index": 10,
+     "surface": "ūrdhvaśāsanasthānām",
+     "citation": "ūrdhva+śāsana+stha",
+     "morph": "gen.pl.m",
+     "options": [
+      {
+       "gloss": "of-higher-doctrine-standers",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "of-higher-doctrine-standers"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v01-p011",
+     "verse_id": "tsa-a19-v01",
+     "pada_index": 11,
+     "surface": "api",
+     "citation": "api",
+     "morph": "emphatic",
+     "options": [
+      {
+       "gloss": "even",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "even"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v01-p012",
+     "verse_id": "tsa-a19-v01",
+     "pada_index": 12,
+     "surface": "luptasamayānām",
+     "citation": "lupta+samaya",
+     "morph": "adj gen.pl",
+     "options": [
+      {
+       "gloss": "of-lost-observance",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "of-lost-observance"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v01-p013",
+     "verse_id": "tsa-a19-v01",
+     "pada_index": 13,
+     "surface": "akṛtaprāyaścittānām",
+     "citation": "a+kṛta+prāyaścitta",
+     "morph": "adj gen.pl",
+     "options": [
+      {
+       "gloss": "of-unperformed-expiation",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "of-unperformed-expiation"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v01-p014",
+     "verse_id": "tsa-a19-v01",
+     "pada_index": 14,
+     "surface": "iti",
+     "citation": "iti",
+     "morph": "quotative",
+     "options": [
+      {
+       "gloss": "thus",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "thus"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v01-p015",
+     "verse_id": "tsa-a19-v01",
+     "pada_index": 15,
+     "surface": "parameśvarājñā",
+     "citation": "parameśvara+ājñā",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "Lords-command",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Lords-command"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "tsa-a19-v02": [
+    {
+     "id": "tsa-a19-v02-p000",
+     "verse_id": "tsa-a19-v02",
+     "pada_index": 0,
+     "surface": "tatra",
+     "citation": "tatra",
+     "morph": "adv",
+     "options": [
+      {
+       "gloss": "therein",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "therein"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v02-p001",
+     "verse_id": "tsa-a19-v02",
+     "pada_index": 1,
+     "surface": "yo",
+     "citation": "yad",
+     "morph": "rel",
+     "options": [
+      {
+       "gloss": "whatever",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "whatever"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v02-p002",
+     "verse_id": "tsa-a19-v02",
+     "pada_index": 2,
+     "surface": "mṛtoddhāre",
+     "citation": "mṛta+uddhāra",
+     "morph": "m.loc.sg",
+     "options": [
+      {
+       "gloss": "in-raising-dead",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "in-raising-dead"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v02-p003",
+     "verse_id": "tsa-a19-v02",
+     "pada_index": 3,
+     "surface": "vidhiḥ",
+     "citation": "vidhi",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "rite",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "rite"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v02-p004",
+     "verse_id": "tsa-a19-v02",
+     "pada_index": 4,
+     "surface": "uktaḥ",
+     "citation": "√vac",
+     "morph": "ppp (ukta)",
+     "options": [
+      {
+       "gloss": "told",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "told"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v02-p005",
+     "verse_id": "tsa-a19-v02",
+     "pada_index": 5,
+     "surface": "sa",
+     "citation": "tad",
+     "morph": "dem",
+     "options": [
+      {
+       "gloss": "that",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "that"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v02-p006",
+     "verse_id": "tsa-a19-v02",
+     "pada_index": 6,
+     "surface": "sarva",
+     "citation": "sarva",
+     "morph": "adj",
+     "options": [
+      {
+       "gloss": "all",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "all"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v02-p007",
+     "verse_id": "tsa-a19-v02",
+     "pada_index": 7,
+     "surface": "eva",
+     "citation": "eva",
+     "morph": "emphatic",
+     "options": [
+      {
+       "gloss": "indeed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indeed"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v02-p008",
+     "verse_id": "tsa-a19-v02",
+     "pada_index": 8,
+     "surface": "śarīre",
+     "citation": "śarīra",
+     "morph": "n.loc.sg",
+     "options": [
+      {
+       "gloss": "to-body",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "to-body"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v02-p009",
+     "verse_id": "tsa-a19-v02",
+     "pada_index": 9,
+     "surface": "kartavyaḥ",
+     "citation": "√kṛ",
+     "morph": "gerundive (kartavya)",
+     "options": [
+      {
+       "gloss": "to-be-done",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "to-be-done"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v02-p010",
+     "verse_id": "tsa-a19-v02",
+     "pada_index": 10,
+     "surface": "pūrṇāhutyā",
+     "citation": "pūrṇa+āhuti",
+     "morph": "f.inst.sg",
+     "options": [
+      {
+       "gloss": "by-full-oblation",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "by-full-oblation"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v02-p011",
+     "verse_id": "tsa-a19-v02",
+     "pada_index": 11,
+     "surface": "śavaśarīradāhaḥ",
+     "citation": "śava+śarīra+dāha",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "corpse-body-burning",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "corpse-body-burning"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v02-p012",
+     "verse_id": "tsa-a19-v02",
+     "pada_index": 12,
+     "surface": "mūḍhānāṃ",
+     "citation": "mūḍha",
+     "morph": "gen.pl.m",
+     "options": [
+      {
+       "gloss": "of-deluded",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "of-deluded"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v02-p013",
+     "verse_id": "tsa-a19-v02",
+     "pada_index": 13,
+     "surface": "tu",
+     "citation": "tu",
+     "morph": "adversative",
+     "options": [
+      {
+       "gloss": "but",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "but"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v02-p014",
+     "verse_id": "tsa-a19-v02",
+     "pada_index": 14,
+     "surface": "pratītirūḍhaye",
+     "citation": "pratīti+rūḍhi",
+     "morph": "f.dat.sg (pratīti+rūḍhi)",
+     "options": [
+      {
+       "gloss": "for-planting-conviction",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "for-planting-conviction"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v02-p015",
+     "verse_id": "tsa-a19-v02",
+     "pada_index": 15,
+     "surface": "sapratyayām",
+     "citation": "sa+pratyaya",
+     "morph": "adj (sa+pratyaya)",
+     "options": [
+      {
+       "gloss": "trust-bearing",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "trust-bearing"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v02-p016",
+     "verse_id": "tsa-a19-v02",
+     "pada_index": 16,
+     "surface": "antyeṣṭiṃ",
+     "citation": "antya+iṣṭi",
+     "morph": "f.acc.sg",
+     "options": [
+      {
+       "gloss": "funeral-rite",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "funeral-rite"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v02-p017",
+     "verse_id": "tsa-a19-v02",
+     "pada_index": 17,
+     "surface": "kriyājñānayogabalāt",
+     "citation": "kriyā+jñāna+yoga+bala",
+     "morph": "n.abl.sg",
+     "options": [
+      {
+       "gloss": "by-ritual-knowledge-yoga-force",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "by-ritual-knowledge-yoga-force"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v02-p018",
+     "verse_id": "tsa-a19-v02",
+     "pada_index": 18,
+     "surface": "kuryāt",
+     "citation": "√kṛ",
+     "morph": "3sg opt act",
+     "options": [
+      {
+       "gloss": "let-perform",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "let-perform"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v02-p019",
+     "verse_id": "tsa-a19-v02",
+     "pada_index": 19,
+     "surface": "tatra",
+     "citation": "tatra",
+     "morph": "adv",
+     "options": [
+      {
+       "gloss": "therein",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "therein"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v02-p020",
+     "verse_id": "tsa-a19-v02",
+     "pada_index": 20,
+     "surface": "śavaśarīre",
+     "citation": "śava+śarīra",
+     "morph": "n.loc.sg",
+     "options": [
+      {
+       "gloss": "on-corpse-body",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "on-corpse-body"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v02-p021",
+     "verse_id": "tsa-a19-v02",
+     "pada_index": 21,
+     "surface": "saṃhārakrameṇa",
+     "citation": "saṃhāra+krama",
+     "morph": "m.inst.sg",
+     "options": [
+      {
+       "gloss": "in-withdrawing-order",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "in-withdrawing-order"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v02-p022",
+     "verse_id": "tsa-a19-v02",
+     "pada_index": 22,
+     "surface": "mantrān",
+     "citation": "mantra",
+     "morph": "m.acc.pl",
+     "options": [
+      {
+       "gloss": "mantras",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "mantras"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v02-p023",
+     "verse_id": "tsa-a19-v02",
+     "pada_index": 23,
+     "surface": "nyasya",
+     "citation": "ni+√as",
+     "morph": "gerund (nyasya)",
+     "options": [
+      {
+       "gloss": "having-placed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "having-placed"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v02-p024",
+     "verse_id": "tsa-a19-v02",
+     "pada_index": 24,
+     "surface": "jālakrameṇa",
+     "citation": "jāla+krama",
+     "morph": "m.inst.sg",
+     "options": [
+      {
+       "gloss": "by-net-sequence",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "by-net-sequence"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v02-p025",
+     "verse_id": "tsa-a19-v02",
+     "pada_index": 25,
+     "surface": "ākṛṣya",
+     "citation": "ā+√kṛṣ",
+     "morph": "gerund (ākṛṣya)",
+     "options": [
+      {
+       "gloss": "having-drawn",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "having-drawn"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v02-p026",
+     "verse_id": "tsa-a19-v02",
+     "pada_index": 26,
+     "surface": "rodhanavedhanaghaṭṭanādi",
+     "citation": "rodhana+vedhana+ghaṭṭana+ādi",
+     "morph": "n.? (rodhana+vedhana+ghaṭṭana+ādi)",
+     "options": [
+      {
+       "gloss": "curbing-piercing-rubbing-and-rest",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "curbing-piercing-rubbing-and-rest"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v02-p027",
+     "verse_id": "tsa-a19-v02",
+     "pada_index": 27,
+     "surface": "kuryāt",
+     "citation": "√kṛ",
+     "morph": "3sg opt act",
+     "options": [
+      {
+       "gloss": "let-do",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "let-do"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v02-p028",
+     "verse_id": "tsa-a19-v02",
+     "pada_index": 28,
+     "surface": "prāṇasaṃcārakrameṇa",
+     "citation": "prāṇa+saṃcāra+krama",
+     "morph": "m.inst.sg",
+     "options": [
+      {
+       "gloss": "by-breath-moving-sequence",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "by-breath-moving-sequence"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v02-p029",
+     "verse_id": "tsa-a19-v02",
+     "pada_index": 29,
+     "surface": "hṛdi",
+     "citation": "hṛd",
+     "morph": "loc.sg",
+     "options": [
+      {
+       "gloss": "in-heart",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "in-heart"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v02-p030",
+     "verse_id": "tsa-a19-v02",
+     "pada_index": 30,
+     "surface": "kaṇṭhe",
+     "citation": "kaṇṭha",
+     "morph": "loc.sg",
+     "options": [
+      {
+       "gloss": "in-throat",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "in-throat"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v02-p031",
+     "verse_id": "tsa-a19-v02",
+     "pada_index": 31,
+     "surface": "lalāṭe",
+     "citation": "lalāṭa",
+     "morph": "loc.sg",
+     "options": [
+      {
+       "gloss": "in-forehead",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "in-forehead"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v02-p032",
+     "verse_id": "tsa-a19-v02",
+     "pada_index": 32,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "conjunctive",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "and"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v02-p033",
+     "verse_id": "tsa-a19-v02",
+     "pada_index": 33,
+     "surface": "ity",
+     "citation": "iti",
+     "morph": "quotative (lo!)",
+     "options": [
+      {
+       "gloss": "lo",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "lo"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v02-p034",
+     "verse_id": "tsa-a19-v02",
+     "pada_index": 34,
+     "surface": "evaṃ",
+     "citation": "evam",
+     "morph": "adv",
+     "options": [
+      {
+       "gloss": "thus",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "thus"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v02-p035",
+     "verse_id": "tsa-a19-v02",
+     "pada_index": 35,
+     "surface": "śavaśarīraṃ",
+     "citation": "śava+śarīra",
+     "morph": "n.nom.sg",
+     "options": [
+      {
+       "gloss": "corpse-body",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "corpse-body"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v02-p036",
+     "verse_id": "tsa-a19-v02",
+     "pada_index": 36,
+     "surface": "kampate",
+     "citation": "√kamp",
+     "morph": "3sg atm pres (kampate)",
+     "options": [
+      {
+       "gloss": "trembles",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "trembles"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "tsa-a19-v03": [
+    {
+     "id": "tsa-a19-v03-p000",
+     "verse_id": "tsa-a19-v03",
+     "pada_index": 0,
+     "surface": "tataḥ",
+     "citation": "tatas",
+     "morph": "adv",
+     "options": [
+      {
+       "gloss": "then",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "then"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v03-p001",
+     "verse_id": "tsa-a19-v03",
+     "pada_index": 1,
+     "surface": "paramaśive",
+     "citation": "parama+śiva",
+     "morph": "loc.sg.m (parama+śiva)",
+     "options": [
+      {
+       "gloss": "with-supreme-Śiva",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "with-supreme-Śiva"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v03-p002",
+     "verse_id": "tsa-a19-v03",
+     "pada_index": 2,
+     "surface": "yojanikāṃ",
+     "citation": "yojanikā",
+     "morph": "f.acc.sg",
+     "options": [
+      {
+       "gloss": "joining",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "joining"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v03-p003",
+     "verse_id": "tsa-a19-v03",
+     "pada_index": 3,
+     "surface": "kṛtvā",
+     "citation": "√kṛ",
+     "morph": "gerund (kṛtvā)",
+     "options": [
+      {
+       "gloss": "having-made",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "having-made"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v03-p004",
+     "verse_id": "tsa-a19-v03",
+     "pada_index": 4,
+     "surface": "tat",
+     "citation": "tad",
+     "morph": "acc.sg.n",
+     "options": [
+      {
+       "gloss": "it",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "it"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v03-p005",
+     "verse_id": "tsa-a19-v03",
+     "pada_index": 5,
+     "surface": "dahet",
+     "citation": "√dah",
+     "morph": "3sg opt (dahet)",
+     "options": [
+      {
+       "gloss": "let-burn",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "let-burn"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v03-p006",
+     "verse_id": "tsa-a19-v03",
+     "pada_index": 6,
+     "surface": "pūrṇāhutyā",
+     "citation": "pūrṇa+āhuti",
+     "morph": "f.inst.sg",
+     "options": [
+      {
+       "gloss": "by-full-oblation",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "by-full-oblation"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v03-p007",
+     "verse_id": "tsa-a19-v03",
+     "pada_index": 7,
+     "surface": "antyeṣṭyā",
+     "citation": "antya+iṣṭi",
+     "morph": "f.inst.sg",
+     "options": [
+      {
+       "gloss": "by-funeral",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "by-funeral"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v03-p008",
+     "verse_id": "tsa-a19-v03",
+     "pada_index": 8,
+     "surface": "śuddhānām",
+     "citation": "śuddha",
+     "morph": "gen.pl.m",
+     "options": [
+      {
+       "gloss": "of-purified",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "of-purified"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v03-p009",
+     "verse_id": "tsa-a19-v03",
+     "pada_index": 9,
+     "surface": "anyeṣām",
+     "citation": "anya",
+     "morph": "gen.pl.m",
+     "options": [
+      {
+       "gloss": "of-others",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "of-others"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v03-p010",
+     "verse_id": "tsa-a19-v03",
+     "pada_index": 10,
+     "surface": "api",
+     "citation": "api",
+     "morph": "concessive",
+     "options": [
+      {
+       "gloss": "even",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "even"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v03-p011",
+     "verse_id": "tsa-a19-v03",
+     "pada_index": 11,
+     "surface": "vā",
+     "citation": "vā",
+     "morph": "disjunctive",
+     "options": [
+      {
+       "gloss": "or",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "or"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v03-p012",
+     "verse_id": "tsa-a19-v03",
+     "pada_index": 12,
+     "surface": "śrāddhadīkṣāṃ",
+     "citation": "śrāddha+dīkṣā",
+     "morph": "f.acc.sg",
+     "options": [
+      {
+       "gloss": "śrāddha-initiation",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "śrāddha-initiation"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v03-p013",
+     "verse_id": "tsa-a19-v03",
+     "pada_index": 13,
+     "surface": "tryahaṃ",
+     "citation": "tri+ahan",
+     "morph": "adj (tryaha)",
+     "options": [
+      {
+       "gloss": "three-day",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "three-day"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v03-p014",
+     "verse_id": "tsa-a19-v03",
+     "pada_index": 14,
+     "surface": "turye",
+     "citation": "turya",
+     "morph": "loc.sg.n (turīya)",
+     "options": [
+      {
+       "gloss": "on-fourth",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "on-fourth"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v03-p015",
+     "verse_id": "tsa-a19-v03",
+     "pada_index": 15,
+     "surface": "dine",
+     "citation": "dina",
+     "morph": "loc.sg.n",
+     "options": [
+      {
+       "gloss": "on-day",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "on-day"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v03-p016",
+     "verse_id": "tsa-a19-v03",
+     "pada_index": 16,
+     "surface": "māsi",
+     "citation": "māsa",
+     "morph": "loc.sg",
+     "options": [
+      {
+       "gloss": "monthly",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "monthly"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v03-p017",
+     "verse_id": "tsa-a19-v03",
+     "pada_index": 17,
+     "surface": "māsi",
+     "citation": "māsa",
+     "morph": "loc.sg",
+     "options": [
+      {
+       "gloss": "monthly",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "monthly"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v03-p018",
+     "verse_id": "tsa-a19-v03",
+     "pada_index": 18,
+     "surface": "saṃvatsare",
+     "citation": "saṃvatsara",
+     "morph": "loc.sg",
+     "options": [
+      {
+       "gloss": "yearly",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "yearly"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v03-p019",
+     "verse_id": "tsa-a19-v03",
+     "pada_index": 19,
+     "surface": "saṃvatsare",
+     "citation": "saṃvatsara",
+     "morph": "loc.sg",
+     "options": [
+      {
+       "gloss": "yearly",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "yearly"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v03-p020",
+     "verse_id": "tsa-a19-v03",
+     "pada_index": 20,
+     "surface": "kuryāt",
+     "citation": "√kṛ",
+     "morph": "3sg opt act",
+     "options": [
+      {
+       "gloss": "let-perform",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "let-perform"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "tsa-a19-v04": [
+    {
+     "id": "tsa-a19-v04-p000",
+     "verse_id": "tsa-a19-v04",
+     "pada_index": 0,
+     "surface": "tatra",
+     "citation": "tatra",
+     "morph": "adv",
+     "options": [
+      {
+       "gloss": "therein",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "therein"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v04-p001",
+     "verse_id": "tsa-a19-v04",
+     "pada_index": 1,
+     "surface": "homāntaṃ",
+     "citation": "homa+anta",
+     "morph": "adj (homa+anta)",
+     "options": [
+      {
+       "gloss": "oblation-ending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "oblation-ending"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v04-p002",
+     "verse_id": "tsa-a19-v04",
+     "pada_index": 2,
+     "surface": "vidhiṃ",
+     "citation": "vidhi",
+     "morph": "m.acc.sg",
+     "options": [
+      {
+       "gloss": "rite",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "rite"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v04-p003",
+     "verse_id": "tsa-a19-v04",
+     "pada_index": 3,
+     "surface": "kṛtvā",
+     "citation": "√kṛ",
+     "morph": "gerund (kṛtvā)",
+     "options": [
+      {
+       "gloss": "having-performed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "having-performed"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v04-p004",
+     "verse_id": "tsa-a19-v04",
+     "pada_index": 4,
+     "surface": "naivedyam",
+     "citation": "naivedya",
+     "morph": "n.acc.sg",
+     "options": [
+      {
+       "gloss": "food-offering",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "food-offering"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v04-p005",
+     "verse_id": "tsa-a19-v04",
+     "pada_index": 5,
+     "surface": "ekahaste",
+     "citation": "eka+hasta",
+     "morph": "loc.sg",
+     "options": [
+      {
+       "gloss": "in-one-hand",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "in-one-hand"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v04-p006",
+     "verse_id": "tsa-a19-v04",
+     "pada_index": 6,
+     "surface": "kṛtvā",
+     "citation": "√kṛ",
+     "morph": "gerund (kṛtvā)",
+     "options": [
+      {
+       "gloss": "having-made",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "having-made"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v04-p007",
+     "verse_id": "tsa-a19-v04",
+     "pada_index": 7,
+     "surface": "tadīyāṃ",
+     "citation": "tadīya",
+     "morph": "adj",
+     "options": [
+      {
+       "gloss": "his",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "his"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v04-p008",
+     "verse_id": "tsa-a19-v04",
+     "pada_index": 8,
+     "surface": "vīryarūpāṃ",
+     "citation": "vīrya+rūpa",
+     "morph": "adj",
+     "options": [
+      {
+       "gloss": "virile-formed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "virile-formed"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v04-p009",
+     "verse_id": "tsa-a19-v04",
+     "pada_index": 9,
+     "surface": "śaktiṃ",
+     "citation": "śakti",
+     "morph": "f.acc.sg",
+     "options": [
+      {
+       "gloss": "power",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "power"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v04-p010",
+     "verse_id": "tsa-a19-v04",
+     "pada_index": 10,
+     "surface": "bhogyākārāṃ",
+     "citation": "bhogya+ākāra",
+     "morph": "adj",
+     "options": [
+      {
+       "gloss": "knowable-formed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "knowable-formed"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v04-p011",
+     "verse_id": "tsa-a19-v04",
+     "pada_index": 11,
+     "surface": "paśugatabhogyaśaktitādātmyapratipannāṃ",
+     "citation": "paśu+gata+bhogya+śakti+tādātmya+pratipanna",
+     "morph": "f.acc.sg ppp (paśu+gata+bhogya+śakti+tādātmya+pratipanna)",
+     "options": [
+      {
+       "gloss": "beast-present-knowable-power-identity-attained",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "beast-present-knowable-power-identity-attained"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v04-p012",
+     "verse_id": "tsa-a19-v04",
+     "pada_index": 12,
+     "surface": "dhyātvā",
+     "citation": "√dhyai",
+     "morph": "gerund (dhyātvā)",
+     "options": [
+      {
+       "gloss": "having-meditated",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "having-meditated"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v04-p013",
+     "verse_id": "tsa-a19-v04",
+     "pada_index": 13,
+     "surface": "parameśvare",
+     "citation": "parameśvara",
+     "morph": "loc.sg",
+     "options": [
+      {
+       "gloss": "in-Lord",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "in-Lord"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v04-p014",
+     "verse_id": "tsa-a19-v04",
+     "pada_index": 14,
+     "surface": "bhoktari",
+     "citation": "bhoktṛ",
+     "morph": "acc.sg.m",
+     "options": [
+      {
+       "gloss": "as-enjoyer",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "as-enjoyer"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v04-p015",
+     "verse_id": "tsa-a19-v04",
+     "pada_index": 15,
+     "surface": "arpayet",
+     "citation": "a+√dā",
+     "morph": "3sg opt (arpayet, caus?)",
+     "options": [
+      {
+       "gloss": "let-offer",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "let-offer"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v04-p016",
+     "verse_id": "tsa-a19-v04",
+     "pada_index": 16,
+     "surface": "ity",
+     "citation": "iti",
+     "morph": "quotative",
+     "options": [
+      {
+       "gloss": "thus",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "thus"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v04-p017",
+     "verse_id": "tsa-a19-v04",
+     "pada_index": 17,
+     "surface": "evaṃ",
+     "citation": "evam",
+     "morph": "adv",
+     "options": [
+      {
+       "gloss": "thus",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "thus"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v04-p018",
+     "verse_id": "tsa-a19-v04",
+     "pada_index": 18,
+     "surface": "bhogyabhāve",
+     "citation": "bhogya+bhāva",
+     "morph": "loc.sg",
+     "options": [
+      {
+       "gloss": "in-knowable-being",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "in-knowable-being"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v04-p019",
+     "verse_id": "tsa-a19-v04",
+     "pada_index": 19,
+     "surface": "nivṛtte",
+     "citation": "ni+√vṛt",
+     "morph": "loc.sg ppp (nivṛtta)",
+     "options": [
+      {
+       "gloss": "ceased",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "ceased"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v04-p020",
+     "verse_id": "tsa-a19-v04",
+     "pada_index": 20,
+     "surface": "patir",
+     "citation": "pati",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "Lord",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Lord"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v04-p021",
+     "verse_id": "tsa-a19-v04",
+     "pada_index": 21,
+     "surface": "eva",
+     "citation": "eva",
+     "morph": "emphatic",
+     "options": [
+      {
+       "gloss": "himself",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "himself"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v04-p022",
+     "verse_id": "tsa-a19-v04",
+     "pada_index": 22,
+     "surface": "bhavati",
+     "citation": "√bhū",
+     "morph": "3sg pres",
+     "options": [
+      {
+       "gloss": "becomes",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "becomes"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v04-p023",
+     "verse_id": "tsa-a19-v04",
+     "pada_index": 23,
+     "surface": "antyeṣṭimṛtoddharaṇaśrāddhadīkṣāṇām",
+     "citation": "antyeṣṭi+mṛtoddharaṇa+śrāddha+dīkṣā",
+     "morph": "gen.pl.f",
+     "options": [
+      {
+       "gloss": "of-funeral-raising-śrāddha-initiations",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "of-funeral-raising-śrāddha-initiations"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v04-p024",
+     "verse_id": "tsa-a19-v04",
+     "pada_index": 24,
+     "surface": "anyatamenāpi",
+     "citation": "anyatama+api",
+     "morph": "inst.sg (anyatama+api)",
+     "options": [
+      {
+       "gloss": "by-any-one-even",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "by-any-one-even"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v04-p025",
+     "verse_id": "tsa-a19-v04",
+     "pada_index": 25,
+     "surface": "yadyapi",
+     "citation": "yadi+api",
+     "morph": "conditional + api",
+     "options": [
+      {
+       "gloss": "whether",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "whether"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v04-p026",
+     "verse_id": "tsa-a19-v04",
+     "pada_index": 26,
+     "surface": "kṛtārthatā",
+     "citation": "kṛta+artha+tā",
+     "morph": "f.nom.sg (kṛtārthatā)",
+     "options": [
+      {
+       "gloss": "success",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "success"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v04-p027",
+     "verse_id": "tsa-a19-v04",
+     "pada_index": 27,
+     "surface": "tathāpi",
+     "citation": "tathā+api",
+     "morph": "adv + api",
+     "options": [
+      {
+       "gloss": "still",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "still"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v04-p028",
+     "verse_id": "tsa-a19-v04",
+     "pada_index": 28,
+     "surface": "bubhukṣoḥ",
+     "citation": "bu+bhuk+su",
+     "morph": "gen.sg.m (bubhukṣu)",
+     "options": [
+      {
+       "gloss": "of-enjoyment-desirer",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "of-enjoyment-desirer"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v04-p029",
+     "verse_id": "tsa-a19-v04",
+     "pada_index": 29,
+     "surface": "kriyābhūyastvaṃ",
+     "citation": "kriyā+bhūyas+tva",
+     "morph": "n.acc.sg",
+     "options": [
+      {
+       "gloss": "multitude-of-rites",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "multitude-of-rites"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v04-p030",
+     "verse_id": "tsa-a19-v04",
+     "pada_index": 30,
+     "surface": "phalabhūyastvāya",
+     "citation": "phala+bhūyas+tva",
+     "morph": "dat.sg (arthāt: -āya)",
+     "options": [
+      {
+       "gloss": "for-multitude-of-fruit",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "for-multitude-of-fruit"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v04-p031",
+     "verse_id": "tsa-a19-v04",
+     "pada_index": 31,
+     "surface": "iti",
+     "citation": "iti",
+     "morph": "quotative",
+     "options": [
+      {
+       "gloss": "thus",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "thus"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v04-p032",
+     "verse_id": "tsa-a19-v04",
+     "pada_index": 32,
+     "surface": "sarvam",
+     "citation": "sarva",
+     "morph": "adj",
+     "options": [
+      {
+       "gloss": "all",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "all"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v04-p033",
+     "verse_id": "tsa-a19-v04",
+     "pada_index": 33,
+     "surface": "ācaret",
+     "citation": "ā+√car",
+     "morph": "3sg opt (ācaret)",
+     "options": [
+      {
+       "gloss": "let-perform",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "let-perform"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "tsa-a19-v05": [
+    {
+     "id": "tsa-a19-v05-p000",
+     "verse_id": "tsa-a19-v05",
+     "pada_index": 0,
+     "surface": "mumukṣor",
+     "citation": "mumukṣu",
+     "morph": "gen.sg.m",
+     "options": [
+      {
+       "gloss": "of-liberation-seeker",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "of-liberation-seeker"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v05-p001",
+     "verse_id": "tsa-a19-v05",
+     "pada_index": 1,
+     "surface": "api",
+     "citation": "api",
+     "morph": "concessive",
+     "options": [
+      {
+       "gloss": "even",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "even"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v05-p002",
+     "verse_id": "tsa-a19-v05",
+     "pada_index": 2,
+     "surface": "tanmayībhāvasiddhaye",
+     "citation": "tad+mayī+bhāva+siddhi",
+     "morph": "f.dat.sg (tad+mayī+bhāva+siddhi)",
+     "options": [
+      {
+       "gloss": "for-made-of-That-attainment",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "for-made-of-That-attainment"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v05-p003",
+     "verse_id": "tsa-a19-v05",
+     "pada_index": 3,
+     "surface": "ayam",
+     "citation": "idam",
+     "morph": "dem",
+     "options": [
+      {
+       "gloss": "this",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "this"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v05-p004",
+     "verse_id": "tsa-a19-v05",
+     "pada_index": 4,
+     "surface": "jīvataḥ",
+     "citation": "jīvat",
+     "morph": "gen.sg (jīvataḥ)",
+     "options": [
+      {
+       "gloss": "of-living",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "of-living"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v05-p005",
+     "verse_id": "tsa-a19-v05",
+     "pada_index": 5,
+     "surface": "pratyaham",
+     "citation": "prati+ahan",
+     "morph": "adv",
+     "options": [
+      {
+       "gloss": "daily",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "daily"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v05-p006",
+     "verse_id": "tsa-a19-v05",
+     "pada_index": 6,
+     "surface": "anuṣṭhānābhyāsavat",
+     "citation": "anuṣṭhāna+abhyāsa+vat",
+     "morph": "adv (anuṣṭhāna+abhyāsa+vat)",
+     "options": [
+      {
+       "gloss": "like-sustained-practice",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "like-sustained-practice"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "tsa-a19-v06": [
+    {
+     "id": "tsa-a19-v06-p000",
+     "verse_id": "tsa-a19-v06",
+     "pada_index": 0,
+     "surface": "tattvajñāninas",
+     "citation": "tattva+jñānin",
+     "morph": "gen.sg.m",
+     "options": [
+      {
+       "gloss": "of-knower-of-reality",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "of-knower-of-reality"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v06-p001",
+     "verse_id": "tsa-a19-v06",
+     "pada_index": 1,
+     "surface": "tu",
+     "citation": "tu",
+     "morph": "adversative",
+     "options": [
+      {
+       "gloss": "but",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "but"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v06-p002",
+     "verse_id": "tsa-a19-v06",
+     "pada_index": 2,
+     "surface": "na",
+     "citation": "na",
+     "morph": "neg",
+     "options": [
+      {
+       "gloss": "no",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "no"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v06-p003",
+     "verse_id": "tsa-a19-v06",
+     "pada_index": 3,
+     "surface": "ko",
+     "citation": "kim+cid",
+     "morph": "indef (kim+cid)",
+     "options": [
+      {
+       "gloss": "any",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "any"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v06-p004",
+     "verse_id": "tsa-a19-v06",
+     "pada_index": 4,
+     "surface": "'py",
+     "citation": "api",
+     "morph": "emphatic",
+     "options": [
+      {
+       "gloss": "even",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "even"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v06-p005",
+     "verse_id": "tsa-a19-v06",
+     "pada_index": 5,
+     "surface": "ayam",
+     "citation": "idam",
+     "morph": "dem",
+     "options": [
+      {
+       "gloss": "this",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "this"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v06-p006",
+     "verse_id": "tsa-a19-v06",
+     "pada_index": 6,
+     "surface": "antyeṣṭyādiśrāddhānto",
+     "citation": "antyeṣṭi+ādi+śrāddha+anta",
+     "morph": "adj (antyeṣṭi+ādi+śrāddha+anta)",
+     "options": [
+      {
+       "gloss": "funeral-onward-śrāddha-ending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "funeral-onward-śrāddha-ending"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v06-p007",
+     "verse_id": "tsa-a19-v06",
+     "pada_index": 7,
+     "surface": "vidhiḥ",
+     "citation": "vidhi",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "rite",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "rite"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v06-p008",
+     "verse_id": "tsa-a19-v06",
+     "pada_index": 8,
+     "surface": "upayogī",
+     "citation": "upayoga+in",
+     "morph": "adj (upayogin)",
+     "options": [
+      {
+       "gloss": "of-use",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "of-use"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v06-p009",
+     "verse_id": "tsa-a19-v06",
+     "pada_index": 9,
+     "surface": "tanmaraṇaṃ",
+     "citation": "tad+maraṇa",
+     "morph": "n.nom.sg",
+     "options": [
+      {
+       "gloss": "his-death",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "his-death"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v06-p010",
+     "verse_id": "tsa-a19-v06",
+     "pada_index": 10,
+     "surface": "tadvidyāsaṃtānināṃ",
+     "citation": "tad+vidyā+saṃtānin",
+     "morph": "gen.pl.m (tad+vidyā+saṃtānin)",
+     "options": [
+      {
+       "gloss": "of-his-knowledge-lineage-continuers",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "of-his-knowledge-lineage-continuers"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v06-p011",
+     "verse_id": "tsa-a19-v06",
+     "pada_index": 11,
+     "surface": "parvadinaṃ",
+     "citation": "parvan+dina",
+     "morph": "n.nom.sg (parvadina)",
+     "options": [
+      {
+       "gloss": "festival-day",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "festival-day"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v06-p012",
+     "verse_id": "tsa-a19-v06",
+     "pada_index": 12,
+     "surface": "saṃvidaṃśapūraṇāt",
+     "citation": "saṃvid+aṃśa+pūraṇa",
+     "morph": "abl.sg (saṃvid+aṃśa+pūraṇa+āt)",
+     "options": [
+      {
+       "gloss": "from-consciousness-portion-filling",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "from-consciousness-portion-filling"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v06-p013",
+     "verse_id": "tsa-a19-v06",
+     "pada_index": 13,
+     "surface": "tāvataḥ",
+     "citation": "tāvataḥ",
+     "morph": "adj gen.sg (tāvataḥ)",
+     "options": [
+      {
+       "gloss": "of-so-much",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "of-so-much"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v06-p014",
+     "verse_id": "tsa-a19-v06",
+     "pada_index": 14,
+     "surface": "saṃtānasya",
+     "citation": "saṃtāna",
+     "morph": "gen.sg",
+     "options": [
+      {
+       "gloss": "of-lineage",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "of-lineage"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v06-p015",
+     "verse_id": "tsa-a19-v06",
+     "pada_index": 15,
+     "surface": "ekasaṃvinmātraparamārthatvāt",
+     "citation": "eka+saṃvid+mātra+paramārtha+tva",
+     "morph": "abl.sg (eka+saṃvit+mātra+paramārtha+tva+āt)",
+     "options": [
+      {
+       "gloss": "since-sole-reality-is-mere-consciousness",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "since-sole-reality-is-mere-consciousness"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v06-p016",
+     "verse_id": "tsa-a19-v06",
+     "pada_index": 16,
+     "surface": "jīvato",
+     "citation": "jīvat",
+     "morph": "gen.sg (jīvataḥ)",
+     "options": [
+      {
+       "gloss": "of-living",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "of-living"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v06-p017",
+     "verse_id": "tsa-a19-v06",
+     "pada_index": 17,
+     "surface": "jñānalābhasaṃtānadivasavat",
+     "citation": "jñāna+lābha+saṃtāna+divasa+vat",
+     "morph": "adv (saṃtāna+divasa+vat)",
+     "options": [
+      {
+       "gloss": "like-day-of-lineages-knowledge-attainment-while-living",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "like-day-of-lineages-knowledge-attainment-while-living"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "tsa-a19-v07": [
+    {
+     "id": "tsa-a19-v07-p000",
+     "verse_id": "tsa-a19-v07",
+     "pada_index": 0,
+     "surface": "sarvatra",
+     "citation": "sarvatra",
+     "morph": "adv",
+     "options": [
+      {
+       "gloss": "everywhere",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "everywhere"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v07-p001",
+     "verse_id": "tsa-a19-v07",
+     "pada_index": 1,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "conjunctive",
+     "options": [
+      {
+       "gloss": "but",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "but"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v07-p002",
+     "verse_id": "tsa-a19-v07",
+     "pada_index": 2,
+     "surface": "atra",
+     "citation": "atra",
+     "morph": "adv",
+     "options": [
+      {
+       "gloss": "here",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "here"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v07-p003",
+     "verse_id": "tsa-a19-v07",
+     "pada_index": 3,
+     "surface": "śrāddhādividhau",
+     "citation": "śrāddha+vidhi",
+     "morph": "loc.sg (śrāddha+vidhi)",
+     "options": [
+      {
+       "gloss": "in-śrāddha-rite",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "in-śrāddha-rite"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v07-p004",
+     "verse_id": "tsa-a19-v07",
+     "pada_index": 4,
+     "surface": "mūrtiyāgaḥ",
+     "citation": "mūrti+tyāga",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "image-abandonment",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "image-abandonment"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v07-p005",
+     "verse_id": "tsa-a19-v07",
+     "pada_index": 5,
+     "surface": "pradhānam",
+     "citation": "pradhāna",
+     "morph": "adj",
+     "options": [
+      {
+       "gloss": "chief",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "chief"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v07-p006",
+     "verse_id": "tsa-a19-v07",
+     "pada_index": 6,
+     "surface": "iti",
+     "citation": "iti",
+     "morph": "quotative",
+     "options": [
+      {
+       "gloss": "thus",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "thus"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v07-p007",
+     "verse_id": "tsa-a19-v07",
+     "pada_index": 7,
+     "surface": "śrīsiddhāmatam",
+     "citation": "śrī+siddha+mata",
+     "morph": "n.nom.sg (title)",
+     "options": [
+      {
+       "gloss": "revered-Siddhāmata-holds",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "revered-Siddhāmata-holds"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v07-p008",
+     "verse_id": "tsa-a19-v07",
+     "pada_index": 8,
+     "surface": "tadvidhiś",
+     "citation": "tad+vidhi+śa",
+     "morph": "fused (tad+vidhi+ḥ→ś before ca)",
+     "options": [
+      {
+       "gloss": "and-its-rule",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "and-its-rule"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v07-p009",
+     "verse_id": "tsa-a19-v07",
+     "pada_index": 9,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "conjunctive",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "and"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v07-p010",
+     "verse_id": "tsa-a19-v07",
+     "pada_index": 10,
+     "surface": "vakṣyate",
+     "citation": "vi+√vac",
+     "morph": "3sg fut pass (vakṣyate)",
+     "options": [
+      {
+       "gloss": "will-be-told",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "will-be-told"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a19-v07-p011",
+     "verse_id": "tsa-a19-v07",
+     "pada_index": 11,
+     "surface": "naimittikaprakāśane",
+     "citation": "naimittika+prakāśa",
+     "morph": "loc.sg",
+     "options": [
+      {
+       "gloss": "in-occasional-exposition",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "in-occasional-exposition"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ]
+  },
+  "argmap": {
+   "tsa-a19-v01": {
+    "verse_id": "tsa-a19-v01",
+    "song": "tsa-a19",
+    "verse": 1,
+    "speaker": "Teacher (post-mortem admission)",
+    "question": "Who is initiated after death?",
+    "premises": [
+     "For those standing in lower doctrines, even up to gurus — immediately after death.",
+     "Solely by the power-descent arisen for raising the dead: the final-sacrament initiation.",
+     "And for higher-doctrine men who lost observance and skipped expiation — thus the Lord commands."
+    ],
+    "inference": "Even the unqualified dead qualify: power-descent alone admits, immediately after death, to the final sacrament.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "tsa-a19-v01",
+     "l0_ids": [
+      "tsa-a19-v01-p000",
+      "tsa-a19-v01-p001",
+      "tsa-a19-v01-p002",
+      "tsa-a19-v01-p003",
+      "tsa-a19-v01-p004",
+      "tsa-a19-v01-p005",
+      "tsa-a19-v01-p006",
+      "tsa-a19-v01-p007",
+      "tsa-a19-v01-p008",
+      "tsa-a19-v01-p009",
+      "tsa-a19-v01-p010",
+      "tsa-a19-v01-p011",
+      "tsa-a19-v01-p012",
+      "tsa-a19-v01-p013",
+      "tsa-a19-v01-p014",
+      "tsa-a19-v01-p015"
+     ]
+    },
+    "sanskrit_sha": "dd6e290250d96197",
+    "structured": true
+   },
+   "tsa-a19-v02": {
+    "verse_id": "tsa-a19-v02",
+    "song": "tsa-a19",
+    "verse": 2,
+    "speaker": "Teacher (corpse-rite)",
+    "question": "How is the rite done on the body?",
+    "premises": [
+     "Whatever raising-rite was told — all of it to the body: full-oblation corpse-burning.",
+     "For the deluded, a trust-bearing funeral to plant conviction.",
+     "Net-drawn mantras, curbing-piercing-rubbing, breath-moving through heart-throat-forehead — till the corpse-body trembles."
+    ],
+    "inference": "The corpse is worked like a ritual ground: burned, convinced, net-drawn, curbed, breathed into trembling.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "tsa-a19-v02",
+     "l0_ids": [
+      "tsa-a19-v02-p000",
+      "tsa-a19-v02-p001",
+      "tsa-a19-v02-p002",
+      "tsa-a19-v02-p003",
+      "tsa-a19-v02-p004",
+      "tsa-a19-v02-p005",
+      "tsa-a19-v02-p006",
+      "tsa-a19-v02-p007",
+      "tsa-a19-v02-p008",
+      "tsa-a19-v02-p009",
+      "tsa-a19-v02-p010",
+      "tsa-a19-v02-p011",
+      "tsa-a19-v02-p012",
+      "tsa-a19-v02-p013",
+      "tsa-a19-v02-p014",
+      "tsa-a19-v02-p015",
+      "tsa-a19-v02-p016",
+      "tsa-a19-v02-p017",
+      "tsa-a19-v02-p018",
+      "tsa-a19-v02-p019",
+      "tsa-a19-v02-p020",
+      "tsa-a19-v02-p021",
+      "tsa-a19-v02-p022",
+      "tsa-a19-v02-p023",
+      "tsa-a19-v02-p024",
+      "tsa-a19-v02-p025",
+      "tsa-a19-v02-p026",
+      "tsa-a19-v02-p027",
+      "tsa-a19-v02-p028",
+      "tsa-a19-v02-p029",
+      "tsa-a19-v02-p030",
+      "tsa-a19-v02-p031",
+      "tsa-a19-v02-p032",
+      "tsa-a19-v02-p033",
+      "tsa-a19-v02-p034",
+      "tsa-a19-v02-p035",
+      "tsa-a19-v02-p036"
+     ]
+    },
+    "sanskrit_sha": "dd6e290250d96197",
+    "structured": true
+   },
+   "tsa-a19-v03": {
+    "verse_id": "tsa-a19-v03",
+    "song": "tsa-a19",
+    "verse": 3,
+    "speaker": "Teacher (joining)",
+    "question": "What then?",
+    "premises": [
+     "Having made the joining with supreme Śiva, burn with full oblation.",
+     "For purified and others too — or a three-day śrāddha-initiation, fourth day, monthly, yearly."
+    ],
+    "inference": "Joining done, burning done, on schedule: third-day śrāddha-initiation, monthly, yearly.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "tsa-a19-v03",
+     "l0_ids": [
+      "tsa-a19-v03-p000",
+      "tsa-a19-v03-p001",
+      "tsa-a19-v03-p002",
+      "tsa-a19-v03-p003",
+      "tsa-a19-v03-p004",
+      "tsa-a19-v03-p005",
+      "tsa-a19-v03-p006",
+      "tsa-a19-v03-p007",
+      "tsa-a19-v03-p008",
+      "tsa-a19-v03-p009",
+      "tsa-a19-v03-p010",
+      "tsa-a19-v03-p011",
+      "tsa-a19-v03-p012",
+      "tsa-a19-v03-p013",
+      "tsa-a19-v03-p014",
+      "tsa-a19-v03-p015",
+      "tsa-a19-v03-p016",
+      "tsa-a19-v03-p017",
+      "tsa-a19-v03-p018",
+      "tsa-a19-v03-p019",
+      "tsa-a19-v03-p020"
+     ]
+    },
+    "sanskrit_sha": "dd6e290250d96197",
+    "structured": true
+   },
+   "tsa-a19-v04": {
+    "verse_id": "tsa-a19-v04",
+    "song": "tsa-a19",
+    "verse": 4,
+    "speaker": "Teacher (offering)",
+    "question": "What is offered, to whom?",
+    "premises": [
+     "Oblation-ending rite, food in one hand, virile-formed knowable-power attained to beast-identity — offered to the Lord as enjoyer.",
+     "Knowable-being ceased, he is the Lord; succeeded or not, multitude of rites for the desirer."
+    ],
+    "inference": "The offering is imagined into identity and given to the Lord as enjoyer; success or not, the enjoyer gets rites upon rites.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "tsa-a19-v04",
+     "l0_ids": [
+      "tsa-a19-v04-p000",
+      "tsa-a19-v04-p001",
+      "tsa-a19-v04-p002",
+      "tsa-a19-v04-p003",
+      "tsa-a19-v04-p004",
+      "tsa-a19-v04-p005",
+      "tsa-a19-v04-p006",
+      "tsa-a19-v04-p007",
+      "tsa-a19-v04-p008",
+      "tsa-a19-v04-p009",
+      "tsa-a19-v04-p010",
+      "tsa-a19-v04-p011",
+      "tsa-a19-v04-p012",
+      "tsa-a19-v04-p013",
+      "tsa-a19-v04-p014",
+      "tsa-a19-v04-p015",
+      "tsa-a19-v04-p016",
+      "tsa-a19-v04-p017",
+      "tsa-a19-v04-p018",
+      "tsa-a19-v04-p019",
+      "tsa-a19-v04-p020",
+      "tsa-a19-v04-p021",
+      "tsa-a19-v04-p022",
+      "tsa-a19-v04-p023",
+      "tsa-a19-v04-p024",
+      "tsa-a19-v04-p025",
+      "tsa-a19-v04-p026",
+      "tsa-a19-v04-p027",
+      "tsa-a19-v04-p028",
+      "tsa-a19-v04-p029",
+      "tsa-a19-v04-p030",
+      "tsa-a19-v04-p031",
+      "tsa-a19-v04-p032",
+      "tsa-a19-v04-p033"
+     ]
+    },
+    "sanskrit_sha": "dd6e290250d96197",
+    "structured": true
+   },
+   "tsa-a19-v05": {
+    "verse_id": "tsa-a19-v05",
+    "song": "tsa-a19",
+    "verse": 5,
+    "speaker": "Teacher (daily)",
+    "question": "And the living?",
+    "premises": [
+     "Even the liberation-seeker's: this made-of-That attainment.",
+     "Of the living, daily, like sustained practice."
+    ],
+    "inference": "Even the liberation-seeker practices daily, like sustained observance, toward made-of-That-ness.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "tsa-a19-v05",
+     "l0_ids": [
+      "tsa-a19-v05-p000",
+      "tsa-a19-v05-p001",
+      "tsa-a19-v05-p002",
+      "tsa-a19-v05-p003",
+      "tsa-a19-v05-p004",
+      "tsa-a19-v05-p005",
+      "tsa-a19-v05-p006"
+     ]
+    },
+    "sanskrit_sha": "dd6e290250d96197",
+    "structured": true
+   },
+   "tsa-a19-v06": {
+    "verse_id": "tsa-a19-v06",
+    "song": "tsa-a19",
+    "verse": 6,
+    "speaker": "Teacher (knower)",
+    "question": "What of the knower's death?",
+    "premises": [
+     "But for the knower of reality, no funeral-to-śrāddha rite is of use.",
+     "His death is festival day for his knowledge-lineage — consciousness-portion filling, lineage all mere consciousness, like knowledge-attainment day while living."
+    ],
+    "inference": "The knower needs no funeral-to-śrāddha machinery: his death feasts his lineage with consciousness itself.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "tsa-a19-v06",
+     "l0_ids": [
+      "tsa-a19-v06-p000",
+      "tsa-a19-v06-p001",
+      "tsa-a19-v06-p002",
+      "tsa-a19-v06-p003",
+      "tsa-a19-v06-p004",
+      "tsa-a19-v06-p005",
+      "tsa-a19-v06-p006",
+      "tsa-a19-v06-p007",
+      "tsa-a19-v06-p008",
+      "tsa-a19-v06-p009",
+      "tsa-a19-v06-p010",
+      "tsa-a19-v06-p011",
+      "tsa-a19-v06-p012",
+      "tsa-a19-v06-p013",
+      "tsa-a19-v06-p014",
+      "tsa-a19-v06-p015",
+      "tsa-a19-v06-p016",
+      "tsa-a19-v06-p017"
+     ]
+    },
+    "sanskrit_sha": "dd6e290250d96197",
+    "structured": true
+   },
+   "tsa-a19-v07": {
+    "verse_id": "tsa-a19-v07",
+    "song": "tsa-a19",
+    "verse": 7,
+    "speaker": "Teacher (seal)",
+    "question": "What holds, and what comes next?",
+    "premises": [
+     "Everywhere here, in the śrāddha rite, image-abandonment is chief — so holds the revered Siddhāmata.",
+     "And its rule will be told in the exposition of the occasional."
+    ],
+    "inference": "Image-abandonment ruled chief on Siddhāmata authority; its rule deferred to the occasional-rite exposition.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "tsa-a19-v07",
+     "l0_ids": [
+      "tsa-a19-v07-p000",
+      "tsa-a19-v07-p001",
+      "tsa-a19-v07-p002",
+      "tsa-a19-v07-p003",
+      "tsa-a19-v07-p004",
+      "tsa-a19-v07-p005",
+      "tsa-a19-v07-p006",
+      "tsa-a19-v07-p007",
+      "tsa-a19-v07-p008",
+      "tsa-a19-v07-p009",
+      "tsa-a19-v07-p010",
+      "tsa-a19-v07-p011"
+     ]
+    },
+    "sanskrit_sha": "dd6e290250d96197",
+    "structured": true
+   }
+  },
+  "l2": {
+   "tsa-a19-v01": {
+    "verse_id": "tsa-a19-v01",
+    "song": "tsa-a19",
+    "verse": 1,
+    "plain_english": "Now, for those standing in lower doctrines, even up to gurus — immediately after death, solely by the power-descent arisen for raising the dead, let him perform the initiation called the final sacrament; and for those standing in higher doctrines, who have lost their observance and performed no expiation — thus is the Lord's command.",
+    "sanskrit_cite": "atha adharaśāsanasthānāṃ gurvantānām api maraṇasamanantaraṃ mṛtoddhāroditaśaktipātayogād eva antyasaṃskārākhyāṃ dīkṣāṃ kuryāt ūrdhvaśāsanasthānām api luptasamayānām akṛtaprāyaścittānām iti parameśvarājñā",
+    "l0_ids": [
+     "tsa-a19-v01-p000",
+     "tsa-a19-v01-p001",
+     "tsa-a19-v01-p002",
+     "tsa-a19-v01-p003",
+     "tsa-a19-v01-p004",
+     "tsa-a19-v01-p005",
+     "tsa-a19-v01-p006",
+     "tsa-a19-v01-p007",
+     "tsa-a19-v01-p008",
+     "tsa-a19-v01-p009",
+     "tsa-a19-v01-p010",
+     "tsa-a19-v01-p011",
+     "tsa-a19-v01-p012",
+     "tsa-a19-v01-p013",
+     "tsa-a19-v01-p014",
+     "tsa-a19-v01-p015"
+    ],
+    "supplied": []
+   },
+   "tsa-a19-v02": {
+    "verse_id": "tsa-a19-v02",
+    "song": "tsa-a19",
+    "verse": 2,
+    "plain_english": "Therein, whatever rite was told for raising the dead — all of it is to be done to the body: by the full oblation, the burning of the corpse-body. But for the deluded, to plant conviction, let him perform, with the force of ritual-knowledge-yoga, a trust-bearing funeral rite; therein, on the corpse-body, having placed mantras in the withdrawing order, having drawn them in by the net-sequence, having done curbing-piercing-rubbing and the rest, let him do, by the breath-moving sequence, in heart, throat, forehead — and lo, the corpse-body trembles.",
+    "sanskrit_cite": "tatra yo mṛtoddhāre vidhiḥ uktaḥ sa sarva eva śarīre kartavyaḥ pūrṇāhutyā śavaśarīradāhaḥ mūḍhānāṃ tu pratītirūḍhaye sapratyayām antyeṣṭiṃ kriyājñānayogabalāt kuryāt tatra śavaśarīre saṃhārakrameṇa mantrān nyasya jālakrameṇa ākṛṣya rodhanavedhanaghaṭṭanādi kuryāt prāṇasaṃcārakrameṇa hṛdi kaṇṭhe lalāṭe ca ity evaṃ śavaśarīraṃ kampate",
+    "l0_ids": [
+     "tsa-a19-v02-p000",
+     "tsa-a19-v02-p001",
+     "tsa-a19-v02-p002",
+     "tsa-a19-v02-p003",
+     "tsa-a19-v02-p004",
+     "tsa-a19-v02-p005",
+     "tsa-a19-v02-p006",
+     "tsa-a19-v02-p007",
+     "tsa-a19-v02-p008",
+     "tsa-a19-v02-p009",
+     "tsa-a19-v02-p010",
+     "tsa-a19-v02-p011",
+     "tsa-a19-v02-p012",
+     "tsa-a19-v02-p013",
+     "tsa-a19-v02-p014",
+     "tsa-a19-v02-p015",
+     "tsa-a19-v02-p016",
+     "tsa-a19-v02-p017",
+     "tsa-a19-v02-p018",
+     "tsa-a19-v02-p019",
+     "tsa-a19-v02-p020",
+     "tsa-a19-v02-p021",
+     "tsa-a19-v02-p022",
+     "tsa-a19-v02-p023",
+     "tsa-a19-v02-p024",
+     "tsa-a19-v02-p025",
+     "tsa-a19-v02-p026",
+     "tsa-a19-v02-p027",
+     "tsa-a19-v02-p028",
+     "tsa-a19-v02-p029",
+     "tsa-a19-v02-p030",
+     "tsa-a19-v02-p031",
+     "tsa-a19-v02-p032",
+     "tsa-a19-v02-p033",
+     "tsa-a19-v02-p034",
+     "tsa-a19-v02-p035",
+     "tsa-a19-v02-p036"
+    ],
+    "supplied": []
+   },
+   "tsa-a19-v03": {
+    "verse_id": "tsa-a19-v03",
+    "song": "tsa-a19",
+    "verse": 3,
+    "plain_english": "Then, having made the joining with the supreme Śiva, let him burn it with the full oblation; for the purified by funeral, and for the others too — or: a three-day śrāddha-initiation: on the fourth day, month by month, year by year, let him perform it.",
+    "sanskrit_cite": "tataḥ paramaśive yojanikāṃ kṛtvā tat dahet pūrṇāhutyā antyeṣṭyā śuddhānām anyeṣām api vā śrāddhadīkṣāṃ tryahaṃ turye dine māsi māsi saṃvatsare saṃvatsare kuryāt",
+    "l0_ids": [
+     "tsa-a19-v03-p000",
+     "tsa-a19-v03-p001",
+     "tsa-a19-v03-p002",
+     "tsa-a19-v03-p003",
+     "tsa-a19-v03-p004",
+     "tsa-a19-v03-p005",
+     "tsa-a19-v03-p006",
+     "tsa-a19-v03-p007",
+     "tsa-a19-v03-p008",
+     "tsa-a19-v03-p009",
+     "tsa-a19-v03-p010",
+     "tsa-a19-v03-p011",
+     "tsa-a19-v03-p012",
+     "tsa-a19-v03-p013",
+     "tsa-a19-v03-p014",
+     "tsa-a19-v03-p015",
+     "tsa-a19-v03-p016",
+     "tsa-a19-v03-p017",
+     "tsa-a19-v03-p018",
+     "tsa-a19-v03-p019",
+     "tsa-a19-v03-p020"
+    ],
+    "supplied": []
+   },
+   "tsa-a19-v04": {
+    "verse_id": "tsa-a19-v04",
+    "song": "tsa-a19",
+    "verse": 4,
+    "plain_english": "Therein, having performed the rite ending in oblation, having made a food-offering in one hand, having meditated on his power of virile form, knowable-formed, that has attained identity with the knowable-power present in the beast — let him offer it to the Lord as enjoyer. Thus, when knowable-being ceases, he becomes the Lord himself. Whether by funeral-raising-śrāddha-initiations one has succeeded or not, still, for one desiring enjoyment, multitude of rites for multitude of fruit — thus, let him perform all.",
+    "sanskrit_cite": "tatra homāntaṃ vidhiṃ kṛtvā naivedyam ekahaste kṛtvā tadīyāṃ vīryarūpāṃ śaktiṃ bhogyākārāṃ paśugatabhogyaśaktitādātmyapratipannāṃ dhyātvā parameśvare bhoktari arpayet ity evaṃ bhogyabhāve nivṛtte patir eva bhavati antyeṣṭimṛtoddharaṇaśrāddhadīkṣāṇām anyatamenāpi yadyapi kṛtārthatā tathāpi bubhukṣoḥ kriyābhūyastvaṃ phalabhūyastvāya iti sarvam ācaret",
+    "l0_ids": [
+     "tsa-a19-v04-p000",
+     "tsa-a19-v04-p001",
+     "tsa-a19-v04-p002",
+     "tsa-a19-v04-p003",
+     "tsa-a19-v04-p004",
+     "tsa-a19-v04-p005",
+     "tsa-a19-v04-p006",
+     "tsa-a19-v04-p007",
+     "tsa-a19-v04-p008",
+     "tsa-a19-v04-p009",
+     "tsa-a19-v04-p010",
+     "tsa-a19-v04-p011",
+     "tsa-a19-v04-p012",
+     "tsa-a19-v04-p013",
+     "tsa-a19-v04-p014",
+     "tsa-a19-v04-p015",
+     "tsa-a19-v04-p016",
+     "tsa-a19-v04-p017",
+     "tsa-a19-v04-p018",
+     "tsa-a19-v04-p019",
+     "tsa-a19-v04-p020",
+     "tsa-a19-v04-p021",
+     "tsa-a19-v04-p022",
+     "tsa-a19-v04-p023",
+     "tsa-a19-v04-p024",
+     "tsa-a19-v04-p025",
+     "tsa-a19-v04-p026",
+     "tsa-a19-v04-p027",
+     "tsa-a19-v04-p028",
+     "tsa-a19-v04-p029",
+     "tsa-a19-v04-p030",
+     "tsa-a19-v04-p031",
+     "tsa-a19-v04-p032",
+     "tsa-a19-v04-p033"
+    ],
+    "supplied": []
+   },
+   "tsa-a19-v05": {
+    "verse_id": "tsa-a19-v05",
+    "song": "tsa-a19",
+    "verse": 5,
+    "plain_english": "Even of the liberation-seeker, for the attainment of made-of-That-ness, this — of the living, daily, like sustained practice.",
+    "sanskrit_cite": "mumukṣor api tanmayībhāvasiddhaye ayam jīvataḥ pratyaham anuṣṭhānābhyāsavat",
+    "l0_ids": [
+     "tsa-a19-v05-p000",
+     "tsa-a19-v05-p001",
+     "tsa-a19-v05-p002",
+     "tsa-a19-v05-p003",
+     "tsa-a19-v05-p004",
+     "tsa-a19-v05-p005",
+     "tsa-a19-v05-p006"
+    ],
+    "supplied": []
+   },
+   "tsa-a19-v06": {
+    "verse_id": "tsa-a19-v06",
+    "song": "tsa-a19",
+    "verse": 6,
+    "plain_english": "But for the knower of reality, no rite here ending in funeral and śrāddha is of any use: his death is a festival day for those continuing his knowledge-lineage, from the filling of consciousness-portion — of so much lineage, since the sole reality is mere consciousness — like the day of the lineage's attainment of knowledge while living.",
+    "sanskrit_cite": "tattvajñāninas tu na ko 'py ayam antyeṣṭyādiśrāddhānto vidhiḥ upayogī tanmaraṇaṃ tadvidyāsaṃtānināṃ parvadinaṃ saṃvidaṃśapūraṇāt tāvataḥ saṃtānasya ekasaṃvinmātraparamārthatvāt jīvato jñānalābhasaṃtānadivasavat",
+    "l0_ids": [
+     "tsa-a19-v06-p000",
+     "tsa-a19-v06-p001",
+     "tsa-a19-v06-p002",
+     "tsa-a19-v06-p003",
+     "tsa-a19-v06-p004",
+     "tsa-a19-v06-p005",
+     "tsa-a19-v06-p006",
+     "tsa-a19-v06-p007",
+     "tsa-a19-v06-p008",
+     "tsa-a19-v06-p009",
+     "tsa-a19-v06-p010",
+     "tsa-a19-v06-p011",
+     "tsa-a19-v06-p012",
+     "tsa-a19-v06-p013",
+     "tsa-a19-v06-p014",
+     "tsa-a19-v06-p015",
+     "tsa-a19-v06-p016",
+     "tsa-a19-v06-p017"
+    ],
+    "supplied": []
+   },
+   "tsa-a19-v07": {
+    "verse_id": "tsa-a19-v07",
+    "song": "tsa-a19",
+    "verse": 7,
+    "plain_english": "But everywhere here, in the śrāddha rite, image-abandonment is chief — so holds the revered Siddhāmata; and its rule will be told in the exposition of the occasional.",
+    "sanskrit_cite": "sarvatra ca atra śrāddhādividhau mūrtiyāgaḥ pradhānam iti śrīsiddhāmatam tadvidhiś ca vakṣyate naimittikaprakāśane",
+    "l0_ids": [
+     "tsa-a19-v07-p000",
+     "tsa-a19-v07-p001",
+     "tsa-a19-v07-p002",
+     "tsa-a19-v07-p003",
+     "tsa-a19-v07-p004",
+     "tsa-a19-v07-p005",
+     "tsa-a19-v07-p006",
+     "tsa-a19-v07-p007",
+     "tsa-a19-v07-p008",
+     "tsa-a19-v07-p009",
+     "tsa-a19-v07-p010",
+     "tsa-a19-v07-p011"
+    ],
+    "supplied": []
+   }
+  },
+  "c1": {
+   "tsa-a19": {
+    "song": "tsa-a19",
+    "essence": [
+     "The dead of any doctrine admitted: immediately after death, solely by raising-power-descent, to the final-sacrament initiation.",
+     "Whatever raising-rite was told, all done to the body: full-oblation burning, trust-bearing funeral, net-drawn mantras, breath-moving through heart-throat-forehead — till the corpse trembles.",
+     "Joining with supreme Śiva, burning with full oblation; for purified and others — or three-day śrāddha-initiation, monthly, yearly.",
+     "Food offered in one hand, virile-formed knowable-power meditated into beast-identity, given to the Lord as enjoyer: ceased knowable-being, become Lord — succeeded or not, rites upon rites for the enjoyer.",
+     "Even the liberation-seeker's made-of-That attainment, of the living, daily, like sustained practice.",
+     "But the reality-knower needs no funeral-to-śrāddha rite: his death feasts his lineage with consciousness itself.",
+     "Image-abandonment ruled chief on Siddhāmata authority; its rule deferred to the occasional-rite exposition."
+    ],
+    "essence_source": "manual",
+    "rasa": {
+     "dominant": "śānta with karuṇa undertow (quiescence carrying compassion)",
+     "sthayibhava": "śama with karuṇā (quiescence with compassion)",
+     "justification": "Death rites performed without mourning: the dead raised, the deluded convinced, the knower feasted. Compassion without grief, order without haste."
+    },
+    "renders": {
+     "standard": {
+      "sections": {
+       "SUMMARY": "The dead of any doctrine admitted: immediately after death, solely by raising-power-descent, to the final-sacrament initiation. Whatever raising-rite was told, all done to the body: full-oblation burning, trust-bearing funeral, net-drawn mantras, breath-moving through heart-throat-forehead — till the corpse trembles. Joining with supreme Śiva, burning with full oblation; for purified and others — or three-day śrāddha-initiation, monthly, yearly. Food offered in one hand, virile-formed knowable-power meditated into beast-identity, given to the Lord as enjoyer: ceased knowable-being, become Lord — succeeded or not, rites upon rites for the enjoyer. Even the liberation-seeker's made-of-That attainment, of the living, daily, like sustained practice. But the reality-knower needs no funeral-to-śrāddha rite: his death feasts his lineage with consciousness itself. Image-abandonment ruled chief on Siddhāmata authority; its rule deferred to the occasional-rite exposition.",
+       "FUNCTION": "Admits the dead of every rank, works the whole raising-rite on the body, then exempts the knower.",
+       "KEY TERMS": "mṛtoddhāra (raising-the-dead as power-act); antyasaṃskāra (final sacrament); śrāddhadīkṣā (oblation-feeding initiation); yojanikā (joining with supreme Śiva); bhoktṛ (enjoyer as the Lord); tanmayībhāva (made-of-That as daily attainment). mūrtiyāga (image-abandonment as chief); Siddhāmata (cited authority).",
+       "LOCAL CONTEXT": "Follows the converts chapter: the dead join the lower-ordered as receivable; the knower ends needing nothing. Image-abandonment ruled chief; its rule deferred.",
+       "BOUNDARY": "No metaphysics of death argued; the rite is stated, the exemption noted.",
+       "EXPLANATION": "Death opens every door the living chapters guarded: lower doctrines, lost observances, unperformed expiations — all admitted immediately after dying, by power-descent alone, to the final sacrament. Then the body is worked without remainder: full-oblation burning, a trust-bearing funeral for the deluded, mantras net-drawn in withdrawing order, curbing-piercing-rubbing, breath moved through heart, throat, forehead — till it trembles. Joining made with supreme Śiva, the burning done with full oblation; for the purified and the rest, or else a three-day śrāddha-initiation on the fourth day, monthly, yearly. Food offered in one hand, the virile-formed power meditated into identity with the beast-present knowable — given to the Lord as enjoyer; knowable-being ceased, he is the Lord. Success or not, the desirer gets rites upon rites. Even the liberation-seeker keeps daily made-of-That-ness like sustained practice. But the reality-knower needs none of it: his death is feast-day for his lineage — consciousness-portion filling, lineage all mere consciousness, like knowledge-attainment day while living. Image-abandonment stands chief by Siddhāmata authority, and its rule is promised for the occasional-rite exposition.",
+       "RELATED": "Pradipaka ch.19 pattern (same translator's voice for mantra-counts and funeral vocabulary); Wallis śaktipāta (post-mortem eligibility as grace-act); no external translation witness — qa NEEDS_WITNESS expected."
+      }
+     }
+    }
+   }
+  },
+  "l3": {
+   "tsa-a19-v01": {
+    "verse_id": "tsa-a19-v01",
+    "song": "tsa-a19",
+    "verse": 1,
+    "lines": [
+     "For lower-doctrine dwellers, up to gurus even, after dying —",
+     "solely by the Lord's raising-power-descent: the final-sacrament initiation;",
+     "and for higher-doctrine dwellers who lost observance and skipped expiation — thus the Lord's command."
+    ],
+    "sanskrit_cite": "atha adharaśāsanasthānāṃ gurvantānām api maraṇasamanantaraṃ mṛtoddhāroditaśaktipātayogād eva antyasaṃskārākhyāṃ dīkṣāṃ kuryāt ūrdhvaśāsanasthānām api luptasamayānām akṛtaprāyaścittānām iti parameśvarājñā",
+    "l0_ids": [
+     "tsa-a19-v01-p000",
+     "tsa-a19-v01-p001",
+     "tsa-a19-v01-p002",
+     "tsa-a19-v01-p003",
+     "tsa-a19-v01-p004",
+     "tsa-a19-v01-p005",
+     "tsa-a19-v01-p006",
+     "tsa-a19-v01-p007",
+     "tsa-a19-v01-p008",
+     "tsa-a19-v01-p009",
+     "tsa-a19-v01-p010",
+     "tsa-a19-v01-p011",
+     "tsa-a19-v01-p012",
+     "tsa-a19-v01-p013",
+     "tsa-a19-v01-p014",
+     "tsa-a19-v01-p015"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "tsa-a19-v02": {
+    "verse_id": "tsa-a19-v02",
+    "song": "tsa-a19",
+    "verse": 2,
+    "lines": [
+     "Whatever raising-rite was told, all of it on the body: full oblation, corpse-burning;",
+     "for the deluded, a trust-bearing funeral, by ritual-knowledge-yoga force;",
+     "having net-drawn the mantras in withdrawing order, curbed, rubbed, and the rest —",
+     "by breath-moving through heart, throat, forehead: lo, the corpse trembles."
+    ],
+    "sanskrit_cite": "tatra yo mṛtoddhāre vidhiḥ uktaḥ sa sarva eva śarīre kartavyaḥ pūrṇāhutyā śavaśarīradāhaḥ mūḍhānāṃ tu pratītirūḍhaye sapratyayām antyeṣṭiṃ kriyājñānayogabalāt kuryāt tatra śavaśarīre saṃhārakrameṇa mantrān nyasya jālakrameṇa ākṛṣya rodhanavedhanaghaṭṭanādi kuryāt prāṇasaṃcārakrameṇa hṛdi kaṇṭhe lalāṭe ca ity evaṃ śavaśarīraṃ kampate",
+    "l0_ids": [
+     "tsa-a19-v02-p000",
+     "tsa-a19-v02-p001",
+     "tsa-a19-v02-p002",
+     "tsa-a19-v02-p003",
+     "tsa-a19-v02-p004",
+     "tsa-a19-v02-p005",
+     "tsa-a19-v02-p006",
+     "tsa-a19-v02-p007",
+     "tsa-a19-v02-p008",
+     "tsa-a19-v02-p009",
+     "tsa-a19-v02-p010",
+     "tsa-a19-v02-p011",
+     "tsa-a19-v02-p012",
+     "tsa-a19-v02-p013",
+     "tsa-a19-v02-p014",
+     "tsa-a19-v02-p015",
+     "tsa-a19-v02-p016",
+     "tsa-a19-v02-p017",
+     "tsa-a19-v02-p018",
+     "tsa-a19-v02-p019",
+     "tsa-a19-v02-p020",
+     "tsa-a19-v02-p021",
+     "tsa-a19-v02-p022",
+     "tsa-a19-v02-p023",
+     "tsa-a19-v02-p024",
+     "tsa-a19-v02-p025",
+     "tsa-a19-v02-p026",
+     "tsa-a19-v02-p027",
+     "tsa-a19-v02-p028",
+     "tsa-a19-v02-p029",
+     "tsa-a19-v02-p030",
+     "tsa-a19-v02-p031",
+     "tsa-a19-v02-p032",
+     "tsa-a19-v02-p033",
+     "tsa-a19-v02-p034",
+     "tsa-a19-v02-p035",
+     "tsa-a19-v02-p036"
+    ],
+    "essence_maps": [
+     1
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "tsa-a19-v03": {
+    "verse_id": "tsa-a19-v03",
+    "song": "tsa-a19",
+    "verse": 3,
+    "lines": [
+     "Then, having joined with supreme Śiva, burn with the full oblation;",
+     "for the purified and the rest — or a three-day śrāddha-initiation, fourth day, monthly, yearly."
+    ],
+    "sanskrit_cite": "tataḥ paramaśive yojanikāṃ kṛtvā tat dahet pūrṇāhutyā antyeṣṭyā śuddhānām anyeṣām api vā śrāddhadīkṣāṃ tryahaṃ turye dine māsi māsi saṃvatsare saṃvatsare kuryāt",
+    "l0_ids": [
+     "tsa-a19-v03-p000",
+     "tsa-a19-v03-p001",
+     "tsa-a19-v03-p002",
+     "tsa-a19-v03-p003",
+     "tsa-a19-v03-p004",
+     "tsa-a19-v03-p005",
+     "tsa-a19-v03-p006",
+     "tsa-a19-v03-p007",
+     "tsa-a19-v03-p008",
+     "tsa-a19-v03-p009",
+     "tsa-a19-v03-p010",
+     "tsa-a19-v03-p011",
+     "tsa-a19-v03-p012",
+     "tsa-a19-v03-p013",
+     "tsa-a19-v03-p014",
+     "tsa-a19-v03-p015",
+     "tsa-a19-v03-p016",
+     "tsa-a19-v03-p017",
+     "tsa-a19-v03-p018",
+     "tsa-a19-v03-p019",
+     "tsa-a19-v03-p020"
+    ],
+    "essence_maps": [
+     2
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "tsa-a19-v04": {
+    "verse_id": "tsa-a19-v04",
+    "song": "tsa-a19",
+    "verse": 4,
+    "lines": [
+     "Then, the oblation-ending rite performed, food offered in one hand,",
+     "his virile-formed knowable power meditated, become one with the beast-known power;",
+     "offer to the Lord as enjoyer: knowable-being ceased, he is the Lord.",
+     "Succeeded or not, rites upon rites for the desirer — do all."
+    ],
+    "sanskrit_cite": "tatra homāntaṃ vidhiṃ kṛtvā naivedyam ekahaste kṛtvā tadīyāṃ vīryarūpāṃ śaktiṃ bhogyākārāṃ paśugatabhogyaśaktitādātmyapratipannāṃ dhyātvā parameśvare bhoktari arpayet ity evaṃ bhogyabhāve nivṛtte patir eva bhavati antyeṣṭimṛtoddharaṇaśrāddhadīkṣāṇām anyatamenāpi yadyapi kṛtārthatā tathāpi bubhukṣoḥ kriyābhūyastvaṃ phalabhūyastvāya iti sarvam ācaret",
+    "l0_ids": [
+     "tsa-a19-v04-p000",
+     "tsa-a19-v04-p001",
+     "tsa-a19-v04-p002",
+     "tsa-a19-v04-p003",
+     "tsa-a19-v04-p004",
+     "tsa-a19-v04-p005",
+     "tsa-a19-v04-p006",
+     "tsa-a19-v04-p007",
+     "tsa-a19-v04-p008",
+     "tsa-a19-v04-p009",
+     "tsa-a19-v04-p010",
+     "tsa-a19-v04-p011",
+     "tsa-a19-v04-p012",
+     "tsa-a19-v04-p013",
+     "tsa-a19-v04-p014",
+     "tsa-a19-v04-p015",
+     "tsa-a19-v04-p016",
+     "tsa-a19-v04-p017",
+     "tsa-a19-v04-p018",
+     "tsa-a19-v04-p019",
+     "tsa-a19-v04-p020",
+     "tsa-a19-v04-p021",
+     "tsa-a19-v04-p022",
+     "tsa-a19-v04-p023",
+     "tsa-a19-v04-p024",
+     "tsa-a19-v04-p025",
+     "tsa-a19-v04-p026",
+     "tsa-a19-v04-p027",
+     "tsa-a19-v04-p028",
+     "tsa-a19-v04-p029",
+     "tsa-a19-v04-p030",
+     "tsa-a19-v04-p031",
+     "tsa-a19-v04-p032",
+     "tsa-a19-v04-p033"
+    ],
+    "essence_maps": [
+     3
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "tsa-a19-v05": {
+    "verse_id": "tsa-a19-v05",
+    "song": "tsa-a19",
+    "verse": 5,
+    "lines": [
+     "Even of the liberation-seeker, made-of-That attainment, of the living — daily, as sustained practice."
+    ],
+    "sanskrit_cite": "mumukṣor api tanmayībhāvasiddhaye ayam jīvataḥ pratyaham anuṣṭhānābhyāsavat",
+    "l0_ids": [
+     "tsa-a19-v05-p000",
+     "tsa-a19-v05-p001",
+     "tsa-a19-v05-p002",
+     "tsa-a19-v05-p003",
+     "tsa-a19-v05-p004",
+     "tsa-a19-v05-p005",
+     "tsa-a19-v05-p006"
+    ],
+    "essence_maps": [
+     4
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "tsa-a19-v06": {
+    "verse_id": "tsa-a19-v06",
+    "song": "tsa-a19",
+    "verse": 6,
+    "lines": [
+     "But the knower of reality needs no funeral-to-śrāddha rite:",
+     "his death is a festival day for his knowledge-lineage,",
+     "from consciousness-portion filling, of a lineage all mere consciousness —",
+     "like the lineage's knowledge-attainment day, while living."
+    ],
+    "sanskrit_cite": "tattvajñāninas tu na ko 'py ayam antyeṣṭyādiśrāddhānto vidhiḥ upayogī tanmaraṇaṃ tadvidyāsaṃtānināṃ parvadinaṃ saṃvidaṃśapūraṇāt tāvataḥ saṃtānasya ekasaṃvinmātraparamārthatvāt jīvato jñānalābhasaṃtānadivasavat",
+    "l0_ids": [
+     "tsa-a19-v06-p000",
+     "tsa-a19-v06-p001",
+     "tsa-a19-v06-p002",
+     "tsa-a19-v06-p003",
+     "tsa-a19-v06-p004",
+     "tsa-a19-v06-p005",
+     "tsa-a19-v06-p006",
+     "tsa-a19-v06-p007",
+     "tsa-a19-v06-p008",
+     "tsa-a19-v06-p009",
+     "tsa-a19-v06-p010",
+     "tsa-a19-v06-p011",
+     "tsa-a19-v06-p012",
+     "tsa-a19-v06-p013",
+     "tsa-a19-v06-p014",
+     "tsa-a19-v06-p015",
+     "tsa-a19-v06-p016",
+     "tsa-a19-v06-p017"
+    ],
+    "essence_maps": [
+     5
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "tsa-a19-v07": {
+    "verse_id": "tsa-a19-v07",
+    "song": "tsa-a19",
+    "verse": 7,
+    "lines": [
+     "Everywhere here the śrāddha rule: image-abandoning first —",
+     "Siddhāmata so holds; its rule to be told where the occasional is taught."
+    ],
+    "sanskrit_cite": "sarvatra ca atra śrāddhādividhau mūrtiyāgaḥ pradhānam iti śrīsiddhāmatam tadvidhiś ca vakṣyate naimittikaprakāśane",
+    "l0_ids": [
+     "tsa-a19-v07-p000",
+     "tsa-a19-v07-p001",
+     "tsa-a19-v07-p002",
+     "tsa-a19-v07-p003",
+     "tsa-a19-v07-p004",
+     "tsa-a19-v07-p005",
+     "tsa-a19-v07-p006",
+     "tsa-a19-v07-p007",
+     "tsa-a19-v07-p008",
+     "tsa-a19-v07-p009",
+     "tsa-a19-v07-p010",
+     "tsa-a19-v07-p011"
+    ],
+    "essence_maps": [
+     6
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": [
+     "bridge verse to a20 (naimittika rites); kept whole, never split the seal"
+    ]
+   }
+  },
+  "l4": {
+   "tsa-a19-v01": {
+    "verse_id": "tsa-a19-v01",
+    "song": "tsa-a19",
+    "verse": 1,
+    "lines": [
+     "For lower-doctrine dwellers, up to gurus even, after dying —",
+     "solely by the Lord's raising-power-descent: the final-sacrament initiation;",
+     "and for higher-doctrine dwellers who lost observance and skipped expiation — thus the Lord's command."
+    ],
+    "sanskrit_cite": "atha adharaśāsanasthānāṃ gurvantānām api maraṇasamanantaraṃ mṛtoddhāroditaśaktipātayogād eva antyasaṃskārākhyāṃ dīkṣāṃ kuryāt ūrdhvaśāsanasthānām api luptasamayānām akṛtaprāyaścittānām iti parameśvarājñā",
+    "l0_ids": [
+     "tsa-a19-v01-p000",
+     "tsa-a19-v01-p001",
+     "tsa-a19-v01-p002",
+     "tsa-a19-v01-p003",
+     "tsa-a19-v01-p004",
+     "tsa-a19-v01-p005",
+     "tsa-a19-v01-p006",
+     "tsa-a19-v01-p007",
+     "tsa-a19-v01-p008",
+     "tsa-a19-v01-p009",
+     "tsa-a19-v01-p010",
+     "tsa-a19-v01-p011",
+     "tsa-a19-v01-p012",
+     "tsa-a19-v01-p013",
+     "tsa-a19-v01-p014",
+     "tsa-a19-v01-p015"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "stanza3",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "tsa-a19-v02": {
+    "verse_id": "tsa-a19-v02",
+    "song": "tsa-a19",
+    "verse": 2,
+    "lines": [
+     "Whatever raising-rite was told, all of it on the body: full oblation, corpse-burning;",
+     "for the deluded, a trust-bearing funeral, by ritual-knowledge-yoga force;",
+     "having net-drawn the mantras in withdrawing order, curbed, rubbed, and the rest —",
+     "by breath-moving through heart, throat, forehead: lo, the corpse trembles."
+    ],
+    "sanskrit_cite": "tatra yo mṛtoddhāre vidhiḥ uktaḥ sa sarva eva śarīre kartavyaḥ pūrṇāhutyā śavaśarīradāhaḥ mūḍhānāṃ tu pratītirūḍhaye sapratyayām antyeṣṭiṃ kriyājñānayogabalāt kuryāt tatra śavaśarīre saṃhārakrameṇa mantrān nyasya jālakrameṇa ākṛṣya rodhanavedhanaghaṭṭanādi kuryāt prāṇasaṃcārakrameṇa hṛdi kaṇṭhe lalāṭe ca ity evaṃ śavaśarīraṃ kampate",
+    "l0_ids": [
+     "tsa-a19-v02-p000",
+     "tsa-a19-v02-p001",
+     "tsa-a19-v02-p002",
+     "tsa-a19-v02-p003",
+     "tsa-a19-v02-p004",
+     "tsa-a19-v02-p005",
+     "tsa-a19-v02-p006",
+     "tsa-a19-v02-p007",
+     "tsa-a19-v02-p008",
+     "tsa-a19-v02-p009",
+     "tsa-a19-v02-p010",
+     "tsa-a19-v02-p011",
+     "tsa-a19-v02-p012",
+     "tsa-a19-v02-p013",
+     "tsa-a19-v02-p014",
+     "tsa-a19-v02-p015",
+     "tsa-a19-v02-p016",
+     "tsa-a19-v02-p017",
+     "tsa-a19-v02-p018",
+     "tsa-a19-v02-p019",
+     "tsa-a19-v02-p020",
+     "tsa-a19-v02-p021",
+     "tsa-a19-v02-p022",
+     "tsa-a19-v02-p023",
+     "tsa-a19-v02-p024",
+     "tsa-a19-v02-p025",
+     "tsa-a19-v02-p026",
+     "tsa-a19-v02-p027",
+     "tsa-a19-v02-p028",
+     "tsa-a19-v02-p029",
+     "tsa-a19-v02-p030",
+     "tsa-a19-v02-p031",
+     "tsa-a19-v02-p032",
+     "tsa-a19-v02-p033",
+     "tsa-a19-v02-p034",
+     "tsa-a19-v02-p035",
+     "tsa-a19-v02-p036"
+    ],
+    "essence_maps": [
+     1
+    ],
+    "fidelity": "preserved",
+    "form": "quatrain",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "tsa-a19-v03": {
+    "verse_id": "tsa-a19-v03",
+    "song": "tsa-a19",
+    "verse": 3,
+    "lines": [
+     "Then, having joined with supreme Śiva, burn with the full oblation;",
+     "for the purified and the rest — or a three-day śrāddha-initiation, fourth day, monthly, yearly."
+    ],
+    "sanskrit_cite": "tataḥ paramaśive yojanikāṃ kṛtvā tat dahet pūrṇāhutyā antyeṣṭyā śuddhānām anyeṣām api vā śrāddhadīkṣāṃ tryahaṃ turye dine māsi māsi saṃvatsare saṃvatsare kuryāt",
+    "l0_ids": [
+     "tsa-a19-v03-p000",
+     "tsa-a19-v03-p001",
+     "tsa-a19-v03-p002",
+     "tsa-a19-v03-p003",
+     "tsa-a19-v03-p004",
+     "tsa-a19-v03-p005",
+     "tsa-a19-v03-p006",
+     "tsa-a19-v03-p007",
+     "tsa-a19-v03-p008",
+     "tsa-a19-v03-p009",
+     "tsa-a19-v03-p010",
+     "tsa-a19-v03-p011",
+     "tsa-a19-v03-p012",
+     "tsa-a19-v03-p013",
+     "tsa-a19-v03-p014",
+     "tsa-a19-v03-p015",
+     "tsa-a19-v03-p016",
+     "tsa-a19-v03-p017",
+     "tsa-a19-v03-p018",
+     "tsa-a19-v03-p019",
+     "tsa-a19-v03-p020"
+    ],
+    "essence_maps": [
+     2
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "tsa-a19-v04": {
+    "verse_id": "tsa-a19-v04",
+    "song": "tsa-a19",
+    "verse": 4,
+    "lines": [
+     "Then, the oblation-ending rite performed, food offered in one hand,",
+     "his virile-formed knowable power meditated, become one with the beast-known power;",
+     "offer to the Lord as enjoyer: knowable-being ceased, he is the Lord.",
+     "Succeeded or not, rites upon rites for the desirer — do all."
+    ],
+    "sanskrit_cite": "tatra homāntaṃ vidhiṃ kṛtvā naivedyam ekahaste kṛtvā tadīyāṃ vīryarūpāṃ śaktiṃ bhogyākārāṃ paśugatabhogyaśaktitādātmyapratipannāṃ dhyātvā parameśvare bhoktari arpayet ity evaṃ bhogyabhāve nivṛtte patir eva bhavati antyeṣṭimṛtoddharaṇaśrāddhadīkṣāṇām anyatamenāpi yadyapi kṛtārthatā tathāpi bubhukṣoḥ kriyābhūyastvaṃ phalabhūyastvāya iti sarvam ācaret",
+    "l0_ids": [
+     "tsa-a19-v04-p000",
+     "tsa-a19-v04-p001",
+     "tsa-a19-v04-p002",
+     "tsa-a19-v04-p003",
+     "tsa-a19-v04-p004",
+     "tsa-a19-v04-p005",
+     "tsa-a19-v04-p006",
+     "tsa-a19-v04-p007",
+     "tsa-a19-v04-p008",
+     "tsa-a19-v04-p009",
+     "tsa-a19-v04-p010",
+     "tsa-a19-v04-p011",
+     "tsa-a19-v04-p012",
+     "tsa-a19-v04-p013",
+     "tsa-a19-v04-p014",
+     "tsa-a19-v04-p015",
+     "tsa-a19-v04-p016",
+     "tsa-a19-v04-p017",
+     "tsa-a19-v04-p018",
+     "tsa-a19-v04-p019",
+     "tsa-a19-v04-p020",
+     "tsa-a19-v04-p021",
+     "tsa-a19-v04-p022",
+     "tsa-a19-v04-p023",
+     "tsa-a19-v04-p024",
+     "tsa-a19-v04-p025",
+     "tsa-a19-v04-p026",
+     "tsa-a19-v04-p027",
+     "tsa-a19-v04-p028",
+     "tsa-a19-v04-p029",
+     "tsa-a19-v04-p030",
+     "tsa-a19-v04-p031",
+     "tsa-a19-v04-p032",
+     "tsa-a19-v04-p033"
+    ],
+    "essence_maps": [
+     3
+    ],
+    "fidelity": "preserved",
+    "form": "quatrain",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "tsa-a19-v05": {
+    "verse_id": "tsa-a19-v05",
+    "song": "tsa-a19",
+    "verse": 5,
+    "lines": [
+     "Even of the liberation-seeker, made-of-That attainment, of the living — daily, as sustained practice."
+    ],
+    "sanskrit_cite": "mumukṣor api tanmayībhāvasiddhaye ayam jīvataḥ pratyaham anuṣṭhānābhyāsavat",
+    "l0_ids": [
+     "tsa-a19-v05-p000",
+     "tsa-a19-v05-p001",
+     "tsa-a19-v05-p002",
+     "tsa-a19-v05-p003",
+     "tsa-a19-v05-p004",
+     "tsa-a19-v05-p005",
+     "tsa-a19-v05-p006"
+    ],
+    "essence_maps": [
+     4
+    ],
+    "fidelity": "preserved",
+    "form": "single",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "tsa-a19-v06": {
+    "verse_id": "tsa-a19-v06",
+    "song": "tsa-a19",
+    "verse": 6,
+    "lines": [
+     "But the knower of reality needs no funeral-to-śrāddha rite:",
+     "his death is a festival day for his knowledge-lineage,",
+     "from consciousness-portion filling, of a lineage all mere consciousness —",
+     "like the lineage's knowledge-attainment day, while living."
+    ],
+    "sanskrit_cite": "tattvajñāninas tu na ko 'py ayam antyeṣṭyādiśrāddhānto vidhiḥ upayogī tanmaraṇaṃ tadvidyāsaṃtānināṃ parvadinaṃ saṃvidaṃśapūraṇāt tāvataḥ saṃtānasya ekasaṃvinmātraparamārthatvāt jīvato jñānalābhasaṃtānadivasavat",
+    "l0_ids": [
+     "tsa-a19-v06-p000",
+     "tsa-a19-v06-p001",
+     "tsa-a19-v06-p002",
+     "tsa-a19-v06-p003",
+     "tsa-a19-v06-p004",
+     "tsa-a19-v06-p005",
+     "tsa-a19-v06-p006",
+     "tsa-a19-v06-p007",
+     "tsa-a19-v06-p008",
+     "tsa-a19-v06-p009",
+     "tsa-a19-v06-p010",
+     "tsa-a19-v06-p011",
+     "tsa-a19-v06-p012",
+     "tsa-a19-v06-p013",
+     "tsa-a19-v06-p014",
+     "tsa-a19-v06-p015",
+     "tsa-a19-v06-p016",
+     "tsa-a19-v06-p017"
+    ],
+    "essence_maps": [
+     5
+    ],
+    "fidelity": "preserved",
+    "form": "quatrain",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "tsa-a19-v07": {
+    "verse_id": "tsa-a19-v07",
+    "song": "tsa-a19",
+    "verse": 7,
+    "lines": [
+     "Everywhere here the śrāddha rule: image-abandoning first —",
+     "Siddhāmata so holds; its rule to be told where the occasional is taught."
+    ],
+    "sanskrit_cite": "sarvatra ca atra śrāddhādividhau mūrtiyāgaḥ pradhānam iti śrīsiddhāmatam tadvidhiś ca vakṣyate naimittikaprakāśane",
+    "l0_ids": [
+     "tsa-a19-v07-p000",
+     "tsa-a19-v07-p001",
+     "tsa-a19-v07-p002",
+     "tsa-a19-v07-p003",
+     "tsa-a19-v07-p004",
+     "tsa-a19-v07-p005",
+     "tsa-a19-v07-p006",
+     "tsa-a19-v07-p007",
+     "tsa-a19-v07-p008",
+     "tsa-a19-v07-p009",
+     "tsa-a19-v07-p010",
+     "tsa-a19-v07-p011"
+    ],
+    "essence_maps": [
+     6
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   }
+  },
+  "c2": {}
+ },
+ "source_verses": {},
+ "l4_craft": {
+  "tsa-a19-v01": [
+   {
+    "file": "tantrasara-a19/L4-tsa-a19-v01.DRAFT.json",
+    "file_sha256": "299a18c83704c88c6fc63bed2e25ac56ae79d04e6d63225316ddfa4cc4c40319",
+    "l4_sha256": "cb55dbdd9a2c8df6ebcaead4135e0fc1cc399c142107c7f8d0fe0253fe26cc51",
+    "notes": {
+     "craft_notes": "Sthāyin: who-may-enter (FIRST-VERSE of the batch: plain injunctive catalogue; sets the workmanlike voice — owner verdict required). Rows: row 3 (turned→command). Close: command (ājñā as landing: the Lord's word closes). Rejected: smoothing the catalogue — kept whole (the list IS the verse); 'convert' — kept turned-hither (unmukhī as facing-toward).",
+     "reads_against": {
+      "argmap": "Who is initiated after death? → Even the unqualified dead qualify: power-descent alone admits, immediately after death, to the final sacrament.",
+      "c1_essence": [
+       "The dead of any doctrine admitted: immediately after death, solely by raising-power-descent, to the final-sacrament initiation."
+      ],
+      "c1_rasa": "śānta with karuṇa undertow (quiescence carrying compassion) (śama with karuṇā (quiescence with compassion))"
+     }
+    }
+   }
+  ],
+  "tsa-a19-v02": [
+   {
+    "file": "tantrasara-a19/L4-tsa-a19-v02.DRAFT.json",
+    "file_sha256": "114978cee5ed1bdefb968d87ef90f09c8a0d3d84065e8cc22d1a65de0f24bf42",
+    "l4_sha256": "1afd70c2f4924cac6a46993cc17f6678d4deaa2aa1382279807b7658cd03bf68",
+    "notes": {
+     "craft_notes": "Sthāyin: corpse-worked (trust-bearing funeral). Rows: row 4 (trembles as landing: the corpse MOVES). Close: trembles (kampate as landing: trembling closes). Rejected: 'cremation' flat — kept burning-of-corpse (the verse's own rite-word); splitting net-curb-rub — kept the chain (one breath of method).",
+     "reads_against": {
+      "argmap": "How is the rite done on the body? → The corpse is worked like a ritual ground: burned, convinced, net-drawn, curbed, breathed into trembling.",
+      "c1_essence": [
+       "Whatever raising-rite was told, all done to the body: full-oblation burning, trust-bearing funeral, net-drawn mantras, breath-moving through heart-throat-forehead — till the corpse trembles."
+      ],
+      "c1_rasa": "śānta with karuṇa undertow (quiescence carrying compassion) (śama with karuṇā (quiescence with compassion))"
+     }
+    }
+   }
+  ],
+  "tsa-a19-v03": [
+   {
+    "file": "tantrasara-a19/L4-tsa-a19-v03.DRAFT.json",
+    "file_sha256": "383729c00b7278ae633af39ae62d2ce25e4bb28f67d60056b5ff9133cb5b7b39",
+    "l4_sha256": "ed17b3df427e25a5bed90ad0255ed015b735e24496eaa9f5d9581a803f0ab0d9",
+    "notes": {
+     "craft_notes": "Sthāyin: joined-and-burned (full oblation). Rows: row 2 (yearly as landing: monthly-yearly closes). Close: yearly (repetition as landing: time-cycles close). Rejected: 'funeral' generic — kept joining (yojanikā as the act); trimming the calendar — kept monthly-yearly (the schedule IS the verse).",
+     "reads_against": {
+      "argmap": "What then? → Joining done, burning done, on schedule: third-day śrāddha-initiation, monthly, yearly.",
+      "c1_essence": [
+       "Joining with supreme Śiva, burning with full oblation; for purified and others — or three-day śrāddha-initiation, monthly, yearly."
+      ],
+      "c1_rasa": "śānta with karuṇa undertow (quiescence carrying compassion) (śama with karuṇā (quiescence with compassion))"
+     }
+    }
+   }
+  ],
+  "tsa-a19-v04": [
+   {
+    "file": "tantrasara-a19/L4-tsa-a19-v04.DRAFT.json",
+    "file_sha256": "5a4600641a94fce06b2925f0f3ffcd77f32fda5609876c59015d601d86e15c81",
+    "l4_sha256": "6961ad7285d1efb48b5d8e6b02722210fc7a7cdb2c65092a6ff1135538e521a8",
+    "notes": {
+     "craft_notes": "Sthāyin: offered-as-enjoyer (knowable-being ceased). Rows: row 2 (identity→offer). Close: enjoyer (bhoktṛ as landing: the Lord-as-enjoyer). Rejected: 'sacrifice' — killed: kept oblation-ending (homānta as the rite's edge); 'realize' — kept meditated (dhyātvā as act).",
+     "reads_against": {
+      "argmap": "What is offered, to whom? → The offering is imagined into identity and given to the Lord as enjoyer; success or not, the enjoyer gets rites upon rites.",
+      "c1_essence": [
+       "Food offered in one hand, virile-formed knowable-power meditated into beast-identity, given to the Lord as enjoyer: ceased knowable-being, become Lord — succeeded or not, rites upon rites for the enjoyer."
+      ],
+      "c1_rasa": "śānta with karuṇa undertow (quiescence carrying compassion) (śama with karuṇā (quiescence with compassion))"
+     }
+    }
+   }
+  ],
+  "tsa-a19-v05": [
+   {
+    "file": "tantrasara-a19/L4-tsa-a19-v05.DRAFT.json",
+    "file_sha256": "c494796fd4bb01ea6e90fc74633cacc9606098b22c6fecefd232bd566df23f64",
+    "l4_sha256": "ed670b943f7f6968c6351796e62a221872ce0a98e1c808f5993639ea8498785b",
+    "notes": {
+     "craft_notes": "Sthāyin: daily-made (single-line sūtra). Rows: row 1 (whole — never split a two-word-adjacent? kept whole). Close: practice (abhyāsa as landing). Rejected: expanding to couplet — kept single (the verse's brevity IS the point).",
+     "reads_against": {
+      "argmap": "And the living? → Even the liberation-seeker practices daily, like sustained observance, toward made-of-That-ness.",
+      "c1_essence": [
+       "Even the liberation-seeker's made-of-That attainment, of the living, daily, like sustained practice."
+      ],
+      "c1_rasa": "śānta with karuṇa undertow (quiescence carrying compassion) (śama with karuṇā (quiescence with compassion))"
+     }
+    }
+   }
+  ],
+  "tsa-a19-v06": [
+   {
+    "file": "tantrasara-a19/L4-tsa-a19-v06.DRAFT.json",
+    "file_sha256": "99f8c2acc13cc92873c44ebb0017a3ede0530e796de4aee3fdcb9bbf6c1d5b7d",
+    "l4_sha256": "af9207142ff19b5dd4b67b9c255947eb621ff401921c2d36aa8475f66f970418",
+    "notes": {
+     "craft_notes": "Sthāyin: knower-exempt (death as festival). Rows: row 3 (festival→living). Close: living (jīvato as landing: the living close the death-verse). Rejected: 'no funeral needed' flat — killed: kept festival-day (parvadina as celebration, not absence); 'consciousness alone' — kept mere-consciousness (mātra as the verse's exact only).",
+     "reads_against": {
+      "argmap": "What of the knower's death? → The knower needs no funeral-to-śrāddha machinery: his death feasts his lineage with consciousness itself.",
+      "c1_essence": [
+       "But the reality-knower needs no funeral-to-śrāddha rite: his death feasts his lineage with consciousness itself."
+      ],
+      "c1_rasa": "śānta with karuṇa undertow (quiescence carrying compassion) (śama with karuṇā (quiescence with compassion))"
+     }
+    }
+   }
+  ],
+  "tsa-a19-v07": [
+   {
+    "file": "tantrasara-a19/L4-tsa-a19-v07.DRAFT.json",
+    "file_sha256": "d808d321b57da2edbdcdc589589d8f97db414c62bb28d54490862df22faf484c",
+    "l4_sha256": "6a1d3e9caebdaebe5eb3102710e32de7d3804f82607fca910d1e93513e3280e3",
+    "notes": {
+     "craft_notes": "Sthāyin: seal-by-citation (image-abandoning first). Rows: row 2 (holds→taught). Close: taught (vakṣyate as landing: the pointer forward). Rejected: naming the next āhnika — kept occasional (naimittika as the verse's own pointer, not our table of contents).",
+     "reads_against": {
+      "argmap": "What holds, and what comes next? → Image-abandonment ruled chief on Siddhāmata authority; its rule deferred to the occasional-rite exposition.",
+      "c1_essence": [
+       "Image-abandonment ruled chief on Siddhāmata authority; its rule deferred to the occasional-rite exposition."
+      ],
+      "c1_rasa": "śānta with karuṇa undertow (quiescence carrying compassion) (śama with karuṇā (quiescence with compassion))"
+     }
+    }
+   }
+  ]
+ },
+ "withheld_songs": [],
+ "original_hashes": {
+  "t1": {
+   "tsa-a19-v01": "6e024bdce140844253247d38a0112334a16fa7682bd5a11b41f70171565895d8",
+   "tsa-a19-v02": "c37fec4593b2ffdaf7aaa098b23f1888658c775b6bf7f4b388e1f3c1e252c259",
+   "tsa-a19-v03": "8592658144601ce8f4cd1392cefe5ec8a72f79f169f399f6bd9831e56ecb2837",
+   "tsa-a19-v04": "247a4fd3f6837a64c5e8c7eb781589c14ba5604d6bff8bd0708251ee70621434",
+   "tsa-a19-v05": "acff2df00f2e7c2d6c95176bfb15489bb63b593d3d0adfe8b4766c88a0a43867",
+   "tsa-a19-v06": "1aca6c080c486ab00ebec52e7b38011fbfec1fc31d0c044223d5265a03f84456",
+   "tsa-a19-v07": "cf8f53533d6d930e3fc94790b7355a73eec7ee131b3971152e03a61d417e9088"
+  },
+  "l0": {
+   "tsa-a19-v01": "9c8af699b92374def785ca7b402680188cdeff215f3b72d09b1c237954b6e56c",
+   "tsa-a19-v02": "3374b47d70e794ac4824469c809bd9cd945c786f44ddcd7018cd0fbd5a83ac99",
+   "tsa-a19-v03": "0ee30a2f097f04906d9feaf176a2470918b4e84e86291153f131d92769a40225",
+   "tsa-a19-v04": "ab07738289a907862b76086add467f88f2f6d270132e7feef3b4ce78bff35a3f",
+   "tsa-a19-v05": "c1695941f16da21cf12718b76e72e0a779022b8482a42652d171794c3fcaf44e",
+   "tsa-a19-v06": "80ebf206f149a0179b2f4fa3ffc4c52ca2a1f8ab1e2db7018169d32154402fb9",
+   "tsa-a19-v07": "2a69f24756d2da6919094adc9bf13d29765d12a8e0b441881eb34b3b4c422dc6"
+  },
+  "argmap": {
+   "tsa-a19-v01": "5f8e5ca62fea6ccc05abe423817caea34229c3da4ab67047fa53a3a224fcbadf",
+   "tsa-a19-v02": "bf101d0cf19c9e6a037df06656076f19acb46258b24632f397eae86dd87737fb",
+   "tsa-a19-v03": "2365049c880f6cb04a0546e9e3974674dddd55ac408789500c000f313a526662",
+   "tsa-a19-v04": "1650373602d95df8fb2faf44758c052e8b9d3e07211d05cfbc960634080ec4a6",
+   "tsa-a19-v05": "19fdf1e4484a3ef172cb816da9f0feb6320ca83aecc630e8ca4821af6a8dedc0",
+   "tsa-a19-v06": "dacdbac2953aa8974a9772936e33cd5df25042b17713cb391e4fdc9035a02971",
+   "tsa-a19-v07": "3377b120724ee97ad3ebbb4c161900eff63986831163fdbb18206a0efad00968"
+  },
+  "l2": {
+   "tsa-a19-v01": "15b76bf097259e1599a553c5aa0b6f34930161132bc0a73e50296f120ec15d59",
+   "tsa-a19-v02": "cba393799a42885d4570848f8a694c55f2102728ff4a98c3d42a641790a1b099",
+   "tsa-a19-v03": "0c1c5d8132576f89beeea216f8cd314da44839db0511eee2c585850a77fe1104",
+   "tsa-a19-v04": "af16423121cfd028b9c777671412231819f5b9a21c8ec895f12d76f9ff7b23fa",
+   "tsa-a19-v05": "6110fc28c75833d081aa0b7fe2e5bf4b569d4fa6993f48cb7b82a8a25a8f8f35",
+   "tsa-a19-v06": "5bd30602b2ff1f565824f574819a3d0799bca2ce43a0d8b5f2f67bc12940edbd",
+   "tsa-a19-v07": "ab9c15aadb744e158761a2c73fb017fc02b18605b94173d1ca0d11dafd362f95"
+  },
+  "c1": {
+   "tsa-a19": "b8200071611131f55285dfec0f6e30b2bfdd0e8ff71d2189d10317224fbdf5ab"
+  },
+  "l3": {
+   "tsa-a19-v01": "1800e8a4da1be5374323cc3ca77fbc955056307a7bf1e5f1aefbfefb8eb8a856",
+   "tsa-a19-v02": "37cbcbace5310f8911ea6ddaf40e7f3ed139ca42286ef972b7435b11e4bc92cd",
+   "tsa-a19-v03": "b053456ee9118787294e0d2683c6021dd6156936102810b673018cb45e20514b",
+   "tsa-a19-v04": "85275bce3b9a547f455395b67fe95347795c9d59a94c6cb40ec8c40f347c31cc",
+   "tsa-a19-v05": "f5007a0c5dd238fc42582f30ce6b46e417fc2cfd76f0d2a599d6529d0f793da8",
+   "tsa-a19-v06": "9d1a1f9dc3a7610e85e62d9f01820ab31b97a2f0fae54755ad1eb7fd07119f9e",
+   "tsa-a19-v07": "df0610700a395e863fd548c05c3d69127a075864557deaf39b849c51c5d25391"
+  },
+  "l4": {
+   "tsa-a19-v01": "cb55dbdd9a2c8df6ebcaead4135e0fc1cc399c142107c7f8d0fe0253fe26cc51",
+   "tsa-a19-v02": "1afd70c2f4924cac6a46993cc17f6678d4deaa2aa1382279807b7658cd03bf68",
+   "tsa-a19-v03": "ed17b3df427e25a5bed90ad0255ed015b735e24496eaa9f5d9581a803f0ab0d9",
+   "tsa-a19-v04": "6961ad7285d1efb48b5d8e6b02722210fc7a7cdb2c65092a6ff1135538e521a8",
+   "tsa-a19-v05": "ed670b943f7f6968c6351796e62a221872ce0a98e1c808f5993639ea8498785b",
+   "tsa-a19-v06": "af9207142ff19b5dd4b67b9c255947eb621ff401921c2d36aa8475f66f970418",
+   "tsa-a19-v07": "6a1d3e9caebdaebe5eb3102710e32de7d3804f82607fca910d1e93513e3280e3"
+  },
+  "c2": {}
+ },
+ "versions": [],
+ "essays": [],
+ "reviews": [],
+ "promotions": [],
+ "signoffs": [],
+ "stack_hashes": {
+  "tsa-a19": "3759b47b029ad90c1e03919bd55d7b0f32772daae1943aadb3f0d0e808a4a5c2"
+ },
+ "projection_sha256": "894ca1ffc1e05bc547234549b4039fc3a658a4421a3e0dbe80d91de4f4dd6efd"
+}

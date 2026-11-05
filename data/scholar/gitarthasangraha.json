@@ -1,0 +1,3126 @@
+{
+ "work": "gitarthasangraha",
+ "generated": null,
+ "source": "translation-work canonical data + scholar/ ledgers (emit_scholar.py)",
+ "source_edition": "",
+ "contract": {
+  "contract_version": "svatantrya-agent-contract/1",
+  "contract_sha256": "bdd5b9150aa5f3d73ebd8a19517ef5116c3c5bf652b3638841f5b4eeb1e0cf04",
+  "schema_version": "1.3.0",
+  "structural_schema_version": "2.0.0",
+  "structural_schema_snapshot_sha256": "7143ce16fd2fec74bcbb442937194c13abcb94e7d76e10fb35ec9e76016a9577",
+  "order": [
+   "source",
+   "t1",
+   "l0",
+   "argmap",
+   "l2",
+   "c1",
+   "l3",
+   "l4",
+   "c2"
+  ],
+  "schemas": {
+   "t1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:t1",
+    "title": "Svatantrya T1 structural schema",
+    "x-validator": "schemas.t1.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "quick_english",
+     "tokens",
+     "source_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "quick_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "source_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "tokens": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "surface",
+        "quick_gloss"
+       ],
+       "properties": {
+        "surface": {
+         "type": "string",
+         "minLength": 1
+        },
+        "quick_gloss": {
+         "type": "string",
+         "minLength": 1
+        }
+       }
+      }
+     }
+    }
+   },
+   "l0": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l0:verse",
+    "title": "Svatantrya L0 verse token list structural schema",
+    "x-validator": "schemas.l0.validate (per token)",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+     "$schema": "https://json-schema.org/draft/2020-12/schema",
+     "$id": "urn:svatantrya:schema:2.0.0:l0",
+     "title": "Svatantrya L0 structural schema",
+     "x-validator": "schemas.l0.validate",
+     "x-schema-version": "1.3.0",
+     "x-structural-schema-version": "2.0.0",
+     "type": "object",
+     "required": [
+      "id",
+      "verse_id",
+      "pada_index",
+      "surface",
+      "citation",
+      "options",
+      "chosen_index",
+      "status"
+     ],
+     "properties": {
+      "id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "verse_id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "pada_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "surface": {
+       "type": "string",
+       "minLength": 1
+      },
+      "citation": {
+       "type": "string",
+       "minLength": 1
+      },
+      "morph": {
+       "type": "string"
+      },
+      "morph_unknown": {
+       "type": "boolean"
+      },
+      "options": {
+       "type": "array",
+       "maxItems": 5,
+       "items": {
+        "type": "object",
+        "required": [
+         "gloss",
+         "rank",
+         "source",
+         "grounds"
+        ],
+        "properties": {
+         "gloss": {
+          "type": "string",
+          "minLength": 1
+         },
+         "rank": {
+          "type": "integer",
+          "minimum": 1
+         },
+         "source": {
+          "type": "string",
+          "minLength": 1
+         },
+         "grounds": {
+          "type": "string",
+          "minLength": 1
+         }
+        }
+       }
+      },
+      "chosen_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "status": {
+       "type": "string",
+       "enum": [
+        "PARSED",
+        "AMBIGUOUS",
+        "FAILED"
+       ]
+      },
+      "revised": {
+       "type": "boolean"
+      },
+      "revise_reason": {
+       "type": "string"
+      },
+      "fork": {
+       "type": "string",
+       "enum": [
+        "none",
+        "live",
+        "resolved"
+       ]
+      }
+     }
+    }
+   },
+   "argmap": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:argmap",
+    "title": "Svatantrya ARGMAP structural schema",
+    "x-validator": "schemas.argmap.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "traces",
+     "sanskrit_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "traces": {
+      "type": "object",
+      "required": [
+       "t1_verse",
+       "l0_ids"
+      ],
+      "properties": {
+       "t1_verse": {
+        "type": "string",
+        "minLength": 1
+       },
+       "l0_ids": {
+        "type": "array",
+        "items": {
+         "type": "string",
+         "minLength": 1
+        },
+        "minItems": 1
+       }
+      }
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "sanskrit_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "speaker": {
+      "type": "string",
+      "minLength": 1
+     },
+     "question": {
+      "type": "string",
+      "minLength": 1
+     },
+     "inference": {
+      "type": "string",
+      "minLength": 1
+     },
+     "reconstruction": {
+      "type": "string",
+      "minLength": 1
+     },
+     "premises": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     },
+     "uncertainties": {
+      "type": "array"
+     },
+     "structured": {
+      "type": "boolean"
+     }
+    }
+   },
+   "l2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l2",
+    "title": "Svatantrya L2 structural schema",
+    "x-validator": "schemas.l2.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "plain_english",
+     "sanskrit_cite",
+     "l0_ids"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "plain_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "supplied": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     }
+    }
+   },
+   "c1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:c1",
+    "title": "Svatantrya C1 structural schema",
+    "x-validator": "schemas.c1.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "song",
+     "essence",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "essence": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "renders": {
+      "type": "object",
+      "required": [
+       "standard"
+      ]
+     }
+    }
+   },
+   "l3": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l3",
+    "title": "Svatantrya L3 structural schema",
+    "x-validator": "schemas.l3.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "l4": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l4",
+    "title": "Svatantrya L4 structural schema",
+    "x-validator": "schemas.l4.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "c2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:c2",
+    "title": "Svatantrya C2 structural schema",
+    "x-validator": "schemas.c2.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "song",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "renders": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "style",
+        "prompt",
+        "paragraphs"
+       ],
+       "properties": {
+        "style": {
+         "type": "string",
+         "minLength": 1
+        },
+        "prompt": {
+         "type": "string",
+         "minLength": 1
+        },
+        "paragraphs": {
+         "type": "array",
+         "minItems": 1,
+         "items": {
+          "type": "object",
+          "required": [
+           "text",
+           "maps_to"
+          ],
+          "properties": {
+           "text": {
+            "type": "string",
+            "minLength": 1
+           },
+           "maps_to": {
+            "type": "array",
+            "items": {
+             "type": "integer",
+             "minimum": 0
+            },
+            "minItems": 1
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "layers": [
+   {
+    "id": "t1",
+    "scope": "verse",
+    "depends_on": [
+     "source"
+    ],
+    "validator": "schemas/t1.py",
+    "validator_sha256": "ac792ba1f0cbc06ab52dfbc41a31d3e39460f0e8a7de2977ed02e4ce63a20f27",
+    "example": {
+     "file": "sivastotravali/data/s01.t1.json",
+     "file_sha256": "a5c4cfae67571d05866d97ad6eb29b1c2956140a69c2fae554c29577330beb8e",
+     "target": "s01-v01",
+     "content_sha256": "26f027dafbe67347efd901cb2b94630cdb0e372957edeb4a3e1305e83745ba5b",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l0",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1"
+    ],
+    "validator": "schemas/l0.py",
+    "validator_sha256": "0651bc77f519897f8a4f8b41f4ea0cc6a88f3441910af99b18d55854a7e9030e",
+    "example": {
+     "file": "sivastotravali/data/s06.l0.json",
+     "file_sha256": "c2bb0ce1010315d72bdce75ee3c8901b17499202abe7adc5bd1977a26f4fea2f",
+     "target": "s06-v01",
+     "content_sha256": "91e3b04d47482757bcaf1e9705992edd0815ff7907ed2cb33c7c9586f3a9e5aa",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "argmap",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0"
+    ],
+    "validator": "schemas/argmap.py",
+    "validator_sha256": "335c1bbe809c5ae942ecef4a30ee7fd8fcb82645a43019312fa74397fe5758b0",
+    "example": {
+     "file": "sivastotravali/data/s01.argmap.json",
+     "file_sha256": "a44c8ec09a30c577f2a792c1255d4290f49a6138c456bb687bc00e78a3902949",
+     "target": "s01-v21",
+     "content_sha256": "80b69a54761b8b0b7c193058f6c88eef60323a3611008c41ba9879bcfc3cdc21",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l2",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap"
+    ],
+    "validator": "schemas/l2.py",
+    "validator_sha256": "f5653e405e0f162f78593ad6344cbbefe122d6d1c921ca3e22003e4f4d2cfaaa",
+    "example": {
+     "file": "sivastotravali/data/s01.l2.json",
+     "file_sha256": "f5a1cec55bb466c328380a0bf527e6d8906428b3436f85a79bd01df98ceb1040",
+     "target": "s01-v01",
+     "content_sha256": "f3c47f6a631f7551d4f9c8ad1117bdf65463cb8cdc92e9b42bb3bf517ae80055",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c1",
+    "scope": "song",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2"
+    ],
+    "validator": "schemas/c1.py",
+    "validator_sha256": "88ad9123135a7a18237cec1d11430992b4f43adf1771ae26a43e4df8198c69d7",
+    "example": {
+     "file": "sivastotravali/data/s01.c1.json",
+     "file_sha256": "99f4d2bbf7a8086176ee585b6e459076e2abd72b9675435267f7546beb1515f8",
+     "target": "s01",
+     "content_sha256": "5be1f3c0c3f64fafe5395b42cf5502a139a5e208be419d5804fe1a5bdd33712a",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l3",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2",
+     "c1"
+    ],
+    "validator": "schemas/l3.py",
+    "validator_sha256": "6c3df228f886207782d5250699e9e459f236f6e7d6b25ac29b00a38541956917",
+    "example": {
+     "file": "sivastotravali/data/s01.l3.json",
+     "file_sha256": "cdb4af6a4c2a851231195f4e5c940346f65199d5d5d69ea1c41d8095f98409f9",
+     "target": "s01-v01",
+     "content_sha256": "6aa20635387174b68fe4ea3baf970c06aff9838acb2c745e7afca0ed7c6751de",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l4",
+    "scope": "verse",
+    "depends_on": [
+     "l3",
+     "c1"
+    ],
+    "validator": "schemas/l4.py",
+    "validator_sha256": "3c1f7b0dfe3d83d425ed0fd84fba7b74aa3ed9e9758402369d779eedda1a8c03",
+    "example": {
+     "file": "paramarthasara/data/param-p01.l4.json",
+     "file_sha256": "db346e51e71f2f835ddfda004d4432934611817c2c73318d335f6ca2362ad4fb",
+     "target": "param-p01-v01",
+     "content_sha256": "91e9d424cf310d4e5b45c173b02f5286d837269ef9447533c153a48cb5122c14",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c2",
+    "scope": "song",
+    "depends_on": [
+     "c1",
+     "l3"
+    ],
+    "validator": "schemas/c2.py",
+    "validator_sha256": "fb8743f206e036002c780d082c7d32cf011dcdab4c21df742a5f5e59a9d851b8",
+    "example": {
+     "file": "sivastotravali/data/s01.c2.json",
+     "file_sha256": "09660a3c09679fce8c95968934e5851a22d89cdf154d2b0635d358e1ef9e8aeb",
+     "target": "s01",
+     "content_sha256": "2faa5fa86e38faca7ef5a1a967a4e261e2df294648a31ed5bad5f731001aa41c",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   }
+  ]
+ },
+ "rights": {
+  "translation": "FREE — our English (L1–L4, commentary) is free use",
+  "scholar": "Contributors declare rights; authorship and copyright depend on the work and law."
+ },
+ "originals": {
+  "t1": {
+   "gita-a00-v01": {
+    "verse_id": "gita-a00-v01",
+    "song": "gita-a00",
+    "verse": 1,
+    "quick_english": "He who, made of the widely flashing wheel of diverse states, comes to be the objects of experience — whose one, given to contemplation, is thus the bond of nondifference: He, Śaṃbhura, woe-averting, triumphs — treasury of the lights of knowing.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "ya",
+      "quick_gloss": "He-who"
+     },
+     {
+      "surface": "eṣa",
+      "quick_gloss": "this"
+     },
+     {
+      "surface": "vitatasphuradvividhabhāvacakrātmakaḥ",
+      "quick_gloss": "made-of-the-widely-flashing-wheel-of-diverse-states"
+     },
+     {
+      "surface": "parasparavibhedavānviṣayatāmupāgacchati",
+      "quick_gloss": "having-mutual-difference-comes-to-be-the-objects-of-experience"
+     },
+     {
+      "surface": "yadekamayabhāvanāvaśata",
+      "quick_gloss": "whose-one-is-given-to-contemplation"
+     },
+     {
+      "surface": "etyabhedānvayaṃ",
+      "quick_gloss": "thus-a-bond-of-nondifference"
+     },
+     {
+      "surface": "sa",
+      "quick_gloss": "He"
+     },
+     {
+      "surface": "śaṃbhuraśivāpaho",
+      "quick_gloss": "Śaṃbhura-woe-averting"
+     },
+     {
+      "surface": "jayati",
+      "quick_gloss": "triumphs"
+     },
+     {
+      "surface": "bodhabhāsāṃ",
+      "quick_gloss": "of-the-lights-of-knowing"
+     },
+     {
+      "surface": "nidhiḥ",
+      "quick_gloss": "treasury"
+     }
+    ],
+    "source_sha": "5ca71f93286730a2"
+   },
+   "gita-a00-v02": {
+    "verse_id": "gita-a00-v02",
+    "song": "gita-a00",
+    "verse": 2,
+    "quick_english": "By the sage Dvaipāyana was this scripture expounded, measured by hundreds of thousands; here liberation is established as the fruit — and mādhānyataḥ [L0-fork], its other dharma-and-rest is recited to nourish it.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "dvaipāyanena",
+      "quick_gloss": "by-sage-Dvaipayana"
+     },
+     {
+      "surface": "muninā",
+      "quick_gloss": "by-the-sage"
+     },
+     {
+      "surface": "yadidaṃ",
+      "quick_gloss": "which-this"
+     },
+     {
+      "surface": "vyadhāyi",
+      "quick_gloss": "was-expounded"
+     },
+     {
+      "surface": "sāstraṃ",
+      "quick_gloss": "scripture"
+     },
+     {
+      "surface": "sahasraśatasaṃmitamatra",
+      "quick_gloss": "measured-by-hundred-thousands-here"
+     },
+     {
+      "surface": "mokṣaḥ",
+      "quick_gloss": "liberation"
+     },
+     {
+      "surface": "mādhānyataḥ",
+      "quick_gloss": "mādhānyataḥ"
+     },
+     {
+      "surface": "phalatayā",
+      "quick_gloss": "as-the-fruit"
+     },
+     {
+      "surface": "prathitastadanyadharmādi",
+      "quick_gloss": "is-established-other-dharma-and-rest"
+     },
+     {
+      "surface": "tasya",
+      "quick_gloss": "of-it"
+     },
+     {
+      "surface": "paripoṣayituṃ",
+      "quick_gloss": "to-nourish-it"
+     },
+     {
+      "surface": "pragītam",
+      "quick_gloss": "is-recited"
+     }
+    ],
+    "source_sha": "5ca71f93286730a2"
+   },
+   "gita-a00-v03": {
+    "verse_id": "gita-a00-v03",
+    "song": "gita-a00",
+    "verse": 3,
+    "quick_english": "Liberation, by name, complete-differentiation in form, all-knowing, auspicious-natured in all instruments and more — free from need, in Bhagavān the Lord, ever-risen: dissolution — this much, toward it [prathiḥ L0-fork], in summary.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "mokṣaśca",
+      "quick_gloss": "liberation-also"
+     },
+     {
+      "surface": "nāma",
+      "quick_gloss": "by-name"
+     },
+     {
+      "surface": "sakalāpravibhāgarūpe",
+      "quick_gloss": "in-the-form-of-complete-differentiation"
+     },
+     {
+      "surface": "sarvajñasarvakaraṇādiśubhasvabhāve",
+      "quick_gloss": "of-all-knowing-all-instrument-and-rest-auspicious-nature"
+     },
+     {
+      "surface": "ākāṅkṣya",
+      "quick_gloss": "having-need"
+     },
+     {
+      "surface": "virahite",
+      "quick_gloss": "free-from-need"
+     },
+     {
+      "surface": "bhagavatyadhīśe",
+      "quick_gloss": "in-Bhagavan-the-Lord"
+     },
+     {
+      "surface": "nityodite",
+      "quick_gloss": "ever-risen"
+     },
+     {
+      "surface": "laya",
+      "quick_gloss": "dissolution"
+     },
+     {
+      "surface": "iyānprathiḥ",
+      "quick_gloss": "this-much-toward-it"
+     },
+     {
+      "surface": "samāsāt",
+      "quick_gloss": "in-summary"
+     }
+    ],
+    "source_sha": "5ca71f93286730a2"
+   },
+   "gita-a00-v04": {
+    "verse_id": "gita-a00-v04",
+    "song": "gita-a00",
+    "verse": 4,
+    "quick_english": "Although liberation by name is celebrated in other connections, yet the Bhagavadgītā is the giver of true attainment.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "yadyapyanyaprasaṅgeṣu",
+      "quick_gloss": "although-in-other-connections"
+     },
+     {
+      "surface": "mokṣo",
+      "quick_gloss": "liberation"
+     },
+     {
+      "surface": "nāmātra",
+      "quick_gloss": "by-name-here"
+     },
+     {
+      "surface": "gīyate",
+      "quick_gloss": "is-celebrated"
+     },
+     {
+      "surface": "tathāpi",
+      "quick_gloss": "nevertheless"
+     },
+     {
+      "surface": "bhagavadgītāḥ",
+      "quick_gloss": "the-Bhagavadgita"
+     },
+     {
+      "surface": "samyaktatprāptidāyikāḥ",
+      "quick_gloss": "of-true-attainment-the-giver"
+     }
+    ],
+    "source_sha": "5ca71f93286730a2"
+   },
+   "gita-a00-v05": {
+    "verse_id": "gita-a00-v05",
+    "song": "gita-a00",
+    "verse": 5,
+    "quick_english": "In them, although earlier ones made many expositions, yet my attempt too is reasonable — revealing its hidden meaning.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "tāsvanyaiḥ",
+      "quick_gloss": "in-them-by-others"
+     },
+     {
+      "surface": "prāktanairvyākhyāḥ",
+      "quick_gloss": "by-earlier-ones-expositions"
+     },
+     {
+      "surface": "kṛtā",
+      "quick_gloss": "were-made"
+     },
+     {
+      "surface": "yadyapi",
+      "quick_gloss": "although"
+     },
+     {
+      "surface": "bhūyasā",
+      "quick_gloss": "many"
+     },
+     {
+      "surface": "nyāyyastathāpyudyamo",
+      "quick_gloss": "reasonable-yet-my-attempt"
+     },
+     {
+      "surface": "me",
+      "quick_gloss": "my"
+     },
+     {
+      "surface": "tadgūḍhārthaprakāśakaḥ",
+      "quick_gloss": "revealing-its-hidden-meaning"
+     }
+    ],
+    "source_sha": "5ca71f93286730a2"
+   },
+   "gita-a00-v06": {
+    "verse_id": "gita-a00-v06",
+    "song": "gita-a00",
+    "verse": 6,
+    "quick_english": "From the oral tradition of Bhaṭṭa Indurāja, examined long with thought, made by Abhinavagupta — this here is the Gītārthasaṃgraha.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "bhaṭṭendurājādāmnāya",
+      "quick_gloss": "from-the-oral-tradition-of-Bhattachenduraja"
+     },
+     {
+      "surface": "vivicya",
+      "quick_gloss": "having-examined"
+     },
+     {
+      "surface": "ca",
+      "quick_gloss": "also"
+     },
+     {
+      "surface": "ciraṃ",
+      "quick_gloss": "long"
+     },
+     {
+      "surface": "dhiyā",
+      "quick_gloss": "with-thought"
+     },
+     {
+      "surface": "kṛto'bhinavaguptena",
+      "quick_gloss": "made-by-Abhinavagupta"
+     },
+     {
+      "surface": "so'yaṃ",
+      "quick_gloss": "this-here"
+     },
+     {
+      "surface": "gītārthasaṃgrahaḥ",
+      "quick_gloss": "the-Gitarthasangraha"
+     }
+    ],
+    "source_sha": "5ca71f93286730a2"
+   }
+  },
+  "l0": {
+   "gita-a00-v01": [
+    {
+     "id": "gita-a00-v01-p000",
+     "verse_id": "gita-a00-v01",
+     "verse": 1,
+     "pada_index": 0,
+     "surface": "ya",
+     "citation": "ya",
+     "morph": "pron rel nom.m",
+     "options": [
+      {
+       "gloss": "He-who",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v01-p001",
+     "verse_id": "gita-a00-v01",
+     "verse": 1,
+     "pada_index": 1,
+     "surface": "eṣa",
+     "citation": "eṣa",
+     "morph": "demonstrative nom.m",
+     "options": [
+      {
+       "gloss": "this",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v01-p002",
+     "verse_id": "gita-a00-v01",
+     "verse": 1,
+     "pada_index": 2,
+     "surface": "vitatasphuradvividhabhāvacakrātmakaḥ",
+     "citation": "vitatasphuradvividhabhāvacakrātmakaḥ",
+     "morph": "nom.sg.m (compound)",
+     "options": [
+      {
+       "gloss": "made-of-the-widely-flashing-wheel-of-diverse-states",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v01-p003",
+     "verse_id": "gita-a00-v01",
+     "verse": 1,
+     "pada_index": 3,
+     "surface": "parasparavibhedavānviṣayatāmupāgacchati",
+     "citation": "parasparavibhedavānviṣayatāmupāgacchati",
+     "morph": "3sg pres + pres.part (compound)",
+     "options": [
+      {
+       "gloss": "having-mutual-difference-comes-to-be-the-objects-of-experience",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v01-p004",
+     "verse_id": "gita-a00-v01",
+     "verse": 1,
+     "pada_index": 4,
+     "surface": "yadekamayabhāvanāvaśata",
+     "citation": "yadekamayabhāvanāvaśata",
+     "morph": "nom.sg.n (compound; yad-ekam ayam bhāvanāvaśatam)",
+     "options": [
+      {
+       "gloss": "whose-one-is-given-to-contemplation",
+       "rank": 1,
+       "source": "grammar",
+       "grounds": "whose-one-is-given-to-contemplation — house-gloss, sense-level; LIVE: avaśata unattested — emend candidate bhāvanā-avaśritaḥ (Ingalls print-corruption), awaiting Gita Supersite collation"
+      },
+      {
+       "gloss": "whose-one-is-dependent-on-contemplation",
+       "rank": 2,
+       "source": "grammar",
+       "grounds": "emend candidate: avaśata < avaśrita"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "live"
+    },
+    {
+     "id": "gita-a00-v01-p005",
+     "verse_id": "gita-a00-v01",
+     "verse": 1,
+     "pada_index": 5,
+     "surface": "etyabhedānvayaṃ",
+     "citation": "etyabhedānvayaṃ",
+     "morph": "acc.sg.n (iti abheda-anvayam; ety print for ity)",
+     "options": [
+      {
+       "gloss": "thus-a-bond-of-nondifference",
+       "rank": 1,
+       "source": "grammar",
+       "grounds": "thus-a-bond-of-nondifference — iti reading (ety print for ity, e/i confusion); LIVE"
+      },
+      {
+       "gloss": "this-nondifference-connection",
+       "rank": 2,
+       "source": "grammar",
+       "grounds": "etat reading, weaker"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "live"
+    },
+    {
+     "id": "gita-a00-v01-p006",
+     "verse_id": "gita-a00-v01",
+     "verse": 1,
+     "pada_index": 6,
+     "surface": "sa",
+     "citation": "sa",
+     "morph": "pron nom.m",
+     "options": [
+      {
+       "gloss": "He",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v01-p007",
+     "verse_id": "gita-a00-v01",
+     "verse": 1,
+     "pada_index": 7,
+     "surface": "śaṃbhuraśivāpaho",
+     "citation": "śaṃbhuraśivāpaho",
+     "morph": "nom.sg.m (compound; saḥ śaṃbhuraḥ śivāpahaḥ)",
+     "options": [
+      {
+       "gloss": "Śaṃbhura-woe-averting",
+       "rank": 1,
+       "source": "grammar",
+       "grounds": "Śaṃbhura-woe-averting — mangala valence: averter-of-misfortune (praise-context); LIVE — literal reading recorded below"
+      },
+      {
+       "gloss": "Śaṃbhura-of-removing-welfare",
+       "rank": 2,
+       "source": "grammar",
+       "grounds": "literal reading, valence-negative, recorded"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "live"
+    },
+    {
+     "id": "gita-a00-v01-p008",
+     "verse_id": "gita-a00-v01",
+     "verse": 1,
+     "pada_index": 8,
+     "surface": "jayati",
+     "citation": "jayati",
+     "morph": "3sg pres act √ji",
+     "options": [
+      {
+       "gloss": "triumphs",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v01-p009",
+     "verse_id": "gita-a00-v01",
+     "verse": 1,
+     "pada_index": 9,
+     "surface": "bodhabhāsāṃ",
+     "citation": "bodhabhāsāṃ",
+     "morph": "gen.pl (bodha-bhāsām)",
+     "options": [
+      {
+       "gloss": "of-the-lights-of-knowing",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v01-p010",
+     "verse_id": "gita-a00-v01",
+     "verse": 1,
+     "pada_index": 10,
+     "surface": "nidhiḥ",
+     "citation": "nidhiḥ",
+     "morph": "nom.sg.m",
+     "options": [
+      {
+       "gloss": "treasury",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "gita-a00-v02": [
+    {
+     "id": "gita-a00-v02-p000",
+     "verse_id": "gita-a00-v02",
+     "verse": 2,
+     "pada_index": 0,
+     "surface": "dvaipāyanena",
+     "citation": "dvaipāyanena",
+     "morph": "inst.sg (Dvaipāyana + ena; patronymic of Vyāsa)",
+     "options": [
+      {
+       "gloss": "by-sage-Dvaipayana",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v02-p001",
+     "verse_id": "gita-a00-v02",
+     "verse": 2,
+     "pada_index": 1,
+     "surface": "muninā",
+     "citation": "muninā",
+     "morph": "inst.sg",
+     "options": [
+      {
+       "gloss": "by-the-sage",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v02-p002",
+     "verse_id": "gita-a00-v02",
+     "verse": 2,
+     "pada_index": 2,
+     "surface": "yadidaṃ",
+     "citation": "yadidaṃ",
+     "morph": "rel + demonstrative (yat idam)",
+     "options": [
+      {
+       "gloss": "which-this",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v02-p003",
+     "verse_id": "gita-a00-v02",
+     "verse": 2,
+     "pada_index": 3,
+     "surface": "vyadhāyi",
+     "citation": "vyadhāyi",
+     "morph": "3sg pass pres √dhā (vyādhāyi)",
+     "options": [
+      {
+       "gloss": "was-expounded",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v02-p004",
+     "verse_id": "gita-a00-v02",
+     "verse": 2,
+     "pada_index": 4,
+     "surface": "sāstraṃ",
+     "citation": "sāstraṃ",
+     "morph": "acc.sg.n (print s- for ś-: śāstram)",
+     "options": [
+      {
+       "gloss": "scripture",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v02-p005",
+     "verse_id": "gita-a00-v02",
+     "verse": 2,
+     "pada_index": 5,
+     "surface": "sahasraśatasaṃmitamatra",
+     "citation": "sahasraśatasaṃmitamatra",
+     "morph": "acc.sg.n + adv (sahasraśata-sammitam atra)",
+     "options": [
+      {
+       "gloss": "measured-by-hundred-thousands-here",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v02-p006",
+     "verse_id": "gita-a00-v02",
+     "verse": 2,
+     "pada_index": 6,
+     "surface": "mokṣaḥ",
+     "citation": "mokṣaḥ",
+     "morph": "nom.sg.m",
+     "options": [
+      {
+       "gloss": "liberation",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v02-p007",
+     "verse_id": "gita-a00-v02",
+     "verse": 2,
+     "pada_index": 7,
+     "surface": "mādhānyataḥ",
+     "citation": "mādhānyataḥ",
+     "morph": "abl.sg (PRINT SHAPE; unattested headword)",
+     "options": [
+      {
+       "gloss": "mādhānyataḥ",
+       "rank": 1,
+       "source": "grammar",
+       "grounds": "mādhānyataḥ (neutral surface) | mādhānyataḥ (neutral surface) — LIVE-PRIME: unattested headword, no gloss invented; emend candidates: mādhānya-taḥ 'than foolish', mūḍhānyataḥ 'from fools', mādhārya-taḥ 'than wantonness'; awaiting Gita Supersite + Sharma 1983"
+      },
+      {
+       "gloss": "than-the-foolish",
+       "rank": 2,
+       "source": "grammar",
+       "grounds": "abl. comparative emend"
+      },
+      {
+       "gloss": "from-fools",
+       "rank": 3,
+       "source": "grammar",
+       "grounds": "abl. source emend"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "live"
+    },
+    {
+     "id": "gita-a00-v02-p008",
+     "verse_id": "gita-a00-v02",
+     "verse": 2,
+     "pada_index": 8,
+     "surface": "phalatayā",
+     "citation": "phalatayā",
+     "morph": "inst.sg",
+     "options": [
+      {
+       "gloss": "as-the-fruit",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v02-p009",
+     "verse_id": "gita-a00-v02",
+     "verse": 2,
+     "pada_index": 9,
+     "surface": "prathitastadanyadharmādi",
+     "citation": "prathitastadanyadharmādi",
+     "morph": "nom.sg.n (prathitaḥ + tad-anya-dharma-ādi fused)",
+     "options": [
+      {
+       "gloss": "is-established-other-dharma-and-rest",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v02-p010",
+     "verse_id": "gita-a00-v02",
+     "verse": 2,
+     "pada_index": 10,
+     "surface": "tasya",
+     "citation": "tasya",
+     "morph": "gen.sg",
+     "options": [
+      {
+       "gloss": "of-it",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v02-p011",
+     "verse_id": "gita-a00-v02",
+     "verse": 2,
+     "pada_index": 11,
+     "surface": "paripoṣayituṃ",
+     "citation": "paripoṣayituṃ",
+     "morph": "inf (pari-√puṣ)",
+     "options": [
+      {
+       "gloss": "to-nourish-it",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v02-p012",
+     "verse_id": "gita-a00-v02",
+     "verse": 2,
+     "pada_index": 12,
+     "surface": "pragītam",
+     "citation": "pragītam",
+     "morph": "ppp nom.sg.n (pra-√gī)",
+     "options": [
+      {
+       "gloss": "is-recited",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "gita-a00-v03": [
+    {
+     "id": "gita-a00-v03-p000",
+     "verse_id": "gita-a00-v03",
+     "verse": 3,
+     "pada_index": 0,
+     "surface": "mokṣaśca",
+     "citation": "mokṣaśca",
+     "morph": "nom.sg.m + conj (mokṣaḥ ca; sandhi)",
+     "options": [
+      {
+       "gloss": "liberation-also",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v03-p001",
+     "verse_id": "gita-a00-v03",
+     "verse": 3,
+     "pada_index": 1,
+     "surface": "nāma",
+     "citation": "nāma",
+     "morph": "indecl (nāma; nomic particle)",
+     "options": [
+      {
+       "gloss": "by-name",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v03-p002",
+     "verse_id": "gita-a00-v03",
+     "verse": 3,
+     "pada_index": 2,
+     "surface": "sakalāpravibhāgarūpe",
+     "citation": "sakalāpravibhāgarūpe",
+     "morph": "loc.sg.n (compound)",
+     "options": [
+      {
+       "gloss": "in-the-form-of-complete-differentiation",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v03-p003",
+     "verse_id": "gita-a00-v03",
+     "verse": 3,
+     "pada_index": 3,
+     "surface": "sarvajñasarvakaraṇādiśubhasvabhāve",
+     "citation": "sarvajñasarvakaraṇādiśubhasvabhāve",
+     "morph": "loc.sg.n (compound)",
+     "options": [
+      {
+       "gloss": "of-all-knowing-all-instrument-and-rest-auspicious-nature",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v03-p004",
+     "verse_id": "gita-a00-v03",
+     "verse": 3,
+     "pada_index": 4,
+     "surface": "ākāṅkṣya",
+     "citation": "ākāṅkṣya",
+     "morph": "loc.sg.abs (ā-kāṅkṣya)",
+     "options": [
+      {
+       "gloss": "having-need",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v03-p005",
+     "verse_id": "gita-a00-v03",
+     "verse": 3,
+     "pada_index": 5,
+     "surface": "virahite",
+     "citation": "virahite",
+     "morph": "ppp loc.sg.n",
+     "options": [
+      {
+       "gloss": "free-from-need",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v03-p006",
+     "verse_id": "gita-a00-v03",
+     "verse": 3,
+     "pada_index": 6,
+     "surface": "bhagavatyadhīśe",
+     "citation": "bhagavatyadhīśe",
+     "morph": "loc.sg.m (bhagavati adhīśe)",
+     "options": [
+      {
+       "gloss": "in-Bhagavan-the-Lord",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v03-p007",
+     "verse_id": "gita-a00-v03",
+     "verse": 3,
+     "pada_index": 7,
+     "surface": "nityodite",
+     "citation": "nityodite",
+     "morph": "loc.sg.m/n (nitya-udita)",
+     "options": [
+      {
+       "gloss": "ever-risen",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v03-p008",
+     "verse_id": "gita-a00-v03",
+     "verse": 3,
+     "pada_index": 8,
+     "surface": "laya",
+     "citation": "laya",
+     "morph": "nom.sg.m",
+     "options": [
+      {
+       "gloss": "dissolution",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v03-p009",
+     "verse_id": "gita-a00-v03",
+     "verse": 3,
+     "pada_index": 9,
+     "surface": "iyānprathiḥ",
+     "citation": "iyānprathiḥ",
+     "morph": "nom.sg.m (iyān + pratiḥ; print)",
+     "options": [
+      {
+       "gloss": "this-much-toward-it",
+       "rank": 1,
+       "source": "grammar",
+       "grounds": "this-much-toward-it — iyān + pratiḥ, sense-level; LIVE: print unattested — emend candidates prati-ḥ enclitic / pratiṣṭhā"
+      },
+      {
+       "gloss": "this-dissolution-ward",
+       "rank": 2,
+       "source": "grammar",
+       "grounds": "emend candidate with laya governing"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "live"
+    },
+    {
+     "id": "gita-a00-v03-p010",
+     "verse_id": "gita-a00-v03",
+     "verse": 3,
+     "pada_index": 10,
+     "surface": "samāsāt",
+     "citation": "samāsāt",
+     "morph": "loc.sg (samāsa)",
+     "options": [
+      {
+       "gloss": "in-summary",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "gita-a00-v04": [
+    {
+     "id": "gita-a00-v04-p000",
+     "verse_id": "gita-a00-v04",
+     "verse": 4,
+     "pada_index": 0,
+     "surface": "yadyapyanyaprasaṅgeṣu",
+     "citation": "yadyapyanyaprasaṅgeṣu",
+     "morph": "loc.pl (yady api anya-prasaṅgeṣu)",
+     "options": [
+      {
+       "gloss": "although-in-other-connections",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v04-p001",
+     "verse_id": "gita-a00-v04",
+     "verse": 4,
+     "pada_index": 1,
+     "surface": "mokṣo",
+     "citation": "mokṣo",
+     "morph": "nom.sg.m (mokṣaḥ; sandhi)",
+     "options": [
+      {
+       "gloss": "liberation",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v04-p002",
+     "verse_id": "gita-a00-v04",
+     "verse": 4,
+     "pada_index": 2,
+     "surface": "nāmātra",
+     "citation": "nāmātra",
+     "morph": "indecl + adv (nāma atra)",
+     "options": [
+      {
+       "gloss": "by-name-here",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v04-p003",
+     "verse_id": "gita-a00-v04",
+     "verse": 4,
+     "pada_index": 3,
+     "surface": "gīyate",
+     "citation": "gīyate",
+     "morph": "3sg pass pres √gī",
+     "options": [
+      {
+       "gloss": "is-celebrated",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v04-p004",
+     "verse_id": "gita-a00-v04",
+     "verse": 4,
+     "pada_index": 4,
+     "surface": "tathāpi",
+     "citation": "tathāpi",
+     "morph": "adv",
+     "options": [
+      {
+       "gloss": "nevertheless",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v04-p005",
+     "verse_id": "gita-a00-v04",
+     "verse": 4,
+     "pada_index": 5,
+     "surface": "bhagavadgītāḥ",
+     "citation": "bhagavadgītāḥ",
+     "morph": "nom.sg.f (bhagavadgītāḥ)",
+     "options": [
+      {
+       "gloss": "the-Bhagavadgita",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v04-p006",
+     "verse_id": "gita-a00-v04",
+     "verse": 4,
+     "pada_index": 6,
+     "surface": "samyaktatprāptidāyikāḥ",
+     "citation": "samyaktatprāptidāyikāḥ",
+     "morph": "nom.sg.f (samyak-tat-prāpti-dāyikāḥ; cf. wisdomlib cit.)",
+     "options": [
+      {
+       "gloss": "of-true-attainment-the-giver",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "gita-a00-v05": [
+    {
+     "id": "gita-a00-v05-p000",
+     "verse_id": "gita-a00-v05",
+     "verse": 5,
+     "pada_index": 0,
+     "surface": "tāsvanyaiḥ",
+     "citation": "tāsvanyaiḥ",
+     "morph": "loc.pl + instr.pl (tāsu anyaiḥ)",
+     "options": [
+      {
+       "gloss": "in-them-by-others",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v05-p001",
+     "verse_id": "gita-a00-v05",
+     "verse": 5,
+     "pada_index": 1,
+     "surface": "prāktanairvyākhyāḥ",
+     "citation": "prāktanairvyākhyāḥ",
+     "morph": "instr.pl + nom.pl (prāktanaiḥ vyākhyāḥ fused)",
+     "options": [
+      {
+       "gloss": "by-earlier-ones-expositions",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v05-p002",
+     "verse_id": "gita-a00-v05",
+     "verse": 5,
+     "pada_index": 2,
+     "surface": "kṛtā",
+     "citation": "kṛtā",
+     "morph": "ppp nom.pl.f",
+     "options": [
+      {
+       "gloss": "were-made",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v05-p003",
+     "verse_id": "gita-a00-v05",
+     "verse": 5,
+     "pada_index": 3,
+     "surface": "yadyapi",
+     "citation": "yadyapi",
+     "morph": "conj",
+     "options": [
+      {
+       "gloss": "although",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v05-p004",
+     "verse_id": "gita-a00-v05",
+     "verse": 5,
+     "pada_index": 4,
+     "surface": "bhūyasā",
+     "citation": "bhūyasā",
+     "morph": "acc/ins (bhūyasā; print)",
+     "options": [
+      {
+       "gloss": "many",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v05-p005",
+     "verse_id": "gita-a00-v05",
+     "verse": 5,
+     "pada_index": 5,
+     "surface": "nyāyyastathāpyudyamo",
+     "citation": "nyāyyastathāpyudyamo",
+     "morph": "nom.sg.m (nyāyyaḥ tathā api udyamaḥ fused)",
+     "options": [
+      {
+       "gloss": "reasonable-yet-my-attempt",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v05-p006",
+     "verse_id": "gita-a00-v05",
+     "verse": 5,
+     "pada_index": 6,
+     "surface": "me",
+     "citation": "me",
+     "morph": "gen.sg",
+     "options": [
+      {
+       "gloss": "my",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v05-p007",
+     "verse_id": "gita-a00-v05",
+     "verse": 5,
+     "pada_index": 7,
+     "surface": "tadgūḍhārthaprakāśakaḥ",
+     "citation": "tadgūḍhārthaprakāśakaḥ",
+     "morph": "nom.sg.m (tad-gūḍha-artha-prakāśakaḥ)",
+     "options": [
+      {
+       "gloss": "revealing-its-hidden-meaning",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "gita-a00-v06": [
+    {
+     "id": "gita-a00-v06-p000",
+     "verse_id": "gita-a00-v06",
+     "verse": 6,
+     "pada_index": 0,
+     "surface": "bhaṭṭendurājādāmnāya",
+     "citation": "bhaṭṭendurājādāmnāya",
+     "morph": "abl.sg + adv (bhaṭṭa-indurājāt āmnāya)",
+     "options": [
+      {
+       "gloss": "from-the-oral-tradition-of-Bhattachenduraja",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v06-p001",
+     "verse_id": "gita-a00-v06",
+     "verse": 6,
+     "pada_index": 1,
+     "surface": "vivicya",
+     "citation": "vivicya",
+     "morph": "gerund (vi-√vic)",
+     "options": [
+      {
+       "gloss": "having-examined",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v06-p002",
+     "verse_id": "gita-a00-v06",
+     "verse": 6,
+     "pada_index": 2,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "conjunctive",
+     "options": [
+      {
+       "gloss": "also",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v06-p003",
+     "verse_id": "gita-a00-v06",
+     "verse": 6,
+     "pada_index": 3,
+     "surface": "ciraṃ",
+     "citation": "ciraṃ",
+     "morph": "acc.sg.n (adverbial)",
+     "options": [
+      {
+       "gloss": "long",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v06-p004",
+     "verse_id": "gita-a00-v06",
+     "verse": 6,
+     "pada_index": 4,
+     "surface": "dhiyā",
+     "citation": "dhiyā",
+     "morph": "inst.sg",
+     "options": [
+      {
+       "gloss": "with-thought",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v06-p005",
+     "verse_id": "gita-a00-v06",
+     "verse": 6,
+     "pada_index": 5,
+     "surface": "kṛto'bhinavaguptena",
+     "citation": "kṛto'bhinavaguptena",
+     "morph": "ppp + inst.sg (kṛtaḥ + abhinavaguptena fused)",
+     "options": [
+      {
+       "gloss": "made-by-Abhinavagupta",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v06-p006",
+     "verse_id": "gita-a00-v06",
+     "verse": 6,
+     "pada_index": 6,
+     "surface": "so'yaṃ",
+     "citation": "so'yaṃ",
+     "morph": "pron + demonstrative (saḥ ayam; sandhi)",
+     "options": [
+      {
+       "gloss": "this-here",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "gita-a00-v06-p007",
+     "verse_id": "gita-a00-v06",
+     "verse": 6,
+     "pada_index": 7,
+     "surface": "gītārthasaṃgrahaḥ",
+     "citation": "gītārthasaṃgrahaḥ",
+     "morph": "nom.sg.m",
+     "options": [
+      {
+       "gloss": "the-Gitarthasangraha",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ]
+  },
+  "argmap": {
+   "gita-a00-v01": {
+    "verse_id": "gita-a00-v01",
+    "song": "gita-a00",
+    "verse": 1,
+    "speaker": "Abhinavagupta (mangala colophon)",
+    "question": "Who triumphs, and what is he the treasury of?",
+    "premises": [
+     "He who, made of the widely flashing wheel of diverse states, comes to be the objects of experience.",
+     "Whose one is given to contemplation, thus the bond of nondifference: Śaṃbhura, woe-averting, triumphs — treasury of the lights of knowing."
+    ],
+    "inference": "The mangala invokes the knowing-treasury: the bhāva-cakra's nondifference-bond names what the work stores — bodha-bhāsās.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "gita-a00-v01",
+     "l0_ids": [
+      "gita-a00-v01-p000",
+      "gita-a00-v01-p001",
+      "gita-a00-v01-p002",
+      "gita-a00-v01-p003",
+      "gita-a00-v01-p004",
+      "gita-a00-v01-p005",
+      "gita-a00-v01-p006",
+      "gita-a00-v01-p007",
+      "gita-a00-v01-p008",
+      "gita-a00-v01-p009",
+      "gita-a00-v01-p010"
+     ]
+    },
+    "structured": true,
+    "sanskrit_sha": "6a98eb15da125792"
+   },
+   "gita-a00-v02": {
+    "verse_id": "gita-a00-v02",
+    "song": "gita-a00",
+    "verse": 2,
+    "speaker": "Abhinavagupta (mangala colophon)",
+    "question": "Why is the Gītā held supreme among expositions?",
+    "premises": [
+     "By the sage Dvaipāyana this scripture was expounded, measured by hundreds of thousands; here liberation is established as the fruit.",
+     "Other dharma-and-rest of it is recited to nourish that fruit [mādhānyataḥ: LIVE fork, grounds in L0]."
+    ],
+    "inference": "The Gītārthasaṃgraha claims prāmāṇya through Vyāsa-lineage, sahasraśata-measure, and mokṣa-as-phala; the forked ablative's sense-slot stays open (honest gap).",
+    "uncertainties": [
+     "5 LIVE L0 forks in this unit-set (see L0 grounds): yadekamayabhāvanāvaśata, etyabhedānvayaṃ, śaṃbhuraśivāpaho, mādhānyataḥ (prime), iyānprathiḥ — print corrupt per Ingalls; Gita Supersite + Sharma 1983 pending"
+    ],
+    "option_choices": [
+     {
+      "l0_id": "gita-a00-v02-p007",
+      "chosen_index": 0,
+      "rejected": [
+       "than-the-foolish",
+       "from-fools"
+      ],
+      "reason": "Honest gap: mādhānyataḥ unattested; neutral surface held (no gloss invented) pending Gita Supersite collation + Sharma 1983 emendations — comparative/source-emends recorded as rejected alternatives, not chosen."
+     }
+    ],
+    "traces": {
+     "t1_verse": "gita-a00-v02",
+     "l0_ids": [
+      "gita-a00-v02-p000",
+      "gita-a00-v02-p001",
+      "gita-a00-v02-p002",
+      "gita-a00-v02-p003",
+      "gita-a00-v02-p004",
+      "gita-a00-v02-p005",
+      "gita-a00-v02-p006",
+      "gita-a00-v02-p007",
+      "gita-a00-v02-p008",
+      "gita-a00-v02-p009",
+      "gita-a00-v02-p010",
+      "gita-a00-v02-p011",
+      "gita-a00-v02-p012"
+     ]
+    },
+    "structured": true,
+    "sanskrit_sha": "6a98eb15da125792"
+   },
+   "gita-a00-v03": {
+    "verse_id": "gita-a00-v03",
+    "song": "gita-a00",
+    "verse": 3,
+    "speaker": "Abhinavagupta (mangala colophon)",
+    "question": "What is liberation named as?",
+    "premises": [
+     "Liberation by name is complete-differentiation in form, all-knowing, auspicious-natured, free from need, in Bhagavān the Lord, ever-risen.",
+     "Dissolution — this much [prathiḥ: LIVE fork] — in summary."
+    ],
+    "inference": "Mokṣa is defined by compound-nature (saṃskāra-svabhāva, sarvajña, nityodita) and reduced to laya in samāsa — the forked 'this-much-toward-it' held open.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "gita-a00-v03",
+     "l0_ids": [
+      "gita-a00-v03-p000",
+      "gita-a00-v03-p001",
+      "gita-a00-v03-p002",
+      "gita-a00-v03-p003",
+      "gita-a00-v03-p004",
+      "gita-a00-v03-p005",
+      "gita-a00-v03-p006",
+      "gita-a00-v03-p007",
+      "gita-a00-v03-p008",
+      "gita-a00-v03-p009",
+      "gita-a00-v03-p010"
+     ]
+    },
+    "structured": true,
+    "sanskrit_sha": "6a98eb15da125792"
+   },
+   "gita-a00-v04": {
+    "verse_id": "gita-a00-v04",
+    "song": "gita-a00",
+    "verse": 4,
+    "speaker": "Abhinavagupta (mangala colophon)",
+    "question": "How does the Gītā compare to other mokṣa-celebrations?",
+    "premises": [
+     "Although liberation by name is celebrated in other connections, yet the Bhagavadgītā is the giver of true attainment."
+    ],
+    "inference": "Other texts sing mokṣa incidentally; the Gītā gives samyak-prāpti — the supremacy claim is exclusive (samyak retained).",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "gita-a00-v04",
+     "l0_ids": [
+      "gita-a00-v04-p000",
+      "gita-a00-v04-p001",
+      "gita-a00-v04-p002",
+      "gita-a00-v04-p003",
+      "gita-a00-v04-p004",
+      "gita-a00-v04-p005",
+      "gita-a00-v04-p006"
+     ]
+    },
+    "structured": true,
+    "sanskrit_sha": "6a98eb15da125792"
+   },
+   "gita-a00-v05": {
+    "verse_id": "gita-a00-v05",
+    "song": "gita-a00",
+    "verse": 5,
+    "speaker": "Abhinavagupta (mangala colophon)",
+    "question": "Why write another exposition?",
+    "premises": [
+     "Earlier ones made many expositions among them, yet this attempt is reasonable — revealing its hidden meaning."
+    ],
+    "inference": "The udyama is justified by gūḍhārtha-prakāśana: prior vyākhyās are many, this one discloses the hidden sense (bhāṣya not prakaraṇa).",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "gita-a00-v05",
+     "l0_ids": [
+      "gita-a00-v05-p000",
+      "gita-a00-v05-p001",
+      "gita-a00-v05-p002",
+      "gita-a00-v05-p003",
+      "gita-a00-v05-p004",
+      "gita-a00-v05-p005",
+      "gita-a00-v05-p006",
+      "gita-a00-v05-p007"
+     ]
+    },
+    "structured": true,
+    "sanskrit_sha": "6a98eb15da125792"
+   },
+   "gita-a00-v06": {
+    "verse_id": "gita-a00-v06",
+    "song": "gita-a00",
+    "verse": 6,
+    "speaker": "Abhinavagupta (mangala colophon)",
+    "question": "What is this work's colophon?",
+    "premises": [
+     "From Bhaṭṭa Indurāja's oral tradition, examined long with thought, made by Abhinavagupta — this here is the Gītārthasaṃgraha."
+    ],
+    "inference": "The verse seals authorship: āmnāya from Bhaṭṭa Indurāja (his Pratyabhijñā teacher), long vivicana, kṛta by Abhinavagupta — the name declared.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "gita-a00-v06",
+     "l0_ids": [
+      "gita-a00-v06-p000",
+      "gita-a00-v06-p001",
+      "gita-a00-v06-p002",
+      "gita-a00-v06-p003",
+      "gita-a00-v06-p004",
+      "gita-a00-v06-p005",
+      "gita-a00-v06-p006",
+      "gita-a00-v06-p007"
+     ]
+    },
+    "structured": true,
+    "sanskrit_sha": "6a98eb15da125792"
+   }
+  },
+  "l2": {
+   "gita-a00-v01": {
+    "verse_id": "gita-a00-v01",
+    "song": "gita-a00",
+    "verse": 1,
+    "plain_english": "He who, made of the widely flashing wheel of diverse states, comes to be the objects of experience — whose one, given to contemplation, is thus the bond of nondifference: He, Śaṃbhura, woe-averting, triumphs — treasury of the lights of knowing.",
+    "sanskrit_cite": "ya eṣa vitatasphuradvividhabhāvacakrātmakaḥ parasparavibhedavānviṣayatāmupāgacchati | yadekamayabhāvanāvaśata etyabhedānvayaṃ sa śaṃbhuraśivāpaho jayati bodhabhāsāṃ nidhiḥ || 1-1 ||",
+    "l0_ids": [
+     "gita-a00-v01-p000",
+     "gita-a00-v01-p001",
+     "gita-a00-v01-p002",
+     "gita-a00-v01-p003",
+     "gita-a00-v01-p004",
+     "gita-a00-v01-p005",
+     "gita-a00-v01-p006",
+     "gita-a00-v01-p007",
+     "gita-a00-v01-p008",
+     "gita-a00-v01-p009",
+     "gita-a00-v01-p010"
+    ],
+    "supplied": []
+   },
+   "gita-a00-v02": {
+    "verse_id": "gita-a00-v02",
+    "song": "gita-a00",
+    "verse": 2,
+    "plain_english": "By the sage Dvaipāyana was this scripture expounded, measured by hundreds of thousands; here liberation is established as the fruit — and mādhānyataḥ [L0-fork], its other dharma-and-rest is recited to nourish it.",
+    "sanskrit_cite": "dvaipāyanena muninā yadidaṃ vyadhāyi sāstraṃ sahasraśatasaṃmitamatra mokṣaḥ | mādhānyataḥ phalatayā prathitastadanya- dharmādi tasya paripoṣayituṃ pragītam || 1-2 ||",
+    "l0_ids": [
+     "gita-a00-v02-p000",
+     "gita-a00-v02-p001",
+     "gita-a00-v02-p002",
+     "gita-a00-v02-p003",
+     "gita-a00-v02-p004",
+     "gita-a00-v02-p005",
+     "gita-a00-v02-p006",
+     "gita-a00-v02-p007",
+     "gita-a00-v02-p008",
+     "gita-a00-v02-p009",
+     "gita-a00-v02-p010",
+     "gita-a00-v02-p011",
+     "gita-a00-v02-p012"
+    ],
+    "supplied": []
+   },
+   "gita-a00-v03": {
+    "verse_id": "gita-a00-v03",
+    "song": "gita-a00",
+    "verse": 3,
+    "plain_english": "Liberation, by name, complete-differentiation in form, all-knowing, auspicious-natured in all instruments and more — free from need, in Bhagavān the Lord, ever-risen: dissolution — this much, toward it [prathiḥ L0-fork], in summary.",
+    "sanskrit_cite": "mokṣaśca nāma sakalāpravibhāgarūpe sarvajñasarvakaraṇādiśubhasvabhāve | ākāṅkṣya virahite bhagavatyadhīśe nityodite laya iyānprathiḥ samāsāt || 1-3 ||",
+    "l0_ids": [
+     "gita-a00-v03-p000",
+     "gita-a00-v03-p001",
+     "gita-a00-v03-p002",
+     "gita-a00-v03-p003",
+     "gita-a00-v03-p004",
+     "gita-a00-v03-p005",
+     "gita-a00-v03-p006",
+     "gita-a00-v03-p007",
+     "gita-a00-v03-p008",
+     "gita-a00-v03-p009",
+     "gita-a00-v03-p010"
+    ],
+    "supplied": []
+   },
+   "gita-a00-v04": {
+    "verse_id": "gita-a00-v04",
+    "song": "gita-a00",
+    "verse": 4,
+    "plain_english": "Although liberation by name is celebrated in other connections, yet the Bhagavadgītā is the giver of true attainment.",
+    "sanskrit_cite": "yadyapyanyaprasaṅgeṣu mokṣo nāmātra gīyate | tathāpi bhagavadgītāḥ samyaktatprāptidāyikāḥ || 1-4 ||",
+    "l0_ids": [
+     "gita-a00-v04-p000",
+     "gita-a00-v04-p001",
+     "gita-a00-v04-p002",
+     "gita-a00-v04-p003",
+     "gita-a00-v04-p004",
+     "gita-a00-v04-p005",
+     "gita-a00-v04-p006"
+    ],
+    "supplied": []
+   },
+   "gita-a00-v05": {
+    "verse_id": "gita-a00-v05",
+    "song": "gita-a00",
+    "verse": 5,
+    "plain_english": "In them, although earlier ones made many expositions, yet my attempt too is reasonable — revealing its hidden meaning.",
+    "sanskrit_cite": "tāsvanyaiḥ prāktanairvyākhyāḥ kṛtā yadyapi bhūyasā | nyāyyastathāpyudyamo me tadgūḍhārthaprakāśakaḥ || 1-5 ||",
+    "l0_ids": [
+     "gita-a00-v05-p000",
+     "gita-a00-v05-p001",
+     "gita-a00-v05-p002",
+     "gita-a00-v05-p003",
+     "gita-a00-v05-p004",
+     "gita-a00-v05-p005",
+     "gita-a00-v05-p006",
+     "gita-a00-v05-p007"
+    ],
+    "supplied": []
+   },
+   "gita-a00-v06": {
+    "verse_id": "gita-a00-v06",
+    "song": "gita-a00",
+    "verse": 6,
+    "plain_english": "From the oral tradition of Bhaṭṭa Indurāja, examined long with thought, made by Abhinavagupta — this here is the Gītārthasaṃgraha.",
+    "sanskrit_cite": "bhaṭṭendurājādāmnāya vivicya ca ciraṃ dhiyā | kṛto'bhinavaguptena so'yaṃ gītārthasaṃgrahaḥ || 1-6 ||",
+    "l0_ids": [
+     "gita-a00-v06-p000",
+     "gita-a00-v06-p001",
+     "gita-a00-v06-p002",
+     "gita-a00-v06-p003",
+     "gita-a00-v06-p004",
+     "gita-a00-v06-p005",
+     "gita-a00-v06-p006",
+     "gita-a00-v06-p007"
+    ],
+    "supplied": []
+   }
+  },
+  "c1": {
+   "gita-a00": {
+    "song": "gita-a00",
+    "essence": [
+     "The bhāva-cakra's nondifference-bond names the work's treasury: lights of knowing, triumphed by woe-averting Śaṃbhura.",
+     "Vyāsa-lineage, hundreds-of-thousands measure, mokṣa-as-fruit: the Gītārthasaṃgraha's prāmāṇya is claimed here [one LIVE fork, grounds in L0].",
+     "Liberation named: complete-differentiation-form, all-knowing, need-free, ever-risen in Bhagavān — laya, this much, in summary [one LIVE fork].",
+     "Other texts sing mokṣa incidentally; the Bhagavadgītā gives true attainment.",
+     "Many earlier expositions; this attempt reasonable — revealing the hidden meaning.",
+     "Bhaṭṭa Indurāja's tradition, long-examined, made by Abhinavagupta: the name declared."
+    ],
+    "essence_source": "manual",
+    "rasa": {
+     "dominant": "adbhuta-śānta of the treasury opened (wonder at the work's own store)",
+     "sthayibhava": "vismaya-śama (wonder settling into colophon-seal)",
+     "justification": "The verses wonder their own contents — what is stored, by what authority, named how — then settle into signature; relish is self-declaration, not argument."
+    },
+    "renders": {
+     "standard": {
+      "sections": {
+       "SUMMARY": "The bhāva-cakra's nondifference-bond names the work's treasury: lights of knowing, triumphed by woe-averting Śaṃbhura. Vyāsa-lineage, hundreds-of-thousands measure, mokṣa-as-fruit: the Gītārthasaṃgraha's prāmāṇya is claimed here [one LIVE fork, grounds in L0]. Liberation named: complete-differentiation-form, all-knowing, need-free, ever-risen in Bhagavān — laya, this much, in summary [one LIVE fork]. Other texts sing mokṣa incidentally; the Bhagavadgītā gives true attainment. Many earlier expositions; this attempt reasonable — revealing the hidden meaning. Bhaṭṭa Indurāja's tradition, long-examined, made by Abhinavagupta: the name declared.",
+       "FUNCTION": "Opens the work with a six-verse mangala: invocation, prāmāṇya-claim, mokṣa-definition, Gītā-supremacy, exculpation-of-effort, and the signed colophon.",
+       "KEY TERMS": "bhāva-cakra (diverse-state wheel as the text's own image); bodha-bhāsā (lights of knowing); prāmāṇya (authority claim); saṃskāra-svabhāva (complete-differentiation form); gūḍhārtha-prakāśaka (hidden-meaning revealer); āmnāya (oral tradition from Bhaṭṭendurāja).",
+       "LOCAL CONTEXT": "The six benedictory verses precede adhyāya 1; they set the work's voice (colophon-as-verse) and its authority-claim before any Gītā commentary begins.",
+       "BOUNDARY": "Five L0 forks held open (mādhānyataḥ prime) — honest gaps pending Supersite/Sharma collation; no emendation smuggled into the song.",
+       "EXPLANATION": "The mangala works in six moves: what the work stores (knowing-lights), why it may speak (Vyāsa-lineage + measure + fruit), what mokṣa is (compounds → laya), why this text above others (samyak-prāpti), why another effort at all (gūḍhārtha), and who made it (āmnāya + name). The corrupted-print tokens stay forked — the claims they carry (authority, summary, treasury) do not depend on resolving them.",
+       "RELATED": "Sharma 1983 (English translation, emendations) + Gita Supersite (IIT Kanpur) as future collation/witness; Ingalls preface on print corruption; qa NEEDS_WITNESS until Sharma quoted."
+      }
+     }
+    }
+   }
+  },
+  "l3": {
+   "gita-a00-v01": {
+    "verse_id": "gita-a00-v01",
+    "song": "gita-a00",
+    "verse": 1,
+    "lines": [
+     "The wheel of diverse states, widely flashing,",
+     "made of its own mutual-difference —",
+     "comes to be the objects of experience:",
+     "whose one, given to contemplation,",
+     "is thus the bond of nondifference —",
+     "Śaṃbhura, woe-averting, triumphs:",
+     "treasury of the lights of knowing."
+    ],
+    "sanskrit_cite": "ya eṣa vitatasphuradvividhabhāvacakrātmakaḥ parasparavibhedavānviṣayatāmupāgacchati yadekamayabhāvanāvaśata etyabhedānvayaṃ sa śaṃbhuraśivāpaho jayati bodhabhāsāṃ nidhiḥ",
+    "l0_ids": [
+     "gita-a00-v01-p000",
+     "gita-a00-v01-p001",
+     "gita-a00-v01-p002",
+     "gita-a00-v01-p003",
+     "gita-a00-v01-p004",
+     "gita-a00-v01-p005",
+     "gita-a00-v01-p006",
+     "gita-a00-v01-p007",
+     "gita-a00-v01-p008",
+     "gita-a00-v01-p009",
+     "gita-a00-v01-p010"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": [
+     "prathiḥ + bhāvanāvaśata + ety + śivāpaha: LIVE forks held (grounds in L0)"
+    ]
+   },
+   "gita-a00-v02": {
+    "verse_id": "gita-a00-v02",
+    "song": "gita-a00",
+    "verse": 2,
+    "lines": [
+     "By the sage Dvaipāyana this scripture",
+     "was expounded — measured by hundreds of thousands;",
+     "here liberation stands as the fruit —",
+     "and its other dharma-and-rest [mādhānyataḥ held]",
+     "is recited to nourish that."
+    ],
+    "sanskrit_cite": "dvaipāyanena muninā yadidaṃ vyadhāyi sāstraṃ sahasraśatasaṃmitamatra mokṣaḥ mādhānyataḥ phalatayā prathitastadanya- dharmādi tasya paripoṣayituṃ pragītam",
+    "l0_ids": [
+     "gita-a00-v02-p000",
+     "gita-a00-v02-p001",
+     "gita-a00-v02-p002",
+     "gita-a00-v02-p003",
+     "gita-a00-v02-p004",
+     "gita-a00-v02-p005",
+     "gita-a00-v02-p006",
+     "gita-a00-v02-p007",
+     "gita-a00-v02-p008",
+     "gita-a00-v02-p009",
+     "gita-a00-v02-p010",
+     "gita-a00-v02-p011",
+     "gita-a00-v02-p012"
+    ],
+    "essence_maps": [
+     1
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": [
+     "mādhānyataḥ LIVE fork: neutral surface held (grounds in L0 + argmap option_choices); no gloss in song"
+    ]
+   },
+   "gita-a00-v03": {
+    "verse_id": "gita-a00-v03",
+    "song": "gita-a00",
+    "verse": 3,
+    "lines": [
+     "Liberation, by name, complete-differentiation-form,",
+     "all-knowing, auspicious-natured, need-free,",
+     "ever-risen in Bhagavān the Lord:",
+     "dissolution — this much [prathiḥ held] —",
+     "in summary."
+    ],
+    "sanskrit_cite": "mokṣaśca nāma sakalāpravibhāgarūpe sarvajñasarvakaraṇādiśubhasvabhāve ākāṅkṣya virahite bhagavatyadhīśe nityodite laya iyānprathiḥ samāsāt",
+    "l0_ids": [
+     "gita-a00-v03-p000",
+     "gita-a00-v03-p001",
+     "gita-a00-v03-p002",
+     "gita-a00-v03-p003",
+     "gita-a00-v03-p004",
+     "gita-a00-v03-p005",
+     "gita-a00-v03-p006",
+     "gita-a00-v03-p007",
+     "gita-a00-v03-p008",
+     "gita-a00-v03-p009",
+     "gita-a00-v03-p010"
+    ],
+    "essence_maps": [
+     2
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": [
+     "prathiḥ + bhāvanāvaśata + ety + śivāpaha: LIVE forks held (grounds in L0)"
+    ]
+   },
+   "gita-a00-v04": {
+    "verse_id": "gita-a00-v04",
+    "song": "gita-a00",
+    "verse": 4,
+    "lines": [
+     "Other connections celebrate liberation by name;",
+     "yet this Bhagavadgītā gives true attainment."
+    ],
+    "sanskrit_cite": "yadyapyanyaprasaṅgeṣu mokṣo nāmātra gīyate tathāpi bhagavadgītāḥ samyaktatprāptidāyikāḥ",
+    "l0_ids": [
+     "gita-a00-v04-p000",
+     "gita-a00-v04-p001",
+     "gita-a00-v04-p002",
+     "gita-a00-v04-p003",
+     "gita-a00-v04-p004",
+     "gita-a00-v04-p005",
+     "gita-a00-v04-p006"
+    ],
+    "essence_maps": [
+     3
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "gita-a00-v05": {
+    "verse_id": "gita-a00-v05",
+    "song": "gita-a00",
+    "verse": 5,
+    "lines": [
+     "Earlier ones made many expositions among them —",
+     "yet this attempt too is reasonable,",
+     "revealing its hidden meaning."
+    ],
+    "sanskrit_cite": "tāsvanyaiḥ prāktanairvyākhyāḥ kṛtā yadyapi bhūyasā nyāyyastathāpyudyamo me tadgūḍhārthaprakāśakaḥ",
+    "l0_ids": [
+     "gita-a00-v05-p000",
+     "gita-a00-v05-p001",
+     "gita-a00-v05-p002",
+     "gita-a00-v05-p003",
+     "gita-a00-v05-p004",
+     "gita-a00-v05-p005",
+     "gita-a00-v05-p006",
+     "gita-a00-v05-p007"
+    ],
+    "essence_maps": [
+     4
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "gita-a00-v06": {
+    "verse_id": "gita-a00-v06",
+    "song": "gita-a00",
+    "verse": 6,
+    "lines": [
+     "From Bhaṭṭa Indurāja's oral tradition,",
+     "examined long with thought, made by Abhinavagupta:",
+     "this here is the Gītārthasaṃgraha."
+    ],
+    "sanskrit_cite": "bhaṭṭendurājādāmnāya vivicya ca ciraṃ dhiyā kṛto'bhinavaguptena so'yaṃ gītārthasaṃgrahaḥ",
+    "l0_ids": [
+     "gita-a00-v06-p000",
+     "gita-a00-v06-p001",
+     "gita-a00-v06-p002",
+     "gita-a00-v06-p003",
+     "gita-a00-v06-p004",
+     "gita-a00-v06-p005",
+     "gita-a00-v06-p006",
+     "gita-a00-v06-p007"
+    ],
+    "essence_maps": [
+     5
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   }
+  },
+  "l4": {
+   "gita-a00-v01": {
+    "verse_id": "gita-a00-v01",
+    "song": "gita-a00",
+    "verse": 1,
+    "lines": [
+     "The wheel of diverse states, widely flashing,",
+     "made of its own mutual-difference —",
+     "comes to be the objects of experience:",
+     "whose one, given to contemplation,",
+     "is thus the bond of nondifference —",
+     "Śaṃbhura, woe-averting, triumphs:",
+     "treasury of the lights of knowing."
+    ],
+    "sanskrit_cite": "ya eṣa vitatasphuradvividhabhāvacakrātmakaḥ parasparavibhedavānviṣayatāmupāgacchati yadekamayabhāvanāvaśata etyabhedānvayaṃ sa śaṃbhuraśivāpaho jayati bodhabhāsāṃ nidhiḥ",
+    "l0_ids": [
+     "gita-a00-v01-p000",
+     "gita-a00-v01-p001",
+     "gita-a00-v01-p002",
+     "gita-a00-v01-p003",
+     "gita-a00-v01-p004",
+     "gita-a00-v01-p005",
+     "gita-a00-v01-p006",
+     "gita-a00-v01-p007",
+     "gita-a00-v01-p008",
+     "gita-a00-v01-p009",
+     "gita-a00-v01-p010"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "form": "septet",
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": [
+     "prathiḥ + bhāvanāvaśata + ety + śivāpaha: LIVE forks held (grounds in L0)"
+    ]
+   },
+   "gita-a00-v02": {
+    "verse_id": "gita-a00-v02",
+    "song": "gita-a00",
+    "verse": 2,
+    "lines": [
+     "By the sage Dvaipāyana this scripture",
+     "was expounded — measured by hundreds of thousands;",
+     "here liberation stands as the fruit —",
+     "and its other dharma-and-rest [mādhānyataḥ held]",
+     "is recited to nourish that."
+    ],
+    "sanskrit_cite": "dvaipāyanena muninā yadidaṃ vyadhāyi sāstraṃ sahasraśatasaṃmitamatra mokṣaḥ mādhānyataḥ phalatayā prathitastadanya- dharmādi tasya paripoṣayituṃ pragītam",
+    "l0_ids": [
+     "gita-a00-v02-p000",
+     "gita-a00-v02-p001",
+     "gita-a00-v02-p002",
+     "gita-a00-v02-p003",
+     "gita-a00-v02-p004",
+     "gita-a00-v02-p005",
+     "gita-a00-v02-p006",
+     "gita-a00-v02-p007",
+     "gita-a00-v02-p008",
+     "gita-a00-v02-p009",
+     "gita-a00-v02-p010",
+     "gita-a00-v02-p011",
+     "gita-a00-v02-p012"
+    ],
+    "essence_maps": [
+     1
+    ],
+    "form": "pentet",
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": [
+     "mādhānyataḥ LIVE fork: neutral surface held (grounds in L0 + argmap option_choices); no gloss in song"
+    ]
+   },
+   "gita-a00-v03": {
+    "verse_id": "gita-a00-v03",
+    "song": "gita-a00",
+    "verse": 3,
+    "lines": [
+     "Liberation, by name, complete-differentiation-form,",
+     "all-knowing, auspicious-natured, need-free,",
+     "ever-risen in Bhagavān the Lord:",
+     "dissolution — this much [prathiḥ held] —",
+     "in summary."
+    ],
+    "sanskrit_cite": "mokṣaśca nāma sakalāpravibhāgarūpe sarvajñasarvakaraṇādiśubhasvabhāve ākāṅkṣya virahite bhagavatyadhīśe nityodite laya iyānprathiḥ samāsāt",
+    "l0_ids": [
+     "gita-a00-v03-p000",
+     "gita-a00-v03-p001",
+     "gita-a00-v03-p002",
+     "gita-a00-v03-p003",
+     "gita-a00-v03-p004",
+     "gita-a00-v03-p005",
+     "gita-a00-v03-p006",
+     "gita-a00-v03-p007",
+     "gita-a00-v03-p008",
+     "gita-a00-v03-p009",
+     "gita-a00-v03-p010"
+    ],
+    "essence_maps": [
+     2
+    ],
+    "form": "quintet",
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": [
+     "prathiḥ + bhāvanāvaśata + ety + śivāpaha: LIVE forks held (grounds in L0)"
+    ]
+   },
+   "gita-a00-v04": {
+    "verse_id": "gita-a00-v04",
+    "song": "gita-a00",
+    "verse": 4,
+    "lines": [
+     "Other connections celebrate liberation by name;",
+     "yet this Bhagavadgītā gives true attainment."
+    ],
+    "sanskrit_cite": "yadyapyanyaprasaṅgeṣu mokṣo nāmātra gīyate tathāpi bhagavadgītāḥ samyaktatprāptidāyikāḥ",
+    "l0_ids": [
+     "gita-a00-v04-p000",
+     "gita-a00-v04-p001",
+     "gita-a00-v04-p002",
+     "gita-a00-v04-p003",
+     "gita-a00-v04-p004",
+     "gita-a00-v04-p005",
+     "gita-a00-v04-p006"
+    ],
+    "essence_maps": [
+     3
+    ],
+    "form": "couplet",
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "gita-a00-v05": {
+    "verse_id": "gita-a00-v05",
+    "song": "gita-a00",
+    "verse": 5,
+    "lines": [
+     "Earlier ones made many expositions among them —",
+     "yet this attempt too is reasonable,",
+     "revealing its hidden meaning."
+    ],
+    "sanskrit_cite": "tāsvanyaiḥ prāktanairvyākhyāḥ kṛtā yadyapi bhūyasā nyāyyastathāpyudyamo me tadgūḍhārthaprakāśakaḥ",
+    "l0_ids": [
+     "gita-a00-v05-p000",
+     "gita-a00-v05-p001",
+     "gita-a00-v05-p002",
+     "gita-a00-v05-p003",
+     "gita-a00-v05-p004",
+     "gita-a00-v05-p005",
+     "gita-a00-v05-p006",
+     "gita-a00-v05-p007"
+    ],
+    "essence_maps": [
+     4
+    ],
+    "form": "triplet",
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "gita-a00-v06": {
+    "verse_id": "gita-a00-v06",
+    "song": "gita-a00",
+    "verse": 6,
+    "lines": [
+     "From Bhaṭṭa Indurāja's oral tradition,",
+     "examined long with thought, made by Abhinavagupta:",
+     "this here is the Gītārthasaṃgraha."
+    ],
+    "sanskrit_cite": "bhaṭṭendurājādāmnāya vivicya ca ciraṃ dhiyā kṛto'bhinavaguptena so'yaṃ gītārthasaṃgrahaḥ",
+    "l0_ids": [
+     "gita-a00-v06-p000",
+     "gita-a00-v06-p001",
+     "gita-a00-v06-p002",
+     "gita-a00-v06-p003",
+     "gita-a00-v06-p004",
+     "gita-a00-v06-p005",
+     "gita-a00-v06-p006",
+     "gita-a00-v06-p007"
+    ],
+    "essence_maps": [
+     5
+    ],
+    "form": "triplet",
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   }
+  },
+  "c2": {}
+ },
+ "source_verses": {
+  "gita-a00-v01": {
+   "text": "### Provenance: Muktabodha M00244 (Laksmana Raina / Lakshman Joo ed., Kashmir Pratap Steam Press 1933) · CC BY-NC 4.0 ### Source file: MUKTABODHA-LIBRARY-IAST/bhagavadgItA-M00244-IAST.txt (IAST transliteration, research/education use; respect licence) ### Vendored: site/data/sanskrit/gitarthasangraha.txt · Abhinavagupta Gitarthasangraha P0 (longer work: translate later) ### NOTE: IAST transliteration (not Devanagari). Fetch date 2026-11-04. #################################################### MUKTABODHA INDOLOGICAL RESEARCH INSTITUTE Use of this material (e-texts) is covered by Creative Commons license BY-NC 4.0 Catalog number: M00244 Uniform title: bhagavadgītā Main title: bhagavadgītārthasaṃgraha Secondary title: Bhagavadgīta with the Commentary of Abhinavagupta Commentator : abhinavagupta Editor : lakṣmaṇa ṛaina Brahmacārī Description: The Bhagavadgītā with the commentary of Abhinavagupta. Edited by Lakṣmaṇa Raina Brahmacārī (Laksman Joo). Notes: E-texts entered by the staff of Muktabodha under the direction of Mark S. G. Dyczkowski. Revision 0: February 05, 2012 . Publisher : Kashmiri Pratap Steam Press Publication year : 1933 Publication city : Shrinigar Publication country : India #################################################### gītārthasaṃgraha ya eṣa vitatasphuradvividhabhāvacakrātmakaḥ parasparavibhedavānviṣayatāmupāgacchati | yadekamayabhāvanāvaśata etyabhedānvayaṃ sa śaṃbhuraśivāpaho jayati bodhabhāsāṃ nidhiḥ || 1-1 ||",
+   "source_file": "translation-work/gitarthasangraha/source/edition.txt",
+   "source_sha256": "4da9deb9a46b2db9c4c1218b48797276496a6a9c14427293a537a4e77c4a857a",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "gita-a00-v02": {
+   "text": "dvaipāyanena muninā yadidaṃ vyadhāyi sāstraṃ sahasraśatasaṃmitamatra mokṣaḥ | mādhānyataḥ phalatayā prathitastadanya- dharmādi tasya paripoṣayituṃ pragītam || 1-2 ||",
+   "source_file": "translation-work/gitarthasangraha/source/edition.txt",
+   "source_sha256": "4da9deb9a46b2db9c4c1218b48797276496a6a9c14427293a537a4e77c4a857a",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "gita-a00-v03": {
+   "text": "mokṣaśca nāma sakalāpravibhāgarūpe sarvajñasarvakaraṇādiśubhasvabhāve | ākāṅkṣya virahite bhagavatyadhīśe nityodite laya iyānprathiḥ samāsāt || 1-3 ||",
+   "source_file": "translation-work/gitarthasangraha/source/edition.txt",
+   "source_sha256": "4da9deb9a46b2db9c4c1218b48797276496a6a9c14427293a537a4e77c4a857a",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "gita-a00-v04": {
+   "text": "yadyapyanyaprasaṅgeṣu mokṣo nāmātra gīyate | tathāpi bhagavadgītāḥ samyaktatprāptidāyikāḥ || 1-4 ||",
+   "source_file": "translation-work/gitarthasangraha/source/edition.txt",
+   "source_sha256": "4da9deb9a46b2db9c4c1218b48797276496a6a9c14427293a537a4e77c4a857a",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "gita-a00-v05": {
+   "text": "tāsvanyaiḥ prāktanairvyākhyāḥ kṛtā yadyapi bhūyasā | nyāyyastathāpyudyamo me tadgūḍhārthaprakāśakaḥ || 1-5 ||",
+   "source_file": "translation-work/gitarthasangraha/source/edition.txt",
+   "source_sha256": "4da9deb9a46b2db9c4c1218b48797276496a6a9c14427293a537a4e77c4a857a",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "gita-a00-v06": {
+   "text": "bhaṭṭendurājādāmnāya vivicya ca ciraṃ dhiyā | kṛto'bhinavaguptena so'yaṃ gītārthasaṃgrahaḥ || 1-6 ||",
+   "source_file": "translation-work/gitarthasangraha/source/edition.txt",
+   "source_sha256": "4da9deb9a46b2db9c4c1218b48797276496a6a9c14427293a537a4e77c4a857a",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  }
+ },
+ "l4_craft": {
+  "gita-a00-v01": [
+   {
+    "file": "gitarthasangraha/L4-gita-a00-v01.DRAFT.json",
+    "file_sha256": "f6613cc62b9cf181cf9d96e5238b3bc8c0ab00bd5da2a432f1fae65f7709ba54",
+    "l4_sha256": "0cd5509b775b8602941d31831ddc0a630e9334b85fe98d1ba0fa8f6402d0dc28",
+    "notes": {
+     "craft_notes": "Sthāyin: the treasury invoked — FIRST verse: house voice (owner verdict required). Sanskrit-first: vitatasphuradvividhabhāva-cakra-ātmakaḥ kept compound; saṃbhura-śivāpaha kept with LIVE-fork note (mangala valence chosen); bodha-bhāsā-nidhi kept the store-name. Rows: 2 (long compound spilling), 7 (no vocative — praise without address, the work praises itself first), 1 ('treasury of the lights of knowing' closes — nidhi end-weight). Close: 'treasury of the lights of knowing.' Rejected: glossing śivāpaha — killed: LIVE fork holds (grounds in L0), song keeps the chosen reading only; 'flashing-diverse-wheel' reorder — kept the compound whole down two lines.",
+     "reads_against": {
+      "argmap": "Who triumphs, and what is he the treasury of? → The mangala invokes the knowing-treasury: the bhāva-cakra's nondifference-bond names what the work stores — bodha-bhāsās.",
+      "c1_essence": [
+       "The bhāva-cakra's nondifference-bond names the work's treasury: lights of knowing, triumphed by woe-averting Śaṃbhura."
+      ],
+      "c1_rasa": "adbhuta-śānta of the treasury opened (wonder at the work's own store)"
+     }
+    }
+   }
+  ],
+  "gita-a00-v02": [
+   {
+    "file": "gitarthasangraha/L4-gita-a00-v02.DRAFT.json",
+    "file_sha256": "3de1427e4331823d1921dc6f8232fceb627d4b19754403dddd28d72125b7f2d4",
+    "l4_sha256": "9378e9a1961daa552702c94106460a8cd18941150041bbe0810f2afb23f93a77",
+    "notes": {
+     "craft_notes": "Sthāyin: the prāmāṇya-claim — lineage, measure, fruit. Sanskrit-first: dvaipāyana-muninā kept the lineage-instrument; sahasraśatā-sammitam kept the measure; mādhānyataḥ kept surface-only (LIVE-PRIME fork — neutral, recorded, no gloss invented). Rows: 9 (lineage/measure/fruit roll), 1 ('is recited to nourish that' closes — pragītam end-weight). Close: 'is recited to nourish that.' Rejected: inventing a gloss for mādhānyataḥ — killed: honest-gap (L0 three-candidate record); dropping the forked word — killed: coverage (every token must surface).",
+     "reads_against": {
+      "argmap": "Why is the Gītā held supreme among expositions? → The Gītārthasaṃgraha claims prāmāṇya through Vyāsa-lineage, sahasraśata-measure, and mokṣa-as-phala; the forked ablative's sense-slot stays open (honest gap).",
+      "c1_essence": [
+       "Vyāsa-lineage, hundreds-of-thousands measure, mokṣa-as-fruit: the Gītārthasaṃgraha's prāmāṇya is claimed here [one LIVE fork, grounds in L0]."
+      ],
+      "c1_rasa": "adbhuta-śānta of the treasury opened (wonder at the work's own store)"
+     }
+    }
+   }
+  ],
+  "gita-a00-v03": [
+   {
+    "file": "gitarthasangraha/L4-gita-a00-v03.DRAFT.json",
+    "file_sha256": "5c9fb41429e430381056d9983216749f591872f58206e82740c0a98ceb6a6e13",
+    "l4_sha256": "cb20b67f670a69a15e4d9cfeeb4036f641aee2a864ce6bb9ce0ca3e6ab66aa24",
+    "notes": {
+     "craft_notes": "Sthāyin: mokṣa defined then summarized. Sanskrit-first: sakala-pravibhāga-rūpe + sarvajña-svabhāve + nityodita kept the compound-definition stack; iyān-prathiḥ kept surface (LIVE fork); laya kept the reduction. Rows: 9 (definition-compounds), 2 (compounds spilling), 1 ('in summary' closes — samāsa verdict). Close: 'in summary.' Rejected: resolving prathiḥ — killed: LIVE fork (candidates in L0); 'dissolution is this much' reorder — kept laya-forward (the reduction IS the claim).",
+     "reads_against": {
+      "argmap": "What is liberation named as? → Mokṣa is defined by compound-nature (saṃskāra-svabhāva, sarvajña, nityodita) and reduced to laya in samāsa — the forked 'this-much-toward-it' held open.",
+      "c1_essence": [
+       "Liberation named: complete-differentiation-form, all-knowing, need-free, ever-risen in Bhagavān — laya, this much, in summary [one LIVE fork]."
+      ],
+      "c1_rasa": "adbhuta-śānta of the treasury opened (wonder at the work's own store)"
+     }
+    }
+   }
+  ],
+  "gita-a00-v04": [
+   {
+    "file": "gitarthasangraha/L4-gita-a00-v04.DRAFT.json",
+    "file_sha256": "8c9b7920bf29c01a65a15b0432f041953db657f697ab54b1073e8a8edb8ecdf2",
+    "l4_sha256": "3ba5671936da1ab8dd75d54aedfa508b9b5d86ffa2f5dd2c6d78bc1332f2ecdf",
+    "notes": {
+     "craft_notes": "Sthāyin: the supremacy claim. Sanskrit-first: yady-api anyaprasaṅgeṣu kept concessive frame; samyak kept (true — the intensifier is the claim); dāyikā kept giver (active). Rows: 9 (other-connections/Gītā pair), 1 ('gives true attainment' closes — dāyikā end-weight). Close: 'gives true attainment.' Rejected: 'merely celebrated' — kept celebrated (gīyate passive, no mereness added); softening samyak — killed: it's the superlative.",
+     "reads_against": {
+      "argmap": "How does the Gītā compare to other mokṣa-celebrations? → Other texts sing mokṣa incidentally; the Gītā gives samyak-prāpti — the supremacy claim is exclusive (samyak retained).",
+      "c1_essence": [
+       "Other texts sing mokṣa incidentally; the Bhagavadgītā gives true attainment."
+      ],
+      "c1_rasa": "adbhuta-śānta of the treasury opened (wonder at the work's own store)"
+     }
+    }
+   }
+  ],
+  "gita-a00-v05": [
+   {
+    "file": "gitarthasangraha/L4-gita-a00-v05.DRAFT.json",
+    "file_sha256": "90fec929c3593bc681507caf15a3578c173a8210bfdb29782812c35a62eeea07",
+    "l4_sha256": "d9eb57985973f1fff27067dc9776a60eaaceed55c688c1e53558016a31c3db82",
+    "notes": {
+     "craft_notes": "Sthāyin: the effort exculpated. Sanskrit-first: tāsu anyaiḥ prāktanaiḥ kept the prior-expositors; udyamaḥ me kept my-attempt; gūḍhārtha-prakāśaka kept the disclosed-hidden. Rows: 1 ('revealing its hidden meaning' closes — prakāśaka end-weight). Close: 'revealing its hidden meaning.' Rejected: 'despite many' — kept although (yadyapi concessive); 'obscure' for gūḍha — kept hidden (it is there, veiled).",
+     "reads_against": {
+      "argmap": "Why write another exposition? → The udyama is justified by gūḍhārtha-prakāśana: prior vyākhyās are many, this one discloses the hidden sense (bhāṣya not prakaraṇa).",
+      "c1_essence": [
+       "Many earlier expositions; this attempt reasonable — revealing the hidden meaning."
+      ],
+      "c1_rasa": "adbhuta-śānta of the treasury opened (wonder at the work's own store)"
+     }
+    }
+   }
+  ],
+  "gita-a00-v06": [
+   {
+    "file": "gitarthasangraha/L4-gita-a00-v06.DRAFT.json",
+    "file_sha256": "68ab5ce468d043478fb8f48ba4df80ef87c09228e5f5ef2008c794c70dee7600",
+    "l4_sha256": "f279e3c2e95b5e453cb15975502565a570b549a60ef62a021eeff1c4db0ebb53",
+    "notes": {
+     "craft_notes": "Sthāyin: the signed colophon — āmnāya + vivicana + kṛta + name (the verse performs authorship). Sanskrit-first: bhaṭṭendurājāt āmnāya kept the lineage-source; ciraṃ dhiyā kept long-with-thought; kṛto 'bhinavaguptena kept passive signature; so 'yaṃ kept this-here (deictic seal). Rows: 9 (tradition/thought/maker chain), 1 ('the Gītārthasaṃgraha' closes — the NAME lands last, the verse's whole purpose). Close: 'the Gītārthasaṃgraha.' Rejected: 'Abhinavagupta composed this' reorder — killed: passive signature is the printed shape (maker-last, name-last); 'understood' for vivicya — kept examined.",
+     "reads_against": {
+      "argmap": "What is this work's colophon? → The verse seals authorship: āmnāya from Bhaṭṭa Indurāja (his Pratyabhijñā teacher), long vivicana, kṛta by Abhinavagupta — the name declared.",
+      "c1_essence": [
+       "Bhaṭṭa Indurāja's tradition, long-examined, made by Abhinavagupta: the name declared."
+      ],
+      "c1_rasa": "adbhuta-śānta of the treasury opened (wonder at the work's own store)"
+     }
+    }
+   }
+  ]
+ },
+ "withheld_songs": [],
+ "original_hashes": {
+  "t1": {
+   "gita-a00-v01": "571699c5a0f73d1c2fb2f45bb8b6cae2d244c8b8e181eaf75fb2901b0666a568",
+   "gita-a00-v02": "cb48bc54aa673f5be18ccf05c88ecc3aff1b7d441e39f263c85e65b6fdd82eb3",
+   "gita-a00-v03": "eeaf74a59a4ce3bcd2d8824c4f046b6629211dc27520bda2cf58106796c58b3e",
+   "gita-a00-v04": "ef31d33f5c349e4549ed7cd615e70c27c0925d9959c349a7a687004b0eb5d848",
+   "gita-a00-v05": "02a446fc2749b97b139dd43c0a2eb928d8380a6e6227b4eac8ff9e7dee2f6bfd",
+   "gita-a00-v06": "82006e90fb1a76a674a41ce88dbb92cc6c3bb7b3e8341811af8daaa7cfde119d"
+  },
+  "l0": {
+   "gita-a00-v01": "0ab05d0dfcd68e9c682e3f779c38fb930d8f045f647345bcb8c4a6ede03ca531",
+   "gita-a00-v02": "b27d27bfcd374350e5bdb5cade17351f3b21370e2a5eff5731414d48567fa091",
+   "gita-a00-v03": "0f1d37c66fab569e7491c2a58c654f67133e70efc39a02af8506a0feb32c2993",
+   "gita-a00-v04": "68d886668f2096118bde8b7a0296f3a06e50d061cb6c1cb3dcb18a9d089ee2c0",
+   "gita-a00-v05": "ba7203bdc11bb058a1e7f27f3d9383b9200a5d4b9dbffa6c90283943aacc3bf8",
+   "gita-a00-v06": "b35eaebea3037c191e28f7322ab0f883fcdc2e63f02724ae024565539df388ba"
+  },
+  "argmap": {
+   "gita-a00-v01": "2eab3673c998fa6912046997e832b2237ffd3140cb0e6cf4863a61f92dd17201",
+   "gita-a00-v02": "6cf4b2d14a25af8d64e82495c52a7ec36bb28842edca5d6c8c34449692028d3e",
+   "gita-a00-v03": "6f3653644bab6b7b090c71373cb01cfceb13db4fa232716aadad51a10ae10e7c",
+   "gita-a00-v04": "1657d6316d0be03c790e09688c05c89afa80c8c16bf0760e89e92abc92009f50",
+   "gita-a00-v05": "8ae264de0f41bfbec3c196afed3ad5241d2057718eb613425fa4687456cbf52d",
+   "gita-a00-v06": "c2e83eb117d5dcf8940a72014d0b847bb43e8091b36bf54e5c30da498e153c4f"
+  },
+  "l2": {
+   "gita-a00-v01": "b8c5f67673a16ad1c50ee03f56ef3c0dc9daca900a7d721fa9e777c2e975d364",
+   "gita-a00-v02": "6d14c7ddf8b23826738c234d2ccb14a787ef811052f441351eb91898ab812ec4",
+   "gita-a00-v03": "8c9d6ab41414ae3ac6a386b79319493bad15eb982dfc15e9875d649516943cc2",
+   "gita-a00-v04": "c1af68d4e802a6d8e57cf116d600115d6059dabb7eab08ec78bf04acb3abd970",
+   "gita-a00-v05": "b8c6882d75f3222fdffc7d7b3101cdf64d6edf1c86eab08c8754a7997d6d866a",
+   "gita-a00-v06": "26580e760f1d4fe5e470b1db5508fdc5f4625c61a4c8c2754a493f9674636f31"
+  },
+  "c1": {
+   "gita-a00": "88ef945c10a0258104ec40133923ef8aa55907b84692515bd0cc37ce326fe99e"
+  },
+  "l3": {
+   "gita-a00-v01": "29f82e94b986405fe74badafcab91de0e793b12ca3ddbcef6896d5a28aa6855e",
+   "gita-a00-v02": "0c760556fff002e50bff4151c16e6e4c079545c551156d1b2987a863245e7c91",
+   "gita-a00-v03": "e807675b8a1934506cdda72343323aad8acf800734b16bd1874514113aa7dae6",
+   "gita-a00-v04": "b09f0770d6d23f720771136df5829973a588ae264849cf8c8831b25dbaebf27e",
+   "gita-a00-v05": "4fb24c1bf16be85df2ce7f10ab7f9f7637efd7fe8136767659cff0176a0e886c",
+   "gita-a00-v06": "ad092f294c86e1d966e349a020377ec9d641e7d72fc5637daa1e88bb5915a361"
+  },
+  "l4": {
+   "gita-a00-v01": "0cd5509b775b8602941d31831ddc0a630e9334b85fe98d1ba0fa8f6402d0dc28",
+   "gita-a00-v02": "9378e9a1961daa552702c94106460a8cd18941150041bbe0810f2afb23f93a77",
+   "gita-a00-v03": "cb20b67f670a69a15e4d9cfeeb4036f641aee2a864ce6bb9ce0ca3e6ab66aa24",
+   "gita-a00-v04": "3ba5671936da1ab8dd75d54aedfa508b9b5d86ffa2f5dd2c6d78bc1332f2ecdf",
+   "gita-a00-v05": "d9eb57985973f1fff27067dc9776a60eaaceed55c688c1e53558016a31c3db82",
+   "gita-a00-v06": "f279e3c2e95b5e453cb15975502565a570b549a60ef62a021eeff1c4db0ebb53"
+  },
+  "c2": {}
+ },
+ "versions": [],
+ "essays": [],
+ "reviews": [],
+ "promotions": [],
+ "signoffs": [],
+ "stack_hashes": {
+  "gita-a00": "21feb6ef28bac1f40c5ff70061c73b5ff29a771a23017c80ddbe39cb8b27ecdd"
+ },
+ "projection_sha256": "e48f6477291c5daad2442bebc377071ed10639c5838005f1ccec88b38488f576"
+}

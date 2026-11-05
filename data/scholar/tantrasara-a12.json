@@ -1,0 +1,5821 @@
+{
+ "work": "tantrasara-a12",
+ "generated": null,
+ "source": "translation-work canonical data + scholar/ ledgers (emit_scholar.py)",
+ "source_edition": "gretil_tantrasara_clean.txt (Nirnaya Sagara 1918, GRETIL)",
+ "contract": {
+  "contract_version": "svatantrya-agent-contract/1",
+  "contract_sha256": "bdd5b9150aa5f3d73ebd8a19517ef5116c3c5bf652b3638841f5b4eeb1e0cf04",
+  "schema_version": "1.3.0",
+  "structural_schema_version": "2.0.0",
+  "structural_schema_snapshot_sha256": "7143ce16fd2fec74bcbb442937194c13abcb94e7d76e10fb35ec9e76016a9577",
+  "order": [
+   "source",
+   "t1",
+   "l0",
+   "argmap",
+   "l2",
+   "c1",
+   "l3",
+   "l4",
+   "c2"
+  ],
+  "schemas": {
+   "t1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:t1",
+    "title": "Svatantrya T1 structural schema",
+    "x-validator": "schemas.t1.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "quick_english",
+     "tokens",
+     "source_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "quick_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "source_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "tokens": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "surface",
+        "quick_gloss"
+       ],
+       "properties": {
+        "surface": {
+         "type": "string",
+         "minLength": 1
+        },
+        "quick_gloss": {
+         "type": "string",
+         "minLength": 1
+        }
+       }
+      }
+     }
+    }
+   },
+   "l0": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l0:verse",
+    "title": "Svatantrya L0 verse token list structural schema",
+    "x-validator": "schemas.l0.validate (per token)",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+     "$schema": "https://json-schema.org/draft/2020-12/schema",
+     "$id": "urn:svatantrya:schema:2.0.0:l0",
+     "title": "Svatantrya L0 structural schema",
+     "x-validator": "schemas.l0.validate",
+     "x-schema-version": "1.3.0",
+     "x-structural-schema-version": "2.0.0",
+     "type": "object",
+     "required": [
+      "id",
+      "verse_id",
+      "pada_index",
+      "surface",
+      "citation",
+      "options",
+      "chosen_index",
+      "status"
+     ],
+     "properties": {
+      "id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "verse_id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "pada_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "surface": {
+       "type": "string",
+       "minLength": 1
+      },
+      "citation": {
+       "type": "string",
+       "minLength": 1
+      },
+      "morph": {
+       "type": "string"
+      },
+      "morph_unknown": {
+       "type": "boolean"
+      },
+      "options": {
+       "type": "array",
+       "maxItems": 5,
+       "items": {
+        "type": "object",
+        "required": [
+         "gloss",
+         "rank",
+         "source",
+         "grounds"
+        ],
+        "properties": {
+         "gloss": {
+          "type": "string",
+          "minLength": 1
+         },
+         "rank": {
+          "type": "integer",
+          "minimum": 1
+         },
+         "source": {
+          "type": "string",
+          "minLength": 1
+         },
+         "grounds": {
+          "type": "string",
+          "minLength": 1
+         }
+        }
+       }
+      },
+      "chosen_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "status": {
+       "type": "string",
+       "enum": [
+        "PARSED",
+        "AMBIGUOUS",
+        "FAILED"
+       ]
+      },
+      "revised": {
+       "type": "boolean"
+      },
+      "revise_reason": {
+       "type": "string"
+      },
+      "fork": {
+       "type": "string",
+       "enum": [
+        "none",
+        "live",
+        "resolved"
+       ]
+      }
+     }
+    }
+   },
+   "argmap": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:argmap",
+    "title": "Svatantrya ARGMAP structural schema",
+    "x-validator": "schemas.argmap.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "traces",
+     "sanskrit_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "traces": {
+      "type": "object",
+      "required": [
+       "t1_verse",
+       "l0_ids"
+      ],
+      "properties": {
+       "t1_verse": {
+        "type": "string",
+        "minLength": 1
+       },
+       "l0_ids": {
+        "type": "array",
+        "items": {
+         "type": "string",
+         "minLength": 1
+        },
+        "minItems": 1
+       }
+      }
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "sanskrit_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "speaker": {
+      "type": "string",
+      "minLength": 1
+     },
+     "question": {
+      "type": "string",
+      "minLength": 1
+     },
+     "inference": {
+      "type": "string",
+      "minLength": 1
+     },
+     "reconstruction": {
+      "type": "string",
+      "minLength": 1
+     },
+     "premises": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     },
+     "uncertainties": {
+      "type": "array"
+     },
+     "structured": {
+      "type": "boolean"
+     }
+    }
+   },
+   "l2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l2",
+    "title": "Svatantrya L2 structural schema",
+    "x-validator": "schemas.l2.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "plain_english",
+     "sanskrit_cite",
+     "l0_ids"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "plain_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "supplied": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     }
+    }
+   },
+   "c1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:c1",
+    "title": "Svatantrya C1 structural schema",
+    "x-validator": "schemas.c1.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "song",
+     "essence",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "essence": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "renders": {
+      "type": "object",
+      "required": [
+       "standard"
+      ]
+     }
+    }
+   },
+   "l3": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l3",
+    "title": "Svatantrya L3 structural schema",
+    "x-validator": "schemas.l3.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "l4": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l4",
+    "title": "Svatantrya L4 structural schema",
+    "x-validator": "schemas.l4.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "c2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:c2",
+    "title": "Svatantrya C2 structural schema",
+    "x-validator": "schemas.c2.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "song",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "renders": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "style",
+        "prompt",
+        "paragraphs"
+       ],
+       "properties": {
+        "style": {
+         "type": "string",
+         "minLength": 1
+        },
+        "prompt": {
+         "type": "string",
+         "minLength": 1
+        },
+        "paragraphs": {
+         "type": "array",
+         "minItems": 1,
+         "items": {
+          "type": "object",
+          "required": [
+           "text",
+           "maps_to"
+          ],
+          "properties": {
+           "text": {
+            "type": "string",
+            "minLength": 1
+           },
+           "maps_to": {
+            "type": "array",
+            "items": {
+             "type": "integer",
+             "minimum": 0
+            },
+            "minItems": 1
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "layers": [
+   {
+    "id": "t1",
+    "scope": "verse",
+    "depends_on": [
+     "source"
+    ],
+    "validator": "schemas/t1.py",
+    "validator_sha256": "ac792ba1f0cbc06ab52dfbc41a31d3e39460f0e8a7de2977ed02e4ce63a20f27",
+    "example": {
+     "file": "sivastotravali/data/s01.t1.json",
+     "file_sha256": "a5c4cfae67571d05866d97ad6eb29b1c2956140a69c2fae554c29577330beb8e",
+     "target": "s01-v01",
+     "content_sha256": "26f027dafbe67347efd901cb2b94630cdb0e372957edeb4a3e1305e83745ba5b",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l0",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1"
+    ],
+    "validator": "schemas/l0.py",
+    "validator_sha256": "0651bc77f519897f8a4f8b41f4ea0cc6a88f3441910af99b18d55854a7e9030e",
+    "example": {
+     "file": "sivastotravali/data/s06.l0.json",
+     "file_sha256": "c2bb0ce1010315d72bdce75ee3c8901b17499202abe7adc5bd1977a26f4fea2f",
+     "target": "s06-v01",
+     "content_sha256": "91e3b04d47482757bcaf1e9705992edd0815ff7907ed2cb33c7c9586f3a9e5aa",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "argmap",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0"
+    ],
+    "validator": "schemas/argmap.py",
+    "validator_sha256": "335c1bbe809c5ae942ecef4a30ee7fd8fcb82645a43019312fa74397fe5758b0",
+    "example": {
+     "file": "sivastotravali/data/s01.argmap.json",
+     "file_sha256": "a44c8ec09a30c577f2a792c1255d4290f49a6138c456bb687bc00e78a3902949",
+     "target": "s01-v21",
+     "content_sha256": "80b69a54761b8b0b7c193058f6c88eef60323a3611008c41ba9879bcfc3cdc21",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l2",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap"
+    ],
+    "validator": "schemas/l2.py",
+    "validator_sha256": "f5653e405e0f162f78593ad6344cbbefe122d6d1c921ca3e22003e4f4d2cfaaa",
+    "example": {
+     "file": "sivastotravali/data/s01.l2.json",
+     "file_sha256": "f5a1cec55bb466c328380a0bf527e6d8906428b3436f85a79bd01df98ceb1040",
+     "target": "s01-v01",
+     "content_sha256": "f3c47f6a631f7551d4f9c8ad1117bdf65463cb8cdc92e9b42bb3bf517ae80055",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c1",
+    "scope": "song",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2"
+    ],
+    "validator": "schemas/c1.py",
+    "validator_sha256": "88ad9123135a7a18237cec1d11430992b4f43adf1771ae26a43e4df8198c69d7",
+    "example": {
+     "file": "sivastotravali/data/s01.c1.json",
+     "file_sha256": "99f4d2bbf7a8086176ee585b6e459076e2abd72b9675435267f7546beb1515f8",
+     "target": "s01",
+     "content_sha256": "5be1f3c0c3f64fafe5395b42cf5502a139a5e208be419d5804fe1a5bdd33712a",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l3",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2",
+     "c1"
+    ],
+    "validator": "schemas/l3.py",
+    "validator_sha256": "6c3df228f886207782d5250699e9e459f236f6e7d6b25ac29b00a38541956917",
+    "example": {
+     "file": "sivastotravali/data/s01.l3.json",
+     "file_sha256": "cdb4af6a4c2a851231195f4e5c940346f65199d5d5d69ea1c41d8095f98409f9",
+     "target": "s01-v01",
+     "content_sha256": "6aa20635387174b68fe4ea3baf970c06aff9838acb2c745e7afca0ed7c6751de",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l4",
+    "scope": "verse",
+    "depends_on": [
+     "l3",
+     "c1"
+    ],
+    "validator": "schemas/l4.py",
+    "validator_sha256": "3c1f7b0dfe3d83d425ed0fd84fba7b74aa3ed9e9758402369d779eedda1a8c03",
+    "example": {
+     "file": "paramarthasara/data/param-p01.l4.json",
+     "file_sha256": "db346e51e71f2f835ddfda004d4432934611817c2c73318d335f6ca2362ad4fb",
+     "target": "param-p01-v01",
+     "content_sha256": "91e9d424cf310d4e5b45c173b02f5286d837269ef9447533c153a48cb5122c14",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c2",
+    "scope": "song",
+    "depends_on": [
+     "c1",
+     "l3"
+    ],
+    "validator": "schemas/c2.py",
+    "validator_sha256": "fb8743f206e036002c780d082c7d32cf011dcdab4c21df742a5f5e59a9d851b8",
+    "example": {
+     "file": "sivastotravali/data/s01.c2.json",
+     "file_sha256": "09660a3c09679fce8c95968934e5851a22d89cdf154d2b0635d358e1ef9e8aeb",
+     "target": "s01",
+     "content_sha256": "2faa5fa86e38faca7ef5a1a967a4e261e2df294648a31ed5bad5f731001aa41c",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   }
+  ]
+ },
+ "rights": {
+  "translation": "FREE — our English (L1–L4, commentary) is free use",
+  "scholar": "Contributors declare rights; authorship and copyright depend on the work and law."
+ },
+ "originals": {
+  "t1": {
+   "tsa-a12-v01": {
+    "verse_id": "tsa-a12-v01",
+    "song": "tsa-a12",
+    "verse": 1,
+    "quick_english": "Initiation and the rest must be told — it is said. So, to expound the nature of initiation, first the to-be-done bath is taught.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "dīkṣādikaṃ",
+      "quick_gloss": "initiation-and-rest"
+     },
+     {
+      "surface": "vaktavyam",
+      "quick_gloss": "must-be-told"
+     },
+     {
+      "surface": "iti",
+      "quick_gloss": "it is said"
+     },
+     {
+      "surface": "uktam",
+      "quick_gloss": "told"
+     },
+     {
+      "surface": "ato",
+      "quick_gloss": "so"
+     },
+     {
+      "surface": "dīkṣāsvarūpanirūpaṇārthaṃ",
+      "quick_gloss": "for-setting-forth-the-nature-of-initiation"
+     },
+     {
+      "surface": "prāk",
+      "quick_gloss": "first"
+     },
+     {
+      "surface": "kartavyaṃ",
+      "quick_gloss": "to-be-done"
+     },
+     {
+      "surface": "snānam",
+      "quick_gloss": "bath"
+     },
+     {
+      "surface": "upadiśyate",
+      "quick_gloss": "is-taught"
+     }
+    ],
+    "source_sha": "e98101c54f4584a0"
+   },
+   "tsa-a12-v02": {
+    "verse_id": "tsa-a12-v02",
+    "song": "tsa-a12",
+    "verse": 2,
+    "quick_english": "Bathing is called purity; purity is immersion in the Supreme Lord's own form.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "snānaṃ",
+      "quick_gloss": "bathing"
+     },
+     {
+      "surface": "ca",
+      "quick_gloss": "and"
+     },
+     {
+      "surface": "śuddhatā",
+      "quick_gloss": "purity"
+     },
+     {
+      "surface": "ucyate",
+      "quick_gloss": "is-called"
+     },
+     {
+      "surface": "śuddhatā",
+      "quick_gloss": "purity"
+     },
+     {
+      "surface": "ca",
+      "quick_gloss": "and"
+     },
+     {
+      "surface": "parameśvarasvarūpasamāveśaḥ",
+      "quick_gloss": "immersion-in-the-Supreme-Lord's-own-form"
+     }
+    ],
+    "source_sha": "e98101c54f4584a0"
+   },
+   "tsa-a12-v03": {
+    "verse_id": "tsa-a12-v03",
+    "song": "tsa-a12",
+    "verse": 3,
+    "quick_english": "Washing off turbidity is indeed purity; turbidity — even in That whose sole form is That — is the conceit of admixing another form of alien nature.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "kāluṣyāpagamo",
+      "quick_gloss": "washing-off-of-turbidity"
+     },
+     {
+      "surface": "hi",
+      "quick_gloss": "indeed"
+     },
+     {
+      "surface": "śuddhiḥ",
+      "quick_gloss": "purity"
+     },
+     {
+      "surface": "kāluṣyaṃ",
+      "quick_gloss": "turbidity"
+     },
+     {
+      "surface": "ca",
+      "quick_gloss": "and"
+     },
+     {
+      "surface": "tadekarūpe",
+      "quick_gloss": "in-That-whose-sole-form-is-That"
+     },
+     {
+      "surface": "'pi",
+      "quick_gloss": "even"
+     },
+     {
+      "surface": "atatsvabhāvarūpāntarasaṃvalanābhimānaḥ",
+      "quick_gloss": "conceit-of-admixing-another-form-of-alien-nature"
+     }
+    ],
+    "source_sha": "e98101c54f4584a0"
+   },
+   "tsa-a12-v04": {
+    "verse_id": "tsa-a12-v04",
+    "song": "tsa-a12",
+    "verse": 4,
+    "quick_english": "Here, in the self whose essence is free-bliss-consciousness-alone — or everywhere in the world too — the conceit of admixing another-formed reality is impurity; that is dispelled by immersion in great-Bhairava — for someone suddenly, for someone else awaiting further means.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "tad",
+      "quick_gloss": "here"
+     },
+     {
+      "surface": "iha",
+      "quick_gloss": "here"
+     },
+     {
+      "surface": "svatantrānandacinmātrasāre",
+      "quick_gloss": "in-own-self-whose-essence-is-free-bliss-consciousness-alone"
+     },
+     {
+      "surface": "svātmani",
+      "quick_gloss": "in-own-self"
+     },
+     {
+      "surface": "viśvatrāpi",
+      "quick_gloss": "or-everywhere-in-the-world-too"
+     },
+     {
+      "surface": "vā",
+      "quick_gloss": "or"
+     },
+     {
+      "surface": "tadanyarūpasaṃvalanābhimānaḥ",
+      "quick_gloss": "conceit-of-admixing-another-formed-reality"
+     },
+     {
+      "surface": "aśuddhiḥ",
+      "quick_gloss": "impurity"
+     },
+     {
+      "surface": "sā",
+      "quick_gloss": "that"
+     },
+     {
+      "surface": "ca",
+      "quick_gloss": "and"
+     },
+     {
+      "surface": "mahābhairavasamāveśena",
+      "quick_gloss": "by-immersion-in-great-Bhairava"
+     },
+     {
+      "surface": "vyapohyate",
+      "quick_gloss": "is-dispelled"
+     },
+     {
+      "surface": "so",
+      "quick_gloss": "that"
+     },
+     {
+      "surface": "'pi",
+      "quick_gloss": "too"
+     },
+     {
+      "surface": "kasyacit",
+      "quick_gloss": "for-someone"
+     },
+     {
+      "surface": "jhaṭiti",
+      "quick_gloss": "suddenly"
+     },
+     {
+      "surface": "bhavet",
+      "quick_gloss": "may-be"
+     },
+     {
+      "surface": "kasyāpi",
+      "quick_gloss": "for-someone"
+     },
+     {
+      "surface": "upāyāntaramukhaprekṣī",
+      "quick_gloss": "awaiting-further-means"
+     }
+    ],
+    "source_sha": "e98101c54f4584a0"
+   },
+   "tsa-a12-v05": {
+    "verse_id": "tsa-a12-v05",
+    "song": "tsa-a12",
+    "verse": 5,
+    "quick_english": "Therein too, by one-two-threefold division, whole or part-wise, somewhere, for someone, sometime, and so from assurance-attainment: difference is manifold.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "tatrāpi",
+      "quick_gloss": "therein-too"
+     },
+     {
+      "surface": "ca",
+      "quick_gloss": "and"
+     },
+     {
+      "surface": "ekadvitryādibhedena",
+      "quick_gloss": "by-one-two-threefold-division"
+     },
+     {
+      "surface": "samastavyastatayā",
+      "quick_gloss": "whole-or-part-wise"
+     },
+     {
+      "surface": "kvacit",
+      "quick_gloss": "somewhere"
+     },
+     {
+      "surface": "kasyacit",
+      "quick_gloss": "for-someone"
+     },
+     {
+      "surface": "kadācit",
+      "quick_gloss": "sometime"
+     },
+     {
+      "surface": "ca",
+      "quick_gloss": "and"
+     },
+     {
+      "surface": "tathā",
+      "quick_gloss": "and-so"
+     },
+     {
+      "surface": "āśvāsopalabdheḥ",
+      "quick_gloss": "from-assurance-attainment"
+     },
+     {
+      "surface": "vicitro",
+      "quick_gloss": "manifold"
+     },
+     {
+      "surface": "bhedaḥ",
+      "quick_gloss": "difference"
+     }
+    ],
+    "source_sha": "e98101c54f4584a0"
+   },
+   "tsa-a12-v06": {
+    "verse_id": "tsa-a12-v06",
+    "song": "tsa-a12",
+    "verse": 6,
+    "quick_english": "And eightfold, in earth-water-wind-fire-sky-moon-sun-self forms, made into Supreme-Lord forms by mantra-placing majesty; by identity, in the Lord-entered body, immersion in the Supreme arises for anyone — though from bathing-clothes-and-so-on gladness it becomes the means to the Supreme. Thus told the chief fruits therein: firmness, nourishment, vigor, impurity-burning, pervasion, creation-capacity, maintenance-capacity, non-difference.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "sa",
+      "quick_gloss": "and"
+     },
+     {
+      "surface": "ca",
+      "quick_gloss": "and"
+     },
+     {
+      "surface": "aṣṭadhā",
+      "quick_gloss": "eightfold"
+     },
+     {
+      "surface": "kṣitijalapavanahutāśanākāśasomasūryātmarūpāsu",
+      "quick_gloss": "in-earth-water-wind-fire-eater-sky-moon-sun-self-formed"
+     },
+     {
+      "surface": "aṣṭāsu",
+      "quick_gloss": "in-eight"
+     },
+     {
+      "surface": "mūrtiṣu",
+      "quick_gloss": "forms"
+     },
+     {
+      "surface": "mantranyāsamahimnā",
+      "quick_gloss": "by-mantra-placing-majesty"
+     },
+     {
+      "surface": "parameśvararūpatayā",
+      "quick_gloss": "into-Supreme-Lord-formed"
+     },
+     {
+      "surface": "bhāvitāsu",
+      "quick_gloss": "made"
+     },
+     {
+      "surface": "tādātmyena",
+      "quick_gloss": "by-identity"
+     },
+     {
+      "surface": "ca",
+      "quick_gloss": "and"
+     },
+     {
+      "surface": "dehe",
+      "quick_gloss": "in-body"
+     },
+     {
+      "surface": "parameśvarasamāviṣṭe",
+      "quick_gloss": "Supreme-Lord-entered"
+     },
+     {
+      "surface": "śarīrādivibhāgavṛtteḥ",
+      "quick_gloss": "of-body-and-rest-divisions-proceeding"
+     },
+     {
+      "surface": "caitanyasyāpi",
+      "quick_gloss": "even-of-consciousness"
+     },
+     {
+      "surface": "parameśvarasamāveśaprāptiḥ",
+      "quick_gloss": "attainment-of-Supreme-Lord-immersion"
+     },
+     {
+      "surface": "kasyāpi",
+      "quick_gloss": "for-anyone"
+     },
+     {
+      "surface": "tu",
+      "quick_gloss": "though"
+     },
+     {
+      "surface": "snānavastrādituṣṭijanakatvāt",
+      "quick_gloss": "from-bathing-clothes-and-so-on-gladness-making"
+     },
+     {
+      "surface": "parameśopāyatām",
+      "quick_gloss": "means-to-the-Supreme-Lord"
+     },
+     {
+      "surface": "etīti",
+      "quick_gloss": "attains-thus"
+     },
+     {
+      "surface": "uktaṃ",
+      "quick_gloss": "told"
+     },
+     {
+      "surface": "ca",
+      "quick_gloss": "and"
+     },
+     {
+      "surface": "śrīmadānandādau",
+      "quick_gloss": "in-revered-Ānanda-and-the-rest"
+     },
+     {
+      "surface": "dhṛtiḥ",
+      "quick_gloss": "firmness"
+     },
+     {
+      "surface": "āpyāyo",
+      "quick_gloss": "nourishment"
+     },
+     {
+      "surface": "vīryaṃ",
+      "quick_gloss": "vigor"
+     },
+     {
+      "surface": "maladāho",
+      "quick_gloss": "impurity-burning"
+     },
+     {
+      "surface": "vyāptiḥ",
+      "quick_gloss": "pervasion"
+     },
+     {
+      "surface": "sṛṣṭisāmarthyaṃ",
+      "quick_gloss": "creation-capacity"
+     },
+     {
+      "surface": "sthitisāmarthyam",
+      "quick_gloss": "maintenance-capacity"
+     },
+     {
+      "surface": "abhedaś",
+      "quick_gloss": "non-difference"
+     },
+     {
+      "surface": "ca",
+      "quick_gloss": "and"
+     },
+     {
+      "surface": "ity",
+      "quick_gloss": "thus"
+     },
+     {
+      "surface": "etāni",
+      "quick_gloss": "these"
+     },
+     {
+      "surface": "teṣu",
+      "quick_gloss": "therein"
+     },
+     {
+      "surface": "mukhyaphalāni",
+      "quick_gloss": "chief-fruits"
+     },
+     {
+      "surface": "teṣu",
+      "quick_gloss": "here-and-there"
+     },
+     {
+      "surface": "teṣu",
+      "quick_gloss": "here-and-there"
+     },
+     {
+      "surface": "upāhitasya",
+      "quick_gloss": "placed"
+     },
+     {
+      "surface": "mantrasya",
+      "quick_gloss": "of-mantra"
+     },
+     {
+      "surface": "tattadrūpadhāritvāt",
+      "quick_gloss": "from-assuming-that-and-that-form"
+     }
+    ],
+    "source_sha": "e98101c54f4584a0"
+   },
+   "tsa-a12-v07": {
+    "verse_id": "tsa-a12-v07",
+    "song": "tsa-a12",
+    "verse": 7,
+    "quick_english": "But by heroes-rule the distinction: as battle-dust, hero-water, great wind, hero-ash, cremation-ground-sky — sun-and-moon placed in them, self undiscriminating.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "vīroddeśena",
+      "quick_gloss": "by-heroes-rule"
+     },
+     {
+      "surface": "tu",
+      "quick_gloss": "but"
+     },
+     {
+      "surface": "viśeṣaḥ",
+      "quick_gloss": "distinction"
+     },
+     {
+      "surface": "tad",
+      "quick_gloss": "as"
+     },
+     {
+      "surface": "yathā",
+      "quick_gloss": "as"
+     },
+     {
+      "surface": "raṇareṇuḥ",
+      "quick_gloss": "battle-dust"
+     },
+     {
+      "surface": "vīrāmbhaḥ",
+      "quick_gloss": "hero-water"
+     },
+     {
+      "surface": "mahāmarut",
+      "quick_gloss": "great-wind"
+     },
+     {
+      "surface": "vīrabhasma",
+      "quick_gloss": "hero-ash"
+     },
+     {
+      "surface": "śmaśānanabhaḥ",
+      "quick_gloss": "cremation-ground-sky"
+     },
+     {
+      "surface": "tadupahitau",
+      "quick_gloss": "placed-in-them"
+     },
+     {
+      "surface": "candrārkau",
+      "quick_gloss": "sun-and-moon"
+     },
+     {
+      "surface": "ātmā",
+      "quick_gloss": "self"
+     },
+     {
+      "surface": "nirvikalpakaḥ",
+      "quick_gloss": "undiscriminating"
+     }
+    ],
+    "source_sha": "e98101c54f4584a0"
+   },
+   "tsa-a12-v08": {
+    "verse_id": "tsa-a12-v08",
+    "song": "tsa-a12",
+    "verse": 8,
+    "quick_english": "Again too, as outer-inner twoness, by oneness with the outward-worshipped mantra, made-of-That: there, there plunging — thus told.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "punar",
+      "quick_gloss": "again"
+     },
+     {
+      "surface": "api",
+      "quick_gloss": "too"
+     },
+     {
+      "surface": "bāhyābhyantaratayā",
+      "quick_gloss": "as-outer-inner"
+     },
+     {
+      "surface": "dvitvam",
+      "quick_gloss": "twoness"
+     },
+     {
+      "surface": "bahirupāsyamantratādātmyena",
+      "quick_gloss": "by-oneness-with-outward-worshipped-mantra"
+     },
+     {
+      "surface": "tanmayīkṛte",
+      "quick_gloss": "made-of-That"
+     },
+     {
+      "surface": "tatra",
+      "quick_gloss": "there"
+     },
+     {
+      "surface": "tatra",
+      "quick_gloss": "there"
+     },
+     {
+      "surface": "nimajjanam",
+      "quick_gloss": "plunging"
+     },
+     {
+      "surface": "ity",
+      "quick_gloss": "thus"
+     },
+     {
+      "surface": "uktam",
+      "quick_gloss": "told"
+     }
+    ],
+    "source_sha": "e98101c54f4584a0"
+   },
+   "tsa-a12-v09": {
+    "verse_id": "tsa-a12-v09",
+    "song": "tsa-a12",
+    "verse": 9,
+    "quick_english": "But bliss-substance, hero-abiding, by looking, having-made-Śiva: right-there mantra-circle-worship; thence by that very one, body-and-breath deity-circle satisfied — thus the chief bath.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "viśeṣas",
+      "quick_gloss": "but"
+     },
+     {
+      "surface": "tu",
+      "quick_gloss": "but"
+     },
+     {
+      "surface": "ānandadravyaṃ",
+      "quick_gloss": "bliss-substance"
+     },
+     {
+      "surface": "vīrādhāragataṃ",
+      "quick_gloss": "hero-abiding"
+     },
+     {
+      "surface": "nirīkṣaṇena",
+      "quick_gloss": "by-looking"
+     },
+     {
+      "surface": "śivamayīkṛtya",
+      "quick_gloss": "having-made-Śiva"
+     },
+     {
+      "surface": "tatraiva",
+      "quick_gloss": "right-there"
+     },
+     {
+      "surface": "mantracakrapūjanam",
+      "quick_gloss": "mantra-circle-worship"
+     },
+     {
+      "surface": "tataḥ",
+      "quick_gloss": "thence"
+     },
+     {
+      "surface": "tenaiva",
+      "quick_gloss": "by-that-very-one"
+     },
+     {
+      "surface": "dehaprāṇobhayāśritadevatācakratarpaṇam",
+      "quick_gloss": "body-breath-both-abiding-deity-circle-satisfying"
+     },
+     {
+      "surface": "iti",
+      "quick_gloss": "thus"
+     },
+     {
+      "surface": "mukhyaṃ",
+      "quick_gloss": "chief"
+     },
+     {
+      "surface": "snānam",
+      "quick_gloss": "bath"
+     }
+    ],
+    "source_sha": "e98101c54f4584a0"
+   },
+   "tsa-a12-v10": {
+    "verse_id": "tsa-a12-v10",
+    "song": "tsa-a12",
+    "verse": 10,
+    "quick_english": "Inward, thus, by holding earth-and-so-on-formed forms — here, there, in earthen-and-rest circles — being-made-of-That.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "ābhyantaraṃ",
+      "quick_gloss": "inward"
+     },
+     {
+      "surface": "yathā",
+      "quick_gloss": "thus"
+     },
+     {
+      "surface": "tattaddharādirūpadhāraṇayā",
+      "quick_gloss": "by-holding-earth-and-so-on-formed-forms"
+     },
+     {
+      "surface": "tatra",
+      "quick_gloss": "here"
+     },
+     {
+      "surface": "tatra",
+      "quick_gloss": "there"
+     },
+     {
+      "surface": "pārthivādau",
+      "quick_gloss": "in-earthen-and-rest"
+     },
+     {
+      "surface": "cakre",
+      "quick_gloss": "in-circles"
+     },
+     {
+      "surface": "tanmayībhāvaḥ",
+      "quick_gloss": "being-made-of-That"
+     }
+    ],
+    "source_sha": "e98101c54f4584a0"
+   }
+  },
+  "l0": {
+   "tsa-a12-v01": [
+    {
+     "id": "tsa-a12-v01-p000",
+     "verse_id": "tsa-a12-v01",
+     "pada_index": 0,
+     "surface": "dīkṣādikaṃ",
+     "citation": "dīkṣā+ādi",
+     "morph": "n.acc.sg",
+     "options": [
+      {
+       "gloss": "initiation-and-rest",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "initiation-and-rest (object of told)"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v01-p001",
+     "verse_id": "tsa-a12-v01",
+     "pada_index": 1,
+     "surface": "vaktavyam",
+     "citation": "√vac",
+     "morph": "3sg pass (vaktavyam)",
+     "options": [
+      {
+       "gloss": "must-be-told",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "must-be-told"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v01-p002",
+     "verse_id": "tsa-a12-v01",
+     "pada_index": 2,
+     "surface": "iti",
+     "citation": "iti",
+     "morph": "quotative",
+     "options": [
+      {
+       "gloss": "it is said",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "it is said"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v01-p003",
+     "verse_id": "tsa-a12-v01",
+     "pada_index": 3,
+     "surface": "uktam",
+     "citation": "uktam",
+     "morph": "ppp (ukta)",
+     "options": [
+      {
+       "gloss": "told",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "told"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v01-p004",
+     "verse_id": "tsa-a12-v01",
+     "pada_index": 4,
+     "surface": "ato",
+     "citation": "atas",
+     "morph": "adv",
+     "options": [
+      {
+       "gloss": "so",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "so"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v01-p005",
+     "verse_id": "tsa-a12-v01",
+     "pada_index": 5,
+     "surface": "dīkṣāsvarūpanirūpaṇārthaṃ",
+     "citation": "dīkṣā+svarūpa+nirūpaṇa+artha",
+     "morph": "n.dat.sg",
+     "options": [
+      {
+       "gloss": "for-setting-forth-the-nature-of-initiation",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "for-setting-forth-the-nature-of-initiation"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v01-p006",
+     "verse_id": "tsa-a12-v01",
+     "pada_index": 6,
+     "surface": "prāk",
+     "citation": "prāk",
+     "morph": "adv",
+     "options": [
+      {
+       "gloss": "first",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "first"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v01-p007",
+     "verse_id": "tsa-a12-v01",
+     "pada_index": 7,
+     "surface": "kartavyaṃ",
+     "citation": "√kṛ",
+     "morph": "gerundive (kartavya)",
+     "options": [
+      {
+       "gloss": "to-be-done",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "to-be-done"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v01-p008",
+     "verse_id": "tsa-a12-v01",
+     "pada_index": 8,
+     "surface": "snānam",
+     "citation": "snāna",
+     "morph": "n.nom.sg",
+     "options": [
+      {
+       "gloss": "bath",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "bath"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v01-p009",
+     "verse_id": "tsa-a12-v01",
+     "pada_index": 9,
+     "surface": "upadiśyate",
+     "citation": "upa+√diś",
+     "morph": "3sg pass (upadiśyate)",
+     "options": [
+      {
+       "gloss": "is-taught",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "is-taught"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "tsa-a12-v02": [
+    {
+     "id": "tsa-a12-v02-p000",
+     "verse_id": "tsa-a12-v02",
+     "pada_index": 0,
+     "surface": "snānaṃ",
+     "citation": "snāna",
+     "morph": "n.nom.sg",
+     "options": [
+      {
+       "gloss": "bathing",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "bathing"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v02-p001",
+     "verse_id": "tsa-a12-v02",
+     "pada_index": 1,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "conjunctive",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "and"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v02-p002",
+     "verse_id": "tsa-a12-v02",
+     "pada_index": 2,
+     "surface": "śuddhatā",
+     "citation": "śuddhatā",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "purity",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "purity"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v02-p003",
+     "verse_id": "tsa-a12-v02",
+     "pada_index": 3,
+     "surface": "ucyate",
+     "citation": "√vac",
+     "morph": "3sg pass (ucyate)",
+     "options": [
+      {
+       "gloss": "is-called",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "is-called"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v02-p004",
+     "verse_id": "tsa-a12-v02",
+     "pada_index": 4,
+     "surface": "śuddhatā",
+     "citation": "śuddhatā",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "purity",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "purity"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v02-p005",
+     "verse_id": "tsa-a12-v02",
+     "pada_index": 5,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "conjunctive",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "and"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v02-p006",
+     "verse_id": "tsa-a12-v02",
+     "pada_index": 6,
+     "surface": "parameśvarasvarūpasamāveśaḥ",
+     "citation": "parameśvara+svarūpa+samāveśa",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "immersion-in-the-Supreme-Lord's-own-form",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "immersion-in-the-Supreme-Lord's-own-form"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "tsa-a12-v03": [
+    {
+     "id": "tsa-a12-v03-p000",
+     "verse_id": "tsa-a12-v03",
+     "pada_index": 0,
+     "surface": "kāluṣyāpagamo",
+     "citation": "kāluṣya+apagama",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "washing-off-of-turbidity",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "washing-off-of-turbidity"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v03-p001",
+     "verse_id": "tsa-a12-v03",
+     "pada_index": 1,
+     "surface": "hi",
+     "citation": "hi",
+     "morph": "emphatic",
+     "options": [
+      {
+       "gloss": "indeed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indeed"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v03-p002",
+     "verse_id": "tsa-a12-v03",
+     "pada_index": 2,
+     "surface": "śuddhiḥ",
+     "citation": "śuddhi",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "purity",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "purity"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v03-p003",
+     "verse_id": "tsa-a12-v03",
+     "pada_index": 3,
+     "surface": "kāluṣyaṃ",
+     "citation": "kāluṣya",
+     "morph": "n.nom.sg",
+     "options": [
+      {
+       "gloss": "turbidity",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "turbidity"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v03-p004",
+     "verse_id": "tsa-a12-v03",
+     "pada_index": 4,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "conjunctive",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "and"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v03-p005",
+     "verse_id": "tsa-a12-v03",
+     "pada_index": 5,
+     "surface": "tadekarūpe",
+     "citation": "tad+eka+rūpa",
+     "morph": "loc.sg (tad+eka+rūpe)",
+     "options": [
+      {
+       "gloss": "in-That-whose-sole-form-is-That",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "in-That-whose-sole-form-is-That"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v03-p006",
+     "verse_id": "tsa-a12-v03",
+     "pada_index": 6,
+     "surface": "'pi",
+     "citation": "api",
+     "morph": "concessive",
+     "options": [
+      {
+       "gloss": "even",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "even"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v03-p007",
+     "verse_id": "tsa-a12-v03",
+     "pada_index": 7,
+     "surface": "atatsvabhāvarūpāntarasaṃvalanābhimānaḥ",
+     "citation": "a+tad+svabhāva+rūpa+antara+saṃvalana+abhimāna",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "conceit-of-admixing-another-form-of-alien-nature",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "conceit-of-admixing-another-form-of-alien-nature"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "tsa-a12-v04": [
+    {
+     "id": "tsa-a12-v04-p000",
+     "verse_id": "tsa-a12-v04",
+     "pada_index": 0,
+     "surface": "tad",
+     "citation": "tad",
+     "morph": "dem",
+     "options": [
+      {
+       "gloss": "here",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "here"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v04-p001",
+     "verse_id": "tsa-a12-v04",
+     "pada_index": 1,
+     "surface": "iha",
+     "citation": "iha",
+     "morph": "adv",
+     "options": [
+      {
+       "gloss": "here",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "here"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v04-p002",
+     "verse_id": "tsa-a12-v04",
+     "pada_index": 2,
+     "surface": "svatantrānandacinmātrasāre",
+     "citation": "svatantra+ānanda+cit+mātra+sāra",
+     "morph": "loc.sg (svatantra+ānanda+cit+mātra+sāre)",
+     "options": [
+      {
+       "gloss": "in-own-self-whose-essence-is-free-bliss-consciousness-alone",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "in-own-self-whose-essence-is-free-bliss-consciousness-alone"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v04-p003",
+     "verse_id": "tsa-a12-v04",
+     "pada_index": 3,
+     "surface": "svātmani",
+     "citation": "sva+ātman",
+     "morph": "loc.sg",
+     "options": [
+      {
+       "gloss": "in-own-self",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "in-own-self"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v04-p004",
+     "verse_id": "tsa-a12-v04",
+     "pada_index": 4,
+     "surface": "viśvatrāpi",
+     "citation": "viśva+tra+api",
+     "morph": "adv+conj (viśvatra+api)",
+     "options": [
+      {
+       "gloss": "or-everywhere-in-the-world-too",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "or-everywhere-in-the-world-too"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v04-p005",
+     "verse_id": "tsa-a12-v04",
+     "pada_index": 5,
+     "surface": "vā",
+     "citation": "vā",
+     "morph": "disjunctive",
+     "options": [
+      {
+       "gloss": "or",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "or"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v04-p006",
+     "verse_id": "tsa-a12-v04",
+     "pada_index": 6,
+     "surface": "tadanyarūpasaṃvalanābhimānaḥ",
+     "citation": "tad+anya+rūpa+saṃvalana+abhimāna",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "conceit-of-admixing-another-formed-reality",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "conceit-of-admixing-another-formed-reality"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v04-p007",
+     "verse_id": "tsa-a12-v04",
+     "pada_index": 7,
+     "surface": "aśuddhiḥ",
+     "citation": "a+śuddhi",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "impurity",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "impurity"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v04-p008",
+     "verse_id": "tsa-a12-v04",
+     "pada_index": 8,
+     "surface": "sā",
+     "citation": "sā",
+     "morph": "dem f.nom.sg",
+     "options": [
+      {
+       "gloss": "that",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "that"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v04-p009",
+     "verse_id": "tsa-a12-v04",
+     "pada_index": 9,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "conjunctive",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "and"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v04-p010",
+     "verse_id": "tsa-a12-v04",
+     "pada_index": 10,
+     "surface": "mahābhairavasamāveśena",
+     "citation": "mahā+bhairava+samāveśa",
+     "morph": "m.inst.sg",
+     "options": [
+      {
+       "gloss": "by-immersion-in-great-Bhairava",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "by-immersion-in-great-Bhairava"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v04-p011",
+     "verse_id": "tsa-a12-v04",
+     "pada_index": 11,
+     "surface": "vyapohyate",
+     "citation": "vi+apa+√ūh",
+     "morph": "3sg pass (vyapohyate)",
+     "options": [
+      {
+       "gloss": "is-dispelled",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "is-dispelled"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v04-p012",
+     "verse_id": "tsa-a12-v04",
+     "pada_index": 12,
+     "surface": "so",
+     "citation": "tad",
+     "morph": "dem (so: saḥ sandhi)",
+     "options": [
+      {
+       "gloss": "that",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "that"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v04-p013",
+     "verse_id": "tsa-a12-v04",
+     "pada_index": 13,
+     "surface": "'pi",
+     "citation": "api",
+     "morph": "emphatic ('pi enclitic)",
+     "options": [
+      {
+       "gloss": "too",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "too"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v04-p014",
+     "verse_id": "tsa-a12-v04",
+     "pada_index": 14,
+     "surface": "kasyacit",
+     "citation": "kasya+cid",
+     "morph": "gen.sg.m (kasyacid)",
+     "options": [
+      {
+       "gloss": "for-someone",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "for-someone"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v04-p015",
+     "verse_id": "tsa-a12-v04",
+     "pada_index": 15,
+     "surface": "jhaṭiti",
+     "citation": "jhaṭ+iti",
+     "morph": "adv (jhaṭiti)",
+     "options": [
+      {
+       "gloss": "suddenly",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "suddenly"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v04-p016",
+     "verse_id": "tsa-a12-v04",
+     "pada_index": 16,
+     "surface": "bhavet",
+     "citation": "√bhū",
+     "morph": "3sg opt (bhavet)",
+     "options": [
+      {
+       "gloss": "may-be",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "may-be"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v04-p017",
+     "verse_id": "tsa-a12-v04",
+     "pada_index": 17,
+     "surface": "kasyāpi",
+     "citation": "kasya+api",
+     "morph": "gen.sg (kasyāpi)",
+     "options": [
+      {
+       "gloss": "for-someone",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "for-someone"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v04-p018",
+     "verse_id": "tsa-a12-v04",
+     "pada_index": 18,
+     "surface": "upāyāntaramukhaprekṣī",
+     "citation": "upāya+antara+mukha+pra+√īkṣ",
+     "morph": "adj (upāyāntaramukhaprekṣin)",
+     "options": [
+      {
+       "gloss": "awaiting-further-means",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "awaiting-further-means"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "tsa-a12-v05": [
+    {
+     "id": "tsa-a12-v05-p000",
+     "verse_id": "tsa-a12-v05",
+     "pada_index": 0,
+     "surface": "tatrāpi",
+     "citation": "tatra+api",
+     "morph": "adv + api",
+     "options": [
+      {
+       "gloss": "therein-too",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "therein-too"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v05-p001",
+     "verse_id": "tsa-a12-v05",
+     "pada_index": 1,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "conjunctive",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "and"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v05-p002",
+     "verse_id": "tsa-a12-v05",
+     "pada_index": 2,
+     "surface": "ekadvitryādibhedena",
+     "citation": "eka+dvi+tri+ādi+bheda",
+     "morph": "inst.sg",
+     "options": [
+      {
+       "gloss": "by-one-two-threefold-division",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "by-one-two-threefold-division"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v05-p003",
+     "verse_id": "tsa-a12-v05",
+     "pada_index": 3,
+     "surface": "samastavyastatayā",
+     "citation": "samasta+vyasta+tā",
+     "morph": "f.inst.sg",
+     "options": [
+      {
+       "gloss": "whole-or-part-wise",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "whole-or-part-wise"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v05-p004",
+     "verse_id": "tsa-a12-v05",
+     "pada_index": 4,
+     "surface": "kvacit",
+     "citation": "kutra+cid",
+     "morph": "adv + cid",
+     "options": [
+      {
+       "gloss": "somewhere",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "somewhere"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v05-p005",
+     "verse_id": "tsa-a12-v05",
+     "pada_index": 5,
+     "surface": "kasyacit",
+     "citation": "kasya+cid",
+     "morph": "gen.sg",
+     "options": [
+      {
+       "gloss": "for-someone",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "for-someone"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v05-p006",
+     "verse_id": "tsa-a12-v05",
+     "pada_index": 6,
+     "surface": "kadācit",
+     "citation": "kadā+cid",
+     "morph": "adv + cid",
+     "options": [
+      {
+       "gloss": "sometime",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "sometime"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v05-p007",
+     "verse_id": "tsa-a12-v05",
+     "pada_index": 7,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "conjunctive",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "and"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v05-p008",
+     "verse_id": "tsa-a12-v05",
+     "pada_index": 8,
+     "surface": "tathā",
+     "citation": "tathā",
+     "morph": "adv",
+     "options": [
+      {
+       "gloss": "and-so",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "and-so"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v05-p009",
+     "verse_id": "tsa-a12-v05",
+     "pada_index": 9,
+     "surface": "āśvāsopalabdheḥ",
+     "citation": "āśvāsa+upalabdhi",
+     "morph": "f.abl.sg (āśvāsa+upalabdhi+tas)",
+     "options": [
+      {
+       "gloss": "from-assurance-attainment",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "from-assurance-attainment"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v05-p010",
+     "verse_id": "tsa-a12-v05",
+     "pada_index": 10,
+     "surface": "vicitro",
+     "citation": "vicitra",
+     "morph": "adj m.nom.sg",
+     "options": [
+      {
+       "gloss": "manifold",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "manifold"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v05-p011",
+     "verse_id": "tsa-a12-v05",
+     "pada_index": 11,
+     "surface": "bhedaḥ",
+     "citation": "bheda",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "difference",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "difference"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "tsa-a12-v06": [
+    {
+     "id": "tsa-a12-v06-p000",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 0,
+     "surface": "sa",
+     "citation": "tad",
+     "morph": "dem",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "and"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p001",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 1,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "conjunctive",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "and"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p002",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 2,
+     "surface": "aṣṭadhā",
+     "citation": "aṣṭa+dhā",
+     "morph": "adv",
+     "options": [
+      {
+       "gloss": "eightfold",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "eightfold"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p003",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 3,
+     "surface": "kṣitijalapavanahutāśanākāśasomasūryātmarūpāsu",
+     "citation": "kṣiti+jala+pavana+hutāśana+ākāśa+soma+sūrya+ātma+rūpa",
+     "morph": "loc.pl.f",
+     "options": [
+      {
+       "gloss": "in-earth-water-wind-fire-eater-sky-moon-sun-self-formed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "in-earth-water-wind-fire-eater-sky-moon-sun-self-formed"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p004",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 4,
+     "surface": "aṣṭāsu",
+     "citation": "aṣṭan",
+     "morph": "loc.pl.f",
+     "options": [
+      {
+       "gloss": "in-eight",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "in-eight"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p005",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 5,
+     "surface": "mūrtiṣu",
+     "citation": "mūrti",
+     "morph": "loc.pl.f",
+     "options": [
+      {
+       "gloss": "forms",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "forms"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p006",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 6,
+     "surface": "mantranyāsamahimnā",
+     "citation": "mantra+nyāsa+mahiman",
+     "morph": "inst.sg",
+     "options": [
+      {
+       "gloss": "by-mantra-placing-majesty",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "by-mantra-placing-majesty"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p007",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 7,
+     "surface": "parameśvararūpatayā",
+     "citation": "parameśvara+rūpatva",
+     "morph": "f.inst.sg (parameśvara+rūpatā)",
+     "options": [
+      {
+       "gloss": "into-Supreme-Lord-formed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "into-Supreme-Lord-formed"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p008",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 8,
+     "surface": "bhāvitāsu",
+     "citation": "√bhū+caus",
+     "morph": "ppp loc.pl.f (bhāvitāsu)",
+     "options": [
+      {
+       "gloss": "made",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "made"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p009",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 9,
+     "surface": "tādātmyena",
+     "citation": "tādātmyena",
+     "morph": "inst.sg",
+     "options": [
+      {
+       "gloss": "by-identity",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "by-identity"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p010",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 10,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "conjunctive",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "and"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p011",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 11,
+     "surface": "dehe",
+     "citation": "deha",
+     "morph": "loc.sg",
+     "options": [
+      {
+       "gloss": "in-body",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "in-body"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p012",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 12,
+     "surface": "parameśvarasamāviṣṭe",
+     "citation": "parameśvara+sam+āviṣṭa",
+     "morph": "adj (parameśvara+samāviṣṭe)",
+     "options": [
+      {
+       "gloss": "Supreme-Lord-entered",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Supreme-Lord-entered"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p013",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 13,
+     "surface": "śarīrādivibhāgavṛtteḥ",
+     "citation": "śarīra+ādi+vibhāga+vṛtti",
+     "morph": "gen.sg (śarīrādi+vibhāga+vṛtti)",
+     "options": [
+      {
+       "gloss": "of-body-and-rest-divisions-proceeding",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "of-body-and-rest-divisions-proceeding"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p014",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 14,
+     "surface": "caitanyasyāpi",
+     "citation": "caitanya+api",
+     "morph": "n.gen.sg + emph (caitanyasyāpi fused span)",
+     "options": [
+      {
+       "gloss": "even-of-consciousness",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "even-of-consciousness"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p015",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 15,
+     "surface": "parameśvarasamāveśaprāptiḥ",
+     "citation": "parameśvara+samāveśa+prāpti",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "attainment-of-Supreme-Lord-immersion",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "attainment-of-Supreme-Lord-immersion"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p016",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 16,
+     "surface": "kasyāpi",
+     "citation": "kasya+api",
+     "morph": "gen.sg",
+     "options": [
+      {
+       "gloss": "for-anyone",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "for-anyone"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p017",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 17,
+     "surface": "tu",
+     "citation": "tu",
+     "morph": "adversative",
+     "options": [
+      {
+       "gloss": "though",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "though"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p018",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 18,
+     "surface": "snānavastrādituṣṭijanakatvāt",
+     "citation": "snāna+vastra+ādi+tuṣṭi+janakatva",
+     "morph": "abl.sg",
+     "options": [
+      {
+       "gloss": "from-bathing-clothes-and-so-on-gladness-making",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "from-bathing-clothes-and-so-on-gladness-making"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p019",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 19,
+     "surface": "parameśopāyatām",
+     "citation": "parameśa+upāyatā",
+     "morph": "f.acc.sg",
+     "options": [
+      {
+       "gloss": "means-to-the-Supreme-Lord",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "means-to-the-Supreme-Lord"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p020",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 20,
+     "surface": "etīti",
+     "citation": "eti+iti",
+     "morph": "3sg pres √i + quot (etīti fused span)",
+     "options": [
+      {
+       "gloss": "attains-thus",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "attains-thus (it is said)"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p021",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 21,
+     "surface": "uktaṃ",
+     "citation": "ukta",
+     "morph": "ppp",
+     "options": [
+      {
+       "gloss": "told",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "told"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p022",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 22,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "conjunctive",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "and"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p023",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 23,
+     "surface": "śrīmadānandādau",
+     "citation": "śrīmat+ānanda+ādi",
+     "morph": "loc.sg",
+     "options": [
+      {
+       "gloss": "in-revered-Ānanda-and-the-rest",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "in-revered-Ānanda-and-the-rest"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p024",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 24,
+     "surface": "dhṛtiḥ",
+     "citation": "dhṛti",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "firmness",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "firmness"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p025",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 25,
+     "surface": "āpyāyo",
+     "citation": "āpyāya",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "nourishment",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nourishment"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p026",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 26,
+     "surface": "vīryaṃ",
+     "citation": "vīrya",
+     "morph": "n.nom.sg",
+     "options": [
+      {
+       "gloss": "vigor",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "vigor"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p027",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 27,
+     "surface": "maladāho",
+     "citation": "mala+dāha",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "impurity-burning",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "impurity-burning"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p028",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 28,
+     "surface": "vyāptiḥ",
+     "citation": "vyāpti",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "pervasion",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "pervasion"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p029",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 29,
+     "surface": "sṛṣṭisāmarthyaṃ",
+     "citation": "sṛṣṭi+sāmarthya",
+     "morph": "n.nom.sg",
+     "options": [
+      {
+       "gloss": "creation-capacity",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "creation-capacity"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p030",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 30,
+     "surface": "sthitisāmarthyam",
+     "citation": "sthiti+sāmarthya",
+     "morph": "n.nom.sg",
+     "options": [
+      {
+       "gloss": "maintenance-capacity",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "maintenance-capacity"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p031",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 31,
+     "surface": "abhedaś",
+     "citation": "abheda",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "non-difference",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "non-difference"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p032",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 32,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "conjunctive",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "and"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p033",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 33,
+     "surface": "ity",
+     "citation": "iti",
+     "morph": "quotative",
+     "options": [
+      {
+       "gloss": "thus",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "thus"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p034",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 34,
+     "surface": "etāni",
+     "citation": "etad",
+     "morph": "nom.pl.n",
+     "options": [
+      {
+       "gloss": "these",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "these"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p035",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 35,
+     "surface": "teṣu",
+     "citation": "teṣu",
+     "morph": "loc.pl",
+     "options": [
+      {
+       "gloss": "therein",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "therein"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p036",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 36,
+     "surface": "mukhyaphalāni",
+     "citation": "mukhya+phala",
+     "morph": "n.nom.pl",
+     "options": [
+      {
+       "gloss": "chief-fruits",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "chief-fruits"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p037",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 37,
+     "surface": "teṣu",
+     "citation": "teṣu",
+     "morph": "loc.pl",
+     "options": [
+      {
+       "gloss": "here-and-there",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "here-and-there"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p038",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 38,
+     "surface": "teṣu",
+     "citation": "teṣu",
+     "morph": "loc.pl",
+     "options": [
+      {
+       "gloss": "here-and-there",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "here-and-there"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p039",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 39,
+     "surface": "upāhitasya",
+     "citation": "upahita",
+     "morph": "adj",
+     "options": [
+      {
+       "gloss": "placed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "placed"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p040",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 40,
+     "surface": "mantrasya",
+     "citation": "mantra",
+     "morph": "gen.sg",
+     "options": [
+      {
+       "gloss": "of-mantra",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "of-mantra"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v06-p041",
+     "verse_id": "tsa-a12-v06",
+     "pada_index": 41,
+     "surface": "tattadrūpadhāritvāt",
+     "citation": "tad+tad+rūpa+dhāritva",
+     "morph": "abl.sg (tad+tad+rūpa+dhāritva+āt)",
+     "options": [
+      {
+       "gloss": "from-assuming-that-and-that-form",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "from-assuming-that-and-that-form"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "tsa-a12-v07": [
+    {
+     "id": "tsa-a12-v07-p000",
+     "verse_id": "tsa-a12-v07",
+     "pada_index": 0,
+     "surface": "vīroddeśena",
+     "citation": "vīra+uddeśa",
+     "morph": "m.inst.sg (vīroddeśena)",
+     "options": [
+      {
+       "gloss": "by-heroes-rule",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "by-heroes-rule"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v07-p001",
+     "verse_id": "tsa-a12-v07",
+     "pada_index": 1,
+     "surface": "tu",
+     "citation": "tu",
+     "morph": "adversative",
+     "options": [
+      {
+       "gloss": "but",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "but"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v07-p002",
+     "verse_id": "tsa-a12-v07",
+     "pada_index": 2,
+     "surface": "viśeṣaḥ",
+     "citation": "viśeṣa",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "distinction",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "distinction"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v07-p003",
+     "verse_id": "tsa-a12-v07",
+     "pada_index": 3,
+     "surface": "tad",
+     "citation": "tad",
+     "morph": "dem",
+     "options": [
+      {
+       "gloss": "as",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "as"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v07-p004",
+     "verse_id": "tsa-a12-v07",
+     "pada_index": 4,
+     "surface": "yathā",
+     "citation": "yathā",
+     "morph": "comparative",
+     "options": [
+      {
+       "gloss": "as",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "as"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v07-p005",
+     "verse_id": "tsa-a12-v07",
+     "pada_index": 5,
+     "surface": "raṇareṇuḥ",
+     "citation": "raṇa+reṇu",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "battle-dust",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "battle-dust"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v07-p006",
+     "verse_id": "tsa-a12-v07",
+     "pada_index": 6,
+     "surface": "vīrāmbhaḥ",
+     "citation": "vīra+ambhas",
+     "morph": "n.nom.sg",
+     "options": [
+      {
+       "gloss": "hero-water",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "hero-water"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v07-p007",
+     "verse_id": "tsa-a12-v07",
+     "pada_index": 7,
+     "surface": "mahāmarut",
+     "citation": "mahā+marut",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "great-wind",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "great-wind"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v07-p008",
+     "verse_id": "tsa-a12-v07",
+     "pada_index": 8,
+     "surface": "vīrabhasma",
+     "citation": "vīra+bhasman",
+     "morph": "n.nom.sg",
+     "options": [
+      {
+       "gloss": "hero-ash",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "hero-ash"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v07-p009",
+     "verse_id": "tsa-a12-v07",
+     "pada_index": 9,
+     "surface": "śmaśānanabhaḥ",
+     "citation": "śmaśāna+nabhas",
+     "morph": "n.nom.sg",
+     "options": [
+      {
+       "gloss": "cremation-ground-sky",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "cremation-ground-sky"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v07-p010",
+     "verse_id": "tsa-a12-v07",
+     "pada_index": 10,
+     "surface": "tadupahitau",
+     "citation": "tad+upahita",
+     "morph": "adj (tad+upahita)",
+     "options": [
+      {
+       "gloss": "placed-in-them",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "placed-in-them"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v07-p011",
+     "verse_id": "tsa-a12-v07",
+     "pada_index": 11,
+     "surface": "candrārkau",
+     "citation": "candra+arka",
+     "morph": "m.nom.du (candrārkau)",
+     "options": [
+      {
+       "gloss": "sun-and-moon",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "sun-and-moon"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v07-p012",
+     "verse_id": "tsa-a12-v07",
+     "pada_index": 12,
+     "surface": "ātmā",
+     "citation": "ātman",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "self",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "self"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v07-p013",
+     "verse_id": "tsa-a12-v07",
+     "pada_index": 13,
+     "surface": "nirvikalpakaḥ",
+     "citation": "nir+vikalpa+ka",
+     "morph": "adj (nirvikalpaka)",
+     "options": [
+      {
+       "gloss": "undiscriminating",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "undiscriminating"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "tsa-a12-v08": [
+    {
+     "id": "tsa-a12-v08-p000",
+     "verse_id": "tsa-a12-v08",
+     "pada_index": 0,
+     "surface": "punar",
+     "citation": "punar",
+     "morph": "adv",
+     "options": [
+      {
+       "gloss": "again",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "again"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v08-p001",
+     "verse_id": "tsa-a12-v08",
+     "pada_index": 1,
+     "surface": "api",
+     "citation": "api",
+     "morph": "concessive",
+     "options": [
+      {
+       "gloss": "too",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "too"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v08-p002",
+     "verse_id": "tsa-a12-v08",
+     "pada_index": 2,
+     "surface": "bāhyābhyantaratayā",
+     "citation": "bahis+antar+tas",
+     "morph": "adv (bahir+antar+tas)",
+     "options": [
+      {
+       "gloss": "as-outer-inner",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "as-outer-inner"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v08-p003",
+     "verse_id": "tsa-a12-v08",
+     "pada_index": 3,
+     "surface": "dvitvam",
+     "citation": "dvitva",
+     "morph": "n.nom.sg",
+     "options": [
+      {
+       "gloss": "twoness",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "twoness"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v08-p004",
+     "verse_id": "tsa-a12-v08",
+     "pada_index": 4,
+     "surface": "bahirupāsyamantratādātmyena",
+     "citation": "bahis+upāsya+mantra+tādātmya",
+     "morph": "inst.sg",
+     "options": [
+      {
+       "gloss": "by-oneness-with-outward-worshipped-mantra",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "by-oneness-with-outward-worshipped-mantra"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v08-p005",
+     "verse_id": "tsa-a12-v08",
+     "pada_index": 5,
+     "surface": "tanmayīkṛte",
+     "citation": "tad+maya+ī+kṛta",
+     "morph": "adj (tanmayīkṛta)",
+     "options": [
+      {
+       "gloss": "made-of-That",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "made-of-That"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v08-p006",
+     "verse_id": "tsa-a12-v08",
+     "pada_index": 6,
+     "surface": "tatra",
+     "citation": "tatra",
+     "morph": "adv",
+     "options": [
+      {
+       "gloss": "there",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "there"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v08-p007",
+     "verse_id": "tsa-a12-v08",
+     "pada_index": 7,
+     "surface": "tatra",
+     "citation": "tatra",
+     "morph": "adv",
+     "options": [
+      {
+       "gloss": "there",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "there"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v08-p008",
+     "verse_id": "tsa-a12-v08",
+     "pada_index": 8,
+     "surface": "nimajjanam",
+     "citation": "ni+√majj",
+     "morph": "gerund? (nimajjanam)",
+     "options": [
+      {
+       "gloss": "plunging",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "plunging"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v08-p009",
+     "verse_id": "tsa-a12-v08",
+     "pada_index": 9,
+     "surface": "ity",
+     "citation": "iti",
+     "morph": "quotative",
+     "options": [
+      {
+       "gloss": "thus",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "thus"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v08-p010",
+     "verse_id": "tsa-a12-v08",
+     "pada_index": 10,
+     "surface": "uktam",
+     "citation": "√vac",
+     "morph": "ppp (ukta)",
+     "options": [
+      {
+       "gloss": "told",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "told"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "tsa-a12-v09": [
+    {
+     "id": "tsa-a12-v09-p000",
+     "verse_id": "tsa-a12-v09",
+     "pada_index": 0,
+     "surface": "viśeṣas",
+     "citation": "viśeṣa",
+     "morph": "adj",
+     "options": [
+      {
+       "gloss": "but",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "but"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v09-p001",
+     "verse_id": "tsa-a12-v09",
+     "pada_index": 1,
+     "surface": "tu",
+     "citation": "tu",
+     "morph": "adversative",
+     "options": [
+      {
+       "gloss": "but",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "but (viśeṣas tu)"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v09-p002",
+     "verse_id": "tsa-a12-v09",
+     "pada_index": 2,
+     "surface": "ānandadravyaṃ",
+     "citation": "ānanda+dravya",
+     "morph": "n.acc.sg",
+     "options": [
+      {
+       "gloss": "bliss-substance",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "bliss-substance"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v09-p003",
+     "verse_id": "tsa-a12-v09",
+     "pada_index": 3,
+     "surface": "vīrādhāragataṃ",
+     "citation": "vīra+ādhāra+gata",
+     "morph": "adj (vīrādhāragata)",
+     "options": [
+      {
+       "gloss": "hero-abiding",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "hero-abiding"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v09-p004",
+     "verse_id": "tsa-a12-v09",
+     "pada_index": 4,
+     "surface": "nirīkṣaṇena",
+     "citation": "nir+√īkṣ",
+     "morph": "inst.sg (nirīkṣaṇa)",
+     "options": [
+      {
+       "gloss": "by-looking",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "by-looking"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v09-p005",
+     "verse_id": "tsa-a12-v09",
+     "pada_index": 5,
+     "surface": "śivamayīkṛtya",
+     "citation": "śiva+mayī+√kṛ",
+     "morph": "gerund (śivamayīkṛtya)",
+     "options": [
+      {
+       "gloss": "having-made-Śiva",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "having-made-Śiva"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v09-p006",
+     "verse_id": "tsa-a12-v09",
+     "pada_index": 6,
+     "surface": "tatraiva",
+     "citation": "tatra+eva",
+     "morph": "adv (tatraiva)",
+     "options": [
+      {
+       "gloss": "right-there",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "right-there"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v09-p007",
+     "verse_id": "tsa-a12-v09",
+     "pada_index": 7,
+     "surface": "mantracakrapūjanam",
+     "citation": "mantra+cakra+pūjana",
+     "morph": "n.nom.sg",
+     "options": [
+      {
+       "gloss": "mantra-circle-worship",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "mantra-circle-worship"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v09-p008",
+     "verse_id": "tsa-a12-v09",
+     "pada_index": 8,
+     "surface": "tataḥ",
+     "citation": "tatas",
+     "morph": "adv",
+     "options": [
+      {
+       "gloss": "thence",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "thence"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v09-p009",
+     "verse_id": "tsa-a12-v09",
+     "pada_index": 9,
+     "surface": "tenaiva",
+     "citation": "tena+eva",
+     "morph": "inst.sg (tenaiva)",
+     "options": [
+      {
+       "gloss": "by-that-very-one",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "by-that-very-one"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v09-p010",
+     "verse_id": "tsa-a12-v09",
+     "pada_index": 10,
+     "surface": "dehaprāṇobhayāśritadevatācakratarpaṇam",
+     "citation": "deha+prāṇa+ubhaya+āśrita+devatā+cakra+tarpaṇa",
+     "morph": "n.nom.sg",
+     "options": [
+      {
+       "gloss": "body-breath-both-abiding-deity-circle-satisfying",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "body-breath-both-abiding-deity-circle-satisfying"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v09-p011",
+     "verse_id": "tsa-a12-v09",
+     "pada_index": 11,
+     "surface": "iti",
+     "citation": "iti",
+     "morph": "quotative",
+     "options": [
+      {
+       "gloss": "thus",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "thus"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v09-p012",
+     "verse_id": "tsa-a12-v09",
+     "pada_index": 12,
+     "surface": "mukhyaṃ",
+     "citation": "mukhya",
+     "morph": "adj",
+     "options": [
+      {
+       "gloss": "chief",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "chief"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v09-p013",
+     "verse_id": "tsa-a12-v09",
+     "pada_index": 13,
+     "surface": "snānam",
+     "citation": "snāna",
+     "morph": "n.nom.sg",
+     "options": [
+      {
+       "gloss": "bath",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "bath"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "tsa-a12-v10": [
+    {
+     "id": "tsa-a12-v10-p000",
+     "verse_id": "tsa-a12-v10",
+     "pada_index": 0,
+     "surface": "ābhyantaraṃ",
+     "citation": "ābhyantara",
+     "morph": "adj",
+     "options": [
+      {
+       "gloss": "inward",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "inward"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v10-p001",
+     "verse_id": "tsa-a12-v10",
+     "pada_index": 1,
+     "surface": "yathā",
+     "citation": "yathā",
+     "morph": "comparative",
+     "options": [
+      {
+       "gloss": "thus",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "thus"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v10-p002",
+     "verse_id": "tsa-a12-v10",
+     "pada_index": 2,
+     "surface": "tattaddharādirūpadhāraṇayā",
+     "citation": "tad+tad+harā+ādi+rūpa+dhāraṇa",
+     "morph": "f.inst.sg",
+     "options": [
+      {
+       "gloss": "by-holding-earth-and-so-on-formed-forms",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "by-holding-earth-and-so-on-formed-forms"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v10-p003",
+     "verse_id": "tsa-a12-v10",
+     "pada_index": 3,
+     "surface": "tatra",
+     "citation": "tatra",
+     "morph": "adv",
+     "options": [
+      {
+       "gloss": "here",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "here"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v10-p004",
+     "verse_id": "tsa-a12-v10",
+     "pada_index": 4,
+     "surface": "tatra",
+     "citation": "tatra",
+     "morph": "adv",
+     "options": [
+      {
+       "gloss": "there",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "there"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v10-p005",
+     "verse_id": "tsa-a12-v10",
+     "pada_index": 5,
+     "surface": "pārthivādau",
+     "citation": "pārthiva+ādi",
+     "morph": "loc.sg (pārthivādau)",
+     "options": [
+      {
+       "gloss": "in-earthen-and-rest",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "in-earthen-and-rest"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v10-p006",
+     "verse_id": "tsa-a12-v10",
+     "pada_index": 6,
+     "surface": "cakre",
+     "citation": "cakra",
+     "morph": "loc.sg",
+     "options": [
+      {
+       "gloss": "in-circles",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "in-circles"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "tsa-a12-v10-p007",
+     "verse_id": "tsa-a12-v10",
+     "pada_index": 7,
+     "surface": "tanmayībhāvaḥ",
+     "citation": "tad+maya+ī+bhāva",
+     "morph": "m.nom.sg (tanmayībhāvaḥ)",
+     "options": [
+      {
+       "gloss": "being-made-of-That",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "being-made-of-That"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ]
+  },
+  "argmap": {
+   "tsa-a12-v01": {
+    "verse_id": "tsa-a12-v01",
+    "song": "tsa-a12",
+    "verse": 1,
+    "speaker": "Teacher (snāna-prakāśana)",
+    "question": "Why is the bath taught before initiation?",
+    "premises": [
+     "Initiation and the rest must be told — it is said.",
+     "To expound the nature of initiation, first the to-be-done bath is taught."
+    ],
+    "inference": "The bath is the precondition of the exposition: initiation's nature is set forth by first teaching the bath to be performed.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "tsa-a12-v01",
+     "l0_ids": [
+      "tsa-a12-v01-p000",
+      "tsa-a12-v01-p001",
+      "tsa-a12-v01-p002",
+      "tsa-a12-v01-p003",
+      "tsa-a12-v01-p004",
+      "tsa-a12-v01-p005",
+      "tsa-a12-v01-p006",
+      "tsa-a12-v01-p007",
+      "tsa-a12-v01-p008",
+      "tsa-a12-v01-p009"
+     ]
+    },
+    "structured": true,
+    "sanskrit_sha": "e98101c54f4584a0"
+   },
+   "tsa-a12-v02": {
+    "verse_id": "tsa-a12-v02",
+    "song": "tsa-a12",
+    "verse": 2,
+    "speaker": "Teacher (snāna-prakāśana)",
+    "question": "What is bathing called, and what is it?",
+    "premises": [
+     "Bathing is called purity.",
+     "Purity is immersion in the Supreme Lord's own form."
+    ],
+    "inference": "Snāna is defined twice over: named purity, and purity itself is samāveśa in the Lord's own svarūpa — water-rite and identity-collapse are one word.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "tsa-a12-v02",
+     "l0_ids": [
+      "tsa-a12-v02-p000",
+      "tsa-a12-v02-p001",
+      "tsa-a12-v02-p002",
+      "tsa-a12-v02-p003",
+      "tsa-a12-v02-p004",
+      "tsa-a12-v02-p005",
+      "tsa-a12-v02-p006"
+     ]
+    },
+    "structured": true,
+    "sanskrit_sha": "e98101c54f4584a0"
+   },
+   "tsa-a12-v03": {
+    "verse_id": "tsa-a12-v03",
+    "song": "tsa-a12",
+    "verse": 3,
+    "speaker": "Teacher (snāna-prakāśana)",
+    "question": "What counts as turbidity, and what washes it?",
+    "premises": [
+     "Washing off turbidity is indeed purity.",
+     "Turbidity — even in That whose sole form is That — is the conceit of admixing another form of alien nature."
+    ],
+    "inference": "Impurity is not dirt but abhimāna: the conceit of a second, alien form inside the sole-formed That; its removal alone is śuddhi.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "tsa-a12-v03",
+     "l0_ids": [
+      "tsa-a12-v03-p000",
+      "tsa-a12-v03-p001",
+      "tsa-a12-v03-p002",
+      "tsa-a12-v03-p003",
+      "tsa-a12-v03-p004",
+      "tsa-a12-v03-p005",
+      "tsa-a12-v03-p006",
+      "tsa-a12-v03-p007"
+     ]
+    },
+    "structured": true,
+    "sanskrit_sha": "e98101c54f4584a0"
+   },
+   "tsa-a12-v04": {
+    "verse_id": "tsa-a12-v04",
+    "song": "tsa-a12",
+    "verse": 4,
+    "speaker": "Teacher (snāna-prakāśana)",
+    "question": "Where does the admixing-conceit arise, and how is it dispelled?",
+    "premises": [
+     "Here, in the self whose essence is free-bliss-consciousness-alone — or everywhere in the world too — the conceit of admixing another-formed reality is impurity.",
+     "That is dispelled by immersion in great-Bhairava: for someone suddenly, for someone else awaiting further means."
+    ],
+    "inference": "The conceit defiles self or world alike; mahābhairava-samāveśa removes it — jhaṭiti for the ripe, upāyāntara-prekṣin for the rest.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "tsa-a12-v04",
+     "l0_ids": [
+      "tsa-a12-v04-p000",
+      "tsa-a12-v04-p001",
+      "tsa-a12-v04-p002",
+      "tsa-a12-v04-p003",
+      "tsa-a12-v04-p004",
+      "tsa-a12-v04-p005",
+      "tsa-a12-v04-p006",
+      "tsa-a12-v04-p007",
+      "tsa-a12-v04-p008",
+      "tsa-a12-v04-p009",
+      "tsa-a12-v04-p010",
+      "tsa-a12-v04-p011",
+      "tsa-a12-v04-p012",
+      "tsa-a12-v04-p013",
+      "tsa-a12-v04-p014",
+      "tsa-a12-v04-p015",
+      "tsa-a12-v04-p016",
+      "tsa-a12-v04-p017",
+      "tsa-a12-v04-p018"
+     ]
+    },
+    "structured": true,
+    "sanskrit_sha": "e98101c54f4584a0"
+   },
+   "tsa-a12-v05": {
+    "verse_id": "tsa-a12-v05",
+    "song": "tsa-a12",
+    "verse": 5,
+    "speaker": "Teacher (snāna-prakāśana)",
+    "question": "How manifold is difference?",
+    "premises": [
+     "Therein too, by one-two-threefold division, whole or part-wise, somewhere, for someone, sometime.",
+     "And so from assurance-attainment: difference is manifold."
+    ],
+    "inference": "Bheda is vicitra by construction: division-grade, extent, locus, person, time all vary, and the manifoldness itself proceeds from assurance-attainment (āśvāsa-upalabdhi).",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "tsa-a12-v05",
+     "l0_ids": [
+      "tsa-a12-v05-p000",
+      "tsa-a12-v05-p001",
+      "tsa-a12-v05-p002",
+      "tsa-a12-v05-p003",
+      "tsa-a12-v05-p004",
+      "tsa-a12-v05-p005",
+      "tsa-a12-v05-p006",
+      "tsa-a12-v05-p007",
+      "tsa-a12-v05-p008",
+      "tsa-a12-v05-p009",
+      "tsa-a12-v05-p010",
+      "tsa-a12-v05-p011"
+     ]
+    },
+    "structured": true,
+    "sanskrit_sha": "e98101c54f4584a0"
+   },
+   "tsa-a12-v06": {
+    "verse_id": "tsa-a12-v06",
+    "song": "tsa-a12",
+    "verse": 6,
+    "speaker": "Teacher (snāna-prakāśana)",
+    "question": "What is the eightfold bath, and what does it yield?",
+    "premises": [
+     "Eightfold, in earth-water-wind-fire-sky-moon-sun-self forms, made into Supreme-Lord forms by mantra-placing majesty; by identity, in the Lord-entered body, immersion in the Supreme arises for anyone.",
+     "Though from bathing-clothes-and-so-on gladness it becomes the means to the Supreme — thus told.",
+     "Chief fruits therein: firmness, nourishment, vigor, impurity-burning, pervasion, creation-capacity, maintenance-capacity, non-difference."
+    ],
+    "inference": "The eight mūrti-baths work by tādātmya in the Lord-entered body; their gladness itself becomes upāyātā; the mantra's assumed each-form yields the eight chief fruits.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "tsa-a12-v06",
+     "l0_ids": [
+      "tsa-a12-v06-p000",
+      "tsa-a12-v06-p001",
+      "tsa-a12-v06-p002",
+      "tsa-a12-v06-p003",
+      "tsa-a12-v06-p004",
+      "tsa-a12-v06-p005",
+      "tsa-a12-v06-p006",
+      "tsa-a12-v06-p007",
+      "tsa-a12-v06-p008",
+      "tsa-a12-v06-p009",
+      "tsa-a12-v06-p010",
+      "tsa-a12-v06-p011",
+      "tsa-a12-v06-p012",
+      "tsa-a12-v06-p013",
+      "tsa-a12-v06-p014",
+      "tsa-a12-v06-p015",
+      "tsa-a12-v06-p016",
+      "tsa-a12-v06-p017",
+      "tsa-a12-v06-p018",
+      "tsa-a12-v06-p019",
+      "tsa-a12-v06-p020",
+      "tsa-a12-v06-p021",
+      "tsa-a12-v06-p022",
+      "tsa-a12-v06-p023",
+      "tsa-a12-v06-p024",
+      "tsa-a12-v06-p025",
+      "tsa-a12-v06-p026",
+      "tsa-a12-v06-p027",
+      "tsa-a12-v06-p028",
+      "tsa-a12-v06-p029",
+      "tsa-a12-v06-p030",
+      "tsa-a12-v06-p031",
+      "tsa-a12-v06-p032",
+      "tsa-a12-v06-p033",
+      "tsa-a12-v06-p034",
+      "tsa-a12-v06-p035",
+      "tsa-a12-v06-p036",
+      "tsa-a12-v06-p037",
+      "tsa-a12-v06-p038",
+      "tsa-a12-v06-p039",
+      "tsa-a12-v06-p040",
+      "tsa-a12-v06-p041"
+     ]
+    },
+    "structured": true,
+    "sanskrit_sha": "e98101c54f4584a0"
+   },
+   "tsa-a12-v07": {
+    "verse_id": "tsa-a12-v07",
+    "song": "tsa-a12",
+    "verse": 7,
+    "speaker": "Teacher (snāna-prakāśana)",
+    "question": "What is the heroes' distinction in bathing?",
+    "premises": [
+     "By heroes-rule the distinction: as battle-dust, hero-water, great wind, hero-ash, cremation-ground-sky.",
+     "Sun-and-moon placed in them, self undiscriminating."
+    ],
+    "inference": "Vīroddeśa's five hero-substances with candrārkau placed are the warrior-grade bath; the ātman there is nirvikalpaka — undiscriminating.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "tsa-a12-v07",
+     "l0_ids": [
+      "tsa-a12-v07-p000",
+      "tsa-a12-v07-p001",
+      "tsa-a12-v07-p002",
+      "tsa-a12-v07-p003",
+      "tsa-a12-v07-p004",
+      "tsa-a12-v07-p005",
+      "tsa-a12-v07-p006",
+      "tsa-a12-v07-p007",
+      "tsa-a12-v07-p008",
+      "tsa-a12-v07-p009",
+      "tsa-a12-v07-p010",
+      "tsa-a12-v07-p011",
+      "tsa-a12-v07-p012",
+      "tsa-a12-v07-p013"
+     ]
+    },
+    "structured": true,
+    "sanskrit_sha": "e98101c54f4584a0"
+   },
+   "tsa-a12-v08": {
+    "verse_id": "tsa-a12-v08",
+    "song": "tsa-a12",
+    "verse": 8,
+    "speaker": "Teacher (snāna-prakāśana)",
+    "question": "What is the outer-inner twoness of the plunge?",
+    "premises": [
+     "Again too, as outer-inner twoness, by oneness with the outward-worshipped mantra, made-of-That.",
+     "There, there plunging — thus told."
+    ],
+    "inference": "The twoness of bāhya/ābhyantara is collapsed by mantra-tādātmya: made-of-That, the plunge here-there is pronounced and closed.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "tsa-a12-v08",
+     "l0_ids": [
+      "tsa-a12-v08-p000",
+      "tsa-a12-v08-p001",
+      "tsa-a12-v08-p002",
+      "tsa-a12-v08-p003",
+      "tsa-a12-v08-p004",
+      "tsa-a12-v08-p005",
+      "tsa-a12-v08-p006",
+      "tsa-a12-v08-p007",
+      "tsa-a12-v08-p008",
+      "tsa-a12-v08-p009",
+      "tsa-a12-v08-p010"
+     ]
+    },
+    "structured": true,
+    "sanskrit_sha": "e98101c54f4584a0"
+   },
+   "tsa-a12-v09": {
+    "verse_id": "tsa-a12-v09",
+    "song": "tsa-a12",
+    "verse": 9,
+    "speaker": "Teacher (snāna-prakāśana)",
+    "question": "What is the chief bath?",
+    "premises": [
+     "But bliss-substance, hero-abiding, by looking, having-made-Śiva: right-there mantra-circle-worship.",
+     "Thence by that very one, body-and-breath deity-circle satisfied — thus the chief bath."
+    ],
+    "inference": "The mukhya-snāna: ānanda-dravya seen in vīra-ādhāra and made Śiva, mantra-cakra pūjā, then tarpaṇa of the deity-circle abiding in body and breath.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "tsa-a12-v09",
+     "l0_ids": [
+      "tsa-a12-v09-p000",
+      "tsa-a12-v09-p001",
+      "tsa-a12-v09-p002",
+      "tsa-a12-v09-p003",
+      "tsa-a12-v09-p004",
+      "tsa-a12-v09-p005",
+      "tsa-a12-v09-p006",
+      "tsa-a12-v09-p007",
+      "tsa-a12-v09-p008",
+      "tsa-a12-v09-p009",
+      "tsa-a12-v09-p010",
+      "tsa-a12-v09-p011",
+      "tsa-a12-v09-p012",
+      "tsa-a12-v09-p013"
+     ]
+    },
+    "structured": true,
+    "sanskrit_sha": "e98101c54f4584a0"
+   },
+   "tsa-a12-v10": {
+    "verse_id": "tsa-a12-v10",
+    "song": "tsa-a12",
+    "verse": 10,
+    "speaker": "Teacher (snāna-prakāśana)",
+    "question": "What is the inward bath?",
+    "premises": [
+     "Inward, thus, by holding earth-and-so-on-formed forms — here, there, in earthen-and-rest circles.",
+     "Being-made-of-That."
+    ],
+    "inference": "The ābhyantara bath is dhāraṇā of the same forms in pārthiva-cakra circles — the identity clause (tanmayībhāvaḥ) closes the āhnika.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "tsa-a12-v10",
+     "l0_ids": [
+      "tsa-a12-v10-p000",
+      "tsa-a12-v10-p001",
+      "tsa-a12-v10-p002",
+      "tsa-a12-v10-p003",
+      "tsa-a12-v10-p004",
+      "tsa-a12-v10-p005",
+      "tsa-a12-v10-p006",
+      "tsa-a12-v10-p007"
+     ]
+    },
+    "structured": true,
+    "sanskrit_sha": "e98101c54f4584a0"
+   }
+  },
+  "l2": {
+   "tsa-a12-v01": {
+    "verse_id": "tsa-a12-v01",
+    "song": "tsa-a12",
+    "verse": 1,
+    "plain_english": "Initiation and the rest must be told — it is said. So, to expound the nature of initiation, first the to-be-done bath is taught.",
+    "sanskrit_cite": "dīkṣādikaṃ vaktavyam iti uktam ato dīkṣāsvarūpanirūpaṇārthaṃ prāk kartavyaṃ snānam upadiśyate",
+    "l0_ids": [
+     "tsa-a12-v01-p000",
+     "tsa-a12-v01-p001",
+     "tsa-a12-v01-p002",
+     "tsa-a12-v01-p003",
+     "tsa-a12-v01-p004",
+     "tsa-a12-v01-p005",
+     "tsa-a12-v01-p006",
+     "tsa-a12-v01-p007",
+     "tsa-a12-v01-p008",
+     "tsa-a12-v01-p009"
+    ],
+    "supplied": []
+   },
+   "tsa-a12-v02": {
+    "verse_id": "tsa-a12-v02",
+    "song": "tsa-a12",
+    "verse": 2,
+    "plain_english": "Bathing is called purity; purity is immersion in the Supreme Lord's own form.",
+    "sanskrit_cite": "snānaṃ ca śuddhatā ucyate śuddhatā ca parameśvarasvarūpasamāveśaḥ",
+    "l0_ids": [
+     "tsa-a12-v02-p000",
+     "tsa-a12-v02-p001",
+     "tsa-a12-v02-p002",
+     "tsa-a12-v02-p003",
+     "tsa-a12-v02-p004",
+     "tsa-a12-v02-p005",
+     "tsa-a12-v02-p006"
+    ],
+    "supplied": []
+   },
+   "tsa-a12-v03": {
+    "verse_id": "tsa-a12-v03",
+    "song": "tsa-a12",
+    "verse": 3,
+    "plain_english": "Washing off turbidity is indeed purity; turbidity — even in That whose sole form is That — is the conceit of admixing another form of alien nature.",
+    "sanskrit_cite": "kāluṣyāpagamo hi śuddhiḥ kāluṣyaṃ ca tadekarūpe 'pi atatsvabhāvarūpāntarasaṃvalanābhimānaḥ",
+    "l0_ids": [
+     "tsa-a12-v03-p000",
+     "tsa-a12-v03-p001",
+     "tsa-a12-v03-p002",
+     "tsa-a12-v03-p003",
+     "tsa-a12-v03-p004",
+     "tsa-a12-v03-p005",
+     "tsa-a12-v03-p006",
+     "tsa-a12-v03-p007"
+    ],
+    "supplied": []
+   },
+   "tsa-a12-v04": {
+    "verse_id": "tsa-a12-v04",
+    "song": "tsa-a12",
+    "verse": 4,
+    "plain_english": "Here, in the self whose essence is free-bliss-consciousness-alone — or everywhere in the world too — the conceit of admixing another-formed reality is impurity; that is dispelled by immersion in great-Bhairava — for someone suddenly, for someone else awaiting further means.",
+    "sanskrit_cite": "tad iha svatantrānandacinmātrasāre svātmani viśvatrāpi vā tadanyarūpasaṃvalanābhimānaḥ aśuddhiḥ sā ca mahābhairavasamāveśena vyapohyate so 'pi kasyacit jhaṭiti bhavet kasyāpi upāyāntaramukhaprekṣī",
+    "l0_ids": [
+     "tsa-a12-v04-p000",
+     "tsa-a12-v04-p001",
+     "tsa-a12-v04-p002",
+     "tsa-a12-v04-p003",
+     "tsa-a12-v04-p004",
+     "tsa-a12-v04-p005",
+     "tsa-a12-v04-p006",
+     "tsa-a12-v04-p007",
+     "tsa-a12-v04-p008",
+     "tsa-a12-v04-p009",
+     "tsa-a12-v04-p010",
+     "tsa-a12-v04-p011",
+     "tsa-a12-v04-p012",
+     "tsa-a12-v04-p013",
+     "tsa-a12-v04-p014",
+     "tsa-a12-v04-p015",
+     "tsa-a12-v04-p016",
+     "tsa-a12-v04-p017",
+     "tsa-a12-v04-p018"
+    ],
+    "supplied": []
+   },
+   "tsa-a12-v05": {
+    "verse_id": "tsa-a12-v05",
+    "song": "tsa-a12",
+    "verse": 5,
+    "plain_english": "Therein too, by one-two-threefold division, whole or part-wise, somewhere, for someone, sometime, and so from assurance-attainment: difference is manifold.",
+    "sanskrit_cite": "tatrāpi ca ekadvitryādibhedena samastavyastatayā kvacit kasyacit kadācit ca tathā āśvāsopalabdheḥ vicitro bhedaḥ",
+    "l0_ids": [
+     "tsa-a12-v05-p000",
+     "tsa-a12-v05-p001",
+     "tsa-a12-v05-p002",
+     "tsa-a12-v05-p003",
+     "tsa-a12-v05-p004",
+     "tsa-a12-v05-p005",
+     "tsa-a12-v05-p006",
+     "tsa-a12-v05-p007",
+     "tsa-a12-v05-p008",
+     "tsa-a12-v05-p009",
+     "tsa-a12-v05-p010",
+     "tsa-a12-v05-p011"
+    ],
+    "supplied": []
+   },
+   "tsa-a12-v06": {
+    "verse_id": "tsa-a12-v06",
+    "song": "tsa-a12",
+    "verse": 6,
+    "plain_english": "And eightfold, in earth-water-wind-fire-sky-moon-sun-self forms, made into Supreme-Lord forms by mantra-placing majesty; by identity, in the Lord-entered body, immersion in the Supreme arises for anyone — though from bathing-clothes-and-so-on gladness it becomes the means to the Supreme. Thus told the chief fruits therein: firmness, nourishment, vigor, impurity-burning, pervasion, creation-capacity, maintenance-capacity, non-difference.",
+    "sanskrit_cite": "sa ca aṣṭadhā kṣitijalapavanahutāśanākāśasomasūryātmarūpāsu aṣṭāsu mūrtiṣu mantranyāsamahimnā parameśvararūpatayā bhāvitāsu tādātmyena ca dehe parameśvarasamāviṣṭe śarīrādivibhāgavṛtteḥ caitanyasyāpi parameśvarasamāveśaprāptiḥ kasyāpi tu snānavastrādituṣṭijanakatvāt parameśopāyatām etīti uktaṃ ca śrīmadānandādau dhṛtiḥ āpyāyo vīryaṃ maladāho vyāptiḥ sṛṣṭisāmarthyaṃ sthitisāmarthyam abhedaś ca ity etāni teṣu mukhyaphalāni teṣu teṣu upāhitasya mantrasya tattadrūpadhāritvāt",
+    "l0_ids": [
+     "tsa-a12-v06-p000",
+     "tsa-a12-v06-p001",
+     "tsa-a12-v06-p002",
+     "tsa-a12-v06-p003",
+     "tsa-a12-v06-p004",
+     "tsa-a12-v06-p005",
+     "tsa-a12-v06-p006",
+     "tsa-a12-v06-p007",
+     "tsa-a12-v06-p008",
+     "tsa-a12-v06-p009",
+     "tsa-a12-v06-p010",
+     "tsa-a12-v06-p011",
+     "tsa-a12-v06-p012",
+     "tsa-a12-v06-p013",
+     "tsa-a12-v06-p014",
+     "tsa-a12-v06-p015",
+     "tsa-a12-v06-p016",
+     "tsa-a12-v06-p017",
+     "tsa-a12-v06-p018",
+     "tsa-a12-v06-p019",
+     "tsa-a12-v06-p020",
+     "tsa-a12-v06-p021",
+     "tsa-a12-v06-p022",
+     "tsa-a12-v06-p023",
+     "tsa-a12-v06-p024",
+     "tsa-a12-v06-p025",
+     "tsa-a12-v06-p026",
+     "tsa-a12-v06-p027",
+     "tsa-a12-v06-p028",
+     "tsa-a12-v06-p029",
+     "tsa-a12-v06-p030",
+     "tsa-a12-v06-p031",
+     "tsa-a12-v06-p032",
+     "tsa-a12-v06-p033",
+     "tsa-a12-v06-p034",
+     "tsa-a12-v06-p035",
+     "tsa-a12-v06-p036",
+     "tsa-a12-v06-p037",
+     "tsa-a12-v06-p038",
+     "tsa-a12-v06-p039",
+     "tsa-a12-v06-p040",
+     "tsa-a12-v06-p041"
+    ],
+    "supplied": []
+   },
+   "tsa-a12-v07": {
+    "verse_id": "tsa-a12-v07",
+    "song": "tsa-a12",
+    "verse": 7,
+    "plain_english": "But by heroes-rule the distinction: as battle-dust, hero-water, great wind, hero-ash, cremation-ground-sky — sun-and-moon placed in them, self undiscriminating.",
+    "sanskrit_cite": "vīroddeśena tu viśeṣaḥ tad yathā raṇareṇuḥ vīrāmbhaḥ mahāmarut vīrabhasma śmaśānanabhaḥ tadupahitau candrārkau ātmā nirvikalpakaḥ",
+    "l0_ids": [
+     "tsa-a12-v07-p000",
+     "tsa-a12-v07-p001",
+     "tsa-a12-v07-p002",
+     "tsa-a12-v07-p003",
+     "tsa-a12-v07-p004",
+     "tsa-a12-v07-p005",
+     "tsa-a12-v07-p006",
+     "tsa-a12-v07-p007",
+     "tsa-a12-v07-p008",
+     "tsa-a12-v07-p009",
+     "tsa-a12-v07-p010",
+     "tsa-a12-v07-p011",
+     "tsa-a12-v07-p012",
+     "tsa-a12-v07-p013"
+    ],
+    "supplied": []
+   },
+   "tsa-a12-v08": {
+    "verse_id": "tsa-a12-v08",
+    "song": "tsa-a12",
+    "verse": 8,
+    "plain_english": "Again too, as outer-inner twoness, by oneness with the outward-worshipped mantra, made-of-That: there, there plunging — thus told.",
+    "sanskrit_cite": "punar api bāhyābhyantaratayā dvitvam bahirupāsyamantratādātmyena tanmayīkṛte tatra tatra nimajjanam ity uktam",
+    "l0_ids": [
+     "tsa-a12-v08-p000",
+     "tsa-a12-v08-p001",
+     "tsa-a12-v08-p002",
+     "tsa-a12-v08-p003",
+     "tsa-a12-v08-p004",
+     "tsa-a12-v08-p005",
+     "tsa-a12-v08-p006",
+     "tsa-a12-v08-p007",
+     "tsa-a12-v08-p008",
+     "tsa-a12-v08-p009",
+     "tsa-a12-v08-p010"
+    ],
+    "supplied": []
+   },
+   "tsa-a12-v09": {
+    "verse_id": "tsa-a12-v09",
+    "song": "tsa-a12",
+    "verse": 9,
+    "plain_english": "But bliss-substance, hero-abiding, by looking, having-made-Śiva: right-there mantra-circle-worship; thence by that very one, body-and-breath deity-circle satisfied — thus the chief bath.",
+    "sanskrit_cite": "viśeṣas tu ānandadravyaṃ vīrādhāragataṃ nirīkṣaṇena śivamayīkṛtya tatraiva mantracakrapūjanam tataḥ tenaiva dehaprāṇobhayāśritadevatācakratarpaṇam iti mukhyaṃ snānam",
+    "l0_ids": [
+     "tsa-a12-v09-p000",
+     "tsa-a12-v09-p001",
+     "tsa-a12-v09-p002",
+     "tsa-a12-v09-p003",
+     "tsa-a12-v09-p004",
+     "tsa-a12-v09-p005",
+     "tsa-a12-v09-p006",
+     "tsa-a12-v09-p007",
+     "tsa-a12-v09-p008",
+     "tsa-a12-v09-p009",
+     "tsa-a12-v09-p010",
+     "tsa-a12-v09-p011",
+     "tsa-a12-v09-p012",
+     "tsa-a12-v09-p013"
+    ],
+    "supplied": []
+   },
+   "tsa-a12-v10": {
+    "verse_id": "tsa-a12-v10",
+    "song": "tsa-a12",
+    "verse": 10,
+    "plain_english": "Inward, thus, by holding earth-and-so-on-formed forms — here, there, in earthen-and-rest circles — being-made-of-That.",
+    "sanskrit_cite": "ābhyantaraṃ yathā tattaddharādirūpadhāraṇayā tatra tatra pārthivādau cakre tanmayībhāvaḥ",
+    "l0_ids": [
+     "tsa-a12-v10-p000",
+     "tsa-a12-v10-p001",
+     "tsa-a12-v10-p002",
+     "tsa-a12-v10-p003",
+     "tsa-a12-v10-p004",
+     "tsa-a12-v10-p005",
+     "tsa-a12-v10-p006",
+     "tsa-a12-v10-p007"
+    ],
+    "supplied": []
+   }
+  },
+  "c1": {
+   "tsa-a12": {
+    "song": "tsa-a12",
+    "essence": [
+     "Initiation's nature is set forth through the bath: the to-be-done bath is taught first.",
+     "Bathing names purity; purity is immersion in the Supreme Lord's own form.",
+     "Purity is washing-off of turbidity; turbidity is the conceit of admixing an alien form — even in That whose sole form is That.",
+     "The conceit of another-formed reality is impurity in self or world alike; dispelled by great-Bhairava immersion — sudden for some, for others awaiting further means.",
+     "Difference is manifold — by one-two-threefold division, whole or part, somewhere, for someone, sometime, from assurance-attainment.",
+     "Eight forms made into Supreme-Lord forms by mantra-placement: identity in the Lord-entered body brings immersion for anyone; bathing-gladness itself becomes the means; chief fruits — firmness to non-difference — follow each assumed form.",
+     "Heroes-rule sets the five substances — battle-dust to cremation-ground sky — with sun-moon placed and the self undiscriminating.",
+     "Outer-inner twoness collapses by oneness with the outward-worshipped mantra: made-of-That, plunging here-there, thus told.",
+     "The chief bath: bliss-substance hero-abiding made-Śiva, mantra-circle worshipped, deity-circle of body-and-breath satisfied by that very one.",
+     "The inward bath holds earth-and-other forms in earthen circles — being-made-of-That."
+    ],
+    "essence_source": "manual",
+    "rasa": {
+     "dominant": "śānta with vidhi weight (quiescence carrying ritual order)",
+     "sthayibhava": "śama with vidhi (quiescence as ordered rite)",
+     "justification": "The rite is named, not dramatized: definition, grades, fruits, close — each stated in order. Relish is settled procedure; wonder enters only as the eight forms and their fruits."
+    },
+    "renders": {
+     "standard": {
+      "sections": {
+       "SUMMARY": "The exposition opens with the bath: to set forth initiation's nature, the to-be-done bath is taught first. Bathing names purity; purity is immersion in the Supreme Lord's own form. Purity is washing-off of turbidity; turbidity is the conceit of admixing an alien form — even in That whose sole form is That. The conceit of another-formed reality is impurity in self or world alike; dispelled by great-Bhairava immersion — sudden for some, for others awaiting further means. Difference is manifold — by one-two-threefold division, whole or part, somewhere, for someone, sometime, from assurance-attainment. Eight forms made into Supreme-Lord forms by mantra-placement: identity in the Lord-entered body brings immersion for anyone; bathing-gladness itself becomes the means; chief fruits — firmness to non-difference — follow each assumed form. Heroes-rule sets the five substances — battle-dust to cremation-ground sky — with sun-moon placed and the self undiscriminating. Outer-inner twoness collapses by oneness with the outward-worshipped mantra: made-of-That, plunging here-there, thus told. The chief bath: bliss-substance hero-abiding made-Śiva, mantra-circle worshipped, deity-circle of body-and-breath satisfied by that very one. The inward bath holds earth-and-other forms in earthen circles — being-made-of-That.",
+       "FUNCTION": "Defines bath-as-immersion, grades it (worldwide impurity, eight mūrti forms, heroes' substances, chief bath, inward hold), and closes on made-of-That.",
+       "KEY TERMS": "snāna (bath as purity); śuddhi (turbidity-washing); abhimāna (alien-form conceit); mahābhairava-samāveśa (dispelling immersion); tādātmya (identity in the Lord-entered body); vīroddeśa (heroes' five substances); mukhya-snāna (chief bath); tanmayībhāva (made-of-That close).",
+       "LOCAL CONTEXT": "The bath is taught as the precondition of dīkṣā-vidhi; eightfold, heroes', chief, and inward forms graded in turn before the initiation-rite the bath serves.",
+       "BOUNDARY": "No cosmology argued: the rite's definition, grades, and fruits are stated; the fruits-list stands as authority, not as proof.",
+       "EXPLANATION": "Because snāna is samāveśa, impurity must be abhimāna rather than dirt; because the conceit can arise in self or world, the dispelling immersion is universal in scope yet graded in time (jhaṭiti for some, upāyāntara-prekṣin for others); because identity does the work, the eight forms need only mantra-placement in the Lord-entered body, and the gladness of the rite itself becomes the means — hence the chief fruits and the inward hold: same forms, circles of earth, made-of-That.",
+       "RELATED": "Pradipaka ch.12 (same text, pada-glossed); Vishvasa ch.12 (translation); Chakravarty on snāna as absorption — lore support, never witness; qa NEEDS_WITNESS expected."
+      }
+     }
+    }
+   }
+  },
+  "l3": {
+   "tsa-a12-v01": {
+    "verse_id": "tsa-a12-v01",
+    "song": "tsa-a12",
+    "verse": 1,
+    "lines": [
+     "Initiation and the rest must be told — it is said;",
+     "so to set forth initiation's nature, first",
+     "the to-be-done bath is taught."
+    ],
+    "sanskrit_cite": "dīkṣādikaṃ vaktavyam iti uktam ato dīkṣāsvarūpanirūpaṇārthaṃ prāk kartavyaṃ snānam upadiśyate",
+    "l0_ids": [
+     "tsa-a12-v01-p000",
+     "tsa-a12-v01-p001",
+     "tsa-a12-v01-p002",
+     "tsa-a12-v01-p003",
+     "tsa-a12-v01-p004",
+     "tsa-a12-v01-p005",
+     "tsa-a12-v01-p006",
+     "tsa-a12-v01-p007",
+     "tsa-a12-v01-p008",
+     "tsa-a12-v01-p009"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "tsa-a12-v02": {
+    "verse_id": "tsa-a12-v02",
+    "song": "tsa-a12",
+    "verse": 2,
+    "lines": [
+     "Bathing is called purity —",
+     "and purity is entering the Supreme Lord's own form."
+    ],
+    "sanskrit_cite": "snānaṃ ca śuddhatā ucyate śuddhatā ca parameśvarasvarūpasamāveśaḥ",
+    "l0_ids": [
+     "tsa-a12-v02-p000",
+     "tsa-a12-v02-p001",
+     "tsa-a12-v02-p002",
+     "tsa-a12-v02-p003",
+     "tsa-a12-v02-p004",
+     "tsa-a12-v02-p005",
+     "tsa-a12-v02-p006"
+    ],
+    "essence_maps": [
+     1
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "tsa-a12-v03": {
+    "verse_id": "tsa-a12-v03",
+    "song": "tsa-a12",
+    "verse": 3,
+    "lines": [
+     "Washing off turbidity — that indeed is purity;",
+     "and turbidity, even in That whose sole form is That,",
+     "is the conceit of admixing a form of alien nature."
+    ],
+    "sanskrit_cite": "kāluṣyāpagamo hi śuddhiḥ kāluṣyaṃ ca tadekarūpe 'pi atatsvabhāvarūpāntarasaṃvalanābhimānaḥ",
+    "l0_ids": [
+     "tsa-a12-v03-p000",
+     "tsa-a12-v03-p001",
+     "tsa-a12-v03-p002",
+     "tsa-a12-v03-p003",
+     "tsa-a12-v03-p004",
+     "tsa-a12-v03-p005",
+     "tsa-a12-v03-p006",
+     "tsa-a12-v03-p007"
+    ],
+    "essence_maps": [
+     2
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "tsa-a12-v04": {
+    "verse_id": "tsa-a12-v04",
+    "song": "tsa-a12",
+    "verse": 4,
+    "lines": [
+     "Here — in the self whose pith is free bliss, consciousness alone,",
+     "or everywhere in the world as well — the conceit",
+     "of admixing another-formed reality is impurity;",
+     "that, too, is washed out by great-Bhairava immersion:",
+     "suddenly for some — for others awaiting further means."
+    ],
+    "sanskrit_cite": "tad iha svatantrānandacinmātrasāre svātmani viśvatrāpi vā tadanyarūpasaṃvalanābhimānaḥ aśuddhiḥ sā ca mahābhairavasamāveśena vyapohyate so 'pi kasyacit jhaṭiti bhavet kasyāpi upāyāntaramukhaprekṣī",
+    "l0_ids": [
+     "tsa-a12-v04-p000",
+     "tsa-a12-v04-p001",
+     "tsa-a12-v04-p002",
+     "tsa-a12-v04-p003",
+     "tsa-a12-v04-p004",
+     "tsa-a12-v04-p005",
+     "tsa-a12-v04-p006",
+     "tsa-a12-v04-p007",
+     "tsa-a12-v04-p008",
+     "tsa-a12-v04-p009",
+     "tsa-a12-v04-p010",
+     "tsa-a12-v04-p011",
+     "tsa-a12-v04-p012",
+     "tsa-a12-v04-p013",
+     "tsa-a12-v04-p014",
+     "tsa-a12-v04-p015",
+     "tsa-a12-v04-p016",
+     "tsa-a12-v04-p017",
+     "tsa-a12-v04-p018"
+    ],
+    "essence_maps": [
+     3
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "tsa-a12-v05": {
+    "verse_id": "tsa-a12-v05",
+    "song": "tsa-a12",
+    "verse": 5,
+    "lines": [
+     "Therein too — by one-, two-, threefold division,",
+     "whole or part; somewhere, for someone, sometime,",
+     "and so from assurance-attainment: difference is manifold."
+    ],
+    "sanskrit_cite": "tatrāpi ca ekadvitryādibhedena samastavyastatayā kvacit kasyacit kadācit ca tathā āśvāsopalabdheḥ vicitro bhedaḥ",
+    "l0_ids": [
+     "tsa-a12-v05-p000",
+     "tsa-a12-v05-p001",
+     "tsa-a12-v05-p002",
+     "tsa-a12-v05-p003",
+     "tsa-a12-v05-p004",
+     "tsa-a12-v05-p005",
+     "tsa-a12-v05-p006",
+     "tsa-a12-v05-p007",
+     "tsa-a12-v05-p008",
+     "tsa-a12-v05-p009",
+     "tsa-a12-v05-p010",
+     "tsa-a12-v05-p011"
+    ],
+    "essence_maps": [
+     4
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "tsa-a12-v06": {
+    "verse_id": "tsa-a12-v06",
+    "song": "tsa-a12",
+    "verse": 6,
+    "lines": [
+     "And eightfold: in earth-, water-, wind-, fire-, sky-,",
+     "moon-, sun-, and self-formed places — the eight forms",
+     "made into Supreme-Lord forms by mantra-placement's majesty;",
+     "by identity, in the body entered by the Supreme, for anyone,",
+     "immersion in the Supreme arises — though from gladness",
+     "of bathing-clothes and the rest it becomes the means: thus told.",
+     "As in revered Ānanda and the rest: firmness, nourishment, vigor,",
+     "impurity-burning, pervasion, creation-, maintenance-capacity, non-difference —",
+     "chief fruits, here and there, from the mantra placed in each,",
+     "assuming that and that form."
+    ],
+    "sanskrit_cite": "sa ca aṣṭadhā kṣitijalapavanahutāśanākāśasomasūryātmarūpāsu aṣṭāsu mūrtiṣu mantranyāsamahimnā parameśvararūpatayā bhāvitāsu tādātmyena ca dehe parameśvarasamāviṣṭe śarīrādivibhāgavṛtteḥ caitanyasyāpi parameśvarasamāveśaprāptiḥ kasyāpi tu snānavastrādituṣṭijanakatvāt parameśopāyatām etīti uktaṃ ca śrīmadānandādau dhṛtiḥ āpyāyo vīryaṃ maladāho vyāptiḥ sṛṣṭisāmarthyaṃ sthitisāmarthyam abhedaś ca ity etāni teṣu mukhyaphalāni teṣu teṣu upāhitasya mantrasya tattadrūpadhāritvāt",
+    "l0_ids": [
+     "tsa-a12-v06-p000",
+     "tsa-a12-v06-p001",
+     "tsa-a12-v06-p002",
+     "tsa-a12-v06-p003",
+     "tsa-a12-v06-p004",
+     "tsa-a12-v06-p005",
+     "tsa-a12-v06-p006",
+     "tsa-a12-v06-p007",
+     "tsa-a12-v06-p008",
+     "tsa-a12-v06-p009",
+     "tsa-a12-v06-p010",
+     "tsa-a12-v06-p011",
+     "tsa-a12-v06-p012",
+     "tsa-a12-v06-p013",
+     "tsa-a12-v06-p014",
+     "tsa-a12-v06-p015",
+     "tsa-a12-v06-p016",
+     "tsa-a12-v06-p017",
+     "tsa-a12-v06-p018",
+     "tsa-a12-v06-p019",
+     "tsa-a12-v06-p020",
+     "tsa-a12-v06-p021",
+     "tsa-a12-v06-p022",
+     "tsa-a12-v06-p023",
+     "tsa-a12-v06-p024",
+     "tsa-a12-v06-p025",
+     "tsa-a12-v06-p026",
+     "tsa-a12-v06-p027",
+     "tsa-a12-v06-p028",
+     "tsa-a12-v06-p029",
+     "tsa-a12-v06-p030",
+     "tsa-a12-v06-p031",
+     "tsa-a12-v06-p032",
+     "tsa-a12-v06-p033",
+     "tsa-a12-v06-p034",
+     "tsa-a12-v06-p035",
+     "tsa-a12-v06-p036",
+     "tsa-a12-v06-p037",
+     "tsa-a12-v06-p038",
+     "tsa-a12-v06-p039",
+     "tsa-a12-v06-p040",
+     "tsa-a12-v06-p041"
+    ],
+    "essence_maps": [
+     5
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": [
+     "'śrīmadānandādau' held as glossed (person-or-joy locus unresolved; L0 clean)"
+    ]
+   },
+   "tsa-a12-v07": {
+    "verse_id": "tsa-a12-v07",
+    "song": "tsa-a12",
+    "verse": 7,
+    "lines": [
+     "Now heroes' rule — the distinction:",
+     "battle-dust, hero-water, great wind, hero-ash,",
+     "the cremation-ground sky — sun and moon placed in them,",
+     "the self undiscriminating."
+    ],
+    "sanskrit_cite": "vīroddeśena tu viśeṣaḥ tad yathā raṇareṇuḥ vīrāmbhaḥ mahāmarut vīrabhasma śmaśānanabhaḥ tadupahitau candrārkau ātmā nirvikalpakaḥ",
+    "l0_ids": [
+     "tsa-a12-v07-p000",
+     "tsa-a12-v07-p001",
+     "tsa-a12-v07-p002",
+     "tsa-a12-v07-p003",
+     "tsa-a12-v07-p004",
+     "tsa-a12-v07-p005",
+     "tsa-a12-v07-p006",
+     "tsa-a12-v07-p007",
+     "tsa-a12-v07-p008",
+     "tsa-a12-v07-p009",
+     "tsa-a12-v07-p010",
+     "tsa-a12-v07-p011",
+     "tsa-a12-v07-p012",
+     "tsa-a12-v07-p013"
+    ],
+    "essence_maps": [
+     6
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "tsa-a12-v08": {
+    "verse_id": "tsa-a12-v08",
+    "song": "tsa-a12",
+    "verse": 8,
+    "lines": [
+     "Again too, as outer-inner twoness:",
+     "by oneness with the outward-worshipped mantra,",
+     "made of That — plunging here, there: thus told."
+    ],
+    "sanskrit_cite": "punar api bāhyābhyantaratayā dvitvam bahirupāsyamantratādātmyena tanmayīkṛte tatra tatra nimajjanam ity uktam",
+    "l0_ids": [
+     "tsa-a12-v08-p000",
+     "tsa-a12-v08-p001",
+     "tsa-a12-v08-p002",
+     "tsa-a12-v08-p003",
+     "tsa-a12-v08-p004",
+     "tsa-a12-v08-p005",
+     "tsa-a12-v08-p006",
+     "tsa-a12-v08-p007",
+     "tsa-a12-v08-p008",
+     "tsa-a12-v08-p009",
+     "tsa-a12-v08-p010"
+    ],
+    "essence_maps": [
+     7
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "tsa-a12-v09": {
+    "verse_id": "tsa-a12-v09",
+    "song": "tsa-a12",
+    "verse": 9,
+    "lines": [
+     "But the bliss-substance, abiding as the hero's support,",
+     "by looking, having made it Śiva — right there,",
+     "the mantra-circle's worship; thence by that very one,",
+     "body-and-breath deity-circle satisfied: thus the chief bath."
+    ],
+    "sanskrit_cite": "viśeṣas tu ānandadravyaṃ vīrādhāragataṃ nirīkṣaṇena śivamayīkṛtya tatraiva mantracakrapūjanam tataḥ tenaiva dehaprāṇobhayāśritadevatācakratarpaṇam iti mukhyaṃ snānam",
+    "l0_ids": [
+     "tsa-a12-v09-p000",
+     "tsa-a12-v09-p001",
+     "tsa-a12-v09-p002",
+     "tsa-a12-v09-p003",
+     "tsa-a12-v09-p004",
+     "tsa-a12-v09-p005",
+     "tsa-a12-v09-p006",
+     "tsa-a12-v09-p007",
+     "tsa-a12-v09-p008",
+     "tsa-a12-v09-p009",
+     "tsa-a12-v09-p010",
+     "tsa-a12-v09-p011",
+     "tsa-a12-v09-p012",
+     "tsa-a12-v09-p013"
+    ],
+    "essence_maps": [
+     8
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "tsa-a12-v10": {
+    "verse_id": "tsa-a12-v10",
+    "song": "tsa-a12",
+    "verse": 10,
+    "lines": [
+     "Inward, thus: by holding earth-and-other-formed forms —",
+     "here, there, in the earthen and other circles —",
+     "the state of being made of That."
+    ],
+    "sanskrit_cite": "ābhyantaraṃ yathā tattaddharādirūpadhāraṇayā tatra tatra pārthivādau cakre tanmayībhāvaḥ",
+    "l0_ids": [
+     "tsa-a12-v10-p000",
+     "tsa-a12-v10-p001",
+     "tsa-a12-v10-p002",
+     "tsa-a12-v10-p003",
+     "tsa-a12-v10-p004",
+     "tsa-a12-v10-p005",
+     "tsa-a12-v10-p006",
+     "tsa-a12-v10-p007"
+    ],
+    "essence_maps": [
+     9
+    ],
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   }
+  },
+  "l4": {
+   "tsa-a12-v01": {
+    "verse_id": "tsa-a12-v01",
+    "song": "tsa-a12",
+    "verse": 1,
+    "lines": [
+     "Initiation and the rest must be told — it is said;",
+     "so to set forth initiation's nature, first",
+     "the to-be-done bath is taught."
+    ],
+    "sanskrit_cite": "dīkṣādikaṃ vaktavyam iti uktam ato dīkṣāsvarūpanirūpaṇārthaṃ prāk kartavyaṃ snānam upadiśyate",
+    "l0_ids": [
+     "tsa-a12-v01-p000",
+     "tsa-a12-v01-p001",
+     "tsa-a12-v01-p002",
+     "tsa-a12-v01-p003",
+     "tsa-a12-v01-p004",
+     "tsa-a12-v01-p005",
+     "tsa-a12-v01-p006",
+     "tsa-a12-v01-p007",
+     "tsa-a12-v01-p008",
+     "tsa-a12-v01-p009"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "form": "triplet",
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "tsa-a12-v02": {
+    "verse_id": "tsa-a12-v02",
+    "song": "tsa-a12",
+    "verse": 2,
+    "lines": [
+     "Bathing is called purity —",
+     "and purity is entering the Supreme Lord's own form."
+    ],
+    "sanskrit_cite": "snānaṃ ca śuddhatā ucyate śuddhatā ca parameśvarasvarūpasamāveśaḥ",
+    "l0_ids": [
+     "tsa-a12-v02-p000",
+     "tsa-a12-v02-p001",
+     "tsa-a12-v02-p002",
+     "tsa-a12-v02-p003",
+     "tsa-a12-v02-p004",
+     "tsa-a12-v02-p005",
+     "tsa-a12-v02-p006"
+    ],
+    "essence_maps": [
+     1
+    ],
+    "form": "couplet",
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "tsa-a12-v03": {
+    "verse_id": "tsa-a12-v03",
+    "song": "tsa-a12",
+    "verse": 3,
+    "lines": [
+     "Washing off turbidity — that indeed is purity;",
+     "and turbidity, even in That whose sole form is That,",
+     "is the conceit of admixing a form of alien nature."
+    ],
+    "sanskrit_cite": "kāluṣyāpagamo hi śuddhiḥ kāluṣyaṃ ca tadekarūpe 'pi atatsvabhāvarūpāntarasaṃvalanābhimānaḥ",
+    "l0_ids": [
+     "tsa-a12-v03-p000",
+     "tsa-a12-v03-p001",
+     "tsa-a12-v03-p002",
+     "tsa-a12-v03-p003",
+     "tsa-a12-v03-p004",
+     "tsa-a12-v03-p005",
+     "tsa-a12-v03-p006",
+     "tsa-a12-v03-p007"
+    ],
+    "essence_maps": [
+     2
+    ],
+    "form": "triplet",
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "tsa-a12-v04": {
+    "verse_id": "tsa-a12-v04",
+    "song": "tsa-a12",
+    "verse": 4,
+    "lines": [
+     "Here — in the self whose pith is free bliss, consciousness alone,",
+     "or everywhere in the world as well — the conceit",
+     "of admixing another-formed reality is impurity;",
+     "that, too, is washed out by great-Bhairava immersion:",
+     "suddenly for some — for others awaiting further means."
+    ],
+    "sanskrit_cite": "tad iha svatantrānandacinmātrasāre svātmani viśvatrāpi vā tadanyarūpasaṃvalanābhimānaḥ aśuddhiḥ sā ca mahābhairavasamāveśena vyapohyate so 'pi kasyacit jhaṭiti bhavet kasyāpi upāyāntaramukhaprekṣī",
+    "l0_ids": [
+     "tsa-a12-v04-p000",
+     "tsa-a12-v04-p001",
+     "tsa-a12-v04-p002",
+     "tsa-a12-v04-p003",
+     "tsa-a12-v04-p004",
+     "tsa-a12-v04-p005",
+     "tsa-a12-v04-p006",
+     "tsa-a12-v04-p007",
+     "tsa-a12-v04-p008",
+     "tsa-a12-v04-p009",
+     "tsa-a12-v04-p010",
+     "tsa-a12-v04-p011",
+     "tsa-a12-v04-p012",
+     "tsa-a12-v04-p013",
+     "tsa-a12-v04-p014",
+     "tsa-a12-v04-p015",
+     "tsa-a12-v04-p016",
+     "tsa-a12-v04-p017",
+     "tsa-a12-v04-p018"
+    ],
+    "essence_maps": [
+     3
+    ],
+    "form": "quintain",
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "tsa-a12-v05": {
+    "verse_id": "tsa-a12-v05",
+    "song": "tsa-a12",
+    "verse": 5,
+    "lines": [
+     "Therein too — by one-, two-, threefold division,",
+     "whole or part; somewhere, for someone, sometime,",
+     "and so from assurance-attainment: difference is manifold."
+    ],
+    "sanskrit_cite": "tatrāpi ca ekadvitryādibhedena samastavyastatayā kvacit kasyacit kadācit ca tathā āśvāsopalabdheḥ vicitro bhedaḥ",
+    "l0_ids": [
+     "tsa-a12-v05-p000",
+     "tsa-a12-v05-p001",
+     "tsa-a12-v05-p002",
+     "tsa-a12-v05-p003",
+     "tsa-a12-v05-p004",
+     "tsa-a12-v05-p005",
+     "tsa-a12-v05-p006",
+     "tsa-a12-v05-p007",
+     "tsa-a12-v05-p008",
+     "tsa-a12-v05-p009",
+     "tsa-a12-v05-p010",
+     "tsa-a12-v05-p011"
+    ],
+    "essence_maps": [
+     4
+    ],
+    "form": "triplet",
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "tsa-a12-v06": {
+    "verse_id": "tsa-a12-v06",
+    "song": "tsa-a12",
+    "verse": 6,
+    "lines": [
+     "And eightfold: in earth-, water-, wind-, fire-, sky-,",
+     "moon-, sun-, and self-formed places — the eight forms",
+     "made into Supreme-Lord forms by mantra-placement's majesty;",
+     "by identity, in the body entered by the Supreme, for anyone,",
+     "immersion in the Supreme arises — though from gladness",
+     "of bathing-clothes and the rest it becomes the means: thus told.",
+     "As in revered Ānanda and the rest: firmness, nourishment, vigor,",
+     "impurity-burning, pervasion, creation-, maintenance-capacity, non-difference —",
+     "chief fruits, here and there, from the mantra placed in each,",
+     "assuming that and that form."
+    ],
+    "sanskrit_cite": "sa ca aṣṭadhā kṣitijalapavanahutāśanākāśasomasūryātmarūpāsu aṣṭāsu mūrtiṣu mantranyāsamahimnā parameśvararūpatayā bhāvitāsu tādātmyena ca dehe parameśvarasamāviṣṭe śarīrādivibhāgavṛtteḥ caitanyasyāpi parameśvarasamāveśaprāptiḥ kasyāpi tu snānavastrādituṣṭijanakatvāt parameśopāyatām etīti uktaṃ ca śrīmadānandādau dhṛtiḥ āpyāyo vīryaṃ maladāho vyāptiḥ sṛṣṭisāmarthyaṃ sthitisāmarthyam abhedaś ca ity etāni teṣu mukhyaphalāni teṣu teṣu upāhitasya mantrasya tattadrūpadhāritvāt",
+    "l0_ids": [
+     "tsa-a12-v06-p000",
+     "tsa-a12-v06-p001",
+     "tsa-a12-v06-p002",
+     "tsa-a12-v06-p003",
+     "tsa-a12-v06-p004",
+     "tsa-a12-v06-p005",
+     "tsa-a12-v06-p006",
+     "tsa-a12-v06-p007",
+     "tsa-a12-v06-p008",
+     "tsa-a12-v06-p009",
+     "tsa-a12-v06-p010",
+     "tsa-a12-v06-p011",
+     "tsa-a12-v06-p012",
+     "tsa-a12-v06-p013",
+     "tsa-a12-v06-p014",
+     "tsa-a12-v06-p015",
+     "tsa-a12-v06-p016",
+     "tsa-a12-v06-p017",
+     "tsa-a12-v06-p018",
+     "tsa-a12-v06-p019",
+     "tsa-a12-v06-p020",
+     "tsa-a12-v06-p021",
+     "tsa-a12-v06-p022",
+     "tsa-a12-v06-p023",
+     "tsa-a12-v06-p024",
+     "tsa-a12-v06-p025",
+     "tsa-a12-v06-p026",
+     "tsa-a12-v06-p027",
+     "tsa-a12-v06-p028",
+     "tsa-a12-v06-p029",
+     "tsa-a12-v06-p030",
+     "tsa-a12-v06-p031",
+     "tsa-a12-v06-p032",
+     "tsa-a12-v06-p033",
+     "tsa-a12-v06-p034",
+     "tsa-a12-v06-p035",
+     "tsa-a12-v06-p036",
+     "tsa-a12-v06-p037",
+     "tsa-a12-v06-p038",
+     "tsa-a12-v06-p039",
+     "tsa-a12-v06-p040",
+     "tsa-a12-v06-p041"
+    ],
+    "essence_maps": [
+     5
+    ],
+    "form": "ten-line song",
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": [
+     "'śrīmadānandādau' held as glossed (person-or-joy locus unresolved; L0 clean)"
+    ]
+   },
+   "tsa-a12-v07": {
+    "verse_id": "tsa-a12-v07",
+    "song": "tsa-a12",
+    "verse": 7,
+    "lines": [
+     "Now heroes' rule — the distinction:",
+     "battle-dust, hero-water, great wind, hero-ash,",
+     "the cremation-ground sky — sun and moon placed in them,",
+     "the self undiscriminating."
+    ],
+    "sanskrit_cite": "vīroddeśena tu viśeṣaḥ tad yathā raṇareṇuḥ vīrāmbhaḥ mahāmarut vīrabhasma śmaśānanabhaḥ tadupahitau candrārkau ātmā nirvikalpakaḥ",
+    "l0_ids": [
+     "tsa-a12-v07-p000",
+     "tsa-a12-v07-p001",
+     "tsa-a12-v07-p002",
+     "tsa-a12-v07-p003",
+     "tsa-a12-v07-p004",
+     "tsa-a12-v07-p005",
+     "tsa-a12-v07-p006",
+     "tsa-a12-v07-p007",
+     "tsa-a12-v07-p008",
+     "tsa-a12-v07-p009",
+     "tsa-a12-v07-p010",
+     "tsa-a12-v07-p011",
+     "tsa-a12-v07-p012",
+     "tsa-a12-v07-p013"
+    ],
+    "essence_maps": [
+     6
+    ],
+    "form": "quartet",
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "tsa-a12-v08": {
+    "verse_id": "tsa-a12-v08",
+    "song": "tsa-a12",
+    "verse": 8,
+    "lines": [
+     "Again too, as outer-inner twoness:",
+     "by oneness with the outward-worshipped mantra,",
+     "made of That — plunging here, there: thus told."
+    ],
+    "sanskrit_cite": "punar api bāhyābhyantaratayā dvitvam bahirupāsyamantratādātmyena tanmayīkṛte tatra tatra nimajjanam ity uktam",
+    "l0_ids": [
+     "tsa-a12-v08-p000",
+     "tsa-a12-v08-p001",
+     "tsa-a12-v08-p002",
+     "tsa-a12-v08-p003",
+     "tsa-a12-v08-p004",
+     "tsa-a12-v08-p005",
+     "tsa-a12-v08-p006",
+     "tsa-a12-v08-p007",
+     "tsa-a12-v08-p008",
+     "tsa-a12-v08-p009",
+     "tsa-a12-v08-p010"
+    ],
+    "essence_maps": [
+     7
+    ],
+    "form": "triplet",
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "tsa-a12-v09": {
+    "verse_id": "tsa-a12-v09",
+    "song": "tsa-a12",
+    "verse": 9,
+    "lines": [
+     "But the bliss-substance, abiding as the hero's support,",
+     "by looking, having made it Śiva — right there,",
+     "the mantra-circle's worship; thence by that very one,",
+     "body-and-breath deity-circle satisfied: thus the chief bath."
+    ],
+    "sanskrit_cite": "viśeṣas tu ānandadravyaṃ vīrādhāragataṃ nirīkṣaṇena śivamayīkṛtya tatraiva mantracakrapūjanam tataḥ tenaiva dehaprāṇobhayāśritadevatācakratarpaṇam iti mukhyaṃ snānam",
+    "l0_ids": [
+     "tsa-a12-v09-p000",
+     "tsa-a12-v09-p001",
+     "tsa-a12-v09-p002",
+     "tsa-a12-v09-p003",
+     "tsa-a12-v09-p004",
+     "tsa-a12-v09-p005",
+     "tsa-a12-v09-p006",
+     "tsa-a12-v09-p007",
+     "tsa-a12-v09-p008",
+     "tsa-a12-v09-p009",
+     "tsa-a12-v09-p010",
+     "tsa-a12-v09-p011",
+     "tsa-a12-v09-p012",
+     "tsa-a12-v09-p013"
+    ],
+    "essence_maps": [
+     8
+    ],
+    "form": "quartet",
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "tsa-a12-v10": {
+    "verse_id": "tsa-a12-v10",
+    "song": "tsa-a12",
+    "verse": 10,
+    "lines": [
+     "Inward, thus: by holding earth-and-other-formed forms —",
+     "here, there, in the earthen and other circles —",
+     "the state of being made of That."
+    ],
+    "sanskrit_cite": "ābhyantaraṃ yathā tattaddharādirūpadhāraṇayā tatra tatra pārthivādau cakre tanmayībhāvaḥ",
+    "l0_ids": [
+     "tsa-a12-v10-p000",
+     "tsa-a12-v10-p001",
+     "tsa-a12-v10-p002",
+     "tsa-a12-v10-p003",
+     "tsa-a12-v10-p004",
+     "tsa-a12-v10-p005",
+     "tsa-a12-v10-p006",
+     "tsa-a12-v10-p007"
+    ],
+    "essence_maps": [
+     9
+    ],
+    "form": "triplet",
+    "fidelity": "preserved",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   }
+  },
+  "c2": {}
+ },
+ "source_verses": {},
+ "l4_craft": {
+  "tsa-a12-v01": [
+   {
+    "file": "tantrasara-a12/L4-tsa-a12-v01.DRAFT.json",
+    "file_sha256": "8ce31945bc86a43b48b1ac1b68a633f7e36e78a9b65855a77aa199566064820f",
+    "l4_sha256": "b13ca79358df09268f15b06b19f6bbfe764cd4a2773261f1e59197722144a97e",
+    "notes": {
+     "craft_notes": "Sthāyin: ordered precondition — the vidhi opens by declaring its own order (FIRST unit: sets the house voice; owner verdict required). Sanskrit-first: vaktavyam gerundive kept passive (must-be-told); prāk + kartavyam order kept: nature-set-forth AFTER bath-taught. Rows: 1 (first…taught: the instruction's sequence IS the line-break), 6 (iti-uktaṃ 'it is said' anchors the declaration verbatim), 12 (śānta-close: the bath lands, nothing yet performed). Close: 'the to-be-done bath is taught.' Rejected: opening with the bath — killed: prāk order is the argument; 'shall be expounded' for told — killed: vaktavyam kept must-be-told. Read aloud: IN-i-ti-a-TION and-the-REST must-be-TOLD — it-is-SAID; SO-to-SET-forth IN-i-ti-a-TION's NA-ture, FIRST the-TO-be-DONE BATH is-TAUGHT.",
+     "reads_against": {
+      "argmap": "Why is the bath taught before initiation? → The bath is the precondition of the exposition: initiation's nature is set forth by first teaching the bath to be performed.",
+      "c1_essence": [
+       "Initiation's nature is set forth through the bath: the to-be-done bath is taught first."
+      ],
+      "c1_rasa": "śānta with vidhi weight (quiescence carrying ritual order)"
+     }
+    }
+   }
+  ],
+  "tsa-a12-v02": [
+   {
+    "file": "tantrasara-a12/L4-tsa-a12-v02.DRAFT.json",
+    "file_sha256": "f081f29feceb3eae3224caad8cc5bf4eb188e17c4a2ffdda0dd3f1ae7501a1d8",
+    "l4_sha256": "dbe98db76108fd5e326662bb4909c4a0f8059cd3f20e274cd353afa33b93f87b",
+    "notes": {
+     "craft_notes": "Sthāyin: definition — two names, one substance. Sanskrit-first: ca twice (bathing-AND-purity linked, not equalled); samāveśaḥ nom. pred: purity IS immersion. Rows: 9 (name→substance pair), 1 ('own form' closes — svarūpa end-weight), 12 (definition settles, no performance yet). Close: 'entering the Supreme Lord's own form.' Rejected: quoting L2's 'immersion' sentence — killed: zero-shared-L2 rule (reworded to saṃviṣ 'entering'); 'baptism' — killed: snāna kept bath. Read aloud: BATH-ing IS-called PU-ri-ty — AND-pu-ri-TY is-EN-ter-ing THE-SU-preme-LORD's OWN-form.",
+     "reads_against": {
+      "argmap": "What is bathing called, and what is it? → Snāna is defined twice over: named purity, and purity itself is samāveśa in the Lord's own svarūpa — water-rite and identity-collapse are one word.",
+      "c1_essence": [
+       "Bathing names purity; purity is immersion in the Supreme Lord's own form."
+      ],
+      "c1_rasa": "śānta with vidhi weight (quiescence carrying ritual order)"
+     }
+    }
+   }
+  ],
+  "tsa-a12-v03": [
+   {
+    "file": "tantrasara-a12/L4-tsa-a12-v03.DRAFT.json",
+    "file_sha256": "7fc89f2f1a790887bdeb2f1c7895edbdc8ccf2db791403601ec1c4935f297589",
+    "l4_sha256": "0e30b9677e9dcc2b8cf064bf9df1c79bc9220c4160e6d1d6f3e3cd91bf53f34e",
+    "notes": {
+     "craft_notes": "Sthāyin: turbidity-as-conceit — the rite's target named. Sanskrit-first: hi emphatic kept ('that indeed'); tadekarūpe 'pi concessive kept ('even in That'); abhimāna = conceit, not dirt (C1 crux). Rows: 9 (purity/turbidity antithesis doubled), 1 ('alien nature' closes — the other-form named last), 10 (conceit left standing, no image added). Close: 'is the conceit of admixing a form of alien nature.' Rejected: 'delusion' for conceit — killed: abhimāna is self-conceit, not moha; 'even in the One' — killed: tadekarūpe kept That-whose-form. Read aloud: WASH-ing-OFF-turb-ID-ity — THAT in-DEED is-PU-ri-ty; AND-turb-ID-i-ty, EV-en IN-That WHOSE sole-FORM is-THAT, IS the-CON-CEIT of-AD-mix-ing a-FORM of-A-li-en-NA-ture.",
+     "reads_against": {
+      "argmap": "What counts as turbidity, and what washes it? → Impurity is not dirt but abhimāna: the conceit of a second, alien form inside the sole-formed That; its removal alone is śuddhi.",
+      "c1_essence": [
+       "Purity is washing-off of turbidity; turbidity is the conceit of admixing an alien form — even in That whose sole form is That."
+      ],
+      "c1_rasa": "śānta with vidhi weight (quiescence carrying ritual order)"
+     }
+    }
+   }
+  ],
+  "tsa-a12-v04": [
+   {
+    "file": "tantrasara-a12/L4-tsa-a12-v04.DRAFT.json",
+    "file_sha256": "076d52e3e7ecdcd3d1fc005695327ff1dc23b336f6be6badf303aa21355a84f8",
+    "l4_sha256": "210052e2677bce31a87598fb02eb34424fcfe1ab4fd68ae01450df7055912bdc",
+    "notes": {
+     "craft_notes": "Sthāyin: dispelling graded — universal scope, timed release. Sanskrit-first: sā ca (that-too) kept; jhaṭiti + upāyāntara-prekṣiṇ contrast kept as two destinies (sudden / awaiting). Rows: 5 (long-sweep processional: self-or-world, then dispelling, then the two grades), 9 (suddenly-for-some / awaiting-for-others pair), 1 (‘further means’ closes — the not-yet kept open). Close: 'suddenly for some — for others awaiting further means.' Rejected: resolving the two grades into one — killed: kasyacid/kasyāpi split is the grading; ‘instantly’ for jhaṭiti alone — killed: the pair must stand. Read aloud: HERE — IN the-SELF whose-PITH is-FREE-BLISS, CON-scious-ness a-LONE, OR-ev-ery-WHERE IN the-WORLD as-WELL — THE-con-CEIT of-AD-mix-ING a-noth-er-FORMED re-AL-i-TY is-IM-pu-Ri-ty; THAT, too, is-WASHED-OUT BY-great-BHAI-ra-va-IM-mer-SION: SUDD-en-ly FOR-SOME — FOR-OTH-ers A-wait-ing fur-THER-means.",
+     "reads_against": {
+      "argmap": "Where does the admixing-conceit arise, and how is it dispelled? → The conceit defiles self or world alike; mahābhairava-samāveśa removes it — jhaṭiti for the ripe, upāyāntara-prekṣin for the rest.",
+      "c1_essence": [
+       "The conceit of another-formed reality is impurity in self or world alike; dispelled by great-Bhairava immersion — sudden for some, for others awaiting further means."
+      ],
+      "c1_rasa": "śānta with vidhi weight (quiescence carrying ritual order)"
+     }
+    }
+   }
+  ],
+  "tsa-a12-v05": [
+   {
+    "file": "tantrasara-a12/L4-tsa-a12-v05.DRAFT.json",
+    "file_sha256": "0c7b2473102aa292df103a4be844560896137b4ce534e47a894bbb72c7d52fc0",
+    "l4_sha256": "29ee23b5b8e35ed83d0fbed2a867b067acb71252ac6efaa9fd4f51c444ee4498",
+    "notes": {
+     "craft_notes": "Sthāyin: manifold-difference — the multiplicity clause. Sanskrit-first: kutra/kadā/kasya indefinites kept bare (somewhere/someone/sometime); āśvāsa-upalabdhi kept as source-ablative ('from assurance-attainment'). Rows: 9 (one-two-threefold + whole/part + somewhere/someone/sometime triple-triple), 5 (graded roll: division, extent, the three indefinites, then the source), 1 (‘manifold’ closes — vicitra end-weight). Close: 'difference is manifold.' Rejected: 'various' — killed: vicitra is manifold-of-differences (bheda-adjacent); dropping the indefinites for rhythm — killed: the three bare words ARE the manifoldness. Read aloud: THERE-in-TOO — BY-one-, TWO-, THREE-fold-DI-vi-SION, WHOLE or-PART; SOME-where, FOR-SOME-one, SOME-time, AND-so FROM-AS-surance-AT-tain-ment: DIFF-er-ence IS-man-i-FOLD.",
+     "reads_against": {
+      "argmap": "How manifold is difference? → Bheda is vicitra by construction: division-grade, extent, locus, person, time all vary, and the manifoldness itself proceeds from assurance-attainment (āśvāsa-upalabdhi).",
+      "c1_essence": [
+       "Difference is manifold — by one-two-threefold division, whole or part, somewhere, for someone, sometime, from assurance-attainment."
+      ],
+      "c1_rasa": "śānta with vidhi weight (quiescence carrying ritual order)"
+     }
+    }
+   }
+  ],
+  "tsa-a12-v06": [
+   {
+    "file": "tantrasara-a12/L4-tsa-a12-v06.DRAFT.json",
+    "file_sha256": "1bd6a58558486fadc5535d323e4f3423b74d8031c38b922ca1492a676e29ade5",
+    "l4_sha256": "b8affa79014c97dc25e32e4405ff50bde6431d33b6a220994ca74da628fdaf93",
+    "notes": {
+     "craft_notes": "Sthāyin: eightfold machinery — the catalogue that does the work. Sanskrit-first: aṣṭadhā + the eight-form list kept item-wise; tādātmyena ca (by-identity-too) kept the hinge; etīti/uktaṃ kept the verdict-voice; fruit-list kept all eight (each fruit a claim, none trimmed). Rows: 9 (eight forms + eight fruits — double catalogue), 2 (long compound lists unpacked down the line-break), 1 (‘assuming that and that form’ closes — tattadrūpa end-weight), 12 declined — the catalogue's roll is the energy, not settle. Close: 'assuming that and that form.' Rejected: trimming the fruit-list to four — killed: eight are the claim (firmness-to-nondifference); resolving 'śrīmadānandādau' — killed: held as glossed, noted in L3 (person-or-joy locus unresolved); 'deities' for forms — killed: mūrti kept forms. Read aloud: AND-EIGHT-fold: IN-earth-, WA-ter-, WIND-, FIRE-, SKY-, MOON-, SUN-, AND-self-FORMED-places … CHIEF-fruits, HERE-and-THERE, FROM-the-MAN-tra PLACED-in-EACH, AS-SUM-ing THAT-and-THAT-form.",
+     "reads_against": {
+      "argmap": "What is the eightfold bath, and what does it yield? → The eight mūrti-baths work by tādātmya in the Lord-entered body; their gladness itself becomes upāyātā; the mantra's assumed each-form yields the eight chief fruits.",
+      "c1_essence": [
+       "Eight forms made into Supreme-Lord forms by mantra-placement: identity in the Lord-entered body brings immersion for anyone; bathing-gladness itself becomes the means; chief fruits — firmness to non-difference — follow each assumed form."
+      ],
+      "c1_rasa": "śānta with vidhi weight (quiescence carrying ritual order)"
+     }
+    }
+   }
+  ],
+  "tsa-a12-v07": [
+   {
+    "file": "tantrasara-a12/L4-tsa-a12-v07.DRAFT.json",
+    "file_sha256": "6d131d8af1df2c93a93f2aa972acee1434c15765db8eadc9a8b1c7f768d89d17",
+    "l4_sha256": "0c10cb75cf31d5562234c2cc503c56dbc7d5ad907fb3d0d0e5f8b244f59ab034",
+    "notes": {
+     "craft_notes": "Sthāyin: heroes' rule — warrior-grade distinction. Sanskrit-first: vīroddeśena tu (by-heroes-rule-but) kept; five substances listed whole (raṇareṇu→śmaśānanabhaḥ); candrārkau du. kept sun-and-moon; nirvikalpakaḥ closes. Rows: 9 (five-substance catalogue), 1 (‘undiscriminating’ closes — nirvikalpa end-weight), 7 declined — the rule speaks, no one is addressed. Close: 'the self undiscriminating.' Rejected: ‘heroes’ ceremony’ — killed: vīroddeśa is rule-of-heroes, not ritual-name; placing moon before sun — killed: candrārkau order kept. Read aloud: NOW-HER-oes' RULE — THE-dis-TINC-tion: BAT-tle-DUST, HER-o-WA-ter, GREAT-wind, HER-o-ASH, THE-cre-Ma-tion-GROUND-sky — SUN and-MOON PLACED-in-THEM, THE-self un-DIS-CRIM-i-NA-ting.",
+     "reads_against": {
+      "argmap": "What is the heroes' distinction in bathing? → Vīroddeśa's five hero-substances with candrārkau placed are the warrior-grade bath; the ātman there is nirvikalpaka — undiscriminating.",
+      "c1_essence": [
+       "Heroes-rule sets the five substances — battle-dust to cremation-ground sky — with sun-moon placed and the self undiscriminating."
+      ],
+      "c1_rasa": "śānta with vidhi weight (quiescence carrying ritual order)"
+     }
+    }
+   }
+  ],
+  "tsa-a12-v08": [
+   {
+    "file": "tantrasara-a12/L4-tsa-a12-v08.DRAFT.json",
+    "file_sha256": "2a2dfdaccd879eb5ac25fd8a86577f803f73906b01b0f3a9555a46a20d913b46",
+    "l4_sha256": "ad835007badda96b79af4f9a14a57bd019578dfce2f91c9e9ff199c9f90a3c28",
+    "notes": {
+     "craft_notes": "Sthāyin: twoness collapsed — the plunge clause. Sanskrit-first: punar api (again-too) kept the re-entry; bahir-antar-tas kept outer-inner as one adverb; tanmayīkṛte (made-of-That) kept as predicate; nimajjanam kept plunging (not bathing-word). Rows: 9 (outer/inner pair named then collapsed), 1 (‘thus told’ closes — uktaṃ verdict-voice), 6 (iti anchors). Close: 'plunging here, there: thus told.' Rejected: 'immersion' for nimajjanam — killed: ni-√majj is plunge, distinct from samāveśa used earlier; 'made by That' — killed: tanmayīkṛta is made-OF-That (identity, not agency). Read aloud: A-gain-TOO, AS-OUT-er-IN-ner-TWO-ness: BY-one-ness WITH the-OUT-ward-WOR-shipped-MAN-tra, MADE of-THAT — PLUNG-ing HERE, THERE: THUS-told.",
+     "reads_against": {
+      "argmap": "What is the outer-inner twoness of the plunge? → The twoness of bāhya/ābhyantara is collapsed by mantra-tādātmya: made-of-That, the plunge here-there is pronounced and closed.",
+      "c1_essence": [
+       "Outer-inner twoness collapses by oneness with the outward-worshipped mantra: made-of-That, plunging here-there, thus told."
+      ],
+      "c1_rasa": "śānta with vidhi weight (quiescence carrying ritual order)"
+     }
+    }
+   }
+  ],
+  "tsa-a12-v09": [
+   {
+    "file": "tantrasara-a12/L4-tsa-a12-v09.DRAFT.json",
+    "file_sha256": "bfdfdffd8741ef17d0a9acd3c244a9dcfb85c04a26e9c919056b96970feca5c1",
+    "l4_sha256": "f0fa1155dffe5f77a172b613fe07c8b2fd8889db23f14ef6feb203f1f68a3cf5",
+    "notes": {
+     "craft_notes": "Sthāyin: the chief bath — the rite's summit. Sanskrit-first: viśeṣas tu (distinction-but) kept; ānanda-dravya kept bliss-substance (dravya kept as substance); śivamayīkṛtya kept gerund having-made-Śiva; tenaiva (by-that-very-one) kept the reflexive turn; tarpaṇam kept satisfying. Rows: 9 (worship→satisfaction→chief-bath triple verdict), 1 (‘chief bath’ closes — mukhya-snāna named last), 6 (iti verdict-voice). Close: 'thus the chief bath.' Rejected: ‘bliss-essence’ — killed: dravya is substance (thing, not quality); ‘by it’ — killed: tenaiva is by-that-very-one (the worship itself acts). Read aloud: BUT the-BLISS-sub-STANCE, a-BID-ing AS the-HER-o's-SUP-port, BY-look-ing, HAV-ing-MADE-it ŚI-va — RIGHT-there, THE-man-tra-CIR-CLE's-WOR-ship; THENCE BY-that-VER-y-ONE, BODY-and-BREATH-de-i-ty-CIR-CLE SAT-is-fied: THUS-the-CHIEF-bath.",
+     "reads_against": {
+      "argmap": "What is the chief bath? → The mukhya-snāna: ānanda-dravya seen in vīra-ādhāra and made Śiva, mantra-cakra pūjā, then tarpaṇa of the deity-circle abiding in body and breath.",
+      "c1_essence": [
+       "The chief bath: bliss-substance hero-abiding made-Śiva, mantra-circle worshipped, deity-circle of body-and-breath satisfied by that very one."
+      ],
+      "c1_rasa": "śānta with vidhi weight (quiescence carrying ritual order)"
+     }
+    }
+   }
+  ],
+  "tsa-a12-v10": [
+   {
+    "file": "tantrasara-a12/L4-tsa-a12-v10.DRAFT.json",
+    "file_sha256": "b343ef1376997e1f2eb2d1dd5d1cf3d990a3b5f7bf6c906ebb7048a2996da537",
+    "l4_sha256": "929086ba17f4b3fc589ca57c7242c88ed1cb8716b907d7631ea1dcdcb479c679",
+    "notes": {
+     "craft_notes": "Sthāyin: inward close — made-of-That as the āhnika's seal. Sanskrit-first: ābhyantaram yathā (inward-thus) kept; dhāraṇayā kept holding (not seeing/worshipping); tatra tatra kept here-there doubled; tanmayībhāvaḥ kept the identity noun — the last word of the chapter is identity. Rows: 9 (here/there doubling), 1 (‘being made of That’ closes — tanmayībhāva end-weight, the seal), 12 (whole-unit śānta-fall into identity). Close: 'the state of being made of That.' Rejected: adding a valediction — killed: identity IS the close; 'circles of earth' reordering — killed: pārthivādau keeps earthen-and-rest. Read aloud: IN-ward, THUS: BY-HOLD-ing-EARTH-and-OTH-er-FORMED-forms — HERE, THERE, IN-the-EARTH-en AND-OTH-er-CIR-cles — THE-state OF-be-ing-MADE-of-THAT.",
+     "reads_against": {
+      "argmap": "What is the inward bath? → The ābhyantara bath is dhāraṇā of the same forms in pārthiva-cakra circles — the identity clause (tanmayībhāvaḥ) closes the āhnika.",
+      "c1_essence": [
+       "The inward bath holds earth-and-other forms in earthen circles — being-made-of-That."
+      ],
+      "c1_rasa": "śānta with vidhi weight (quiescence carrying ritual order)"
+     }
+    }
+   }
+  ]
+ },
+ "withheld_songs": [],
+ "original_hashes": {
+  "t1": {
+   "tsa-a12-v01": "baf8579c26fb1c43eff4bfcdef7676d396a8509c7152835c57ed26b6b1e36832",
+   "tsa-a12-v02": "9a7729c5c08f5c452f1ee1d00dea058a76a2fd79cb6fd9a1325cb09efbdc731e",
+   "tsa-a12-v03": "353e6c89cde3a2f99e814630eb3bd813f9f239819d9d4c161972d2816109cdab",
+   "tsa-a12-v04": "242aca79958d9a8f19156f9e6bec11c884c73e3c9187af6b0bdbc5c821a4e86b",
+   "tsa-a12-v05": "46f0bd7ea6a4d7d74dc833021174afcb04512946a9fe16380adedae092f22f3d",
+   "tsa-a12-v06": "1aa142fc2a478228a3a0d90066f99d06b9f9afbc9b28c487bb1cab09880e20b8",
+   "tsa-a12-v07": "1de7921f786fab3a9de4ecf46d5db1f390a8f4bb4fb7113d9fee6f3a3dde74c0",
+   "tsa-a12-v08": "d3980de389acc50025a2b1e7faba6d514078119176ec425f73c7275b928a7c25",
+   "tsa-a12-v09": "48918ef41e45a5275b3cd379659409dadaa94d35f80047b00f111f13d441bc88",
+   "tsa-a12-v10": "2aac9d2c75dbdb4eea8025f740f5bbe1d34370c49ed06fe9544a24b4cdef3e22"
+  },
+  "l0": {
+   "tsa-a12-v01": "df3691b4c98f59164b1de3ed585292eed5bc87240b8f47573c7bea80f0ecca95",
+   "tsa-a12-v02": "4e62b1d6b1a2486927d4bae0da105e9d81a7b5b637c2b96d87e3ac2df9c8f710",
+   "tsa-a12-v03": "8e1ee691bd4d71b6926c6466c6d2f96e7189445f9b0f7f55266ea94cf5eaa1f2",
+   "tsa-a12-v04": "ddf6f31a3741e2b034e8b7bf017ae55451f5af31f8ecc3900f9f367c22afd341",
+   "tsa-a12-v05": "3c0085d4c35a0bf7dda156bf22f208985f12dfe7af4ab6cdd63b60cc7cb3b287",
+   "tsa-a12-v06": "1dde07c6b69d0a6dd5f2e4480543274dada36285c87f89a87938bd956d440d00",
+   "tsa-a12-v07": "718327123edb4b701a45b8512ee9e8900f5cd45bde792f57a3ef5e8a89179e3e",
+   "tsa-a12-v08": "bc37e7a57bd06101d46f3a0966ecd2b276a7990d0f6d5630ed5f71ee3a57026d",
+   "tsa-a12-v09": "ca91f05a561c5902b8ac0132f0ab6317138f4ed9392d64c5c7ecbc7e55d43cdb",
+   "tsa-a12-v10": "d001337d0e1fbd4b23b63d928998d38de77ffd3ddadee5ee7b2c42ad1a7824fb"
+  },
+  "argmap": {
+   "tsa-a12-v01": "8765b65a5ae78e480971389bacc466b6453a3bbc1c7ee8ef53da4ee091dd812e",
+   "tsa-a12-v02": "f79b54633b5ab3f097b508431e25ce05035fe4a0de3b5804489f34787e6a1a2f",
+   "tsa-a12-v03": "3d7f23aac599e14a98e3a6144d65db23a0b1a1fbd485e55dc7cf049968806702",
+   "tsa-a12-v04": "1bc57c48e9b92349ea12af1ff1700eb99a6434080ce45ee61b454cddee312836",
+   "tsa-a12-v05": "e4bd0c49d4aadddc7be853afce11b3378a821e768eb1c753d3ee8efa1c15f799",
+   "tsa-a12-v06": "70686e183a0ca1dcde94782b2cb7bb87173ac7a227b08cb3c80dc697ec4b23fd",
+   "tsa-a12-v07": "d1bed424ab6c98c98f26ef65b1b96bdcbc881d9f357e78c031feaa032ebe162a",
+   "tsa-a12-v08": "ec1551aef7645e19631d1c11d38f2617d4d372ae75bbb9485ce3c73e02eff08a",
+   "tsa-a12-v09": "48c90a29c4df9c1609e0b1c52200ea400425153325b00c8c4d4dc7eb11bf25db",
+   "tsa-a12-v10": "a898ad404ddcfa991f1d2a6133d95d743762b8b02752ef281c870a8b50a58e03"
+  },
+  "l2": {
+   "tsa-a12-v01": "b99ba070a32b3a27e108c9d379cd09d2aceac76902980dc175bf0976a1720013",
+   "tsa-a12-v02": "0a6ce0859d5543d379eee854e642fc80f7930cba2dc5b24df05f66a54c46bab7",
+   "tsa-a12-v03": "9b5de420db03d9e47da5917e6fc88f20e418a19e0f2192e5ffdbe814c9f5ca59",
+   "tsa-a12-v04": "cd94affd4db343a9b7cb4ba9c9fca786f0c570b8f8978fbed7e27915d4f3c8e9",
+   "tsa-a12-v05": "ac15a47c491783333921e2ea5a283a3f9c477df77ee010228a92971283e255c2",
+   "tsa-a12-v06": "ba7b33883db01a1677a595f57a0f6f70ca9c3a3393d28f77f888ea413eae826c",
+   "tsa-a12-v07": "21017efff716c6ae4fe714e2e23fa5c5515207d185eeffa3e722939fad26ca5e",
+   "tsa-a12-v08": "6827e6c38afac1791c4fbe909fa04a7b0fbce48d93720967f595f6bec6f481a1",
+   "tsa-a12-v09": "41fa52672772da2f551de23e1e9ca79ad4583de6b95113a03e7e03a52ed0b8ce",
+   "tsa-a12-v10": "89b4e4ece01742360e7c4eb2f7d19ead4b5fc9d58c52afc41438de31b9398ca0"
+  },
+  "c1": {
+   "tsa-a12": "79edeb4a932c296d3893d2865d0e3ae5b3a2ab873396eaf0ab545ef50373bc36"
+  },
+  "l3": {
+   "tsa-a12-v01": "883b3b7157ce787810bcc9bde0403bc616ab470829c4a7d4fb229ab5db0031cd",
+   "tsa-a12-v02": "cd03adc64439b0573247eae1380e4fc6f29c9d3d3d63b0687bca0435a6efb754",
+   "tsa-a12-v03": "34621feb647af3518618e4638873d5e09b60f3fdcd0ed657ca5efa913a762474",
+   "tsa-a12-v04": "a357fc7c27683d54b123aefde3e4d10512aeb9c5ac1cd127f24fe54f9a1f85ee",
+   "tsa-a12-v05": "27dee41dc3dd8135b63d52162a6738a9056752161afaff676b8a10dfa63d5f0c",
+   "tsa-a12-v06": "73fb9614b7999415144dde364582f5a5b24a52c7333e02366051366d1250f7b2",
+   "tsa-a12-v07": "795e4bf8bd24f83adde0d6452ec9ba6cc545370b8df1d1c69816ee2640a4c050",
+   "tsa-a12-v08": "4937da1b1c9c17f4cf508036a89b335f8bf17687e05991f61d84848e6850da0f",
+   "tsa-a12-v09": "11c2afd2633fae8f3cde6360566aa295426d76233f848a4cc552f58f3b978386",
+   "tsa-a12-v10": "9700561cd13ba70c31459f0d6e0e7fe2ef705663bcd6514672c7973fc23c0d8e"
+  },
+  "l4": {
+   "tsa-a12-v01": "b13ca79358df09268f15b06b19f6bbfe764cd4a2773261f1e59197722144a97e",
+   "tsa-a12-v02": "dbe98db76108fd5e326662bb4909c4a0f8059cd3f20e274cd353afa33b93f87b",
+   "tsa-a12-v03": "0e30b9677e9dcc2b8cf064bf9df1c79bc9220c4160e6d1d6f3e3cd91bf53f34e",
+   "tsa-a12-v04": "210052e2677bce31a87598fb02eb34424fcfe1ab4fd68ae01450df7055912bdc",
+   "tsa-a12-v05": "29ee23b5b8e35ed83d0fbed2a867b067acb71252ac6efaa9fd4f51c444ee4498",
+   "tsa-a12-v06": "b8affa79014c97dc25e32e4405ff50bde6431d33b6a220994ca74da628fdaf93",
+   "tsa-a12-v07": "0c10cb75cf31d5562234c2cc503c56dbc7d5ad907fb3d0d0e5f8b244f59ab034",
+   "tsa-a12-v08": "ad835007badda96b79af4f9a14a57bd019578dfce2f91c9e9ff199c9f90a3c28",
+   "tsa-a12-v09": "f0fa1155dffe5f77a172b613fe07c8b2fd8889db23f14ef6feb203f1f68a3cf5",
+   "tsa-a12-v10": "929086ba17f4b3fc589ca57c7242c88ed1cb8716b907d7631ea1dcdcb479c679"
+  },
+  "c2": {}
+ },
+ "versions": [],
+ "essays": [],
+ "reviews": [],
+ "promotions": [],
+ "signoffs": [],
+ "stack_hashes": {
+  "tsa-a12": "6b39c49e0675241da2c141cfd157150d7b94c9832450d5046c9838c455ad01ba"
+ },
+ "projection_sha256": "e972602191b3b6df59d8a6e5264aac8c4f75fc27d592cbdeb43e4685630bcd99"
+}

@@ -1,0 +1,6088 @@
+{
+ "work": "dehastha",
+ "generated": null,
+ "source": "translation-work canonical data + scholar/ ledgers (emit_scholar.py)",
+ "source_edition": "",
+ "contract": {
+  "contract_version": "svatantrya-agent-contract/1",
+  "contract_sha256": "bdd5b9150aa5f3d73ebd8a19517ef5116c3c5bf652b3638841f5b4eeb1e0cf04",
+  "schema_version": "1.3.0",
+  "structural_schema_version": "2.0.0",
+  "structural_schema_snapshot_sha256": "7143ce16fd2fec74bcbb442937194c13abcb94e7d76e10fb35ec9e76016a9577",
+  "order": [
+   "source",
+   "t1",
+   "l0",
+   "argmap",
+   "l2",
+   "c1",
+   "l3",
+   "l4",
+   "c2"
+  ],
+  "schemas": {
+   "t1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:t1",
+    "title": "Svatantrya T1 structural schema",
+    "x-validator": "schemas.t1.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "quick_english",
+     "tokens",
+     "source_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "quick_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "source_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "tokens": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "surface",
+        "quick_gloss"
+       ],
+       "properties": {
+        "surface": {
+         "type": "string",
+         "minLength": 1
+        },
+        "quick_gloss": {
+         "type": "string",
+         "minLength": 1
+        }
+       }
+      }
+     }
+    }
+   },
+   "l0": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l0:verse",
+    "title": "Svatantrya L0 verse token list structural schema",
+    "x-validator": "schemas.l0.validate (per token)",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+     "$schema": "https://json-schema.org/draft/2020-12/schema",
+     "$id": "urn:svatantrya:schema:2.0.0:l0",
+     "title": "Svatantrya L0 structural schema",
+     "x-validator": "schemas.l0.validate",
+     "x-schema-version": "1.3.0",
+     "x-structural-schema-version": "2.0.0",
+     "type": "object",
+     "required": [
+      "id",
+      "verse_id",
+      "pada_index",
+      "surface",
+      "citation",
+      "options",
+      "chosen_index",
+      "status"
+     ],
+     "properties": {
+      "id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "verse_id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "pada_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "surface": {
+       "type": "string",
+       "minLength": 1
+      },
+      "citation": {
+       "type": "string",
+       "minLength": 1
+      },
+      "morph": {
+       "type": "string"
+      },
+      "morph_unknown": {
+       "type": "boolean"
+      },
+      "options": {
+       "type": "array",
+       "maxItems": 5,
+       "items": {
+        "type": "object",
+        "required": [
+         "gloss",
+         "rank",
+         "source",
+         "grounds"
+        ],
+        "properties": {
+         "gloss": {
+          "type": "string",
+          "minLength": 1
+         },
+         "rank": {
+          "type": "integer",
+          "minimum": 1
+         },
+         "source": {
+          "type": "string",
+          "minLength": 1
+         },
+         "grounds": {
+          "type": "string",
+          "minLength": 1
+         }
+        }
+       }
+      },
+      "chosen_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "status": {
+       "type": "string",
+       "enum": [
+        "PARSED",
+        "AMBIGUOUS",
+        "FAILED"
+       ]
+      },
+      "revised": {
+       "type": "boolean"
+      },
+      "revise_reason": {
+       "type": "string"
+      },
+      "fork": {
+       "type": "string",
+       "enum": [
+        "none",
+        "live",
+        "resolved"
+       ]
+      }
+     }
+    }
+   },
+   "argmap": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:argmap",
+    "title": "Svatantrya ARGMAP structural schema",
+    "x-validator": "schemas.argmap.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "traces",
+     "sanskrit_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "traces": {
+      "type": "object",
+      "required": [
+       "t1_verse",
+       "l0_ids"
+      ],
+      "properties": {
+       "t1_verse": {
+        "type": "string",
+        "minLength": 1
+       },
+       "l0_ids": {
+        "type": "array",
+        "items": {
+         "type": "string",
+         "minLength": 1
+        },
+        "minItems": 1
+       }
+      }
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "sanskrit_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "speaker": {
+      "type": "string",
+      "minLength": 1
+     },
+     "question": {
+      "type": "string",
+      "minLength": 1
+     },
+     "inference": {
+      "type": "string",
+      "minLength": 1
+     },
+     "reconstruction": {
+      "type": "string",
+      "minLength": 1
+     },
+     "premises": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     },
+     "uncertainties": {
+      "type": "array"
+     },
+     "structured": {
+      "type": "boolean"
+     }
+    }
+   },
+   "l2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l2",
+    "title": "Svatantrya L2 structural schema",
+    "x-validator": "schemas.l2.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "plain_english",
+     "sanskrit_cite",
+     "l0_ids"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "plain_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "supplied": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     }
+    }
+   },
+   "c1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:c1",
+    "title": "Svatantrya C1 structural schema",
+    "x-validator": "schemas.c1.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "song",
+     "essence",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "essence": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "renders": {
+      "type": "object",
+      "required": [
+       "standard"
+      ]
+     }
+    }
+   },
+   "l3": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l3",
+    "title": "Svatantrya L3 structural schema",
+    "x-validator": "schemas.l3.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "l4": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:l4",
+    "title": "Svatantrya L4 structural schema",
+    "x-validator": "schemas.l4.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "c2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.0.0:c2",
+    "title": "Svatantrya C2 structural schema",
+    "x-validator": "schemas.c2.validate",
+    "x-schema-version": "1.3.0",
+    "x-structural-schema-version": "2.0.0",
+    "type": "object",
+    "required": [
+     "song",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "renders": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "style",
+        "prompt",
+        "paragraphs"
+       ],
+       "properties": {
+        "style": {
+         "type": "string",
+         "minLength": 1
+        },
+        "prompt": {
+         "type": "string",
+         "minLength": 1
+        },
+        "paragraphs": {
+         "type": "array",
+         "minItems": 1,
+         "items": {
+          "type": "object",
+          "required": [
+           "text",
+           "maps_to"
+          ],
+          "properties": {
+           "text": {
+            "type": "string",
+            "minLength": 1
+           },
+           "maps_to": {
+            "type": "array",
+            "items": {
+             "type": "integer",
+             "minimum": 0
+            },
+            "minItems": 1
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "layers": [
+   {
+    "id": "t1",
+    "scope": "verse",
+    "depends_on": [
+     "source"
+    ],
+    "validator": "schemas/t1.py",
+    "validator_sha256": "ac792ba1f0cbc06ab52dfbc41a31d3e39460f0e8a7de2977ed02e4ce63a20f27",
+    "example": {
+     "file": "sivastotravali/data/s01.t1.json",
+     "file_sha256": "a5c4cfae67571d05866d97ad6eb29b1c2956140a69c2fae554c29577330beb8e",
+     "target": "s01-v01",
+     "content_sha256": "26f027dafbe67347efd901cb2b94630cdb0e372957edeb4a3e1305e83745ba5b",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l0",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1"
+    ],
+    "validator": "schemas/l0.py",
+    "validator_sha256": "0651bc77f519897f8a4f8b41f4ea0cc6a88f3441910af99b18d55854a7e9030e",
+    "example": {
+     "file": "sivastotravali/data/s06.l0.json",
+     "file_sha256": "c2bb0ce1010315d72bdce75ee3c8901b17499202abe7adc5bd1977a26f4fea2f",
+     "target": "s06-v01",
+     "content_sha256": "91e3b04d47482757bcaf1e9705992edd0815ff7907ed2cb33c7c9586f3a9e5aa",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "argmap",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0"
+    ],
+    "validator": "schemas/argmap.py",
+    "validator_sha256": "335c1bbe809c5ae942ecef4a30ee7fd8fcb82645a43019312fa74397fe5758b0",
+    "example": {
+     "file": "sivastotravali/data/s01.argmap.json",
+     "file_sha256": "a44c8ec09a30c577f2a792c1255d4290f49a6138c456bb687bc00e78a3902949",
+     "target": "s01-v21",
+     "content_sha256": "80b69a54761b8b0b7c193058f6c88eef60323a3611008c41ba9879bcfc3cdc21",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l2",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap"
+    ],
+    "validator": "schemas/l2.py",
+    "validator_sha256": "f5653e405e0f162f78593ad6344cbbefe122d6d1c921ca3e22003e4f4d2cfaaa",
+    "example": {
+     "file": "sivastotravali/data/s01.l2.json",
+     "file_sha256": "f5a1cec55bb466c328380a0bf527e6d8906428b3436f85a79bd01df98ceb1040",
+     "target": "s01-v01",
+     "content_sha256": "f3c47f6a631f7551d4f9c8ad1117bdf65463cb8cdc92e9b42bb3bf517ae80055",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c1",
+    "scope": "song",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2"
+    ],
+    "validator": "schemas/c1.py",
+    "validator_sha256": "88ad9123135a7a18237cec1d11430992b4f43adf1771ae26a43e4df8198c69d7",
+    "example": {
+     "file": "sivastotravali/data/s01.c1.json",
+     "file_sha256": "99f4d2bbf7a8086176ee585b6e459076e2abd72b9675435267f7546beb1515f8",
+     "target": "s01",
+     "content_sha256": "5be1f3c0c3f64fafe5395b42cf5502a139a5e208be419d5804fe1a5bdd33712a",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l3",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2",
+     "c1"
+    ],
+    "validator": "schemas/l3.py",
+    "validator_sha256": "6c3df228f886207782d5250699e9e459f236f6e7d6b25ac29b00a38541956917",
+    "example": {
+     "file": "sivastotravali/data/s01.l3.json",
+     "file_sha256": "cdb4af6a4c2a851231195f4e5c940346f65199d5d5d69ea1c41d8095f98409f9",
+     "target": "s01-v01",
+     "content_sha256": "6aa20635387174b68fe4ea3baf970c06aff9838acb2c745e7afca0ed7c6751de",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l4",
+    "scope": "verse",
+    "depends_on": [
+     "l3",
+     "c1"
+    ],
+    "validator": "schemas/l4.py",
+    "validator_sha256": "3c1f7b0dfe3d83d425ed0fd84fba7b74aa3ed9e9758402369d779eedda1a8c03",
+    "example": {
+     "file": "paramarthasara/data/param-p01.l4.json",
+     "file_sha256": "db346e51e71f2f835ddfda004d4432934611817c2c73318d335f6ca2362ad4fb",
+     "target": "param-p01-v01",
+     "content_sha256": "91e9d424cf310d4e5b45c173b02f5286d837269ef9447533c153a48cb5122c14",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c2",
+    "scope": "song",
+    "depends_on": [
+     "c1",
+     "l3"
+    ],
+    "validator": "schemas/c2.py",
+    "validator_sha256": "fb8743f206e036002c780d082c7d32cf011dcdab4c21df742a5f5e59a9d851b8",
+    "example": {
+     "file": "sivastotravali/data/s01.c2.json",
+     "file_sha256": "09660a3c09679fce8c95968934e5851a22d89cdf154d2b0635d358e1ef9e8aeb",
+     "target": "s01",
+     "content_sha256": "2faa5fa86e38faca7ef5a1a967a4e261e2df294648a31ed5bad5f731001aa41c",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   }
+  ]
+ },
+ "rights": {
+  "translation": "FREE — our English (L1–L4, commentary) is free use",
+  "scholar": "Contributors declare rights; authorship and copyright depend on the work and law."
+ },
+ "originals": {
+  "t1": {
+   "deha-p01-v01": {
+    "verse_id": "deha-p01-v01",
+    "song": "deha-p01",
+    "verse": 1,
+    "quick_english": "The body is declared god's temple, the own self the eternal god; casting off ignorance's sweepings, with I-am-He feeling let him worship.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "deho",
+      "quick_gloss": "body"
+     },
+     {
+      "surface": "devālayaḥ",
+      "quick_gloss": "god-temple"
+     },
+     {
+      "surface": "proktaḥ",
+      "quick_gloss": "declared"
+     },
+     {
+      "surface": "svātmā",
+      "quick_gloss": "own-self"
+     },
+     {
+      "surface": "devaḥ",
+      "quick_gloss": "god"
+     },
+     {
+      "surface": "sanātanaḥ",
+      "quick_gloss": "eternal"
+     },
+     {
+      "surface": "tyajedajñānanirmālyaṃ",
+      "quick_gloss": "let-abandon-ignorance-sweepings"
+     },
+     {
+      "surface": "so'haṃ",
+      "quick_gloss": "I-am-He"
+     },
+     {
+      "surface": "bhāvena",
+      "quick_gloss": "with-feeling"
+     },
+     {
+      "surface": "pūjayet",
+      "quick_gloss": "let-worship"
+     }
+    ],
+    "source_sha": "b66a7eddbdd072ab"
+   },
+   "deha-p01-v02": {
+    "verse_id": "deha-p01-v02",
+    "song": "deha-p01",
+    "verse": 2,
+    "quick_english": "Saluted by demon-and-god hosts in bestowing wished-for boons, engaged, worshipable foremost in a hundred rites, breath-bodied — Gaṇapati I praise.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "asurasuravṛndavanditamabhimatavaravitaraṇe",
+      "quick_gloss": "demon-god-hosts-saluted-in-wished-boon-bestowing"
+     },
+     {
+      "surface": "niratam",
+      "quick_gloss": "engaged"
+     },
+     {
+      "surface": "darśanaśatāgryapūjyaṃ",
+      "quick_gloss": "rite-hundred-foremost-worshipable"
+     },
+     {
+      "surface": "prāṇatanuṃ",
+      "quick_gloss": "breath-bodied"
+     },
+     {
+      "surface": "gaṇapatiṃ",
+      "quick_gloss": "Gaṇapati"
+     },
+     {
+      "surface": "vande",
+      "quick_gloss": "I-praise"
+     }
+    ],
+    "source_sha": "b66a7eddbdd072ab"
+   },
+   "deha-p01-v03": {
+    "verse_id": "deha-p01-v03",
+    "song": "deha-p01",
+    "verse": 3,
+    "quick_english": "Whose foot-pair is worshipped by choice heroes, yoginī hosts, siddha rows; remover of humble folks' pain — Vaṭuka apāna-named, I praise.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "varavīrayoginīgaṇasiddhāvalipūjitāṅghriyugalam",
+      "quick_gloss": "choice-heroes-yoginī-hosts-siddha-rows-worshipped-foot-pair"
+     },
+     {
+      "surface": "apahṛtavinayijanārtiṃ",
+      "quick_gloss": "removed-humble-folks-pain"
+     },
+     {
+      "surface": "vaṭukamapānābhidhaṃ",
+      "quick_gloss": "Vaṭuka-apāna-named"
+     },
+     {
+      "surface": "vande",
+      "quick_gloss": "I-praise"
+     }
+    ],
+    "source_sha": "b66a7eddbdd072ab"
+   },
+   "deha-p01-v04": {
+    "verse_id": "deha-p01-v04",
+    "song": "deha-p01",
+    "verse": 4,
+    "quick_english": "By whose mind-strength the universe shines Śiva-pathed for devotees — him, I, attention-formed, the spotless true guru, always I praise.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "yaddhībalena",
+      "quick_gloss": "by-whose-mind-strength"
+     },
+     {
+      "surface": "viśvaṃ",
+      "quick_gloss": "universe"
+     },
+     {
+      "surface": "bhaktānāṃ",
+      "quick_gloss": "of-devotees"
+     },
+     {
+      "surface": "śivapathaṃ",
+      "quick_gloss": "Śiva-pathed"
+     },
+     {
+      "surface": "bhāti",
+      "quick_gloss": "shines"
+     },
+     {
+      "surface": "tamahamavadhānarūpaṃ",
+      "quick_gloss": "him-I-attention-formed"
+     },
+     {
+      "surface": "sadgurumamalaṃ",
+      "quick_gloss": "true-guru-spotless"
+     },
+     {
+      "surface": "sadā",
+      "quick_gloss": "always"
+     },
+     {
+      "surface": "vande",
+      "quick_gloss": "I-praise"
+     }
+    ],
+    "source_sha": "b66a7eddbdd072ab"
+   },
+   "deha-p01-v05": {
+    "verse_id": "deha-p01-v05",
+    "song": "deha-p01",
+    "verse": 5,
+    "quick_english": "By own sense-feasts the sense-goddesses always in the heart-lotus fully honor — whom, him, consciousness-made bliss-Bhairava, I praise.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "ātmīyaviṣayabhogairindriyadevyaḥ",
+      "quick_gloss": "by-own-sense-feasts-sense-goddesses"
+     },
+     {
+      "surface": "sadā",
+      "quick_gloss": "always"
+     },
+     {
+      "surface": "hṛdambhoje",
+      "quick_gloss": "in-heart-lotus"
+     },
+     {
+      "surface": "abhipūjayanti",
+      "quick_gloss": "fully-honor"
+     },
+     {
+      "surface": "yaṃ",
+      "quick_gloss": "whom"
+     },
+     {
+      "surface": "taṃ",
+      "quick_gloss": "him"
+     },
+     {
+      "surface": "cinmayamānandabhairavaṃ",
+      "quick_gloss": "consciousness-made-bliss-Bhairava"
+     },
+     {
+      "surface": "vande",
+      "quick_gloss": "I-praise"
+     }
+    ],
+    "source_sha": "b66a7eddbdd072ab"
+   },
+   "deha-p01-v06": {
+    "verse_id": "deha-p01-v06",
+    "song": "deha-p01",
+    "verse": 6,
+    "quick_english": "The play of dawn-shining-chewing of the universe which she makes ceaselessly — bliss-Bhairavī, her, deliberation-formed, I praise.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "udayāvabhāsacarvaṇalīlāṃ",
+      "quick_gloss": "dawn-shining-chewing-play"
+     },
+     {
+      "surface": "viśvasya",
+      "quick_gloss": "of-universe"
+     },
+     {
+      "surface": "yā",
+      "quick_gloss": "which"
+     },
+     {
+      "surface": "karotyaniśam",
+      "quick_gloss": "makes-ceaselessly"
+     },
+     {
+      "surface": "ānandabhairavīṃ",
+      "quick_gloss": "bliss-Bhairavī"
+     },
+     {
+      "surface": "tāṃ",
+      "quick_gloss": "her"
+     },
+     {
+      "surface": "vimarśarūpāmahaṃ",
+      "quick_gloss": "deliberation-formed-I"
+     },
+     {
+      "surface": "vande",
+      "quick_gloss": "I-praise"
+     }
+    ],
+    "source_sha": "b66a7eddbdd072ab"
+   },
+   "deha-p01-v07": {
+    "verse_id": "deha-p01-v07",
+    "song": "deha-p01",
+    "verse": 7,
+    "quick_english": "Who worships Bhairava with resolve-flowers, standing in the lord's petal — I bow to intellect-formed Brāhmaṇī, her, I, ever.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "arcayati",
+      "quick_gloss": "worships"
+     },
+     {
+      "surface": "bhairavaṃ",
+      "quick_gloss": "Bhairava"
+     },
+     {
+      "surface": "yā",
+      "quick_gloss": "who"
+     },
+     {
+      "surface": "niścayakusumaiḥ",
+      "quick_gloss": "with-resolve-flowers"
+     },
+     {
+      "surface": "sureśapatrasthā",
+      "quick_gloss": "lord-petal-standing"
+     },
+     {
+      "surface": "praṇamāmi",
+      "quick_gloss": "I-bow"
+     },
+     {
+      "surface": "buddhirūpāṃ",
+      "quick_gloss": "intellect-formed"
+     },
+     {
+      "surface": "brahmāṇīṃ",
+      "quick_gloss": "Brāhmaṇī"
+     },
+     {
+      "surface": "tāmahaṃ",
+      "quick_gloss": "her-I"
+     },
+     {
+      "surface": "satatam",
+      "quick_gloss": "ever"
+     }
+    ],
+    "source_sha": "b66a7eddbdd072ab"
+   },
+   "deha-p01-v08": {
+    "verse_id": "deha-p01-v08",
+    "song": "deha-p01",
+    "verse": 8,
+    "quick_english": "She performs Bhairava-worship, fire-petal-standing, with I-flowers — ever-I-making-formed, I praise her, the Śāmbhavī mother.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "kurute",
+      "quick_gloss": "performs"
+     },
+     {
+      "surface": "bhairavapūjāmanaladalasthā'bhimānakusumairyā",
+      "quick_gloss": "Bhairava-worship-fire-petal-standing-I-flowers-with-who"
+     },
+     {
+      "surface": "nityamahaṅkṛtirūpāṃ",
+      "quick_gloss": "ever-I-making-formed"
+     },
+     {
+      "surface": "vande",
+      "quick_gloss": "I-praise"
+     },
+     {
+      "surface": "tāṃ",
+      "quick_gloss": "her"
+     },
+     {
+      "surface": "śāmbhavīmambām",
+      "quick_gloss": "Śāmbhavī-mother"
+     }
+    ],
+    "source_sha": "b66a7eddbdd072ab"
+   },
+   "deha-p02-v09": {
+    "verse_id": "deha-p02-v09",
+    "song": "deha-p02",
+    "verse": 9,
+    "quick_english": "She lays out Bhairava-honor, south-petal-seated, with distinction-flowers — ever mind-formed Kaumārī, her, I praise.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "vidadhāti",
+      "quick_gloss": "lays-out"
+     },
+     {
+      "surface": "bhairavārcāṃ",
+      "quick_gloss": "Bhairava-honor"
+     },
+     {
+      "surface": "dakṣiṇadalagā",
+      "quick_gloss": "south-petal-seated"
+     },
+     {
+      "surface": "viṣeśakusumairyā",
+      "quick_gloss": "distinction-flowers-with-who"
+     },
+     {
+      "surface": "nityaṃ",
+      "quick_gloss": "ever"
+     },
+     {
+      "surface": "manaḥsvarūpāṃ",
+      "quick_gloss": "mind-formed"
+     },
+     {
+      "surface": "kaumārīṃ",
+      "quick_gloss": "Kaumārī"
+     },
+     {
+      "surface": "tāmahaṃ",
+      "quick_gloss": "her-I"
+     },
+     {
+      "surface": "vande",
+      "quick_gloss": "I-praise"
+     }
+    ],
+    "source_sha": "2cd630faac5dc6d2"
+   },
+   "deha-p02-v10": {
+    "verse_id": "deha-p02-v10",
+    "song": "deha-p02",
+    "verse": 10,
+    "quick_english": "Southwest-petal-seated worships Bhairava with sound-flowers — I bow to hearing-formed, ever her, the Vaiṣṇavī power.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "nairṛtadalagā",
+      "quick_gloss": "southwest-petal-seated"
+     },
+     {
+      "surface": "bhairavamarcayate",
+      "quick_gloss": "Bhairava-worships"
+     },
+     {
+      "surface": "śabdakusumairyā",
+      "quick_gloss": "sound-flowers-with-who"
+     },
+     {
+      "surface": "praṇamāmi",
+      "quick_gloss": "I-bow"
+     },
+     {
+      "surface": "śrutirūpāṃ",
+      "quick_gloss": "hearing-formed"
+     },
+     {
+      "surface": "nityaṃ",
+      "quick_gloss": "ever"
+     },
+     {
+      "surface": "tāṃ",
+      "quick_gloss": "her"
+     },
+     {
+      "surface": "vaiṣṇavīṃ",
+      "quick_gloss": "Vaiṣṇavī"
+     },
+     {
+      "surface": "śaktim",
+      "quick_gloss": "power"
+     }
+    ],
+    "source_sha": "2cd630faac5dc6d2"
+   },
+   "deha-p02-v11": {
+    "verse_id": "deha-p02-v11",
+    "song": "deha-p02",
+    "verse": 11,
+    "quick_english": "West-quarter-petal-placed, with heart-pleasing touch-flowers, she delights Bhairava — her, skin-form-wearing, I honor, Vārāhī.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "paścimadigdalasaṃsthā",
+      "quick_gloss": "west-quarter-petal-placed"
+     },
+     {
+      "surface": "hṛdayaharaiḥ",
+      "quick_gloss": "with-heart-pleasing"
+     },
+     {
+      "surface": "sparśakusumairyā",
+      "quick_gloss": "touch-flowers-with-who"
+     },
+     {
+      "surface": "toṣayati",
+      "quick_gloss": "delights"
+     },
+     {
+      "surface": "bhairavaṃ",
+      "quick_gloss": "Bhairava"
+     },
+     {
+      "surface": "tāṃ",
+      "quick_gloss": "her"
+     },
+     {
+      "surface": "tvagrūpadharāṃ",
+      "quick_gloss": "skin-form-wearing"
+     },
+     {
+      "surface": "namāmi",
+      "quick_gloss": "I-honor"
+     },
+     {
+      "surface": "vārāhīm",
+      "quick_gloss": "Vārāhī"
+     }
+    ],
+    "source_sha": "2cd630faac5dc6d2"
+   },
+   "deha-p02-v12": {
+    "verse_id": "deha-p02-v12",
+    "song": "deha-p02",
+    "verse": 12,
+    "quick_english": "With choicer form-details, wind-quarter-petal-seated-bodied, who — honors Bhairava, her-Indrāṇī, sight-bodied, I praise.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "varatararūpaviśeṣairmārutadigdalaniṣaṇṇadehā",
+      "quick_gloss": "choicer-form-details-wind-quarter-petal-seated-bodied"
+     },
+     {
+      "surface": "yā",
+      "quick_gloss": "who"
+     },
+     {
+      "surface": "pūjayati",
+      "quick_gloss": "honors"
+     },
+     {
+      "surface": "bhairavaṃ",
+      "quick_gloss": "Bhairava"
+     },
+     {
+      "surface": "tāmindrāṇīṃ",
+      "quick_gloss": "her-Indrāṇī"
+     },
+     {
+      "surface": "dṛktanuṃ",
+      "quick_gloss": "sight-bodied"
+     },
+     {
+      "surface": "vande",
+      "quick_gloss": "I-praise"
+     }
+    ],
+    "source_sha": "2cd630faac5dc6d2"
+   },
+   "deha-p02-v13": {
+    "verse_id": "deha-p02-v13",
+    "song": "deha-p02",
+    "verse": 13,
+    "quick_english": "Wealth-lord-sprout-abiding, who, ever with varied six-taste foods — honors Bhairava, her, tongue-called, I honor, Cāmuṇḍā.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "dhanapatikisalayanilayā",
+      "quick_gloss": "wealth-lord-sprout-abiding"
+     },
+     {
+      "surface": "yā",
+      "quick_gloss": "who"
+     },
+     {
+      "surface": "nityaṃ",
+      "quick_gloss": "ever"
+     },
+     {
+      "surface": "vividhaṣaḍrasāhāraiḥ",
+      "quick_gloss": "with-varied-six-taste-foods"
+     },
+     {
+      "surface": "pūjayati",
+      "quick_gloss": "honors"
+     },
+     {
+      "surface": "bhairavaṃ",
+      "quick_gloss": "Bhairava"
+     },
+     {
+      "surface": "tāṃ",
+      "quick_gloss": "her"
+     },
+     {
+      "surface": "jihvābhikhyāṃ",
+      "quick_gloss": "tongue-called"
+     },
+     {
+      "surface": "namāmi",
+      "quick_gloss": "I-honor"
+     },
+     {
+      "surface": "cāmuṇḍām",
+      "quick_gloss": "Cāmuṇḍā"
+     }
+    ],
+    "source_sha": "2cd630faac5dc6d2"
+   },
+   "deha-p02-v14": {
+    "verse_id": "deha-p02-v14",
+    "song": "deha-p02",
+    "verse": 14,
+    "quick_english": "Northeast-petal-seated worships Bhairava with varying perfumes — I bow always to her, nose-called Mahālakṣmī.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "īśadalasthā",
+      "quick_gloss": "northeast-petal-seated"
+     },
+     {
+      "surface": "bhairavamarcayate",
+      "quick_gloss": "Bhairava-worships"
+     },
+     {
+      "surface": "parimalairvicitrairyā",
+      "quick_gloss": "perfumes-varying-with-who"
+     },
+     {
+      "surface": "praṇamāmi",
+      "quick_gloss": "I-bow"
+     },
+     {
+      "surface": "sarvadā",
+      "quick_gloss": "always"
+     },
+     {
+      "surface": "tāṃ",
+      "quick_gloss": "her"
+     },
+     {
+      "surface": "ghrāṇābhikhyāṃ",
+      "quick_gloss": "nose-called"
+     },
+     {
+      "surface": "mahālakṣmīm",
+      "quick_gloss": "Mahālakṣmī"
+     }
+    ],
+    "source_sha": "2cd630faac5dc6d2"
+   },
+   "deha-p02-v15": {
+    "verse_id": "deha-p02-v15",
+    "song": "deha-p02",
+    "verse": 15,
+    "quick_english": "In six views worshipable, thirty-six-reality-infused, self-named ever — field-lord, siddhi-giving, I praise.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "ṣaḍdarśaneṣu",
+      "quick_gloss": "in-six-views"
+     },
+     {
+      "surface": "pūjyaṃ",
+      "quick_gloss": "worshipable"
+     },
+     {
+      "surface": "ṣaḍtriṃśattattvasaṃvalitam",
+      "quick_gloss": "thirty-six-reality-infused"
+     },
+     {
+      "surface": "ātmābhikhyaṃ",
+      "quick_gloss": "self-named"
+     },
+     {
+      "surface": "satataṃ",
+      "quick_gloss": "ever"
+     },
+     {
+      "surface": "kṣetrapatiṃ",
+      "quick_gloss": "field-lord"
+     },
+     {
+      "surface": "siddhidaṃ",
+      "quick_gloss": "siddhi-giving"
+     },
+     {
+      "surface": "vande",
+      "quick_gloss": "I-praise"
+     }
+    ],
+    "source_sha": "2cd630faac5dc6d2"
+   },
+   "deha-p02-v16": {
+    "verse_id": "deha-p02-v16",
+    "song": "deha-p02",
+    "verse": 16,
+    "quick_english": "Quivering-experience-essential, all-within, ever-near-placed — I hymn ever-risen-thus my-body-dwelling-god-circle.",
+    "quick_english_source": "manual",
+    "tokens": [
+     {
+      "surface": "saṃsphuradanubhavasāraṃ",
+      "quick_gloss": "quivering-experience-essential"
+     },
+     {
+      "surface": "sarvāntaḥ",
+      "quick_gloss": "all-within"
+     },
+     {
+      "surface": "satatasannihitam",
+      "quick_gloss": "ever-near-placed"
+     },
+     {
+      "surface": "naumi",
+      "quick_gloss": "I-hymn"
+     },
+     {
+      "surface": "sadoditamitthaṃ",
+      "quick_gloss": "ever-risen-thus"
+     },
+     {
+      "surface": "nijadehagadevatācakram",
+      "quick_gloss": "my-body-dwelling-god-circle"
+     }
+    ],
+    "source_sha": "2cd630faac5dc6d2"
+   }
+  },
+  "l0": {
+   "deha-p01-v01": [
+    {
+     "id": "deha-p01-v01-p000",
+     "verse_id": "deha-p01-v01",
+     "pada_index": 0,
+     "surface": "deho",
+     "citation": "deha",
+     "morph": "m.nom.sg (a-stem)",
+     "options": [
+      {
+       "gloss": "body",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v01-p001",
+     "verse_id": "deha-p01-v01",
+     "pada_index": 1,
+     "surface": "devālayaḥ",
+     "citation": "deva+ālaya",
+     "morph": "m.nom.sg tatpuruṣa (deva + ālaya)",
+     "options": [
+      {
+       "gloss": "god-temple",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "temple-of-god compound; frame verse per Dyczkowski (body as temple)"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v01-p002",
+     "verse_id": "deha-p01-v01",
+     "pada_index": 2,
+     "surface": "proktaḥ",
+     "citation": "pra+vac",
+     "morph": "ppp m.nom.sg (pra-√vac)",
+     "options": [
+      {
+       "gloss": "declared",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v01-p003",
+     "verse_id": "deha-p01-v01",
+     "pada_index": 3,
+     "surface": "svātmā",
+     "citation": "sva+ātman",
+     "morph": "m.nom.sg (ātman-stem, sva- prefix)",
+     "options": [
+      {
+       "gloss": "own-self",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v01-p004",
+     "verse_id": "deha-p01-v01",
+     "pada_index": 4,
+     "surface": "devaḥ",
+     "citation": "deva",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "god",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v01-p005",
+     "verse_id": "deha-p01-v01",
+     "pada_index": 5,
+     "surface": "sanātanaḥ",
+     "citation": "sanātana",
+     "morph": "m.nom.sg adj",
+     "options": [
+      {
+       "gloss": "eternal",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "everlasting; predicated of svātmā"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v01-p006",
+     "verse_id": "deha-p01-v01",
+     "pada_index": 6,
+     "surface": "tyajedajñānanirmālyaṃ",
+     "citation": "tyajet+ajñāna+nirmālya",
+     "morph": "3sg opt act (√tyaj) + n.compound (a+jñāna) + nirmālya (n.acc.sg)",
+     "options": [
+      {
+       "gloss": "let-abandon-ignorance-sweepings",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "fused span kept whole; optative is the verse's only verb of action"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v01-p007",
+     "verse_id": "deha-p01-v01",
+     "pada_index": 7,
+     "surface": "so'haṃ",
+     "citation": "tad+aham",
+     "morph": "pron m.nom.sg + 1sg pron (so'ham sandhi)",
+     "options": [
+      {
+       "gloss": "I-am-He",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "identity formula; title-word of the so'ham dialectic"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v01-p008",
+     "verse_id": "deha-p01-v01",
+     "pada_index": 8,
+     "surface": "bhāvena",
+     "citation": "bhāva",
+     "morph": "m.inst.sg",
+     "options": [
+      {
+       "gloss": "with-feeling",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "feeling/disposition as instrument"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v01-p009",
+     "verse_id": "deha-p01-v01",
+     "pada_index": 9,
+     "surface": "pūjayet",
+     "citation": "pūj",
+     "morph": "3sg opt act (√pūj, causative stem)",
+     "options": [
+      {
+       "gloss": "let-worship",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "optative pairs with tyajet: cast off / worship"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "deha-p01-v02": [
+    {
+     "id": "deha-p01-v02-p000",
+     "verse_id": "deha-p01-v02",
+     "pada_index": 0,
+     "surface": "asurasuravṛndavanditamabhimatavaravitaraṇe",
+     "citation": "asura+sura+vṛnda+vandita+abhimata+vara+vitaraṇa",
+     "morph": "n.loc.sg long bahuvrīhi-tatpuruṣa chain",
+     "options": [
+      {
+       "gloss": "demon-god-hosts-saluted-in-wished-boon-bestowing",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "fused span; locative of circumstance"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v02-p001",
+     "verse_id": "deha-p01-v02",
+     "pada_index": 1,
+     "surface": "niratam",
+     "citation": "ni+ram",
+     "morph": "ppp n.acc.sg (ni-√ram)",
+     "options": [
+      {
+       "gloss": "engaged",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "engaged/devoted; agrees with gaṇapatim"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v02-p002",
+     "verse_id": "deha-p01-v02",
+     "pada_index": 2,
+     "surface": "darśanaśatāgryapūjyaṃ",
+     "citation": "darśana+śata+agrya+pūjya",
+     "morph": "gerundive n.acc.sg (√pūj + -ya, triple qualifier)",
+     "options": [
+      {
+       "gloss": "rite-hundred-foremost-worshipable",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "foremost-in-a-hundred-rites: pūjya as fit-to-be-worshipped"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v02-p003",
+     "verse_id": "deha-p01-v02",
+     "pada_index": 3,
+     "surface": "prāṇatanuṃ",
+     "citation": "prāṇa+tanu",
+     "morph": "m.acc.sg bahuvrīhi (prāṇa + tanu)",
+     "options": [
+      {
+       "gloss": "breath-bodied",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "breath-bodied: Dyczkowski gatekeeper-as-prāṇa"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v02-p004",
+     "verse_id": "deha-p01-v02",
+     "pada_index": 4,
+     "surface": "gaṇapatiṃ",
+     "citation": "gaṇapati",
+     "morph": "m.acc.sg",
+     "options": [
+      {
+       "gloss": "Gaṇapati",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v02-p005",
+     "verse_id": "deha-p01-v02",
+     "pada_index": 5,
+     "surface": "vande",
+     "citation": "vand",
+     "morph": "1sg pres ātm (√vand)",
+     "options": [
+      {
+       "gloss": "I-praise",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "praise/honor; refrain verb of the stotra"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "deha-p01-v03": [
+    {
+     "id": "deha-p01-v03-p000",
+     "verse_id": "deha-p01-v03",
+     "pada_index": 0,
+     "surface": "varavīrayoginīgaṇasiddhāvalipūjitāṅghriyugalam",
+     "citation": "vara+vīra+yoginī+gaṇa+siddha+āvali+pūjita+aṅghri+yugala",
+     "morph": "n.acc.sg long compound (worshipped-foot-pair qualified by hosts)",
+     "options": [
+      {
+       "gloss": "choice-heroes-yoginī-hosts-siddha-rows-worshipped-foot-pair",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "fused span; the worshippers named before the feet"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v03-p001",
+     "verse_id": "deha-p01-v03",
+     "pada_index": 1,
+     "surface": "apahṛtavinayijanārtiṃ",
+     "citation": "apahṛta+vinayin+jana+ārti",
+     "morph": "f.acc.sg tatpuruṣa (removed pain of humble folks)",
+     "options": [
+      {
+       "gloss": "removed-humble-folks-pain",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "apahṛta ppp (apa-√hṛ) governing the pain-compound"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v03-p002",
+     "verse_id": "deha-p01-v03",
+     "pada_index": 2,
+     "surface": "vaṭukamapānābhidhaṃ",
+     "citation": "vaṭuka+apāna+abhidha",
+     "morph": "m.acc.sg (apāna-named Vaṭuka)",
+     "options": [
+      {
+       "gloss": "Vaṭuka-apāna-named",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "fused span; abhidha = named/called"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v03-p003",
+     "verse_id": "deha-p01-v03",
+     "pada_index": 3,
+     "surface": "vande",
+     "citation": "vand",
+     "morph": "1sg pres ātm (√vand)",
+     "options": [
+      {
+       "gloss": "I-praise",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "refrain verb"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "deha-p01-v04": [
+    {
+     "id": "deha-p01-v04-p000",
+     "verse_id": "deha-p01-v04",
+     "pada_index": 0,
+     "surface": "yaddhībalena",
+     "citation": "yad+dhī+bala",
+     "morph": "n.inst.sg (relative + dhī + bala)",
+     "options": [
+      {
+       "gloss": "by-whose-mind-strength",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "by-whose-mind-strength: relative clause opens"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v04-p001",
+     "verse_id": "deha-p01-v04",
+     "pada_index": 1,
+     "surface": "viśvaṃ",
+     "citation": "viśva",
+     "morph": "n.acc.sg (also adj all)",
+     "options": [
+      {
+       "gloss": "universe",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "the universe as object of bhāti"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v04-p002",
+     "verse_id": "deha-p01-v04",
+     "pada_index": 2,
+     "surface": "bhaktānāṃ",
+     "citation": "bhakta",
+     "morph": "m.gen.pl (ppp √bhaj)",
+     "options": [
+      {
+       "gloss": "of-devotees",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "of devotees"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v04-p003",
+     "verse_id": "deha-p01-v04",
+     "pada_index": 3,
+     "surface": "śivapathaṃ",
+     "citation": "śiva+patha",
+     "morph": "m.acc.sg (predicative: as Śiva-path)",
+     "options": [
+      {
+       "gloss": "Śiva-pathed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "patha as course/way; shines AS the path"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v04-p004",
+     "verse_id": "deha-p01-v04",
+     "pada_index": 4,
+     "surface": "bhāti",
+     "citation": "bhā",
+     "morph": "3sg pres act (√bhā)",
+     "options": [
+      {
+       "gloss": "shines",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "shines/appears"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v04-p005",
+     "verse_id": "deha-p01-v04",
+     "pada_index": 5,
+     "surface": "tamahamavadhānarūpaṃ",
+     "citation": "tad+aham+avadhāna+rūpa",
+     "morph": "m.acc.sg fused (pron + pron + attention + form)",
+     "options": [
+      {
+       "gloss": "him-I-attention-formed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "fused span; him-I-attention-formed: the verse's pivot"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v04-p006",
+     "verse_id": "deha-p01-v04",
+     "pada_index": 6,
+     "surface": "sadgurumamalaṃ",
+     "citation": "sat+guru+amala",
+     "morph": "m.acc.sg (true guru + spotless)",
+     "options": [
+      {
+       "gloss": "true-guru-spotless",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "fused span; double qualifier"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v04-p007",
+     "verse_id": "deha-p01-v04",
+     "pada_index": 7,
+     "surface": "sadā",
+     "citation": "sadā",
+     "morph": "adv (temporal)",
+     "options": [
+      {
+       "gloss": "always",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v04-p008",
+     "verse_id": "deha-p01-v04",
+     "pada_index": 8,
+     "surface": "vande",
+     "citation": "vand",
+     "morph": "1sg pres ātm (√vand)",
+     "options": [
+      {
+       "gloss": "I-praise",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "refrain verb"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "deha-p01-v05": [
+    {
+     "id": "deha-p01-v05-p000",
+     "verse_id": "deha-p01-v05",
+     "pada_index": 0,
+     "surface": "ātmīyaviṣayabhogairindriyadevyaḥ",
+     "citation": "ātmīya+viṣaya+bhoga+indriya+devī",
+     "morph": "f.inst.pl fused chain",
+     "options": [
+      {
+       "gloss": "by-own-sense-feasts-sense-goddesses",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "by-own-sense-feasts goddesses: agents in instrumental"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v05-p001",
+     "verse_id": "deha-p01-v05",
+     "pada_index": 1,
+     "surface": "sadā",
+     "citation": "sadā",
+     "morph": "adv",
+     "options": [
+      {
+       "gloss": "always",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v05-p002",
+     "verse_id": "deha-p01-v05",
+     "pada_index": 2,
+     "surface": "hṛdambhoje",
+     "citation": "hṛd+ambhoja",
+     "morph": "n.loc.sg (hṛd + ambhoja)",
+     "options": [
+      {
+       "gloss": "in-heart-lotus",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "heart-lotus locative; ambhoja = water-born (lotus)"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v05-p003",
+     "verse_id": "deha-p01-v05",
+     "pada_index": 3,
+     "surface": "abhipūjayanti",
+     "citation": "abhi+√pūj",
+     "morph": "3pl pres act causative",
+     "options": [
+      {
+       "gloss": "fully-honor",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "fully honor (abhi- intensifies)"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v05-p004",
+     "verse_id": "deha-p01-v05",
+     "pada_index": 4,
+     "surface": "yaṃ",
+     "citation": "yad",
+     "morph": "m.acc.sg rel pron",
+     "options": [
+      {
+       "gloss": "whom",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v05-p005",
+     "verse_id": "deha-p01-v05",
+     "pada_index": 5,
+     "surface": "taṃ",
+     "citation": "tad",
+     "morph": "m.acc.sg dem pron",
+     "options": [
+      {
+       "gloss": "him",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v05-p006",
+     "verse_id": "deha-p01-v05",
+     "pada_index": 6,
+     "surface": "cinmayamānandabhairavaṃ",
+     "citation": "cit+maya+ānanda+bhairava",
+     "morph": "m.acc.sg (consciousness-made + bliss-Bhairava)",
+     "options": [
+      {
+       "gloss": "consciousness-made-bliss-Bhairava",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "fused span; -maya as made-of"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v05-p007",
+     "verse_id": "deha-p01-v05",
+     "pada_index": 7,
+     "surface": "vande",
+     "citation": "vand",
+     "morph": "1sg pres ātm (√vand)",
+     "options": [
+      {
+       "gloss": "I-praise",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "refrain verb"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "deha-p01-v06": [
+    {
+     "id": "deha-p01-v06-p000",
+     "verse_id": "deha-p01-v06",
+     "pada_index": 0,
+     "surface": "udayāvabhāsacarvaṇalīlāṃ",
+     "citation": "udaya+avabhāsa+carvaṇa+līlā",
+     "morph": "f.acc.sg (dawn-shining-chewing-play)",
+     "options": [
+      {
+       "gloss": "dawn-shining-chewing-play",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "triple-action compound; object of karoti"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v06-p001",
+     "verse_id": "deha-p01-v06",
+     "pada_index": 1,
+     "surface": "viśvasya",
+     "citation": "viśva",
+     "morph": "n.gen.sg",
+     "options": [
+      {
+       "gloss": "of-universe",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "of the universe"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v06-p002",
+     "verse_id": "deha-p01-v06",
+     "pada_index": 2,
+     "surface": "yā",
+     "citation": "yad",
+     "morph": "f.nom.sg rel pron",
+     "options": [
+      {
+       "gloss": "which",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "which (Bhairavī)"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v06-p003",
+     "verse_id": "deha-p01-v06",
+     "pada_index": 3,
+     "surface": "karotyaniśam",
+     "citation": "√kṛ+aniśam",
+     "morph": "3sg pres act + adv (a+niśā: ceaselessly)",
+     "options": [
+      {
+       "gloss": "makes-ceaselessly",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "fused span; verb + adverb"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v06-p004",
+     "verse_id": "deha-p01-v06",
+     "pada_index": 4,
+     "surface": "ānandabhairavīṃ",
+     "citation": "ānanda+bhairavī",
+     "morph": "f.acc.sg",
+     "options": [
+      {
+       "gloss": "bliss-Bhairavī",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v06-p005",
+     "verse_id": "deha-p01-v06",
+     "pada_index": 5,
+     "surface": "tāṃ",
+     "citation": "tad",
+     "morph": "f.acc.sg",
+     "options": [
+      {
+       "gloss": "her",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v06-p006",
+     "verse_id": "deha-p01-v06",
+     "pada_index": 6,
+     "surface": "vimarśarūpāmahaṃ",
+     "citation": "vimarśa+rūpā+aham",
+     "morph": "f.acc.sg + 1sg pron fused",
+     "options": [
+      {
+       "gloss": "deliberation-formed-I",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "deliberation-formed-I: subject fused to predicate"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v06-p007",
+     "verse_id": "deha-p01-v06",
+     "pada_index": 7,
+     "surface": "vande",
+     "citation": "vand",
+     "morph": "1sg pres ātm (√vand)",
+     "options": [
+      {
+       "gloss": "I-praise",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "refrain verb"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "deha-p01-v07": [
+    {
+     "id": "deha-p01-v07-p000",
+     "verse_id": "deha-p01-v07",
+     "pada_index": 0,
+     "surface": "arcayati",
+     "citation": "arc",
+     "morph": "3sg pres act (√arc)",
+     "options": [
+      {
+       "gloss": "worships",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "worships (non-causative)"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v07-p001",
+     "verse_id": "deha-p01-v07",
+     "pada_index": 1,
+     "surface": "bhairavaṃ",
+     "citation": "bhairava",
+     "morph": "m.acc.sg",
+     "options": [
+      {
+       "gloss": "Bhairava",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v07-p002",
+     "verse_id": "deha-p01-v07",
+     "pada_index": 2,
+     "surface": "yā",
+     "citation": "yad",
+     "morph": "f.nom.sg rel pron",
+     "options": [
+      {
+       "gloss": "who",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v07-p003",
+     "verse_id": "deha-p01-v07",
+     "pada_index": 3,
+     "surface": "niścayakusumaiḥ",
+     "citation": "niścaya+kusuma",
+     "morph": "n.inst.pl (resolve-flowers)",
+     "options": [
+      {
+       "gloss": "with-resolve-flowers",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "flowers = offerings metaphor (holds all song)"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v07-p004",
+     "verse_id": "deha-p01-v07",
+     "pada_index": 4,
+     "surface": "sureśapatrasthā",
+     "citation": "sureśa+patra+sthā",
+     "morph": "f.nom.sg (standing in lord's petal)",
+     "options": [
+      {
+       "gloss": "lord-petal-standing",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "sureśa = lord (sura+īśa)"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v07-p005",
+     "verse_id": "deha-p01-v07",
+     "pada_index": 5,
+     "surface": "praṇamāmi",
+     "citation": "pra+√nam",
+     "morph": "1sg pres act",
+     "options": [
+      {
+       "gloss": "I-bow",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "I bow (pra- intensifies)"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v07-p006",
+     "verse_id": "deha-p01-v07",
+     "pada_index": 6,
+     "surface": "buddhirūpāṃ",
+     "citation": "buddhi+rūpā",
+     "morph": "f.acc.sg",
+     "options": [
+      {
+       "gloss": "intellect-formed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "intellect-formed"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v07-p007",
+     "verse_id": "deha-p01-v07",
+     "pada_index": 7,
+     "surface": "brahmāṇīṃ",
+     "citation": "brahmāṇī",
+     "morph": "f.acc.sg (feminine of brahman)",
+     "options": [
+      {
+       "gloss": "Brāhmaṇī",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v07-p008",
+     "verse_id": "deha-p01-v07",
+     "pada_index": 8,
+     "surface": "tāmahaṃ",
+     "citation": "tad+aham",
+     "morph": "f.acc.sg + 1sg fused",
+     "options": [
+      {
+       "gloss": "her-I",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "her-I: object fused with subject"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v07-p009",
+     "verse_id": "deha-p01-v07",
+     "pada_index": 9,
+     "surface": "satatam",
+     "citation": "satatam",
+     "morph": "adv (also adj)",
+     "options": [
+      {
+       "gloss": "ever",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "ever/constantly"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "deha-p01-v08": [
+    {
+     "id": "deha-p01-v08-p000",
+     "verse_id": "deha-p01-v08",
+     "pada_index": 0,
+     "surface": "kurute",
+     "citation": "kṛ",
+     "morph": "3sg pres ātm (√kṛ)",
+     "options": [
+      {
+       "gloss": "performs",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "performs/makes (middle voice)"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v08-p001",
+     "verse_id": "deha-p01-v08",
+     "pada_index": 1,
+     "surface": "bhairavapūjāmanaladalasthā'bhimānakusumairyā",
+     "citation": "bhairava+pūjā+anala+dala+sthā+abhimāna+kusuma+yā",
+     "morph": "f.nom.sg long compound ending in relative yā",
+     "options": [
+      {
+       "gloss": "Bhairava-worship-fire-petal-standing-I-flowers-with-who",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "fused span incl. avagraha (sthā'bhimāna); relative clause compressed into the compound"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v08-p002",
+     "verse_id": "deha-p01-v08",
+     "pada_index": 2,
+     "surface": "nityamahaṅkṛtirūpāṃ",
+     "citation": "nitya+ahaṅkṛti+rūpā",
+     "morph": "f.acc.sg",
+     "options": [
+      {
+       "gloss": "ever-I-making-formed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "ever-I-making-formed; ahaṅkṛti = I-making (ego as act)"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v08-p003",
+     "verse_id": "deha-p01-v08",
+     "pada_index": 3,
+     "surface": "vande",
+     "citation": "vand",
+     "morph": "1sg pres ātm (√vand)",
+     "options": [
+      {
+       "gloss": "I-praise",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v08-p004",
+     "verse_id": "deha-p01-v08",
+     "pada_index": 4,
+     "surface": "tāṃ",
+     "citation": "tad",
+     "morph": "f.acc.sg",
+     "options": [
+      {
+       "gloss": "her",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p01-v08-p005",
+     "verse_id": "deha-p01-v08",
+     "pada_index": 5,
+     "surface": "śāmbhavīmambām",
+     "citation": "śāmbhavī+ambā",
+     "morph": "f.acc.sg",
+     "options": [
+      {
+       "gloss": "Śāmbhavī-mother",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "the Śāmbhavī mother (double name)"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "deha-p02-v09": [
+    {
+     "id": "deha-p02-v09-p000",
+     "verse_id": "deha-p02-v09",
+     "pada_index": 0,
+     "surface": "vidadhāti",
+     "citation": "vi+√dhā",
+     "morph": "3sg pres act",
+     "options": [
+      {
+       "gloss": "lays-out",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "lays out/arranges (sacrifice)"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v09-p001",
+     "verse_id": "deha-p02-v09",
+     "pada_index": 1,
+     "surface": "bhairavārcāṃ",
+     "citation": "bhairava+arcā",
+     "morph": "f.acc.sg",
+     "options": [
+      {
+       "gloss": "Bhairava-honor",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Bhairava-honor"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v09-p002",
+     "verse_id": "deha-p02-v09",
+     "pada_index": 2,
+     "surface": "dakṣiṇadalagā",
+     "citation": "dakṣiṇa+dala+gā",
+     "morph": "f.nom.sg (south-petal-seated)",
+     "options": [
+      {
+       "gloss": "south-petal-seated",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "gā from √gam: seated-at"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v09-p003",
+     "verse_id": "deha-p02-v09",
+     "pada_index": 3,
+     "surface": "viṣeśakusumairyā",
+     "citation": "viśeṣa/vikalpa+kusuma+yā",
+     "morph": "f.nom.sg relative compound",
+     "options": [
+      {
+       "gloss": "distinction-flowers-with-who",
+       "rank": 1,
+       "source": "grammar",
+       "grounds": "Print reads viṣeśa- (taken as viśeṣa distinction; no lexical support for viṣeśa as printed — probable aksara-slip śe/ṣe). Chosen: sense + flower-metaphor fit (resolve-flowers, sound-flowers pattern)."
+      },
+      {
+       "gloss": "thought-flowers-with-who",
+       "rank": 2,
+       "source": "witness",
+       "grounds": "Print notes vikalpa- variant: thoughts as flowers. Fits mind-goddess Kaumārī (manas). Rejected for now: variant status, not edition text; argmap adjudicates."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "live"
+    },
+    {
+     "id": "deha-p02-v09-p004",
+     "verse_id": "deha-p02-v09",
+     "pada_index": 4,
+     "surface": "nityaṃ",
+     "citation": "nityam",
+     "morph": "adv",
+     "options": [
+      {
+       "gloss": "ever",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v09-p005",
+     "verse_id": "deha-p02-v09",
+     "pada_index": 5,
+     "surface": "manaḥsvarūpāṃ",
+     "citation": "manas+svarūpa",
+     "morph": "f.acc.sg",
+     "options": [
+      {
+       "gloss": "mind-formed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "mind-formed; svarūpa as own-form"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v09-p006",
+     "verse_id": "deha-p02-v09",
+     "pada_index": 6,
+     "surface": "kaumārīṃ",
+     "citation": "kaumārī",
+     "morph": "f.acc.sg (kumāra-derived goddess)",
+     "options": [
+      {
+       "gloss": "Kaumārī",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v09-p007",
+     "verse_id": "deha-p02-v09",
+     "pada_index": 7,
+     "surface": "tāmahaṃ",
+     "citation": "tad+aham",
+     "morph": "f.acc.sg + 1sg fused",
+     "options": [
+      {
+       "gloss": "her-I",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "her-I"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v09-p008",
+     "verse_id": "deha-p02-v09",
+     "pada_index": 8,
+     "surface": "vande",
+     "citation": "vand",
+     "morph": "1sg pres ātm (√vand)",
+     "options": [
+      {
+       "gloss": "I-praise",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "refrain verb"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "deha-p02-v10": [
+    {
+     "id": "deha-p02-v10-p000",
+     "verse_id": "deha-p02-v10",
+     "pada_index": 0,
+     "surface": "nairṛtadalagā",
+     "citation": "nairṛta+dala+gā",
+     "morph": "f.nom.sg (southwest-petal-seated)",
+     "options": [
+      {
+       "gloss": "southwest-petal-seated",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nairṛta = of Nirṛti (dissolution quarter)"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v10-p001",
+     "verse_id": "deha-p02-v10",
+     "pada_index": 1,
+     "surface": "bhairavamarcayate",
+     "citation": "bhairava+√arc",
+     "morph": "3sg pres ātm",
+     "options": [
+      {
+       "gloss": "Bhairava-worships",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "worships (middle: worship-for-oneself)"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v10-p002",
+     "verse_id": "deha-p02-v10",
+     "pada_index": 2,
+     "surface": "śabdakusumairyā",
+     "citation": "śabda+kusuma+yā",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "sound-flowers-with-who",
+       "rank": 1,
+       "source": "grammar",
+       "grounds": "Edition text śabdakusumairyā: sound-flowers, matching the flower-offering pattern of vv7-9. Chosen: edition reading."
+      },
+      {
+       "gloss": "sound-formed",
+       "rank": 2,
+       "source": "witness",
+       "grounds": "Print notes śabdarūpām variant: sound-formed (acc.sg, no kusuma). Attested but restructures the line; argmap adjudicates."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "live"
+    },
+    {
+     "id": "deha-p02-v10-p003",
+     "verse_id": "deha-p02-v10",
+     "pada_index": 3,
+     "surface": "praṇamāmi",
+     "citation": "pra+√nam",
+     "morph": "1sg pres act",
+     "options": [
+      {
+       "gloss": "I-bow",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "I bow"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v10-p004",
+     "verse_id": "deha-p02-v10",
+     "pada_index": 4,
+     "surface": "śrutirūpāṃ",
+     "citation": "śruti+rūpā",
+     "morph": "f.acc.sg",
+     "options": [
+      {
+       "gloss": "hearing-formed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "hearing-formed (śruti = ear/Veda)"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v10-p005",
+     "verse_id": "deha-p02-v10",
+     "pada_index": 5,
+     "surface": "nityaṃ",
+     "citation": "nityam",
+     "morph": "adv",
+     "options": [
+      {
+       "gloss": "ever",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v10-p006",
+     "verse_id": "deha-p02-v10",
+     "pada_index": 6,
+     "surface": "tāṃ",
+     "citation": "tad",
+     "morph": "f.acc.sg",
+     "options": [
+      {
+       "gloss": "her",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v10-p007",
+     "verse_id": "deha-p02-v10",
+     "pada_index": 7,
+     "surface": "vaiṣṇavīṃ",
+     "citation": "vaiṣṇavī",
+     "morph": "f.acc.sg",
+     "options": [
+      {
+       "gloss": "Vaiṣṇavī",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "of Viṣṇu (directional guardian)"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v10-p008",
+     "verse_id": "deha-p02-v10",
+     "pada_index": 8,
+     "surface": "śaktim",
+     "citation": "śakti",
+     "morph": "f.acc.sg",
+     "options": [
+      {
+       "gloss": "power",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "deha-p02-v11": [
+    {
+     "id": "deha-p02-v11-p000",
+     "verse_id": "deha-p02-v11",
+     "pada_index": 0,
+     "surface": "paścimadigdalasaṃsthā",
+     "citation": "paścima+diś+dala+saṃsthā",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "west-quarter-petal-placed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "west-quarter-petal-placed"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v11-p001",
+     "verse_id": "deha-p02-v11",
+     "pada_index": 1,
+     "surface": "hṛdayaharaiḥ",
+     "citation": "hṛdaya+hara",
+     "morph": "m.inst.pl (heart-pleasing)",
+     "options": [
+      {
+       "gloss": "with-heart-pleasing",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "hara = taking/delighting"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v11-p002",
+     "verse_id": "deha-p02-v11",
+     "pada_index": 2,
+     "surface": "sparśakusumairyā",
+     "citation": "sparśa+kusuma+yā",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "touch-flowers-with-who",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "touch-flowers-with-who"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v11-p003",
+     "verse_id": "deha-p02-v11",
+     "pada_index": 3,
+     "surface": "toṣayati",
+     "citation": "tuṣ",
+     "morph": "3sg pres caus act",
+     "options": [
+      {
+       "gloss": "delights",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "delights/satisfies"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v11-p004",
+     "verse_id": "deha-p02-v11",
+     "pada_index": 4,
+     "surface": "bhairavaṃ",
+     "citation": "bhairava",
+     "morph": "m.acc.sg",
+     "options": [
+      {
+       "gloss": "Bhairava",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v11-p005",
+     "verse_id": "deha-p02-v11",
+     "pada_index": 5,
+     "surface": "tāṃ",
+     "citation": "tad",
+     "morph": "f.acc.sg",
+     "options": [
+      {
+       "gloss": "her",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v11-p006",
+     "verse_id": "deha-p02-v11",
+     "pada_index": 6,
+     "surface": "tvagrūpadharāṃ",
+     "citation": "tvac+rūpa+dhara",
+     "morph": "f.acc.sg (skin-form-wearing)",
+     "options": [
+      {
+       "gloss": "skin-form-wearing",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "dhara = wearing/bearing"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v11-p007",
+     "verse_id": "deha-p02-v11",
+     "pada_index": 7,
+     "surface": "namāmi",
+     "citation": "nam",
+     "morph": "1sg pres act (√nam)",
+     "options": [
+      {
+       "gloss": "I-honor",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "I honor (unprefixed here)"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v11-p008",
+     "verse_id": "deha-p02-v11",
+     "pada_index": 8,
+     "surface": "vārāhīm",
+     "citation": "vārāhī",
+     "morph": "f.acc.sg (boar-goddess)",
+     "options": [
+      {
+       "gloss": "Vārāhī",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "deha-p02-v12": [
+    {
+     "id": "deha-p02-v12-p000",
+     "verse_id": "deha-p02-v12",
+     "pada_index": 0,
+     "surface": "varatararūpaviśeṣairmārutadigdalaniṣaṇṇadehā",
+     "citation": "vara+tara+rūpa+viśeṣa+māruta+diś+dala+niṣaṇṇa+deha",
+     "morph": "f.nom.sg long compound",
+     "options": [
+      {
+       "gloss": "choicer-form-details-wind-quarter-petal-seated-bodied",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "fused span; niṣaṇṇa ppp (ni-√sad) seated; sandhi viśeṣaiḥ+māruta kept"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v12-p001",
+     "verse_id": "deha-p02-v12",
+     "pada_index": 1,
+     "surface": "yā",
+     "citation": "yad",
+     "morph": "f.nom.sg rel pron",
+     "options": [
+      {
+       "gloss": "who",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v12-p002",
+     "verse_id": "deha-p02-v12",
+     "pada_index": 2,
+     "surface": "pūjayati",
+     "citation": "pūj",
+     "morph": "3sg pres caus act",
+     "options": [
+      {
+       "gloss": "honors",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "honors"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v12-p003",
+     "verse_id": "deha-p02-v12",
+     "pada_index": 3,
+     "surface": "bhairavaṃ",
+     "citation": "bhairava",
+     "morph": "m.acc.sg",
+     "options": [
+      {
+       "gloss": "Bhairava",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v12-p004",
+     "verse_id": "deha-p02-v12",
+     "pada_index": 4,
+     "surface": "tāmindrāṇīṃ",
+     "citation": "tad+indrāṇī",
+     "morph": "f.acc.sg fused",
+     "options": [
+      {
+       "gloss": "her-Indrāṇī",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "her-Indrāṇī"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v12-p005",
+     "verse_id": "deha-p02-v12",
+     "pada_index": 5,
+     "surface": "dṛktanuṃ",
+     "citation": "dṛś+tanu",
+     "morph": "acc.sg (sight-bodied)",
+     "options": [
+      {
+       "gloss": "sight-bodied",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "dṛk (seeing) + tanu; agrees feminine"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v12-p006",
+     "verse_id": "deha-p02-v12",
+     "pada_index": 6,
+     "surface": "vande",
+     "citation": "vand",
+     "morph": "1sg pres ātm (√vand)",
+     "options": [
+      {
+       "gloss": "I-praise",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "deha-p02-v13": [
+    {
+     "id": "deha-p02-v13-p000",
+     "verse_id": "deha-p02-v13",
+     "pada_index": 0,
+     "surface": "dhanapatikisalayanilayā",
+     "citation": "dhanapati+kisalaya+nilayā",
+     "morph": "f.nom.sg (wealth-lord-sprout-abiding)",
+     "options": [
+      {
+       "gloss": "wealth-lord-sprout-abiding",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "dhanapati = Kubera (north guardian); kisalaya = sprout"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v13-p001",
+     "verse_id": "deha-p02-v13",
+     "pada_index": 1,
+     "surface": "yā",
+     "citation": "yad",
+     "morph": "f.nom.sg rel pron",
+     "options": [
+      {
+       "gloss": "who",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v13-p002",
+     "verse_id": "deha-p02-v13",
+     "pada_index": 2,
+     "surface": "nityaṃ",
+     "citation": "nityam",
+     "morph": "adv",
+     "options": [
+      {
+       "gloss": "ever",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v13-p003",
+     "verse_id": "deha-p02-v13",
+     "pada_index": 3,
+     "surface": "vividhaṣaḍrasāhāraiḥ",
+     "citation": "vividha+ṣaḍ+rasa+āhāra",
+     "morph": "m.inst.pl",
+     "options": [
+      {
+       "gloss": "with-varied-six-taste-foods",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "with-varied-six-taste-foods; ṣaḍrasa = six tastes"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v13-p004",
+     "verse_id": "deha-p02-v13",
+     "pada_index": 4,
+     "surface": "pūjayati",
+     "citation": "pūj",
+     "morph": "3sg pres caus act",
+     "options": [
+      {
+       "gloss": "honors",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v13-p005",
+     "verse_id": "deha-p02-v13",
+     "pada_index": 5,
+     "surface": "bhairavaṃ",
+     "citation": "bhairava",
+     "morph": "m.acc.sg",
+     "options": [
+      {
+       "gloss": "Bhairava",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v13-p006",
+     "verse_id": "deha-p02-v13",
+     "pada_index": 6,
+     "surface": "tāṃ",
+     "citation": "tad",
+     "morph": "f.acc.sg",
+     "options": [
+      {
+       "gloss": "her",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v13-p007",
+     "verse_id": "deha-p02-v13",
+     "pada_index": 7,
+     "surface": "jihvābhikhyāṃ",
+     "citation": "jihvā+abhikhyā",
+     "morph": "f.acc.sg (tongue-called)",
+     "options": [
+      {
+       "gloss": "tongue-called",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "abhikhyā = called/named"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v13-p008",
+     "verse_id": "deha-p02-v13",
+     "pada_index": 8,
+     "surface": "namāmi",
+     "citation": "nam",
+     "morph": "1sg pres act",
+     "options": [
+      {
+       "gloss": "I-honor",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v13-p009",
+     "verse_id": "deha-p02-v13",
+     "pada_index": 9,
+     "surface": "cāmuṇḍām",
+     "citation": "cāmuṇḍā",
+     "morph": "f.acc.sg",
+     "options": [
+      {
+       "gloss": "Cāmuṇḍā",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "deha-p02-v14": [
+    {
+     "id": "deha-p02-v14-p000",
+     "verse_id": "deha-p02-v14",
+     "pada_index": 0,
+     "surface": "īśadalasthā",
+     "citation": "īśa+dala+sthā",
+     "morph": "f.nom.sg (northeast-petal-seated)",
+     "options": [
+      {
+       "gloss": "northeast-petal-seated",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "īśa = NE quarter (Īśāna)"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v14-p001",
+     "verse_id": "deha-p02-v14",
+     "pada_index": 1,
+     "surface": "bhairavamarcayate",
+     "citation": "bhairava+√arc",
+     "morph": "3sg pres ātm",
+     "options": [
+      {
+       "gloss": "Bhairava-worships",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v14-p002",
+     "verse_id": "deha-p02-v14",
+     "pada_index": 2,
+     "surface": "parimalairvicitrairyā",
+     "citation": "parimala+vicitra+yā",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "perfumes-varying-with-who",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "parimala = perfume; vicitra = varied"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v14-p003",
+     "verse_id": "deha-p02-v14",
+     "pada_index": 3,
+     "surface": "praṇamāmi",
+     "citation": "pra+√nam",
+     "morph": "1sg pres act",
+     "options": [
+      {
+       "gloss": "I-bow",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v14-p004",
+     "verse_id": "deha-p02-v14",
+     "pada_index": 4,
+     "surface": "sarvadā",
+     "citation": "sarvadā",
+     "morph": "adv",
+     "options": [
+      {
+       "gloss": "always",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "always (sarva+dā)"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v14-p005",
+     "verse_id": "deha-p02-v14",
+     "pada_index": 5,
+     "surface": "tāṃ",
+     "citation": "tad",
+     "morph": "f.acc.sg",
+     "options": [
+      {
+       "gloss": "her",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v14-p006",
+     "verse_id": "deha-p02-v14",
+     "pada_index": 6,
+     "surface": "ghrāṇābhikhyāṃ",
+     "citation": "ghrāṇa+abhikhyā",
+     "morph": "f.acc.sg (nose-called)",
+     "options": [
+      {
+       "gloss": "nose-called",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "ghrāṇa = nose/smell"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v14-p007",
+     "verse_id": "deha-p02-v14",
+     "pada_index": 7,
+     "surface": "mahālakṣmīm",
+     "citation": "mahā+lakṣmī",
+     "morph": "f.acc.sg",
+     "options": [
+      {
+       "gloss": "Mahālakṣmī",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "deha-p02-v15": [
+    {
+     "id": "deha-p02-v15-p000",
+     "verse_id": "deha-p02-v15",
+     "pada_index": 0,
+     "surface": "ṣaḍdarśaneṣu",
+     "citation": "ṣaṣ+darśana",
+     "morph": "n.loc.pl (in six views/systems)",
+     "options": [
+      {
+       "gloss": "in-six-views",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "ṣaṣ+darśana sandhi; six philosophical systems"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v15-p001",
+     "verse_id": "deha-p02-v15",
+     "pada_index": 1,
+     "surface": "pūjyaṃ",
+     "citation": "pūj",
+     "morph": "gerundive n.acc.sg",
+     "options": [
+      {
+       "gloss": "worshipable",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "worshipable (fit to be worshipped)"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v15-p002",
+     "verse_id": "deha-p02-v15",
+     "pada_index": 2,
+     "surface": "ṣaḍtriṃśattattvasaṃvalitam",
+     "citation": "ṣaṣ+triṃśat+tattva+saṃvalita",
+     "morph": "n.acc.sg (36-reality-infused)",
+     "options": [
+      {
+       "gloss": "thirty-six-reality-infused",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "saṃvalita ppp infused; 36 tattvas = full Trika map"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v15-p003",
+     "verse_id": "deha-p02-v15",
+     "pada_index": 3,
+     "surface": "ātmābhikhyaṃ",
+     "citation": "ātman+abhikhyā",
+     "morph": "n.acc.sg (self-named)",
+     "options": [
+      {
+       "gloss": "self-named",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v15-p004",
+     "verse_id": "deha-p02-v15",
+     "pada_index": 4,
+     "surface": "satataṃ",
+     "citation": "satatam",
+     "morph": "adv",
+     "options": [
+      {
+       "gloss": "ever",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v15-p005",
+     "verse_id": "deha-p02-v15",
+     "pada_index": 5,
+     "surface": "kṣetrapatiṃ",
+     "citation": "kṣetra+pati",
+     "morph": "m.acc.sg",
+     "options": [
+      {
+       "gloss": "field-lord",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "field-lord (body's guardian)"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v15-p006",
+     "verse_id": "deha-p02-v15",
+     "pada_index": 6,
+     "surface": "siddhidaṃ",
+     "citation": "siddhi+da",
+     "morph": "m.acc.sg (-da giving)",
+     "options": [
+      {
+       "gloss": "siddhi-giving",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "siddhi-giving"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v15-p007",
+     "verse_id": "deha-p02-v15",
+     "pada_index": 7,
+     "surface": "vande",
+     "citation": "vand",
+     "morph": "1sg pres ātm (√vand)",
+     "options": [
+      {
+       "gloss": "I-praise",
+       "rank": 1,
+       "source": "t1-draft"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "deha-p02-v16": [
+    {
+     "id": "deha-p02-v16-p000",
+     "verse_id": "deha-p02-v16",
+     "pada_index": 0,
+     "surface": "saṃsphuradanubhavasāraṃ",
+     "citation": "saṃsphurad+anubhava+sāra",
+     "morph": "n.acc.sg (quivering-experience-pith)",
+     "options": [
+      {
+       "gloss": "quivering-experience-essential",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "saṃsphurad pres-part (sam-√sphur) quivering; sāra = essence"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v16-p001",
+     "verse_id": "deha-p02-v16",
+     "pada_index": 1,
+     "surface": "sarvāntaḥ",
+     "citation": "sarva+anta",
+     "morph": "AMBIGUOUS: m.nom.sg bahuvrīhi vs adverbial",
+     "options": [
+      {
+       "gloss": "all-within",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Adverbial reading (in all ends); taken as T1 gloss. Parse-quality: case genuinely uncertain (m.nom.sg bahuvrīhi all-ended vs adverbial); no fork (not lexical alternation but case)."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "AMBIGUOUS",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v16-p002",
+     "verse_id": "deha-p02-v16",
+     "pada_index": 2,
+     "surface": "satatasannihitam",
+     "citation": "satata+sannihita",
+     "morph": "n.acc.sg (ever-near-placed)",
+     "options": [
+      {
+       "gloss": "ever-near-placed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "sannihita ppp (sam-ni-√dhā)"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v16-p003",
+     "verse_id": "deha-p02-v16",
+     "pada_index": 3,
+     "surface": "naumi",
+     "citation": "nu",
+     "morph": "1sg pres act (√nu)",
+     "options": [
+      {
+       "gloss": "I-hymn",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "I hymn/praise (nu-class verb, distinct from vand/nam)"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v16-p004",
+     "verse_id": "deha-p02-v16",
+     "pada_index": 4,
+     "surface": "sadoditamitthaṃ",
+     "citation": "sadā+udita+ittham",
+     "morph": "adv fused",
+     "options": [
+      {
+       "gloss": "ever-risen-thus",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "ever-risen-thus; udita ppp (ud-√i)"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "deha-p02-v16-p005",
+     "verse_id": "deha-p02-v16",
+     "pada_index": 5,
+     "surface": "nijadehagadevatācakram",
+     "citation": "nija+dehaga+devatā+cakra",
+     "morph": "n.acc.sg",
+     "options": [
+      {
+       "gloss": "my-body-dwelling-god-circle",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "my-own-body-dwelling-god-circle; dehaga = body-dwelling"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ]
+  },
+  "argmap": {
+   "deha-p01-v01": {
+    "verse_id": "deha-p01-v01",
+    "song": "deha-p01",
+    "verse": 1,
+    "speaker": "Poet (maṅgala)",
+    "question": "What is declared?",
+    "premises": [
+     "Body declared god-temple; own self the eternal god.",
+     "Cast off ignorance-sweepings; worship with I-am-He feeling."
+    ],
+    "inference": "The frame vow: body as temple, self as god, worship as so'ham-feeling after casting ignorance.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "deha-p01-v01",
+     "l0_ids": [
+      "deha-p01-v01-p000",
+      "deha-p01-v01-p001",
+      "deha-p01-v01-p002",
+      "deha-p01-v01-p003",
+      "deha-p01-v01-p004",
+      "deha-p01-v01-p005",
+      "deha-p01-v01-p006",
+      "deha-p01-v01-p007",
+      "deha-p01-v01-p008",
+      "deha-p01-v01-p009"
+     ]
+    },
+    "sanskrit_sha": "b66a7eddbdd072ab",
+    "structured": true
+   },
+   "deha-p01-v02": {
+    "verse_id": "deha-p01-v02",
+    "song": "deha-p01",
+    "verse": 2,
+    "speaker": "Poet (gatekeeper Gaṇapati)",
+    "question": "Who stands at the gate?",
+    "premises": [
+     "Saluted by demon-and-god hosts in bestowing wished boons; engaged.",
+     "Foremost in a hundred rites; breath-bodied Gaṇapati."
+    ],
+    "inference": "Gaṇapati as prāṇa-gatekeeper: worshipped first, breath-bodied, boon-bestowing (Dyczkowski: master of the body's pīṭhas).",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "deha-p01-v02",
+     "l0_ids": [
+      "deha-p01-v02-p000",
+      "deha-p01-v02-p001",
+      "deha-p01-v02-p002",
+      "deha-p01-v02-p003",
+      "deha-p01-v02-p004",
+      "deha-p01-v02-p005"
+     ]
+    },
+    "sanskrit_sha": "b66a7eddbdd072ab",
+    "structured": true
+   },
+   "deha-p01-v03": {
+    "verse_id": "deha-p01-v03",
+    "song": "deha-p01",
+    "verse": 3,
+    "speaker": "Poet (gatekeeper Vaṭuka)",
+    "question": "Who guards with him?",
+    "premises": [
+     "Foot-pair worshipped by heroes, yoginīs, siddhas.",
+     "Remover of humble folks' pain; Vaṭuka apāna-named."
+    ],
+    "inference": "Vaṭuka as apāna-gatekeeper: worshipped by adepts, remover of disciples' knots and doubts (Dyczkowski).",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "deha-p01-v03",
+     "l0_ids": [
+      "deha-p01-v03-p000",
+      "deha-p01-v03-p001",
+      "deha-p01-v03-p002",
+      "deha-p01-v03-p003"
+     ]
+    },
+    "sanskrit_sha": "b66a7eddbdd072ab",
+    "structured": true
+   },
+   "deha-p01-v04": {
+    "verse_id": "deha-p01-v04",
+    "song": "deha-p01",
+    "verse": 4,
+    "speaker": "Poet (guru)",
+    "question": "Who gives understanding?",
+    "premises": [
+     "By-whose-mind-strength the universe shines Śiva-pathed for devotees.",
+     "Him-I-attention-formed; spotless true guru always."
+    ],
+    "inference": "The Sadguru gives intellectual strength (avadhāna) by which the world shines as Śiva-path — Dyczkowski's śuddha-vidyā after long loving approach.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "deha-p01-v04",
+     "l0_ids": [
+      "deha-p01-v04-p000",
+      "deha-p01-v04-p001",
+      "deha-p01-v04-p002",
+      "deha-p01-v04-p003",
+      "deha-p01-v04-p004",
+      "deha-p01-v04-p005",
+      "deha-p01-v04-p006",
+      "deha-p01-v04-p007",
+      "deha-p01-v04-p008"
+     ]
+    },
+    "sanskrit_sha": "b66a7eddbdd072ab",
+    "structured": true
+   },
+   "deha-p01-v05": {
+    "verse_id": "deha-p01-v05",
+    "song": "deha-p01",
+    "verse": 5,
+    "speaker": "Poet (presiding Bhairava)",
+    "question": "Who dwells in the heart?",
+    "premises": [
+     "By own sense-feasts the sense-goddesses always in the heart-lotus fully honor.",
+     "Whom-him: consciousness-made bliss-Bhairava."
+    ],
+    "inference": "Ānanda-Bhairava, ever-blissful core (cinmaya, Cakreśvara seat), fed by sense-goddesses; pleasure, pain, sorrow all rendered as offerings.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "deha-p01-v05",
+     "l0_ids": [
+      "deha-p01-v05-p000",
+      "deha-p01-v05-p001",
+      "deha-p01-v05-p002",
+      "deha-p01-v05-p003",
+      "deha-p01-v05-p004",
+      "deha-p01-v05-p005",
+      "deha-p01-v05-p006",
+      "deha-p01-v05-p007"
+     ]
+    },
+    "sanskrit_sha": "b66a7eddbdd072ab",
+    "structured": true
+   },
+   "deha-p01-v06": {
+    "verse_id": "deha-p01-v06",
+    "song": "deha-p01",
+    "verse": 6,
+    "speaker": "Poet (consort Bhairavī)",
+    "question": "Who is beside him?",
+    "premises": [
+     "Dawn-shining-chewing-play of the universe she makes ceaselessly.",
+     "Bliss-Bhairavī; her deliberation-formed."
+    ],
+    "inference": "Ānanda-Bhairavī as vimarśa (awareness-energy, svātantrya-śakti), non-different from Śiva as heat from fire; aggregate of awareness.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "deha-p01-v06",
+     "l0_ids": [
+      "deha-p01-v06-p000",
+      "deha-p01-v06-p001",
+      "deha-p01-v06-p002",
+      "deha-p01-v06-p003",
+      "deha-p01-v06-p004",
+      "deha-p01-v06-p005",
+      "deha-p01-v06-p006",
+      "deha-p01-v06-p007"
+     ]
+    },
+    "sanskrit_sha": "b66a7eddbdd072ab",
+    "structured": true
+   },
+   "deha-p01-v07": {
+    "verse_id": "deha-p01-v07",
+    "song": "deha-p01",
+    "verse": 7,
+    "speaker": "Poet (eastern petal)",
+    "question": "Who offers resolve?",
+    "premises": [
+     "Who worships Bhairava with resolve-flowers, standing in the lord's petal.",
+     "I bow to intellect-formed Brāhmaṇī, her-I, ever."
+    ],
+    "inference": "Brāhmī (buddhi, east petal) confirms outside perceptions and offers them as niścaya-flowers to the heart-lotus.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "deha-p01-v07",
+     "l0_ids": [
+      "deha-p01-v07-p000",
+      "deha-p01-v07-p001",
+      "deha-p01-v07-p002",
+      "deha-p01-v07-p003",
+      "deha-p01-v07-p004",
+      "deha-p01-v07-p005",
+      "deha-p01-v07-p006",
+      "deha-p01-v07-p007",
+      "deha-p01-v07-p008",
+      "deha-p01-v07-p009"
+     ]
+    },
+    "sanskrit_sha": "b66a7eddbdd072ab",
+    "structured": true
+   },
+   "deha-p01-v08": {
+    "verse_id": "deha-p01-v08",
+    "song": "deha-p01",
+    "verse": 8,
+    "speaker": "Poet (Agni petal)",
+    "question": "Who offers I-ness?",
+    "premises": [
+     "She performs Bhairava-worship, fire-petal-standing, with I-flowers.",
+     "Ever-I-making-formed; I praise her, the Śāmbhavī mother."
+    ],
+    "inference": "Śāmbhavī (ahaṅkāra, Agni petal) worships with I-flowers; ego itself becomes the offering, not the obstacle.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "deha-p01-v08",
+     "l0_ids": [
+      "deha-p01-v08-p000",
+      "deha-p01-v08-p001",
+      "deha-p01-v08-p002",
+      "deha-p01-v08-p003",
+      "deha-p01-v08-p004",
+      "deha-p01-v08-p005"
+     ]
+    },
+    "sanskrit_sha": "b66a7eddbdd072ab",
+    "structured": true
+   },
+   "deha-p02-v09": {
+    "verse_id": "deha-p02-v09",
+    "song": "deha-p02",
+    "verse": 9,
+    "speaker": "Poet (southern petal)",
+    "question": "Who offers thoughts?",
+    "premises": [
+     "She lays out Bhairava-honor, south-petal-seated, with distinction-flowers.",
+     "Ever mind-formed Kaumārī, her-I."
+    ],
+    "inference": "Kaumārī (manas, south/Yama petal) offers thoughts; edition viśeṣa adopted (flower-pattern fit), variant vikalpa recorded (fits mind-goddess).",
+    "uncertainties": [],
+    "option_choices": [
+     {
+      "l0_id": "deha-p02-v09-p003",
+      "chosen_index": 0,
+      "rejected": [
+       "thought-flowers-with-who"
+      ],
+      "reason": "Edition viśeṣa (distinction) fits the flower-offering pattern (niścaya/śabda/sparśa-flowers); variant vikalpa recorded — apt for mind-goddess but not the edition text."
+     }
+    ],
+    "traces": {
+     "t1_verse": "deha-p02-v09",
+     "l0_ids": [
+      "deha-p02-v09-p000",
+      "deha-p02-v09-p001",
+      "deha-p02-v09-p002",
+      "deha-p02-v09-p003",
+      "deha-p02-v09-p004",
+      "deha-p02-v09-p005",
+      "deha-p02-v09-p006",
+      "deha-p02-v09-p007",
+      "deha-p02-v09-p008"
+     ]
+    },
+    "sanskrit_sha": "2cd630faac5dc6d2",
+    "structured": true
+   },
+   "deha-p02-v10": {
+    "verse_id": "deha-p02-v10",
+    "song": "deha-p02",
+    "verse": 10,
+    "speaker": "Poet (southwest petal)",
+    "question": "Who offers sounds?",
+    "premises": [
+     "Southwest-petal-seated worships Bhairava with sound-flowers.",
+     "I bow to hearing-formed, ever her, the Vaiṣṇavī power."
+    ],
+    "inference": "Vaiṣṇavī (śruti/ear, Nirṛti petal) garlands sounds; edition śabda-flowers adopted (flower-pattern), variant śabdarūpā recorded.",
+    "uncertainties": [],
+    "option_choices": [
+     {
+      "l0_id": "deha-p02-v10-p002",
+      "chosen_index": 0,
+      "rejected": [
+       "sound-formed"
+      ],
+      "reason": "Edition śabdakusumairyā keeps the flower-offering grammar shared with vv7-9; variant śabdarūpām recorded — lexical but restructures the line."
+     }
+    ],
+    "traces": {
+     "t1_verse": "deha-p02-v10",
+     "l0_ids": [
+      "deha-p02-v10-p000",
+      "deha-p02-v10-p001",
+      "deha-p02-v10-p002",
+      "deha-p02-v10-p003",
+      "deha-p02-v10-p004",
+      "deha-p02-v10-p005",
+      "deha-p02-v10-p006",
+      "deha-p02-v10-p007",
+      "deha-p02-v10-p008"
+     ]
+    },
+    "sanskrit_sha": "2cd630faac5dc6d2",
+    "structured": true
+   },
+   "deha-p02-v11": {
+    "verse_id": "deha-p02-v11",
+    "song": "deha-p02",
+    "verse": 11,
+    "speaker": "Poet (western petal)",
+    "question": "Who offers touch?",
+    "premises": [
+     "West-quarter-petal-placed, with heart-pleasing touch-flowers, delights Bhairava.",
+     "Her skin-form-wearing I honor: Vārāhī."
+    ],
+    "inference": "Vārāhī (tvac/touch, west petal) pleases Bhairava with tactile offerings.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "deha-p02-v11",
+     "l0_ids": [
+      "deha-p02-v11-p000",
+      "deha-p02-v11-p001",
+      "deha-p02-v11-p002",
+      "deha-p02-v11-p003",
+      "deha-p02-v11-p004",
+      "deha-p02-v11-p005",
+      "deha-p02-v11-p006",
+      "deha-p02-v11-p007",
+      "deha-p02-v11-p008"
+     ]
+    },
+    "sanskrit_sha": "2cd630faac5dc6d2",
+    "structured": true
+   },
+   "deha-p02-v12": {
+    "verse_id": "deha-p02-v12",
+    "song": "deha-p02",
+    "verse": 12,
+    "speaker": "Poet (northwest petal)",
+    "question": "Who offers sight?",
+    "premises": [
+     "With choicer form-details, wind-quarter-petal-seated-bodied, who honors Bhairava.",
+     "Her-Indrāṇī, sight-bodied."
+    ],
+    "inference": "Indrāṇī (dṛk/sight, Vāyu petal) offers forms; choicer details are her flowers.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "deha-p02-v12",
+     "l0_ids": [
+      "deha-p02-v12-p000",
+      "deha-p02-v12-p001",
+      "deha-p02-v12-p002",
+      "deha-p02-v12-p003",
+      "deha-p02-v12-p004",
+      "deha-p02-v12-p005",
+      "deha-p02-v12-p006"
+     ]
+    },
+    "sanskrit_sha": "2cd630faac5dc6d2",
+    "structured": true
+   },
+   "deha-p02-v13": {
+    "verse_id": "deha-p02-v13",
+    "song": "deha-p02",
+    "verse": 13,
+    "speaker": "Poet (northern petal)",
+    "question": "Who offers taste?",
+    "premises": [
+     "Wealth-lord-sprout-abiding, who ever with varied six-taste foods honors Bhairava.",
+     "Her tongue-called I honor: Cāmuṇḍā."
+    ],
+    "inference": "Cāmuṇḍā (jihvā/tongue, Kubera/north petal) offers the six tastes.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "deha-p02-v13",
+     "l0_ids": [
+      "deha-p02-v13-p000",
+      "deha-p02-v13-p001",
+      "deha-p02-v13-p002",
+      "deha-p02-v13-p003",
+      "deha-p02-v13-p004",
+      "deha-p02-v13-p005",
+      "deha-p02-v13-p006",
+      "deha-p02-v13-p007",
+      "deha-p02-v13-p008",
+      "deha-p02-v13-p009"
+     ]
+    },
+    "sanskrit_sha": "2cd630faac5dc6d2",
+    "structured": true
+   },
+   "deha-p02-v14": {
+    "verse_id": "deha-p02-v14",
+    "song": "deha-p02",
+    "verse": 14,
+    "speaker": "Poet (northeast petal)",
+    "question": "Who offers smell?",
+    "premises": [
+     "Northeast-petal-seated worships Bhairava with varying perfumes.",
+     "I bow always to her, nose-called Mahālakṣmī."
+    ],
+    "inference": "Mahālakṣmī (ghrāṇa/smell, Īśāna petal) offers perfumes; the eight-petalled circle stands complete.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "deha-p02-v14",
+     "l0_ids": [
+      "deha-p02-v14-p000",
+      "deha-p02-v14-p001",
+      "deha-p02-v14-p002",
+      "deha-p02-v14-p003",
+      "deha-p02-v14-p004",
+      "deha-p02-v14-p005",
+      "deha-p02-v14-p006",
+      "deha-p02-v14-p007"
+     ]
+    },
+    "sanskrit_sha": "2cd630faac5dc6d2",
+    "structured": true
+   },
+   "deha-p02-v15": {
+    "verse_id": "deha-p02-v15",
+    "song": "deha-p02",
+    "verse": 15,
+    "speaker": "Poet (field-lord)",
+    "question": "Who guards the field?",
+    "premises": [
+     "In six views worshipable, thirty-six-reality-infused, self-named ever.",
+     "Field-lord, siddhi-giving."
+    ],
+    "inference": "Kṣetrapati as first-person-experiencer (ātman), 36-tattva-bodied, worshipped in all six systems, protector on all sides.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "deha-p02-v15",
+     "l0_ids": [
+      "deha-p02-v15-p000",
+      "deha-p02-v15-p001",
+      "deha-p02-v15-p002",
+      "deha-p02-v15-p003",
+      "deha-p02-v15-p004",
+      "deha-p02-v15-p005",
+      "deha-p02-v15-p006",
+      "deha-p02-v15-p007"
+     ]
+    },
+    "sanskrit_sha": "2cd630faac5dc6d2",
+    "structured": true
+   },
+   "deha-p02-v16": {
+    "verse_id": "deha-p02-v16",
+    "song": "deha-p02",
+    "verse": 16,
+    "speaker": "Poet (seal)",
+    "question": "How does it close?",
+    "premises": [
+     "Quivering-experience-essential, all-within, ever-near-placed.",
+     "I hymn ever-risen-thus my-body-dwelling-god-circle."
+    ],
+    "inference": "Collective bow to the ever-present vibrating circle as first-person experience-essence; the stotra's seal.",
+    "uncertainties": [
+     "sarvāntaḥ case (all-ended vs in-all-ends) left open at L0 AMBIGUOUS; sense unaffected."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "deha-p02-v16",
+     "l0_ids": [
+      "deha-p02-v16-p000",
+      "deha-p02-v16-p001",
+      "deha-p02-v16-p002",
+      "deha-p02-v16-p003",
+      "deha-p02-v16-p004",
+      "deha-p02-v16-p005"
+     ]
+    },
+    "sanskrit_sha": "2cd630faac5dc6d2",
+    "structured": true
+   }
+  },
+  "l2": {
+   "deha-p01-v01": {
+    "verse_id": "deha-p01-v01",
+    "song": "deha-p01",
+    "verse": 1,
+    "plain_english": "The body is proclaimed a temple of God, the own self the eternal God; casting off the sweepings of ignorance, let him worship with the feeling I-am-He.",
+    "sanskrit_cite": "deho devālayaḥ proktaḥ svātmā devaḥ sanātanaḥ | tyajedajñānanirmālyaṃ so'haṃ bhāvena pūjayet",
+    "l0_ids": [
+     "deha-p01-v01-p000",
+     "deha-p01-v01-p001",
+     "deha-p01-v01-p002",
+     "deha-p01-v01-p003",
+     "deha-p01-v01-p004",
+     "deha-p01-v01-p005",
+     "deha-p01-v01-p006",
+     "deha-p01-v01-p007",
+     "deha-p01-v01-p008",
+     "deha-p01-v01-p009"
+    ],
+    "supplied": []
+   },
+   "deha-p01-v02": {
+    "verse_id": "deha-p01-v02",
+    "song": "deha-p01",
+    "verse": 2,
+    "plain_english": "Him who is saluted by the hosts of demons and gods, engaged in bestowing wished-for boons, worshipable as foremost in a hundred rites, breath-bodied — Gaṇapati I praise.",
+    "sanskrit_cite": "asurasuravṛndavanditamabhimatavaravitaraṇe niratam | darśanaśatāgryapūjyaṃ prāṇatanuṃ gaṇapatiṃ vande",
+    "l0_ids": [
+     "deha-p01-v02-p000",
+     "deha-p01-v02-p001",
+     "deha-p01-v02-p002",
+     "deha-p01-v02-p003",
+     "deha-p01-v02-p004",
+     "deha-p01-v02-p005"
+    ],
+    "supplied": []
+   },
+   "deha-p01-v03": {
+    "verse_id": "deha-p01-v03",
+    "song": "deha-p01",
+    "verse": 3,
+    "plain_english": "Whose foot-pair is worshipped by choice heroes, troops of yoginīs, rows of perfected ones; who removes the pain of humble folk — Vaṭuka, named apāna, I praise.",
+    "sanskrit_cite": "varavīrayoginīgaṇasiddhāvalipūjitāṅghriyugalam | apahṛtavinayijanārtiṃ vaṭukamapānābhidhaṃ vande",
+    "l0_ids": [
+     "deha-p01-v03-p000",
+     "deha-p01-v03-p001",
+     "deha-p01-v03-p002",
+     "deha-p01-v03-p003"
+    ],
+    "supplied": []
+   },
+   "deha-p01-v04": {
+    "verse_id": "deha-p01-v04",
+    "song": "deha-p01",
+    "verse": 4,
+    "plain_english": "By whose mind-strength the universe shines as Śiva's path for devotees — him, intent in attention, the stainless true guru, always I praise.",
+    "sanskrit_cite": "yaddhībalena viśvaṃ bhaktānāṃ śivapathaṃ bhāti | tamahamavadhānarūpaṃ sadgurumamalaṃ sadā vande",
+    "l0_ids": [
+     "deha-p01-v04-p000",
+     "deha-p01-v04-p001",
+     "deha-p01-v04-p002",
+     "deha-p01-v04-p003",
+     "deha-p01-v04-p004",
+     "deha-p01-v04-p005",
+     "deha-p01-v04-p006",
+     "deha-p01-v04-p007",
+     "deha-p01-v04-p008"
+    ],
+    "supplied": []
+   },
+   "deha-p01-v05": {
+    "verse_id": "deha-p01-v05",
+    "song": "deha-p01",
+    "verse": 5,
+    "plain_english": "With feasts of their own sense-objects the sense-goddesses ever fully honor in the heart-lotus — whom, him, made of consciousness, bliss-Bhairava, I praise.",
+    "sanskrit_cite": "ātmīyaviṣayabhogairindriyadevyaḥ sadā hṛdambhoje | abhipūjayanti yaṃ taṃ cinmayamānandabhairavaṃ vande",
+    "l0_ids": [
+     "deha-p01-v05-p000",
+     "deha-p01-v05-p001",
+     "deha-p01-v05-p002",
+     "deha-p01-v05-p003",
+     "deha-p01-v05-p004",
+     "deha-p01-v05-p005",
+     "deha-p01-v05-p006",
+     "deha-p01-v05-p007"
+    ],
+    "supplied": []
+   },
+   "deha-p01-v06": {
+    "verse_id": "deha-p01-v06",
+    "song": "deha-p01",
+    "verse": 6,
+    "plain_english": "The play of the dawning, shining forth, and chewing over of the universe, which she performs unceasingly — bliss-Bhairavī, her, whose form is reflection, I praise.",
+    "sanskrit_cite": "udayāvabhāsacarvaṇalīlāṃ viśvasya yā karotyaniśam | ānandabhairavīṃ tāṃ vimarśarūpāmahaṃ vande",
+    "l0_ids": [
+     "deha-p01-v06-p000",
+     "deha-p01-v06-p001",
+     "deha-p01-v06-p002",
+     "deha-p01-v06-p003",
+     "deha-p01-v06-p004",
+     "deha-p01-v06-p005",
+     "deha-p01-v06-p006",
+     "deha-p01-v06-p007"
+    ],
+    "supplied": []
+   },
+   "deha-p01-v07": {
+    "verse_id": "deha-p01-v07",
+    "song": "deha-p01",
+    "verse": 7,
+    "plain_english": "Who worships Bhairava with flowers of resolve, standing in the petal of the lord — to intellect-formed Brāhmaṇī, to her, I ever bow.",
+    "sanskrit_cite": "arcayati bhairavaṃ yā niścayakusumaiḥ sureśapatrasthā | praṇamāmi buddhirūpāṃ brahmāṇīṃ tāmahaṃ satatam",
+    "l0_ids": [
+     "deha-p01-v07-p000",
+     "deha-p01-v07-p001",
+     "deha-p01-v07-p002",
+     "deha-p01-v07-p003",
+     "deha-p01-v07-p004",
+     "deha-p01-v07-p005",
+     "deha-p01-v07-p006",
+     "deha-p01-v07-p007",
+     "deha-p01-v07-p008",
+     "deha-p01-v07-p009"
+    ],
+    "supplied": []
+   },
+   "deha-p01-v08": {
+    "verse_id": "deha-p01-v08",
+    "song": "deha-p01",
+    "verse": 8,
+    "plain_english": "She performs Bhairava's worship, standing in fire's petal, with flowers of I-making — ever of I-making form, I praise her, Śāmbhavī the mother.",
+    "sanskrit_cite": "kurute bhairavapūjāmanaladalasthā'bhimānakusumairyā | nityamahaṅkṛtirūpāṃ vande tāṃ śāmbhavīmambām",
+    "l0_ids": [
+     "deha-p01-v08-p000",
+     "deha-p01-v08-p001",
+     "deha-p01-v08-p002",
+     "deha-p01-v08-p003",
+     "deha-p01-v08-p004",
+     "deha-p01-v08-p005"
+    ],
+    "supplied": []
+   },
+   "deha-p02-v09": {
+    "verse_id": "deha-p02-v09",
+    "song": "deha-p02",
+    "verse": 9,
+    "plain_english": "She spreads Bhairava's worship, seated in the southern petal, with flowers of distinction — ever mind-formed Kaumārī, her, I praise.",
+    "sanskrit_cite": "vidadhāti bhairavārcāṃ dakṣiṇadalagā viṣeśakusumairyā | nityaṃ manaḥsvarūpāṃ kaumārīṃ tāmahaṃ vande",
+    "l0_ids": [
+     "deha-p02-v09-p000",
+     "deha-p02-v09-p001",
+     "deha-p02-v09-p002",
+     "deha-p02-v09-p003",
+     "deha-p02-v09-p004",
+     "deha-p02-v09-p005",
+     "deha-p02-v09-p006",
+     "deha-p02-v09-p007",
+     "deha-p02-v09-p008"
+    ],
+    "supplied": []
+   },
+   "deha-p02-v10": {
+    "verse_id": "deha-p02-v10",
+    "song": "deha-p02",
+    "verse": 10,
+    "plain_english": "Seated in the southwest petal she worships Bhairava with flowers of sound — to hearing-formed her, ever, I bow, the Vaiṣṇavī power.",
+    "sanskrit_cite": "nairṛtadalagā bhairavamarcayate śabdakusumairyā | praṇamāmi śrutirūpāṃ nityaṃ tāṃ vaiṣṇavīṃ śaktim",
+    "l0_ids": [
+     "deha-p02-v10-p000",
+     "deha-p02-v10-p001",
+     "deha-p02-v10-p002",
+     "deha-p02-v10-p003",
+     "deha-p02-v10-p004",
+     "deha-p02-v10-p005",
+     "deha-p02-v10-p006",
+     "deha-p02-v10-p007",
+     "deha-p02-v10-p008"
+    ],
+    "supplied": []
+   },
+   "deha-p02-v11": {
+    "verse_id": "deha-p02-v11",
+    "song": "deha-p02",
+    "verse": 11,
+    "plain_english": "Standing firm in the western quarter's petal, with heart-delighting flowers of touch she delights Bhairava — her who wears the form of skin I honor: Vārāhī.",
+    "sanskrit_cite": "paścimadigdalasaṃsthā hṛdayaharaiḥ sparśakusumairyā | toṣayati bhairavaṃ tāṃ tvagrūpadharāṃ namāmi vārāhīm",
+    "l0_ids": [
+     "deha-p02-v11-p000",
+     "deha-p02-v11-p001",
+     "deha-p02-v11-p002",
+     "deha-p02-v11-p003",
+     "deha-p02-v11-p004",
+     "deha-p02-v11-p005",
+     "deha-p02-v11-p006",
+     "deha-p02-v11-p007",
+     "deha-p02-v11-p008"
+    ],
+    "supplied": []
+   },
+   "deha-p02-v12": {
+    "verse_id": "deha-p02-v12",
+    "song": "deha-p02",
+    "verse": 12,
+    "plain_english": "With choicer details of form, her body seated in the wind-quarter's petal — she who honors Bhairava, her Indrāṇī, sight-bodied, I praise.",
+    "sanskrit_cite": "varatararūpaviśeṣairmārutadigdalaniṣaṇṇadehā yā | pūjayati bhairavaṃ tāmindrāṇīṃ dṛktanuṃ vande",
+    "l0_ids": [
+     "deha-p02-v12-p000",
+     "deha-p02-v12-p001",
+     "deha-p02-v12-p002",
+     "deha-p02-v12-p003",
+     "deha-p02-v12-p004",
+     "deha-p02-v12-p005",
+     "deha-p02-v12-p006"
+    ],
+    "supplied": []
+   },
+   "deha-p02-v13": {
+    "verse_id": "deha-p02-v13",
+    "song": "deha-p02",
+    "verse": 13,
+    "plain_english": "Dwelling in the sprout of the wealth-lord, she who ever with foods of varied six tastes honors Bhairava — her called tongue I honor: Cāmuṇḍā.",
+    "sanskrit_cite": "dhanapatikisalayanilayā yā nityaṃ vividhaṣaḍrasāhāraiḥ | pūjayati bhairavaṃ tāṃ jihvābhikhyāṃ namāmi cāmuṇḍām",
+    "l0_ids": [
+     "deha-p02-v13-p000",
+     "deha-p02-v13-p001",
+     "deha-p02-v13-p002",
+     "deha-p02-v13-p003",
+     "deha-p02-v13-p004",
+     "deha-p02-v13-p005",
+     "deha-p02-v13-p006",
+     "deha-p02-v13-p007",
+     "deha-p02-v13-p008",
+     "deha-p02-v13-p009"
+    ],
+    "supplied": []
+   },
+   "deha-p02-v14": {
+    "verse_id": "deha-p02-v14",
+    "song": "deha-p02",
+    "verse": 14,
+    "plain_english": "Seated in Īśa's petal she worships Bhairava with manifold perfumes — to her called nose, Mahālakṣmī, I ever bow.",
+    "sanskrit_cite": "īśadalasthā bhairavamarcayate parimalairvicitrairyā | praṇamāmi sarvadā tāṃ ghrāṇābhikhyāṃ mahālakṣmīm",
+    "l0_ids": [
+     "deha-p02-v14-p000",
+     "deha-p02-v14-p001",
+     "deha-p02-v14-p002",
+     "deha-p02-v14-p003",
+     "deha-p02-v14-p004",
+     "deha-p02-v14-p005",
+     "deha-p02-v14-p006",
+     "deha-p02-v14-p007"
+    ],
+    "supplied": []
+   },
+   "deha-p02-v15": {
+    "verse_id": "deha-p02-v15",
+    "song": "deha-p02",
+    "verse": 15,
+    "plain_english": "Worshipable in the six views, infused with the thirty-six realities, ever self-named — the field-lord, giver of siddhis, I praise.",
+    "sanskrit_cite": "ṣaḍdarśaneṣu pūjyaṃ ṣaḍtriṃśattattvasaṃvalitam | ātmābhikhyaṃ satataṃ kṣetrapatiṃ siddhidaṃ vande",
+    "l0_ids": [
+     "deha-p02-v15-p000",
+     "deha-p02-v15-p001",
+     "deha-p02-v15-p002",
+     "deha-p02-v15-p003",
+     "deha-p02-v15-p004",
+     "deha-p02-v15-p005",
+     "deha-p02-v15-p006",
+     "deha-p02-v15-p007"
+    ],
+    "supplied": []
+   },
+   "deha-p02-v16": {
+    "verse_id": "deha-p02-v16",
+    "song": "deha-p02",
+    "verse": 16,
+    "plain_english": "The quivering pith of experience, within all, ever close at hand — thus ever arisen I hymn my own body's circle of gods.",
+    "sanskrit_cite": "saṃsphuradanubhavasāraṃ sarvāntaḥ satatasannihitam | naumi sadoditamitthaṃ nijadehagadevatācakram",
+    "l0_ids": [
+     "deha-p02-v16-p000",
+     "deha-p02-v16-p001",
+     "deha-p02-v16-p002",
+     "deha-p02-v16-p003",
+     "deha-p02-v16-p004",
+     "deha-p02-v16-p005"
+    ],
+    "supplied": []
+   }
+  },
+  "c1": {
+   "deha-p01": {
+    "song": "deha-p01",
+    "essence": [
+     "Body declared god's temple, self the eternal god: worship with I-am-He feeling after casting ignorance.",
+     "Breath-bodied Gaṇapati first-worshipped: saluted by all beings, bestowing wished boons.",
+     "Vaṭuka apāna-named, worshipped by adepts: remover of the humble folk's pain and doubt.",
+     "Sadguru's mind-strength makes the universe shine Śiva-pathed: attention itself the gift.",
+     "Sense-goddesses feast the heart-lotus: consciousness-made bliss-Bhairava at the core.",
+     "Bhairavī's ceaseless world-play of dawning and digesting: reflection-formed, ever praised.",
+     "Brāhmī intellect-formed offers resolve-flowers from the lord's petal: perception confirmed.",
+     "Śāmbhavī mother offers I-flowers from fire's petal: ego itself the oblation."
+    ],
+    "essence_source": "manual",
+    "rasa": {
+     "dominant": "adbhuta with bhakti (wonder held in devotion)",
+     "sthayibhava": "vismaya with rati (wonder with loving attachment)",
+     "justification": "The body disclosed as temple seating gods in every faculty: wonder at the ordinary made divine, carried by the repeated I-praise. Desire-to-praise, not to know, drives each beholding."
+    },
+    "renders": {
+     "standard": {
+      "sections": {
+       "SUMMARY": "Body named temple, self named eternal god: ignorance swept off, worship in I-am-He feeling. Breath-bodied Gaṇapati first, saluted by all, giving wished boons. Vaṭuka apāna-named, adepts at his feet, lifting humble pain and doubt. The true guru spotless, whose mind-strength shines the world Śiva-pathed. Sense-goddesses feasting the heart-lotus for consciousness-made bliss-Bhairava. Bhairavī reflection-formed, dawning and digesting the world unceasing. Brāhmī intellect-formed offering resolve-flowers from the lord's petal. Śāmbhavī mother offering I-flowers from fire's petal.",
+       "FUNCTION": "Sets body as temple, posts breath as gatekeepers, gives attention as the guru's gift, seats bliss at the core, and starts the flower-offerings.",
+       "KEY TERMS": "deho devālayaḥ (body-as-temple — the ground of the whole round); so'ham (I-am-He feeling as worship-mode); prāṇa/apāna (outgoing/ingoing breaths as gatekeepers); avadhāna (attention as the guru's gift); cinmaya (made of consciousness); vimarśa (reflection as her form); kusuma (flowers as sense-offerings); ahaṅkṛti (I-making as act, not thing).",
+       "LOCAL CONTEXT": "Gatekeepers honored and the presiding pair enthroned, perception and ego lead the directional round.",
+       "BOUNDARY": "All giving here is praise; nothing is demanded.",
+       "EXPLANATION": "The body turns from dwelling to temple and the self from tenant to god, with one act of sweeping and one feeling of identity. Then the doors: prāṇa and apāna as Gaṇapati and Vaṭuka, worshipped first because breath holds the house together. The guru gives the only instrument that matters — attention — by which the world shines walkable toward Śiva. At the center sits bliss, consciousness-made, fed by the senses themselves; beside him reflection, digesting the world she dawns. The circle starts dealing its flowers: resolve from intellect in the east, I-ness from ego in the southeast fire.",
+       "RELATED": "Dyczkowski two-part blog (gatekeeper ascriptions, śuddha-vidyā note, heat/fire gloss for vimarśa); amritananda forum per-verse exposition; Lakshmanjoo lineage hymns page (The Goddess Within)."
+      }
+     }
+    }
+   },
+   "deha-p02": {
+    "song": "deha-p02",
+    "essence": [
+     "Kaumārī mind-formed offers distinction-flowers from the south: thoughts themselves the gift.",
+     "Vaiṣṇavī hearing-formed offers sound-flowers from the southwest: listening itself the rite.",
+     "Vārāhī skin-formed delights with touch-flowers from the west: feeling itself pleasing.",
+     "Indrāṇī sight-bodied honors with choicer forms from the northwest: seeing itself worship.",
+     "Cāmuṇḍā tongue-called honors with six-taste foods from the north: tasting itself offered.",
+     "Mahālakṣmī nose-called worshipped with perfumes from the northeast: smelling itself the rite; circle complete.",
+     "Kṣetrapati self-named, 36-reality-infused, worshipped in six views: the experiencer guards the field.",
+     "The quivering experience-pith ever near: one's own god-circle hymned as first-person presence."
+    ],
+    "essence_source": "manual",
+    "rasa": {
+     "dominant": "adbhuta settling toward śānta (wonder circling home to rest)",
+     "sthayibhava": "vismaya with śama (wonder with quiescence)",
+     "justification": "Six sense-offerings complete the round and the field-lord gathers them into one experiencer; the round rests the wonder it built. Praise that began in beholding ends in belonging."
+    },
+    "renders": {
+     "standard": {
+      "sections": {
+       "SUMMARY": "Kaumārī mind-formed with distinction-flowers from the south: thoughts offered. Vaiṣṇavī hearing-formed with sound-flowers from the southwest: listening laid down. Vārāhī skin-formed delighting with touch-flowers from the west. Indrāṇī sight-bodied honoring with choicer forms from the northwest. Cāmuṇḍā tongue-called honoring with six-taste foods from the north. Mahālakṣmī nose-called worshipped with perfumes from the northeast: the circle stands complete. Kṣetrapati self-named, thirty-six-reality-infused, worshipable in six views, giver of siddhis. The quivering pith of experience ever near: my own body's god-circle hymned.",
+       "FUNCTION": "Completes the offerings sense by sense, gathers them into the field's one experiencer, and rests the round in first-person presence.",
+       "KEY TERMS": "kusuma-pattern (each sense offers its own flowers — resolve, distinction, sound, touch, forms, tastes, perfumes); manas/śruti/tvac/dṛk/jihvā/ghrāṇa (six sense-powers as goddesses); kṣetrapati (field-lord as first-person experiencer); ṣaṭtriṃśattattva (thirty-six as the full map); ṣaḍdarśana (six views as unanimous witness); viśeṣa (distinction — edition text, vikalpa variant recorded); śabda (sound — edition text, śabdarūpā variant recorded).",
+       "LOCAL CONTEXT": "Six petals yet to give; the field-lord gathers the many offerers into one experiencer; beholding turns to belonging.",
+       "BOUNDARY": "Distinction-flowers and sound-flowers stand as offered; the thoughts-reading and the sound-formed reading wait aside. The count of tattvas and views is stated, never derived.",
+       "EXPLANATION": "Each remaining sense brings its own flowers: thoughts from mind in the south, sounds from hearing in the southwest, touch from skin in the west, forms from sight in the northwest, tastes from tongue in the north, perfumes from smell in the northeast. Nothing in the body is rejected; every sense becomes an offerer. Then the field itself gets its lord: worshipable wherever looked for, infused with all thirty-six realities, self-named, giving powers. Quivering experience, within all, ever near — one's own circle, hymned as oneself.",
+       "RELATED": "Dyczkowski per-verse exposition (petal-direction mapping, Kṣetrapati as first-person experiencer); print variants v9 (vikalpa) and v10 (śabdarūpā) flagged in argmaps; Sharada ms (Jammu No 67) different opening — transmission noted, not collated."
+      }
+     }
+    }
+   }
+  },
+  "l3": {
+   "deha-p01-v01": {
+    "verse_id": "deha-p01-v01",
+    "song": "deha-p01",
+    "verse": 1,
+    "lines": [
+     "The body is called God's temple, the self God everlasting:",
+     "sweep off ignorance — worship in I-am-He feeling."
+    ],
+    "sanskrit_cite": "deho devālayaḥ proktaḥ svātmā devaḥ sanātanaḥ | tyajedajñānanirmālyaṃ so'haṃ bhāvena pūjayet",
+    "l0_ids": [
+     "deha-p01-v01-p000",
+     "deha-p01-v01-p001",
+     "deha-p01-v01-p002",
+     "deha-p01-v01-p003",
+     "deha-p01-v01-p004",
+     "deha-p01-v01-p005",
+     "deha-p01-v01-p006",
+     "deha-p01-v01-p007",
+     "deha-p01-v01-p008",
+     "deha-p01-v01-p009"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "deha-p01-v02": {
+    "verse_id": "deha-p01-v02",
+    "song": "deha-p01",
+    "verse": 2,
+    "lines": [
+     "Saluted by demon-and-god hosts, on wished-for boons intent,",
+     "hundred-rite-foremost, breath-bodied Gaṇapati — praise."
+    ],
+    "sanskrit_cite": "asurasuravṛndavanditamabhimatavaravitaraṇe niratam | darśanaśatāgryapūjyaṃ prāṇatanuṃ gaṇapatiṃ vande",
+    "l0_ids": [
+     "deha-p01-v02-p000",
+     "deha-p01-v02-p001",
+     "deha-p01-v02-p002",
+     "deha-p01-v02-p003",
+     "deha-p01-v02-p004",
+     "deha-p01-v02-p005"
+    ],
+    "essence_maps": [
+     1
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "deha-p01-v03": {
+    "verse_id": "deha-p01-v03",
+    "song": "deha-p01",
+    "verse": 3,
+    "lines": [
+     "His foot-pair by choice heroes, yoginī crowds, siddha rows adored,",
+     "who lifts the humble folk's pain — apāna-named Vaṭuka, praise."
+    ],
+    "sanskrit_cite": "varavīrayoginīgaṇasiddhāvalipūjitāṅghriyugalam | apahṛtavinayijanārtiṃ vaṭukamapānābhidhaṃ vande",
+    "l0_ids": [
+     "deha-p01-v03-p000",
+     "deha-p01-v03-p001",
+     "deha-p01-v03-p002",
+     "deha-p01-v03-p003"
+    ],
+    "essence_maps": [
+     2
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "deha-p01-v04": {
+    "verse_id": "deha-p01-v04",
+    "song": "deha-p01",
+    "verse": 4,
+    "lines": [
+     "By whose mind-strength the world shines Śiva's path to devotees —",
+     "him, attention-formed, stainless true guru, ever praise."
+    ],
+    "sanskrit_cite": "yaddhībalena viśvaṃ bhaktānāṃ śivapathaṃ bhāti | tamahamavadhānarūpaṃ sadgurumamalaṃ sadā vande",
+    "l0_ids": [
+     "deha-p01-v04-p000",
+     "deha-p01-v04-p001",
+     "deha-p01-v04-p002",
+     "deha-p01-v04-p003",
+     "deha-p01-v04-p004",
+     "deha-p01-v04-p005",
+     "deha-p01-v04-p006",
+     "deha-p01-v04-p007",
+     "deha-p01-v04-p008"
+    ],
+    "essence_maps": [
+     3
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "deha-p01-v05": {
+    "verse_id": "deha-p01-v05",
+    "song": "deha-p01",
+    "verse": 5,
+    "lines": [
+     "With their own sense-feasts the sense-goddesses ever honor",
+     "in the heart-lotus — whom, him, consciousness-made bliss-Bhairava, praise."
+    ],
+    "sanskrit_cite": "ātmīyaviṣayabhogairindriyadevyaḥ sadā hṛdambhoje | abhipūjayanti yaṃ taṃ cinmayamānandabhairavaṃ vande",
+    "l0_ids": [
+     "deha-p01-v05-p000",
+     "deha-p01-v05-p001",
+     "deha-p01-v05-p002",
+     "deha-p01-v05-p003",
+     "deha-p01-v05-p004",
+     "deha-p01-v05-p005",
+     "deha-p01-v05-p006",
+     "deha-p01-v05-p007"
+    ],
+    "essence_maps": [
+     4
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "deha-p01-v06": {
+    "verse_id": "deha-p01-v06",
+    "song": "deha-p01",
+    "verse": 6,
+    "lines": [
+     "The play of dawn-shine and chewing of the world she works always —",
+     "bliss-Bhairavī, her, reflection-formed, praise."
+    ],
+    "sanskrit_cite": "udayāvabhāsacarvaṇalīlāṃ viśvasya yā karotyaniśam | ānandabhairavīṃ tāṃ vimarśarūpāmahaṃ vande",
+    "l0_ids": [
+     "deha-p01-v06-p000",
+     "deha-p01-v06-p001",
+     "deha-p01-v06-p002",
+     "deha-p01-v06-p003",
+     "deha-p01-v06-p004",
+     "deha-p01-v06-p005",
+     "deha-p01-v06-p006",
+     "deha-p01-v06-p007"
+    ],
+    "essence_maps": [
+     5
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "deha-p01-v07": {
+    "verse_id": "deha-p01-v07",
+    "song": "deha-p01",
+    "verse": 7,
+    "lines": [
+     "Who Bhairava honors with resolve-blooms, on the lord's petal standing,",
+     "intellect-formed Brāhmī — her, I — ever I bow."
+    ],
+    "sanskrit_cite": "arcayati bhairavaṃ yā niścayakusumaiḥ sureśapatrasthā | praṇamāmi buddhirūpāṃ brahmāṇīṃ tāmahaṃ satatam",
+    "l0_ids": [
+     "deha-p01-v07-p000",
+     "deha-p01-v07-p001",
+     "deha-p01-v07-p002",
+     "deha-p01-v07-p003",
+     "deha-p01-v07-p004",
+     "deha-p01-v07-p005",
+     "deha-p01-v07-p006",
+     "deha-p01-v07-p007",
+     "deha-p01-v07-p008",
+     "deha-p01-v07-p009"
+    ],
+    "essence_maps": [
+     6
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "deha-p01-v08": {
+    "verse_id": "deha-p01-v08",
+    "song": "deha-p01",
+    "verse": 8,
+    "lines": [
+     "She does Bhairava honor, on fire's petal, with I-blooms —",
+     "ever I-making-formed, Śāmbhavī mother, praise."
+    ],
+    "sanskrit_cite": "kurute bhairavapūjāmanaladalasthā'bhimānakusumairyā | nityamahaṅkṛtirūpāṃ vande tāṃ śāmbhavīmambām",
+    "l0_ids": [
+     "deha-p01-v08-p000",
+     "deha-p01-v08-p001",
+     "deha-p01-v08-p002",
+     "deha-p01-v08-p003",
+     "deha-p01-v08-p004",
+     "deha-p01-v08-p005"
+    ],
+    "essence_maps": [
+     7
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "deha-p02-v09": {
+    "verse_id": "deha-p02-v09",
+    "song": "deha-p02",
+    "verse": 9,
+    "lines": [
+     "She spreads Bhairava honor, south petal throned, with distinction-blooms —",
+     "ever mind-formed Kaumārī, her, praise."
+    ],
+    "sanskrit_cite": "vidadhāti bhairavārcāṃ dakṣiṇadalagā viṣeśakusumairyā | nityaṃ manaḥsvarūpāṃ kaumārīṃ tāmahaṃ vande",
+    "l0_ids": [
+     "deha-p02-v09-p000",
+     "deha-p02-v09-p001",
+     "deha-p02-v09-p002",
+     "deha-p02-v09-p003",
+     "deha-p02-v09-p004",
+     "deha-p02-v09-p005",
+     "deha-p02-v09-p006",
+     "deha-p02-v09-p007",
+     "deha-p02-v09-p008"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": [
+     "follows edition viśeśa- (distinction); print variant vikalpa- recorded in L0/argmap, not adopted"
+    ]
+   },
+   "deha-p02-v10": {
+    "verse_id": "deha-p02-v10",
+    "song": "deha-p02",
+    "verse": 10,
+    "lines": [
+     "Southwest enthroned she Bhairava honors with sound-blooms —",
+     "hearing-formed, ever her, Vaiṣṇavī power, bow."
+    ],
+    "sanskrit_cite": "nairṛtadalagā bhairavamarcayate śabdakusumairyā | praṇamāmi śrutirūpāṃ nityaṃ tāṃ vaiṣṇavīṃ śaktim",
+    "l0_ids": [
+     "deha-p02-v10-p000",
+     "deha-p02-v10-p001",
+     "deha-p02-v10-p002",
+     "deha-p02-v10-p003",
+     "deha-p02-v10-p004",
+     "deha-p02-v10-p005",
+     "deha-p02-v10-p006",
+     "deha-p02-v10-p007",
+     "deha-p02-v10-p008"
+    ],
+    "essence_maps": [
+     1
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": [
+     "follows edition śabda- (sound); print variant śabdarūpā recorded in L0/argmap, not adopted"
+    ]
+   },
+   "deha-p02-v11": {
+    "verse_id": "deha-p02-v11",
+    "song": "deha-p02",
+    "verse": 11,
+    "lines": [
+     "Westward firm on her petal, with heart-gladding touch-blooms",
+     "she gladdens Bhairava — skin-formed, Vārāhī, honor."
+    ],
+    "sanskrit_cite": "paścimadigdalasaṃsthā hṛdayaharaiḥ sparśakusumairyā | toṣayati bhairavaṃ tāṃ tvagrūpadharāṃ namāmi vārāhīm",
+    "l0_ids": [
+     "deha-p02-v11-p000",
+     "deha-p02-v11-p001",
+     "deha-p02-v11-p002",
+     "deha-p02-v11-p003",
+     "deha-p02-v11-p004",
+     "deha-p02-v11-p005",
+     "deha-p02-v11-p006",
+     "deha-p02-v11-p007",
+     "deha-p02-v11-p008"
+    ],
+    "essence_maps": [
+     2
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "deha-p02-v12": {
+    "verse_id": "deha-p02-v12",
+    "song": "deha-p02",
+    "verse": 12,
+    "lines": [
+     "With choicest form-parts, wind-quarter-seated in body, who",
+     "honors Bhairava — her Indrāṇī, sight-bodied, praise."
+    ],
+    "sanskrit_cite": "varatararūpaviśeṣairmārutadigdalaniṣaṇṇadehā yā | pūjayati bhairavaṃ tāmindrāṇīṃ dṛktanuṃ vande",
+    "l0_ids": [
+     "deha-p02-v12-p000",
+     "deha-p02-v12-p001",
+     "deha-p02-v12-p002",
+     "deha-p02-v12-p003",
+     "deha-p02-v12-p004",
+     "deha-p02-v12-p005",
+     "deha-p02-v12-p006"
+    ],
+    "essence_maps": [
+     3
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "deha-p02-v13": {
+    "verse_id": "deha-p02-v13",
+    "song": "deha-p02",
+    "verse": 13,
+    "lines": [
+     "On wealth-lord's sprout abiding, who with varied six-taste feasts",
+     "honors Bhairava ever — tongue-called, Cāmuṇḍā, honor."
+    ],
+    "sanskrit_cite": "dhanapatikisalayanilayā yā nityaṃ vividhaṣaḍrasāhāraiḥ | pūjayati bhairavaṃ tāṃ jihvābhikhyāṃ namāmi cāmuṇḍām",
+    "l0_ids": [
+     "deha-p02-v13-p000",
+     "deha-p02-v13-p001",
+     "deha-p02-v13-p002",
+     "deha-p02-v13-p003",
+     "deha-p02-v13-p004",
+     "deha-p02-v13-p005",
+     "deha-p02-v13-p006",
+     "deha-p02-v13-p007",
+     "deha-p02-v13-p008",
+     "deha-p02-v13-p009"
+    ],
+    "essence_maps": [
+     4
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "deha-p02-v14": {
+    "verse_id": "deha-p02-v14",
+    "song": "deha-p02",
+    "verse": 14,
+    "lines": [
+     "On Īśa's petal throned she Bhairava honors with varied scents —",
+     "nose-called Mahālakṣmī, her, ever I bow."
+    ],
+    "sanskrit_cite": "īśadalasthā bhairavamarcayate parimalairvicitrairyā | praṇamāmi sarvadā tāṃ ghrāṇābhikhyāṃ mahālakṣmīm",
+    "l0_ids": [
+     "deha-p02-v14-p000",
+     "deha-p02-v14-p001",
+     "deha-p02-v14-p002",
+     "deha-p02-v14-p003",
+     "deha-p02-v14-p004",
+     "deha-p02-v14-p005",
+     "deha-p02-v14-p006",
+     "deha-p02-v14-p007"
+    ],
+    "essence_maps": [
+     5
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "deha-p02-v15": {
+    "verse_id": "deha-p02-v15",
+    "song": "deha-p02",
+    "verse": 15,
+    "lines": [
+     "In six views adorable, thirty-six-truth-filled, self-named ever —",
+     "field-lord, boon-granter, praise."
+    ],
+    "sanskrit_cite": "ṣaḍdarśaneṣu pūjyaṃ ṣaḍtriṃśattattvasaṃvalitam | ātmābhikhyaṃ satataṃ kṣetrapatiṃ siddhidaṃ vande",
+    "l0_ids": [
+     "deha-p02-v15-p000",
+     "deha-p02-v15-p001",
+     "deha-p02-v15-p002",
+     "deha-p02-v15-p003",
+     "deha-p02-v15-p004",
+     "deha-p02-v15-p005",
+     "deha-p02-v15-p006",
+     "deha-p02-v15-p007"
+    ],
+    "essence_maps": [
+     6
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "deha-p02-v16": {
+    "verse_id": "deha-p02-v16",
+    "song": "deha-p02",
+    "verse": 16,
+    "lines": [
+     "Quivering pith of experience, in all ends, ever at hand —",
+     "thus ever risen, my body's god-ring I hymn."
+    ],
+    "sanskrit_cite": "saṃsphuradanubhavasāraṃ sarvāntaḥ satatasannihitam | naumi sadoditamitthaṃ nijadehagadevatācakram",
+    "l0_ids": [
+     "deha-p02-v16-p000",
+     "deha-p02-v16-p001",
+     "deha-p02-v16-p002",
+     "deha-p02-v16-p003",
+     "deha-p02-v16-p004",
+     "deha-p02-v16-p005"
+    ],
+    "essence_maps": [
+     7
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   }
+  },
+  "l4": {
+   "deha-p01-v01": {
+    "verse_id": "deha-p01-v01",
+    "song": "deha-p01",
+    "verse": 1,
+    "lines": [
+     "Body called God's temple, self God everlasting:",
+     "sweep off ignorance — worship in I-am-He feeling."
+    ],
+    "sanskrit_cite": "deho devālayaḥ proktaḥ svātmā devaḥ sanātanaḥ | tyajedajñānanirmālyaṃ so'haṃ bhāvena pūjayet",
+    "l0_ids": [
+     "deha-p01-v01-p000",
+     "deha-p01-v01-p001",
+     "deha-p01-v01-p002",
+     "deha-p01-v01-p003",
+     "deha-p01-v01-p004",
+     "deha-p01-v01-p005",
+     "deha-p01-v01-p006",
+     "deha-p01-v01-p007",
+     "deha-p01-v01-p008",
+     "deha-p01-v01-p009"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "deha-p01-v02": {
+    "verse_id": "deha-p01-v02",
+    "song": "deha-p01",
+    "verse": 2,
+    "lines": [
+     "Saluted by demon-and-god hosts, on wished-for boons intent —",
+     "hundred-rite-foremost, breath-bodied Gaṇapati, praise."
+    ],
+    "sanskrit_cite": "asurasuravṛndavanditamabhimatavaravitaraṇe niratam | darśanaśatāgryapūjyaṃ prāṇatanuṃ gaṇapatiṃ vande",
+    "l0_ids": [
+     "deha-p01-v02-p000",
+     "deha-p01-v02-p001",
+     "deha-p01-v02-p002",
+     "deha-p01-v02-p003",
+     "deha-p01-v02-p004",
+     "deha-p01-v02-p005"
+    ],
+    "essence_maps": [
+     1
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "deha-p01-v03": {
+    "verse_id": "deha-p01-v03",
+    "song": "deha-p01",
+    "verse": 3,
+    "lines": [
+     "His foot-pair by choice heroes, yoginī crowds, siddha rows adored —",
+     "lifter of humble folk's pain, apāna-named Vaṭuka, praise."
+    ],
+    "sanskrit_cite": "varavīrayoginīgaṇasiddhāvalipūjitāṅghriyugalam | apahṛtavinayijanārtiṃ vaṭukamapānābhidhaṃ vande",
+    "l0_ids": [
+     "deha-p01-v03-p000",
+     "deha-p01-v03-p001",
+     "deha-p01-v03-p002",
+     "deha-p01-v03-p003"
+    ],
+    "essence_maps": [
+     2
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "deha-p01-v04": {
+    "verse_id": "deha-p01-v04",
+    "song": "deha-p01",
+    "verse": 4,
+    "lines": [
+     "By whose mind-strength the world shines Śiva's path to devotees,",
+     "him, attention-formed, stainless true guru — ever praise."
+    ],
+    "sanskrit_cite": "yaddhībalena viśvaṃ bhaktānāṃ śivapathaṃ bhāti | tamahamavadhānarūpaṃ sadgurumamalaṃ sadā vande",
+    "l0_ids": [
+     "deha-p01-v04-p000",
+     "deha-p01-v04-p001",
+     "deha-p01-v04-p002",
+     "deha-p01-v04-p003",
+     "deha-p01-v04-p004",
+     "deha-p01-v04-p005",
+     "deha-p01-v04-p006",
+     "deha-p01-v04-p007",
+     "deha-p01-v04-p008"
+    ],
+    "essence_maps": [
+     3
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "deha-p01-v05": {
+    "verse_id": "deha-p01-v05",
+    "song": "deha-p01",
+    "verse": 5,
+    "lines": [
+     "With their own sense-feasts the sense-goddesses ever honor",
+     "in the heart-lotus — whom, him, consciousness-made bliss-Bhairava, praise."
+    ],
+    "sanskrit_cite": "ātmīyaviṣayabhogairindriyadevyaḥ sadā hṛdambhoje | abhipūjayanti yaṃ taṃ cinmayamānandabhairavaṃ vande",
+    "l0_ids": [
+     "deha-p01-v05-p000",
+     "deha-p01-v05-p001",
+     "deha-p01-v05-p002",
+     "deha-p01-v05-p003",
+     "deha-p01-v05-p004",
+     "deha-p01-v05-p005",
+     "deha-p01-v05-p006",
+     "deha-p01-v05-p007"
+    ],
+    "essence_maps": [
+     4
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "deha-p01-v06": {
+    "verse_id": "deha-p01-v06",
+    "song": "deha-p01",
+    "verse": 6,
+    "lines": [
+     "Dawn-shine and chewing-play of the world she works always —",
+     "bliss-Bhairavī, her, reflection-formed, praise."
+    ],
+    "sanskrit_cite": "udayāvabhāsacarvaṇalīlāṃ viśvasya yā karotyaniśam | ānandabhairavīṃ tāṃ vimarśarūpāmahaṃ vande",
+    "l0_ids": [
+     "deha-p01-v06-p000",
+     "deha-p01-v06-p001",
+     "deha-p01-v06-p002",
+     "deha-p01-v06-p003",
+     "deha-p01-v06-p004",
+     "deha-p01-v06-p005",
+     "deha-p01-v06-p006",
+     "deha-p01-v06-p007"
+    ],
+    "essence_maps": [
+     5
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "deha-p01-v07": {
+    "verse_id": "deha-p01-v07",
+    "song": "deha-p01",
+    "verse": 7,
+    "lines": [
+     "Who Bhairava honors with resolve-blooms, on the lord's petal standing —",
+     "intellect-formed Brāhmī, her, I — ever I bow."
+    ],
+    "sanskrit_cite": "arcayati bhairavaṃ yā niścayakusumaiḥ sureśapatrasthā | praṇamāmi buddhirūpāṃ brahmāṇīṃ tāmahaṃ satatam",
+    "l0_ids": [
+     "deha-p01-v07-p000",
+     "deha-p01-v07-p001",
+     "deha-p01-v07-p002",
+     "deha-p01-v07-p003",
+     "deha-p01-v07-p004",
+     "deha-p01-v07-p005",
+     "deha-p01-v07-p006",
+     "deha-p01-v07-p007",
+     "deha-p01-v07-p008",
+     "deha-p01-v07-p009"
+    ],
+    "essence_maps": [
+     6
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "deha-p01-v08": {
+    "verse_id": "deha-p01-v08",
+    "song": "deha-p01",
+    "verse": 8,
+    "lines": [
+     "She does Bhairava honor, on fire's petal, with I-blooms —",
+     "ever I-making-formed, Śāmbhavī mother, praise."
+    ],
+    "sanskrit_cite": "kurute bhairavapūjāmanaladalasthā'bhimānakusumairyā | nityamahaṅkṛtirūpāṃ vande tāṃ śāmbhavīmambām",
+    "l0_ids": [
+     "deha-p01-v08-p000",
+     "deha-p01-v08-p001",
+     "deha-p01-v08-p002",
+     "deha-p01-v08-p003",
+     "deha-p01-v08-p004",
+     "deha-p01-v08-p005"
+    ],
+    "essence_maps": [
+     7
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "deha-p02-v09": {
+    "verse_id": "deha-p02-v09",
+    "song": "deha-p02",
+    "verse": 9,
+    "lines": [
+     "She spreads Bhairava honor, south petal throned, with distinction-blooms —",
+     "ever mind-formed Kaumārī, her, praise."
+    ],
+    "sanskrit_cite": "vidadhāti bhairavārcāṃ dakṣiṇadalagā viṣeśakusumairyā | nityaṃ manaḥsvarūpāṃ kaumārīṃ tāmahaṃ vande",
+    "l0_ids": [
+     "deha-p02-v09-p000",
+     "deha-p02-v09-p001",
+     "deha-p02-v09-p002",
+     "deha-p02-v09-p003",
+     "deha-p02-v09-p004",
+     "deha-p02-v09-p005",
+     "deha-p02-v09-p006",
+     "deha-p02-v09-p007",
+     "deha-p02-v09-p008"
+    ],
+    "essence_maps": [
+     0
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "deha-p02-v10": {
+    "verse_id": "deha-p02-v10",
+    "song": "deha-p02",
+    "verse": 10,
+    "lines": [
+     "Southwest enthroned she Bhairava honors with sound-blooms,",
+     "hearing-formed, ever her, Vaiṣṇavī power — bow."
+    ],
+    "sanskrit_cite": "nairṛtadalagā bhairavamarcayate śabdakusumairyā | praṇamāmi śrutirūpāṃ nityaṃ tāṃ vaiṣṇavīṃ śaktim",
+    "l0_ids": [
+     "deha-p02-v10-p000",
+     "deha-p02-v10-p001",
+     "deha-p02-v10-p002",
+     "deha-p02-v10-p003",
+     "deha-p02-v10-p004",
+     "deha-p02-v10-p005",
+     "deha-p02-v10-p006",
+     "deha-p02-v10-p007",
+     "deha-p02-v10-p008"
+    ],
+    "essence_maps": [
+     1
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "deha-p02-v11": {
+    "verse_id": "deha-p02-v11",
+    "song": "deha-p02",
+    "verse": 11,
+    "lines": [
+     "Westward firm on her petal, with heart-gladding touch-blooms —",
+     "she gladdens Bhairava, skin-formed Vārāhī — honor."
+    ],
+    "sanskrit_cite": "paścimadigdalasaṃsthā hṛdayaharaiḥ sparśakusumairyā | toṣayati bhairavaṃ tāṃ tvagrūpadharāṃ namāmi vārāhīm",
+    "l0_ids": [
+     "deha-p02-v11-p000",
+     "deha-p02-v11-p001",
+     "deha-p02-v11-p002",
+     "deha-p02-v11-p003",
+     "deha-p02-v11-p004",
+     "deha-p02-v11-p005",
+     "deha-p02-v11-p006",
+     "deha-p02-v11-p007",
+     "deha-p02-v11-p008"
+    ],
+    "essence_maps": [
+     2
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "deha-p02-v12": {
+    "verse_id": "deha-p02-v12",
+    "song": "deha-p02",
+    "verse": 12,
+    "lines": [
+     "With choicest form-parts, wind-quarter-seated in body, who",
+     "honors Bhairava — her Indrāṇī, sight-bodied, praise."
+    ],
+    "sanskrit_cite": "varatararūpaviśeṣairmārutadigdalaniṣaṇṇadehā yā | pūjayati bhairavaṃ tāmindrāṇīṃ dṛktanuṃ vande",
+    "l0_ids": [
+     "deha-p02-v12-p000",
+     "deha-p02-v12-p001",
+     "deha-p02-v12-p002",
+     "deha-p02-v12-p003",
+     "deha-p02-v12-p004",
+     "deha-p02-v12-p005",
+     "deha-p02-v12-p006"
+    ],
+    "essence_maps": [
+     3
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "deha-p02-v13": {
+    "verse_id": "deha-p02-v13",
+    "song": "deha-p02",
+    "verse": 13,
+    "lines": [
+     "On wealth-lord's sprout abiding, who with varied six-taste feasts —",
+     "honors Bhairava ever, tongue-called Cāmuṇḍā — honor."
+    ],
+    "sanskrit_cite": "dhanapatikisalayanilayā yā nityaṃ vividhaṣaḍrasāhāraiḥ | pūjayati bhairavaṃ tāṃ jihvābhikhyāṃ namāmi cāmuṇḍām",
+    "l0_ids": [
+     "deha-p02-v13-p000",
+     "deha-p02-v13-p001",
+     "deha-p02-v13-p002",
+     "deha-p02-v13-p003",
+     "deha-p02-v13-p004",
+     "deha-p02-v13-p005",
+     "deha-p02-v13-p006",
+     "deha-p02-v13-p007",
+     "deha-p02-v13-p008",
+     "deha-p02-v13-p009"
+    ],
+    "essence_maps": [
+     4
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "deha-p02-v14": {
+    "verse_id": "deha-p02-v14",
+    "song": "deha-p02",
+    "verse": 14,
+    "lines": [
+     "On Īśa's petal throned she Bhairava honors with varied scents,",
+     "nose-called Mahālakṣmī, her — ever I bow."
+    ],
+    "sanskrit_cite": "īśadalasthā bhairavamarcayate parimalairvicitrairyā | praṇamāmi sarvadā tāṃ ghrāṇābhikhyāṃ mahālakṣmīm",
+    "l0_ids": [
+     "deha-p02-v14-p000",
+     "deha-p02-v14-p001",
+     "deha-p02-v14-p002",
+     "deha-p02-v14-p003",
+     "deha-p02-v14-p004",
+     "deha-p02-v14-p005",
+     "deha-p02-v14-p006",
+     "deha-p02-v14-p007"
+    ],
+    "essence_maps": [
+     5
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "deha-p02-v15": {
+    "verse_id": "deha-p02-v15",
+    "song": "deha-p02",
+    "verse": 15,
+    "lines": [
+     "In six views adorable, thirty-six-truth-filled, self-named ever,",
+     "field-lord, boon-granter — praise."
+    ],
+    "sanskrit_cite": "ṣaḍdarśaneṣu pūjyaṃ ṣaḍtriṃśattattvasaṃvalitam | ātmābhikhyaṃ satataṃ kṣetrapatiṃ siddhidaṃ vande",
+    "l0_ids": [
+     "deha-p02-v15-p000",
+     "deha-p02-v15-p001",
+     "deha-p02-v15-p002",
+     "deha-p02-v15-p003",
+     "deha-p02-v15-p004",
+     "deha-p02-v15-p005",
+     "deha-p02-v15-p006",
+     "deha-p02-v15-p007"
+    ],
+    "essence_maps": [
+     6
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   },
+   "deha-p02-v16": {
+    "verse_id": "deha-p02-v16",
+    "song": "deha-p02",
+    "verse": 16,
+    "lines": [
+     "Quivering pith of experience, in all ends, ever at hand:",
+     "thus ever risen, my body's god-ring — I hymn."
+    ],
+    "sanskrit_cite": "saṃsphuradanubhavasāraṃ sarvāntaḥ satatasannihitam | naumi sadoditamitthaṃ nijadehagadevatācakram",
+    "l0_ids": [
+     "deha-p02-v16-p000",
+     "deha-p02-v16-p001",
+     "deha-p02-v16-p002",
+     "deha-p02-v16-p003",
+     "deha-p02-v16-p004",
+     "deha-p02-v16-p005"
+    ],
+    "essence_maps": [
+     7
+    ],
+    "fidelity": "preserved",
+    "form": "couplet",
+    "needs": [
+     "human-review"
+    ],
+    "notes": []
+   }
+  },
+  "c2": {}
+ },
+ "source_verses": {
+  "deha-p01-v01": {
+   "text": "deho devālayaḥ proktaḥ svātmā devaḥ sanātanaḥ || tyajedajñānanirmālyaṃ so'haṃ bhāvena pūjayet",
+   "source_file": "translation-work/dehastha/source/edition.txt",
+   "source_sha256": "aa0f9b572cbfe7b940d43fa940511704143c3735ebd572c6bfe0a172b881cf49",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "deha-p01-v02": {
+   "text": "asurasuravṛndavanditamabhimatavaravitaraṇe niratam || darśanaśatāgryapūjyaṃ prāṇatanuṃ gaṇapatiṃ vande",
+   "source_file": "translation-work/dehastha/source/edition.txt",
+   "source_sha256": "aa0f9b572cbfe7b940d43fa940511704143c3735ebd572c6bfe0a172b881cf49",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "deha-p01-v03": {
+   "text": "varavīrayoginīgaṇasiddhāvalipūjitāṅghriyugalam || apahṛtavinayijanārtiṃ vaṭukamapānābhidhaṃ vande",
+   "source_file": "translation-work/dehastha/source/edition.txt",
+   "source_sha256": "aa0f9b572cbfe7b940d43fa940511704143c3735ebd572c6bfe0a172b881cf49",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "deha-p01-v04": {
+   "text": "yaddhībalena viśvaṃ bhaktānāṃ śivapathaṃ bhāti || tamahamavadhānarūpaṃ sadgurumamalaṃ sadā vande",
+   "source_file": "translation-work/dehastha/source/edition.txt",
+   "source_sha256": "aa0f9b572cbfe7b940d43fa940511704143c3735ebd572c6bfe0a172b881cf49",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "deha-p01-v05": {
+   "text": "ātmīyaviṣayabhogairindriyadevyaḥ sadā hṛdambhoje || abhipūjayanti yaṃ taṃ cinmayamānandabhairavaṃ vande",
+   "source_file": "translation-work/dehastha/source/edition.txt",
+   "source_sha256": "aa0f9b572cbfe7b940d43fa940511704143c3735ebd572c6bfe0a172b881cf49",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "deha-p01-v06": {
+   "text": "udayāvabhāsacarvaṇalīlāṃ viśvasya yā karotyaniśam || ānandabhairavīṃ tāṃ vimarśarūpāmahaṃ vande",
+   "source_file": "translation-work/dehastha/source/edition.txt",
+   "source_sha256": "aa0f9b572cbfe7b940d43fa940511704143c3735ebd572c6bfe0a172b881cf49",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "deha-p01-v07": {
+   "text": "arcayati bhairavaṃ yā niścayakusumaiḥ sureśapatrasthā || praṇamāmi buddhirūpāṃ brahmāṇīṃ tāmahaṃ satatam",
+   "source_file": "translation-work/dehastha/source/edition.txt",
+   "source_sha256": "aa0f9b572cbfe7b940d43fa940511704143c3735ebd572c6bfe0a172b881cf49",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "deha-p01-v08": {
+   "text": "kurute bhairavapūjāmanaladalasthā'bhimānakusumairyā || nityamahaṅkṛtirūpāṃ vande tāṃ śāmbhavīmambām",
+   "source_file": "translation-work/dehastha/source/edition.txt",
+   "source_sha256": "aa0f9b572cbfe7b940d43fa940511704143c3735ebd572c6bfe0a172b881cf49",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "deha-p02-v09": {
+   "text": "vidadhāti bhairavārcāṃ dakṣiṇadalagā viṣeśakusumairyā || nityaṃ manaḥsvarūpāṃ kaumārīṃ tāmahaṃ vande",
+   "source_file": "translation-work/dehastha/source/edition.txt",
+   "source_sha256": "aa0f9b572cbfe7b940d43fa940511704143c3735ebd572c6bfe0a172b881cf49",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "deha-p02-v10": {
+   "text": "nairṛtadalagā bhairavamarcayate śabdakusumairyā || praṇamāmi śrutirūpāṃ nityaṃ tāṃ vaiṣṇavīṃ śaktim",
+   "source_file": "translation-work/dehastha/source/edition.txt",
+   "source_sha256": "aa0f9b572cbfe7b940d43fa940511704143c3735ebd572c6bfe0a172b881cf49",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "deha-p02-v11": {
+   "text": "paścimadigdalasaṃsthā hṛdayaharaiḥ sparśakusumairyā || toṣayati bhairavaṃ tāṃ tvagrūpadharāṃ namāmi vārāhīm",
+   "source_file": "translation-work/dehastha/source/edition.txt",
+   "source_sha256": "aa0f9b572cbfe7b940d43fa940511704143c3735ebd572c6bfe0a172b881cf49",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "deha-p02-v12": {
+   "text": "varatararūpaviśeṣairmārutadigdalaniṣaṇṇadehā yā || pūjayati bhairavaṃ tāmindrāṇīṃ dṛktanuṃ vande",
+   "source_file": "translation-work/dehastha/source/edition.txt",
+   "source_sha256": "aa0f9b572cbfe7b940d43fa940511704143c3735ebd572c6bfe0a172b881cf49",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "deha-p02-v13": {
+   "text": "dhanapatikisalayanilayā yā nityaṃ vividhaṣaḍrasāhāraiḥ || pūjayati bhairavaṃ tāṃ jihvābhikhyāṃ namāmi cāmuṇḍām",
+   "source_file": "translation-work/dehastha/source/edition.txt",
+   "source_sha256": "aa0f9b572cbfe7b940d43fa940511704143c3735ebd572c6bfe0a172b881cf49",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "deha-p02-v14": {
+   "text": "īśadalasthā bhairavamarcayate parimalairvicitrairyā || praṇamāmi sarvadā tāṃ ghrāṇābhikhyāṃ mahālakṣmīm",
+   "source_file": "translation-work/dehastha/source/edition.txt",
+   "source_sha256": "aa0f9b572cbfe7b940d43fa940511704143c3735ebd572c6bfe0a172b881cf49",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "deha-p02-v15": {
+   "text": "ṣaḍdarśaneṣu pūjyaṃ ṣaḍtriṃśattattvasaṃvalitam || ātmābhikhyaṃ satataṃ kṣetrapatiṃ siddhidaṃ vande",
+   "source_file": "translation-work/dehastha/source/edition.txt",
+   "source_sha256": "aa0f9b572cbfe7b940d43fa940511704143c3735ebd572c6bfe0a172b881cf49",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "deha-p02-v16": {
+   "text": "saṃsphuradanubhavasāraṃ sarvāntaḥ satatasannihitam || naumi sadoditamitthaṃ nijadehagadevatācakram",
+   "source_file": "translation-work/dehastha/source/edition.txt",
+   "source_sha256": "aa0f9b572cbfe7b940d43fa940511704143c3735ebd572c6bfe0a172b881cf49",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  }
+ },
+ "l4_craft": {
+  "deha-p01-v01": [
+   {
+    "file": "dehastha/L4-deha-p01-v01.DRAFT.json",
+    "file_sha256": "42785b0a85bb063a47d00b128e6daf784d902c6e9daee2906d924a4ebc4cc955",
+    "l4_sha256": "8d169861150a00a60bc1c14a5536b1a3baae0eee8eca80314c8663120d344435",
+    "notes": {
+     "craft_notes": "Sthāyin: frame vow (FIRST-VERSE voice: plain declaration, no ornament; sets the house voice — owner verdict required before treating as voice). Sanskrit: deho devālayaḥ proktaḥ...so'haṃ bhāvena pūjayet → L4 drops 'The/is' articles for chant-weight, keeps called/sweep/worship. Rows: row 2 (sweep→worship). Close: feeling (bhāva end-weighted as the practice). Rejected: 'proclaimed' (L2's verb) — killed: called kept (blunter, singable); softening so'ham — killed: I-am-He kept (the formula IS the verse).",
+     "reads_against": {
+      "argmap": "What is declared? → The frame vow: body as temple, self as god, worship as so'ham-feeling after casting ignorance.",
+      "c1_essence": [
+       "Body declared god's temple, self the eternal god: worship with I-am-He feeling after casting ignorance."
+      ],
+      "c1_rasa": "adbhuta with bhakti (wonder held in devotion)"
+     }
+    }
+   }
+  ],
+  "deha-p01-v02": [
+   {
+    "file": "dehastha/L4-deha-p01-v02.DRAFT.json",
+    "file_sha256": "a186a9f1a4af4abd549f5931d1205297e07a25720ddf5836ccf789db3141e15c",
+    "l4_sha256": "0f1ee086b9fff7b5a2229f0195a642fe52105acf966c09a91ca532ea9b416404",
+    "notes": {
+     "craft_notes": "Sthāyin: gatekeeper-praise (breath-bodied first worship). Rows: row 3 (saluted→praise). Close: praise (vande refrain-verb; first of many). Rejected: 'first' for foremost — killed: foremost kept (agrya as rank, not order); 'Hosts salute him' active flip — killed: saluted kept (the verse's passive piles the hosts first).",
+     "reads_against": {
+      "argmap": "Who stands at the gate? → Gaṇapati as prāṇa-gatekeeper: worshipped first, breath-bodied, boon-bestowing (Dyczkowski: master of the body's pīṭhas).",
+      "c1_essence": [
+       "Breath-bodied Gaṇapati first-worshipped: saluted by all beings, bestowing wished boons."
+      ],
+      "c1_rasa": "adbhuta with bhakti (wonder held in devotion)"
+     }
+    }
+   }
+  ],
+  "deha-p01-v03": [
+   {
+    "file": "dehastha/L4-deha-p01-v03.DRAFT.json",
+    "file_sha256": "e33904ab6bf6c91ebced6daf057e24dfaa521050d7cf6b1d6662fe57db74b8c8",
+    "l4_sha256": "1bcea13fb732006e3e3d5e31f0ad69eafc6dec952c0f331dde338ddc0fc9c163",
+    "notes": {
+     "craft_notes": "Sthāyin: remover-praise (adepts' feet, humble pain lifted). Rows: row 3 (adored→praise). Close: praise (refrain). Rejected: 'remover' noun — killed: lifter kept (apahṛta as verb-acted, present); 'Vata' short — killed: Vaṭuka kept whole (name never clipped).",
+     "reads_against": {
+      "argmap": "Who guards with him? → Vaṭuka as apāna-gatekeeper: worshipped by adepts, remover of disciples' knots and doubts (Dyczkowski).",
+      "c1_essence": [
+       "Vaṭuka apāna-named, worshipped by adepts: remover of the humble folk's pain and doubt."
+      ],
+      "c1_rasa": "adbhuta with bhakti (wonder held in devotion)"
+     }
+    }
+   }
+  ],
+  "deha-p01-v04": [
+   {
+    "file": "dehastha/L4-deha-p01-v04.DRAFT.json",
+    "file_sha256": "3a51adcfdb478c0c2c8789a61607c1373752c2cd60bd8f95e9d5abdbec73aef2",
+    "l4_sha256": "1190212a2d531367619400929958d96ec529d78d1cd4bbe34bc7843151d45982",
+    "notes": {
+     "craft_notes": "Sthāyin: gift-of-attention (mind-strength as the teaching). Rows: row 2 (shines→praise). Close: praise (ever-praise: sadā carried). Rejected: 'intellect' for mind-strength — killed: mind-strength kept (dhī+bala as force, not faculty); 'shows the way' — killed: shines kept (bhāti as light, not guidance).",
+     "reads_against": {
+      "argmap": "Who gives understanding? → The Sadguru gives intellectual strength (avadhāna) by which the world shines as Śiva-path — Dyczkowski's śuddha-vidyā after long loving approach.",
+      "c1_essence": [
+       "Sadguru's mind-strength makes the universe shine Śiva-pathed: attention itself the gift."
+      ],
+      "c1_rasa": "adbhuta with bhakti (wonder held in devotion)"
+     }
+    }
+   }
+  ],
+  "deha-p01-v05": [
+   {
+    "file": "dehastha/L4-deha-p01-v05.DRAFT.json",
+    "file_sha256": "41cbad18634260be5b5744ec5171dbc1127d37db48e2ea805aae1afd2e4e3e58",
+    "l4_sha256": "7e4163bca1b09abf9a480cf30f84f440e5f9c7ec878d62e9891c3959fe8b3cdd",
+    "notes": {
+     "craft_notes": "Sthāyin: fed-core (sense-goddesses feeding bliss). Rows: row 3 (honor→praise; shared line with L3 kept deliberately — the list IS the music). Close: praise. Rejected: reordering feast-goddesses — killed: Sanskrit order kept (feasts first, feeders second); 'conscious' for cinmaya — killed: consciousness-made kept (maya as made-of, exact).",
+     "reads_against": {
+      "argmap": "Who dwells in the heart? → Ānanda-Bhairava, ever-blissful core (cinmaya, Cakreśvara seat), fed by sense-goddesses; pleasure, pain, sorrow all rendered as offerings.",
+      "c1_essence": [
+       "Sense-goddesses feast the heart-lotus: consciousness-made bliss-Bhairava at the core."
+      ],
+      "c1_rasa": "adbhuta with bhakti (wonder held in devotion)"
+     }
+    }
+   }
+  ],
+  "deha-p01-v06": [
+   {
+    "file": "dehastha/L4-deha-p01-v06.DRAFT.json",
+    "file_sha256": "ce79e494d5015eb799d23f7c8abb2168464065d997a48e574fdb38443a961fc6",
+    "l4_sha256": "857ccff0a967a9a665a664f17080016cc6ac2e71137990b9420a6e8a014da9ce",
+    "notes": {
+     "craft_notes": "Sthāyin: digesting-play (dawn-shine-chewing as one act). Rows: row 1 (play whole — never split the triple compound). Close: praise. Rejected: 'creation and destruction' gloss — killed: dawning/shining/chewing kept (the three verbs, unmoralized); 'meditates' for works — killed: works kept (karoti as doing).",
+     "reads_against": {
+      "argmap": "Who is beside him? → Ānanda-Bhairavī as vimarśa (awareness-energy, svātantrya-śakti), non-different from Śiva as heat from fire; aggregate of awareness.",
+      "c1_essence": [
+       "Bhairavī's ceaseless world-play of dawning and digesting: reflection-formed, ever praised."
+      ],
+      "c1_rasa": "adbhuta with bhakti (wonder held in devotion)"
+     }
+    }
+   }
+  ],
+  "deha-p01-v07": [
+   {
+    "file": "dehastha/L4-deha-p01-v07.DRAFT.json",
+    "file_sha256": "b9c385a017b36b1971cf68646a241bbade2ae60c860d7df4787f28fce6bce687",
+    "l4_sha256": "933e6f28369d8b6bde1c56849579f3875b99af338edb7b5e2b066fc62645231c",
+    "notes": {
+     "craft_notes": "Sthāyin: resolve-offering (intellect's flowers). Rows: row 2 (standing→bow). Close: bow (praṇāmi as the closer; first bow after praises). Rejected: 'mind' for intellect — killed: intellect-formed kept (buddhi precise, not manas); 'always' for ever — killed: ever kept (satatam refrain-word).",
+     "reads_against": {
+      "argmap": "Who offers resolve? → Brāhmī (buddhi, east petal) confirms outside perceptions and offers them as niścaya-flowers to the heart-lotus.",
+      "c1_essence": [
+       "Brāhmī intellect-formed offers resolve-flowers from the lord's petal: perception confirmed."
+      ],
+      "c1_rasa": "adbhuta with bhakti (wonder held in devotion)"
+     }
+    }
+   }
+  ],
+  "deha-p01-v08": [
+   {
+    "file": "dehastha/L4-deha-p01-v08.DRAFT.json",
+    "file_sha256": "68ba966d144b923459020fffeec28d52045c8169d6c78e53806d71754fa9affc",
+    "l4_sha256": "ba7f7a7cf188f0914a493192e82aea27a442c96a8520249853a10037910dd160",
+    "notes": {
+     "craft_notes": "Sthāyin: I-flower (ego as oblation). Rows: row 3 (I-blooms→praise). Close: praise (mother-word before it: Śāmbhavī mother). Rejected: 'ego' abstract — killed: I-making kept (ahaṅkṛti as act, the verse's psychology); 'Ambā' untranslated — killed: mother kept (ambā glossed, name intact in Śāmbhavī).",
+     "reads_against": {
+      "argmap": "Who offers I-ness? → Śāmbhavī (ahaṅkāra, Agni petal) worships with I-flowers; ego itself becomes the offering, not the obstacle.",
+      "c1_essence": [
+       "Śāmbhavī mother offers I-flowers from fire's petal: ego itself the oblation."
+      ],
+      "c1_rasa": "adbhuta with bhakti (wonder held in devotion)"
+     }
+    }
+   }
+  ],
+  "deha-p02-v09": [
+   {
+    "file": "dehastha/L4-deha-p02-v09.DRAFT.json",
+    "file_sha256": "554ecb06cff26b468ab363a0edf4213e3f35df33290145b5a07936346cf79746",
+    "l4_sha256": "a4ad5892dbaab449fca8e6035f1f0e86ec06991affa277ab182443c0935ceee8",
+    "notes": {
+     "craft_notes": "Sthāyin: thought-offering (edition distinction kept; variant on record). Rows: row 2 (seated→praise). Close: praise. Rejected: thought-flowers (variant) — killed: distinction kept (edition text; variant lives in L0/argmap, never smuggled); 'spreads out' — killed: spreads kept (vidadhāti as laying-out).",
+     "reads_against": {
+      "argmap": "Who offers thoughts? → Kaumārī (manas, south/Yama petal) offers thoughts; edition viśeṣa adopted (flower-pattern fit), variant vikalpa recorded (fits mind-goddess).",
+      "c1_essence": [
+       "Kaumārī mind-formed offers distinction-flowers from the south: thoughts themselves the gift."
+      ],
+      "c1_rasa": "adbhuta settling toward śānta (wonder circling home to rest)"
+     }
+    }
+   }
+  ],
+  "deha-p02-v10": [
+   {
+    "file": "dehastha/L4-deha-p02-v10.DRAFT.json",
+    "file_sha256": "57cf764c9d51a63c2286e24c4929ab6590e5fa5530ddc4e287cc4563a407e8aa",
+    "l4_sha256": "3a78fa3aa67534b4fa533f0232997841ffcc9b44c5de2e08731e6a84406b20e8",
+    "notes": {
+     "craft_notes": "Sthāyin: sound-offering (hearing's garland). Rows: row 2 (honors→bow). Close: bow (line-end bow after honors-opener: verb arc). Rejected: 'listens' — killed: hearing-formed kept (śruti as faculty-name); comma-for-dash swap kept minimal (breath, not doctrine).",
+     "reads_against": {
+      "argmap": "Who offers sounds? → Vaiṣṇavī (śruti/ear, Nirṛti petal) garlands sounds; edition śabda-flowers adopted (flower-pattern), variant śabdarūpā recorded.",
+      "c1_essence": [
+       "Vaiṣṇavī hearing-formed offers sound-flowers from the southwest: listening itself the rite."
+      ],
+      "c1_rasa": "adbhuta settling toward śānta (wonder circling home to rest)"
+     }
+    }
+   }
+  ],
+  "deha-p02-v11": [
+   {
+    "file": "dehastha/L4-deha-p02-v11.DRAFT.json",
+    "file_sha256": "bc23e92242be63cf6dc276fe23f417e8b191daf987d3344d19b35d489ff4530a",
+    "l4_sha256": "3ad9113b093077c225c47ffe94575472ca49746f11eb376048b761d99cd4332c",
+    "notes": {
+     "craft_notes": "Sthāyin: touch-delight (heart-pleasing). Rows: row 3 (touch-blooms→honor). Close: honor (namāmi distinct from praise/bow — three verbs kept distinct across songs). Rejected: 'pleases' for delights — killed: gladdens/delights kept (toṣayati as joy-giving); 'goddess of touch' — killed: skin-formed kept (tvac precise).",
+     "reads_against": {
+      "argmap": "Who offers touch? → Vārāhī (tvac/touch, west petal) pleases Bhairava with tactile offerings.",
+      "c1_essence": [
+       "Vārāhī skin-formed delights with touch-flowers from the west: feeling itself pleasing."
+      ],
+      "c1_rasa": "adbhuta settling toward śānta (wonder circling home to rest)"
+     }
+    }
+   }
+  ],
+  "deha-p02-v12": [
+   {
+    "file": "dehastha/L4-deha-p02-v12.DRAFT.json",
+    "file_sha256": "4db4e74735641b296b70046714818dface7726b377b5f66633d20883d6f10dc4",
+    "l4_sha256": "b42cb3ed4d262257b3410f65054de68477dde25affcd16b49d747e35c6cb433c",
+    "notes": {
+     "craft_notes": "Sthāyin: sight-honor (choicest forms). Rows: row 1 (form-parts whole — never trim a fused span). Close: praise. Rejected: splitting the fused span — killed: choicer-form-details-wind-quarter kept whole (span truth); 'sees' — killed: sight-bodied kept (dṛktan u as body, not act).",
+     "reads_against": {
+      "argmap": "Who offers sight? → Indrāṇī (dṛk/sight, Vāyu petal) offers forms; choicer details are her flowers.",
+      "c1_essence": [
+       "Indrāṇī sight-bodied honors with choicer forms from the northwest: seeing itself worship."
+      ],
+      "c1_rasa": "adbhuta settling toward śānta (wonder circling home to rest)"
+     }
+    }
+   }
+  ],
+  "deha-p02-v13": [
+   {
+    "file": "dehastha/L4-deha-p02-v13.DRAFT.json",
+    "file_sha256": "f50a71af9f6ae52f5a6de338e60bafe4597a43caac9a990cac9f053193e896fc",
+    "l4_sha256": "71532c727e45e01ba96452a9fadc5e25a03672423c0e329e2b22cd5e2fdf8504",
+    "notes": {
+     "craft_notes": "Sthāyin: taste-honor (six tastes). Rows: row 3 (feasts→honor). Close: honor (namāmi refrain for the outer petals). Rejected: 'flavors' — killed: tastes kept (rasa as taste, doctrinal); 'lives/dwells' for abiding — killed: abiding kept (nilayā as shrine-dwelling).",
+     "reads_against": {
+      "argmap": "Who offers taste? → Cāmuṇḍā (jihvā/tongue, Kubera/north petal) offers the six tastes.",
+      "c1_essence": [
+       "Cāmuṇḍā tongue-called honors with six-taste foods from the north: tasting itself offered."
+      ],
+      "c1_rasa": "adbhuta settling toward śānta (wonder circling home to rest)"
+     }
+    }
+   }
+  ],
+  "deha-p02-v14": [
+   {
+    "file": "dehastha/L4-deha-p02-v14.DRAFT.json",
+    "file_sha256": "e85930a15954fc43755292631499f91cb4cfdb5b45d5a7fae8f023355ddd9b5f",
+    "l4_sha256": "7d5af4b7293935ec581bb7ebc0136627fe5f68fec4b6162b8e8dc37345a6275e",
+    "notes": {
+     "craft_notes": "Sthāyin: smell-bow (circle complete). Rows: row 2 (honors→bow). Close: bow (ever-I-bow: the circle closes on bowing). Rejected: 'fragrance' singular — killed: scents kept (parimala plural, varied); 'always' moved — killed: ever kept in bow-line (sadā/satatam refrain).",
+     "reads_against": {
+      "argmap": "Who offers smell? → Mahālakṣmī (ghrāṇa/smell, Īśāna petal) offers perfumes; the eight-petalled circle stands complete.",
+      "c1_essence": [
+       "Mahālakṣmī nose-called worshipped with perfumes from the northeast: smelling itself the rite; circle complete."
+      ],
+      "c1_rasa": "adbhuta settling toward śānta (wonder circling home to rest)"
+     }
+    }
+   }
+  ],
+  "deha-p02-v15": [
+   {
+    "file": "dehastha/L4-deha-p02-v15.DRAFT.json",
+    "file_sha256": "59cf172392ff18ea21c84efd308128e9f7d920fe020fbb6866388eec2fe5a770",
+    "l4_sha256": "3244d8ac010ead557174377a4004f98094cc7106fd0a71f9c86fb84590944294",
+    "notes": {
+     "craft_notes": "Sthāyin: field-lord (experiencer enthroned). Rows: row 3 (worshipable→praise). Close: praise (boon-granter before it: siddhida). Rejected: 'protector' for field-lord — killed: field-lord kept (kṣetrapati as office, not role); 'thirty-six' spelled out — killed: thirty-six-truth kept hyphenated (the count sings).",
+     "reads_against": {
+      "argmap": "Who guards the field? → Kṣetrapati as first-person-experiencer (ātman), 36-tattva-bodied, worshipped in all six systems, protector on all sides.",
+      "c1_essence": [
+       "Kṣetrapati self-named, 36-reality-infused, worshipped in six views: the experiencer guards the field."
+      ],
+      "c1_rasa": "adbhuta settling toward śānta (wonder circling home to rest)"
+     }
+    }
+   }
+  ],
+  "deha-p02-v16": [
+   {
+    "file": "dehastha/L4-deha-p02-v16.DRAFT.json",
+    "file_sha256": "93aea8ee58aa5b2b14efb7975fc611cbbc3524f99aa81f12f0ce2ed0eeb932a5",
+    "l4_sha256": "04f1dbbc41e0506bc49d93af05a3dc7b3f574e3efe7d9eae2ed16d2e0da40b28",
+    "notes": {
+     "craft_notes": "Sthāyin: the seal (paper-thin finale: quivering pith, ever near, I hymn). Rows: row 3 (at-hand→hymn). Close: hymn (naumi — first and only hymn-verb; praise/bow/honor yield to hymning at the seal). Rejected: 'circle of gods' — killed: god-ring kept (cakra as ring, tighter); ending on doctrine — killed: I-hymn kept (the tantra ends on the singer).",
+     "reads_against": {
+      "argmap": "How does it close? → Collective bow to the ever-present vibrating circle as first-person experience-essence; the stotra's seal.",
+      "c1_essence": [
+       "The quivering experience-pith ever near: one's own god-circle hymned as first-person presence."
+      ],
+      "c1_rasa": "adbhuta settling toward śānta (wonder circling home to rest)"
+     }
+    }
+   }
+  ]
+ },
+ "withheld_songs": [],
+ "original_hashes": {
+  "t1": {
+   "deha-p01-v01": "75a21d9a8279a442bf1b15bcc8ae56036fa212a3070d710da6db54b2f7de1235",
+   "deha-p01-v02": "d52c9dff0ba3740b818ea513323d4264a5e364a398c489bba0e3fef50d867ce3",
+   "deha-p01-v03": "b68edda0819cc48e7e77eadae4128fb17dcb5c5cb93c5529bca0b0c6861c55ff",
+   "deha-p01-v04": "0ae958b870333655ab25728c5ddd37c99aac2c68f1b8ad222e9ab72836fa521c",
+   "deha-p01-v05": "84a16fd9c379d0c3e017403a627a7e114855ab0bdd042eaf35c9ca55c3c9bbd2",
+   "deha-p01-v06": "142e504a95214504ecdf32b661378b49cf2e44e800a34e8616e446a987962d03",
+   "deha-p01-v07": "653dc5e5d33190095401d7ea653d9961ac875ea09af724f34ce9683da23ded19",
+   "deha-p01-v08": "fc9edee8b6cdfb744df51e7a72f9dc3a6c0973672af1ab4da5b3ca733e5f5079",
+   "deha-p02-v09": "4952eea9c15b4a85c635aa9c537b04fe704daa3a4cf97847a5831762543d8de4",
+   "deha-p02-v10": "65f5feff5ce7e750bf4d5f254a80ec89e8317893b3872f619087083f1844b66f",
+   "deha-p02-v11": "1a98daaf125a0e018e116c8eb6cdf3590a9908f7edcf27590a9b59229d0c9018",
+   "deha-p02-v12": "991f117e62c1492c6d32c68c1fb3a3743642d926ebeb12759dbde4736e266e6e",
+   "deha-p02-v13": "bed090b464784b142d104f455c6dab256f1461d79cf69f76d92ce00e186d3689",
+   "deha-p02-v14": "ef2ea70f9fb1131a2d709a68ef221f82b8cc0e93c8bb3b7cde0dd6c0cabe6b49",
+   "deha-p02-v15": "2b4fa11f87aa071854837fed23d34108014e95ffecde16b85a30c01c84f59814",
+   "deha-p02-v16": "8780df8e57f8aa789eaae7288929ba9e3786d4b2922281c8970549f014a7aab2"
+  },
+  "l0": {
+   "deha-p01-v01": "ee5f6104feabf6727fa6799bab7a58b8858dc7cc8f7a2fd0f337c489a42acf36",
+   "deha-p01-v02": "6d88d1e366f2e85199d894ced1ddf882ab0993bd6e66f803eb821a52a7a79de3",
+   "deha-p01-v03": "b5c16dde15949dc2b5af183743994e34aa287974a767a210c728402d2321c948",
+   "deha-p01-v04": "d1b4260f9943ea00fb39d8a9145c0db2907885f72ed7bc221cb93cad6bc59e10",
+   "deha-p01-v05": "fc2d703c2bce91e7884761a9ac1ab7b66f7f696b7c69add0b3c6031db8ee438a",
+   "deha-p01-v06": "64c9e6dc1e773528585ec58785f4d44319fcb954c0945c6f9aff726d6b2ab8ba",
+   "deha-p01-v07": "e576e945365d0a4603a38c469198dfe99b6dd9941286d49f8b39d928f574a7aa",
+   "deha-p01-v08": "22f87c5429ebd6afae925758a360706567d49b71d8a08807f7f6411e16dbd5ec",
+   "deha-p02-v09": "a5845afbd4988e57af3c247cd562cdb9e080fd608207c800d3b357a2ae145901",
+   "deha-p02-v10": "6df01dea94e8c5ac8d013409101a1bfa197842c2fabb453f1476faa13f14852b",
+   "deha-p02-v11": "438fa47db91e537b7dc34da8c9a7883b7bb41f20131225b85c73b61c71071281",
+   "deha-p02-v12": "35764c539776f669c69eb3973bed1394cc909d79473af6d291924485e4ec2a10",
+   "deha-p02-v13": "ec18f5916d3483db575c4b720cfdad994f647249e8f1910f227d8c11004ec114",
+   "deha-p02-v14": "22699c07c1530d2d3911e951e4694f73507cd600792e66c30e91e052920fc8d0",
+   "deha-p02-v15": "27b598d9a3a2eed9d88f505964455ca327440caac53886e689963a6cc7dc7f40",
+   "deha-p02-v16": "330a107637351e39262cc565d08c29c9c6cc7b08d46acf39c9401352e02574b9"
+  },
+  "argmap": {
+   "deha-p01-v01": "5ea9919454a24f9297fa2130c0b37a3543722f64a2d8f28bb8780b4865f5c711",
+   "deha-p01-v02": "828d5a48d34b73337f772d2372205bc65bb040a7e9b2414bfce48bc9ccc039e4",
+   "deha-p01-v03": "351c1fdceea0a90d13273030c735d6073adfc64c3a5c0b7ff6777934f582787a",
+   "deha-p01-v04": "cf6f3a60fa6bb24ab9ef6b268e8fb748ed28e9833ad7f5c01912534dcc10a2f5",
+   "deha-p01-v05": "8a02d8863f2a9e768e924023f54e4d172cbe9f88fc984894071ffdfeb24aa1b7",
+   "deha-p01-v06": "d1c61cbc53af793c3a211af86b78fbc181d79153b1dfe807b3ca0710553235c0",
+   "deha-p01-v07": "8cb8411be5b3370525064935452312e5a8dc1118cd0a048852f0a5d5267111b4",
+   "deha-p01-v08": "9f13441d3c1012e17b019ce518e04bd80b80d87717e024cb4cddade42d1f8a9f",
+   "deha-p02-v09": "df0df5b9ecbbb72a74360ed1618f0ea68661bd36175f8f6c0528cda6aeae810e",
+   "deha-p02-v10": "bf18d0db38de3d7eb984962ac17f738259bc9683dde1348b7f5e6d16032e6896",
+   "deha-p02-v11": "ef5954def524a7e5105d7e0bbab352a999f073fcdc91deebe33554df8eb2facf",
+   "deha-p02-v12": "34fb9a536434dab0191b289225f81530a53c3fb4ab2ecf49d90af791231ef48d",
+   "deha-p02-v13": "2ea9dd19dc652fa9e888521cd088c931b88991ec6ab44f7621ba026087401a28",
+   "deha-p02-v14": "e8513df39ae1e62e98f9bf296f9a3c62081ae7f4b4999f7d44801c1c24fbf9dc",
+   "deha-p02-v15": "0c96ecc8f502bf434cd01d8a7e38dc65fb0e3c2ab85bf730913e9c475247a8c7",
+   "deha-p02-v16": "2af9b607a3dd89c8a326a51060ab2676f24711b50fd02d2b50a6966c95be9420"
+  },
+  "l2": {
+   "deha-p01-v01": "4af65bd3c3c84545d8f7954a9cce95cc06aa25c4d6abda9e90139f8d20ed5036",
+   "deha-p01-v02": "422846c79eb285f86982bb02b75e72c358ded1e76013b89c6484989e61716722",
+   "deha-p01-v03": "095fe8cf101365ad4f5ff7c50c266327106fae3fa7d741f70153821743fb7996",
+   "deha-p01-v04": "11e850cb8d91d8730480d75f0f496a110e899e495cd39c7f2d30715ee77438b5",
+   "deha-p01-v05": "6adeb9850a6a980b0f5cb1b6590cab725f9504268767aa62ab58cdb40400ff4d",
+   "deha-p01-v06": "ccbf4456ec424bb450e598ce23d6cf9fa02035e32d8426967b58d32161c67f66",
+   "deha-p01-v07": "3ec1bea544f9819a9633acf97ef4352c31679b22d965552fd7856d7d4e2cd4a9",
+   "deha-p01-v08": "c25cc900c57219662769e78f1c65d6e6c4a7acdc01039e8d6a1ecbeac3887a5e",
+   "deha-p02-v09": "5d4853d8fbac93062c35a926a098daa22d3d3761729356b35182a5173bcc3426",
+   "deha-p02-v10": "dba0bac43b9624e4ff03d787237985e136fb85f8242876145977da26dba83f0d",
+   "deha-p02-v11": "efaaf0136dbcf5193bec113f5b13a6a78e4841a12a07c61283d094e84954404a",
+   "deha-p02-v12": "4b2eb1ee8265cdbd663c660e98e66be0c5e265359920ab193d21691f0814a730",
+   "deha-p02-v13": "6662a1270ea08b5801ba81970710f126355834cb495d2770972281459ec3bade",
+   "deha-p02-v14": "ed7519df89d73bc4355f3fc1615d06b55548a80be61453b13bbc376260871c30",
+   "deha-p02-v15": "8c03870efdb7a5a08c74fca646e7d0aaf704d97054456f003a241ecde22d530e",
+   "deha-p02-v16": "724923fd87588a5c97abcfea5e5bcf37aeb58c460060b152d01d1c75a36d1a35"
+  },
+  "c1": {
+   "deha-p01": "91d5702c9626f3b06f82b0719274aa8596f08d81d14d88f0fcfb69b21bd4ff6c",
+   "deha-p02": "3b08af454eb929207a43817717795b4150b22898d981dc1c3a3d485dbd50e08e"
+  },
+  "l3": {
+   "deha-p01-v01": "ce916964c4e5db875fa108901a9be5349f90f8c34743cf974fc540a59abb2be9",
+   "deha-p01-v02": "72426bf7f818c09dd82e20362197772dc0c6ecfe192b199ed8eaac25f77524d2",
+   "deha-p01-v03": "5b8dd14008a0c3b90215d467c3121857009209cdccd58ef2a21830013464c7e9",
+   "deha-p01-v04": "f3322220d84bc4619bb4cc87b58c9b6b0610b7797a57915f059270d1caafabc1",
+   "deha-p01-v05": "7e4163bca1b09abf9a480cf30f84f440e5f9c7ec878d62e9891c3959fe8b3cdd",
+   "deha-p01-v06": "af6fdaff360f161cd8d2dd8eb0f95d0bfe6daf52094ed1de17137ec7bde0d036",
+   "deha-p01-v07": "30dc64b6474a50e1725b96ad7de6adb515addafb9919e9b2db00a7cbe3689226",
+   "deha-p01-v08": "ba7f7a7cf188f0914a493192e82aea27a442c96a8520249853a10037910dd160",
+   "deha-p02-v09": "fc783f340f73ec476c857c5ab5ab6ef32a7476c2a7f9b0f9788078d6f62d694b",
+   "deha-p02-v10": "5e25210895d0149befd40179a0f01f3677ca85a1891295ae420a2def56b408af",
+   "deha-p02-v11": "bf900495ad36d6d6efa6a9afaea130345ec3b4e38853d290ad079c0db9c6441d",
+   "deha-p02-v12": "b42cb3ed4d262257b3410f65054de68477dde25affcd16b49d747e35c6cb433c",
+   "deha-p02-v13": "6cce3ab24952d93eaa402485b71a2cb0e8e7c2556e080e544780038c248f5fe8",
+   "deha-p02-v14": "c78fe2554f9df221b931b77aaa27e8f7c25a59a1edda5da422ca432e44ada01b",
+   "deha-p02-v15": "1290f81c5de14f28f9e2de0b56ad505883989dea489b6993148f4981c5e9b2ad",
+   "deha-p02-v16": "8d89b5bbe58d4b977899a33e6826b6e0c12e92f59645f1117c21aec43be0da2a"
+  },
+  "l4": {
+   "deha-p01-v01": "8d169861150a00a60bc1c14a5536b1a3baae0eee8eca80314c8663120d344435",
+   "deha-p01-v02": "0f1ee086b9fff7b5a2229f0195a642fe52105acf966c09a91ca532ea9b416404",
+   "deha-p01-v03": "1bcea13fb732006e3e3d5e31f0ad69eafc6dec952c0f331dde338ddc0fc9c163",
+   "deha-p01-v04": "1190212a2d531367619400929958d96ec529d78d1cd4bbe34bc7843151d45982",
+   "deha-p01-v05": "7e4163bca1b09abf9a480cf30f84f440e5f9c7ec878d62e9891c3959fe8b3cdd",
+   "deha-p01-v06": "857ccff0a967a9a665a664f17080016cc6ac2e71137990b9420a6e8a014da9ce",
+   "deha-p01-v07": "933e6f28369d8b6bde1c56849579f3875b99af338edb7b5e2b066fc62645231c",
+   "deha-p01-v08": "ba7f7a7cf188f0914a493192e82aea27a442c96a8520249853a10037910dd160",
+   "deha-p02-v09": "a4ad5892dbaab449fca8e6035f1f0e86ec06991affa277ab182443c0935ceee8",
+   "deha-p02-v10": "3a78fa3aa67534b4fa533f0232997841ffcc9b44c5de2e08731e6a84406b20e8",
+   "deha-p02-v11": "3ad9113b093077c225c47ffe94575472ca49746f11eb376048b761d99cd4332c",
+   "deha-p02-v12": "b42cb3ed4d262257b3410f65054de68477dde25affcd16b49d747e35c6cb433c",
+   "deha-p02-v13": "71532c727e45e01ba96452a9fadc5e25a03672423c0e329e2b22cd5e2fdf8504",
+   "deha-p02-v14": "7d5af4b7293935ec581bb7ebc0136627fe5f68fec4b6162b8e8dc37345a6275e",
+   "deha-p02-v15": "3244d8ac010ead557174377a4004f98094cc7106fd0a71f9c86fb84590944294",
+   "deha-p02-v16": "04f1dbbc41e0506bc49d93af05a3dc7b3f574e3efe7d9eae2ed16d2e0da40b28"
+  },
+  "c2": {}
+ },
+ "versions": [],
+ "essays": [],
+ "reviews": [],
+ "promotions": [],
+ "signoffs": [],
+ "stack_hashes": {
+  "deha-p01": "f0257aceb37787e94a67a5bee4cdcb25e5132901a20159c12e01ba107cd0576a",
+  "deha-p02": "9c12e9e24ab84e4e48688679d769202730b193b1309f499be8351339d08e177d"
+ },
+ "projection_sha256": "f9236f17b1a00c3fbed07a7b40660c3768341b77c48760e75aa06db6dd0956b1"
+}
