@@ -82,6 +82,17 @@ class TestMcp(unittest.TestCase):
             self.assertEqual(content(rs[1]),{'ok':True});self.assertEqual(content(rs[2]),{'ok':True})
             self.assertIn('/api/scholar/published-essays?work=paramarthasara',[x[0] for x in Mock.seen]);self.assertEqual(Mock.seen[-2][1],task);self.assertEqual(Mock.seen[-1][1],refs)
         finally: server.shutdown();server.server_close();t.join()
+    def test_claim_table_links_and_goes_stale(self):
+        text='The verse says "a unique sentence" [A].\n\nI argue this shows recognition [B].'
+        args={'text':text,'refs':[],'source_revs':{'A':'r1','B':'r1'}}
+        rs=run([req(1,'tools/list'),tool(2,'link_claims',args)])
+        self.assertIn('link_claims',[x['name'] for x in rs[0]['result']['tools']])
+        self.assertIn('check_claim_staleness',[x['name'] for x in rs[0]['result']['tools']])
+        rec=content(rs[1]);self.assertEqual(rec['format'],'essay-claim/1')
+        self.assertEqual([c['type'] for c in rec['claims']],['quotation','argument'])
+        stale=content(run([tool(3,'check_claim_staleness',{'record':rec,'text':text+' More.',
+            'source_revs':{'A':'r1','B':'r2'}})])[0])
+        self.assertTrue(stale['essay_stale']);self.assertEqual(stale['stale_links'],1)
     def test_account_api_conflict_and_redirect(self):
         server=ThreadingHTTPServer(('127.0.0.1',0),Mock);t=threading.Thread(target=server.serve_forever,daemon=True);t.start()
         try:
