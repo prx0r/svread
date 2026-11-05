@@ -28,6 +28,8 @@ scarce provenance.
 
 ## Reading order (high level, ~15 minutes)
 
+For the current implementation risks and acceptance criteria, read `REVIEW-AND-IMPLEMENTATION-SPEC-2026-11-05.md` alongside the historic vision snapshots.
+
 1. **`vision/CORE-BIBLE.md`** — one vision in 6 zoomable layers; the derivation
    graph (SOURCE → L0 → L200 AUDIT → ARGUMENT → ESSAY → MEDIA) is literally
    translation-work's directory tree.
