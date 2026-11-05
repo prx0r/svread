@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""audit.py — reasoning-chain gate for drafts. Stdlib only.
+"""audit.py — source and quotation checks for drafts. Stdlib only.
 
-Every claim traceable or refused (adapted from LucaAmerio's lit-review
-non-negotiables + TADDLE's defect taxonomy as a self-gate):
+Checks inspired by LucaAmerio's lit-review non-negotiables and TADDLE's
+defect taxonomy; individual claims are not checked for entailment:
 
 - no chunk cited without a hash check (projection verify)
 - no quote without a verbatim match in a source cited in the same paragraph
