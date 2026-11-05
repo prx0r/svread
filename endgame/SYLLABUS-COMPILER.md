@@ -101,8 +101,9 @@ subgraph of Treeka, not a new store.
   `pilot-inputs/syllabus.json` (matrka-course-v1 skeleton), deitybody VBT
   selections + matrika body map, engine's own `vbt-spacious` as the reference
   implementation, slang editions as narration register. Path: ingest the 65-unit
-  table → unitize/type/gate (no dīkṣā issues in VBT — it's the one canonical
-  practice text built for this) → one dhāraṇā through the imported pipeline →
+   table → unitize/type/gate (VBT eligibility is passage- and lineage-dependent
+   and potentially disputed — a model/keyword classifier cannot grant dīkṣā;
+   default study-only pending qualified review) → one dhāraṇā through the imported pipeline →
   sit-player preview.
   *Done when:* engine preview plays a VBT dhāraṇā from our table with
   span-cited quotes (Sanskrit verse ↔ technique ↔ upāya).

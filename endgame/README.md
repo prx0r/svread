@@ -61,7 +61,8 @@ scarce provenance.
 ## The invariant (never violate)
 
 No rung of the stack ships until it carries **hash + decision/grounds + gate +
-signer-role**. Higher rungs may not be built on unsigned lower rungs. The plan
+signer-role**. Private drafts may cite marked candidates; publication follows
+human authorization + gates. The plan
 that enforces this ordering is `../ENDGAME-BUILD-PLAN.md` (Phase 0 foundation
 integrity → Phase 1 verification → Phase 2 loop closure → Phase 3 autonomy).
 
@@ -69,7 +70,7 @@ integrity → Phase 1 verification → Phase 2 loop closure → Phase 3 autonomy
 
 - `../ENDGAME.md` — the shape, the seven output varieties, use/skip list.
 - `../ENDGAME-BUILD-PLAN.md` — **the granular dev plan; tomorrow's first move
-  is sanskritbench Phase 1 (tau table).**
+  is step 1 openpatala-ize (§0 authoritative; tau pilot runs in parallel).**
 - `../RESOURCES.md` — complete inventory (everything on the box + R2 mirrors).
 - `../SCHOLAR-ENDGAME-SPEC.md` — operational contract (lifecycle, gates, runbook).
 - `../SCHOLAR-ENDGAME-VISION.md` — owner's words, verbatim, plus session log.

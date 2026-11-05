@@ -81,10 +81,7 @@ signature; nothing publishes without it.
 
 ## 4. Immediate next steps (and why)
 
-1. **sanskritbench Phase 1 — the tau table.** Why first: it is the *proof* that
-   our combined metric + gate ranks translations like a human judge better than
-   chrF does. Everything downstream (thresholds, "legit beyond doubt") calibrates
-   against this number. No GPU; free models; logged via run_recorder.
+1. **sanskritbench Phase 1 — the tau table (parallel preparation, NOT first).** §0 is authoritative: openpatala-ize is tomorrow's first move. The tau pilot is a 3×3 smoke test only — model proxy, no human ratings — run in parallel to unblock calibration, never a precondition to identifying sources.
    `python3 pipeline/validate_benchmark.py --n 3 --m 3 --dry-run` → real run.
 2. **Chunk ↔ openpatala bridge.** Why: without it every claim stops at
    "projection + GRETIL note," not at a witness. One mapping file
@@ -100,8 +97,10 @@ signature; nothing publishes without it.
 ## 5. Granular dev plan — pristine data structures from the foundation up
 
 **The invariant (never violate):** no rung ships until it carries
-`hash + decision/grounds + gate + signer-role`. Higher rungs may not exist on
-unsigned lower rungs. This is the ordering law.
+`hash + decision/grounds + gate + signer-role`. Private drafts may cite clearly
+marked candidates (propose path); publication requires gated layers + human
+authorization (publish path). Publish policy, identity, source and review states
+stay separate.
 
 ### Phase 0 — Foundation integrity (data structures first)
 - **0.1 Uniform source record.** Every one of the 86 works gets the tantrasara
