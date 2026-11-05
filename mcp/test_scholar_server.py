@@ -93,6 +93,12 @@ class TestMcp(unittest.TestCase):
         stale=content(run([tool(3,'check_claim_staleness',{'record':rec,'text':text+' More.',
             'source_revs':{'A':'r1','B':'r2'}})])[0])
         self.assertTrue(stale['essay_stale']);self.assertEqual(stale['stale_links'],1)
+    def test_pushback_returns_revision_bound_candidates(self):
+        text='He says "I resort to You" [paramarthasara:param-p01-v01].\n\nAn original argument with no marker at all here.'
+        pb=content(run([tool(1,'pushback',{'text':text,'refs':[{'kind':'chunk','work':'paramarthasara','target':'param-p01-v01'}]})])[0])
+        self.assertEqual(pb['format'],'scholar-pushback/1')
+        cats={i['category'] for i in pb['issues']}
+        self.assertIn('uncited-claim',cats)
     def test_account_api_conflict_and_redirect(self):
         server=ThreadingHTTPServer(('127.0.0.1',0),Mock);t=threading.Thread(target=server.serve_forever,daemon=True);t.start()
         try:

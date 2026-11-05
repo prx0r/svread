@@ -46,7 +46,8 @@ class McpSearchTest(unittest.TestCase):
         self.assertIn("audit_draft", names)
         self.assertIn("link_claims", names)
         self.assertIn("check_claim_staleness", names)
-        self.assertEqual(len(names), 32)
+        self.assertIn("pushback", names)
+        self.assertEqual(len(names), 33)
 
     def test_themes_and_audit_end_to_end(self):
         rs = run([

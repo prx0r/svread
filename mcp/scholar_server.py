@@ -191,6 +191,39 @@ def call(name,a):
             essay_rev=a.get('essay_rev') or '',source_revs=a.get('source_revs') or {})
     if name=='check_claim_staleness':
         return claim_table.check_stale(a.get('record'),a.get('text'),source_revs=a.get('source_revs') or {})
+    if name=='pushback':
+        # Revision-bound candidate issues: failed quotes, uncited paragraphs,
+        # unresolved links. An agent report until a human adopts it; interpretive
+        # disagreement is reviewable, never auto-false.
+        issues = []
+        try:
+            receipt = draft_audit.audit(a.get('text'),refs=a.get('refs'),
+                sources=a.get('sources'),identity='scholar-mcp/pushback')
+            for c in receipt.get('checks', []):
+                if c.get('status') == 'fail':
+                    issues.append({'category': c.get('check'), 'scope': 'same-paragraph sources',
+                                   'reason': c.get('detail'), 'status': 'CANDIDATE'})
+                elif c.get('status') == 'warn':
+                    issues.append({'category': c.get('check'), 'scope': 'whole draft',
+                                   'reason': c.get('detail'), 'status': 'CANDIDATE'})
+        except ValueError as exc:
+            issues.append({'category': 'input', 'scope': 'request',
+                           'reason': str(exc), 'status': 'CANDIDATE'})
+        table = claim_table.link(a.get('text'),refs=a.get('refs'),
+            source_revs=(a.get('sources') or {}).get('revs', {}))
+        for c in table.get('claims', []):
+            if c.get('citation') == 'UNCITED' and len(' '.join(c.get('quotes', [])).split()) > 0:
+                pass
+            if c.get('citation') == 'UNCITED':
+                issues.append({'category': 'uncited-claim', 'scope': f"para {c.get('para')}",
+                               'reason': 'paragraph carries no citation marker', 'status': 'CANDIDATE'})
+            for l in c.get('links', []):
+                if l.get('status') == 'UNRESOLVED':
+                    issues.append({'category': 'unresolved-link', 'scope': f"para {c.get('para')}",
+                                   'reason': f"[{l.get('marker')}] has no recorded source rev",
+                                   'status': 'CANDIDATE'})
+        return {'format': 'scholar-pushback/1', 'issues': issues,
+                'note': 'Candidate issues for author accept/reject/revise/defer. Not entailment, not peer review.'}
     if name in ('resolve_ref','ref_links'):
         if lingua_resolver is None: raise ValueError('Shared-language resolver unavailable')
         ident(a.get('id'))
@@ -234,6 +267,7 @@ TOOLS=[
   ('audit_draft','Check markers and quotes against same-paragraph sources. Supplied sources are not authenticated and claim support is not assessed. Returns a content-hash receipt.',S({'text':T,'refs':{'type':'array','items':{'type':'object'}},'sources':{'type':'object'},'identity':T,'model':T},['text'])),
   ('link_claims','Build a revision-bound claim/evidence table (quotation vs argument per paragraph, cited/uncited, current/unresolved links). No entailment judgment.',S({'text':T,'refs':{'type':'array','items':{'type':'object'}},'essay_rev':T,'source_revs':{'type':'object'}},['text'])),
   ('check_claim_staleness','Re-resolve a stored claim table against current essay text and source revs. Reports essay-stale and stale links; nothing auto-fails.',S({'record':{'type':'object'},'text':T,'source_revs':{'type':'object'}},['record','text'])),
+  ('pushback','Revision-bound candidate issues (failed quotes, uncited paragraphs, unresolved links) for author accept/reject/revise/defer. Agent report, not peer review.',S({'text':T,'refs':{'type':'array','items':{'type':'object'}},'sources':{'type':'object'}},['text'])),
  ('resolve_ref','Resolve any shared-language ID (work/chunk/tension/crux/essay/pack/aoc) to bytes, status and license. Fails closed.',S({'id':T},['id'])),
  ('ref_links','Every ID connected to the given one — tension is the hub, links are verified both directions.',S({'id':T},['id']))]
 
