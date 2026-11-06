@@ -15,6 +15,16 @@ Caller-supplied source text is not independently authenticated. A passing draft
 check does not establish that claims follow, that a person reviewed them, or that
 the receipt is digitally signed; long uncited paragraphs remain warnings.
 
+`link_claims` and `check_claim_staleness` independently resolve declared
+passage markers against available local Scholar projections. A link is
+`CURRENT` only when its recorded projection hash matches that bundled snapshot;
+the hash alone does not establish source authority or the latest online
+version. Missing, withheld, external or unavailable references stay
+`UNRESOLVED`; a changed projection is `STALE`. Caller-provided revision strings
+cannot make a link current. Historical records are rechecked with the same
+rules, and changing essay text marks the essay stale. These statuses are
+advisory and do not grant publication rights or substitute for human review.
+
 Run `python3 -m unittest discover -s mcp -p 'test_*.py' -v` for protocol, real bundled passage, account API conflict and redirect tests. The account service in that test is a local mock; it does not prove a production deployment, Qwen call or Git publication.
 
 Design references: [Bilara](https://github.com/suttacentral/bilara) uses stable segments; [OpenReview](https://github.com/openreview/openreview-py) provides role-scoped reviews; [Weblate](https://docs.weblate.org/en/latest/admin/memory.html) supports per-user translation memory. These inform the workflow; no code was copied from them.

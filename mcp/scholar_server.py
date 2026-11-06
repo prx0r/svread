@@ -47,6 +47,13 @@ def evidence(a, data=None):
             'l4_craft':d.get('l4_craft', {}).get(target, []), 'projection_sha256':d['projection_sha256'],
             'warning':'Bundled snapshot; hashes establish integrity, not philological correctness or human review.'}
 
+def bundled_claim_revision(marker):
+    """Resolve only an actual available passage in the local verified bundle."""
+    match = draft_audit.CHUNK_MARKER_RE.fullmatch(marker)
+    if not match:
+        raise ValueError('Not a bundled passage reference')
+    return evidence({'work': match.group(1), 'target': match.group(2)})['projection_sha256']
+
 def versions(a, include_content=False):
     work, target, layer = a.get('work'), a.get('target'), a.get('layer')
     if layer not in ('t1','l0','argmap','l2','c1','l3','l4','c2'): raise ValueError('Invalid layer')
@@ -188,9 +195,11 @@ def call(name,a):
             identity=a.get('identity') or 'scholar-mcp/audit',model=a.get('model') or '')
     if name=='link_claims':
         return claim_table.link(a.get('text'),refs=a.get('refs'),
-            essay_rev=a.get('essay_rev') or '',source_revs=a.get('source_revs') or {})
+            essay_rev=a.get('essay_rev') or '',source_revs=a.get('source_revs') or {},
+            resolver=bundled_claim_revision)
     if name=='check_claim_staleness':
-        return claim_table.check_stale(a.get('record'),a.get('text'),source_revs=a.get('source_revs') or {})
+        return claim_table.check_stale(a.get('record'),a.get('text'),source_revs=a.get('source_revs') or {},
+            resolver=bundled_claim_revision)
     if name=='pushback':
         # Revision-bound candidate issues: failed quotes, uncited paragraphs,
         # unresolved links. An agent report until a human adopts it; interpretive
@@ -210,7 +219,7 @@ def call(name,a):
             issues.append({'category': 'input', 'scope': 'request',
                            'reason': str(exc), 'status': 'CANDIDATE'})
         table = claim_table.link(a.get('text'),refs=a.get('refs'),
-            source_revs=(a.get('sources') or {}).get('revs', {}))
+            source_revs=(a.get('sources') or {}).get('revs', {}),resolver=bundled_claim_revision)
         for c in table.get('claims', []):
             if c.get('citation') == 'UNCITED' and len(' '.join(c.get('quotes', [])).split()) > 0:
                 pass
@@ -220,7 +229,11 @@ def call(name,a):
             for l in c.get('links', []):
                 if l.get('status') == 'UNRESOLVED':
                     issues.append({'category': 'unresolved-link', 'scope': f"para {c.get('para')}",
-                                   'reason': f"[{l.get('marker')}] has no recorded source rev",
+                                   'reason': f"[{l.get('marker')}] cannot be resolved against an available bundled passage",
+                                   'status': 'CANDIDATE'})
+                elif l.get('status') == 'STALE':
+                    issues.append({'category': 'stale-link', 'scope': f"para {c.get('para')}",
+                                   'reason': f"[{l.get('marker')}] differs from the current bundled projection",
                                    'status': 'CANDIDATE'})
         return {'format': 'scholar-pushback/1', 'issues': issues,
                 'note': 'Candidate issues for author accept/reject/revise/defer. Not entailment, not peer review.'}
@@ -265,8 +278,8 @@ TOOLS=[
  ('search_texts','Semantic search over the gate-labeled corpus (passages, probes, essays, themes). BLOCKED English is never returned.',S({'query':T,'work':T,'kind':T,'top_k':{'type':'integer'},'gates':{'type':'array','items':T}},['query'])),
  ('text_themes','Themes evidence for a work or ref: labels, core claims, certificates, members.',S({'work':T,'ref':T,'query':T})),
   ('audit_draft','Check markers and quotes against same-paragraph sources. Supplied sources are not authenticated and claim support is not assessed. Returns a content-hash receipt.',S({'text':T,'refs':{'type':'array','items':{'type':'object'}},'sources':{'type':'object'},'identity':T,'model':T},['text'])),
-  ('link_claims','Build a revision-bound claim/evidence table (quotation vs argument per paragraph, cited/uncited, current/unresolved links). No entailment judgment.',S({'text':T,'refs':{'type':'array','items':{'type':'object'}},'essay_rev':T,'source_revs':{'type':'object'}},['text'])),
-  ('check_claim_staleness','Re-resolve a stored claim table against current essay text and source revs. Reports essay-stale and stale links; nothing auto-fails.',S({'record':{'type':'object'},'text':T,'source_revs':{'type':'object'}},['record','text'])),
+  ('link_claims','Build a revision-bound claim table. CURRENT means the recorded hash matches a locally verified bundled projection, not textual authority or the latest online version.',S({'text':T,'refs':{'type':'array','items':{'type':'object'}},'essay_rev':T,'source_revs':{'type':'object'}},['text'])),
+  ('check_claim_staleness','Recheck a claim table against the essay and local bundled projections; caller-provided revisions do not establish freshness.',S({'record':{'type':'object'},'text':T,'source_revs':{'type':'object'}},['record','text'])),
   ('pushback','Revision-bound candidate issues (failed quotes, uncited paragraphs, unresolved links) for author accept/reject/revise/defer. Agent report, not peer review.',S({'text':T,'refs':{'type':'array','items':{'type':'object'}},'sources':{'type':'object'}},['text'])),
  ('resolve_ref','Resolve any shared-language ID (work/chunk/tension/crux/essay/pack/aoc) to bytes, status and license. Fails closed.',S({'id':T},['id'])),
  ('ref_links','Every ID connected to the given one — tension is the hub, links are verified both directions.',S({'id':T},['id']))]
