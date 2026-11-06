@@ -36,6 +36,7 @@ class Fixture(unittest.TestCase):
             "NIBBANAHELP_ROOT": str(self.tmp / "nib"),
             "IPVV_ROOT": str(self.tmp / "ipvv"),
             "AOC_ROOT": str(self.tmp / "aoc"),
+            "TRIKA_X_ROOT": str(self.tmp / "trika-x"),
         }
         self.old = {k: os.environ.get(k) for k in self.env}
         os.environ.update(self.env)
@@ -45,11 +46,24 @@ class Fixture(unittest.TestCase):
             mod.NIB = Path(self.env["NIBBANAHELP_ROOT"])
             mod.IPVV = Path(self.env["IPVV_ROOT"])
             mod.AOC = Path(self.env["AOC_ROOT"])
+            mod.TRIKA_X = Path(self.env["TRIKA_X_ROOT"])
         r = self.tmp
         write(r / "tw" / "demo-a01" / "STATUS.json",
               '{"counts": {"passages": 2}}')
         write(r / "tw" / "demo-a01" / "passages.jsonl",
               '{"locator": "d01-p01", "verses": "1.1", "order": 1}\n')
+        write(r / "trika-x" / "formal-trika" / "swarm" / "expansion-demo-essay.md",
+              "# Demo (EXPANSION DRAFT)\n")
+        write(r / "trika-x" / "formal-trika" / "swarm" / "expansion-demo-essay.essay.json",
+              json.dumps({"id": "essay:expansion-demo-essay", "title": "Demo",
+                          "date": "2026-11-06", "chunk": "demo-a01:d01-p01",
+                          "verses": [], "voice": [],
+                          "claims": [{"id": "CLM-001", "text": "demo claim", "tier": "R"}],
+                          "theorems": [], "tracks": ["F7"],
+                          "openpatala": {"mapping_status": "UNMAPPED"},
+                          "status": "MACHINE-COMPILED"}))
+        write(r / "trika-x" / "formal-trika" / "swarm" / "expansion-demo-essay.receipt.json",
+              json.dumps({"essay": "expansion-demo-essay"}))
         write(r / "svread" / "data" / "scholar" / "demo-a01.json",
               '{"work": "demo-a01", "essays": []}')
         write(r / "svread" / "data" / "pushing-catalog.json",
@@ -87,6 +101,7 @@ class Fixture(unittest.TestCase):
         m.NIB = Path(os.environ.get("NIBBANAHELP_ROOT", "/root/nibbanahelp"))
         m.IPVV = Path(os.environ.get("IPVV_ROOT", "/root/ipvv"))
         m.AOC = Path(os.environ.get("AOC_ROOT", "/root/aoc"))
+        m.TRIKA_X = Path(os.environ.get("TRIKA_X_ROOT", "/root/trika-x"))
 
     def test_resolve_each_atom(self):
         self.assertEqual(lingua.resolve("work:demo-a01")["passages"], 1)
@@ -149,6 +164,15 @@ class Fixture(unittest.TestCase):
         for ref in ('work:../nib', 'chunk:../nib:t1', 'work:/tmp', 'work:'):
             with self.subTest(ref=ref), self.assertRaises(Unresolvable):
                 lingua.resolve(ref)
+
+    def test_resolve_expansion_essay(self):
+        e = lingua.resolve("essay:expansion:expansion-demo-essay")
+        self.assertEqual(e["kind"], "expansion")
+        self.assertEqual(e["chunk"], "demo-a01:d01-p01")
+        self.assertEqual(e["tiers"], ["R"])
+        self.assertEqual(e["tracks"], ["F7"])
+        self.assertIn("withheld", e["excerpt"])
+        self.assertEqual(len(e["text_sha256"]), 64)
 
     def test_resolve_fails_closed(self):
         for bad in ("work:nope", "chunk:demo-a01:nope", "tension:ghost",
