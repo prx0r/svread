@@ -20,6 +20,13 @@ def write(p: Path, s: str) -> Path:
     return p
 
 
+def available(*paths: Path) -> bool:
+    try:
+        return all(p.is_file() for p in paths)
+    except OSError:
+        return False
+
+
 class Fixture(unittest.TestCase):
     def setUp(self):
         self.tmp = Path(tempfile.mkdtemp())
@@ -185,12 +192,18 @@ class Fixture(unittest.TestCase):
 class LiveReadOnly(unittest.TestCase):
     """Probes against the real repos. Reads only — fails if repos move."""
 
+    @unittest.skipUnless(available(lingua.TW / 'tantrasara-a01/passages.jsonl'),
+                         'live translation-work checkout unavailable')
     def test_live_chunk_and_work(self):
         c = lingua.resolve("chunk:tantrasara-a01:tsa01-p01")
         self.assertEqual(c["verses"], "1.1-1.5")
         w = lingua.resolve("work:tantrasara-a01")
         self.assertGreaterEqual(w["passages"], 1)
 
+    @unittest.skipUnless(available(lingua.TW / 'vbt/source/record.json',
+                                  lingua.TW / 'tantrasara-a08/source/record.json',
+                                  lingua.TW / 'source-maps/openpatala.json'),
+                         'live OpenPatala source records unavailable')
     def test_openpatala_block_live(self):
         w = lingua.resolve("work:vbt")
         op = w["openpatala"]
@@ -202,6 +215,9 @@ class LiveReadOnly(unittest.TestCase):
         self.assertEqual(t["openpatala"]["openpatala_work_id"],
                          "PTCND_sa_abhinavagupta-tantrasAra")
 
+    @unittest.skipUnless(available(lingua.NIB / 'tensions/debt-1500.md',
+                                  lingua.SVREAD / 'data/pushing-catalog.json'),
+                         'live tensions/catalog unavailable')
     def test_live_tensions_and_cruxes(self):
         t = lingua.resolve("tension:debt-1500")
         self.assertEqual(t["status"], "loosening")
@@ -209,15 +225,19 @@ class LiveReadOnly(unittest.TestCase):
         self.assertIn("tension:debt-1500", ids)
         self.assertTrue(any(x.startswith("crux:") for x in ids))
 
+    @unittest.skipUnless(available(lingua.SVREAD / 'data/scholar/paramarthasara.json'),
+                         'live scholar projection unavailable')
     def test_live_scholar_essay_and_links(self):
         from lingua import load_json
-        d = load_json(Path("/root/svread/data/scholar/paramarthasara.json"))
+        d = load_json(lingua.SVREAD / 'data/scholar/paramarthasara.json')
         eid = d["essays"][0]["essay_id"]
         rec = lingua.resolve(f"essay:scholar:paramarthasara:{eid}")
         self.assertEqual(rec["author"], "Svatantrya Editorial")
         self.assertIn(f"work:paramarthasara",
                       lingua.links(f"essay:scholar:paramarthasara:{eid}"))
 
+    @unittest.skipUnless(available(lingua.AOC / 'receipts/content.jsonl'),
+                         'live AOC receipts unavailable')
     def test_live_aoc_receipt(self):
         rec = lingua.resolve("aoc:aoc_66b19fb4c46b")
         self.assertEqual(rec["template"], "opportunity")
