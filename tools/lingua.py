@@ -79,6 +79,47 @@ def sidecar(root=None) -> dict:
 
 # ---- resolvers: each returns a metadata+hashes record, never private bodies
 
+def _openpatala_block(work: str) -> dict:
+    """OpenPāṭala identity for a workdir. Read-only, never raises.
+
+    Mirrors emit_scholar.source_ref (record sha + mapping status, explicit
+    nulls on gaps). No edition_id: editions are CANDIDATE strings, so only
+    the label travels (or null). Witnesses are not resolved here.
+    """
+    null = {"openpatala_work_id": None, "mapping_status": "UNMAPPED",
+            "record_status": None, "record_sha256": None, "edition_label": None,
+            "note": ""}
+    try:
+        rec_p = TW / work / "source" / "record.json"
+        if not rec_p.is_file():
+            null["note"] = "no uniform source record"
+            return null
+        rec = load_json(rec_p)
+        if not isinstance(rec, dict):
+            null["note"] = "source record unreadable"
+            return null
+        if rec.get("status") != "RECORDED":
+            null["note"] = (f"source record status {rec.get('status')}")
+            return null
+        entry = {}
+        try:
+            entry = (json.loads((TW / "source-maps" / "openpatala.json").read_text(
+                encoding="utf-8")).get("works", {}).get(work, {}) or {})
+        except (OSError, ValueError):
+            pass
+        return {
+            "openpatala_work_id": entry.get("openpatala_work_id"),
+            "mapping_status": entry.get("mapping_status", "UNMAPPED"),
+            "record_status": "RECORDED",
+            "record_sha256": sha_file(rec_p),
+            "edition_label": (rec.get("edition") or {}).get("label"),
+            "note": "uniform source record + openpatala mapping; edition candidate, witness UNKNOWN",
+        }
+    except OSError:
+        null["note"] = "source record unreadable"
+        return null
+
+
 def resolve_work(work: str) -> dict:
     d = TW / work
     if not d.is_dir():
@@ -89,7 +130,8 @@ def resolve_work(work: str) -> dict:
     proj = SVREAD / "data" / "scholar" / f"{work}.json"
     rec = {"atom": "work", "id": f"work:{work}", "work": work,
            "passages": n_pass, "counts": counts,
-           "projection": bool(proj.is_file())}
+           "projection": bool(proj.is_file()),
+           "openpatala": _openpatala_block(work)}
     if proj.is_file():
         rec["projection_sha256"] = sha_file(proj)
     return rec
@@ -116,7 +158,8 @@ def resolve_chunk(work: str, locator: str) -> dict:
             return {"atom": "chunk", "id": f"chunk:{work}:{locator}",
                     "work": work, "locator": locator,
                     "verses": row.get("verses", ""), "order": row.get("order", ""),
-                    "projection": (SVREAD / "data" / "scholar" / f"{work}.json").is_file()}
+                    "projection": (SVREAD / "data" / "scholar" / f"{work}.json").is_file(),
+                    "openpatala": _openpatala_block(work)}
     raise Unresolvable(f"unknown chunk: {work}:{locator}")
 
 

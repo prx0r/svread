@@ -99,6 +99,15 @@ class Fixture(unittest.TestCase):
         a = lingua.resolve("aoc:aoc_x")
         self.assertEqual(a["hook"], "h")
 
+    def test_openpatala_block_null_without_records(self):
+        w = lingua.resolve("work:demo-a01")
+        op = w["openpatala"]
+        self.assertIsNone(op["openpatala_work_id"])
+        self.assertIsNone(op["record_sha256"])
+        self.assertTrue(op["note"])
+        c = lingua.resolve("chunk:demo-a01:d01-p01")
+        self.assertIsNone(c["openpatala"]["openpatala_work_id"])
+
     def test_resolve_fails_closed(self):
         for bad in ("work:nope", "chunk:demo-a01:nope", "tension:ghost",
                     "crux:demo-a01:nope", "essay:personal:essays/nope.md",
@@ -146,6 +155,17 @@ class LiveReadOnly(unittest.TestCase):
         self.assertEqual(c["verses"], "1.1-1.5")
         w = lingua.resolve("work:tantrasara-a01")
         self.assertGreaterEqual(w["passages"], 1)
+
+    def test_openpatala_block_live(self):
+        w = lingua.resolve("work:vbt")
+        op = w["openpatala"]
+        self.assertEqual(op["record_status"], "RECORDED")
+        self.assertEqual(len(op["record_sha256"]), 64)
+        self.assertEqual(op["mapping_status"], "UNMAPPED")
+        t = lingua.resolve("work:tantrasara-a08")
+        self.assertEqual(t["openpatala"]["mapping_status"], "CANDIDATE")
+        self.assertEqual(t["openpatala"]["openpatala_work_id"],
+                         "PTCND_sa_abhinavagupta-tantrasAra")
 
     def test_live_tensions_and_cruxes(self):
         t = lingua.resolve("tension:debt-1500")
