@@ -172,8 +172,8 @@ in this order — each is code, each has a worked example to copy:
    Copy the up() picker + gate pattern in `tools/serve.py`; new endpoint
    or mode, same gates. Acceptance: diarist corrects a tag → decode
    revision committed. (Worked example: day-7 #24 UNMAPPED → ask, don't fill.)
-2. **UNO move vocabulary** (`/tmp/geometricengine`, audited in
-   `/root/GEOMETRICENGINE-AUDIT.md`): 18 functions (UNMAKING/REMAKING/
+2. **UNO move vocabulary** (`/root/geometricengine (github.com/prx0r/geometricengine)`, audited in
+   `endgame/GEOMETRICENGINE-AUDIT.md`): 18 functions (UNMAKING/REMAKING/
    SELF-MAKING/META) + 15 mechanisms + register dims. Adopt the taxonomy
    as the teacher's move set; do NOT adopt its weights (self-consistent
    fiction — documented). Retraining on our transitions is a trajectory-
@@ -199,13 +199,13 @@ bare advice (units, not sentences); every claim carries its receipt
 ## 5 · Publishing (lanes, not factories)
 
 Both factories live and are strict — your job is LANES, never factory code:
-- **bookfactory** (`/tmp/bookfactory`): `factory.py inspect|quote|verify`,
+- **bookfactory** (`/root/bookfactory (github.com/prx0r/bookfactory)`): `factory.py inspect|quote|verify`,
   `check.py` fail-closed, quote-loop (postcard+social, DRAFT watermarked),
   parity lanes first. NEEDS from us: GOLD + GATE.json PASS on the text
   (coordinate with translation-work lane; never hand-copy text —
   entries.json block rule). First lane candidate: VBT cards / stotra
   anthology (small, gated, high-signal).
-- **videofactory** (`/tmp/videofactory`): layer stack + BARS + approvals +
+- **videofactory** (`/root/videofactory (github.com/prx0r/videofactory)`): layer stack + BARS + approvals +
   `PERMISSIONS.md`. NEEDS: `formal:*` refs resolving (Stage 3 output) +
   storyboards + owner approvals. Follow their per-scene review +
   decision-log discipline (adopted from the magnum-opus HITL spec).
@@ -292,11 +292,11 @@ the loop closes, no claiming the model is the mind.
   `TRIKA-X-SEEDS.md` (evidence index), `REQUIREMENTS-FROM-DECODE.md`.
 - Teacher surface: `nibbanahelp/` (relay, gates, `corpus/abhidhamma/`
   vocab+linter+play decodes, `tools/check_factors.py`,
-  `specs/teacher-endgame.md`); UNO engine `/tmp/geometricengine`
-  (audited — see `/root/GEOMETRICENGINE-AUDIT.md`).
-- Publishing: `/tmp/bookfactory`, `/tmp/videofactory` (lanes only).
+  `specs/teacher-endgame.md`); UNO engine `/root/geometricengine (github.com/prx0r/geometricengine)`
+  (audited — see `endgame/GEOMETRICENGINE-AUDIT.md`).
+- Publishing: `/root/bookfactory (github.com/prx0r/bookfactory)`, `/root/videofactory (github.com/prx0r/videofactory)` (lanes only).
 - Practice: `/root/satsang-practice/engine`, `/root/deitybody/{practice,audio}`.
 - Identity: `/root/openpatala` + `trika-x/formal-trika/bridge/`.
 - Source gold: `/root/translation-work/{tantrasara-a07,a08,paramarthasara,phrdaya,vbt,spanda,bhairavastava}/`.
-- Prior art (read-only): `/tmp/hxrmxs-truth-engine` (magnum-opus, TRUTHMAP-ARGUMENT-FABRIC, FATHERFUCKER 6d engine), `/tmp/hxrmxs-corpus` (finale/uno + magnum opus v3), `/root/patalacheckpoints` (education vision, essayguide, anti-theatre, source-resolver).
+- Prior art (read-only): `/root/hxrmxs-truth-engine (github.com/prx0r/hxrmxs-truth-engine)` (magnum-opus, TRUTHMAP-ARGUMENT-FABRIC, FATHERFUCKER 6d engine), `/root/hxrmxs-corpus (github.com/prx0r/hxrmxs-corpus)` (finale/uno + magnum opus v3), `/root/patalacheckpoints` (education vision, essayguide, anti-theatre, source-resolver).
 - Verify-everything commands: Lean harnesses (§1) · `python3 -m pytest tests/` (trika-x) · `bridge_resolve --check` · `table.py --check` · `vocab.py --check` · `evidence_check.py` · `tc1_cooccurrence.py`.
