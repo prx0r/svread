@@ -3,6 +3,7 @@
 plus read-only probes against the live repos (reads only, never writes)."""
 import json
 import os
+import hashlib
 import sys
 import tempfile
 import unittest
@@ -107,6 +108,40 @@ class Fixture(unittest.TestCase):
         self.assertTrue(op["note"])
         c = lingua.resolve("chunk:demo-a01:d01-p01")
         self.assertIsNone(c["openpatala"]["openpatala_work_id"])
+
+    def test_openpatala_input_is_pinned_and_candidate_scope_is_preserved(self):
+        record = write(self.tmp / 'tw/demo-a01/source/record.json', json.dumps({
+            'work': 'demo-a01', 'status': 'RECORDED', 'edition': {'label': 'candidate'}}))
+        mapping = write(self.tmp / 'tw/source-maps/openpatala.json', json.dumps({
+            'works': {'demo-a01': {'work': 'demo-a01', 'mapping_status': 'CANDIDATE',
+                'openpatala_work_id': 'candidate-1', 'scope': 'part', 'language_conflict': True}}}))
+        op = lingua.resolve('work:demo-a01')['openpatala']
+        self.assertEqual(op['record_sha256'], hashlib.sha256(record.read_bytes()).hexdigest())
+        self.assertEqual(op['mapping_sha256'], hashlib.sha256(mapping.read_bytes()).hexdigest())
+        self.assertEqual(op['openpatala_work_id'], 'candidate-1')
+        self.assertEqual(op['scope'], 'part')
+        self.assertTrue(op['language_conflict'])
+        self.assertEqual(lingua.resolve('chunk:demo-a01:d01-p01')['openpatala'], op)
+
+    def test_openpatala_malformed_or_conflicting_data_is_unknown(self):
+        record = self.tmp / 'tw/demo-a01/source/record.json'
+        mapping = self.tmp / 'tw/source-maps/openpatala.json'
+        write(record, json.dumps({'work': 'demo-a01', 'status': 'RECORDED', 'edition': 'bad'}))
+        for bad in ('[]', '{"works": []}', '{"works": {"demo-a01": []}}',
+                    '{"works": {"demo-a01": {"work":"demo-a01", "mapping_status":"CANDIDATE"}}}', '{'):
+            with self.subTest(bad=bad):
+                write(mapping, bad)
+                op = lingua.resolve('work:demo-a01')['openpatala']
+                self.assertEqual(op['mapping_status'], 'UNKNOWN')
+                self.assertIsNone(op['openpatala_work_id'])
+                self.assertIsNone(op['edition_label'])
+        write(record, json.dumps({'work': 'another-work', 'status': 'RECORDED'}))
+        self.assertIsNone(lingua.resolve('work:demo-a01')['openpatala']['record_sha256'])
+
+    def test_work_paths_cannot_escape_translation_root(self):
+        for ref in ('work:../nib', 'chunk:../nib:t1', 'work:/tmp', 'work:'):
+            with self.subTest(ref=ref), self.assertRaises(Unresolvable):
+                lingua.resolve(ref)
 
     def test_resolve_fails_closed(self):
         for bad in ("work:nope", "chunk:demo-a01:nope", "tension:ghost",

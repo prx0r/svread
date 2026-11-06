@@ -86,41 +86,57 @@ def _openpatala_block(work: str) -> dict:
     nulls on gaps). No edition_id: editions are CANDIDATE strings, so only
     the label travels (or null). Witnesses are not resolved here.
     """
-    null = {"openpatala_work_id": None, "mapping_status": "UNMAPPED",
-            "record_status": None, "record_sha256": None, "edition_label": None,
-            "note": ""}
+    result = {"openpatala_work_id": None, "mapping_status": "UNKNOWN",
+              "record_status": None, "record_sha256": None, "edition_label": None,
+              "mapping_sha256": None, "scope": None, "language_conflict": None,
+              "note": ""}
     try:
         rec_p = TW / work / "source" / "record.json"
-        if not rec_p.is_file():
-            null["note"] = "no uniform source record"
-            return null
-        rec = load_json(rec_p)
-        if not isinstance(rec, dict):
-            null["note"] = "source record unreadable"
-            return null
-        if rec.get("status") != "RECORDED":
-            null["note"] = (f"source record status {rec.get('status')}")
-            return null
-        entry = {}
+        raw = rec_p.read_bytes()
+        rec = json.loads(raw)
+        if not isinstance(rec, dict) or rec.get("work") != work:
+            result["note"] = "invalid or mismatched source record"
+            return result
+        result["record_sha256"] = hashlib.sha256(raw).hexdigest()
+        result["record_status"] = rec.get("status") if isinstance(rec.get("status"), str) else None
+        if result["record_status"] != "RECORDED":
+            result["note"] = "source record is not RECORDED; mapping not resolved"
+            return result
+        edition = rec.get("edition")
+        if isinstance(edition, dict) and isinstance(edition.get("label"), str):
+            result["edition_label"] = edition["label"]
         try:
-            entry = (json.loads((TW / "source-maps" / "openpatala.json").read_text(
-                encoding="utf-8")).get("works", {}).get(work, {}) or {})
-        except (OSError, ValueError):
-            pass
-        return {
-            "openpatala_work_id": entry.get("openpatala_work_id"),
-            "mapping_status": entry.get("mapping_status", "UNMAPPED"),
-            "record_status": "RECORDED",
-            "record_sha256": sha_file(rec_p),
-            "edition_label": (rec.get("edition") or {}).get("label"),
-            "note": "uniform source record + openpatala mapping; edition candidate, witness UNKNOWN",
-        }
-    except OSError:
-        null["note"] = "source record unreadable"
-        return null
+            map_raw = (TW / "source-maps" / "openpatala.json").read_bytes()
+            mapping = json.loads(map_raw)
+            works = mapping.get("works") if isinstance(mapping, dict) else None
+            entry = works.get(work) if isinstance(works, dict) else None
+            if not isinstance(entry, dict) or entry.get("work") != work:
+                raise ValueError("missing or mismatched work mapping")
+            status = entry.get("mapping_status")
+            wid = entry.get("openpatala_work_id")
+            if not ((status == "CANDIDATE" and isinstance(wid, str) and wid.strip()) or
+                    (status == "UNMAPPED" and wid is None)):
+                raise ValueError("invalid work mapping")
+            result.update(openpatala_work_id=wid, mapping_status=status,
+                          mapping_sha256=hashlib.sha256(map_raw).hexdigest(),
+                          scope=entry.get("scope"),
+                          language_conflict=entry.get("language_conflict"))
+            result["note"] = "mapping is a candidate or unmapped; edition and witness not verified"
+        except (OSError, ValueError, TypeError):
+            result["note"] = "source record present; work mapping missing or invalid"
+        return result
+    except (OSError, ValueError, TypeError):
+        result["note"] = "source record missing or unreadable"
+        return result
+
+
+def _valid_work(work: str) -> None:
+    if not isinstance(work, str) or not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.-]{0,159}", work):
+        raise Unresolvable(f"bad work: {work!r}")
 
 
 def resolve_work(work: str) -> dict:
+    _valid_work(work)
     d = TW / work
     if not d.is_dir():
         raise Unresolvable(f"unknown work: {work}")
@@ -151,6 +167,7 @@ def _jsonl(p: Path):
 
 
 def resolve_chunk(work: str, locator: str) -> dict:
+    _valid_work(work)
     if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.-]{0,159}", locator or ""):
         raise Unresolvable(f"bad locator: {locator!r}")
     for row in _jsonl(TW / work / "passages.jsonl"):
