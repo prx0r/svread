@@ -135,6 +135,19 @@ def _valid_work(work: str) -> None:
         raise Unresolvable(f"bad work: {work!r}")
 
 
+def _personal_path(path: str, folder: str) -> Path:
+    if not isinstance(path, str):
+        raise Unresolvable('bad personal path')
+    parts = Path(path).parts
+    if len(parts) != 2 or parts[0] != folder or parts[1] in ('.', '..'):
+        raise Unresolvable(f'bad {folder} path: {path!r}')
+    base = (NIB / folder).resolve()
+    candidate = (base / parts[1]).resolve()
+    if candidate.parent != base:
+        raise Unresolvable(f'{folder} path leaves its root')
+    return candidate
+
+
 def resolve_work(work: str) -> dict:
     _valid_work(work)
     d = TW / work
@@ -181,7 +194,9 @@ def resolve_chunk(work: str, locator: str) -> dict:
 
 
 def resolve_tension(tid: str) -> dict:
-    p = NIB / "tensions" / f"{tid}.md"
+    if not isinstance(tid, str) or not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.-]{0,159}', tid):
+        raise Unresolvable(f'bad tension: {tid!r}')
+    p = _personal_path(f'tensions/{tid}.md', 'tensions')
     if not p.is_file():
         raise Unresolvable(f"unknown tension: {tid}")
     h = header(p)
@@ -214,6 +229,7 @@ def resolve_crux(work: str, slug: str) -> dict:
 
 
 def resolve_scholar_essay(work: str, essay_id: str) -> dict:
+    _valid_work(work)
     if not re.fullmatch(r"essay:[a-f0-9]{64}", essay_id or ""):
         raise Unresolvable(f"bad essay id: {essay_id!r}")
     d = load_json(SVREAD / "data" / "scholar" / f"{work}.json")
@@ -235,16 +251,17 @@ def resolve_scholar_essay(work: str, essay_id: str) -> dict:
 
 
 def resolve_personal_essay(path: str) -> dict:
-    p = NIB / path
-    if p.parent.name != "essays" or not p.is_file() or p.name.startswith("_"):
+    p = _personal_path(path, 'essays')
+    if not p.is_file() or p.name.startswith("_"):
         raise Unresolvable(f"not a personal essay: {path}")
     h = header(p)
     rec = {"atom": "essay", "id": f"essay:personal:{path}", "kind": "personal",
-           "title": (body(p).splitlines() or [""])[0].lstrip("# ").strip(),
+           "title": "(withheld: not public)",
            "visibility": h.get("visibility", "private"),
            "resolves": h.get("resolves", "") or "-",
            "file_sha256": sha_file(p)}
     if h.get("visibility") == "public":
+        rec['title'] = (body(p).splitlines() or [''])[0].lstrip('# ').strip()
         rec["excerpt"] = body(p)[:300]
     else:
         rec["excerpt"] = "(withheld: not public)"
@@ -252,9 +269,8 @@ def resolve_personal_essay(path: str) -> dict:
 
 
 def resolve_pack(path: str) -> dict:
-    p = NIB / path
-    if (p.parent.name != "videos" or not p.is_file()
-            or not p.name.endswith(".pack.md")):
+    p = _personal_path(path, 'videos')
+    if not p.is_file() or not p.name.endswith(".pack.md"):
         raise Unresolvable(f"not a video pack: {path}")
     h = header(p)
     ev = [e.strip() for e in h.get("evidence", "-").split(",")
@@ -320,6 +336,8 @@ def _evidence_ids(evidence) -> list:
 
 
 def links(i: str) -> list:
+    # Validate paths before following any edges or reading their headers.
+    resolve(i)
     out = set()
     if i.startswith("tension:"):
         tid = i[len("tension:"):]
@@ -375,8 +393,6 @@ def links(i: str) -> list:
             good.add(j)
         except Unresolvable:
             pass
-    # resolve the source too, so a bad source id errors instead of returning []
-    resolve(i)
     return sorted(good)
 
 

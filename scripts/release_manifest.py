@@ -30,6 +30,8 @@ def build() -> tuple[dict, list[str]]:
                                         'PUSHING-LAB.md', 'PUSHING-NEXT.md', 'PUSHING-RESEARCH.md', 'pushing.html', 'pushing.css', 'pushing-core.js', 'pushing-ui.js')]
     assets += [ROOT / name for name in ('scholar-voice.js', 'scholar-workspace-ui.js', 'SCHOLAR-PRIVACY.md')
                if (ROOT / name).is_file()]
+    # scholar_server imports the shared resolver from tools at runtime.
+    assets += [ROOT / 'tools' / 'lingua.py']
     assets += [p for p in (ROOT / '.github' / 'workflows').glob('*') if p.is_file()]
     assets += [p for folder in ('data', 'align', 'scripts', 'mcp') for p in (ROOT / folder).rglob('*')
                if p.is_file() and p != MANIFEST and '__pycache__' not in p.parts and not p.name.endswith('.pyc')]

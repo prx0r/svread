@@ -12,9 +12,15 @@ test('release check detects changed assets and refuses an invalid Scholar projec
     for(const name of ['.nojekyll','index.html','app.js','styles.css','sw.js','manifest.webmanifest','README.md','SPEC.md','READER-ARCHITECTURE.md',
       'scholar-voice.js','scholar-workspace-ui.js','SCHOLAR-PRIVACY.md','PUSHING-LAB.md','PUSHING-NEXT.md','PUSHING-RESEARCH.md','pushing.html','pushing.css','pushing-core.js','pushing-ui.js','data','align','scripts','mcp'])
       fs.cpSync(path.join(root,name),path.join(tmp,name),{recursive:true});
+    fs.mkdirSync(path.join(tmp,'tools'));
+    fs.copyFileSync(path.join(root,'tools/lingua.py'),path.join(tmp,'tools/lingua.py'));
     if(fs.existsSync(path.join(root,'.github')))fs.cpSync(path.join(root,'.github'),path.join(tmp,'.github'),{recursive:true});
     const check=(...args)=>spawnSync('python3',[path.join(tmp,'scripts/release_manifest.py'),...args],{cwd:tmp,encoding:'utf8'});
     let result=check();assert.equal(result.status,0,result.stderr);
+    const resolver=path.join(tmp,'tools/lingua.py'),resolverBytes=fs.readFileSync(resolver);
+    fs.appendFileSync(resolver,'\n# changed\n');
+    result=check();assert.notEqual(result.status,0);assert.match(result.stderr,/manifest.*stale/);
+    fs.writeFileSync(resolver,resolverBytes);
     fs.appendFileSync(path.join(tmp,'data/bhairavastava.json'),' ');
     result=check();assert.notEqual(result.status,0);assert.match(result.stderr,/manifest.*stale/);
     const index=path.join(tmp,'data/scholar/index.json'),originalIndex=fs.readFileSync(index,'utf8');

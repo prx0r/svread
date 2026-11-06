@@ -172,9 +172,25 @@ class Fixture(unittest.TestCase):
 
     def test_private_essay_body_withheld(self):
         write(self.tmp / "nib" / "essays" / "priv.md",
-              "day: 1\nvisibility: private\nvoice: own\naudio: -\n---\n# P\n\nsecret\n")
+              "day: 1\nvisibility: private\nvoice: own\naudio: -\n---\n# Secret title\n\nsecret\n")
         rec = lingua.resolve("essay:personal:essays/priv.md")
         self.assertEqual(rec["excerpt"], "(withheld: not public)")
+        self.assertNotIn('Secret title', json.dumps(rec))
+
+    def test_personal_paths_cannot_escape_their_roots(self):
+        outside = write(self.tmp / 'outside/essays/leak.md',
+                        'visibility: public\n---\n# Outside\n')
+        symlink = self.tmp / 'nib/essays/link.md'
+        symlink.symlink_to(outside)
+        for ref in ('essay:personal:../outside/essays/leak.md',
+                    f'essay:personal:{outside}', 'essay:personal:essays/link.md',
+                    'tension:../essays/e1', 'pack:../outside/videos/x.pack.md',
+                    'essay:scholar:../outside:essay:' + '0' * 64):
+            with self.subTest(ref=ref):
+                with self.assertRaises(Unresolvable):
+                    lingua.resolve(ref)
+                with self.assertRaises(Unresolvable):
+                    lingua.links(ref)
 
     def test_check_clean_and_broken(self):
         self.assertEqual(lingua.check(), 0)
