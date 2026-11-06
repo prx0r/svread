@@ -79,7 +79,77 @@ def sidecar(root=None) -> dict:
 
 # ---- resolvers: each returns a metadata+hashes record, never private bodies
 
+def _openpatala_block(work: str) -> dict:
+    """OpenPāṭala identity for a workdir. Read-only, never raises.
+
+    Mirrors emit_scholar.source_ref (record sha + mapping status, explicit
+    nulls on gaps). No edition_id: editions are CANDIDATE strings, so only
+    the label travels (or null). Witnesses are not resolved here.
+    """
+    result = {"openpatala_work_id": None, "mapping_status": "UNKNOWN",
+              "record_status": None, "record_sha256": None, "edition_label": None,
+              "mapping_sha256": None, "scope": None, "language_conflict": None,
+              "note": ""}
+    try:
+        rec_p = TW / work / "source" / "record.json"
+        raw = rec_p.read_bytes()
+        rec = json.loads(raw)
+        if not isinstance(rec, dict) or rec.get("work") != work:
+            result["note"] = "invalid or mismatched source record"
+            return result
+        result["record_sha256"] = hashlib.sha256(raw).hexdigest()
+        result["record_status"] = rec.get("status") if isinstance(rec.get("status"), str) else None
+        if result["record_status"] != "RECORDED":
+            result["note"] = "source record is not RECORDED; mapping not resolved"
+            return result
+        edition = rec.get("edition")
+        if isinstance(edition, dict) and isinstance(edition.get("label"), str):
+            result["edition_label"] = edition["label"]
+        try:
+            map_raw = (TW / "source-maps" / "openpatala.json").read_bytes()
+            mapping = json.loads(map_raw)
+            works = mapping.get("works") if isinstance(mapping, dict) else None
+            entry = works.get(work) if isinstance(works, dict) else None
+            if not isinstance(entry, dict) or entry.get("work") != work:
+                raise ValueError("missing or mismatched work mapping")
+            status = entry.get("mapping_status")
+            wid = entry.get("openpatala_work_id")
+            if not ((status == "CANDIDATE" and isinstance(wid, str) and wid.strip()) or
+                    (status == "UNMAPPED" and wid is None)):
+                raise ValueError("invalid work mapping")
+            result.update(openpatala_work_id=wid, mapping_status=status,
+                          mapping_sha256=hashlib.sha256(map_raw).hexdigest(),
+                          scope=entry.get("scope"),
+                          language_conflict=entry.get("language_conflict"))
+            result["note"] = "mapping is a candidate or unmapped; edition and witness not verified"
+        except (OSError, ValueError, TypeError):
+            result["note"] = "source record present; work mapping missing or invalid"
+        return result
+    except (OSError, ValueError, TypeError):
+        result["note"] = "source record missing or unreadable"
+        return result
+
+
+def _valid_work(work: str) -> None:
+    if not isinstance(work, str) or not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.-]{0,159}", work):
+        raise Unresolvable(f"bad work: {work!r}")
+
+
+def _personal_path(path: str, folder: str) -> Path:
+    if not isinstance(path, str):
+        raise Unresolvable('bad personal path')
+    parts = Path(path).parts
+    if len(parts) != 2 or parts[0] != folder or parts[1] in ('.', '..'):
+        raise Unresolvable(f'bad {folder} path: {path!r}')
+    base = (NIB / folder).resolve()
+    candidate = (base / parts[1]).resolve()
+    if candidate.parent != base:
+        raise Unresolvable(f'{folder} path leaves its root')
+    return candidate
+
+
 def resolve_work(work: str) -> dict:
+    _valid_work(work)
     d = TW / work
     if not d.is_dir():
         raise Unresolvable(f"unknown work: {work}")
@@ -89,7 +159,8 @@ def resolve_work(work: str) -> dict:
     proj = SVREAD / "data" / "scholar" / f"{work}.json"
     rec = {"atom": "work", "id": f"work:{work}", "work": work,
            "passages": n_pass, "counts": counts,
-           "projection": bool(proj.is_file())}
+           "projection": bool(proj.is_file()),
+           "openpatala": _openpatala_block(work)}
     if proj.is_file():
         rec["projection_sha256"] = sha_file(proj)
     return rec
@@ -109,6 +180,7 @@ def _jsonl(p: Path):
 
 
 def resolve_chunk(work: str, locator: str) -> dict:
+    _valid_work(work)
     if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.-]{0,159}", locator or ""):
         raise Unresolvable(f"bad locator: {locator!r}")
     for row in _jsonl(TW / work / "passages.jsonl"):
@@ -116,12 +188,15 @@ def resolve_chunk(work: str, locator: str) -> dict:
             return {"atom": "chunk", "id": f"chunk:{work}:{locator}",
                     "work": work, "locator": locator,
                     "verses": row.get("verses", ""), "order": row.get("order", ""),
-                    "projection": (SVREAD / "data" / "scholar" / f"{work}.json").is_file()}
+                    "projection": (SVREAD / "data" / "scholar" / f"{work}.json").is_file(),
+                    "openpatala": _openpatala_block(work)}
     raise Unresolvable(f"unknown chunk: {work}:{locator}")
 
 
 def resolve_tension(tid: str) -> dict:
-    p = NIB / "tensions" / f"{tid}.md"
+    if not isinstance(tid, str) or not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.-]{0,159}', tid):
+        raise Unresolvable(f'bad tension: {tid!r}')
+    p = _personal_path(f'tensions/{tid}.md', 'tensions')
     if not p.is_file():
         raise Unresolvable(f"unknown tension: {tid}")
     h = header(p)
@@ -154,6 +229,7 @@ def resolve_crux(work: str, slug: str) -> dict:
 
 
 def resolve_scholar_essay(work: str, essay_id: str) -> dict:
+    _valid_work(work)
     if not re.fullmatch(r"essay:[a-f0-9]{64}", essay_id or ""):
         raise Unresolvable(f"bad essay id: {essay_id!r}")
     d = load_json(SVREAD / "data" / "scholar" / f"{work}.json")
@@ -175,16 +251,17 @@ def resolve_scholar_essay(work: str, essay_id: str) -> dict:
 
 
 def resolve_personal_essay(path: str) -> dict:
-    p = NIB / path
-    if p.parent.name != "essays" or not p.is_file() or p.name.startswith("_"):
+    p = _personal_path(path, 'essays')
+    if not p.is_file() or p.name.startswith("_"):
         raise Unresolvable(f"not a personal essay: {path}")
     h = header(p)
     rec = {"atom": "essay", "id": f"essay:personal:{path}", "kind": "personal",
-           "title": (body(p).splitlines() or [""])[0].lstrip("# ").strip(),
+           "title": "(withheld: not public)",
            "visibility": h.get("visibility", "private"),
            "resolves": h.get("resolves", "") or "-",
            "file_sha256": sha_file(p)}
     if h.get("visibility") == "public":
+        rec['title'] = (body(p).splitlines() or [''])[0].lstrip('# ').strip()
         rec["excerpt"] = body(p)[:300]
     else:
         rec["excerpt"] = "(withheld: not public)"
@@ -192,9 +269,8 @@ def resolve_personal_essay(path: str) -> dict:
 
 
 def resolve_pack(path: str) -> dict:
-    p = NIB / path
-    if (p.parent.name != "videos" or not p.is_file()
-            or not p.name.endswith(".pack.md")):
+    p = _personal_path(path, 'videos')
+    if not p.is_file() or not p.name.endswith(".pack.md"):
         raise Unresolvable(f"not a video pack: {path}")
     h = header(p)
     ev = [e.strip() for e in h.get("evidence", "-").split(",")
@@ -260,6 +336,8 @@ def _evidence_ids(evidence) -> list:
 
 
 def links(i: str) -> list:
+    # Validate paths before following any edges or reading their headers.
+    resolve(i)
     out = set()
     if i.startswith("tension:"):
         tid = i[len("tension:"):]
@@ -315,8 +393,6 @@ def links(i: str) -> list:
             good.add(j)
         except Unresolvable:
             pass
-    # resolve the source too, so a bad source id errors instead of returning []
-    resolve(i)
     return sorted(good)
 
 

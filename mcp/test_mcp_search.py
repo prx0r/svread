@@ -53,6 +53,16 @@ class McpSearchTest(unittest.TestCase):
         (tensions / 'debt-1500.md').write_text('id: debt-1500\nstatus: loosening\nvisibility: public\n---\nSynthetic fixture.\n')
         works = root / 'translation-work/bodhapancadasika'
         works.mkdir(parents=True)
+        (works / 'passages.jsonl').write_text('{"locator":"bd-p01","verses":"1"}\n')
+        (works / 'source').mkdir()
+        (works / 'source/record.json').write_text(json.dumps({
+            'work': 'bodhapancadasika', 'status': 'RECORDED',
+            'edition': {'label': 'synthetic candidate'}}))
+        maps = root / 'translation-work/source-maps'
+        maps.mkdir()
+        (maps / 'openpatala.json').write_text(json.dumps({'works': {
+            'bodhapancadasika': {'work': 'bodhapancadasika', 'mapping_status': 'CANDIDATE',
+                'openpatala_work_id': 'candidate-1', 'scope': 'part', 'language_conflict': True}}}))
         catalog = root / 'svread/data'
         catalog.mkdir(parents=True)
         (catalog / 'pushing-catalog.json').write_text(json.dumps({'records':[{
@@ -103,6 +113,19 @@ class McpSearchTest(unittest.TestCase):
         self.assertEqual(content(rs[0])["status"], "loosening")
         self.assertIn("work:bodhapancadasika", content(rs[1])["links"])
         self.assertTrue(rs[2]["result"]["isError"])
+
+    def test_openpatala_identity_through_mcp(self):
+        rs = run([
+            tool(1, 'resolve_ref', {'id': 'work:bodhapancadasika'}),
+            tool(2, 'resolve_ref', {'id': 'chunk:bodhapancadasika:bd-p01'}),
+            tool(3, 'resolve_ref', {'id': 'work:../nibbanahelp'}),
+        ], env=self.env)
+        a, b = content(rs[0])['openpatala'], content(rs[1])['openpatala']
+        self.assertEqual(a, b)
+        self.assertEqual(a['mapping_status'], 'CANDIDATE')
+        self.assertEqual(len(a['mapping_sha256']), 64)
+        self.assertTrue(a['language_conflict'])
+        self.assertTrue(rs[2]['result']['isError'])
 
 
 if __name__ == "__main__":

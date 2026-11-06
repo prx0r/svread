@@ -3,6 +3,7 @@
 plus read-only probes against the live repos (reads only, never writes)."""
 import json
 import os
+import hashlib
 import sys
 import tempfile
 import unittest
@@ -17,6 +18,13 @@ def write(p: Path, s: str) -> Path:
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(s)
     return p
+
+
+def available(*paths: Path) -> bool:
+    try:
+        return all(p.is_file() for p in paths)
+    except OSError:
+        return False
 
 
 class Fixture(unittest.TestCase):
@@ -99,6 +107,49 @@ class Fixture(unittest.TestCase):
         a = lingua.resolve("aoc:aoc_x")
         self.assertEqual(a["hook"], "h")
 
+    def test_openpatala_block_null_without_records(self):
+        w = lingua.resolve("work:demo-a01")
+        op = w["openpatala"]
+        self.assertIsNone(op["openpatala_work_id"])
+        self.assertIsNone(op["record_sha256"])
+        self.assertTrue(op["note"])
+        c = lingua.resolve("chunk:demo-a01:d01-p01")
+        self.assertIsNone(c["openpatala"]["openpatala_work_id"])
+
+    def test_openpatala_input_is_pinned_and_candidate_scope_is_preserved(self):
+        record = write(self.tmp / 'tw/demo-a01/source/record.json', json.dumps({
+            'work': 'demo-a01', 'status': 'RECORDED', 'edition': {'label': 'candidate'}}))
+        mapping = write(self.tmp / 'tw/source-maps/openpatala.json', json.dumps({
+            'works': {'demo-a01': {'work': 'demo-a01', 'mapping_status': 'CANDIDATE',
+                'openpatala_work_id': 'candidate-1', 'scope': 'part', 'language_conflict': True}}}))
+        op = lingua.resolve('work:demo-a01')['openpatala']
+        self.assertEqual(op['record_sha256'], hashlib.sha256(record.read_bytes()).hexdigest())
+        self.assertEqual(op['mapping_sha256'], hashlib.sha256(mapping.read_bytes()).hexdigest())
+        self.assertEqual(op['openpatala_work_id'], 'candidate-1')
+        self.assertEqual(op['scope'], 'part')
+        self.assertTrue(op['language_conflict'])
+        self.assertEqual(lingua.resolve('chunk:demo-a01:d01-p01')['openpatala'], op)
+
+    def test_openpatala_malformed_or_conflicting_data_is_unknown(self):
+        record = self.tmp / 'tw/demo-a01/source/record.json'
+        mapping = self.tmp / 'tw/source-maps/openpatala.json'
+        write(record, json.dumps({'work': 'demo-a01', 'status': 'RECORDED', 'edition': 'bad'}))
+        for bad in ('[]', '{"works": []}', '{"works": {"demo-a01": []}}',
+                    '{"works": {"demo-a01": {"work":"demo-a01", "mapping_status":"CANDIDATE"}}}', '{'):
+            with self.subTest(bad=bad):
+                write(mapping, bad)
+                op = lingua.resolve('work:demo-a01')['openpatala']
+                self.assertEqual(op['mapping_status'], 'UNKNOWN')
+                self.assertIsNone(op['openpatala_work_id'])
+                self.assertIsNone(op['edition_label'])
+        write(record, json.dumps({'work': 'another-work', 'status': 'RECORDED'}))
+        self.assertIsNone(lingua.resolve('work:demo-a01')['openpatala']['record_sha256'])
+
+    def test_work_paths_cannot_escape_translation_root(self):
+        for ref in ('work:../nib', 'chunk:../nib:t1', 'work:/tmp', 'work:'):
+            with self.subTest(ref=ref), self.assertRaises(Unresolvable):
+                lingua.resolve(ref)
+
     def test_resolve_fails_closed(self):
         for bad in ("work:nope", "chunk:demo-a01:nope", "tension:ghost",
                     "crux:demo-a01:nope", "essay:personal:essays/nope.md",
@@ -121,9 +172,25 @@ class Fixture(unittest.TestCase):
 
     def test_private_essay_body_withheld(self):
         write(self.tmp / "nib" / "essays" / "priv.md",
-              "day: 1\nvisibility: private\nvoice: own\naudio: -\n---\n# P\n\nsecret\n")
+              "day: 1\nvisibility: private\nvoice: own\naudio: -\n---\n# Secret title\n\nsecret\n")
         rec = lingua.resolve("essay:personal:essays/priv.md")
         self.assertEqual(rec["excerpt"], "(withheld: not public)")
+        self.assertNotIn('Secret title', json.dumps(rec))
+
+    def test_personal_paths_cannot_escape_their_roots(self):
+        outside = write(self.tmp / 'outside/essays/leak.md',
+                        'visibility: public\n---\n# Outside\n')
+        symlink = self.tmp / 'nib/essays/link.md'
+        symlink.symlink_to(outside)
+        for ref in ('essay:personal:../outside/essays/leak.md',
+                    f'essay:personal:{outside}', 'essay:personal:essays/link.md',
+                    'tension:../essays/e1', 'pack:../outside/videos/x.pack.md',
+                    'essay:scholar:../outside:essay:' + '0' * 64):
+            with self.subTest(ref=ref):
+                with self.assertRaises(Unresolvable):
+                    lingua.resolve(ref)
+                with self.assertRaises(Unresolvable):
+                    lingua.links(ref)
 
     def test_check_clean_and_broken(self):
         self.assertEqual(lingua.check(), 0)
@@ -141,12 +208,32 @@ class Fixture(unittest.TestCase):
 class LiveReadOnly(unittest.TestCase):
     """Probes against the real repos. Reads only — fails if repos move."""
 
+    @unittest.skipUnless(available(lingua.TW / 'tantrasara-a01/passages.jsonl'),
+                         'live translation-work checkout unavailable')
     def test_live_chunk_and_work(self):
         c = lingua.resolve("chunk:tantrasara-a01:tsa01-p01")
         self.assertEqual(c["verses"], "1.1-1.5")
         w = lingua.resolve("work:tantrasara-a01")
         self.assertGreaterEqual(w["passages"], 1)
 
+    @unittest.skipUnless(available(lingua.TW / 'vbt/source/record.json',
+                                  lingua.TW / 'tantrasara-a08/source/record.json',
+                                  lingua.TW / 'source-maps/openpatala.json'),
+                         'live OpenPatala source records unavailable')
+    def test_openpatala_block_live(self):
+        w = lingua.resolve("work:vbt")
+        op = w["openpatala"]
+        self.assertEqual(op["record_status"], "RECORDED")
+        self.assertEqual(len(op["record_sha256"]), 64)
+        self.assertEqual(op["mapping_status"], "UNMAPPED")
+        t = lingua.resolve("work:tantrasara-a08")
+        self.assertEqual(t["openpatala"]["mapping_status"], "CANDIDATE")
+        self.assertEqual(t["openpatala"]["openpatala_work_id"],
+                         "PTCND_sa_abhinavagupta-tantrasAra")
+
+    @unittest.skipUnless(available(lingua.NIB / 'tensions/debt-1500.md',
+                                  lingua.SVREAD / 'data/pushing-catalog.json'),
+                         'live tensions/catalog unavailable')
     def test_live_tensions_and_cruxes(self):
         t = lingua.resolve("tension:debt-1500")
         self.assertEqual(t["status"], "loosening")
@@ -154,15 +241,19 @@ class LiveReadOnly(unittest.TestCase):
         self.assertIn("tension:debt-1500", ids)
         self.assertTrue(any(x.startswith("crux:") for x in ids))
 
+    @unittest.skipUnless(available(lingua.SVREAD / 'data/scholar/paramarthasara.json'),
+                         'live scholar projection unavailable')
     def test_live_scholar_essay_and_links(self):
         from lingua import load_json
-        d = load_json(Path("/root/svread/data/scholar/paramarthasara.json"))
+        d = load_json(lingua.SVREAD / 'data/scholar/paramarthasara.json')
         eid = d["essays"][0]["essay_id"]
         rec = lingua.resolve(f"essay:scholar:paramarthasara:{eid}")
         self.assertEqual(rec["author"], "Svatantrya Editorial")
         self.assertIn(f"work:paramarthasara",
                       lingua.links(f"essay:scholar:paramarthasara:{eid}"))
 
+    @unittest.skipUnless(available(lingua.AOC / 'receipts/content.jsonl'),
+                         'live AOC receipts unavailable')
     def test_live_aoc_receipt(self):
         rec = lingua.resolve("aoc:aoc_66b19fb4c46b")
         self.assertEqual(rec["template"], "opportunity")
