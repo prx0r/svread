@@ -1,6 +1,12 @@
 # REALISTIC PATH — Trika only, buildable now, no training
 
-**Date:** 2026-11-06. **Constraints (owner-set):** Trika materials only.
+**Date:** 2026-11-06. **Updated:** 2026-11-06 with post-merge state.
+**Status:** Stage 1 done (PR #2 + #3 merged, PR #8 merged), Stage 3 partially
+done (crux-01 walked, claims resolver shipped), Stages 2/4/5 in progress.
+Stage 3 now has server-side claim-freshness resolution (PR #8, svread):
+`link_claims` / `check_claim_staleness` resolve markers against bundled
+projection snapshots; caller-provided hashes are historical only, never
+proof of freshness. See `mcp/claims.py` + `mcp/README.md` for the contract.
 No model training of any kind (rules, `decide`, retrieval over existing
 embeddings, and human judgment only). Every stage shippable on its own;
 each states its exit gate. This doc reconciles: ENDGAME.md + BUILD-PLAN
@@ -73,11 +79,15 @@ openpatala is the root of identity; both resolve per claim.
    (which premises are Lean-checked); PUSHBACK gains the three formal
    issues (scope overreach, content-boundary crossing, R-as-T). This is
    the review-compiler v2, minus Bayesian parts (deliberately rejected).
+   **Shipped:** PR #8 (svread) — server-side claim-freshness resolver
+   (`link_claims` / `check_claim_staleness`) against bundled projections;
+   caller hashes are history, not proof. 19/19 tests pass.
 7. **Crux queue from gaps**: Treeka gap report + pushing catalog → ranked
    queue (RIVAL-open + formalizable first). Manual ranking initially;
    no scorer to calibrate.
 *Exit:* one crux walked end-to-end (chunk → formal → argument → essay
 draft with audit receipt). *Cost:* wiring + one worked example.
+**Done:** CRUX-WALKTHROUGH-01 (rāga↔lobha) on trika-x branch, PR #3 merged.
 
 ### Stage 4 — Teach v0, text only (nibbanahelp lane)
 8. **Read-your-week**: relay + decode readout + `?`-as-questions, per the
