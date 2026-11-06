@@ -8,7 +8,7 @@
 
 ID grammar (see TENSIONS-LINGUA-SPEC.md): work:<work> | chunk:<work>:<locator>
 | tension:<id> | crux:<work>:<slug> | essay:scholar:<work>:<essay_id>
-| essay:personal:<path> | pack:<path> | aoc:<content_id>
+| essay:personal:<path> | essay:expansion:<slug> | pack:<path> | aoc:<content_id>
 
 Roots come from env (SVREAD_ROOT, TRANSLATION_WORK_ROOT, NIBBANAHELP_ROOT,
 IPVV_ROOT, AOC_ROOT) so tests run on fixture trees. No writes, no network,
@@ -26,6 +26,7 @@ TW = Path(os.environ.get("TRANSLATION_WORK_ROOT", "/root/translation-work"))
 NIB = Path(os.environ.get("NIBBANAHELP_ROOT", "/root/nibbanahelp"))
 IPVV = Path(os.environ.get("IPVV_ROOT", "/root/ipvv"))
 AOC = Path(os.environ.get("AOC_ROOT", "/root/aoc"))
+TRIKA_X = Path(os.environ.get("TRIKA_X_ROOT", "/root/trika-x"))
 
 HEADER_KEYS = ("day", "visibility", "voice", "audio", "resolves",
                "id", "status", "diarist", "opened", "domain", "roots",
@@ -250,6 +251,35 @@ def resolve_scholar_essay(work: str, essay_id: str) -> dict:
     raise Unresolvable(f"unknown scholar essay: {work}:{essay_id}")
 
 
+def resolve_expansion_essay(slug: str) -> dict:
+    """Machine-compiled expansion draft (trika-x swarm). Metadata only.
+
+    Body withheld (draft under review; owner voice inside). Exposes claim
+    counts, tiers present, tracks, chunk, openpatala block, and review
+    status — enough to route peer review without excerpting prose.
+    """
+    if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.:-]{0,159}", slug or ""):
+        raise Unresolvable(f"bad expansion slug: {slug!r}")
+    base = TRIKA_X / "formal-trika" / "swarm" / slug
+    md, ej, rcp = (base.with_suffix(x) for x in (".md", ".essay.json", ".receipt.json"))
+    if not md.is_file() or not ej.is_file():
+        raise Unresolvable(f"not an expansion essay: {slug}")
+    try:
+        doc = json.loads(ej.read_text(encoding="utf-8"))
+    except ValueError:
+        raise Unresolvable(f"unreadable essay record: {slug}")
+    tiers = sorted({c.get("tier") for c in doc.get("claims", []) if c.get("tier")})
+    return {"atom": "essay", "id": f"essay:expansion:{slug}", "kind": "expansion",
+            "title": doc.get("title", slug), "chunk": doc.get("chunk", ""),
+            "verses": doc.get("verses", []), "tracks": doc.get("tracks", []),
+            "claims": len(doc.get("claims", [])), "tiers": tiers,
+            "theorems": [t.get("name") for t in doc.get("theorems", [])],
+            "status": doc.get("status", ""), "excerpt": "(withheld: draft under review)",
+            "text_sha256": sha_file(md),
+            "openpatala": (json.loads(rcp.read_text(encoding="utf-8")).get("openpatala")
+                           if rcp.is_file() else None)}
+
+
 def resolve_personal_essay(path: str) -> dict:
     p = _personal_path(path, 'essays')
     if not p.is_file() or p.name.startswith("_"):
@@ -297,6 +327,8 @@ def resolve_aoc(content_id: str) -> dict:
 
 
 def resolve(i: str) -> dict:
+    if i.startswith("essay:expansion:"):
+        return resolve_expansion_essay(i[len("essay:expansion:"):])
     if i.startswith("essay:scholar:"):
         rest = i[len("essay:scholar:"):]
         work, _, eid = rest.partition(":")
