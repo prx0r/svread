@@ -28,7 +28,7 @@ def build() -> tuple[dict, list[str]]:
     assets = [ROOT / name for name in ('.nojekyll', 'index.html', 'app.js', 'styles.css', 'sw.js',
                                         'manifest.webmanifest', 'README.md', 'SPEC.md', 'READER-ARCHITECTURE.md',
                                         'PUSHING-LAB.md', 'PUSHING-NEXT.md', 'PUSHING-RESEARCH.md', 'pushing.html', 'pushing.css', 'pushing-core.js', 'pushing-ui.js')]
-    assets += [ROOT / name for name in ('scholar-voice.js', 'scholar-workspace-ui.js', 'SCHOLAR-PRIVACY.md')
+    assets += [ROOT / name for name in ('scholar-voice.js', 'scholar-media.js', 'scholar-workspace-ui.js', 'SCHOLAR-PRIVACY.md')
                if (ROOT / name).is_file()]
     assets += [p for p in (ROOT / '.github' / 'workflows').glob('*') if p.is_file()]
     assets += [p for folder in ('data', 'align', 'scripts', 'mcp') for p in (ROOT / folder).rglob('*')

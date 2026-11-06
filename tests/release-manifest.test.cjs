@@ -10,7 +10,7 @@ test('release check detects changed assets and refuses an invalid Scholar projec
   const root=path.join(__dirname,'..'),tmp=fs.mkdtempSync(path.join(os.tmpdir(),'svread-release-'));
   try{
     for(const name of ['.nojekyll','index.html','app.js','styles.css','sw.js','manifest.webmanifest','README.md','SPEC.md','READER-ARCHITECTURE.md',
-      'scholar-voice.js','scholar-workspace-ui.js','SCHOLAR-PRIVACY.md','PUSHING-LAB.md','PUSHING-NEXT.md','PUSHING-RESEARCH.md','pushing.html','pushing.css','pushing-core.js','pushing-ui.js','data','align','scripts','mcp'])
+      'scholar-voice.js','scholar-media.js','scholar-workspace-ui.js','SCHOLAR-PRIVACY.md','PUSHING-LAB.md','PUSHING-NEXT.md','PUSHING-RESEARCH.md','pushing.html','pushing.css','pushing-core.js','pushing-ui.js','data','align','scripts','mcp'])
       fs.cpSync(path.join(root,name),path.join(tmp,name),{recursive:true});
     if(fs.existsSync(path.join(root,'.github')))fs.cpSync(path.join(root,'.github'),path.join(tmp,'.github'),{recursive:true});
     const check=(...args)=>spawnSync('python3',[path.join(tmp,'scripts/release_manifest.py'),...args],{cwd:tmp,encoding:'utf8'});

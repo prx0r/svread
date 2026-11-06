@@ -66,3 +66,15 @@ SQLite with two test accounts. Both use a local static site and mock external
 Qwen access. The tests do not establish production credentials, Cloudflare D1
 migrations, real provider usage, microphone permissions or deployment. They skip
 when the optional browser and Worker paths are not supplied.
+
+## Book and video drafts
+
+The Scholar essay panel can download a `scholar-media/1` packet from the exact
+saved revision. It stays on the device until you choose what to do with it;
+no speech provider or public storage is contacted by this button. The packet
+contains the full essay and its attached references, so treat it as a private
+copy. The local bookfactory runner can turn it into a draft book proof,
+narrated video and captions; that runner does not publish either. The hashes
+record consistency, not author identity, consent to public distribution or
+independent review. If the account or saved essay changes during preparation,
+the download is refused and must be started again.

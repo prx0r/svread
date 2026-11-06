@@ -60,8 +60,9 @@
     }
     async flush(id){
       const state=this.docs.get(id),uid=this.profile()?.id;if(!state||!uid)throw new Error('Sign in and save a draft first.');
+      const stillOwner=()=>{if(this.profile()?.id!==uid||this.docs.get(id)!==state)throw new Error('Account changed; reopen the workspace.');};
       if(state.deleting)return state.data;
-      if(state.inflight){await state.inflight;if(state.dirty)return this.flush(id);return state.data;}
+      if(state.inflight){await state.inflight;stillOwner();if(state.dirty)return this.flush(id);return state.data;}
       if(!state.dirty)return state.data;
       const data=JSON.parse(JSON.stringify(state.data));
       state.inflight=this.request('/api/scholar/documents/'+encodeURIComponent(id),'PUT',{...data,expected_revision:state.revision})
@@ -70,7 +71,7 @@
             try{localStorage.removeItem(`svv-private-${uid}-${id}`);}catch{}}
           else try{localStorage.setItem(`svv-private-${uid}-${id}`,JSON.stringify({base_revision:state.revision,data:state.data}));}catch{}
           this.status('Saved privately to your account.');}).finally(()=>{state.inflight=null;});
-      await state.inflight;if(state.dirty)return this.flush(id);return state.data;
+      await state.inflight;stillOwner();if(state.dirty)return this.flush(id);return state.data;
     }
     document(id){return this.docs.get(id)?.data||null;}
     attach({container,textarea,target,layer,baseHash,parent}){
@@ -110,7 +111,8 @@
         <label>Private passage notes<textarea id="workspace-note" rows="3">${e(note)}</textarea></label>
         <details><summary>Essay</summary><div class="cmp-note"><a class="redlink" href="pushing.html?work=${encodeURIComponent(this.work)}&amp;target=${encodeURIComponent(target)}">Push an essay or question in Pushing Lab ↗</a></div><select id="workspace-essay"><option value="">Choose an essay</option>${essays.map(x=>`<option value="${e(x.id)}"${x.id===this.essayId?' selected':''}>${e(x.title||'Untitled')}</option>`).join('')}</select>
           <button class="c2btn" id="workspace-new">New essay</button><input id="workspace-title" placeholder="Title" value="${e(essay?.title||'')}"/><textarea id="workspace-text" rows="6">${e(essay?.content?.text||'')}</textarea>
-          ${(essay?.content?.citations||[]).length?`<div class="cmp-note">Passage references that will be included if this essay is submitted:</div>${essay.content.citations.map((c,i)=>`<div class="cmp-note">${e(c.work)} · ${e(c.target)} · T1 ${e((c.t1_sha256||'').slice(0,12))} <button class="c2btn workspace-citation-remove" data-index="${i}">Remove reference</button></div>`).join('')}`:''}</details>
+          ${(essay?.content?.citations||[]).length?`<div class="cmp-note">Passage references that will be included if this essay is submitted:</div>${essay.content.citations.map((c,i)=>`<div class="cmp-note">${e(c.work)} · ${e(c.target)} · T1 ${e((c.t1_sha256||'').slice(0,12))} <button class="c2btn workspace-citation-remove" data-index="${i}">Remove reference</button></div>`).join('')}`:''}
+          <button class="c2btn" id="workspace-media">Prepare video and book</button><div class="cmp-note">Downloads a private packet from the saved revision. The local bookfactory runner makes the narrated video, captions and book proof; nothing is uploaded or published.</div></details>
         <details${history?' open':''}><summary>Private revision history</summary>
           <select id="workspace-history-kind"><option value="translation"${history?.id!==this.essayId?' selected':''}>Current translation</option><option value="essay"${history&&history.id===this.essayId?' selected':''}>Selected essay</option></select>
           <button class="c2btn" id="workspace-history-load">Load revisions</button>
@@ -195,6 +197,20 @@
         this.remember({id:this.essayId,kind:'essay',work:this.work,target:old?.target||target,layer:old?.layer||layer,
           title:$('#workspace-title').value,content:{...prior,text:$('#workspace-text').value,assisted:!!prior.assisted}});};
       $('#workspace-title').oninput=saveEssay;$('#workspace-text').oninput=saveEssay;
+      $('#workspace-media').onclick=async()=>{try{
+        const id=this.essayId;if(!id)throw new Error('Choose or create an essay first.');
+        if(this.profile()?.id!==accountId)throw new Error('Account changed; reopen the workspace.');
+        await this.flush(id);
+        const state=this.docs.get(id),doc=this.document(id);
+        if(this.profile()?.id!==accountId||this.essayId!==id||!state||state.dirty||state.deleting||!doc||doc.revision!==state.revision)
+          throw new Error('The account or saved essay changed; try again.');
+        if(!root.ScholarMedia)throw new Error('Media preparation is unavailable.');
+        const packet=await root.ScholarMedia.createPacket(doc,this.profile());
+        if(this.profile()?.id!==accountId||this.essayId!==id||state.dirty||state.revision!==doc.revision)
+          throw new Error('The account or essay changed; try again.');
+        root.ScholarMedia.download(packet);
+        this.status('Private media packet downloaded for revision '+doc.revision+'.');
+      }catch(err){this.status(err.message);}};
       $('#workspace-decision-save').onclick=async()=>{try{
         if(this.profile()?.id!==accountId)return this.status('Account changed; reopen the workspace.');
         const id=this.id('translation',target,layer),subject=$('#workspace-decision-subject').value.trim(),
