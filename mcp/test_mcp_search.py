@@ -9,6 +9,7 @@ import json
 import os
 import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -38,6 +39,28 @@ def content(r):
 
 
 class McpSearchTest(unittest.TestCase):
+    def setUp(self):
+        # Small synthetic companion repositories make the protocol tests
+        # portable and keep real diary data out of CI and test output.
+        tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(tmp.cleanup)
+        root = Path(tmp.name)
+        themes = root / 'ipvv/site/data/themes'
+        themes.mkdir(parents=True)
+        (themes / 'index.json').write_text(json.dumps([{'work':'ipvv','label':'fixture theme'}]))
+        tensions = root / 'nibbanahelp/tensions'
+        tensions.mkdir(parents=True)
+        (tensions / 'debt-1500.md').write_text('id: debt-1500\nstatus: loosening\nvisibility: public\n---\nSynthetic fixture.\n')
+        works = root / 'translation-work/bodhapancadasika'
+        works.mkdir(parents=True)
+        catalog = root / 'svread/data'
+        catalog.mkdir(parents=True)
+        (catalog / 'pushing-catalog.json').write_text(json.dumps({'records':[{
+            'work':'bodhapancadasika', 'file':'LOGICVID-session-is-suffering-grace.md',
+            'question':'Synthetic fixture question'}]}))
+        self.env = {'IPVV_ROOT':str(root / 'ipvv'), 'NIBBANAHELP_ROOT':str(root / 'nibbanahelp'),
+                    'TRANSLATION_WORK_ROOT':str(root / 'translation-work'), 'SVREAD_ROOT':str(root / 'svread')}
+
     def test_new_tools_listed(self):
         rs = run([req(1, "tools/list")])
         names = [x["name"] for x in rs[0]["result"]["tools"]]
@@ -59,7 +82,7 @@ class McpSearchTest(unittest.TestCase):
                           "target": "param-p01-v01"}]}),
             tool(4, "audit_draft", {
                 "text": "A claim [frobnicate:x9] stands.", "refs": []}),
-        ])
+        ], env=self.env)
         self.assertGreater(content(rs[0])["count"], 0)
         self.assertEqual(content(rs[1])["count"], 0)
         self.assertEqual(content(rs[2])["verdict"], "PASS")
@@ -76,7 +99,7 @@ class McpSearchTest(unittest.TestCase):
             tool(1, "resolve_ref", {"id": "tension:debt-1500"}),
             tool(2, "ref_links", {"id": "crux:bodhapancadasika:LOGICVID-session-is-suffering-grace"}),
             tool(3, "resolve_ref", {"id": "frobnicate:x"}),
-        ])
+        ], env=self.env)
         self.assertEqual(content(rs[0])["status"], "loosening")
         self.assertIn("work:bodhapancadasika", content(rs[1])["links"])
         self.assertTrue(rs[2]["result"]["isError"])

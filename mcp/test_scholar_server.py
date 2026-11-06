@@ -83,16 +83,31 @@ class TestMcp(unittest.TestCase):
             self.assertIn('/api/scholar/published-essays?work=paramarthasara',[x[0] for x in Mock.seen]);self.assertEqual(Mock.seen[-2][1],task);self.assertEqual(Mock.seen[-1][1],refs)
         finally: server.shutdown();server.server_close();t.join()
     def test_claim_table_links_and_goes_stale(self):
-        text='The verse says "a unique sentence" [A].\n\nI argue this shows recognition [B].'
-        args={'text':text,'refs':[],'source_revs':{'A':'r1','B':'r1'}}
+        marker='paramarthasara:param-p01-v01'
+        text=f'The verse says "a unique sentence" [{marker}].\n\nI argue this shows recognition [B].'
+        args={'text':text,'refs':[{'kind':'chunk','work':'paramarthasara','target':'param-p01-v01'}]}
         rs=run([req(1,'tools/list'),tool(2,'link_claims',args)])
         self.assertIn('link_claims',[x['name'] for x in rs[0]['result']['tools']])
         self.assertIn('check_claim_staleness',[x['name'] for x in rs[0]['result']['tools']])
         rec=content(rs[1]);self.assertEqual(rec['format'],'essay-claim/1')
         self.assertEqual([c['type'] for c in rec['claims']],['quotation','argument'])
+        self.assertEqual(rec['claims'][0]['links'][0]['status'],'CURRENT')
+        self.assertEqual(rec['claims'][1]['links'][0]['status'],'UNRESOLVED')
+        rec['claims'][0]['links'][0]['recorded_rev']='0'*64
         stale=content(run([tool(3,'check_claim_staleness',{'record':rec,'text':text+' More.',
-            'source_revs':{'A':'r1','B':'r2'}})])[0])
+            'source_revs':{marker:'0'*64,'B':'r2'}})])[0])
         self.assertTrue(stale['essay_stale']);self.assertEqual(stale['stale_links'],1)
+        self.assertEqual(stale['unresolved_links'],1)
+    def test_claim_freshness_does_not_trust_supplied_hash_or_withheld_source(self):
+        fake='paramarthasara:not-a-passage'
+        withheld='ghatakarpara:ghat-p01-v01'
+        args={'text':f'Claims [{fake}] and [{withheld}].',
+              'refs':[{'work':'paramarthasara','target':'not-a-passage'},
+                      {'work':'ghatakarpara','target':'ghat-p01-v01'}],
+              'source_revs':{fake:'a'*64,withheld:'a'*64}}
+        result=content(run([tool(1,'link_claims',args)])[0])
+        self.assertEqual(result['unresolved'],2)
+        self.assertEqual({x['status'] for x in result['claims'][0]['links']},{'UNRESOLVED'})
     def test_pushback_returns_revision_bound_candidates(self):
         text='He says "I resort to You" [paramarthasara:param-p01-v01].\n\nAn original argument with no marker at all here.'
         pb=content(run([tool(1,'pushback',{'text':text,'refs':[{'kind':'chunk','work':'paramarthasara','target':'param-p01-v01'}]})])[0])
