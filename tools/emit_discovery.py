@@ -89,6 +89,7 @@ def build_llms(pushing: dict, biblio: dict, sanskrit: dict) -> str:
         f"- Scholar projections: {ORIGIN}/data/scholar/<work>.json (versions, essays, reviews, signoffs, projection_sha256)",
         f"- Pushing digest ({pushing['count']} live questions + hound verdicts): {ORIGIN}/data/pushing.json",
         f"- Sanskrit lessons (rendered pages): {ORIGIN}/data/sanskrit/site/lesson-01.html ... lesson-10.html",
+        "- Trace bundles (Sanskrit bytes -> layers -> proofs -> formal theorems -> citing essays, hash-pinned trika-trace/1): ask any MCP client with the openpatala-federation gateway for formal__trace {work, target}",
         "",
         "## Layers (internal codes -> public names; codes are load-bearing)",
         "",
@@ -106,7 +107,8 @@ def build_llms(pushing: dict, biblio: dict, sanskrit: dict) -> str:
         "witnessed. Scholar essays are SELF_ATTESTED positions unless "
         "independently reviewed — say which.",
         "- Never invent a witness, edition, or DOI. If the record says "
-        "UNPINNED/BLOCKED/UNVERIFIED, repeat that.",
+        "UNPINNED/BLOCKED/UNVERIFIED, repeat that. For full verification, "
+        "resolve a formal__trace bundle for the chunk and re-run its hashes.",
         "",
         "## Rights",
         "",

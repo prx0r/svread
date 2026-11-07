@@ -19,6 +19,7 @@
 - Scholar projections: https://svread.pages.dev/data/scholar/<work>.json (versions, essays, reviews, signoffs, projection_sha256)
 - Pushing digest (115 live questions + hound verdicts): https://svread.pages.dev/data/pushing.json
 - Sanskrit lessons (rendered pages): https://svread.pages.dev/data/sanskrit/site/lesson-01.html ... lesson-10.html
+- Trace bundles (Sanskrit bytes -> layers -> proofs -> formal theorems -> citing essays, hash-pinned trika-trace/1): ask any MCP client with the openpatala-federation gateway for formal__trace {work, target}
 
 ## Layers (internal codes -> public names; codes are load-bearing)
 
@@ -28,7 +29,7 @@ T1 draft-translation · L0 literal-gloss · ARGMAP argument-map · L2 reading-tr
 
 - Cite work id + chunk locator (e.g. bhairavastava bh-p02) + immutable_id (pt:pid:...) + projection_sha256 when quoting a projection.
 - OURS-* translations are machine-proposed, human review pending — say so. Lost works are scholar-REPORTED (finding-aid basis), not witnessed. Scholar essays are SELF_ATTESTED positions unless independently reviewed — say which.
-- Never invent a witness, edition, or DOI. If the record says UNPINNED/BLOCKED/UNVERIFIED, repeat that.
+- Never invent a witness, edition, or DOI. If the record says UNPINNED/BLOCKED/UNVERIFIED, repeat that. For full verification, resolve a formal__trace bundle for the chunk and re-run its hashes.
 
 ## Rights
 

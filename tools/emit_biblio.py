@@ -108,6 +108,9 @@ def main() -> int:
             if m:
                 formal[m.group(1)] = len(w.get("chunks", []))
         ev_rev = subprocess_rev()
+        ev_bytes = (TRIKA / "formal-trika" / "EVIDENCE.json").read_bytes()
+        ev_digest = {"trika_rev": ev_rev,
+                     "evidence_sha256": hashlib.sha256(ev_bytes).hexdigest()}
     except (OSError, ValueError) as e:
         print(f"biblio emit: EVIDENCE unreadable ({e})", file=sys.stderr)
         return 2
@@ -147,7 +150,7 @@ def main() -> int:
            "counts": {"works": len(rows), "lost_or_unverified": len(lost),
                       "ours_translations": ours},
            "provenance": {"db": _db_label(DSN),
-                          "evidence_rev": ev_rev,
+                          "evidence": ev_digest,
                           "note": "View on the openpatala box DB (ground layer). "
                                   "STATUS=reported rows are scholar-reported, not "
                                   "witness claims. OURS-* = machine-proposed, "
@@ -159,14 +162,18 @@ def main() -> int:
         if not OUT.exists():
             print("biblio emit --check: data/biblio.json missing")
             return 1
-        cur_blob = OUT.read_bytes()
-        print("biblio emit --check: " +
-              ("GREEN" if hashlib.sha256(
-                  json.dumps(json.loads(cur_blob), ensure_ascii=False,
-                             sort_keys=True, separators=(",", ":")
-                             ).encode()).hexdigest() == digest
-               else "RED (regenerate)"))
-        return 0
+        cur = json.loads(OUT.read_text(encoding="utf-8"))
+        new = json.loads(blob.decode("utf-8"))
+        # trika_rev is informational (which commit the EVIDENCE bytes came
+        # from); freshness is decided by evidence_sha256, not by unrelated
+        # trika-x commits.
+        cur.get("provenance", {})["evidence"] = {"trika_rev": "MASKED",
+            "evidence_sha256": (cur.get("provenance", {}).get("evidence") or {}).get("evidence_sha256")}
+        new.get("provenance", {})["evidence"] = {"trika_rev": "MASKED",
+            "evidence_sha256": (new.get("provenance", {}).get("evidence") or {}).get("evidence_sha256")}
+        ok = (json.dumps(cur, sort_keys=True) == json.dumps(new, sort_keys=True))
+        print("biblio emit --check: " + ("GREEN" if ok else "RED (regenerate)"))
+        return 0 if ok else 1
     OUT.write_bytes(blob)
     print(f"emitted data/biblio.json ({len(rows)} works, {len(lost)} "
           f"lost/unverified, sha256:{digest[:12]})")
