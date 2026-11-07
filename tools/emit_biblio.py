@@ -28,6 +28,17 @@ DSN = os.environ.get("OPENPATALA_DSN",
                       "dbname=openpatala user=patala password=patala host=127.0.0.1")
 
 
+def _db_label(dsn: str) -> str:
+    # Provenance records WHERE (host/db), never credentials.
+    m = re.search(r"@([^/]+)/(\w+)", dsn)
+    if m:
+        return f"{m.group(2)}@{m.group(1)}"
+    m = re.search(r"dbname=(\w+).*host=([\w.]+)", dsn)
+    if m:
+        return f"{m.group(1)}@{m.group(2)}"
+    return "openpatala box DB (local)"
+
+
 def http_links(refs) -> list:
     out = []
     for r in refs or []:
@@ -135,7 +146,7 @@ def main() -> int:
            "people": people,
            "counts": {"works": len(rows), "lost_or_unverified": len(lost),
                       "ours_translations": ours},
-           "provenance": {"db": DSN.split("@")[-1],
+           "provenance": {"db": _db_label(DSN),
                           "evidence_rev": ev_rev,
                           "note": "View on the openpatala box DB (ground layer). "
                                   "STATUS=reported rows are scholar-reported, not "

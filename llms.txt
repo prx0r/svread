@@ -1,0 +1,36 @@
+# Svatantrya Reader (svread)
+
+> Machine-readable Trika Shaivism library: 101 Sanskrit works with layered translations (T1 literal gloss, L0 morphology, L2 reading, C1 essence, L3 final, L4 song), 10 Learn Sanskrit lessons, a bibliography with translation links, live Q&A enquiries, and a scholar workspace (drafts, review, sign-off, DOI).
+
+## Views (single-page app; these URLs load the view)
+
+- Reader (browse + search 101 works): https://svread.pages.dev/
+- Sanskrit lessons (10, Learn/Decode/Recognise tabs): https://svread.pages.dev/?view=sanskrit
+- Bibliography index (555 works, 11 lost/unverified): https://svread.pages.dev/?view=biblio
+- Scholar hub (per work, ?work=<id>&view=scholar): drafts, review, signoff, DOI
+- Pushing Lab (live enquiries): https://svread.pages.dev/pushing.html
+- Chat: every page has a chat rail answering from that work's gated passages with citations.
+
+## Data (fetchable JSON, hash-pinned in data/release-manifest.json)
+
+- Bibliography (works, editions, translations+links, lost with basis, formal coverage): https://svread.pages.dev/data/biblio.json
+- Sanskrit lessons index + rule boxes: https://svread.pages.dev/data/sanskrit/index.json
+- Per-work reader bundle: https://svread.pages.dev/data/<work>.json (55+ works; originals, layers, hashes)
+- Scholar projections: https://svread.pages.dev/data/scholar/<work>.json (versions, essays, reviews, signoffs, projection_sha256)
+- Pushing digest (115 live questions + hound verdicts): https://svread.pages.dev/data/pushing.json
+- Sanskrit lessons (rendered pages): https://svread.pages.dev/data/sanskrit/site/lesson-01.html ... lesson-10.html
+
+## Layers (internal codes -> public names; codes are load-bearing)
+
+T1 draft-translation · L0 literal-gloss · ARGMAP argument-map · L2 reading-translation · C1 essence · C2 register-render · L3 final-translation · L4 song. See trika-x layer-names map.
+
+## How to cite (so answers stay traceable)
+
+- Cite work id + chunk locator (e.g. bhairavastava bh-p02) + immutable_id (pt:pid:...) + projection_sha256 when quoting a projection.
+- OURS-* translations are machine-proposed, human review pending — say so. Lost works are scholar-REPORTED (finding-aid basis), not witnessed. Scholar essays are SELF_ATTESTED positions unless independently reviewed — say which.
+- Never invent a witness, edition, or DOI. If the record says UNPINNED/BLOCKED/UNVERIFIED, repeat that.
+
+## Rights
+
+- Sanskrit sources: edition-labelled (mostly GRETIL CC BY-NC-SA); specific edition rights unknown unless stated.
+- Our English layers: cite with provenance; style/voice examples need author grant (see Scholar permissions).
