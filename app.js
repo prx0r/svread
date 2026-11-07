@@ -720,9 +720,80 @@ async function scholarView(){
   renderCols();
 }
 
+/* Sanskrit hub (?view=sanskrit) — Learn Sanskrit lessons, vendored static.
+   data/sanskrit/*.json via tools/emit_sanskrit.py (bookfactory source).
+   Chat rail follows ?work= automatically (same as reader); lesson links
+   carry the mapped work. Recitation reuses the reader (audio where KAR
+   has it; guide text always). Depth tabs reuse the data-d pattern. */
+const SK_STAGES = {'stage-1-sounds':'Stage 1 · Sounds','stage-2-language':'Stage 2 · Language','stage-3-instructions':'Stage 3 · Instructions','stage-4-trika-grammar':'Stage 4 · Trika grammar','stage-5-original':'Stage 5 · Originals'};
+async function sanskritView(){
+  if(!DATA) DATA = {verses:[]};
+  try{ buildRightRail([]); }catch(e){ /* rail optional; lesson still renders */ }
+  const hb = $('#headbar'); if(hb) hb.style.display = 'none';
+  const idx = await get('data/sanskrit/index.json');
+  const rules = await get('data/sanskrit/rule-boxes.json').catch(()=>({rule_boxes:[]}));
+  const main = $('.reader-main');
+  const lid = qs.get('lesson');
+  if(!lid){
+    const byStage = {};
+    (idx.lessons||[]).forEach(l=>{ (byStage[l.section]=byStage[l.section]||[]).push(l); });
+    main.innerHTML = `<h1>${esc(idx.title||'Learn Sanskrit')}</h1>`
+      + `<p class="mut">${esc(idx.subtitle||'')}</p>`
+      + Object.keys(byStage).map(s=>`<h2>${esc(SK_STAGES[s]||s)}</h2>`
+        + byStage[s].map(l=>`<div style="margin:.4rem 0"><a href="?view=sanskrit&work=${encodeURIComponent(l.work)}&lesson=${encodeURIComponent(l.id)}"><b>${esc(l.title)}</b></a> <span class="mut">${esc(l.source_ref||'')}</span></div>`).join('')).join('')
+      + `<h2>Rule boxes</h2>` + (rules.rule_boxes||[]).map(r=>`<div class="sk-rulebox"><div class="sk-rb-t">${esc(r.title)}</div>${esc(r.body)}</div>`).join('')
+      + `<p class="mut">Lessons: bookfactory prints/learn-sanskrit (vendored, see data/sanskrit/provenance.json). Sanskrit view spec: trika-x SVREAD-SANSKRIT-SPEC.</p>`;
+    document.title = 'Sanskrit · svread';
+    return;
+  }
+  const entry = (idx.lessons||[]).find(l=>l.id===lid);
+  if(!entry) throw new Error('unknown lesson');
+  const L = await get(`data/sanskrit/lesson-${lid}.json`);
+  const workLink = L.has_reader
+    ? `<a href="?work=${encodeURIComponent(L.work)}">Open ${esc(L.work)} in the reader</a> · <a href="?work=${encodeURIComponent(L.work)}&view=scholar">Scholar</a>`
+    : `<span class="mut">Reader forthcoming for ${esc(L.work)} — lesson below is complete as written.</span>`;
+  main.innerHTML = `<p><a href="?view=sanskrit">← all lessons</a></p>`
+    + `<h1>${esc(L.title)}</h1>`
+    + `<p class="mut">${esc(L.source_ref||'')} · ${workLink}</p>`
+    + `<p><button class="c2btn" id="sk-ask">Ask the chat about this verse</button></p>`
+    + `<h2>1 · Original witness</h2><div class="sk-sec">${L.witness}</div>`
+    + `<h2>2 · Recitation</h2><div class="sk-sec">${L.recite}</div>`
+    + `<p class="mut">Audio follows the reader where recordings exist; the guide above stands alone. Audio renders with owner go.</p>`
+    + `<div class="sk-depth"><div class="sk-tabs">`
+    + ["learn|Learn it","decode|Decode it","recognise|Recognise it"].map((s,i)=>{ const [d,t]=s.split("|"); return `<button data-d="${d}"${i===0?' class="on"':''}>${t}</button>`; }).join('')
+    + `</div>`
+    + ["learn","decode","recognise"].map((d,i)=>`<div class="sk-panel${i===0?' on':''}" data-d="${d}">${L[d]}</div>`).join('')
+    + `</div>`
+    + `<h2>Practice</h2><div class="sk-sec">${L.practice}</div>`
+    + `<h2>Provenance</h2><div class="sk-sec sk-prov">${L.provenance}</div>`
+    + `<p class="mut">Vendored from bookfactory (see data/sanskrit/provenance.json). Public layer names per trika-x layer-names map.</p>`;
+  document.title = `${L.title} · Sanskrit`;
+  main.querySelectorAll('.sk-tabs button').forEach(btn=>{
+    btn.onclick = ()=>{
+      main.querySelectorAll('.sk-tabs button').forEach(b=>b.classList.toggle('on', b===btn));
+      const d = btn.getAttribute('data-d');
+      main.querySelectorAll('.sk-panel').forEach(p=>p.classList.toggle('on', p.getAttribute('data-d')===d));
+    };
+  });
+  const ask = $('#sk-ask');
+  if(ask) ask.onclick = ()=>{
+    const inp = $('#qin');
+    if(inp){ inp.value = `In ${L.title} (${L.source_ref}): explain the grammar of this verse`; inp.focus(); }
+    const rail = $('#wid-chat');
+    if(rail){ rail.classList.remove('closed'); rail.scrollIntoView({block:'nearest'}); }
+  };
+}
+
 async function main(){
   const ns = $('#navscholar');
   if(ns) ns.onclick = e=>{ e.preventDefault(); location.href = `?work=${encodeURIComponent(WORK)}&view=scholar`; };
+  const nsk = $('#navsanskrit');
+  if(nsk) nsk.onclick = e=>{ e.preventDefault(); location.href = `?work=${encodeURIComponent(WORK)}&view=sanskrit`; };
+  if(qs.get('view')==='sanskrit'){
+    try{ await sanskritView(); }
+    catch(err){ $('.reader-main').innerHTML = `<p id="err">Sanskrit view: ${esc(String(err&&err.message||err))}</p>`; }
+    return;
+  }
   if(qs.get('view')==='scholar'){
     if(WORK==='ghatakarpara'){
       $('.reader-main').innerHTML = `<p id="err">Ghaṭakarpara Scholar data is withheld while incomplete source passages and their dependent translations are rechecked. <a href="${GHATA_SOURCE}" target="_blank" rel="noopener">Open the source edition</a>.</p>`;
