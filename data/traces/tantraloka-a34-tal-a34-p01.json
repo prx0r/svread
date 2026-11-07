@@ -1,0 +1,155 @@
+{
+ "caveats": [
+  "chunk_gate BLOCKED: ABSTENTION"
+ ],
+ "chunk": {
+  "immutable_id": "pt:pid:tal:tantraloka-a34001",
+  "target": "tal-a34-p01",
+  "work": "tantraloka-a34"
+ },
+ "essays": {
+  "citing": [],
+  "projection_sha256": null
+ },
+ "formal": {
+  "status": "MODEL_CHECKED",
+  "theorems": [
+   {
+    "kind": "MODEL",
+    "status": "ARGMAP-PINNED",
+    "theorem": "Ladder.lean :: chain_trans",
+    "tier": "R",
+    "via": "argmap"
+   },
+   {
+    "kind": "MODEL",
+    "status": "ARGMAP-PINNED",
+    "theorem": "Ladder.lean :: terminal_no_successor",
+    "tier": "R",
+    "via": "argmap"
+   },
+   {
+    "kind": "MODEL",
+    "status": "ARGMAP-PINNED",
+    "theorem": "Ladder.lean :: abandon_strict",
+    "tier": "R",
+    "via": "argmap"
+   }
+  ]
+ },
+ "format": "trika-trace/1",
+ "gaps": [
+  "layer:l0",
+  "layer:c1",
+  "layer:l3",
+  "layer:l4",
+  "proofs:song"
+ ],
+ "identity": {
+  "db": "postgresql://patala:***@localhost:5432/openpatala",
+  "rows": {
+   "editions": [
+    {
+     "id": "tantraloka-a34:edition:1",
+     "title": "tantraloka-a34"
+    }
+   ],
+   "etexts": [
+    {
+     "artifact": "0bce4d99222eef3c4ee2805bc203c717275965636f72d44bf0153fac18089c63",
+     "id": "tantraloka-a34:etext:1",
+     "provider": "translation-work"
+    }
+   ],
+   "passage": {
+    "citation_value": "tal-a34-p01",
+    "work_id": "tantraloka-a34"
+   },
+   "witnesses_total": 0
+  },
+  "status": "BOUND"
+ },
+ "layers": {
+  "argmap": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "tantraloka-a34/data/ARGMAP.md",
+   "present": true,
+   "sha256": "b643ba1e614aa4a0e8f298192e049f1a3e051b450bad23c480c61b56f813a8bb",
+   "status": "BOUND-WORK-MD"
+  },
+  "c1": {
+   "present": false,
+   "status": "UNKNOWN"
+  },
+  "c2": {
+   "note": "C2 renders are optional (owner: existing C2 stays; waived)",
+   "present": false,
+   "status": "NOT-APPLICABLE"
+  },
+  "l0": {
+   "present": false,
+   "status": "UNKNOWN"
+  },
+  "l2": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "tantraloka-a34/data/L2.md",
+   "present": true,
+   "sha256": "bb3fa7ca8cf5d2cb3c6a14aac5b2e7c434582c1468a158f4c767077a99d9e429",
+   "status": "BOUND-WORK-MD"
+  },
+  "l3": {
+   "present": false,
+   "status": "UNKNOWN"
+  },
+  "l4": {
+   "present": false,
+   "status": "UNKNOWN"
+  },
+  "t1": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "tantraloka-a34/data/T1.md",
+   "present": true,
+   "sha256": "30ed0d516811ecaf133bcd81a399393365e057fe3034e7b8c27f4fc8e8623bc6",
+   "status": "BOUND-WORK-MD"
+  }
+ },
+ "open_problems": [
+  "no scholar projection for work"
+ ],
+ "produced_at": "2026-11-07T10:31:14+00:00",
+ "produced_by": {
+  "tool": "trace_bundle/1",
+  "trika_rev": "UNKNOWN"
+ },
+ "proofs": {
+  "chunk_gate": {
+   "blocking": [
+    "ABSTENTION"
+   ],
+   "deterministic_gate": "BLOCKED"
+  },
+  "song_proof": {
+   "note": "no proof file",
+   "status": "UNKNOWN"
+  }
+ },
+ "source": {
+  "bytes_present": true,
+  "bytes_sha256": "490ecf440ef60f69bae233c416d026c0e9ec66eadab3bc67a32fd07db10ae25b",
+  "edition": {
+   "label": "UNRESOLVED (work record.json: NO-SOURCE-RECORD, no workcfg source)",
+   "status": "CANDIDATE-WORK"
+  },
+  "immutable_id": "pt:pid:tal:tantraloka-a34001",
+  "ledger": "tantraloka-a34/passages.jsonl",
+  "source_sha_file": "tantraloka-a34/SOURCE.sha",
+  "source_sha_note": "ledger span vs volume file differ by design; no equality claimed",
+  "source_sha_recorded": "5a3546372458",
+  "verses": "34.1-34.4",
+  "witness": {
+   "id": null,
+   "status": "UNPINNED"
+  }
+ },
+ "verdict": "PARTIAL"
+}

@@ -822,6 +822,11 @@ async function sanskritView(){
    from the Sanskrit view + direct URL. */
 async function biblioView(){
   const B = await get('data/biblio.json');
+  const TR = await get('data/traces/index.json').catch(()=>({entries:[],count:0}));
+  const traceByWork = {};
+  for (const e of (TR.entries||[])) {
+    (traceByWork[e.work] = traceByWork[e.work] || []).push(e);
+  }
   const people = B.people || {};
   const nameOf = id => people[id] || id.replace(/^person:/,'').replace(/-/g,' ');
   const byName = t => (t.by||[]).map(nameOf).join(', ');
@@ -832,13 +837,17 @@ async function biblioView(){
     }).join('') || '<span class="mut">—</span>';
     const eds = (w.editions||[]).map(e=>esc(e.title||e.id)).join('; ') || '—';
     const formal = (w.formalized==null ? '—' : `${w.formalized}/${w.passages} passages`);
+    const trs_ = traceByWork[w.id] || [];
+    const traces = trs_.length
+      ? trs_.map(e=>`<a href="data/traces/${esc(e.file.split('/').pop())}" target="_blank" rel="noopener" title="${esc(e.target||'')}">${esc(e.target||'')}</a> <span class="sk-badge">${esc(e.verdict||'')}</span>`).join('<br>')
+      : '<span class="mut">—</span>';
     const sch = w.has_projection ? `<a href="?work=${encodeURIComponent(w.id)}&view=scholar">${w.essays} essays</a>` : '—';
-    const reader = w.passages>0 ? `<a href="?work=${encodeURIComponent(w.id)}">reader</a>` : '<span class="mut">no passages</span>';
+    const reader = w.has_reader ? `<a href="?work=${encodeURIComponent(w.id)}">reader</a>` : (w.passages>0 ? `<span class="mut">${w.passages} passages · reader pending</span>` : '<span class="mut">no passages</span>');
     return `<tr data-id="${esc(w.id)}" data-title="${esc((w.title||'')+' '+w.id+' '+(w.author||''))}" data-kind="${w.status?'lost':(w.translations&&w.translations.length?'trans':'none')}${w.essays?' essays':''}${w.formalized!=null?' formal':''}">`
       + `<td><b>${esc(w.title||w.id)}</b><div class="mut">${esc(w.id)}${w.author?` · ${esc(w.author)}`:''}</div></td>`
       + `<td>${w.status?`<span class="sk-badge">${esc(w.status.split(':')[0])}</span>`:'—'}<div class="mut">${w.status?esc(w.status.slice(0,120)):''}</div></td>`
       + `<td>${w.passages} · ${reader}</td><td>${esc(eds.slice(0,160))}</td><td>${trs}</td>`
-      + `<td>${formal}</td><td>${sch}</td></tr>`;
+      + `<td>${formal}</td><td>${traces}</td><td>${sch}</td></tr>`;
   };
   const lost = B.works.filter(w=>w.status);
   const main = $('.reader-main');
@@ -849,7 +858,7 @@ async function biblioView(){
     + `<p><input id="bibq" placeholder="filter: title, work id, author…" style="width:min(32rem,90%)"> `
     + `<select id="bibf"><option value="">all</option><option value="lost">lost / unverified</option>`
     + `<option value="trans">has translations</option><option value="essays">has essays</option><option value="formal">formalized</option></select></p>`
-    + `<table class="sk-table"><thead><tr><th>Work</th><th>Status</th><th>Passages</th><th>Editions</th><th>Translations</th><th>Formal</th><th>Essays</th></tr></thead>`
+    + `<table class="sk-table"><thead><tr><th>Work</th><th>Status</th><th>Passages</th><th>Editions</th><th>Translations</th><th>Formal</th><th>Traces</th><th>Essays</th></tr></thead>`
     + `<tbody id="bibbody">${B.works.map(tRow).join('')}</tbody></table>`
     + `<p class="mut">Lost &amp; unverified (${lost.length}): ${lost.map(w=>esc(w.title||w.id)).join(' · ')}</p>`;
   document.title = 'Bibliography · svread';

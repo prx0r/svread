@@ -63,18 +63,27 @@ def build_pushing() -> dict:
 def build_llms(pushing: dict, biblio: dict, sanskrit: dict) -> str:
     works = biblio.get("counts", {}).get("works", 0)
     lost = biblio.get("counts", {}).get("lost_or_unverified", 0)
+    rows = biblio.get("works") or []
+    ours = biblio.get("counts", {}).get("ours_translations", 0)
+    readable = sum(1 for w in rows if w.get("has_reader"))
+    with_pass = sum(1 for w in rows if w.get("passages"))
+    projected = sum(1 for w in rows if w.get("has_projection"))
+    formal = sum(1 for w in rows if w.get("formalized"))
     lines = [
         "# Svatantrya Reader (svread)",
         "",
-        "> Machine-readable Trika Shaivism library: 101 Sanskrit works with "
-        "layered translations (T1 literal gloss, L0 morphology, L2 reading, "
-        "C1 essence, L3 final, L4 song), 10 Learn Sanskrit lessons, a "
-        "bibliography with translation links, live Q&A enquiries, and a "
-        "scholar workspace (drafts, review, sign-off, DOI).",
+        f"> Machine-readable Trika Shaivism library. Measured state: "
+        f"{ours} works in our translation pipeline, {with_pass} with "
+        f"passage ledgers, {readable} readable now, {projected} with a "
+        f"scholar projection, {formal} with formalised chunks. Layered "
+        f"translations use T1 (literal gloss), L0 (morphology), ARGMAP "
+        f"(argument), L2 (reading), C1 (essence), L3 (final), L4 (song). "
+        f"Also: 10 Learn Sanskrit lessons, a {works}-work bibliography with "
+        f"translation links, live Q&A enquiries, and a scholar workspace.",
         "",
         "## Views (single-page app; these URLs load the view)",
         "",
-        f"- Reader (browse + search 101 works): {ORIGIN}/",
+        f"- Reader (browse; {readable} works currently have a reader bundle): {ORIGIN}/",
         f"- Sanskrit lessons (10, Learn/Decode/Recognise tabs): {ORIGIN}/?view=sanskrit",
         f"- Bibliography index ({works} works, {lost} lost/unverified): {ORIGIN}/?view=biblio",
         "- Scholar hub (per work, ?work=<id>&view=scholar): drafts, review, signoff, DOI",
@@ -89,7 +98,9 @@ def build_llms(pushing: dict, biblio: dict, sanskrit: dict) -> str:
         f"- Scholar projections: {ORIGIN}/data/scholar/<work>.json (versions, essays, reviews, signoffs, projection_sha256)",
         f"- Pushing digest ({pushing['count']} live questions + hound verdicts): {ORIGIN}/data/pushing.json",
         f"- Sanskrit lessons (rendered pages): {ORIGIN}/data/sanskrit/site/lesson-01.html ... lesson-10.html",
-        "- Trace bundles (Sanskrit bytes -> layers -> proofs -> formal theorems -> citing essays, hash-pinned trika-trace/1): ask any MCP client with the openpatala-federation gateway for formal__trace {work, target}",
+        f"- Trace index (13 chunks; per-chunk source->layers->proofs->theorems->essays, hash-pinned): {ORIGIN}/data/traces/index.json",
+        f"- Trace bundles (one JSON per chunk, trika-trace/1, re-verifiable): {ORIGIN}/data/traces/<work>-<target>.json",
+        "- Or ask an MCP client with the openpatala-federation gateway for formal__trace {work, target} (plus formal__bridge, formal__gaps, formal__evidence, formal__table, formal__runs, formal__axioms)",
         "",
         "## Layers (internal codes -> public names; codes are load-bearing)",
         "",

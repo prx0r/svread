@@ -130,6 +130,7 @@ def main() -> int:
     for wid in sorted(works):
         w = works[wid]
         ts = translations.get(wid, [])
+        bundle = (ROOT / "data" / f"{wid}.json").exists()
         rows.append({
             "id": wid, "title": w["title"], "type": w["type"],
             "author": meta.get(wid, {}).get("author"),
@@ -142,6 +143,7 @@ def main() -> int:
             "essays": scholars.get(wid, {}).get("essays", 0),
             "versions": scholars.get(wid, {}).get("versions", 0),
             "has_projection": wid in scholars,
+            "has_reader": bundle,
         })
     lost = [r for r in rows
             if (r.get("status") or "").startswith(("LOST", "ATTESTED"))]
