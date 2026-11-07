@@ -1,0 +1,111 @@
+{
+ "count": 13,
+ "format": "svread-verify-index/1",
+ "no_code_needed": "Fetch + sha256 only. No Python, no install, no key.",
+ "packs": [
+  {
+   "artifacts": 10,
+   "path": "verify/paramarthasara-param-p04",
+   "target": "param-p04",
+   "verdict": "COMPLETE",
+   "work": "paramarthasara"
+  },
+  {
+   "artifacts": 10,
+   "path": "verify/phrdaya-phr-p01",
+   "target": "phr-p01",
+   "verdict": "COMPLETE",
+   "work": "phrdaya"
+  },
+  {
+   "artifacts": 10,
+   "path": "verify/phrdaya-phr-p02",
+   "target": "phr-p02",
+   "verdict": "COMPLETE",
+   "work": "phrdaya"
+  },
+  {
+   "artifacts": 10,
+   "path": "verify/phrdaya-phr-p03",
+   "target": "phr-p03",
+   "verdict": "COMPLETE",
+   "work": "phrdaya"
+  },
+  {
+   "artifacts": 10,
+   "path": "verify/phrdaya-phr-p04",
+   "target": "phr-p04",
+   "verdict": "COMPLETE",
+   "work": "phrdaya"
+  },
+  {
+   "artifacts": 10,
+   "path": "verify/spanda-span-p01",
+   "target": "span-p01",
+   "verdict": "COMPLETE",
+   "work": "spanda"
+  },
+  {
+   "artifacts": 4,
+   "path": "verify/tantraloka-a15-tal-a15-p12",
+   "target": "tal-a15-p12",
+   "verdict": "PARTIAL",
+   "work": "tantraloka-a15"
+  },
+  {
+   "artifacts": 4,
+   "path": "verify/tantraloka-a34-tal-a34-p01",
+   "target": "tal-a34-p01",
+   "verdict": "PARTIAL",
+   "work": "tantraloka-a34"
+  },
+  {
+   "artifacts": 9,
+   "path": "verify/tantrasara-a07-tsa07-p01",
+   "target": "tsa07-p01",
+   "verdict": "COMPLETE",
+   "work": "tantrasara-a07"
+  },
+  {
+   "artifacts": 9,
+   "path": "verify/tantrasara-a08-tsa08-p01",
+   "target": "tsa08-p01",
+   "verdict": "COMPLETE",
+   "work": "tantrasara-a08"
+  },
+  {
+   "artifacts": 9,
+   "path": "verify/tantrasara-a08-tsa08-p02",
+   "target": "tsa08-p02",
+   "verdict": "COMPLETE",
+   "work": "tantrasara-a08"
+  },
+  {
+   "artifacts": 9,
+   "path": "verify/tantrasara-a08-tsa08-p03",
+   "target": "tsa08-p03",
+   "verdict": "COMPLETE",
+   "work": "tantrasara-a08"
+  },
+  {
+   "artifacts": 9,
+   "path": "verify/tantrasara-a08-tsa08-p04",
+   "target": "tsa08-p04",
+   "verdict": "COMPLETE",
+   "work": "tantrasara-a08"
+  }
+ ],
+ "recipe": [
+  "1. Fetch traces/index.json to find a chunk and its verdict.",
+  "2. Fetch traces/<work>-<target>.json — the full chain record.",
+  "3. Fetch verify/<work>-<target>/manifest.json — the exact bytes that chain hashes, with their sha256.",
+  "4. curl each artifact and sha256sum it; compare with the manifest.",
+  "5. All match => the chain is intact as recorded. Any mismatch => stale trace (upstream changed), not a faulty hash."
+ ],
+ "what_matching_does_not_prove": [
+  "that the English is a correct translation",
+  "that a human reviewed or signed it",
+  "that a manuscript witness exists (all UNPINNED)",
+  "that a formal theorem applies outside its stated finite model"
+ ]
+}

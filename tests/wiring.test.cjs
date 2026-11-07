@@ -57,9 +57,38 @@ test('llms.txt claims are measured, not inflated', () => {
 });
 
 test('emitters are deterministic (--check green)', () => {
-  for (const tool of ['emit_biblio.py', 'emit_traces.py', 'emit_discovery.py']) {
+  for (const tool of ['emit_biblio.py', 'emit_traces.py', 'emit_verify.py',
+                      'emit_formal.py', 'emit_discovery.py']) {
     const out = execFileSync('python3', ['tools/' + tool, '--check'],
       { cwd: ROOT, encoding: 'utf8' });
     assert.ok(/GREEN/.test(out), `${tool}: ${out}`);
   }
+});
+
+test('formal registry is published and honest', () => {
+  const f = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'formal.json'), 'utf8'));
+  assert.equal(f.format, 'trika-formal-registry/1');
+  assert.ok(f.counts.theorems >= 150, `theorems: ${f.counts.theorems}`);
+  assert.ok(f.counts.chunks_in_snapshot >= 150, 'snapshot counted');
+  assert.ok(typeof f.counts.chunks_unformalized === 'number', 'gaps counted');
+  assert.ok(/MODEL_CHECKED/.test(f.scope_statement), 'scope stated');
+  assert.ok(/not prove the doctrine/i.test(f.scope_statement), 'limits stated');
+  for (const [name, e] of Object.entries(f.entries)) {
+    assert.ok(e.kind, `${name} has kind`);
+    assert.ok(/MODEL_CHECKED/.test(e.status), `${name} labelled`);
+  }
+  assert.ok(f.gaps.unformalized_chunks.length > 0, 'gap list published');
+  assert.equal(f.verify_yourself.recipe.includes('VERIFY.md'), true);
+});
+
+test('verify view + VERIFY.md are wired', () => {
+  const app = fs.readFileSync(path.join(ROOT, 'app.js'), 'utf8');
+  assert.ok(app.includes('verifyView'), 'verify view fn');
+  assert.ok(app.includes("'verify'"), 'verify route');
+  assert.ok(app.includes('manifest.json'), 'links to packs');
+  const md = fs.readFileSync(path.join(ROOT, 'VERIFY.md'), 'utf8');
+  assert.ok(md.includes('sha256sum'), 'recipe is shell-only');
+  assert.ok(/does NOT prove/i.test(md), 'limits stated');
+  assert.ok(/UNPINNED/.test(md), 'witness honesty');
+  assert.ok(/trika-trace\/1|trace/.test(md), 'points at traces');
 });

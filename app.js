@@ -820,6 +820,47 @@ async function sanskritView(){
    data/biblio.json via tools/emit_biblio.py (works, editions, translations
    with links, ours status, formal chunks, essays). No header tab: linked
    from the Sanskrit view + direct URL. */
+/* Verify (?view=verify) — how anyone checks our chains with no code, plus the
+   live trace + pack inventory. Read-only; fetches only published JSON. */
+async function verifyView(){
+  const V = await get('data/verify/index.json');
+  const T = await get('data/traces/index.json').catch(()=>({entries:[]}));
+  const verdictOf = {};
+  (T.entries||[]).forEach(e=>{ verdictOf[`${e.work}-${e.target}`] = e.verdict; });
+  const main = $('.reader-main');
+  const rows = (V.packs||[]).map(p=>{
+    const id = `${p.work}-${p.target}`;
+    const v = verdictOf[id] || p.verdict || '';
+    return `<tr><td><b>${esc(p.target)}</b><div class="mut">${esc(p.work)}</div></td>`
+      + `<td><span class="sk-badge">${esc(v)}</span></td>`
+      + `<td><a href="data/traces/${esc(id)}.json" target="_blank" rel="noopener">trace</a> · `
+      + `<a href="data/verify/${esc(id)}/manifest.json" target="_blank" rel="noopener">pack</a>`
+      + `<div class="mut">${p.artifacts} artifacts</div></td></tr>`;
+  }).join('');
+  main.innerHTML = `<h1>Verify</h1>`
+    + `<p class="mut">${V.count} chunks have a published, re-checkable chain. `
+    + `Everything below uses only <code>curl</code> + <code>sha256sum</code> — no install, no account, `
+    + `no trust in us required.</p>`
+    + `<h2>The recipe</h2><ol>`
+    + (V.recipe||[]).map(s=>`<li>${esc(s)}</li>`).join('')
+    + `</ol>`
+    + `<pre style="background:var(--g100);padding:.7rem;border-radius:6px;overflow-x:auto">`
+    + `curl -s ${'https://svread.pages.dev'}/data/traces/index.json\\n`
+    + `curl -s ${'https://svread.pages.dev'}/data/traces/&lt;work&gt;-&lt;target&gt;.json\\n`
+    + `curl -s ${'https://svread.pages.dev'}/data/verify/&lt;work&gt;-&lt;target&gt;/manifest.json\\n`
+    + `curl -s ${'https://svread.pages.dev'}/data/verify/&lt;work&gt;-&lt;target&gt;/source.txt | sha256sum</pre>`
+    + `<p><a href="VERIFY.md" target="_blank" rel="noopener">Full written recipe (VERIFY.md)</a></p>`
+    + `<h2>What a match does <em>not</em> prove</h2><ul>`
+    + (V.what_matching_does_not_prove||[]).map(s=>`<li>${esc(s)}</li>`).join('')
+    + `</ul>`
+    + `<h2>Chunks with a published chain</h2>`
+    + `<table class="sk-table"><thead><tr><th>Chunk</th><th>Verdict</th><th>Artifacts</th></tr></thead>`
+    + `<tbody>${rows}</tbody></table>`
+    + `<p class="mut">PARTIAL is not failure — it names the missing hop (e.g. no morphology layer yet). `
+    + `We publish gaps rather than hide them.</p>`;
+  document.title = 'Verify · svread';
+}
+
 async function biblioView(){
   const B = await get('data/biblio.json');
   const TR = await get('data/traces/index.json').catch(()=>({entries:[],count:0}));
@@ -855,6 +896,7 @@ async function biblioView(){
     + `<p class="mut">A view on the openpatala box DB (ground layer): ${B.counts.works} works · `
     + `${B.counts.lost_or_unverified} lost or unverified · ${B.counts.ours_translations} ours translations. `
     + `Hash-pinned at release (see data/biblio.json provenance). STATUS=reported rows are scholar-reported, not witness claims.</p>`
+    + `<p><a href="?view=verify"><b>Verify any claim yourself</b></a> — trace bundles, exact bytes, hashes you can re-compute with curl + sha256sum. No install, no account.</p>`
     + `<p><input id="bibq" placeholder="filter: title, work id, author…" style="width:min(32rem,90%)"> `
     + `<select id="bibf"><option value="">all</option><option value="lost">lost / unverified</option>`
     + `<option value="trans">has translations</option><option value="essays">has essays</option><option value="formal">formalized</option></select></p>`
@@ -882,6 +924,11 @@ async function main(){
   if(qs.get('view')==='sanskrit'){
     try{ await sanskritView(); }
     catch(err){ $('.reader-main').innerHTML = `<p id="err">Sanskrit view: ${esc(String(err&&err.message||err))}</p>`; }
+    return;
+  }
+  if(qs.get('view')==='verify'){
+    try{ await verifyView(); }
+    catch(err){ $('.reader-main').innerHTML = `<p id="err">Verify view: ${esc(String(err&&err.message||err))}</p>`; }
     return;
   }
   if(qs.get('view')==='biblio'){

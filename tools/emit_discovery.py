@@ -98,6 +98,8 @@ def build_llms(pushing: dict, biblio: dict, sanskrit: dict) -> str:
         f"- Scholar projections: {ORIGIN}/data/scholar/<work>.json (versions, essays, reviews, signoffs, projection_sha256)",
         f"- Pushing digest ({pushing['count']} live questions + hound verdicts): {ORIGIN}/data/pushing.json",
         f"- Sanskrit lessons (rendered pages): {ORIGIN}/data/sanskrit/site/lesson-01.html ... lesson-10.html",
+        f"- Formal registry (every MODEL_CHECKED theorem, its scope, and the unformalised gap list): {ORIGIN}/data/formal.json",
+        f"- Verification packs + no-code recipe (fetch + sha256sum, no install): {ORIGIN}/data/verify/index.json",
         f"- Trace index (13 chunks; per-chunk source->layers->proofs->theorems->essays, hash-pinned): {ORIGIN}/data/traces/index.json",
         f"- Trace bundles (one JSON per chunk, trika-trace/1, re-verifiable): {ORIGIN}/data/traces/<work>-<target>.json",
         "- Or ask an MCP client with the openpatala-federation gateway for formal__trace {work, target} (plus formal__bridge, formal__gaps, formal__evidence, formal__table, formal__runs, formal__axioms)",
@@ -109,6 +111,10 @@ def build_llms(pushing: dict, biblio: dict, sanskrit: dict) -> str:
         "L3 final-translation · L4 song. See trika-x layer-names map.",
         "",
         "## How to cite (so answers stay traceable)",
+        "",
+        f"- Self-verification (no code, no account): {ORIGIN}/?view=verify "
+        f"and {ORIGIN}/VERIFY.md — fetch the trace + pack, sha256sum the bytes, "
+        f"compare. Matching hashes prove identity; they do not prove quality.",
         "",
         "- Cite work id + chunk locator (e.g. bhairavastava bh-p02) + "
         "immutable_id (pt:pid:...) + projection_sha256 when quoting a "
