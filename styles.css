@@ -286,26 +286,8 @@ a.vref:hover{color:var(--red)}
 #err{color:var(--g600);padding:2rem 0;font-family:var(--serif)}
 .loading{color:var(--g500)}
 
-/* Sanskrit hub (?view=sanskrit) — scoped. Vendored lesson markup uses
-   bookfactory class names below; layout/chrome stays svread. */
-.sk-sec .dev{font-family:var(--deva);font-size:1.25rem}
-.sk-sec .iast{font-style:italic}
-.sk-sec .en{font-family:var(--serif)}
-.sk-sec .klabel{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--g500)}
-.sk-sec .mut{color:var(--g500)}
+/* Sanskrit hub (?view=sanskrit) — scoped. Lesson pages are vendored verbatim
+   in an iframe (own styles inline); only the svread-side index needs these. */
 .sk-rulebox{border:1px solid var(--g200);border-radius:6px;padding:.55rem .8rem;margin:.5rem 0;background:#fff}
-.sk-rulebox .sk-rb-t,.sk-sec .rb-t{font-weight:600;margin-bottom:.25rem}
-.sk-sec .rulebox{border:1px solid var(--g200);border-radius:6px;padding:.55rem .8rem;margin:.5rem 0;background:#fff}
-.sk-sec table{width:100%;border-collapse:collapse;font-size:.86rem;margin:.4rem 0}
-.sk-sec th{text-align:left;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--g500);border-bottom:1px solid var(--g200);padding:.25rem .3rem}
-.sk-sec td{border-top:1px solid var(--g200);padding:.25rem .3rem;vertical-align:top}
-.sk-sec pre{background:var(--g100);padding:.5rem .7rem;border-radius:6px;overflow-x:auto}
-.sk-sec ul.compact{padding-left:1.1rem}
-.sk-sec .levels{display:grid;gap:.4rem;margin:.5rem 0}
-.sk-sec .level{border-left:3px solid var(--g200);padding-left:.6rem}
-.sk-tabs{display:flex;gap:.4rem;margin:.8rem 0 .2rem}
-.sk-tabs button{font-family:var(--sans);font-size:13px;padding:.45rem .8rem;border:1px solid var(--g300);border-radius:6px;background:#fff;cursor:pointer}
-.sk-tabs button.on{border-color:var(--g900);font-weight:600}
-.sk-panel{display:none}
-.sk-panel.on{display:block}
-.sk-prov{font-size:.8rem;color:var(--g500)}
+.sk-rulebox .sk-rb-t{font-weight:600;margin-bottom:.25rem}
+#sk-frame{background:#fff}

@@ -720,68 +720,98 @@ async function scholarView(){
   renderCols();
 }
 
-/* Sanskrit hub (?view=sanskrit) — Learn Sanskrit lessons, vendored static.
-   data/sanskrit/*.json via tools/emit_sanskrit.py (bookfactory source).
-   Chat rail follows ?work= automatically (same as reader); lesson links
-   carry the mapped work. Recitation reuses the reader (audio where KAR
-   has it; guide text always). Depth tabs reuse the data-d pattern. */
-const SK_STAGES = {'stage-1-sounds':'Stage 1 · Sounds','stage-2-language':'Stage 2 · Language','stage-3-instructions':'Stage 3 · Instructions','stage-4-trika-grammar':'Stage 4 · Trika grammar','stage-5-original':'Stage 5 · Originals'};
+/* Sanskrit hub (?view=sanskrit) — Learn Sanskrit lessons, verbatim imports.
+   data/sanskrit/site/*.html via tools/emit_sanskrit.py (bookfactory source;
+   only change: Google Fonts -> vendored local @font-face). Lessons render
+   in an auto-sized same-origin iframe so design, tabs and tables stay
+   exactly as authored. svread chrome (header + chat rail) stays outside.
+   Chat follows ?work= (lesson links carry it); the Ask button prefills the
+   rail with the current lesson. Recitation: the lessons' own guides +
+   reader links where audio exists. */
+let SK_LESSON = null;
+function skAskPrefill(){
+  const inp = document.querySelector('#qin');
+  if(inp && SK_LESSON){
+    inp.value = `In "${SK_LESSON.title}" (${SK_LESSON.source_ref}): explain the grammar of this verse`;
+    inp.focus();
+  }
+  const rail = document.querySelector('#wid-chat');
+  if(rail){ rail.classList.remove('closed'); rail.scrollIntoView({block:'nearest'}); }
+}
+function skSyncFromFrame(frame){
+  let href = '';
+  try{ href = frame.contentWindow.location.href; }catch(e){ return; }
+  const m = /lesson-(\d+)\.html/.exec(href);
+  if(!m) return;
+  fetch('data/sanskrit/index.json').then(r=>r.json()).then(idx=>{
+    const n = +m[1], entry = (idx.lessons||[]).find(l=>l.n===n);
+    if(!entry || (SK_LESSON && SK_LESSON.id===entry.id)) return;
+    SK_LESSON = entry;
+    const bar = document.querySelector('#sk-cur');
+    if(bar) bar.innerHTML = `Now viewing: <b>${esc(entry.title)}</b> <span class="mut">${esc(entry.source_ref||'')}</span>`;
+    document.title = `${entry.title} · Sanskrit`;
+  }).catch(()=>{});
+}
+function skAutosize(frame){
+  try{
+    const doc = frame.contentDocument;
+    if(!doc || !doc.body) return;
+    const h = Math.max(doc.body.scrollHeight, 600);
+    frame.style.height = Math.min(h + 40, 6000) + 'px';
+  }catch(e){}
+}
 async function sanskritView(){
-  if(!DATA) DATA = {verses:[]};
-  try{ buildRightRail([]); }catch(e){ /* rail optional; lesson still renders */ }
-  const hb = $('#headbar'); if(hb) hb.style.display = 'none';
+  if(typeof DATA !== 'undefined' && !DATA) DATA = {verses:[]};
+  try{ buildRightRail([]); }catch(e){}
+  const hb = document.querySelector('#headbar'); if(hb) hb.style.display = 'none';
   const idx = await get('data/sanskrit/index.json');
   const rules = await get('data/sanskrit/rule-boxes.json').catch(()=>({rule_boxes:[]}));
-  const main = $('.reader-main');
+  const main = document.querySelector('.reader-main');
   const lid = qs.get('lesson');
   if(!lid){
     const byStage = {};
     (idx.lessons||[]).forEach(l=>{ (byStage[l.section]=byStage[l.section]||[]).push(l); });
+    const STAGE_T = s=>({'stage-1-sounds':'Stage 1 \u00b7 Sounds','stage-2-language':'Stage 2 \u00b7 Language','stage-3-instructions':'Stage 3 \u00b7 Instructions','stage-4-trika-grammar':'Stage 4 \u00b7 Trika grammar','stage-5-original':'Stage 5 \u00b7 Originals'}[s]||s);
     main.innerHTML = `<h1>${esc(idx.title||'Learn Sanskrit')}</h1>`
       + `<p class="mut">${esc(idx.subtitle||'')}</p>`
-      + Object.keys(byStage).map(s=>`<h2>${esc(SK_STAGES[s]||s)}</h2>`
-        + byStage[s].map(l=>`<div style="margin:.4rem 0"><a href="?view=sanskrit&work=${encodeURIComponent(l.work)}&lesson=${encodeURIComponent(l.id)}"><b>${esc(l.title)}</b></a> <span class="mut">${esc(l.source_ref||'')}</span></div>`).join('')).join('')
-      + `<h2>Rule boxes</h2>` + (rules.rule_boxes||[]).map(r=>`<div class="sk-rulebox"><div class="sk-rb-t">${esc(r.title)}</div>${esc(r.body)}</div>`).join('')
-      + `<p class="mut">Lessons: bookfactory prints/learn-sanskrit (vendored, see data/sanskrit/provenance.json). Sanskrit view spec: trika-x SVREAD-SANSKRIT-SPEC.</p>`;
-    document.title = 'Sanskrit · svread';
+      + Object.keys(byStage).map(s=>`<h2>${esc(STAGE_T(s))}</h2>`
+        + byStage[s].map(l=>`<div style="margin:.4rem 0"><a href="?view=sanskrit&work=${encodeURIComponent(l.work)}&lesson=${encodeURIComponent(l.id)}"><b>${esc(l.title)}</b></a> <span class="mut">${esc(l.source_ref||'')}</span>${l.has_reader?'':' <span class="mut">(reader forthcoming)</span>'}</div>`).join('')).join('')
+      + `<h2>Rule boxes</h2>` + (rules.rule_boxes||[]).map(r=>`<div class="sk-rulebox"><div class="sk-rb-t">${esc(r.title)}</div><div>${esc(r.body)}</div></div>`).join('')
+      + `<p><a href="?view=biblio">Browse the full bibliography</a> \u2014 every work, edition, translation with links, lost works with their basis, formal coverage, essays.</p>`
+      + `<p class="mut">Lessons: bookfactory prints/learn-sanskrit, imported verbatim (see data/sanskrit/provenance.json).</p>`;
+    document.title = 'Sanskrit \u00b7 svread';
+    SK_LESSON = null;
     return;
   }
   const entry = (idx.lessons||[]).find(l=>l.id===lid);
   if(!entry) throw new Error('unknown lesson');
-  const L = await get(`data/sanskrit/lesson-${lid}.json`);
-  const workLink = L.has_reader
-    ? `<a href="?work=${encodeURIComponent(L.work)}">Open ${esc(L.work)} in the reader</a> · <a href="?work=${encodeURIComponent(L.work)}&view=scholar">Scholar</a>`
-    : `<span class="mut">Reader forthcoming for ${esc(L.work)} — lesson below is complete as written.</span>`;
-  main.innerHTML = `<p><a href="?view=sanskrit">← all lessons</a></p>`
-    + `<h1>${esc(L.title)}</h1>`
-    + `<p class="mut">${esc(L.source_ref||'')} · ${workLink}</p>`
-    + `<p><button class="c2btn" id="sk-ask">Ask the chat about this verse</button></p>`
-    + `<h2>1 · Original witness</h2><div class="sk-sec">${L.witness}</div>`
-    + `<h2>2 · Recitation</h2><div class="sk-sec">${L.recite}</div>`
-    + `<p class="mut">Audio follows the reader where recordings exist; the guide above stands alone. Audio renders with owner go.</p>`
-    + `<div class="sk-depth"><div class="sk-tabs">`
-    + ["learn|Learn it","decode|Decode it","recognise|Recognise it"].map((s,i)=>{ const [d,t]=s.split("|"); return `<button data-d="${d}"${i===0?' class="on"':''}>${t}</button>`; }).join('')
-    + `</div>`
-    + ["learn","decode","recognise"].map((d,i)=>`<div class="sk-panel${i===0?' on':''}" data-d="${d}">${L[d]}</div>`).join('')
-    + `</div>`
-    + `<h2>Practice</h2><div class="sk-sec">${L.practice}</div>`
-    + `<h2>Provenance</h2><div class="sk-sec sk-prov">${L.provenance}</div>`
-    + `<p class="mut">Vendored from bookfactory (see data/sanskrit/provenance.json). Public layer names per trika-x layer-names map.</p>`;
-  document.title = `${L.title} · Sanskrit`;
-  main.querySelectorAll('.sk-tabs button').forEach(btn=>{
-    btn.onclick = ()=>{
-      main.querySelectorAll('.sk-tabs button').forEach(b=>b.classList.toggle('on', b===btn));
-      const d = btn.getAttribute('data-d');
-      main.querySelectorAll('.sk-panel').forEach(p=>p.classList.toggle('on', p.getAttribute('data-d')===d));
-    };
-  });
-  const ask = $('#sk-ask');
-  if(ask) ask.onclick = ()=>{
-    const inp = $('#qin');
-    if(inp){ inp.value = `In ${L.title} (${L.source_ref}): explain the grammar of this verse`; inp.focus(); }
-    const rail = $('#wid-chat');
-    if(rail){ rail.classList.remove('closed'); rail.scrollIntoView({block:'nearest'}); }
-  };
+  SK_LESSON = entry;
+  const work = entry.work || qs.get('work') || 'bhairavastava';
+  const readerLinks = entry.has_reader
+    ? `<a href="?work=${encodeURIComponent(work)}">Open ${esc(work)} in the reader</a> \u00b7 <a href="?work=${encodeURIComponent(work)}&view=scholar">Scholar</a>`
+    : `<span class="mut">Reader forthcoming for ${esc(work)} \u2014 the lesson below is complete as written.</span>`;
+  main.innerHTML = `<p><a href="?view=sanskrit">\u2190 all lessons</a></p>`
+    + `<h1>${esc(entry.title)}</h1>`
+    + `<p class="mut">${esc(entry.source_ref||'')} \u00b7 ${readerLinks}</p>`
+    + `<p id="sk-cur" class="mut"></p>`
+    + `<p><button class="c2btn" id="sk-ask">Ask the chat about this verse</button> `
+    + `<span class="mut">chat answers from ${esc(work)} with receipts.</span></p>`
+    + `<iframe id="sk-frame" title="${esc(entry.title)}" src="data/sanskrit/${esc(entry.html)}" style="width:100%;border:1px solid var(--g200);border-radius:6px;min-height:600px;background:#fff"></iframe>`
+    + `<p class="mut">Lesson design: bookfactory Learn Sanskrit (imported verbatim). Recitation guide is inside the lesson; audio renders with owner go.</p>`;
+  document.title = `${entry.title} \u00b7 Sanskrit`;
+  const frame = document.querySelector('#sk-frame');
+  const ask = document.querySelector('#sk-ask');
+  if(ask) ask.onclick = skAskPrefill;
+  if(frame){
+    frame.addEventListener('load', ()=>{
+      skAutosize(frame);
+      skSyncFromFrame(frame);
+      try{
+        const doc = frame.contentDocument;
+        if(doc) doc.querySelectorAll('[data-d]').forEach(el=>el.addEventListener('click', ()=>setTimeout(()=>skAutosize(frame), 60)));
+      }catch(e){}
+    });
+  }
 }
 
 async function main(){
