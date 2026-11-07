@@ -781,6 +781,7 @@ async function sanskritView(){
       + `<p class="mut">Lessons: bookfactory prints/learn-sanskrit, imported verbatim (see data/sanskrit/provenance.json).</p>`;
     document.title = 'Sanskrit \u00b7 svread';
     SK_LESSON = null;
+
     return;
   }
   const entry = (idx.lessons||[]).find(l=>l.id===lid);
@@ -814,6 +815,55 @@ async function sanskritView(){
   }
 }
 
+/* Bibliography (?view=biblio) — a view on the openpatala box DB.
+   data/biblio.json via tools/emit_biblio.py (works, editions, translations
+   with links, ours status, formal chunks, essays). No header tab: linked
+   from the Sanskrit view + direct URL. */
+async function biblioView(){
+  const B = await get('data/biblio.json');
+  const people = B.people || {};
+  const nameOf = id => people[id] || id.replace(/^person:/,'').replace(/-/g,' ');
+  const byName = t => (t.by||[]).map(nameOf).join(', ');
+  const tRow = w => {
+    const trs = (w.translations||[]).map(t=>{
+      const links = (t.links||[]).map(u=>` <a href="${esc(u)}" target="_blank" rel="noopener">[source]</a>`).join('');
+      return `<div>${esc(t.lang||'')} · ${esc(byName(t))} · ${esc(t.completeness||'')}${links}</div>`;
+    }).join('') || '<span class="mut">—</span>';
+    const eds = (w.editions||[]).map(e=>esc(e.title||e.id)).join('; ') || '—';
+    const formal = (w.formalized==null ? '—' : `${w.formalized}/${w.passages} passages`);
+    const sch = w.has_projection ? `<a href="?work=${encodeURIComponent(w.id)}&view=scholar">${w.essays} essays</a>` : '—';
+    const reader = w.passages>0 ? `<a href="?work=${encodeURIComponent(w.id)}">reader</a>` : '<span class="mut">no passages</span>';
+    return `<tr data-id="${esc(w.id)}" data-title="${esc((w.title||'')+' '+w.id+' '+(w.author||''))}" data-kind="${w.status?'lost':(w.translations&&w.translations.length?'trans':'none')}${w.essays?' essays':''}${w.formalized!=null?' formal':''}">`
+      + `<td><b>${esc(w.title||w.id)}</b><div class="mut">${esc(w.id)}${w.author?` · ${esc(w.author)}`:''}</div></td>`
+      + `<td>${w.status?`<span class="sk-badge">${esc(w.status.split(':')[0])}</span>`:'—'}<div class="mut">${w.status?esc(w.status.slice(0,120)):''}</div></td>`
+      + `<td>${w.passages} · ${reader}</td><td>${esc(eds.slice(0,160))}</td><td>${trs}</td>`
+      + `<td>${formal}</td><td>${sch}</td></tr>`;
+  };
+  const lost = B.works.filter(w=>w.status);
+  const main = $('.reader-main');
+  main.innerHTML = `<h1>Bibliography</h1>`
+    + `<p class="mut">A view on the openpatala box DB (ground layer): ${B.counts.works} works · `
+    + `${B.counts.lost_or_unverified} lost or unverified · ${B.counts.ours_translations} ours translations. `
+    + `Hash-pinned at release (see data/biblio.json provenance). STATUS=reported rows are scholar-reported, not witness claims.</p>`
+    + `<p><input id="bibq" placeholder="filter: title, work id, author…" style="width:min(32rem,90%)"> `
+    + `<select id="bibf"><option value="">all</option><option value="lost">lost / unverified</option>`
+    + `<option value="trans">has translations</option><option value="essays">has essays</option><option value="formal">formalized</option></select></p>`
+    + `<table class="sk-table"><thead><tr><th>Work</th><th>Status</th><th>Passages</th><th>Editions</th><th>Translations</th><th>Formal</th><th>Essays</th></tr></thead>`
+    + `<tbody id="bibbody">${B.works.map(tRow).join('')}</tbody></table>`
+    + `<p class="mut">Lost &amp; unverified (${lost.length}): ${lost.map(w=>esc(w.title||w.id)).join(' · ')}</p>`;
+  document.title = 'Bibliography · svread';
+  const filt = ()=>{
+    const q = ($('#bibq').value||'').toLowerCase(), f = $('#bibf').value;
+    main.querySelectorAll('#bibbody tr').forEach(tr=>{
+      const okQ = !q || (tr.getAttribute('data-title')||'').toLowerCase().includes(q);
+      const okF = !f || (tr.getAttribute('data-kind')||'').includes(f);
+      tr.style.display = (okQ&&okF) ? '' : 'none';
+    });
+  };
+  $('#bibq').addEventListener('input', filt);
+  $('#bibf').addEventListener('change', filt);
+}
+
 async function main(){
   const ns = $('#navscholar');
   if(ns) ns.onclick = e=>{ e.preventDefault(); location.href = `?work=${encodeURIComponent(WORK)}&view=scholar`; };
@@ -822,6 +872,11 @@ async function main(){
   if(qs.get('view')==='sanskrit'){
     try{ await sanskritView(); }
     catch(err){ $('.reader-main').innerHTML = `<p id="err">Sanskrit view: ${esc(String(err&&err.message||err))}</p>`; }
+    return;
+  }
+  if(qs.get('view')==='biblio'){
+    try{ await biblioView(); }
+    catch(err){ $('.reader-main').innerHTML = `<p id="err">Bibliography view: ${esc(String(err&&err.message||err))}</p>`; }
     return;
   }
   if(qs.get('view')==='scholar'){
