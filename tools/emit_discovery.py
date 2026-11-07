@@ -122,18 +122,33 @@ def build_llms(pushing: dict, biblio: dict, sanskrit: dict) -> str:
 
 
 def build_sitemap() -> str:
-    # NOTE: keep locs literal (query strings are valid in sitemaps)
-    body = "\n".join(f"  <url><loc>{ORIGIN}/{u}</loc></url>" for u in
-                     ["", "pushing.html", "?view=sanskrit", "?view=biblio",
-                      "?view=scholar"])
+    # NOTE: keep locs literal (query strings are valid in sitemaps).
+    # Static lesson pages are listed directly so crawlers that skip JS
+    # still discover full-text lessons; ?view= URLs cover the app shell.
+    urls = ["", "pushing.html", "?view=sanskrit", "?view=biblio",
+            "?view=scholar"]
+    try:
+        idx = json.loads((ROOT / "data" / "sanskrit" / "index.json").read_text())
+        for e in idx.get("lessons", []):
+            if e.get("html"):
+                urls.append(f"data/sanskrit/{e['html']}")
+    except (OSError, ValueError):
+        pass
+    seen, unique = set(), []
+    for u in urls:
+        if u not in seen:
+            seen.add(u)
+            unique.append(u)
+    body = "\n".join(f"  <url><loc>{ORIGIN}/{u}</loc></url>" for u in unique)
     return ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
             "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n"
             + body + "\n</urlset>\n")
 
 
 def build_robots() -> str:
-    bots = ["GPTBot", "ChatGPT-User", "ClaudeBot", "anthropic-ai",
-            "Cohere-ai", "PerplexityBot", "Google-Extended", "Bytespider"]
+    bots = ["GPTBot", "ChatGPT-User", "OAI-SearchBot", "ClaudeBot",
+            "anthropic-ai", "Cohere-ai", "PerplexityBot", "Google-Extended",
+            "Bytespider"]
     lines = [f"User-agent: {b}\nAllow: /" for b in bots]
     lines.append("User-agent: *\nAllow: /")
     lines.append(f"Sitemap: {ORIGIN}/sitemap.xml")

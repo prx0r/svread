@@ -22,10 +22,15 @@ test('emit_discovery --check is green and outputs are well-formed', () => {
   assert.ok(sm.includes('<urlset'), 'sitemap root');
   assert.ok(sm.includes('?view=sanskrit'), 'sanskrit in sitemap');
   assert.ok(sm.includes('pushing.html'), 'pushing in sitemap');
+  assert.ok(sm.includes('data/sanskrit/site/lesson-01.html'), 'static lessons crawlable without JS');
+  assert.equal((sm.match(/lesson-\d+\.html/g) || []).length, 10, 'all 10 lessons listed');
   const robots = fs.readFileSync(path.join(ROOT, 'robots.txt'), 'utf8');
   assert.ok(robots.includes('Sitemap:'), 'robots points at sitemap');
   assert.ok(/GPTBot|ChatGPT-User|ClaudeBot/i.test(robots), 'AI crawlers allowed');
+  assert.ok(robots.includes('OAI-SearchBot'), 'ChatGPT search crawler allowed');
   assert.ok(!/^Disallow: \/$/m.test(robots), 'nothing disallowed site-wide');
+  const htmlHead = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
+  assert.ok(htmlHead.includes('name="description"'), 'meta description for snippets');
   const pushing = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'pushing.json'), 'utf8'));
   assert.ok(pushing.count >= 100, `pushing items: ${pushing.count}`);
   for (const it of pushing.items.slice(0, 20)) {
