@@ -32,6 +32,9 @@ test('browser Sanskrit view lists lessons and switches depth tabs',
       await page.waitForFunction(() => document.querySelector('.reader-main h1'), { timeout: 15000 });
       const h1 = await page.textContent('.reader-main h1');
       assert.ok(/sanskrit/i.test(h1), `index heading, got: ${h1}`);
+      const nav = await page.$$eval('.main-bar a', els => els.map(e => e.textContent.trim()));
+      assert.ok(nav.includes('Scholar') && nav.includes('Sanskrit'), `nav has Scholar+Sanskrit: ${nav}`);
+      assert.ok(!nav.some(t => /pushing/i.test(t)), `no Pushing tab: ${nav}`);
       const lessonLinks = await page.$$eval('.reader-main a[href*="lesson="]', els => els.map(e => e.getAttribute('href')));
       assert.equal(lessonLinks.length, 10);
       await page.goto(`${origin}/?view=sanskrit&work=bhairavastava&lesson=l01-mamatma`, { waitUntil: 'domcontentloaded' });

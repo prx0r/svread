@@ -1164,7 +1164,7 @@ async function main(){
   };
   $('#pgleft a').onclick = e=>{ e.preventDefault(); goVerse(-1); };
   $('#pgright a').onclick = e=>{ e.preventDefault(); goVerse(1); };
-  $('#navsearch').onclick = e=>{ e.preventDefault(); const w = document.querySelector('#lib #wq'); if(w){ w.focus(); w.scrollIntoView({block:'center'}); } };
+  const nse = $('#navsearch'); if(nse) nse.onclick = e=>{ e.preventDefault(); const w = document.querySelector('#lib #wq'); if(w){ w.focus(); w.scrollIntoView({block:'center'}); } };
   // rail collapse arrows (Scaife) + drag-to-resize (widths persist; drag past
   // 60px collapses, drag back restores — see installResize)
   const lay = document.querySelector('.layout');
