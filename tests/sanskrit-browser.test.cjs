@@ -57,3 +57,43 @@ test('browser Sanskrit view lists lessons and switches depth tabs',
       site.close();
     }
   });
+
+test('browser bibliography view filters works and shows lost with basis',
+  { skip: !chromium }, async () => {
+    const http = require('node:http');
+    const fs = require('node:fs');
+    const path = require('node:path');
+    const root = path.join(__dirname, '..');
+    const site = http.createServer((req, res) => {
+      const relative = decodeURIComponent(new URL(req.url, 'http://localhost').pathname).replace(/^\/+/, '') || 'index.html';
+      const name = path.resolve(root, relative);
+      if (!name.startsWith(root + path.sep)) { res.writeHead(403); return res.end(); }
+      fs.readFile(name, (err, data) => {
+        if (err) { res.writeHead(404); return res.end(); }
+        const ext = path.extname(name), type = { '.html': 'text/html', '.js': 'text/javascript', '.json': 'application/json', '.css': 'text/css', '.webmanifest': 'application/manifest+json' }[ext] || 'application/octet-stream';
+        res.writeHead(200, { 'Content-Type': type }); res.end(data);
+      });
+    });
+    await new Promise(resolve => site.listen(0, '127.0.0.1', resolve));
+    let browser;
+    try {
+      browser = await chromium.launch({ executablePath: executable });
+      const page = await browser.newPage();
+      const errors = [];
+      page.on('pageerror', e => errors.push(String(e)));
+      await page.goto(`http://127.0.0.1:${site.address().port}/?view=biblio`, { waitUntil: 'domcontentloaded' });
+      await page.waitForFunction(() => document.querySelectorAll('#bibbody tr').length > 100, { timeout: 15000 });
+      const rows = await page.$$eval('#bibbody tr', els => els.length);
+      assert.ok(rows >= 500, `rows: ${rows}`);
+      await page.selectOption('#bibf', 'lost');
+      await page.waitForFunction(() => [...document.querySelectorAll('#bibbody tr')].filter(tr => tr.style.display !== 'none').length < 50, { timeout: 5000 });
+      const visible = await page.$$eval('#bibbody tr', els => els.filter(e => e.style.display !== 'none').length);
+      assert.ok(visible >= 7, `lost visible: ${visible}`);
+      const body = await page.textContent('.reader-main');
+      assert.ok(/Kramakeli|Pūrvapa|STATUS/i.test(body), 'lost works named');
+      assert.equal(errors.filter(e => !/favicon|manifest/i.test(e)).length, 0, `no page errors: ${errors.join(' | ').slice(0, 200)}`);
+    } finally {
+      if (browser) await browser.close();
+      site.close();
+    }
+  });
