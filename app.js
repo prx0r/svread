@@ -741,7 +741,7 @@ function skAskPrefill(){
 function skSyncFromFrame(frame){
   let href = '';
   try{ href = frame.contentWindow.location.href; }catch(e){ return; }
-  const m = /lesson-(\d+)\.html/.exec(href);
+    const m = /lesson-(\d+)(?:\.html)?\/?(?:[?#]|$)/.exec(href);
   if(!m) return;
   fetch('data/sanskrit/index.json').then(r=>r.json()).then(idx=>{
     const n = +m[1], entry = (idx.lessons||[]).find(l=>l.n===n);
