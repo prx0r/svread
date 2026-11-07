@@ -805,6 +805,7 @@ async function sanskritView(){
   if(ask) ask.onclick = skAskPrefill;
   if(frame){
     frame.addEventListener('load', ()=>{
+      try{ window.__skFrameReady = true; }catch(e){}
       skAutosize(frame);
       skSyncFromFrame(frame);
       try{

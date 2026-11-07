@@ -39,7 +39,8 @@ test('browser Sanskrit view lists lessons and switches depth tabs',
       assert.equal(lessonLinks.length, 10);
       await page.goto(`${origin}/?view=sanskrit&work=bhairavastava&lesson=l01-mamatma`, { waitUntil: 'domcontentloaded' });
       await page.waitForFunction(() => document.querySelector('#sk-frame'), { timeout: 15000 });
-      const frame = page.frame({ url: /lesson-01\.html/ });
+      await page.waitForFunction(() => window.__skFrameReady === true, { timeout: 15000 });
+      const frame = page.frames().find(f => /lesson-01\.html/.test(f.url()));
       assert.ok(frame, 'lesson iframe attached');
       await frame.waitForFunction(() => document.querySelector('.depth-panel[data-d="learn"]'), { timeout: 15000 });
       const tabs = await frame.$$eval('.depth button[data-d]', els => els.map(e => e.textContent.trim()));
