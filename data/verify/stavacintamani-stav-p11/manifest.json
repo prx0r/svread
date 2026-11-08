@@ -1,0 +1,94 @@
+{
+ "artifacts": [
+  {
+   "bytes": 1103,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "5d27b0bb2ba56c9346c2ce9d8b097bb3996ea694a872fc33c4688361128ec0fa"
+  },
+  {
+   "bytes": 9161,
+   "name": "stav-p11.argmap.json",
+   "origin": "stavacintamani/data/stav-p11.argmap.json",
+   "role": "layer-argmap",
+   "sha256": "89304e2aa5ad9762189d052ab770177e6aed8b04a4c289f0dea0f87575c57492",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1733,
+   "name": "stav-p11.c1.json",
+   "origin": "stavacintamani/data/stav-p11.c1.json",
+   "role": "layer-c1",
+   "sha256": "e9ea0dd8e3b1e91b8e94e53152a76da8fcc747e32a1e5ef58ac46464ef5a605a",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 3308,
+   "name": "stav-p11.c2.json",
+   "origin": "stavacintamani/data/stav-p11.c2.json",
+   "role": "layer-c2",
+   "sha256": "f636d31ad1973f77303bf08bdc7f0f33ed9c3353a2bf291a50ed77c62e53a38f",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 45540,
+   "name": "stav-p11.l0.json",
+   "origin": "stavacintamani/data/stav-p11.l0.json",
+   "role": "layer-l0",
+   "sha256": "b3b255b31b82e04df8282637bb6d2367f694c150d1d7f712014cb2152f06c36b",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 6683,
+   "name": "stav-p11.l2.json",
+   "origin": "stavacintamani/data/stav-p11.l2.json",
+   "role": "layer-l2",
+   "sha256": "bc8d512def4c78f432a853a28abed658899167d947d1f8ee55497925669ab31d",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 7659,
+   "name": "stav-p11.l3.json",
+   "origin": "stavacintamani/data/stav-p11.l3.json",
+   "role": "layer-l3",
+   "sha256": "73fb4fb4157e8cf0ba34fa0d8fc89527dfa407cb27e1507530d5e9544350d5fd",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 7852,
+   "name": "stav-p11.l4.json",
+   "origin": "stavacintamani/data/stav-p11.l4.json",
+   "role": "layer-l4",
+   "sha256": "4160a3fedd7b964d9c41dea3e0cc3e5a51f7cfebdf007ee2d69efa457f32203e",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 11682,
+   "name": "stav-p11.t1.json",
+   "origin": "stavacintamani/data/stav-p11.t1.json",
+   "role": "layer-t1",
+   "sha256": "e84d709e842076c0bf727d0e7ab851f67c8a8e4b51ddfd936625d3be4508bb2f",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1738,
+   "name": "proof-stav-p11.json",
+   "origin": "stavacintamani/proof/proof-stav-p11.json",
+   "role": "proof",
+   "sha256": "710d9e9a528d223f8def3a687cc7d8fc25fd328cfecd197b8a957dea14196b18"
+  }
+ ],
+ "chunk": {
+  "immutable_id": "pt:pid:stav:5d27b0bb2ba5",
+  "target": "stav-p11",
+  "work": "stavacintamani"
+ },
+ "format": "trika-verify-pack/1",
+ "how_to_verify": "For each artifact: curl -s https://svread.pages.dev/data/verify/stavacintamani-stav-p11/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). Tiers: MODEL_CHECKED applies only to formal theorems inside their stated finite model.",
+ "trace": {
+  "file": "traces/stavacintamani-stav-p11.json",
+  "sha256": "b6b4daeddb174b12cb0e72ff89b9f53c586fe6385da42a0df91cd6d6a0b02a3b"
+ },
+ "verdict": "COMPLETE"
+}

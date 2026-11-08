@@ -877,7 +877,7 @@ async function biblioView(){
       return `<div>${esc(t.lang||'')} · ${esc(byName(t))} · ${esc(t.completeness||'')}${links}</div>`;
     }).join('') || '<span class="mut">—</span>';
     const eds = (w.editions||[]).map(e=>esc(e.title||e.id)).join('; ') || '—';
-    const formal = (w.formalized==null ? '—' : `${w.formalized}/${w.passages} passages`);
+    const formal = (w.formalized==null ? '—' : `<span title="direct passage refs ${w.formalized}; registry inventory ${w.formalized_inventory==null?'?':w.formalized_inventory}">${w.formalized}/${w.passages} passages</span>`);
     const trs_ = traceByWork[w.id] || [];
     const traces = trs_.length
       ? trs_.map(e=>`<a href="data/traces/${esc(e.file.split('/').pop())}" target="_blank" rel="noopener" title="${esc(e.target||'')}">${esc(e.target||'')}</a> <span class="sk-badge">${esc(e.verdict||'')}</span>`).join('<br>')

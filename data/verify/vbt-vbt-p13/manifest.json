@@ -1,0 +1,94 @@
+{
+ "artifacts": [
+  {
+   "bytes": 1100,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "5ecec2b3360a870db3604a32d3c29d56be22597e8269302c10730d8b4f4b1c87"
+  },
+  {
+   "bytes": 8836,
+   "name": "vbt-p13.argmap.json",
+   "origin": "vbt/data/vbt-p13.argmap.json",
+   "role": "layer-argmap",
+   "sha256": "8aca21fc9a9bd33c52467575583b4ce0123c91fca86e17058ff21398eea109f9",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 3327,
+   "name": "vbt-p13.c1.json",
+   "origin": "vbt/data/vbt-p13.c1.json",
+   "role": "layer-c1",
+   "sha256": "833f33d5668b95d8cdbd3633b00bf12529f689e10d4003739766e19f67f5209c",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 3566,
+   "name": "vbt-p13.c2.json",
+   "origin": "vbt/data/vbt-p13.c2.json",
+   "role": "layer-c2",
+   "sha256": "25a1e3a9992bc8059efa56c6291e166c46946a955296be5d3c9540a93b0fc488",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 41815,
+   "name": "vbt-p13.l0.json",
+   "origin": "vbt/data/vbt-p13.l0.json",
+   "role": "layer-l0",
+   "sha256": "cece6648ee3b7274708d3e9404c416e4dc9cf2423f0e5e375aa8542f37a631b5",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 6783,
+   "name": "vbt-p13.l2.json",
+   "origin": "vbt/data/vbt-p13.l2.json",
+   "role": "layer-l2",
+   "sha256": "a8f01d0292f4ddc9960d70613ebe616309d88284ffc7a2d6c40a8a337a5ca75d",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 7542,
+   "name": "vbt-p13.l3.json",
+   "origin": "vbt/data/vbt-p13.l3.json",
+   "role": "layer-l3",
+   "sha256": "1a84eb95cdb11b02d724604b2fcbdca8e447433f3d8ae03a7b401cd46bbc7270",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 7747,
+   "name": "vbt-p13.l4.json",
+   "origin": "vbt/data/vbt-p13.l4.json",
+   "role": "layer-l4",
+   "sha256": "5c85a74a2ee9dc8467f8e4a4f6628da096e81b3cb8b4b5857af5eb268a1817a8",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 11535,
+   "name": "vbt-p13.t1.json",
+   "origin": "vbt/data/vbt-p13.t1.json",
+   "role": "layer-t1",
+   "sha256": "192e9e0e9516afde678d1d9eb3cb240e15cf935b19fd3691c342e59a34ece8ea",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1725,
+   "name": "proof-vbt-p13.json",
+   "origin": "vbt/proof/proof-vbt-p13.json",
+   "role": "proof",
+   "sha256": "4f233e75d36d9d2fb1378244518145c9b2dac2f9dd40c228a964bdd6ac9cd4e5"
+  }
+ ],
+ "chunk": {
+  "immutable_id": "pt:pid:vbt:5ecec2b3360a",
+  "target": "vbt-p13",
+  "work": "vbt"
+ },
+ "format": "trika-verify-pack/1",
+ "how_to_verify": "For each artifact: curl -s https://svread.pages.dev/data/verify/vbt-vbt-p13/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). Tiers: MODEL_CHECKED applies only to formal theorems inside their stated finite model.",
+ "trace": {
+  "file": "traces/vbt-vbt-p13.json",
+  "sha256": "bd350e3d2d920efdbd8bcc0c1de65b9057c0b51ed0a8f845f65be23d0450c099"
+ },
+ "verdict": "COMPLETE"
+}

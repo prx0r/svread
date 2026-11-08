@@ -1,0 +1,47 @@
+{
+ "artifacts": [
+  {
+   "bytes": 957,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "dfac71dce1dbcedf20d25166541394d943c23cd6dc1b3d82d4faadae13c24081"
+  },
+  {
+   "bytes": 4047,
+   "name": "ARGMAP.md",
+   "origin": "paratrimshika/ARGMAP.md",
+   "role": "layer-argmap",
+   "sha256": "e793a2daa1f6a85ecc371fe810e3e7ab22ecbbb2a126ec257f5933b10c6310c3",
+   "status": "BOUND-WORK-MD"
+  },
+  {
+   "bytes": 5578,
+   "name": "L2.md",
+   "origin": "paratrimshika/L2.md",
+   "role": "layer-l2",
+   "sha256": "75889ad3060a4393c57ab7e0719cc34c80f192c99099bb9a425d70e0093f1f5a",
+   "status": "BOUND-WORK-MD"
+  },
+  {
+   "bytes": 8921,
+   "name": "T1.md",
+   "origin": "paratrimshika/T1.md",
+   "role": "layer-t1",
+   "sha256": "f1a98fbbceb06c8d2ca34159ea365596643eab23aa011e672e797bffb84c5a7c",
+   "status": "BOUND-WORK-MD"
+  }
+ ],
+ "chunk": {
+  "immutable_id": "pt:pid:para:dfac71dce1db",
+  "target": "para-p02",
+  "work": "paratrimshika"
+ },
+ "format": "trika-verify-pack/1",
+ "how_to_verify": "For each artifact: curl -s https://svread.pages.dev/data/verify/paratrimshika-para-p02/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). Tiers: MODEL_CHECKED applies only to formal theorems inside their stated finite model.",
+ "trace": {
+  "file": "traces/paratrimshika-para-p02.json",
+  "sha256": "6b1e202e67120f950797fb8181b69d72923fd43b14483259cf365957204225bc"
+ },
+ "verdict": "PARTIAL"
+}

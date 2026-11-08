@@ -1,0 +1,149 @@
+{
+ "assurance": {
+  "chunk_gate": "BLOCKED",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "FAIL",
+  "witness": "UNPINNED"
+ },
+ "caveats": [
+  "chunk_gate BLOCKED: ABSTENTION"
+ ],
+ "chunk": {
+  "immutable_id": "pt:pid:tal:tantraloka-a06002",
+  "target": "tal-a06-p02",
+  "work": "tantraloka-a06"
+ },
+ "essays": {
+  "citing": [],
+  "projection_sha256": null
+ },
+ "formal": {
+  "status": "none",
+  "theorems": []
+ },
+ "format": "trika-trace/1",
+ "gaps": [
+  "layer:l0",
+  "layer:c1",
+  "layer:l3",
+  "layer:l4",
+  "proofs:song"
+ ],
+ "identity": {
+  "db": "postgresql://patala:***@localhost:5432/openpatala",
+  "rows": {
+   "editions": [
+    {
+     "id": "tantraloka-a06:edition:1",
+     "title": "tantraloka-a06"
+    }
+   ],
+   "etexts": [
+    {
+     "artifact": "8e185fbbb8a9e842bd807bb4a4d929112e520b36b58d027c00b058fabbc3e218",
+     "id": "tantraloka-a06:etext:1",
+     "provider": "translation-work"
+    }
+   ],
+   "passage": {
+    "citation_value": "tal-a06-p02",
+    "work_id": "tantraloka-a06"
+   },
+   "witnesses_total": 0
+  },
+  "status": "BOUND"
+ },
+ "layers": {
+  "argmap": {
+   "note": "work-level markdown layer, not per-chunk JSON; bound to the work, not the chunk span",
+   "path": "tantraloka-a06/ARGMAP.md",
+   "present": true,
+   "sha256": "e87918f97537570dd2b3caecad52e677d92ead0a5e56ebac957cfdbf75aae5a0",
+   "status": "BOUND-WORK-MD"
+  },
+  "c1": {
+   "present": false,
+   "status": "UNKNOWN"
+  },
+  "c2": {
+   "note": "C2 renders are optional (owner: existing C2 stays; waived)",
+   "present": false,
+   "status": "NOT-APPLICABLE"
+  },
+  "l0": {
+   "present": false,
+   "status": "UNKNOWN"
+  },
+  "l2": {
+   "note": "work-level markdown layer, not per-chunk JSON; bound to the work, not the chunk span",
+   "path": "tantraloka-a06/L2.md",
+   "present": true,
+   "sha256": "81e1c5f31cdba68b9780f1aded2b83f843e23976a588e37a77e29d9f719c521f",
+   "status": "BOUND-WORK-MD"
+  },
+  "l3": {
+   "present": false,
+   "status": "UNKNOWN"
+  },
+  "l4": {
+   "present": false,
+   "status": "UNKNOWN"
+  },
+  "t1": {
+   "note": "work-level markdown layer, not per-chunk JSON; bound to the work, not the chunk span",
+   "path": "tantraloka-a06/T1.md",
+   "present": true,
+   "sha256": "5f59d808413c45d1b5eff842df6ab4f5e6dea7732802c94d5914c8242fcd042b",
+   "status": "BOUND-WORK-MD"
+  }
+ },
+ "open_problems": [
+  "no scholar projection for work"
+ ],
+ "proofs": {
+  "chunk_gate": {
+   "blocking": [
+    "ABSTENTION"
+   ],
+   "checks_pass": {
+    "ABSTENTION": false,
+    "CITATION_GROUNDING": true,
+    "COVERAGE": true,
+    "SOURCE_BINDING": true,
+    "TERM_CONSISTENCY": true
+   },
+   "deterministic_gate": "BLOCKED",
+   "entry_sha256": "a8de60ed869a0e9a2194a90dad414f4996f1f042cd19269ec56cd77ec9a04574",
+   "status": "BLOCKED"
+  },
+  "song_proof": {
+   "note": "no proof file",
+   "status": "UNKNOWN"
+  }
+ },
+ "source": {
+  "bytes_present": true,
+  "bytes_sha256": "c3371a4f9145ab94bd5e4f7ac40b2414c4b351bd9e732c12fa9f2113c48712b9",
+  "edition": {
+   "label": null,
+   "status": "UNKNOWN"
+  },
+  "immutable_id": "pt:pid:tal:tantraloka-a06002",
+  "ledger": "tantraloka-a06/passages.jsonl",
+  "source_sha_file": null,
+  "verses": "6.11-6.20",
+  "witness": {
+   "id": null,
+   "status": "UNPINNED"
+  }
+ },
+ "verdict": "PARTIAL",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
+}

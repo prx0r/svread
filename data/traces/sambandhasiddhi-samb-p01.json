@@ -1,0 +1,153 @@
+{
+ "assurance": {
+  "chunk_gate": "BLOCKED",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "PASS",
+  "witness": "UNPINNED"
+ },
+ "caveats": [
+  "chunk_gate BLOCKED: COVERAGE,ABSTENTION"
+ ],
+ "chunk": {
+  "immutable_id": "pt:pid:samb:5b5acb55f774",
+  "target": "samb-p01",
+  "work": "sambandhasiddhi"
+ },
+ "essays": {
+  "citing": [],
+  "projection_sha256": "98d44aafba203ff3e8875e07f78fc77b8054f07a5597a85b4e89b10e85f06d20"
+ },
+ "formal": {
+  "status": "none",
+  "theorems": []
+ },
+ "format": "trika-trace/1",
+ "gaps": [],
+ "identity": {
+  "db": "postgresql://patala:***@localhost:5432/openpatala",
+  "rows": {
+   "editions": [
+    {
+     "id": "sambandhasiddhi:edition:1",
+     "title": "sambandhasiddhi"
+    }
+   ],
+   "etexts": [
+    {
+     "artifact": "8c410e38075b68c59e6c025b15fdbf4218b8f818f86e02f5a977b846730398b4",
+     "id": "sambandhasiddhi:etext:1",
+     "provider": "translation-work"
+    }
+   ],
+   "passage": {
+    "citation_value": "samb-p01",
+    "work_id": "sambandhasiddhi"
+   },
+   "witnesses_total": 0
+  },
+  "status": "BOUND"
+ },
+ "layers": {
+  "argmap": {
+   "path": "sambandhasiddhi/data/samb-p01.argmap.json",
+   "present": true,
+   "sha256": "369f5a8e2279379d4921c6016d0e90abaa7f2adb941dd6f85cb390240035de4d",
+   "status": "BOUND"
+  },
+  "c1": {
+   "path": "sambandhasiddhi/data/samb-p01.c1.json",
+   "present": true,
+   "sha256": "0264747da71c5cfda43b48a0107dccc0df0c00692670303ddccf8fefc2b8eecb",
+   "status": "BOUND"
+  },
+  "c2": {
+   "path": "sambandhasiddhi/data/samb-p01.c2.json",
+   "present": true,
+   "sha256": "0a0be3d7b5fac25296dc1a0345019dc9e78ebca93fd5b3c1ac420d4b86a16960",
+   "status": "BOUND"
+  },
+  "l0": {
+   "path": "sambandhasiddhi/data/samb-p01.l0.json",
+   "present": true,
+   "sha256": "e81b71dc3611f5353b34d608c4ce4f98c51a81fd20aa14710c281c2ebd923232",
+   "status": "BOUND"
+  },
+  "l2": {
+   "path": "sambandhasiddhi/data/samb-p01.l2.json",
+   "present": true,
+   "sha256": "7cc560f6701b17309597005b2f53874a93d287812953b53ce8ecfb8267e2458b",
+   "status": "BOUND"
+  },
+  "l3": {
+   "path": "sambandhasiddhi/data/samb-p01.l3.json",
+   "present": true,
+   "sha256": "01c210399073d329cfaa9890f5bad9e35c76f1a60e7e103c35f1007e37cdf165",
+   "status": "BOUND"
+  },
+  "l4": {
+   "path": "sambandhasiddhi/data/samb-p01.l4.json",
+   "present": true,
+   "sha256": "c48fba7c8ef3203f727f626f665109283403ab2526a40ccd4f7236b4419366a6",
+   "status": "BOUND"
+  },
+  "t1": {
+   "path": "sambandhasiddhi/data/samb-p01.t1.json",
+   "present": true,
+   "sha256": "8bb3c6ac2de7543a18b23f86a55e36d577773a5d7148d7b5bb795803fb34b799",
+   "status": "BOUND"
+  }
+ },
+ "open_problems": [],
+ "proofs": {
+  "chunk_gate": {
+   "blocking": [
+    "COVERAGE",
+    "ABSTENTION"
+   ],
+   "checks_pass": {
+    "ABSTENTION": false,
+    "CITATION_GROUNDING": true,
+    "COVERAGE": false,
+    "SOURCE_BINDING": true,
+    "TERM_CONSISTENCY": true
+   },
+   "deterministic_gate": "BLOCKED",
+   "entry_sha256": "7853abc23fb21d48b18fb69a62a20cb06fc9f0bbc75dc5ce7392e6ccda2edb27",
+   "status": "BLOCKED"
+  },
+  "song_proof": {
+   "blocking": [],
+   "deterministic_gate": "PASS",
+   "file": "sambandhasiddhi/proof/proof-samb-p01.json",
+   "sha256": "e12ca770c0a8c184b59fe7a27ab0326644ca2435b1c643674b4b84fb02ff098a",
+   "status": "PASS",
+   "tool": "proof_record v1 2026-11-01",
+   "warnings": 0
+  }
+ },
+ "source": {
+  "bytes_present": true,
+  "bytes_sha256": "5b5acb55f774957450b5728f051523f4b78bdd198e993d6333c9908a38542b5f",
+  "edition": {
+   "label": null,
+   "status": "UNKNOWN"
+  },
+  "immutable_id": "pt:pid:samb:5b5acb55f774",
+  "ledger": "sambandhasiddhi/passages.jsonl",
+  "source_sha_file": null,
+  "verses": "2-9",
+  "witness": {
+   "id": null,
+   "status": "UNPINNED"
+  }
+ },
+ "verdict": "COMPLETE",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
+}

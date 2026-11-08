@@ -1,0 +1,31 @@
+{
+ "artifacts": [
+  {
+   "bytes": 25771,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "bf0874e75e1a3dfa94ceb52951db798cd3564cc2b641c76bb249b8a89e5a06c0"
+  },
+  {
+   "bytes": 3050,
+   "name": "chunkV2-Q-saptamo-k11-close.l2.json",
+   "origin": "ipvv/data/chunkV2-Q-saptamo-k11-close.l2.json",
+   "role": "layer-l2",
+   "sha256": "b01ad341f800575d46d9f130283ed6ca17dffd79366e0643b4f63b1f7c21401b",
+   "status": "BOUND"
+  }
+ ],
+ "chunk": {
+  "immutable_id": "pt:pid:ipvv:fe67055363f8",
+  "target": "chunkV2-Q-saptamo-k11-close",
+  "work": "ipvv"
+ },
+ "format": "trika-verify-pack/1",
+ "how_to_verify": "For each artifact: curl -s https://svread.pages.dev/data/verify/ipvv-chunkV2-Q-saptamo-k11-close/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). Tiers: MODEL_CHECKED applies only to formal theorems inside their stated finite model.",
+ "trace": {
+  "file": "traces/ipvv-chunkV2-Q-saptamo-k11-close.json",
+  "sha256": "336697207e6b27cd6304eb5609bd665f3ebb1255cae87c010b6e89c34f56800e"
+ },
+ "verdict": "PARTIAL"
+}

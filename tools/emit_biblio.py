@@ -100,13 +100,31 @@ def main() -> int:
     cx.close()
 
     formal: dict[str, int] = {}
+    formal_inventory: dict[str, int] = {}
     try:
         ev = json.loads(EVIDENCE.read_text(encoding="utf-8"))
+        by_loc: dict[str, set] = {}
+        for spec in (ev.get("works") or {}).values():
+            m = re.search(r"translation-work/([^/]+)/passages\.jsonl",
+                          spec.get("ledger", ""))
+            if m:
+                for loc in spec.get("chunks", []) or []:
+                    by_loc.setdefault(loc, set()).add(m.group(1))
+        direct: dict[str, set] = {}
+        for _thm, ent in (ev.get("entries") or {}).items():
+            for c in (ent.get("chunks", []) or []):
+                owners = by_loc.get(c.get("locator"), set())
+                if len(owners) == 1:
+                    w = next(iter(owners))
+                    direct.setdefault(w, set()).add(c.get("locator"))
         for _key, w in (ev.get("works") or {}).items():
             m = re.search(r"translation-work/([^/]+)/passages\.jsonl",
                           w.get("ledger", ""))
             if m:
-                formal[m.group(1)] = len(w.get("chunks", []))
+                # formalized = chunks with a direct registry reference.
+                # Inventory count kept alongside for transparency.
+                formal[m.group(1)] = len(direct.get(m.group(1), set()))
+                formal_inventory[m.group(1)] = len(w.get("chunks", []))
         ev_rev = subprocess_rev()
         ev_bytes = (TRIKA / "formal-trika" / "EVIDENCE.json").read_bytes()
         ev_digest = {"trika_rev": ev_rev,
@@ -140,6 +158,7 @@ def main() -> int:
             "translations": sorted(ts, key=lambda t: t["id"]),
             "passages": passages.get(wid, 0),
             "formalized": formal.get(wid),
+            "formalized_inventory": formal_inventory.get(wid),
             "essays": scholars.get(wid, {}).get("essays", 0),
             "versions": scholars.get(wid, {}).get("versions", 0),
             "has_projection": wid in scholars,

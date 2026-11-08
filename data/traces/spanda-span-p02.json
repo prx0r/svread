@@ -1,0 +1,153 @@
+{
+ "assurance": {
+  "chunk_gate": "BLOCKED",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "PASS",
+  "witness": "UNPINNED"
+ },
+ "caveats": [
+  "chunk_gate BLOCKED: ABSTENTION,CITATION_GROUNDING"
+ ],
+ "chunk": {
+  "immutable_id": "pt:pid:span:9bede116774f",
+  "target": "span-p02",
+  "work": "spanda"
+ },
+ "essays": {
+  "citing": [],
+  "projection_sha256": "2be73f916b73dd68f47fe8f1c27ee6418ecf6eff0be8ce6f066257c615cdb195"
+ },
+ "formal": {
+  "status": "none",
+  "theorems": []
+ },
+ "format": "trika-trace/1",
+ "gaps": [],
+ "identity": {
+  "db": "postgresql://patala:***@localhost:5432/openpatala",
+  "rows": {
+   "editions": [
+    {
+     "id": "spanda:edition:1",
+     "title": "spanda"
+    }
+   ],
+   "etexts": [
+    {
+     "artifact": "6f35f2f0e1756390e43fa094d77dfc8f950c49a48820cf41dc961bbf0182ebf9",
+     "id": "spanda:etext:1",
+     "provider": "translation-work"
+    }
+   ],
+   "passage": {
+    "citation_value": "span-p02",
+    "work_id": "spanda"
+   },
+   "witnesses_total": 0
+  },
+  "status": "BOUND"
+ },
+ "layers": {
+  "argmap": {
+   "path": "spanda/data/span-p02.argmap.json",
+   "present": true,
+   "sha256": "cc26070f479c2b19c4449ff58859a4088e7dd871f11efa48b1fd3f5380b3ae0e",
+   "status": "BOUND"
+  },
+  "c1": {
+   "path": "spanda/data/span-p02.c1.json",
+   "present": true,
+   "sha256": "8759b8fdabc43bf2035460361d95542a429fa2d5fa5efd55bba0c029b892d1c6",
+   "status": "BOUND"
+  },
+  "c2": {
+   "path": "spanda/data/span-p02.c2.json",
+   "present": true,
+   "sha256": "787fe5a3a2f30274b22461801837fb35ebc333632af1575c7fa094c20f5669a8",
+   "status": "BOUND"
+  },
+  "l0": {
+   "path": "spanda/data/span-p02.l0.json",
+   "present": true,
+   "sha256": "0c5dab9981d62c30272510717c6b1523770d0c035059126b397702b9dc6592bf",
+   "status": "BOUND"
+  },
+  "l2": {
+   "path": "spanda/data/span-p02.l2.json",
+   "present": true,
+   "sha256": "fb2e2f8843016aad084465b277275f43e66998052bff6e7d0a77fdb783c404d4",
+   "status": "BOUND"
+  },
+  "l3": {
+   "path": "spanda/data/span-p02.l3.json",
+   "present": true,
+   "sha256": "6d73989cccdb919cd6974c4d9af24a83f70e52d7afd037bb29892792fcb1e238",
+   "status": "BOUND"
+  },
+  "l4": {
+   "path": "spanda/data/span-p02.l4.json",
+   "present": true,
+   "sha256": "a407b1206dd85a3e2625b703d256f2e07a88e079f9c31705025bc80f9ceec868",
+   "status": "BOUND"
+  },
+  "t1": {
+   "path": "spanda/data/span-p02.t1.json",
+   "present": true,
+   "sha256": "50d3f746ed5c36425b8db4f1b271aa5baa53fb72065a1920670fdeedc737e8b2",
+   "status": "BOUND"
+  }
+ },
+ "open_problems": [],
+ "proofs": {
+  "chunk_gate": {
+   "blocking": [
+    "ABSTENTION",
+    "CITATION_GROUNDING"
+   ],
+   "checks_pass": {
+    "ABSTENTION": false,
+    "CITATION_GROUNDING": false,
+    "COVERAGE": true,
+    "SOURCE_BINDING": true,
+    "TERM_CONSISTENCY": true
+   },
+   "deterministic_gate": "BLOCKED",
+   "entry_sha256": "9c3b49908a6af064dc87690d8f0d4d34e1900726a3709e39cc2ffa5c8a64dfa3",
+   "status": "BLOCKED"
+  },
+  "song_proof": {
+   "blocking": [],
+   "deterministic_gate": "PASS",
+   "file": "spanda/proof/proof-span-p02.json",
+   "sha256": "62ba028ad978d53b396d094cfc1abe516b7ba370d65351c1bc4df77cf682005f",
+   "status": "PASS",
+   "tool": "proof_record v1 2026-11-01",
+   "warnings": 0
+  }
+ },
+ "source": {
+  "bytes_present": true,
+  "bytes_sha256": "9bede116774fdd0723d257757c29d236ef810682540c63fb3c6ff6e18700db70",
+  "edition": {
+   "label": "GRETIL (Vasugupta Spandakarika)",
+   "status": "CANDIDATE-WORK"
+  },
+  "immutable_id": "pt:pid:span:9bede116774f",
+  "ledger": "spanda/passages.jsonl",
+  "source_sha_file": null,
+  "verses": "11-19",
+  "witness": {
+   "id": null,
+   "status": "UNPINNED"
+  }
+ },
+ "verdict": "COMPLETE",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
+}

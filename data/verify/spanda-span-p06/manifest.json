@@ -1,0 +1,47 @@
+{
+ "artifacts": [
+  {
+   "bytes": 698,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "d5c0c9f34e03240f57d30cd03dcc65203b69c5b1e46d037cc9aa9b211e9cd55c"
+  },
+  {
+   "bytes": 7149,
+   "name": "ARGMAP.md",
+   "origin": "spanda/ARGMAP.md",
+   "role": "layer-argmap",
+   "sha256": "717c913bbb244678083505cb0793663ff84e19a1c969e6ab27103620cb2b37a5",
+   "status": "BOUND-WORK-MD"
+  },
+  {
+   "bytes": 8545,
+   "name": "L2.md",
+   "origin": "spanda/L2.md",
+   "role": "layer-l2",
+   "sha256": "64a550bdd3ffa825d928cf6e2f5f51fd852db8c594607dc30050cf709a9c635f",
+   "status": "BOUND-WORK-MD"
+  },
+  {
+   "bytes": 2820,
+   "name": "T1.md",
+   "origin": "spanda/T1.md",
+   "role": "layer-t1",
+   "sha256": "29558ccfe0c981dfe39f0409e9d59e82dd1f9938e0e513cd20e0dceef8677369",
+   "status": "BOUND-WORK-MD"
+  }
+ ],
+ "chunk": {
+  "immutable_id": "pt:pid:span:d5c0c9f34e03",
+  "target": "span-p06",
+  "work": "spanda"
+ },
+ "format": "trika-verify-pack/1",
+ "how_to_verify": "For each artifact: curl -s https://svread.pages.dev/data/verify/spanda-span-p06/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). Tiers: MODEL_CHECKED applies only to formal theorems inside their stated finite model.",
+ "trace": {
+  "file": "traces/spanda-span-p06.json",
+  "sha256": "bd508c1c0a43ec400aa13fb20f3c272f4712d57193a6498a52038afdea99ae89"
+ },
+ "verdict": "PARTIAL"
+}

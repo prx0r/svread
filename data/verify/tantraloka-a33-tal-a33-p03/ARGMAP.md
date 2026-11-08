@@ -1,0 +1,33 @@
+# Tantrāloka Ahnika 33 — ARGMAP
+
+## tal-a33-p01 (33.1-33.10)
+- speaker: Abhinava.
+- question: (passage 33.1-33.10).
+- premises: [and]-:C33 atha śrītantrāloke trayastriṃśamāhnikam athāvasarasaṃprāpta ekīkāro nigadyate / 0b yaduktaṃ cakrabhedena sārdhaṃ pūjyamiti trikam / tatraiṣa cakrabhedānāmekīkāro diśānayā viśvā tadīśā hāraudrī vīranetryambikā tathā / gurvīti ṣaḍare devyaḥ śrīsiddhāvīradarśitāḥ māheśī brāhmaṇī skāndī vaiṣṇavyaindrī yamātmikā / cāmuṇḍā caiva yogīśītyaṣṭāghoryādayo@thavā agninirṛtivāyvīśamātṛbhirdvādaśānvitāḥ / nandā bhadrā jayā kālī karālī vikṛtānanā kroṣṭukī bhīmamudrā ca vāyuvegā hayānanā / gambhīrā ghoṣaṇī ceti caturviṃśatyare vidhiḥ siddhirvṛddhirdyutirlakṣmīrmedhā kāntiḥ sudhā dhṛtiḥ / dīptiḥ puṣṭirmatiḥ kīrtiḥ susthitiḥ sugatiḥ smṛtiḥ suprabhā ṣoḍaśī ceti śrīkaṇṭhādikaśaktayaḥ / baliśca balinandaśca daśagrīvo haro hayaḥ mādhavaḥ ṣaḍare cakre dvādaśāre tvamī smṛtāḥ / dakṣaścaṇḍo haraḥ śauṇḍī pramatho bhīmamanmathau śakuniḥ sumatirnando gopālaśca pitāmahaḥ / śrīkaṇṭho@nantasūkṣmau ca trimūrtiḥ śaṃbareśvaraḥ arghīśo bhārabhūtiśca sthitiḥ sthāṇurharastathā / jhaṇṭhibhautikasadyojānugrahakrūrasainikāḥ
+- inference: [and]-:C33 atha śrītantrāloke trayastriṃśamāhnikam athāvasarasaṃprāpta ekīkāro nigadyate / 0b yaduktaṃ cakrabhedena sārdhaṃ pūjyamiti trikam / tatraiṣa cakrabhedānāmekīkāro diśānayā viśvā tadīśā hāraudrī vīranetryambikā tathā / gurvīti ṣaḍare devyaḥ śrīsiddhāvīradarśitāḥ māheśī brāhmaṇī skāndī vaiṣṇavyaindrī yamātmikā / cāmuṇḍā caiva yogīśītyaṣṭāghoryādayo@thavā agninirṛtivāyvīśamātṛbhirdvādaśānvitāḥ / nandā bhadrā jayā kālī karālī vikṛtānanā kroṣṭukī bhīmamudrā ca vāyuvegā hayānanā / gambhīrā ghoṣaṇī ceti caturviṃśatyare vidhiḥ siddhirvṛddhirdyutirlakṣmīrmedhā kāntiḥ sudhā dhṛtiḥ / dīptiḥ puṣṭirmatiḥ kīrtiḥ susthitiḥ sugatiḥ smṛtiḥ suprabhā ṣoḍaśī ceti śrīkaṇṭhādikaśaktayaḥ / baliśca balinandaśca daśagrīvo haro hayaḥ mādhavaḥ ṣaḍare cakre dvādaśāre tvamī smṛtāḥ / dakṣaścaṇḍo haraḥ śauṇḍī pramatho bhīmamanmathau śakuniḥ sumatirnando gopālaśca pitāmahaḥ / śrīkaṇṭho@nantasūkṣmau ca trimūrtiḥ śaṃbareśvaraḥ arghīśo bhārabhūtiśca sthitiḥ sthāṇurharastathā / jhaṇṭhibhautikasadyojānugrahakrūrasainikāḥ
+- conclusion: (continued).
+- unresolved: none.
+
+## tal-a33-p02 (33.11-33.20)
+- speaker: Abhinava.
+- question: (passage 33.11-33.20).
+- premises: [and]-dvyaṣṭau yadvāmṛtastena yuktāḥ pūrṇābhataddravāḥ / oghormisyandanāṅgāśca vapurudgāravaktrakāḥ tanusecanamūrtīśāḥ sarvāmṛtadharo@paraḥ / śrīpāṭhācchaktayaścaitāḥ ṣoḍaśaiva prakīrtitāḥ saṃvartalakulibhṛgusitabakakhaṅgipinākibhujagabalikālāḥ / dviśchagalāṇḍau śikhiśoṇameṣamīnatridaṇḍi sāṣāḍhi devīkāntatadardhau dārukahalisomanāthaśarmāṇaḥ / jayavijayajayantājitasujayajayarudrakīrtanāvahakāḥ tanmūrtyutsāhadavardhanāśca balasubalabhadradāvahakāḥ / tadvāndātā ceśo nandanasamabhadratanmūrtiḥ śivadasumanaḥspṛhaṇakā durgo bhadrākhyakālaśca / ceto@nugakauśikakālaviśvasuśivāstathāparaḥ kopaḥ śrutyagnyare syurete strīpāṭhācchaktayastvetāḥ / juṃkāro@thāgnipatnīti ṣaḍare ṣaṇṭhavarjitāḥ dvādaśāre tatsahitāḥ ṣoḍaśāre svarāḥ kramāt / halastaddviguṇe@ṣṭāre yādyaṃ hāntaṃ tu tattrike dvātriṃśadarake sāntaṃ binduḥ sarveṣu mūrdhani / evamanyānbahūṃścakrabhedānasmātprakalpayet eka eva cidātmaiṣa viśvāmarśanasārakaḥ / śaktistadvānato mātā śabdarāśiḥ prakīrtitau
+- inference: [and]-dvyaṣṭau yadvāmṛtastena yuktāḥ pūrṇābhataddravāḥ / oghormisyandanāṅgāśca vapurudgāravaktrakāḥ tanusecanamūrtīśāḥ sarvāmṛtadharo@paraḥ / śrīpāṭhācchaktayaścaitāḥ ṣoḍaśaiva prakīrtitāḥ saṃvartalakulibhṛgusitabakakhaṅgipinākibhujagabalikālāḥ / dviśchagalāṇḍau śikhiśoṇameṣamīnatridaṇḍi sāṣāḍhi devīkāntatadardhau dārukahalisomanāthaśarmāṇaḥ / jayavijayajayantājitasujayajayarudrakīrtanāvahakāḥ tanmūrtyutsāhadavardhanāśca balasubalabhadradāvahakāḥ / tadvāndātā ceśo nandanasamabhadratanmūrtiḥ śivadasumanaḥspṛhaṇakā durgo bhadrākhyakālaśca / ceto@nugakauśikakālaviśvasuśivāstathāparaḥ kopaḥ śrutyagnyare syurete strīpāṭhācchaktayastvetāḥ / juṃkāro@thāgnipatnīti ṣaḍare ṣaṇṭhavarjitāḥ dvādaśāre tatsahitāḥ ṣoḍaśāre svarāḥ kramāt / halastaddviguṇe@ṣṭāre yādyaṃ hāntaṃ tu tattrike dvātriṃśadarake sāntaṃ binduḥ sarveṣu mūrdhani / evamanyānbahūṃścakrabhedānasmātprakalpayet eka eva cidātmaiṣa viśvāmarśanasārakaḥ / śaktistadvānato mātā śabdarāśiḥ prakīrtitau
+- conclusion: (continued).
+- unresolved: none.
+
+## tal-a33-p03 (33.21-33.30)
+- speaker: Abhinava.
+- question: (passage 33.21-33.30).
+- premises: [and]-tayoreva vibhāge tu śaktitadvatprakalpane / śabdarāśirmālinī ca kṣobhātma vapurīdṛśam tathāntaḥsthaparāmarśabhedane vastutastrikam / anuttarecchonmeṣākhyaṃ yato viśvaṃ vimarśanam ānandeśormiyoge tu tatṣaṭkaṃ samudāhṛtam / antaḥsthoṣmasamāyogāttadaṣṭakamudāhṛtam tadāmṛtacatuṣkonabhāve dvādaśakaṃ bhavet / tadyoge ṣoḍaśākhyaṃ syādevaṃ yāvadasaṃkhyatā viśvamekaparāmarśasahatvātprabhṛti sphuṭam / aṃśāṃśikāparāmarśān paryante sahate yataḥ ataḥ pañcāśadaikātmyaṃ svaravyaktivirūpatā / vargāṣṭakaṃ varṇabheda ekāśītikalodayaḥ iti pradarśitaṃ pūrvam ardhamātrāsahatvataḥ / svarārdhamapyasti yataḥ svaritasyārdhamātrakam tasyādita udāttaṃ tatkathitaṃ padavedinā / itthaṃ saṃvidiyaṃ yājyasvarūpāmarśarūpiṇī abhinnaṃ saṃvidaścaitaccakrāṇāṃ cakravālakam / svāmyāvaraṇabhedena bahudhā tatprayojayet parāparā parā cānyā sṛṣṭisthititirodhayaḥ / mātṛsadbhāvarūpā tu turyā viśrāntirucyate
+- inference: [and]-tayoreva vibhāge tu śaktitadvatprakalpane / śabdarāśirmālinī ca kṣobhātma vapurīdṛśam tathāntaḥsthaparāmarśabhedane vastutastrikam / anuttarecchonmeṣākhyaṃ yato viśvaṃ vimarśanam ānandeśormiyoge tu tatṣaṭkaṃ samudāhṛtam / antaḥsthoṣmasamāyogāttadaṣṭakamudāhṛtam tadāmṛtacatuṣkonabhāve dvādaśakaṃ bhavet / tadyoge ṣoḍaśākhyaṃ syādevaṃ yāvadasaṃkhyatā viśvamekaparāmarśasahatvātprabhṛti sphuṭam / aṃśāṃśikāparāmarśān paryante sahate yataḥ ataḥ pañcāśadaikātmyaṃ svaravyaktivirūpatā / vargāṣṭakaṃ varṇabheda ekāśītikalodayaḥ iti pradarśitaṃ pūrvam ardhamātrāsahatvataḥ / svarārdhamapyasti yataḥ svaritasyārdhamātrakam tasyādita udāttaṃ tatkathitaṃ padavedinā / itthaṃ saṃvidiyaṃ yājyasvarūpāmarśarūpiṇī abhinnaṃ saṃvidaścaitaccakrāṇāṃ cakravālakam / svāmyāvaraṇabhedena bahudhā tatprayojayet parāparā parā cānyā sṛṣṭisthititirodhayaḥ / mātṛsadbhāvarūpā tu turyā viśrāntirucyate
+- conclusion: (continued).
+- unresolved: none.
+
+## tal-a33-p04 (33.31-33.32)
+- speaker: Abhinava.
+- question: (passage 33.31-33.32).
+- premises: [and]-tacca prakāśaṃ vaktrasthaṃ sūcitaṃ tu pade pade / turye viśrāntirādheyā mātṛsadbhāvasāriṇi tathāsya viśvamābhāti svātmatanmayatāṃ gatam / ityeṣa śāstrārthasyokta ekīkāro gurūditaḥ
+- inference: [and]-tacca prakāśaṃ vaktrasthaṃ sūcitaṃ tu pade pade / turye viśrāntirādheyā mātṛsadbhāvasāriṇi tathāsya viśvamābhāti svātmatanmayatāṃ gatam / ityeṣa śāstrārthasyokta ekīkāro gurūditaḥ
+- conclusion: (continued).
+- unresolved: none.

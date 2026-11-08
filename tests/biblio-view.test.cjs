@@ -6,8 +6,19 @@ const { execFileSync } = require('node:child_process');
 
 const ROOT = path.join(__dirname, '..');
 
-test('emit_biblio --check is green and bundle is honest', () => {
-  const out = execFileSync('python3', ['tools/emit_biblio.py', '--check'], { cwd: ROOT, encoding: 'utf8' });
+test('emit_biblio --check is green and bundle is honest', (t) => {
+  let out;
+  try {
+    out = execFileSync('python3', ['tools/emit_biblio.py', '--check'], { cwd: ROOT, encoding: 'utf8' });
+  } catch (e) {
+    // PR #7 P1: missing DB infrastructure SKIPs, never fails.
+    // The emitter itself fails closed ("refusing stale write").
+    if (/No module named 'psycopg2'|DB unreachable|connection|psql/i.test((e.stdout || '') + (e.message || ''))) {
+      t.skip('no database/DB driver in this environment');
+      return;
+    }
+    throw e;
+  }
   assert.ok(out.includes('GREEN'), out);
   const d = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'biblio.json'), 'utf8'));
   assert.equal(d.format, 'svread-biblio/1');

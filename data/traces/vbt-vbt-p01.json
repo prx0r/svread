@@ -1,0 +1,163 @@
+{
+ "assurance": {
+  "chunk_gate": "BLOCKED",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "PASS",
+  "witness": "UNPINNED"
+ },
+ "caveats": [
+  "chunk_gate BLOCKED: ABSTENTION,TERM_CONSISTENCY"
+ ],
+ "chunk": {
+  "immutable_id": "pt:pid:vbt:c1a27b8d2ddb",
+  "target": "vbt-p01",
+  "work": "vbt"
+ },
+ "essays": {
+  "citing": [],
+  "projection_sha256": "cd22be388bca1045b807905c154423a2fb88d7a853eaf4d8b9265f4e47f6a7b7"
+ },
+ "formal": {
+  "status": "REGISTERED",
+  "theorems": [
+   {
+    "kind": "KEY",
+    "run_bound": false,
+    "run_note": "registry reference only; no per-declaration run digest bound",
+    "status": "SPAN-PINNED",
+    "theorem": "Vbt.lean :: forms_eight",
+    "tier": "R",
+    "via": "ARGMAP+L2+C1"
+   }
+  ]
+ },
+ "format": "trika-trace/1",
+ "gaps": [],
+ "identity": {
+  "db": "postgresql://patala:***@localhost:5432/openpatala",
+  "rows": {
+   "editions": [
+    {
+     "id": "vbt:edition:1",
+     "title": "vbt"
+    }
+   ],
+   "etexts": [
+    {
+     "artifact": "36113caaf0cd87c578cd586f5053ec8a172a5f82b7616a7f13b2cf6e87831555",
+     "id": "vbt:etext:1",
+     "provider": "translation-work"
+    }
+   ],
+   "passage": {
+    "citation_value": "vbt-p01",
+    "work_id": "vbt"
+   },
+   "witnesses_total": 0
+  },
+  "status": "BOUND"
+ },
+ "layers": {
+  "argmap": {
+   "path": "vbt/data/vbt-p01.argmap.json",
+   "present": true,
+   "sha256": "afaafbf5f6a8e2b4655a7c148bf7580badbf7b3d3e99621f8c64ea8d1d78a477",
+   "status": "BOUND"
+  },
+  "c1": {
+   "path": "vbt/data/vbt-p01.c1.json",
+   "present": true,
+   "sha256": "0db0226fd6d5a0cb93714186df3d7c68cd642071746832328fdbd17f0cc490f4",
+   "status": "BOUND"
+  },
+  "c2": {
+   "path": "vbt/data/vbt-p01.c2.json",
+   "present": true,
+   "sha256": "f0e792c8905e897cbc506b3d91a3741dc03406f6dfca15ffa403aa3d60526fdf",
+   "status": "BOUND"
+  },
+  "l0": {
+   "path": "vbt/data/vbt-p01.l0.json",
+   "present": true,
+   "sha256": "c2eab88bc17bffb9a56a4f848eb090bd5de3bf9672cfb64e26b8c62dc9fa15b3",
+   "status": "BOUND"
+  },
+  "l2": {
+   "path": "vbt/data/vbt-p01.l2.json",
+   "present": true,
+   "sha256": "539004b3be3c4ff621c61caa361e71352f79d4f1e184ba8947086bda8ce969a1",
+   "status": "BOUND"
+  },
+  "l3": {
+   "path": "vbt/data/vbt-p01.l3.json",
+   "present": true,
+   "sha256": "3a75436639afebf6508c90907d8e8fe827e9c843c0dafe7d40645b5f3275233b",
+   "status": "BOUND"
+  },
+  "l4": {
+   "path": "vbt/data/vbt-p01.l4.json",
+   "present": true,
+   "sha256": "df775ae29a9dafe72cf16fa69721e8c00d46152c1d0412d4edafc2cbf72a4e8b",
+   "status": "BOUND"
+  },
+  "t1": {
+   "path": "vbt/data/vbt-p01.t1.json",
+   "present": true,
+   "sha256": "be532bf012c671a865f7c27e772ba7fb41c03ab7a625eafef866254e61e85592",
+   "status": "BOUND"
+  }
+ },
+ "open_problems": [],
+ "proofs": {
+  "chunk_gate": {
+   "blocking": [
+    "ABSTENTION",
+    "TERM_CONSISTENCY"
+   ],
+   "checks_pass": {
+    "ABSTENTION": false,
+    "CITATION_GROUNDING": true,
+    "COVERAGE": true,
+    "SOURCE_BINDING": true,
+    "TERM_CONSISTENCY": false
+   },
+   "deterministic_gate": "BLOCKED",
+   "entry_sha256": "303e8da39b8d286e3dd6cf8c2bd5736be45bea6c62460a0146aa6652fe2a5032",
+   "status": "BLOCKED"
+  },
+  "song_proof": {
+   "blocking": [],
+   "deterministic_gate": "PASS",
+   "file": "vbt/proof/proof-vbt-p01.json",
+   "sha256": "74d6d6248b8006b074cc89e6842990c2b16043c0186c6a74121bbdee74fe0553",
+   "status": "PASS",
+   "tool": "proof_record v1 2026-11-01",
+   "warnings": 0
+  }
+ },
+ "source": {
+  "bytes_present": true,
+  "bytes_sha256": "c1a27b8d2ddb59833ea2a277c3d19bbe71b40018f9210224588547d1a270582a",
+  "edition": {
+   "label": "GRETIL (Vijnanabhairava)",
+   "status": "CANDIDATE-WORK"
+  },
+  "immutable_id": "pt:pid:vbt:c1a27b8d2ddb",
+  "ledger": "vbt/passages.jsonl",
+  "source_sha_file": null,
+  "verses": "2-11",
+  "witness": {
+   "id": null,
+   "status": "UNPINNED"
+  }
+ },
+ "verdict": "COMPLETE",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
+}

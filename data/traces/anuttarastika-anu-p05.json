@@ -1,0 +1,154 @@
+{
+ "assurance": {
+  "chunk_gate": "BLOCKED",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "PASS",
+  "witness": "UNPINNED"
+ },
+ "caveats": [
+  "chunk_gate BLOCKED: CITATION_GROUNDING"
+ ],
+ "chunk": {
+  "immutable_id": "pt:pid:anu:07373fba444d",
+  "target": "anu-p05",
+  "work": "anuttarastika"
+ },
+ "essays": {
+  "citing": [],
+  "projection_sha256": "07770931499ab8300f3381639a51221272f25f868185cbe0433a5486bf207742"
+ },
+ "formal": {
+  "status": "none",
+  "theorems": []
+ },
+ "format": "trika-trace/1",
+ "gaps": [],
+ "identity": {
+  "db": "postgresql://patala:***@localhost:5432/openpatala",
+  "rows": {
+   "editions": [
+    {
+     "id": "anuttarastika:edition:1",
+     "title": "anuttarastika"
+    }
+   ],
+   "etexts": [
+    {
+     "artifact": "78164b449c779fc8ed5ce278f6a78d5c461ad66cc2b8aaecd9897e3c462ef043",
+     "id": "anuttarastika:etext:1",
+     "provider": "translation-work"
+    }
+   ],
+   "passage": {
+    "citation_value": "anu-p05",
+    "work_id": "anuttarastika"
+   },
+   "witnesses_total": 0
+  },
+  "status": "BOUND"
+ },
+ "layers": {
+  "argmap": {
+   "path": "anuttarastika/data/anu-p05.argmap.json",
+   "present": true,
+   "sha256": "7516f0c667c426d8344af81daf4069fce534f611601bbfb2cb4c5aa75a008802",
+   "status": "BOUND"
+  },
+  "c1": {
+   "path": "anuttarastika/data/anu-p05.c1.json",
+   "present": true,
+   "sha256": "65c6cb0e00956dd36233d8ef625658f0e19b47a89306ff8899867ac85c85ad3e",
+   "status": "BOUND"
+  },
+  "c2": {
+   "path": "anuttarastika/data/anu-p05.c2.json",
+   "present": true,
+   "sha256": "ac26f6bc9614252cbfe9ff363657f08dab57b81268e47b1b3f300190f23acebd",
+   "status": "BOUND"
+  },
+  "l0": {
+   "path": "anuttarastika/data/anu-p05.l0.json",
+   "present": true,
+   "sha256": "ee0fb1c1a1e95ad86bb8431f0e90ef37d80c324033882ef4896b1eb321780720",
+   "status": "BOUND"
+  },
+  "l2": {
+   "path": "anuttarastika/data/anu-p05.l2.json",
+   "present": true,
+   "sha256": "5ec6c23acc11900b7a0fb8ff10071eb455bfffa242bb14d705a8fa2817b40cbf",
+   "status": "BOUND"
+  },
+  "l3": {
+   "path": "anuttarastika/data/anu-p05.l3.json",
+   "present": true,
+   "sha256": "ce0409ec3dbc405b443487cda53294a5051ea66389a9859c5caf44885576231f",
+   "status": "BOUND"
+  },
+  "l4": {
+   "path": "anuttarastika/data/anu-p05.l4.json",
+   "present": true,
+   "sha256": "8001ec1f159c22f1224bf34d6ccc8c70aaa1cc98b4b6375d31851fa6cdeb91ea",
+   "status": "BOUND"
+  },
+  "t1": {
+   "path": "anuttarastika/data/anu-p05.t1.json",
+   "present": true,
+   "sha256": "89ada29463ab4a3ead6ef6eaeb99164b9ee9b6913872ee20a2c58bb07c92f90c",
+   "status": "BOUND"
+  }
+ },
+ "open_problems": [],
+ "proofs": {
+  "chunk_gate": {
+   "blocking": [
+    "CITATION_GROUNDING"
+   ],
+   "checks_pass": {
+    "ABSTENTION": true,
+    "CITATION_GROUNDING": false,
+    "COVERAGE": true,
+    "SOURCE_BINDING": true,
+    "TERM_CONSISTENCY": true
+   },
+   "deterministic_gate": "BLOCKED",
+   "entry_sha256": "07907b05fa6734328297e18fbefbeaa569eef93ea926b1a3f4a8d61c9af55f4f",
+   "status": "BLOCKED"
+  },
+  "song_proof": {
+   "blocking": [],
+   "deterministic_gate": "PASS",
+   "file": "anuttarastika/proof/proof-anu-p05.json",
+   "sha256": "c26ccdb2fd354a8e0650ab13298d400a3ba1cf204ecc3a04e9aaf72868f5a967",
+   "status": "PASS",
+   "tool": "proof_record v1 2026-11-01",
+   "warnings": 0
+  }
+ },
+ "source": {
+  "bytes_present": true,
+  "bytes_sha256": "07373fba444ded5aa635edeacdbb99b581a553fd278cf1d7bbc2cc23425adf41",
+  "edition": {
+   "label": null,
+   "status": "UNKNOWN"
+  },
+  "immutable_id": "pt:pid:anu:07373fba444d",
+  "ledger": "anuttarastika/passages.jsonl",
+  "source_sha_file": "anuttarastika/SOURCE.sha",
+  "source_sha_note": "ledger span vs volume file differ by design; no equality claimed",
+  "source_sha_recorded": "78164b449c77",
+  "verses": "5",
+  "witness": {
+   "id": null,
+   "status": "UNPINNED"
+  }
+ },
+ "verdict": "COMPLETE",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
+}

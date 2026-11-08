@@ -1,4 +1,17 @@
 {
+ "assurance": {
+  "chunk_gate": "BLOCKED",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "PASS",
+  "witness": "UNPINNED"
+ },
  "caveats": [
   "chunk_gate BLOCKED: ABSTENTION,CITATION_GROUNDING"
  ],
@@ -12,17 +25,21 @@
   "projection_sha256": "2be73f916b73dd68f47fe8f1c27ee6418ecf6eff0be8ce6f066257c615cdb195"
  },
  "formal": {
-  "status": "MODEL_CHECKED",
+  "status": "REGISTERED",
   "theorems": [
    {
     "kind": "KEY",
+    "run_bound": false,
+    "run_note": "registry reference only; no per-declaration run digest bound",
     "status": "SPAN-PINNED",
-    "theorem": "Spanda.lean :: phases_two",
+    "theorem": "Spanda.lean :: acts_three",
     "tier": "R",
     "via": "L2+C1"
    },
    {
     "kind": "KEY",
+    "run_bound": false,
+    "run_note": "registry reference only; no per-declaration run digest bound",
     "status": "SPAN-PINNED",
     "theorem": "Spanda.lean :: glide_all",
     "tier": "R",
@@ -30,8 +47,10 @@
    },
    {
     "kind": "KEY",
+    "run_bound": false,
+    "run_note": "registry reference only; no per-declaration run digest bound",
     "status": "SPAN-PINNED",
-    "theorem": "Spanda.lean :: acts_three",
+    "theorem": "Spanda.lean :: phases_two",
     "tier": "R",
     "via": "L2+C1"
    }
@@ -114,24 +133,31 @@
   }
  },
  "open_problems": [],
- "produced_at": "2026-11-07T10:41:40+00:00",
- "produced_by": {
-  "tool": "trace_bundle/1",
-  "trika_rev": "UNKNOWN"
- },
  "proofs": {
   "chunk_gate": {
    "blocking": [
     "ABSTENTION",
     "CITATION_GROUNDING"
    ],
-   "deterministic_gate": "BLOCKED"
+   "checks_pass": {
+    "ABSTENTION": false,
+    "CITATION_GROUNDING": false,
+    "COVERAGE": true,
+    "SOURCE_BINDING": true,
+    "TERM_CONSISTENCY": true
+   },
+   "deterministic_gate": "BLOCKED",
+   "entry_sha256": "a4a32f1b7f9c071943a7f9d8c136e1e48f674f1b1465767af6e42132262be601",
+   "status": "BLOCKED"
   },
   "song_proof": {
    "blocking": [],
+   "deterministic_gate": "PASS",
    "file": "spanda/proof/proof-span-p01.json",
    "sha256": "68cd2dc357e843900fb1c35d99df7d2320c01ea98f21acc7eb07c1c5bf6e3447",
-   "status": "PASS"
+   "status": "PASS",
+   "tool": "proof_record v1 2026-11-01",
+   "warnings": 0
   }
  },
  "source": {
@@ -150,5 +176,6 @@
    "status": "UNPINNED"
   }
  },
- "verdict": "COMPLETE"
+ "verdict": "COMPLETE",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
 }

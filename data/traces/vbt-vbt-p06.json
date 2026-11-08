@@ -1,0 +1,152 @@
+{
+ "assurance": {
+  "chunk_gate": "BLOCKED",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "PASS",
+  "witness": "UNPINNED"
+ },
+ "caveats": [
+  "chunk_gate BLOCKED: ABSTENTION"
+ ],
+ "chunk": {
+  "immutable_id": "pt:pid:vbt:b85914732e12",
+  "target": "vbt-p06",
+  "work": "vbt"
+ },
+ "essays": {
+  "citing": [],
+  "projection_sha256": "cd22be388bca1045b807905c154423a2fb88d7a853eaf4d8b9265f4e47f6a7b7"
+ },
+ "formal": {
+  "status": "none",
+  "theorems": []
+ },
+ "format": "trika-trace/1",
+ "gaps": [],
+ "identity": {
+  "db": "postgresql://patala:***@localhost:5432/openpatala",
+  "rows": {
+   "editions": [
+    {
+     "id": "vbt:edition:1",
+     "title": "vbt"
+    }
+   ],
+   "etexts": [
+    {
+     "artifact": "36113caaf0cd87c578cd586f5053ec8a172a5f82b7616a7f13b2cf6e87831555",
+     "id": "vbt:etext:1",
+     "provider": "translation-work"
+    }
+   ],
+   "passage": {
+    "citation_value": "vbt-p06",
+    "work_id": "vbt"
+   },
+   "witnesses_total": 0
+  },
+  "status": "BOUND"
+ },
+ "layers": {
+  "argmap": {
+   "path": "vbt/data/vbt-p06.argmap.json",
+   "present": true,
+   "sha256": "34b8b7bbbb349fc0f9673c0eb06d9b3f74708d8e985aa3f5fd942227389ceb5a",
+   "status": "BOUND"
+  },
+  "c1": {
+   "path": "vbt/data/vbt-p06.c1.json",
+   "present": true,
+   "sha256": "d9100da8c95154e7e581927e949427f59a09a4f9204e9b39b1e1c35864742381",
+   "status": "BOUND"
+  },
+  "c2": {
+   "path": "vbt/data/vbt-p06.c2.json",
+   "present": true,
+   "sha256": "1a7c55ceb87957d81739ae93d35ad405f26d928511cc3977548e792a6a8cd6ad",
+   "status": "BOUND"
+  },
+  "l0": {
+   "path": "vbt/data/vbt-p06.l0.json",
+   "present": true,
+   "sha256": "2b8a82459b29a07090d53c458a54d6fefae8f28688857e66d031333494043e9b",
+   "status": "BOUND"
+  },
+  "l2": {
+   "path": "vbt/data/vbt-p06.l2.json",
+   "present": true,
+   "sha256": "5e8e8edace7c15e6d4e61026bdd3c944977f6089d8d05278759cc8857bb83ed5",
+   "status": "BOUND"
+  },
+  "l3": {
+   "path": "vbt/data/vbt-p06.l3.json",
+   "present": true,
+   "sha256": "8e272762424322728dfae124fc10fd032b55d09e9a84198f7a37266614f1c800",
+   "status": "BOUND"
+  },
+  "l4": {
+   "path": "vbt/data/vbt-p06.l4.json",
+   "present": true,
+   "sha256": "058e1611cf3c3168c7b8b716b705b0049af6f67018063e2ff05b70c02ae311ef",
+   "status": "BOUND"
+  },
+  "t1": {
+   "path": "vbt/data/vbt-p06.t1.json",
+   "present": true,
+   "sha256": "9c0fdfcf89bc5a47bf7a21e5f12c381a46f02edbd8c057932fad59ef614bc1c8",
+   "status": "BOUND"
+  }
+ },
+ "open_problems": [],
+ "proofs": {
+  "chunk_gate": {
+   "blocking": [
+    "ABSTENTION"
+   ],
+   "checks_pass": {
+    "ABSTENTION": false,
+    "CITATION_GROUNDING": true,
+    "COVERAGE": true,
+    "SOURCE_BINDING": true,
+    "TERM_CONSISTENCY": true
+   },
+   "deterministic_gate": "BLOCKED",
+   "entry_sha256": "7911925f0aee61e95c489e1b3160cb47887dc5bccaa93a349fa0831664261cc2",
+   "status": "BLOCKED"
+  },
+  "song_proof": {
+   "blocking": [],
+   "deterministic_gate": "PASS",
+   "file": "vbt/proof/proof-vbt-p06.json",
+   "sha256": "19890f2b45e153ff95e77463040fadfef8229ea6dce8ffc00ae3fd6abe9e2476",
+   "status": "PASS",
+   "tool": "proof_record v1 2026-11-01",
+   "warnings": 0
+  }
+ },
+ "source": {
+  "bytes_present": true,
+  "bytes_sha256": "b85914732e12b009393fa1e1235de1b30a90be00c286dc83241bb344cee8bf28",
+  "edition": {
+   "label": "GRETIL (Vijnanabhairava)",
+   "status": "CANDIDATE-WORK"
+  },
+  "immutable_id": "pt:pid:vbt:b85914732e12",
+  "ledger": "vbt/passages.jsonl",
+  "source_sha_file": null,
+  "verses": "52-61",
+  "witness": {
+   "id": null,
+   "status": "UNPINNED"
+  }
+ },
+ "verdict": "COMPLETE",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
+}

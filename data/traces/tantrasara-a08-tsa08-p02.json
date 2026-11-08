@@ -1,4 +1,17 @@
 {
+ "assurance": {
+  "chunk_gate": "BLOCKED",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "PASS",
+  "witness": "UNPINNED"
+ },
  "caveats": [
   "layer:t1=whole-song-span",
   "layer:l0=whole-song-span",
@@ -7,6 +20,7 @@
   "layer:c1=whole-song-span",
   "layer:l3=whole-song-span",
   "layer:l4=whole-song-span",
+  "song_proof warnings: 1",
   "chunk_gate BLOCKED: ABSTENTION,CITATION_GROUNDING"
  ],
  "chunk": {
@@ -19,17 +33,12 @@
   "projection_sha256": "8e4ff94a4409437ca4196ea9f901ae6f4b4fe94b94b6a5f50c2a8787f3c63758"
  },
  "formal": {
-  "status": "MODEL_CHECKED",
+  "status": "REGISTERED",
   "theorems": [
    {
     "kind": "KEY",
-    "status": "ARGMAP-PINNED",
-    "theorem": "Mala.lean :: count_3",
-    "tier": "T",
-    "via": "argmap"
-   },
-   {
-    "kind": "KEY",
+    "run_bound": false,
+    "run_note": "registry reference only; no per-declaration run digest bound",
     "status": "VERIFIED-QUOTE",
     "theorem": "AnswerKey.lean :: key_grace_term",
     "tier": "T",
@@ -37,6 +46,26 @@
    },
    {
     "kind": "MODEL",
+    "run_bound": false,
+    "run_note": "registry reference only; no per-declaration run digest bound",
+    "status": "CONTEXT_ONLY",
+    "theorem": "Grace.lean :: readiness_insufficient",
+    "tier": "T",
+    "via": "t1"
+   },
+   {
+    "kind": "KEY",
+    "run_bound": false,
+    "run_note": "registry reference only; no per-declaration run digest bound",
+    "status": "ARGMAP-PINNED",
+    "theorem": "Mala.lean :: count_3",
+    "tier": "T",
+    "via": "argmap"
+   },
+   {
+    "kind": "MODEL",
+    "run_bound": false,
+    "run_note": "registry reference only; no per-declaration run digest bound",
     "status": "ARGMAP-PINNED",
     "theorem": "Transitions.lean :: anava_stuck_exists",
     "tier": "T",
@@ -44,17 +73,12 @@
    },
    {
     "kind": "MODEL",
+    "run_bound": false,
+    "run_note": "registry reference only; no per-declaration run digest bound",
     "status": "ARGMAP-PINNED",
     "theorem": "Transitions.lean :: karma_loop_exists",
     "tier": "T",
     "via": "argmap"
-   },
-   {
-    "kind": "MODEL",
-    "status": "CONTEXT_ONLY",
-    "theorem": "Grace.lean :: readiness_insufficient",
-    "tier": "T",
-    "via": "t1"
    }
   ]
  },
@@ -141,24 +165,31 @@
   }
  },
  "open_problems": [],
- "produced_at": "2026-11-07T10:41:41+00:00",
- "produced_by": {
-  "tool": "trace_bundle/1",
-  "trika_rev": "UNKNOWN"
- },
  "proofs": {
   "chunk_gate": {
    "blocking": [
     "ABSTENTION",
     "CITATION_GROUNDING"
    ],
-   "deterministic_gate": "BLOCKED"
+   "checks_pass": {
+    "ABSTENTION": false,
+    "CITATION_GROUNDING": false,
+    "COVERAGE": true,
+    "SOURCE_BINDING": true,
+    "TERM_CONSISTENCY": true
+   },
+   "deterministic_gate": "BLOCKED",
+   "entry_sha256": "7e52fdbfa1220ce0e35f5823a63ef1e0f9555ebfadb191665dc13843f83f989e",
+   "status": "BLOCKED"
   },
   "song_proof": {
    "blocking": [],
+   "deterministic_gate": "PASS",
    "file": "tantrasara-a08/proof/proof-tsa-a08.json",
    "sha256": "b2fd8d5f4cdfd233e9d26febabbcb82eff54bfc266a75c4bb43cbbf38567b0e0",
-   "status": "PASS"
+   "status": "PASS",
+   "tool": "proof_record v1 2026-11-01",
+   "warnings": 1
   }
  },
  "source": {
@@ -179,5 +210,6 @@
    "status": "UNPINNED"
   }
  },
- "verdict": "COMPLETE"
+ "verdict": "COMPLETE",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
 }

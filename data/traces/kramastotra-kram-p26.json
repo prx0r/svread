@@ -1,0 +1,154 @@
+{
+ "assurance": {
+  "chunk_gate": "BLOCKED",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "PASS",
+  "witness": "UNPINNED"
+ },
+ "caveats": [
+  "chunk_gate BLOCKED: CITATION_GROUNDING"
+ ],
+ "chunk": {
+  "immutable_id": "pt:pid:kram:d3fbff1523b0",
+  "target": "kram-p26",
+  "work": "kramastotra"
+ },
+ "essays": {
+  "citing": [],
+  "projection_sha256": "63948aa868211e38ce8700abec971f81218b9a33fc004a4cccff49f5a37de1f1"
+ },
+ "formal": {
+  "status": "none",
+  "theorems": []
+ },
+ "format": "trika-trace/1",
+ "gaps": [],
+ "identity": {
+  "db": "postgresql://patala:***@localhost:5432/openpatala",
+  "rows": {
+   "editions": [
+    {
+     "id": "kramastotra:edition:1",
+     "title": "kramastotra"
+    }
+   ],
+   "etexts": [
+    {
+     "artifact": "ee49065721ba2aff9045a927c0ec570d4a76063681b1796455423ef35a3db815",
+     "id": "kramastotra:etext:1",
+     "provider": "translation-work"
+    }
+   ],
+   "passage": {
+    "citation_value": "kram-p26",
+    "work_id": "kramastotra"
+   },
+   "witnesses_total": 0
+  },
+  "status": "BOUND"
+ },
+ "layers": {
+  "argmap": {
+   "path": "kramastotra/data/kram-p26.argmap.json",
+   "present": true,
+   "sha256": "107f8b3eb5f819ff2f1d64428270006d3247e453860e368d5912151f179e5c13",
+   "status": "BOUND"
+  },
+  "c1": {
+   "path": "kramastotra/data/kram-p26.c1.json",
+   "present": true,
+   "sha256": "9157f96bee4f0875d5e1b9c7a475c880bc0fc46e8280d5b24d68594cde54bb5b",
+   "status": "BOUND"
+  },
+  "c2": {
+   "path": "kramastotra/data/kram-p26.c2.json",
+   "present": true,
+   "sha256": "7f28c2881396f6ef559008820edffb512247bb1cd07093c43238cede1a3fa39f",
+   "status": "BOUND"
+  },
+  "l0": {
+   "path": "kramastotra/data/kram-p26.l0.json",
+   "present": true,
+   "sha256": "c4ca43a6ac3b7ca1387c7845c344689dcfe623b70871120c3fa4e0a63a606a8c",
+   "status": "BOUND"
+  },
+  "l2": {
+   "path": "kramastotra/data/kram-p26.l2.json",
+   "present": true,
+   "sha256": "7c8e4c2f46073113c504cbc039d94c0eec5c5ae106e7d3aca9921782b0d38544",
+   "status": "BOUND"
+  },
+  "l3": {
+   "path": "kramastotra/data/kram-p26.l3.json",
+   "present": true,
+   "sha256": "b8a5d919bebf2bbd8a79af88178ddfda841e52d744abee5830bbd52645d15532",
+   "status": "BOUND"
+  },
+  "l4": {
+   "path": "kramastotra/data/kram-p26.l4.json",
+   "present": true,
+   "sha256": "e84dca57b56dbeaf12c5c1297e010c81fccd205d1b10205be2229dbefe4b22c8",
+   "status": "BOUND"
+  },
+  "t1": {
+   "path": "kramastotra/data/kram-p26.t1.json",
+   "present": true,
+   "sha256": "e4f9ac75408e17e98e9c977657c39d0ab7179bb968785d22f04930bb99d3b135",
+   "status": "BOUND"
+  }
+ },
+ "open_problems": [],
+ "proofs": {
+  "chunk_gate": {
+   "blocking": [
+    "CITATION_GROUNDING"
+   ],
+   "checks_pass": {
+    "ABSTENTION": true,
+    "CITATION_GROUNDING": false,
+    "COVERAGE": true,
+    "SOURCE_BINDING": true,
+    "TERM_CONSISTENCY": true
+   },
+   "deterministic_gate": "BLOCKED",
+   "entry_sha256": "9ee82a6c7c3141a27786024444437c8f0057182d0e349f7fd7a5c455c30f207a",
+   "status": "BLOCKED"
+  },
+  "song_proof": {
+   "blocking": [],
+   "deterministic_gate": "PASS",
+   "file": "kramastotra/proof/proof-kram-p26.json",
+   "sha256": "16546cfc1560559952f2ba1ab78cd70c92eb08a783bb2fb4a7efaacb964a21f1",
+   "status": "PASS",
+   "tool": "proof_record v1 2026-11-01",
+   "warnings": 0
+  }
+ },
+ "source": {
+  "bytes_present": true,
+  "bytes_sha256": "d3fbff1523b0b033e121f00060b88bd871f18ae5fe84c47542c14da9297ceec0",
+  "edition": {
+   "label": null,
+   "status": "UNKNOWN"
+  },
+  "immutable_id": "pt:pid:kram:d3fbff1523b0",
+  "ledger": "kramastotra/passages.jsonl",
+  "source_sha_file": "kramastotra/SOURCE.sha",
+  "source_sha_note": "ledger span vs volume file differ by design; no equality claimed",
+  "source_sha_recorded": "ee49065721ba",
+  "verses": "26",
+  "witness": {
+   "id": null,
+   "status": "UNPINNED"
+  }
+ },
+ "verdict": "COMPLETE",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
+}

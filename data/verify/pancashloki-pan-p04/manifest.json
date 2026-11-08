@@ -1,0 +1,94 @@
+{
+ "artifacts": [
+  {
+   "bytes": 223,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "b64d64f32af1a3a964849c8b4451f9d607192c1580c2d269fb34eb7129f47a75"
+  },
+  {
+   "bytes": 1270,
+   "name": "pan-p04.argmap.json",
+   "origin": "pancashloki/data/pan-p04.argmap.json",
+   "role": "layer-argmap",
+   "sha256": "60bd9cd41039f214ee7a1b69e505d3eb7bfed3a0bf467edc317197c94f3b785e",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 796,
+   "name": "pan-p04.c1.json",
+   "origin": "pancashloki/data/pan-p04.c1.json",
+   "role": "layer-c1",
+   "sha256": "ddbe8da2a66a04d3a6db4062616390da8c750f828ee05406df7e5778768c645e",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1955,
+   "name": "pan-p04.c2.json",
+   "origin": "pancashloki/data/pan-p04.c2.json",
+   "role": "layer-c2",
+   "sha256": "6b6191a68adfcc21e366fe079c44a2523e24946750be177b4130d1cc14f350e0",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 10342,
+   "name": "pan-p04.l0.json",
+   "origin": "pancashloki/data/pan-p04.l0.json",
+   "role": "layer-l0",
+   "sha256": "dc04a4ca6fe6966da234a0f30b86cbc4cd99dc8282ddcb97350721460f525b5c",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1056,
+   "name": "pan-p04.l2.json",
+   "origin": "pancashloki/data/pan-p04.l2.json",
+   "role": "layer-l2",
+   "sha256": "bafdd6d6786a05678235295093079198fc07d92bd7c676f4bfd59cc7cde265ec",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1179,
+   "name": "pan-p04.l3.json",
+   "origin": "pancashloki/data/pan-p04.l3.json",
+   "role": "layer-l3",
+   "sha256": "3d17f5bb3bcc9eb0ec7c03df94ea4e41113f96824c7e70f626e6eb4e45b566d3",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1215,
+   "name": "pan-p04.l4.json",
+   "origin": "pancashloki/data/pan-p04.l4.json",
+   "role": "layer-l4",
+   "sha256": "087778e5f88677c0832689e92c9ab68332bfd823e12ef1ec9fcc7463270b21a5",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 2004,
+   "name": "pan-p04.t1.json",
+   "origin": "pancashloki/data/pan-p04.t1.json",
+   "role": "layer-t1",
+   "sha256": "fe7141dd12d802d25901201c46690fc1f93379817180e348e1b08938aaf93274",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1716,
+   "name": "proof-pan-p04.json",
+   "origin": "pancashloki/proof/proof-pan-p04.json",
+   "role": "proof",
+   "sha256": "46edb67b1f6247c4a320034766f030af72f45907ae966a23788d042c2a33d94b"
+  }
+ ],
+ "chunk": {
+  "immutable_id": "pt:pid:pancashloki:004",
+  "target": "pan-p04",
+  "work": "pancashloki"
+ },
+ "format": "trika-verify-pack/1",
+ "how_to_verify": "For each artifact: curl -s https://svread.pages.dev/data/verify/pancashloki-pan-p04/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). Tiers: MODEL_CHECKED applies only to formal theorems inside their stated finite model.",
+ "trace": {
+  "file": "traces/pancashloki-pan-p04.json",
+  "sha256": "cf36e47d96803af8e3ca79fe5559c2ae813c960340b10c8dc10f53ec843f9160"
+ },
+ "verdict": "COMPLETE"
+}

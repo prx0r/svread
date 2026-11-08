@@ -56,7 +56,8 @@ def main() -> int:
             "kind": k,
             "chunks": e.get("chunks", []),
             "r_sources": e.get("r_sources", []),
-            "status": "MODEL_CHECKED (inside the stated finite model only)",
+            "status": ("REGISTERED (registry reference only; "
+            "no per-declaration run digest bound)"),
         }
 
     covered = set(chunks)
@@ -89,12 +90,15 @@ def main() -> int:
             "chunks_unformalized": len(all_chunks - covered) if all_chunks else None,
         },
         "scope_statement": (
-            "MODEL_CHECKED means a Lean 4.34.1 proof discharged the encoded "
-            "proposition inside its stated finite model. It does not prove the "
-            "doctrine, certify a translation, or validate the encoding of text "
-            "into premises. KEY entries recite the tradition's counts; they are "
-            "data, not derivations. R-tier (reconstructed) rules never promote "
-            "themselves to T (textual)."),
+            "REGISTERED means the entry exists in EVIDENCE.json pointing at "
+            "chunk locators; it does not prove the doctrine, certify a successful "
+            "run, certify a translation, or validate the encoding of "
+            "text into premises. MODEL_CHECKED is reserved for entries with "
+            "a verifiable declaration-specific successful run bound to "
+            "statement + toolchain + artifact digest; this registry "
+            "currently binds none. KEY entries recite the tradition's "
+            "counts; they are data, not derivations. R-tier (reconstructed) "
+            "rules never promote themselves to T (textual)."),
         "evidence_rules": [
             "Every theorem has an EVIDENCE entry pointing at chunk locators.",
             "Registry references are not source-to-theorem entailments.",

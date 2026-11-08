@@ -1,0 +1,94 @@
+{
+ "artifacts": [
+  {
+   "bytes": 208,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "c422d3bceb6d71ebc14067cfe27e9aa248f68d8f5e4d3339c3be10e7d06042e0"
+  },
+  {
+   "bytes": 1034,
+   "name": "kram-p01.argmap.json",
+   "origin": "kramastotra/data/kram-p01.argmap.json",
+   "role": "layer-argmap",
+   "sha256": "d543ede44ad6eae62f946fcf4f82db6c052f06977cef546e28118425a5393a42",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 724,
+   "name": "kram-p01.c1.json",
+   "origin": "kramastotra/data/kram-p01.c1.json",
+   "role": "layer-c1",
+   "sha256": "db04351abf2d24c117fbf617ca0385d555ba58d9f15c2de7fe88248fcbaa8653",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1451,
+   "name": "kram-p01.c2.json",
+   "origin": "kramastotra/data/kram-p01.c2.json",
+   "role": "layer-c2",
+   "sha256": "ce390ff988a2f4a8960c4c33370a38e1a1bca83bd816627a4a56a8e655e9e5d5",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 6078,
+   "name": "kram-p01.l0.json",
+   "origin": "kramastotra/data/kram-p01.l0.json",
+   "role": "layer-l0",
+   "sha256": "b70b44a774ff86bddfac2889ffb1b9937af069a471fc84043173dacc0ba01282",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 897,
+   "name": "kram-p01.l2.json",
+   "origin": "kramastotra/data/kram-p01.l2.json",
+   "role": "layer-l2",
+   "sha256": "3943954851d44548991d24b29864ab6d7a276dd4630a4eacac76763a6124a301",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 859,
+   "name": "kram-p01.l3.json",
+   "origin": "kramastotra/data/kram-p01.l3.json",
+   "role": "layer-l3",
+   "sha256": "dc94542e5a3ec1af9b808fcea7611b5e9ad2934bcf436284a96a9a5cdfee947f",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 895,
+   "name": "kram-p01.l4.json",
+   "origin": "kramastotra/data/kram-p01.l4.json",
+   "role": "layer-l4",
+   "sha256": "02e6f0ba6f1f3ee1c720e5f9df7ff6cf14e9d7d0545defc1c60a73a0dec8ded4",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1650,
+   "name": "kram-p01.t1.json",
+   "origin": "kramastotra/data/kram-p01.t1.json",
+   "role": "layer-t1",
+   "sha256": "4ca21ac43dac26cf8acd92d473e97c77455d214b7cf69eb5160f363a1bcba0bb",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1724,
+   "name": "proof-kram-p01.json",
+   "origin": "kramastotra/proof/proof-kram-p01.json",
+   "role": "proof",
+   "sha256": "75fad15be04d76dc35a422bbab83e71deb7330cebf867a6e413b791350a33298"
+  }
+ ],
+ "chunk": {
+  "immutable_id": "pt:pid:kram:c422d3bceb6d",
+  "target": "kram-p01",
+  "work": "kramastotra"
+ },
+ "format": "trika-verify-pack/1",
+ "how_to_verify": "For each artifact: curl -s https://svread.pages.dev/data/verify/kramastotra-kram-p01/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). Tiers: MODEL_CHECKED applies only to formal theorems inside their stated finite model.",
+ "trace": {
+  "file": "traces/kramastotra-kram-p01.json",
+  "sha256": "a0a956da981d5063d64d29350c56fb4a1a2fd01fcc1d3465c0cd461a26ef4a29"
+ },
+ "verdict": "COMPLETE"
+}

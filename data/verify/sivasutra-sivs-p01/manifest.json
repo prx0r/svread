@@ -1,0 +1,47 @@
+{
+ "artifacts": [
+  {
+   "bytes": 325,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "c0c4ba77e1f49bcb3428a4975fb661aa97e800d108bd42e5023f86b5e8917469"
+  },
+  {
+   "bytes": 8477,
+   "name": "ARGMAP.md",
+   "origin": "sivasutra/ARGMAP.md",
+   "role": "layer-argmap",
+   "sha256": "48fb6e8ad16915a020909337aa38808cb4e7f535cf65f50dc4122ed833849a75",
+   "status": "BOUND-WORK-MD"
+  },
+  {
+   "bytes": 10862,
+   "name": "L2.md",
+   "origin": "sivasutra/L2.md",
+   "role": "layer-l2",
+   "sha256": "df07355b4201f8b5d145fabd55c3f7087ad1557a0313c777a928e02c39783227",
+   "status": "BOUND-WORK-MD"
+  },
+  {
+   "bytes": 6955,
+   "name": "T1.md",
+   "origin": "sivasutra/T1.md",
+   "role": "layer-t1",
+   "sha256": "f4cf2474989dfab2e9a69b14266b703020e74ae9009533459151edb90f967ac5",
+   "status": "BOUND-WORK-MD"
+  }
+ ],
+ "chunk": {
+  "immutable_id": "pt:pid:sivs:c0c4ba77e1f4",
+  "target": "sivs-p01",
+  "work": "sivasutra"
+ },
+ "format": "trika-verify-pack/1",
+ "how_to_verify": "For each artifact: curl -s https://svread.pages.dev/data/verify/sivasutra-sivs-p01/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). Tiers: MODEL_CHECKED applies only to formal theorems inside their stated finite model.",
+ "trace": {
+  "file": "traces/sivasutra-sivs-p01.json",
+  "sha256": "49ad7ba7f560a35133239995ae01996d46aeafb333e7802b25a784be00bfe768"
+ },
+ "verdict": "PARTIAL"
+}

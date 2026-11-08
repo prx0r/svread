@@ -40,7 +40,8 @@ def main() -> int:
     if not SRC.is_dir():
         print(f"emit_traces: no bundles at {SRC}", file=sys.stderr)
         return 2
-    bundles = sorted(SRC.glob("*.json"))
+    bundles = sorted(p for p in SRC.glob("*.json")
+                       if p.name != "index.json")
     if not bundles:
         print("emit_traces: zero bundles; refusing empty publish", file=sys.stderr)
         return 2

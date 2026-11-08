@@ -1,4 +1,17 @@
 {
+ "assurance": {
+  "chunk_gate": "BLOCKED",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "PASS",
+  "witness": "UNPINNED"
+ },
  "caveats": [
   "chunk_gate BLOCKED: ABSTENTION"
  ],
@@ -12,10 +25,12 @@
   "projection_sha256": "93d3c6e97209668870ad0aadf7fb523d9b8454366c74a0235d292eb7153b32de"
  },
  "formal": {
-  "status": "MODEL_CHECKED",
+  "status": "REGISTERED",
   "theorems": [
    {
     "kind": "RULE",
+    "run_bound": false,
+    "run_note": "registry reference only; no per-declaration run digest bound",
     "status": "ARGMAP-PINNED",
     "theorem": "Pramatr.lean :: seven",
     "tier": "T",
@@ -100,23 +115,30 @@
   }
  },
  "open_problems": [],
- "produced_at": "2026-11-07T10:41:39+00:00",
- "produced_by": {
-  "tool": "trace_bundle/1",
-  "trika_rev": "UNKNOWN"
- },
  "proofs": {
   "chunk_gate": {
    "blocking": [
     "ABSTENTION"
    ],
-   "deterministic_gate": "BLOCKED"
+   "checks_pass": {
+    "ABSTENTION": false,
+    "CITATION_GROUNDING": true,
+    "COVERAGE": true,
+    "SOURCE_BINDING": true,
+    "TERM_CONSISTENCY": true
+   },
+   "deterministic_gate": "BLOCKED",
+   "entry_sha256": "7911925f0aee61e95c489e1b3160cb47887dc5bccaa93a349fa0831664261cc2",
+   "status": "BLOCKED"
   },
   "song_proof": {
    "blocking": [],
+   "deterministic_gate": "PASS",
    "file": "paramarthasara/proof/proof-param-p04.json",
    "sha256": "37f5b722b554775b1bfa9326b1b4c913e4ecb611267ba46170bfb723f2b80a35",
-   "status": "PASS"
+   "status": "PASS",
+   "tool": "proof_record v1 2026-11-01",
+   "warnings": 0
   }
  },
  "source": {
@@ -135,5 +157,6 @@
    "status": "UNPINNED"
   }
  },
- "verdict": "COMPLETE"
+ "verdict": "COMPLETE",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
 }

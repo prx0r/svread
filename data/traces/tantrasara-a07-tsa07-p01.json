@@ -1,4 +1,17 @@
 {
+ "assurance": {
+  "chunk_gate": "BLOCKED",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "PASS",
+  "witness": "UNPINNED"
+ },
  "caveats": [
   "layer:t1=whole-song-span",
   "layer:l0=whole-song-span",
@@ -19,17 +32,39 @@
   "projection_sha256": "4c0209c0e080baad00892a86efe4179e506a7ec8ecfbdc65336497b2d373c7d7"
  },
  "formal": {
-  "status": "MODEL_CHECKED",
+  "status": "REGISTERED",
   "theorems": [
    {
     "kind": "KEY",
+    "run_bound": false,
+    "run_note": "registry reference only; no per-declaration run digest bound",
     "status": "ARGMAP-PINNED",
     "theorem": "AnswerKey.lean :: key_thirtysix_tattvas",
     "tier": "T",
     "via": "argmap"
    },
    {
+    "kind": "RULE",
+    "run_bound": false,
+    "run_note": "registry reference only; no per-declaration run digest bound",
+    "status": "ARGMAP-PINNED",
+    "theorem": "Avarana.lean :: course_ascends",
+    "tier": "T",
+    "via": "argmap"
+   },
+   {
+    "kind": "MODEL",
+    "run_bound": false,
+    "run_note": "registry reference only; no per-declaration run digest bound",
+    "status": "ARGMAP-PINNED",
+    "theorem": "Tattva.lean :: eleven_wombed",
+    "tier": "T",
+    "via": "argmap"
+   },
+   {
     "kind": "KEY",
+    "run_bound": false,
+    "run_note": "registry reference only; no per-declaration run digest bound",
     "status": "ARGMAP-PINNED",
     "theorem": "Tattva.lean :: five_gross_elements",
     "tier": "T",
@@ -37,13 +72,8 @@
    },
    {
     "kind": "MODEL",
-    "status": "ARGMAP-PINNED",
-    "theorem": "Tattva.lean :: eleven_wombed",
-    "tier": "T",
-    "via": "argmap"
-   },
-   {
-    "kind": "MODEL",
+    "run_bound": false,
+    "run_note": "registry reference only; no per-declaration run digest bound",
     "status": "ARGMAP-PINNED",
     "theorem": "Tattva.lean :: thirty_six",
     "tier": "T",
@@ -51,22 +81,19 @@
    },
    {
     "kind": "MODEL",
-    "status": "CONTEXT_ONLY",
-    "theorem": "TattvaInventory.lean :: named_tattvas_36",
-    "tier": "T",
-    "via": "argmap"
-   },
-   {
-    "kind": "MODEL",
+    "run_bound": false,
+    "run_note": "registry reference only; no per-declaration run digest bound",
     "status": "CONTEXT_ONLY",
     "theorem": "TattvaInventory.lean :: kancuka_count",
     "tier": "T",
     "via": "argmap"
    },
    {
-    "kind": "RULE",
-    "status": "ARGMAP-PINNED",
-    "theorem": "Avarana.lean :: course_ascends",
+    "kind": "MODEL",
+    "run_bound": false,
+    "run_note": "registry reference only; no per-declaration run digest bound",
+    "status": "CONTEXT_ONLY",
+    "theorem": "TattvaInventory.lean :: named_tattvas_36",
     "tier": "T",
     "via": "argmap"
    }
@@ -155,24 +182,31 @@
   }
  },
  "open_problems": [],
- "produced_at": "2026-11-07T10:41:41+00:00",
- "produced_by": {
-  "tool": "trace_bundle/1",
-  "trika_rev": "UNKNOWN"
- },
  "proofs": {
   "chunk_gate": {
    "blocking": [
     "ABSTENTION",
     "CITATION_GROUNDING"
    ],
-   "deterministic_gate": "BLOCKED"
+   "checks_pass": {
+    "ABSTENTION": false,
+    "CITATION_GROUNDING": false,
+    "COVERAGE": true,
+    "SOURCE_BINDING": true,
+    "TERM_CONSISTENCY": true
+   },
+   "deterministic_gate": "BLOCKED",
+   "entry_sha256": "0108d2de3bfc488148c33e1e34e655e017c410df88c3d322d9eab3d354466548",
+   "status": "BLOCKED"
   },
   "song_proof": {
    "blocking": [],
+   "deterministic_gate": "PASS",
    "file": "tantrasara-a07/proof/proof-tsa-a07.json",
    "sha256": "8f9898af25e2f6f6eadae512e0ab76c9e00c81c26a1ebdabd987f266484a26d6",
-   "status": "PASS"
+   "status": "PASS",
+   "tool": "proof_record v1 2026-11-01",
+   "warnings": 0
   }
  },
  "source": {
@@ -193,5 +227,6 @@
    "status": "UNPINNED"
   }
  },
- "verdict": "COMPLETE"
+ "verdict": "COMPLETE",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
 }

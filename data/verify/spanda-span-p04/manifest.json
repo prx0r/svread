@@ -1,0 +1,94 @@
+{
+ "artifacts": [
+  {
+   "bytes": 1149,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "d8ddae2daa0e2ecefbeef04004944f08a82dad34f61cbefab1d91c2aa75ab1ea"
+  },
+  {
+   "bytes": 5233,
+   "name": "span-p04.argmap.json",
+   "origin": "spanda/data/span-p04.argmap.json",
+   "role": "layer-argmap",
+   "sha256": "9a20dfd86e155956d7c762e41cd49480c836c745a9ac7b3563bf4462d6fb9734",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 2769,
+   "name": "span-p04.c1.json",
+   "origin": "spanda/data/span-p04.c1.json",
+   "role": "layer-c1",
+   "sha256": "cd1ebbe46e8fe8b0c6efafa8c5058e80601040de4d05dcb1c5cddc6a76de2a04",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 2294,
+   "name": "span-p04.c2.json",
+   "origin": "spanda/data/span-p04.c2.json",
+   "role": "layer-c2",
+   "sha256": "24e900f007a8ae93ed28129d5a61ac3b324bbc62fd62fdf4f60da00a30458860",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 23556,
+   "name": "span-p04.l0.json",
+   "origin": "spanda/data/span-p04.l0.json",
+   "role": "layer-l0",
+   "sha256": "d8d030dbf1313083eeeb3fd3d6e1a94b01a4aa5f9cd0b24e1aa000e5f2750421",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 3617,
+   "name": "span-p04.l2.json",
+   "origin": "spanda/data/span-p04.l2.json",
+   "role": "layer-l2",
+   "sha256": "db91cd02193443deea74ad777f51dc73993663de87efe9f4d383291f1572b10a",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 4345,
+   "name": "span-p04.l3.json",
+   "origin": "spanda/data/span-p04.l3.json",
+   "role": "layer-l3",
+   "sha256": "d40761e25c0484af3edbd4fe553ef96c0d54cf53c0a3fbe01552e969838ea127",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 4471,
+   "name": "span-p04.l4.json",
+   "origin": "spanda/data/span-p04.l4.json",
+   "role": "layer-l4",
+   "sha256": "40ec142a22c993dac00464d15bb5328062b3868dab739a4c8c0397ef41cbf6c9",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 6230,
+   "name": "span-p04.t1.json",
+   "origin": "spanda/data/span-p04.t1.json",
+   "role": "layer-t1",
+   "sha256": "a28c5cd87c72cb1ce8147fdcc16568a6a99b9bcf3dd10d77f6b88c90e44b66b5",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1721,
+   "name": "proof-span-p04.json",
+   "origin": "spanda/proof/proof-span-p04.json",
+   "role": "proof",
+   "sha256": "7c88f4bb3f973c852fa2f322355c453c04fecf81948a5b1a88726cbd0f092d57"
+  }
+ ],
+ "chunk": {
+  "immutable_id": "pt:pid:span:d8ddae2daa0e",
+  "target": "span-p04",
+  "work": "spanda"
+ },
+ "format": "trika-verify-pack/1",
+ "how_to_verify": "For each artifact: curl -s https://svread.pages.dev/data/verify/spanda-span-p04/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). Tiers: MODEL_CHECKED applies only to formal theorems inside their stated finite model.",
+ "trace": {
+  "file": "traces/spanda-span-p04.json",
+  "sha256": "3e073277deed6967fc517565d8abbca3e0e5c8ed1543b17d8f890d2b9a73c004"
+ },
+ "verdict": "COMPLETE"
+}
