@@ -1,0 +1,94 @@
+{
+ "artifacts": [
+  {
+   "bytes": 247,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "073cfc78e80128f2762c3285f7b329b6ec16e69344c2db8ee3125430fb254f08"
+  },
+  {
+   "bytes": 1451,
+   "name": "par-p01.argmap.json",
+   "origin": "parapravesika/data/par-p01.argmap.json",
+   "role": "layer-argmap",
+   "sha256": "b8d0540d35dd7525c022fe76e637da927b28a0b975116a8aab8a429d5a9d4686",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 896,
+   "name": "par-p01.c1.json",
+   "origin": "parapravesika/data/par-p01.c1.json",
+   "role": "layer-c1",
+   "sha256": "ec96b4d86827cfa59b154bbe3b01ebd32ff2cb2ddbf567dc34e662647a9a03e8",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1777,
+   "name": "par-p01.c2.json",
+   "origin": "parapravesika/data/par-p01.c2.json",
+   "role": "layer-c2",
+   "sha256": "a7b43476e6f5699ae96c550d2a803ee0ad11d78409cf4d0dc8f894a0d66d9f2a",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 6149,
+   "name": "par-p01.l0.json",
+   "origin": "parapravesika/data/par-p01.l0.json",
+   "role": "layer-l0",
+   "sha256": "12d45731af586b361f755dd6df4656a07a964d5cead0e08e0490c02eea1543d3",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 977,
+   "name": "par-p01.l2.json",
+   "origin": "parapravesika/data/par-p01.l2.json",
+   "role": "layer-l2",
+   "sha256": "d197bd84e13a0eda7ef4d265a4c636367e5d903e17da8e28c0d27eedbdc0701b",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1030,
+   "name": "par-p01.l3.json",
+   "origin": "parapravesika/data/par-p01.l3.json",
+   "role": "layer-l3",
+   "sha256": "03a6411820c98e9e364de1a91a4416daf4637f0c20ede8baa4942810bccddc0e",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1066,
+   "name": "par-p01.l4.json",
+   "origin": "parapravesika/data/par-p01.l4.json",
+   "role": "layer-l4",
+   "sha256": "518ebcf32de5328c47f9af0dbfcc81c0773b3cb52e585aa665d45a74b50b3706",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1739,
+   "name": "par-p01.t1.json",
+   "origin": "parapravesika/data/par-p01.t1.json",
+   "role": "layer-t1",
+   "sha256": "bdc4fff4e7ad73aad0fd6cccad7e2f281127c232a088dd19ae4b3e2cb27d64c2",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1721,
+   "name": "proof-par-p01.json",
+   "origin": "parapravesika/proof/proof-par-p01.json",
+   "role": "proof",
+   "sha256": "01e323d0bb12f4e8809e822ce3356b048b9a15dad046751f81e502f3b2982e4e"
+  }
+ ],
+ "chunk": {
+  "immutable_id": "pt:pid:parapravesika:001",
+  "target": "par-p01",
+  "work": "parapravesika"
+ },
+ "format": "trika-verify-pack/1",
+ "how_to_verify": "For each artifact: curl -s https://svread.pages.dev/data/verify/parapravesika-par-p01/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). Tiers: MODEL_CHECKED applies only to formal theorems inside their stated finite model.",
+ "trace": {
+  "file": "traces/parapravesika-par-p01.json",
+  "sha256": "c85ace7ba13ba3b8e3cdb8a7fbbaf0da06897d99e6d3a28b259bf278678ffee3"
+ },
+ "verdict": "COMPLETE"
+}

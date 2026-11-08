@@ -720,9 +720,222 @@ async function scholarView(){
   renderCols();
 }
 
+/* Sanskrit hub (?view=sanskrit) — Learn Sanskrit lessons, verbatim imports.
+   data/sanskrit/site/*.html via tools/emit_sanskrit.py (bookfactory source;
+   only change: Google Fonts -> vendored local @font-face). Lessons render
+   in an auto-sized same-origin iframe so design, tabs and tables stay
+   exactly as authored. svread chrome (header + chat rail) stays outside.
+   Chat follows ?work= (lesson links carry it); the Ask button prefills the
+   rail with the current lesson. Recitation: the lessons' own guides +
+   reader links where audio exists. */
+let SK_LESSON = null;
+function skAskPrefill(){
+  const inp = document.querySelector('#qin');
+  if(inp && SK_LESSON){
+    inp.value = `In "${SK_LESSON.title}" (${SK_LESSON.source_ref}): explain the grammar of this verse`;
+    inp.focus();
+  }
+  const rail = document.querySelector('#wid-chat');
+  if(rail){ rail.classList.remove('closed'); rail.scrollIntoView({block:'nearest'}); }
+}
+function skSyncFromFrame(frame){
+  let href = '';
+  try{ href = frame.contentWindow.location.href; }catch(e){ return; }
+    const m = /lesson-(\d+)(?:\.html)?\/?(?:[?#]|$)/.exec(href);
+  if(!m) return;
+  fetch('data/sanskrit/index.json').then(r=>r.json()).then(idx=>{
+    const n = +m[1], entry = (idx.lessons||[]).find(l=>l.n===n);
+    if(!entry || (SK_LESSON && SK_LESSON.id===entry.id)) return;
+    SK_LESSON = entry;
+    const bar = document.querySelector('#sk-cur');
+    if(bar) bar.innerHTML = `Now viewing: <b>${esc(entry.title)}</b> <span class="mut">${esc(entry.source_ref||'')}</span>`;
+    document.title = `${entry.title} · Sanskrit`;
+  }).catch(()=>{});
+}
+function skAutosize(frame){
+  try{
+    const doc = frame.contentDocument;
+    if(!doc || !doc.body) return;
+    const h = Math.max(doc.body.scrollHeight, 600);
+    frame.style.height = Math.min(h + 40, 6000) + 'px';
+  }catch(e){}
+}
+async function sanskritView(){
+  if(typeof DATA !== 'undefined' && !DATA) DATA = {verses:[]};
+  try{ buildRightRail([]); }catch(e){}
+  const hb = document.querySelector('#headbar'); if(hb) hb.style.display = 'none';
+  const idx = await get('data/sanskrit/index.json');
+  const rules = await get('data/sanskrit/rule-boxes.json').catch(()=>({rule_boxes:[]}));
+  const main = document.querySelector('.reader-main');
+  const lid = qs.get('lesson');
+  if(!lid){
+    const byStage = {};
+    (idx.lessons||[]).forEach(l=>{ (byStage[l.section]=byStage[l.section]||[]).push(l); });
+    const STAGE_T = s=>({'stage-1-sounds':'Stage 1 \u00b7 Sounds','stage-2-language':'Stage 2 \u00b7 Language','stage-3-instructions':'Stage 3 \u00b7 Instructions','stage-4-trika-grammar':'Stage 4 \u00b7 Trika grammar','stage-5-original':'Stage 5 \u00b7 Originals'}[s]||s);
+    main.innerHTML = `<h1>${esc(idx.title||'Learn Sanskrit')}</h1>`
+      + `<p class="mut">${esc(idx.subtitle||'')}</p>`
+      + Object.keys(byStage).map(s=>`<h2>${esc(STAGE_T(s))}</h2>`
+        + byStage[s].map(l=>`<div style="margin:.4rem 0"><a href="?view=sanskrit&work=${encodeURIComponent(l.work)}&lesson=${encodeURIComponent(l.id)}"><b>${esc(l.title)}</b></a> <span class="mut">${esc(l.source_ref||'')}</span>${l.has_reader?'':' <span class="mut">(reader forthcoming)</span>'}</div>`).join('')).join('')
+      + `<h2>Rule boxes</h2>` + (rules.rule_boxes||[]).map(r=>`<div class="sk-rulebox"><div class="sk-rb-t">${esc(r.title)}</div><div>${esc(r.body)}</div></div>`).join('')
+      + `<p><a href="?view=biblio">Browse the full bibliography</a> \u2014 every work, edition, translation with links, lost works with their basis, formal coverage, essays.</p>`
+      + `<p class="mut">Lessons: bookfactory prints/learn-sanskrit, imported verbatim (see data/sanskrit/provenance.json).</p>`;
+    document.title = 'Sanskrit \u00b7 svread';
+    SK_LESSON = null;
+
+    return;
+  }
+  const entry = (idx.lessons||[]).find(l=>l.id===lid);
+  if(!entry) throw new Error('unknown lesson');
+  SK_LESSON = entry;
+  const work = entry.work || qs.get('work') || 'bhairavastava';
+  const readerLinks = entry.has_reader
+    ? `<a href="?work=${encodeURIComponent(work)}">Open ${esc(work)} in the reader</a> \u00b7 <a href="?work=${encodeURIComponent(work)}&view=scholar">Scholar</a>`
+    : `<span class="mut">Reader forthcoming for ${esc(work)} \u2014 the lesson below is complete as written.</span>`;
+  main.innerHTML = `<p><a href="?view=sanskrit">\u2190 all lessons</a></p>`
+    + `<h1>${esc(entry.title)}</h1>`
+    + `<p class="mut">${esc(entry.source_ref||'')} \u00b7 ${readerLinks}</p>`
+    + `<p id="sk-cur" class="mut"></p>`
+    + `<p><button class="c2btn" id="sk-ask">Ask the chat about this verse</button> `
+    + `<span class="mut">chat answers from ${esc(work)} with receipts.</span></p>`
+    + `<iframe id="sk-frame" title="${esc(entry.title)}" src="data/sanskrit/${esc(entry.html)}" style="width:100%;border:1px solid var(--g200);border-radius:6px;min-height:600px;background:#fff"></iframe>`
+    + `<p class="mut">Lesson design: bookfactory Learn Sanskrit (imported verbatim). Recitation guide is inside the lesson; audio renders with owner go.</p>`;
+  document.title = `${entry.title} \u00b7 Sanskrit`;
+  const frame = document.querySelector('#sk-frame');
+  const ask = document.querySelector('#sk-ask');
+  if(ask) ask.onclick = skAskPrefill;
+  if(frame){
+    frame.addEventListener('load', ()=>{
+      try{ window.__skFrameReady = true; }catch(e){}
+      skAutosize(frame);
+      skSyncFromFrame(frame);
+      try{
+        const doc = frame.contentDocument;
+        if(doc) doc.querySelectorAll('[data-d]').forEach(el=>el.addEventListener('click', ()=>setTimeout(()=>skAutosize(frame), 60)));
+      }catch(e){}
+    });
+  }
+}
+
+/* Bibliography (?view=biblio) — a view on the openpatala box DB.
+   data/biblio.json via tools/emit_biblio.py (works, editions, translations
+   with links, ours status, formal chunks, essays). No header tab: linked
+   from the Sanskrit view + direct URL. */
+/* Verify (?view=verify) — how anyone checks our chains with no code, plus the
+   live trace + pack inventory. Read-only; fetches only published JSON. */
+async function verifyView(){
+  const V = await get('data/verify/index.json');
+  const T = await get('data/traces/index.json').catch(()=>({entries:[]}));
+  const verdictOf = {};
+  (T.entries||[]).forEach(e=>{ verdictOf[`${e.work}-${e.target}`] = e.verdict; });
+  const main = $('.reader-main');
+  const rows = (V.packs||[]).map(p=>{
+    const id = `${p.work}-${p.target}`;
+    const v = verdictOf[id] || p.verdict || '';
+    return `<tr><td><b>${esc(p.target)}</b><div class="mut">${esc(p.work)}</div></td>`
+      + `<td><span class="sk-badge">${esc(v)}</span></td>`
+      + `<td><a href="data/traces/${esc(id)}.json" target="_blank" rel="noopener">trace</a> · `
+      + `<a href="data/verify/${esc(id)}/manifest.json" target="_blank" rel="noopener">pack</a>`
+      + `<div class="mut">${p.artifacts} artifacts</div></td></tr>`;
+  }).join('');
+  main.innerHTML = `<h1>Verify</h1>`
+    + `<p class="mut">${V.count} chunks have a published, re-checkable chain. `
+    + `Everything below uses only <code>curl</code> + <code>sha256sum</code> — no install, no account, `
+    + `no trust in us required.</p>`
+    + `<h2>The recipe</h2><ol>`
+    + (V.recipe||[]).map(s=>`<li>${esc(s)}</li>`).join('')
+    + `</ol>`
+    + `<pre style="background:var(--g100);padding:.7rem;border-radius:6px;overflow-x:auto">`
+    + `curl -s ${'https://svread.pages.dev'}/data/traces/index.json\\n`
+    + `curl -s ${'https://svread.pages.dev'}/data/traces/&lt;work&gt;-&lt;target&gt;.json\\n`
+    + `curl -s ${'https://svread.pages.dev'}/data/verify/&lt;work&gt;-&lt;target&gt;/manifest.json\\n`
+    + `curl -s ${'https://svread.pages.dev'}/data/verify/&lt;work&gt;-&lt;target&gt;/source.txt | sha256sum</pre>`
+    + `<p><a href="VERIFY.md" target="_blank" rel="noopener">Full written recipe (VERIFY.md)</a></p>`
+    + `<h2>What a match does <em>not</em> prove</h2><ul>`
+    + (V.what_matching_does_not_prove||[]).map(s=>`<li>${esc(s)}</li>`).join('')
+    + `</ul>`
+    + `<h2>Chunks with a published chain</h2>`
+    + `<table class="sk-table"><thead><tr><th>Chunk</th><th>Verdict</th><th>Artifacts</th></tr></thead>`
+    + `<tbody>${rows}</tbody></table>`
+    + `<p class="mut">PARTIAL is not failure — it names the missing hop (e.g. no morphology layer yet). `
+    + `We publish gaps rather than hide them.</p>`;
+  document.title = 'Verify · svread';
+}
+
+async function biblioView(){
+  const B = await get('data/biblio.json');
+  const TR = await get('data/traces/index.json').catch(()=>({entries:[],count:0}));
+  const traceByWork = {};
+  for (const e of (TR.entries||[])) {
+    (traceByWork[e.work] = traceByWork[e.work] || []).push(e);
+  }
+  const people = B.people || {};
+  const nameOf = id => people[id] || id.replace(/^person:/,'').replace(/-/g,' ');
+  const byName = t => (t.by||[]).map(nameOf).join(', ');
+  const tRow = w => {
+    const trs = (w.translations||[]).map(t=>{
+      const links = (t.links||[]).map(u=>` <a href="${esc(u)}" target="_blank" rel="noopener">[source]</a>`).join('');
+      return `<div>${esc(t.lang||'')} · ${esc(byName(t))} · ${esc(t.completeness||'')}${links}</div>`;
+    }).join('') || '<span class="mut">—</span>';
+    const eds = (w.editions||[]).map(e=>esc(e.title||e.id)).join('; ') || '—';
+    const formal = (w.formalized==null ? '—' : `<span title="direct passage refs ${w.formalized}; registry inventory ${w.formalized_inventory==null?'?':w.formalized_inventory}">${w.formalized}/${w.passages} passages</span>`);
+    const trs_ = traceByWork[w.id] || [];
+    const traces = trs_.length
+      ? trs_.map(e=>`<a href="data/traces/${esc(e.file.split('/').pop())}" target="_blank" rel="noopener" title="${esc(e.target||'')}">${esc(e.target||'')}</a> <span class="sk-badge">${esc(e.verdict||'')}</span>`).join('<br>')
+      : '<span class="mut">—</span>';
+    const sch = w.has_projection ? `<a href="?work=${encodeURIComponent(w.id)}&view=scholar">${w.essays} essays</a>` : '—';
+    const reader = w.has_reader ? `<a href="?work=${encodeURIComponent(w.id)}">reader</a>` : (w.passages>0 ? `<span class="mut">${w.passages} passages · reader pending</span>` : '<span class="mut">no passages</span>');
+    return `<tr data-id="${esc(w.id)}" data-title="${esc((w.title||'')+' '+w.id+' '+(w.author||''))}" data-kind="${w.status?'lost':(w.translations&&w.translations.length?'trans':'none')}${w.essays?' essays':''}${w.formalized!=null?' formal':''}">`
+      + `<td><b>${esc(w.title||w.id)}</b><div class="mut">${esc(w.id)}${w.author?` · ${esc(w.author)}`:''}</div></td>`
+      + `<td>${w.status?`<span class="sk-badge">${esc(w.status.split(':')[0])}</span>`:'—'}<div class="mut">${w.status?esc(w.status.slice(0,120)):''}</div></td>`
+      + `<td>${w.passages} · ${reader}</td><td>${esc(eds.slice(0,160))}</td><td>${trs}</td>`
+      + `<td>${formal}</td><td>${traces}</td><td>${sch}</td></tr>`;
+  };
+  const lost = B.works.filter(w=>w.status);
+  const main = $('.reader-main');
+  main.innerHTML = `<h1>Bibliography</h1>`
+    + `<p class="mut">A view on the openpatala box DB (ground layer): ${B.counts.works} works · `
+    + `${B.counts.lost_or_unverified} lost or unverified · ${B.counts.ours_translations} ours translations. `
+    + `Hash-pinned at release (see data/biblio.json provenance). STATUS=reported rows are scholar-reported, not witness claims.</p>`
+    + `<p><a href="?view=verify"><b>Verify any claim yourself</b></a> — trace bundles, exact bytes, hashes you can re-compute with curl + sha256sum. No install, no account.</p>`
+    + `<p><input id="bibq" placeholder="filter: title, work id, author…" style="width:min(32rem,90%)"> `
+    + `<select id="bibf"><option value="">all</option><option value="lost">lost / unverified</option>`
+    + `<option value="trans">has translations</option><option value="essays">has essays</option><option value="formal">formalized</option></select></p>`
+    + `<table class="sk-table"><thead><tr><th>Work</th><th>Status</th><th>Passages</th><th>Editions</th><th>Translations</th><th>Formal</th><th>Traces</th><th>Essays</th></tr></thead>`
+    + `<tbody id="bibbody">${B.works.map(tRow).join('')}</tbody></table>`
+    + `<p class="mut">Lost &amp; unverified (${lost.length}): ${lost.map(w=>esc(w.title||w.id)).join(' · ')}</p>`;
+  document.title = 'Bibliography · svread';
+  const filt = ()=>{
+    const q = ($('#bibq').value||'').toLowerCase(), f = $('#bibf').value;
+    main.querySelectorAll('#bibbody tr').forEach(tr=>{
+      const okQ = !q || (tr.getAttribute('data-title')||'').toLowerCase().includes(q);
+      const okF = !f || (tr.getAttribute('data-kind')||'').includes(f);
+      tr.style.display = (okQ&&okF) ? '' : 'none';
+    });
+  };
+  $('#bibq').addEventListener('input', filt);
+  $('#bibf').addEventListener('change', filt);
+}
+
 async function main(){
   const ns = $('#navscholar');
   if(ns) ns.onclick = e=>{ e.preventDefault(); location.href = `?work=${encodeURIComponent(WORK)}&view=scholar`; };
+  const nsk = $('#navsanskrit');
+  if(nsk) nsk.onclick = e=>{ e.preventDefault(); location.href = `?work=${encodeURIComponent(WORK)}&view=sanskrit`; };
+  if(qs.get('view')==='sanskrit'){
+    try{ await sanskritView(); }
+    catch(err){ $('.reader-main').innerHTML = `<p id="err">Sanskrit view: ${esc(String(err&&err.message||err))}</p>`; }
+    return;
+  }
+  if(qs.get('view')==='verify'){
+    try{ await verifyView(); }
+    catch(err){ $('.reader-main').innerHTML = `<p id="err">Verify view: ${esc(String(err&&err.message||err))}</p>`; }
+    return;
+  }
+  if(qs.get('view')==='biblio'){
+    try{ await biblioView(); }
+    catch(err){ $('.reader-main').innerHTML = `<p id="err">Bibliography view: ${esc(String(err&&err.message||err))}</p>`; }
+    return;
+  }
   if(qs.get('view')==='scholar'){
     if(WORK==='ghatakarpara'){
       $('.reader-main').innerHTML = `<p id="err">Ghaṭakarpara Scholar data is withheld while incomplete source passages and their dependent translations are rechecked. <a href="${GHATA_SOURCE}" target="_blank" rel="noopener">Open the source edition</a>.</p>`;
@@ -1093,7 +1306,7 @@ async function main(){
   };
   $('#pgleft a').onclick = e=>{ e.preventDefault(); goVerse(-1); };
   $('#pgright a').onclick = e=>{ e.preventDefault(); goVerse(1); };
-  $('#navsearch').onclick = e=>{ e.preventDefault(); const w = document.querySelector('#lib #wq'); if(w){ w.focus(); w.scrollIntoView({block:'center'}); } };
+  const nse = $('#navsearch'); if(nse) nse.onclick = e=>{ e.preventDefault(); const w = document.querySelector('#lib #wq'); if(w){ w.focus(); w.scrollIntoView({block:'center'}); } };
   // rail collapse arrows (Scaife) + drag-to-resize (widths persist; drag past
   // 60px collapses, drag back restores — see installResize)
   const lay = document.querySelector('.layout');

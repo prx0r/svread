@@ -1,0 +1,94 @@
+{
+ "artifacts": [
+  {
+   "bytes": 489,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "a49aa9ef4d0055065969ac8eab624a4b9e56bc116b6db5fb72cd969033fb6b60"
+  },
+  {
+   "bytes": 7723,
+   "name": "ptvm-p01.argmap.json",
+   "origin": "ptvmadhyama/data/ptvm-p01.argmap.json",
+   "role": "layer-argmap",
+   "sha256": "3bab316e52d7549ddf0d73c850ed9654e4cb3824ddcfbb5756dcaa4949e79a71",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 3043,
+   "name": "ptvm-p01.c1.json",
+   "origin": "ptvmadhyama/data/ptvm-p01.c1.json",
+   "role": "layer-c1",
+   "sha256": "9b5468fbb2faae98d61ddce09dbc2eb793018a362b8ef5cb0b90d81a8a0140c6",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 3008,
+   "name": "ptvm-p01.c2.json",
+   "origin": "ptvmadhyama/data/ptvm-p01.c2.json",
+   "role": "layer-c2",
+   "sha256": "24d831baa7b509176248dbd176a68eb8fb6624a64ee2d8fc0a2b9637d004e102",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 32427,
+   "name": "ptvm-p01.l0.json",
+   "origin": "ptvmadhyama/data/ptvm-p01.l0.json",
+   "role": "layer-l0",
+   "sha256": "e2a62f3b5e5e8305106af37238fa83b56bd68ab1082079a5eb8732dc245cb81b",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 5498,
+   "name": "ptvm-p01.l2.json",
+   "origin": "ptvmadhyama/data/ptvm-p01.l2.json",
+   "role": "layer-l2",
+   "sha256": "90b4e21a44c6ea734c045fb56a89a886eb78086c388c855978350265650e7f7a",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 6322,
+   "name": "ptvm-p01.l3.json",
+   "origin": "ptvmadhyama/data/ptvm-p01.l3.json",
+   "role": "layer-l3",
+   "sha256": "9e6b6496af6ade21aab3d7506d4457bcb3d642211dcc4708c48483161e5594ad",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 6508,
+   "name": "ptvm-p01.l4.json",
+   "origin": "ptvmadhyama/data/ptvm-p01.l4.json",
+   "role": "layer-l4",
+   "sha256": "cbcbbc49d5ff391cb28447340f92b39e98c8f2803416046aba6808bb1f143144",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 9042,
+   "name": "ptvm-p01.t1.json",
+   "origin": "ptvmadhyama/data/ptvm-p01.t1.json",
+   "role": "layer-t1",
+   "sha256": "ab5cc10f4cada4c85e88c506bfc6ffebf67596ea10e83edd7ec972b3a936c9c3",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1726,
+   "name": "proof-ptvm-p01.json",
+   "origin": "ptvmadhyama/proof/proof-ptvm-p01.json",
+   "role": "proof",
+   "sha256": "724724502dada0c662c4e34fcfc2bd1234620521e316e2fea6d77d5179c0635e"
+  }
+ ],
+ "chunk": {
+  "immutable_id": "pt:pid:ptvm:a49aa9ef4d00",
+  "target": "ptvm-p01",
+  "work": "ptvmadhyama"
+ },
+ "format": "trika-verify-pack/1",
+ "how_to_verify": "For each artifact: curl -s https://svread.pages.dev/data/verify/ptvmadhyama-ptvm-p01/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). Tiers: MODEL_CHECKED applies only to formal theorems inside their stated finite model.",
+ "trace": {
+  "file": "traces/ptvmadhyama-ptvm-p01.json",
+  "sha256": "276b4be5aac3a52cb84cbee80890eadf38a77193d3c74170ab1c4a23058f8458"
+ },
+ "verdict": "COMPLETE"
+}

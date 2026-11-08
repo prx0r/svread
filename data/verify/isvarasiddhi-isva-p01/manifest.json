@@ -1,0 +1,94 @@
+{
+ "artifacts": [
+  {
+   "bytes": 485,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "cc8e61a170c0d1da03f4760d2508984b45b341c1625eb16322b8887851d9e277"
+  },
+  {
+   "bytes": 8486,
+   "name": "isva-p01.argmap.json",
+   "origin": "isvarasiddhi/data/isva-p01.argmap.json",
+   "role": "layer-argmap",
+   "sha256": "c20f73c81950cf881b3c623997a99c16208dfdc2e75f7b1d6bc08eb4eba7c9a6",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1568,
+   "name": "isva-p01.c1.json",
+   "origin": "isvarasiddhi/data/isva-p01.c1.json",
+   "role": "layer-c1",
+   "sha256": "2445cb37f20c580cd0fd98bf5706ded69b6bf3adb82c6ee446fd7b5567d61b5e",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 2598,
+   "name": "isva-p01.c2.json",
+   "origin": "isvarasiddhi/data/isva-p01.c2.json",
+   "role": "layer-c2",
+   "sha256": "a6a26edaa44a472df8c4ddaf5af26801d23224398fa4408190412957bcb895a1",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 27342,
+   "name": "isva-p01.l0.json",
+   "origin": "isvarasiddhi/data/isva-p01.l0.json",
+   "role": "layer-l0",
+   "sha256": "ae0aca4f026896b3ec0bf1fe8435e6abe31c641b163b24dfd3f6e28e0b668539",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 4967,
+   "name": "isva-p01.l2.json",
+   "origin": "isvarasiddhi/data/isva-p01.l2.json",
+   "role": "layer-l2",
+   "sha256": "dece9eaa6acbc35f7f3788066f1e587405f90d5a39fe52261f8fa4d160e5f7e6",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 5898,
+   "name": "isva-p01.l3.json",
+   "origin": "isvarasiddhi/data/isva-p01.l3.json",
+   "role": "layer-l3",
+   "sha256": "348727f494dbead2815950ccbe81baaea21133883438de1782168c84ce9f1d3a",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 6177,
+   "name": "isva-p01.l4.json",
+   "origin": "isvarasiddhi/data/isva-p01.l4.json",
+   "role": "layer-l4",
+   "sha256": "471f442dff3989150b8d032db9faaae560ad34fef7c1ace3bddd990df3591e52",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 8337,
+   "name": "isva-p01.t1.json",
+   "origin": "isvarasiddhi/data/isva-p01.t1.json",
+   "role": "layer-t1",
+   "sha256": "5b9e668a25ba9b0fbe64af84c722c3c0322acc36ba69ba1b3f854c81cb5656de",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 2310,
+   "name": "proof-isva-p01.json",
+   "origin": "isvarasiddhi/proof/proof-isva-p01.json",
+   "role": "proof",
+   "sha256": "4dbf45399239c1a6f7f440ff70ef6d63b8e20c7ecb93a084a43257269172865d"
+  }
+ ],
+ "chunk": {
+  "immutable_id": "pt:pid:isva:cc8e61a170c0",
+  "target": "isva-p01",
+  "work": "isvarasiddhi"
+ },
+ "format": "trika-verify-pack/1",
+ "how_to_verify": "For each artifact: curl -s https://svread.pages.dev/data/verify/isvarasiddhi-isva-p01/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). Tiers: MODEL_CHECKED applies only to formal theorems inside their stated finite model.",
+ "trace": {
+  "file": "traces/isvarasiddhi-isva-p01.json",
+  "sha256": "32f045889511b4e2e10bea4fa7d0097b667abb852349cbcd7bdab4b0a5a1ff6f"
+ },
+ "verdict": "COMPLETE"
+}

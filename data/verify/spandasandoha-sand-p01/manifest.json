@@ -1,0 +1,94 @@
+{
+ "artifacts": [
+  {
+   "bytes": 111,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "8556640712206b36f8cf315762da2c30dd9a3d7cf62283bde4823340b3325040"
+  },
+  {
+   "bytes": 1513,
+   "name": "sand-p01.argmap.json",
+   "origin": "spandasandoha/data/sand-p01.argmap.json",
+   "role": "layer-argmap",
+   "sha256": "797b222f96bc18efa653a2f7ed9ac78693e55832df9ec575cca705f628ffc768",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1313,
+   "name": "sand-p01.c1.json",
+   "origin": "spandasandoha/data/sand-p01.c1.json",
+   "role": "layer-c1",
+   "sha256": "5faa5848e86754a5e8ea3e1ae8eb679829ca849f8ae19ed3d9bfe34b50c80535",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 3410,
+   "name": "sand-p01.c2.json",
+   "origin": "spandasandoha/data/sand-p01.c2.json",
+   "role": "layer-c2",
+   "sha256": "52df58b0809e784cba0a729efa2669f26e5e8db69040df2f18ab8d0194556657",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 7279,
+   "name": "sand-p01.l0.json",
+   "origin": "spandasandoha/data/sand-p01.l0.json",
+   "role": "layer-l0",
+   "sha256": "3f5398d14949560e966ecbcb05c4fae69f4be76ee3aa903f006820a4ae32ffb4",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 903,
+   "name": "sand-p01.l2.json",
+   "origin": "spandasandoha/data/sand-p01.l2.json",
+   "role": "layer-l2",
+   "sha256": "5bf5ca2a813373d1b1da559cfdb576162ef558388e9c6d3adf5638fab0856133",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1217,
+   "name": "sand-p01.l3.json",
+   "origin": "spandasandoha/data/sand-p01.l3.json",
+   "role": "layer-l3",
+   "sha256": "9853a43dd74bdf83e3c486654d813b1c04bc42f6cb317d2a4c8042f1c68cdddc",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1265,
+   "name": "sand-p01.l4.json",
+   "origin": "spandasandoha/data/sand-p01.l4.json",
+   "role": "layer-l4",
+   "sha256": "3050b60dcc30304ea39905b1e03b30a21bdd3f555ef2028169c8f49cef4ccf37",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1509,
+   "name": "sand-p01.t1.json",
+   "origin": "spandasandoha/data/sand-p01.t1.json",
+   "role": "layer-t1",
+   "sha256": "cdc2b56d102e6588457400ea1508b88a02e88744bc3326eb81ae0389a0604295",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1723,
+   "name": "proof-sand-p01.json",
+   "origin": "spandasandoha/proof/proof-sand-p01.json",
+   "role": "proof",
+   "sha256": "4068a8f3d20d2d3b353159b7ccf08ec8523decd964de17c0933e92978ff8cceb"
+  }
+ ],
+ "chunk": {
+  "immutable_id": "pt:pid:sand:855664071220",
+  "target": "sand-p01",
+  "work": "spandasandoha"
+ },
+ "format": "trika-verify-pack/1",
+ "how_to_verify": "For each artifact: curl -s https://svread.pages.dev/data/verify/spandasandoha-sand-p01/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). Tiers: MODEL_CHECKED applies only to formal theorems inside their stated finite model.",
+ "trace": {
+  "file": "traces/spandasandoha-sand-p01.json",
+  "sha256": "3efbc31e8d9c371c039675d29e892bc891852a7b50d4bcb143b4ed48c6253f2e"
+ },
+ "verdict": "COMPLETE"
+}

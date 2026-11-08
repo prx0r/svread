@@ -1,0 +1,94 @@
+const test = require('node:test');
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const { execFileSync } = require('node:child_process');
+
+const ROOT = path.join(__dirname, '..');
+
+test('biblio: no dead reader links; has_reader agrees with disk', () => {
+  const b = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'biblio.json'), 'utf8'));
+  let dead = [];
+  let mismatched = [];
+  for (const w of b.works) {
+    const onDisk = fs.existsSync(path.join(ROOT, 'data', `${w.id}.json`));
+    if (w.has_reader !== onDisk) mismatched.push(w.id);
+    if (w.has_reader && !onDisk) dead.push(w.id);
+  }
+  assert.deepEqual(mismatched, [], 'has_reader must match what exists on disk');
+  assert.deepEqual(dead, [], 'no phantom reader links');
+  const linked = b.works.filter(w => w.has_reader).length;
+  assert.ok(linked >= 45, `readable works: ${linked}`);
+});
+
+test('traces published, all verify, index honest', () => {
+  const idx = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'traces', 'index.json'), 'utf8'));
+  assert.equal(idx.format, 'svread-trace-index/1');
+  assert.ok(idx.count >= 13, `trace count: ${idx.count}`);
+  assert.equal(idx.count, idx.entries.length);
+  for (const e of idx.entries) {
+    const p = path.join(ROOT, 'data', e.file);
+    assert.ok(fs.existsSync(p), `missing bundle ${e.file}`);
+    const doc = JSON.parse(fs.readFileSync(p, 'utf8'));
+    assert.equal(doc.format, 'trika-trace/1');
+    assert.equal(doc.chunk.work, e.work);
+    assert.equal(doc.chunk.target, e.target);
+    assert.equal(doc.verdict, e.verdict, `${e.target} verdict drift`);
+    const crypto = require('node:crypto');
+    const sha = crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
+    assert.equal(sha, e.sha256, `${e.target} hash mismatch`);
+    assert.equal(doc.gaps.length, (e.gaps || []).length);
+  }
+  const complete = idx.entries.filter(e => e.verdict === 'COMPLETE').length;
+  assert.ok(complete >= 11, `complete traces: ${complete}`);
+  assert.ok(idx.entries.some(e => e.verdict === 'PARTIAL'), 'PARTIAL honestly kept');
+});
+
+test('llms.txt claims are measured, not inflated', () => {
+  const llms = fs.readFileSync(path.join(ROOT, 'llms.txt'), 'utf8');
+  const b = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'biblio.json'), 'utf8'));
+  const readable = b.works.filter(w => w.has_reader).length;
+  const withPass = b.works.filter(w => w.passages > 0).length;
+  assert.ok(llms.includes(`${readable} readable now`), 'readable count is measured');
+  assert.ok(llms.includes(`${withPass} with passage ledgers`), 'passage count measured');
+  assert.ok(!/101 Sanskrit works with layered translations/.test(llms), 'old overclaim gone');
+  assert.ok(llms.includes('/data/traces/index.json'), 'trace index linked');
+  assert.ok(llms.includes('formal__gaps'), 'formal tool family named');
+});
+
+test('emitters are deterministic (--check green)', () => {
+  for (const tool of ['emit_biblio.py', 'emit_traces.py', 'emit_verify.py',
+                      'emit_formal.py', 'emit_discovery.py']) {
+    const out = execFileSync('python3', ['tools/' + tool, '--check'],
+      { cwd: ROOT, encoding: 'utf8' });
+    assert.ok(/GREEN/.test(out), `${tool}: ${out}`);
+  }
+});
+
+test('formal registry is published and honest', () => {
+  const f = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'formal.json'), 'utf8'));
+  assert.equal(f.format, 'trika-formal-registry/1');
+  assert.ok(f.counts.theorems >= 150, `theorems: ${f.counts.theorems}`);
+  assert.ok(f.counts.chunks_in_snapshot >= 150, 'snapshot counted');
+  assert.ok(typeof f.counts.chunks_unformalized === 'number', 'gaps counted');
+  assert.ok(/REGISTERED/.test(f.scope_statement), 'scope stated');
+  assert.ok(/not prove the doctrine/i.test(f.scope_statement), 'limits stated');
+  for (const [name, e] of Object.entries(f.entries)) {
+    assert.ok(e.kind, `${name} has kind`);
+    assert.ok(/REGISTERED/.test(e.status), `${name} labelled`);
+  }
+  assert.ok(f.gaps.unformalized_chunks.length > 0, 'gap list published');
+  assert.equal(f.verify_yourself.recipe.includes('VERIFY.md'), true);
+});
+
+test('verify view + VERIFY.md are wired', () => {
+  const app = fs.readFileSync(path.join(ROOT, 'app.js'), 'utf8');
+  assert.ok(app.includes('verifyView'), 'verify view fn');
+  assert.ok(app.includes("'verify'"), 'verify route');
+  assert.ok(app.includes('manifest.json'), 'links to packs');
+  const md = fs.readFileSync(path.join(ROOT, 'VERIFY.md'), 'utf8');
+  assert.ok(md.includes('sha256sum'), 'recipe is shell-only');
+  assert.ok(/does NOT prove/i.test(md), 'limits stated');
+  assert.ok(/UNPINNED/.test(md), 'witness honesty');
+  assert.ok(/trika-trace\/1|trace/.test(md), 'points at traces');
+});

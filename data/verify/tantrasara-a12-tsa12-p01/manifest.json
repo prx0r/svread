@@ -1,0 +1,86 @@
+{
+ "artifacts": [
+  {
+   "bytes": 2000,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "1a0912144533622a69a1d780dda6e0a07c6ece95d22d25d703b680f9a299e3be"
+  },
+  {
+   "bytes": 10770,
+   "name": "tsa-a12.argmap.json",
+   "origin": "tantrasara-a12/data/tsa-a12.argmap.json",
+   "role": "layer-argmap",
+   "sha256": "65443d11abf9b74d131888862ba79279790a4accbf2132649049066d8017712f",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 4727,
+   "name": "tsa-a12.c1.json",
+   "origin": "tantrasara-a12/data/tsa-a12.c1.json",
+   "role": "layer-c1",
+   "sha256": "b77e0543d89914a305088d996f21ab5666ee9672d77c0b11f6a932b6b13abb1f",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 52295,
+   "name": "tsa-a12.l0.json",
+   "origin": "tantrasara-a12/data/tsa-a12.l0.json",
+   "role": "layer-l0",
+   "sha256": "a6fda72583396cae2b25d3c1deffa4a63631f6801e2e2db1a5e7bcfe6205b4a8",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 8515,
+   "name": "tsa-a12.l2.json",
+   "origin": "tantrasara-a12/data/tsa-a12.l2.json",
+   "role": "layer-l2",
+   "sha256": "85bda6b1a019d95330d5974b75899b78b71da1cfea78b3d01ca8317e0556ab0c",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 9896,
+   "name": "tsa-a12.l3.json",
+   "origin": "tantrasara-a12/data/tsa-a12.l3.json",
+   "role": "layer-l3",
+   "sha256": "ca14bb316e9b86e7ff2c3e344641eed14a529f6d722f1636401ccaab08660f7a",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 10113,
+   "name": "tsa-a12.l4.json",
+   "origin": "tantrasara-a12/data/tsa-a12.l4.json",
+   "role": "layer-l4",
+   "sha256": "bf9a24e75f8182bcbcb14c1cf469dfc48b377d4fc0e3f5fb55ca241739f06839",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 14771,
+   "name": "tsa-a12.t1.json",
+   "origin": "tantrasara-a12/data/tsa-a12.t1.json",
+   "role": "layer-t1",
+   "sha256": "0300aee904dde9cce39eaad06fd6e899dc4cafc12722fd9e66451ea59cfcf478",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 1631,
+   "name": "proof-tsa-a12.json",
+   "origin": "tantrasara-a12/proof/proof-tsa-a12.json",
+   "role": "proof",
+   "sha256": "929424377961553033dec589ba15936c375fa942dac9e5b12736ae279f7cab7a"
+  }
+ ],
+ "chunk": {
+  "immutable_id": "pt:pid:ts:a12:1a0912144533",
+  "target": "tsa12-p01",
+  "work": "tantrasara-a12"
+ },
+ "format": "trika-verify-pack/1",
+ "how_to_verify": "For each artifact: curl -s https://svread.pages.dev/data/verify/tantrasara-a12-tsa12-p01/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). Tiers: MODEL_CHECKED applies only to formal theorems inside their stated finite model.",
+ "trace": {
+  "file": "traces/tantrasara-a12-tsa12-p01.json",
+  "sha256": "0d2fa4b8962406b2934bd240d430ccdaf14ccd4c40738ee43255b84d6e70e9b0"
+ },
+ "verdict": "COMPLETE"
+}

@@ -1,0 +1,31 @@
+{
+ "artifacts": [
+  {
+   "bytes": 11385,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "53174052477a8225e59d71b173afbe4eea3737f0390f6501f7dfb29ec2641c78"
+  },
+  {
+   "bytes": 56525,
+   "name": "T1.md",
+   "origin": "sivastotravali/T1.md",
+   "role": "layer-t1",
+   "sha256": "6808a648f7c411035000a89deca8172eb0de93dce4edf6d16a5b74c266299aa2",
+   "status": "BOUND-WORK-MD"
+  }
+ ],
+ "chunk": {
+  "immutable_id": "pt:pid:sivst:53174052477a",
+  "target": "sivst-p04",
+  "work": "sivastotravali"
+ },
+ "format": "trika-verify-pack/1",
+ "how_to_verify": "For each artifact: curl -s https://svread.pages.dev/data/verify/sivastotravali-sivst-p04/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). Tiers: MODEL_CHECKED applies only to formal theorems inside their stated finite model.",
+ "trace": {
+  "file": "traces/sivastotravali-sivst-p04.json",
+  "sha256": "8dd4b3bdcdb80bb509e5bfb1e3cbd147f86cbf152f986f235bd3bf48d0451ae4"
+ },
+ "verdict": "PARTIAL"
+}

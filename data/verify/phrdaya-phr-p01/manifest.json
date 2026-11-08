@@ -1,0 +1,94 @@
+{
+ "artifacts": [
+  {
+   "bytes": 38,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "8f898521dc720d4519471717832d13f08da13db951b614256b2fa972a1ecfbd9"
+  },
+  {
+   "bytes": 3698,
+   "name": "phr-p01.argmap.json",
+   "origin": "phrdaya/data/phr-p01.argmap.json",
+   "role": "layer-argmap",
+   "sha256": "af5bbacdf7d9309881b7734a9bf2502a0fbd29a7215c8995fb3dcd3e021c438c",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 779,
+   "name": "phr-p01.c1.json",
+   "origin": "phrdaya/data/phr-p01.c1.json",
+   "role": "layer-c1",
+   "sha256": "8023c6f3333904147070e87fd11355d5eea55ac502c203a8cacc8e028ef8bf52",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1512,
+   "name": "phr-p01.c2.json",
+   "origin": "phrdaya/data/phr-p01.c2.json",
+   "role": "layer-c2",
+   "sha256": "15dd53901dc65194280be281d4518b2f7cd0de6f6f115937a201bbd871f197f8",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 5566,
+   "name": "phr-p01.l0.json",
+   "origin": "phrdaya/data/phr-p01.l0.json",
+   "role": "layer-l0",
+   "sha256": "69e87ebaa634c7d17c734e7abfb90a9ab319e7900b3df632792047844b0474e8",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1374,
+   "name": "phr-p01.l2.json",
+   "origin": "phrdaya/data/phr-p01.l2.json",
+   "role": "layer-l2",
+   "sha256": "15435805db03ef9cf6ceba2554ccbd13c17f3c9a9a25dca951a64c0a7f12b2a4",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1769,
+   "name": "phr-p01.l3.json",
+   "origin": "phrdaya/data/phr-p01.l3.json",
+   "role": "layer-l3",
+   "sha256": "29ce2a4409ec143ae48de66af808bdd1d05b0be8b90869c26166ad3d10f9eda0",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1913,
+   "name": "phr-p01.l4.json",
+   "origin": "phrdaya/data/phr-p01.l4.json",
+   "role": "layer-l4",
+   "sha256": "025aaa7c89fea0c635ffdbcedff186a05e75f4e1c9c2ec474821834a32ce236c",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 2278,
+   "name": "phr-p01.t1.json",
+   "origin": "phrdaya/data/phr-p01.t1.json",
+   "role": "layer-t1",
+   "sha256": "bab5fe730e1057efa3d185afdfe375311d56e503d9708fe74fd1c416bc06f9f2",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1715,
+   "name": "proof-phr-p01.json",
+   "origin": "phrdaya/proof/proof-phr-p01.json",
+   "role": "proof",
+   "sha256": "8ee6c8644e465a4ab58c1ac5973f2946d7cadd0c49ab2e3a4fb8bfe3eebbe054"
+  }
+ ],
+ "chunk": {
+  "immutable_id": "pt:pid:phrdaya:001",
+  "target": "phr-p01",
+  "work": "phrdaya"
+ },
+ "format": "trika-verify-pack/1",
+ "how_to_verify": "For each artifact: curl -s https://svread.pages.dev/data/verify/phrdaya-phr-p01/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). Tiers: MODEL_CHECKED applies only to formal theorems inside their stated finite model.",
+ "trace": {
+  "file": "traces/phrdaya-phr-p01.json",
+  "sha256": "1c60c337a7743ffa492fc87efe8443f1b57f651fb4ca2880fc54214150ef65e8"
+ },
+ "verdict": "COMPLETE"
+}

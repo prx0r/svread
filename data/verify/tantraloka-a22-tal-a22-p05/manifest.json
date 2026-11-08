@@ -1,0 +1,47 @@
+{
+ "artifacts": [
+  {
+   "bytes": 928,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "713d3026d9dc1b42f5318b6884017c22afc2f1f9fd391af7614ff08e529d2a2f"
+  },
+  {
+   "bytes": 11529,
+   "name": "ARGMAP.md",
+   "origin": "tantraloka-a22/ARGMAP.md",
+   "role": "layer-argmap",
+   "sha256": "0d9d24b93500a9e0498c838afb0028173aad5fddf4ca9660b742d3df5f67f7f7",
+   "status": "BOUND-WORK-MD"
+  },
+  {
+   "bytes": 11030,
+   "name": "L2.md",
+   "origin": "tantraloka-a22/L2.md",
+   "role": "layer-l2",
+   "sha256": "d1d94a574042650b7fe81808fc31a230662962ad75c37a221c8a9d728385fb2e",
+   "status": "BOUND-WORK-MD"
+  },
+  {
+   "bytes": 5675,
+   "name": "T1.md",
+   "origin": "tantraloka-a22/T1.md",
+   "role": "layer-t1",
+   "sha256": "fef3f3fe5482d7f37a3d73a4989685e0cfad104d6377014375c0d7e7d2c0ab87",
+   "status": "BOUND-WORK-MD"
+  }
+ ],
+ "chunk": {
+  "immutable_id": "pt:pid:tal:tantraloka-a22005",
+  "target": "tal-a22-p05",
+  "work": "tantraloka-a22"
+ },
+ "format": "trika-verify-pack/1",
+ "how_to_verify": "For each artifact: curl -s https://svread.pages.dev/data/verify/tantraloka-a22-tal-a22-p05/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). Tiers: MODEL_CHECKED applies only to formal theorems inside their stated finite model.",
+ "trace": {
+  "file": "traces/tantraloka-a22-tal-a22-p05.json",
+  "sha256": "c6ee494d928e36693af10613dcf473e68ce26a6be63b36ea1303617b01b35a77"
+ },
+ "verdict": "PARTIAL"
+}

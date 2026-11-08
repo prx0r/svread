@@ -1,0 +1,94 @@
+{
+ "artifacts": [
+  {
+   "bytes": 1077,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "5f874093f2dc45536ee74ff91c1c57007f611221514c74b0545fc5524706671d"
+  },
+  {
+   "bytes": 27563,
+   "name": "bodh-p01.argmap.json",
+   "origin": "bodhavilasa/data/bodh-p01.argmap.json",
+   "role": "layer-argmap",
+   "sha256": "f0a8fd3ea25899cd1678a71f658b2f23b26da962a63557f3cbbae87d6eac039a",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 3028,
+   "name": "bodh-p01.c1.json",
+   "origin": "bodhavilasa/data/bodh-p01.c1.json",
+   "role": "layer-c1",
+   "sha256": "0959678544b3a59a0ef152a3ee2161ce5d2d300206fe8a7c2ec73ccc53665644",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 3882,
+   "name": "bodh-p01.c2.json",
+   "origin": "bodhavilasa/data/bodh-p01.c2.json",
+   "role": "layer-c2",
+   "sha256": "490f47111ebff399ea9fdf8fab62ce72b7a07d67c16a93a02eddc091d5fda332",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 35033,
+   "name": "bodh-p01.l0.json",
+   "origin": "bodhavilasa/data/bodh-p01.l0.json",
+   "role": "layer-l0",
+   "sha256": "75024368722b0587016666807a6d196ef5b36e3723ec15d0167ed524aa72432c",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 24979,
+   "name": "bodh-p01.l2.json",
+   "origin": "bodhavilasa/data/bodh-p01.l2.json",
+   "role": "layer-l2",
+   "sha256": "19d49836fc146aee00932277ff3ed80602ce06332e12322ab9757bc175563691",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 25525,
+   "name": "bodh-p01.l3.json",
+   "origin": "bodhavilasa/data/bodh-p01.l3.json",
+   "role": "layer-l3",
+   "sha256": "fb6fd1cb8c65932a078b9e6e2b15881d6acbd25ac94f181f9d6f72a0c1e5952e",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 25885,
+   "name": "bodh-p01.l4.json",
+   "origin": "bodhavilasa/data/bodh-p01.l4.json",
+   "role": "layer-l4",
+   "sha256": "507b3d8b0fb05df2da2b4bd139500d2ccf0caa860834f98444175681bcf9dc84",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 10304,
+   "name": "bodh-p01.t1.json",
+   "origin": "bodhavilasa/data/bodh-p01.t1.json",
+   "role": "layer-t1",
+   "sha256": "01c42ab48b7991182384d0a0d269a2653fc4c1b6aeac1b5b895f36f9df60a2f9",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1733,
+   "name": "proof-bodh-p01.json",
+   "origin": "bodhavilasa/proof/proof-bodh-p01.json",
+   "role": "proof",
+   "sha256": "dfdd675a63fcdb8936ad027351381c1988227da78fa1e120461d4b6828ee9221"
+  }
+ ],
+ "chunk": {
+  "immutable_id": "pt:pid:bodha:001",
+  "target": "bodh-p01",
+  "work": "bodhavilasa"
+ },
+ "format": "trika-verify-pack/1",
+ "how_to_verify": "For each artifact: curl -s https://svread.pages.dev/data/verify/bodhavilasa-bodh-p01/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). Tiers: MODEL_CHECKED applies only to formal theorems inside their stated finite model.",
+ "trace": {
+  "file": "traces/bodhavilasa-bodh-p01.json",
+  "sha256": "ac529d19605cd71c886a0da5d6ed101b477367f6289378e8aa147c82b5fe62c3"
+ },
+ "verdict": "COMPLETE"
+}

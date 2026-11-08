@@ -1,0 +1,152 @@
+{
+ "assurance": {
+  "chunk_gate": "BLOCKED",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "PASS",
+  "witness": "UNPINNED"
+ },
+ "caveats": [
+  "chunk_gate BLOCKED: ABSTENTION"
+ ],
+ "chunk": {
+  "immutable_id": "pt:pid:param:71e8bd7044ba",
+  "target": "param-p01",
+  "work": "paramarthasara"
+ },
+ "essays": {
+  "citing": [],
+  "projection_sha256": "93d3c6e97209668870ad0aadf7fb523d9b8454366c74a0235d292eb7153b32de"
+ },
+ "formal": {
+  "status": "none",
+  "theorems": []
+ },
+ "format": "trika-trace/1",
+ "gaps": [],
+ "identity": {
+  "db": "postgresql://patala:***@localhost:5432/openpatala",
+  "rows": {
+   "editions": [
+    {
+     "id": "paramarthasara:edition:1",
+     "title": "paramarthasara"
+    }
+   ],
+   "etexts": [
+    {
+     "artifact": "590e9ac806c19fa17e084cfe6d446f2638386e69ea8f68ffc9b0baa9f193f2bd",
+     "id": "paramarthasara:etext:1",
+     "provider": "translation-work"
+    }
+   ],
+   "passage": {
+    "citation_value": "param-p01",
+    "work_id": "paramarthasara"
+   },
+   "witnesses_total": 0
+  },
+  "status": "BOUND"
+ },
+ "layers": {
+  "argmap": {
+   "path": "paramarthasara/data/param-p01.argmap.json",
+   "present": true,
+   "sha256": "109f9205de54285a27ebad5d64f8b6e85ef5384270cda029037584a81b67f7d6",
+   "status": "BOUND"
+  },
+  "c1": {
+   "path": "paramarthasara/data/param-p01.c1.json",
+   "present": true,
+   "sha256": "1df221e2bd20aa3d3af2ce33eb020121bab5a7562b3f3bc17ada7067b43cee72",
+   "status": "BOUND"
+  },
+  "c2": {
+   "path": "paramarthasara/data/param-p01.c2.json",
+   "present": true,
+   "sha256": "28ef1f44661480a2e19fd5364571028e39f6025a2b13cbe522fe176c665775cc",
+   "status": "BOUND"
+  },
+  "l0": {
+   "path": "paramarthasara/data/param-p01.l0.json",
+   "present": true,
+   "sha256": "abde4a17419ec7952d7d19b4b6c9709b1c6c0aea0bad391aee762ee9c7bbd010",
+   "status": "BOUND"
+  },
+  "l2": {
+   "path": "paramarthasara/data/param-p01.l2.json",
+   "present": true,
+   "sha256": "7359edfabbe2bfb028a44d99d062bc38d1eea72cbd42d1ef969c3c7f16827e13",
+   "status": "BOUND"
+  },
+  "l3": {
+   "path": "paramarthasara/data/param-p01.l3.json",
+   "present": true,
+   "sha256": "b6d63cda39e3d03ee6733ea078fea6be2b3f36b7adf4cf6a495c369aa28a1b15",
+   "status": "BOUND"
+  },
+  "l4": {
+   "path": "paramarthasara/data/param-p01.l4.json",
+   "present": true,
+   "sha256": "db346e51e71f2f835ddfda004d4432934611817c2c73318d335f6ca2362ad4fb",
+   "status": "BOUND"
+  },
+  "t1": {
+   "path": "paramarthasara/data/param-p01.t1.json",
+   "present": true,
+   "sha256": "d08d918be75acb1e3b9e166fcf6da81b8215f6cb955a1a4c51b55a6998ff35d3",
+   "status": "BOUND"
+  }
+ },
+ "open_problems": [],
+ "proofs": {
+  "chunk_gate": {
+   "blocking": [
+    "ABSTENTION"
+   ],
+   "checks_pass": {
+    "ABSTENTION": false,
+    "CITATION_GROUNDING": true,
+    "COVERAGE": true,
+    "SOURCE_BINDING": true,
+    "TERM_CONSISTENCY": true
+   },
+   "deterministic_gate": "BLOCKED",
+   "entry_sha256": "7911925f0aee61e95c489e1b3160cb47887dc5bccaa93a349fa0831664261cc2",
+   "status": "BLOCKED"
+  },
+  "song_proof": {
+   "blocking": [],
+   "deterministic_gate": "PASS",
+   "file": "paramarthasara/proof/proof-param-p01.json",
+   "sha256": "c146adf2e7a825491f06af1883593570f938b7bdf61fd2dab5f9eb49986bfa6e",
+   "status": "PASS",
+   "tool": "proof_record v1 2026-11-01",
+   "warnings": 0
+  }
+ },
+ "source": {
+  "bytes_present": true,
+  "bytes_sha256": "71e8bd7044baafbc9758f761312ece5473e3186a20535e012589d6f1a18a82c1",
+  "edition": {
+   "label": "GRETIL KSTS 7 (Abhinavagupta Paramarthasara)",
+   "status": "CANDIDATE-EDITION"
+  },
+  "immutable_id": "pt:pid:param:71e8bd7044ba",
+  "ledger": "paramarthasara/passages.jsonl",
+  "source_sha_file": null,
+  "verses": "2-10",
+  "witness": {
+   "id": null,
+   "status": "UNPINNED"
+  }
+ },
+ "verdict": "COMPLETE",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
+}

@@ -1,0 +1,154 @@
+{
+ "assurance": {
+  "chunk_gate": "BLOCKED",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "PASS",
+  "witness": "UNPINNED"
+ },
+ "caveats": [
+  "chunk_gate BLOCKED: CITATION_GROUNDING"
+ ],
+ "chunk": {
+  "immutable_id": "pt:pid:bod:184a1fb43ed9",
+  "target": "bod-p09",
+  "work": "bodhapancadasika"
+ },
+ "essays": {
+  "citing": [],
+  "projection_sha256": "ec5c23d5617fc36dca86303fa69f40064b89bd2d88eabd79aa74d55fbe3ab63e"
+ },
+ "formal": {
+  "status": "none",
+  "theorems": []
+ },
+ "format": "trika-trace/1",
+ "gaps": [],
+ "identity": {
+  "db": "postgresql://patala:***@localhost:5432/openpatala",
+  "rows": {
+   "editions": [
+    {
+     "id": "bodhapancadasika:edition:1",
+     "title": "bodhapancadasika"
+    }
+   ],
+   "etexts": [
+    {
+     "artifact": "0bc56ce1af4590a877860c3d5a324432dff3e0b332f9ee7737b94b8f26539865",
+     "id": "bodhapancadasika:etext:1",
+     "provider": "translation-work"
+    }
+   ],
+   "passage": {
+    "citation_value": "bod-p09",
+    "work_id": "bodhapancadasika"
+   },
+   "witnesses_total": 0
+  },
+  "status": "BOUND"
+ },
+ "layers": {
+  "argmap": {
+   "path": "bodhapancadasika/data/bod-p09.argmap.json",
+   "present": true,
+   "sha256": "7ace17de9c56e5c7e03ffd4d621a3f3e19137fc1c8075abd91d763ba868807ea",
+   "status": "BOUND"
+  },
+  "c1": {
+   "path": "bodhapancadasika/data/bod-p09.c1.json",
+   "present": true,
+   "sha256": "e6770114f1355fec237a4cc8756d6480581b46e5bda11fa4a3e2461dce9f7e9c",
+   "status": "BOUND"
+  },
+  "c2": {
+   "path": "bodhapancadasika/data/bod-p09.c2.json",
+   "present": true,
+   "sha256": "42cdeb194cb39dad322dbc8f52687e0804ed88eef84c9facba9a46913c61f34f",
+   "status": "BOUND"
+  },
+  "l0": {
+   "path": "bodhapancadasika/data/bod-p09.l0.json",
+   "present": true,
+   "sha256": "948c285f7e256ecbd6a291fa3861a587cc26791fdfc178c50de5ebbe784cf48a",
+   "status": "BOUND"
+  },
+  "l2": {
+   "path": "bodhapancadasika/data/bod-p09.l2.json",
+   "present": true,
+   "sha256": "ea6dd9817040afe83c541c870c1c8e332e6047231f36522f15b6b9018309cbb2",
+   "status": "BOUND"
+  },
+  "l3": {
+   "path": "bodhapancadasika/data/bod-p09.l3.json",
+   "present": true,
+   "sha256": "beb175f6685344b2393640b9e64a31fd14b326bd1a0b7a2dc98799c323dbafd8",
+   "status": "BOUND"
+  },
+  "l4": {
+   "path": "bodhapancadasika/data/bod-p09.l4.json",
+   "present": true,
+   "sha256": "72f78092bf5cc180f6325fefc84787369e356c49d27627300c380eee9cff7757",
+   "status": "BOUND"
+  },
+  "t1": {
+   "path": "bodhapancadasika/data/bod-p09.t1.json",
+   "present": true,
+   "sha256": "dff12cfaf3a7595e05d0cddc11d0d125267b0634702d2a30847a6ae2030c94d5",
+   "status": "BOUND"
+  }
+ },
+ "open_problems": [],
+ "proofs": {
+  "chunk_gate": {
+   "blocking": [
+    "CITATION_GROUNDING"
+   ],
+   "checks_pass": {
+    "ABSTENTION": true,
+    "CITATION_GROUNDING": false,
+    "COVERAGE": true,
+    "SOURCE_BINDING": true,
+    "TERM_CONSISTENCY": true
+   },
+   "deterministic_gate": "BLOCKED",
+   "entry_sha256": "7e5eb64146f0564f3e37f5cdbc685975ad5552fdba58fd0d2ea8bbbcc7b299fa",
+   "status": "BLOCKED"
+  },
+  "song_proof": {
+   "blocking": [],
+   "deterministic_gate": "PASS",
+   "file": "bodhapancadasika/proof/proof-bod-p09.json",
+   "sha256": "fe8c0a6c2c15e9f46a3974a7012ed3be90862c3c376a87be9a6511a9706a2d4e",
+   "status": "PASS",
+   "tool": "proof_record v1 2026-11-01",
+   "warnings": 0
+  }
+ },
+ "source": {
+  "bytes_present": true,
+  "bytes_sha256": "184a1fb43ed9f4a3e7086f9e74d99afcd0ce4a9ba4c3d9bfb809b74671afc861",
+  "edition": {
+   "label": null,
+   "status": "UNKNOWN"
+  },
+  "immutable_id": "pt:pid:bod:184a1fb43ed9",
+  "ledger": "bodhapancadasika/passages.jsonl",
+  "source_sha_file": "bodhapancadasika/SOURCE.sha",
+  "source_sha_note": "ledger span vs volume file differ by design; no equality claimed",
+  "source_sha_recorded": "0bc56ce1af45",
+  "verses": "9",
+  "witness": {
+   "id": null,
+   "status": "UNPINNED"
+  }
+ },
+ "verdict": "COMPLETE",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
+}

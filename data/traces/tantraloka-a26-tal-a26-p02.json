@@ -1,0 +1,151 @@
+{
+ "assurance": {
+  "chunk_gate": "BLOCKED",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "FAIL",
+  "witness": "UNPINNED"
+ },
+ "caveats": [
+  "chunk_gate BLOCKED: ABSTENTION"
+ ],
+ "chunk": {
+  "immutable_id": "pt:pid:tal:tantraloka-a26002",
+  "target": "tal-a26-p02",
+  "work": "tantraloka-a26"
+ },
+ "essays": {
+  "citing": [],
+  "projection_sha256": null
+ },
+ "formal": {
+  "status": "none",
+  "theorems": []
+ },
+ "format": "trika-trace/1",
+ "gaps": [
+  "layer:l0",
+  "layer:c1",
+  "layer:l3",
+  "layer:l4",
+  "proofs:song"
+ ],
+ "identity": {
+  "db": "postgresql://patala:***@localhost:5432/openpatala",
+  "rows": {
+   "editions": [
+    {
+     "id": "tantraloka-a26:edition:1",
+     "title": "tantraloka-a26"
+    }
+   ],
+   "etexts": [
+    {
+     "artifact": "1754f825ee45a4738f790b9a461d49616d20bad3cb1a5662787abc0040e07913",
+     "id": "tantraloka-a26:etext:1",
+     "provider": "translation-work"
+    }
+   ],
+   "passage": {
+    "citation_value": "tal-a26-p02",
+    "work_id": "tantraloka-a26"
+   },
+   "witnesses_total": 0
+  },
+  "status": "BOUND"
+ },
+ "layers": {
+  "argmap": {
+   "note": "work-level markdown layer, not per-chunk JSON; bound to the work, not the chunk span",
+   "path": "tantraloka-a26/ARGMAP.md",
+   "present": true,
+   "sha256": "27b6ccece750d76331d17bf9912a0bd515f278e40a821600cfb3f7f616234759",
+   "status": "BOUND-WORK-MD"
+  },
+  "c1": {
+   "present": false,
+   "status": "UNKNOWN"
+  },
+  "c2": {
+   "note": "C2 renders are optional (owner: existing C2 stays; waived)",
+   "present": false,
+   "status": "NOT-APPLICABLE"
+  },
+  "l0": {
+   "present": false,
+   "status": "UNKNOWN"
+  },
+  "l2": {
+   "note": "work-level markdown layer, not per-chunk JSON; bound to the work, not the chunk span",
+   "path": "tantraloka-a26/L2.md",
+   "present": true,
+   "sha256": "8fe2e8be58441e5acc972ae7c52c009fcefda2f61d494a6040bf84fd4e852aa6",
+   "status": "BOUND-WORK-MD"
+  },
+  "l3": {
+   "present": false,
+   "status": "UNKNOWN"
+  },
+  "l4": {
+   "present": false,
+   "status": "UNKNOWN"
+  },
+  "t1": {
+   "note": "work-level markdown layer, not per-chunk JSON; bound to the work, not the chunk span",
+   "path": "tantraloka-a26/T1.md",
+   "present": true,
+   "sha256": "ab3c4994e432173524d7a5f383541b8453224b2f08772c442fa286f6af5f6dba",
+   "status": "BOUND-WORK-MD"
+  }
+ },
+ "open_problems": [
+  "no scholar projection for work"
+ ],
+ "proofs": {
+  "chunk_gate": {
+   "blocking": [
+    "ABSTENTION"
+   ],
+   "checks_pass": {
+    "ABSTENTION": false,
+    "CITATION_GROUNDING": true,
+    "COVERAGE": true,
+    "SOURCE_BINDING": true,
+    "TERM_CONSISTENCY": true
+   },
+   "deterministic_gate": "BLOCKED",
+   "entry_sha256": "a8de60ed869a0e9a2194a90dad414f4996f1f042cd19269ec56cd77ec9a04574",
+   "status": "BLOCKED"
+  },
+  "song_proof": {
+   "note": "no proof file",
+   "status": "UNKNOWN"
+  }
+ },
+ "source": {
+  "bytes_present": true,
+  "bytes_sha256": "c46d32105d374e9faaf9e8edee2ea49827f42d5f3492030ac59f808521064a62",
+  "edition": {
+   "label": null,
+   "status": "UNKNOWN"
+  },
+  "immutable_id": "pt:pid:tal:tantraloka-a26002",
+  "ledger": "tantraloka-a26/passages.jsonl",
+  "source_sha_file": "tantraloka-a26/SOURCE.sha",
+  "source_sha_note": "ledger span vs volume file differ by design; no equality claimed",
+  "source_sha_recorded": "66d2ccb28fdf",
+  "verses": "26.11-26.20",
+  "witness": {
+   "id": null,
+   "status": "UNPINNED"
+  }
+ },
+ "verdict": "PARTIAL",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
+}

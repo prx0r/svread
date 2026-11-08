@@ -1,0 +1,152 @@
+{
+ "assurance": {
+  "chunk_gate": "BLOCKED",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "PASS",
+  "witness": "UNPINNED"
+ },
+ "caveats": [
+  "chunk_gate BLOCKED: ABSTENTION"
+ ],
+ "chunk": {
+  "immutable_id": "pt:pid:ptvm:a49aa9ef4d00",
+  "target": "ptvm-p01",
+  "work": "ptvmadhyama"
+ },
+ "essays": {
+  "citing": [],
+  "projection_sha256": "8b893345e0cd8ca10b09e4f9c2f8536147059dc60d8010a821783578160d45e7"
+ },
+ "formal": {
+  "status": "none",
+  "theorems": []
+ },
+ "format": "trika-trace/1",
+ "gaps": [],
+ "identity": {
+  "db": "postgresql://patala:***@localhost:5432/openpatala",
+  "rows": {
+   "editions": [
+    {
+     "id": "ptvmadhyama:edition:1",
+     "title": "ptvmadhyama"
+    }
+   ],
+   "etexts": [
+    {
+     "artifact": "2100cb0c8303c5a341528e54d73f831709cb76220ecdbfed2155d782faf1c6cb",
+     "id": "ptvmadhyama:etext:1",
+     "provider": "translation-work"
+    }
+   ],
+   "passage": {
+    "citation_value": "ptvm-p01",
+    "work_id": "ptvmadhyama"
+   },
+   "witnesses_total": 0
+  },
+  "status": "BOUND"
+ },
+ "layers": {
+  "argmap": {
+   "path": "ptvmadhyama/data/ptvm-p01.argmap.json",
+   "present": true,
+   "sha256": "3bab316e52d7549ddf0d73c850ed9654e4cb3824ddcfbb5756dcaa4949e79a71",
+   "status": "BOUND"
+  },
+  "c1": {
+   "path": "ptvmadhyama/data/ptvm-p01.c1.json",
+   "present": true,
+   "sha256": "9b5468fbb2faae98d61ddce09dbc2eb793018a362b8ef5cb0b90d81a8a0140c6",
+   "status": "BOUND"
+  },
+  "c2": {
+   "path": "ptvmadhyama/data/ptvm-p01.c2.json",
+   "present": true,
+   "sha256": "24d831baa7b509176248dbd176a68eb8fb6624a64ee2d8fc0a2b9637d004e102",
+   "status": "BOUND"
+  },
+  "l0": {
+   "path": "ptvmadhyama/data/ptvm-p01.l0.json",
+   "present": true,
+   "sha256": "e2a62f3b5e5e8305106af37238fa83b56bd68ab1082079a5eb8732dc245cb81b",
+   "status": "BOUND"
+  },
+  "l2": {
+   "path": "ptvmadhyama/data/ptvm-p01.l2.json",
+   "present": true,
+   "sha256": "90b4e21a44c6ea734c045fb56a89a886eb78086c388c855978350265650e7f7a",
+   "status": "BOUND"
+  },
+  "l3": {
+   "path": "ptvmadhyama/data/ptvm-p01.l3.json",
+   "present": true,
+   "sha256": "9e6b6496af6ade21aab3d7506d4457bcb3d642211dcc4708c48483161e5594ad",
+   "status": "BOUND"
+  },
+  "l4": {
+   "path": "ptvmadhyama/data/ptvm-p01.l4.json",
+   "present": true,
+   "sha256": "cbcbbc49d5ff391cb28447340f92b39e98c8f2803416046aba6808bb1f143144",
+   "status": "BOUND"
+  },
+  "t1": {
+   "path": "ptvmadhyama/data/ptvm-p01.t1.json",
+   "present": true,
+   "sha256": "ab5cc10f4cada4c85e88c506bfc6ffebf67596ea10e83edd7ec972b3a936c9c3",
+   "status": "BOUND"
+  }
+ },
+ "open_problems": [],
+ "proofs": {
+  "chunk_gate": {
+   "blocking": [
+    "ABSTENTION"
+   ],
+   "checks_pass": {
+    "ABSTENTION": false,
+    "CITATION_GROUNDING": true,
+    "COVERAGE": true,
+    "SOURCE_BINDING": true,
+    "TERM_CONSISTENCY": true
+   },
+   "deterministic_gate": "BLOCKED",
+   "entry_sha256": "7911925f0aee61e95c489e1b3160cb47887dc5bccaa93a349fa0831664261cc2",
+   "status": "BLOCKED"
+  },
+  "song_proof": {
+   "blocking": [],
+   "deterministic_gate": "PASS",
+   "file": "ptvmadhyama/proof/proof-ptvm-p01.json",
+   "sha256": "724724502dada0c662c4e34fcfc2bd1234620521e316e2fea6d77d5179c0635e",
+   "status": "PASS",
+   "tool": "proof_record v1 2026-11-01",
+   "warnings": 0
+  }
+ },
+ "source": {
+  "bytes_present": true,
+  "bytes_sha256": "a49aa9ef4d0055065969ac8eab624a4b9e56bc116b6db5fb72cd969033fb6b60",
+  "edition": {
+   "label": null,
+   "status": "UNKNOWN"
+  },
+  "immutable_id": "pt:pid:ptvm:a49aa9ef4d00",
+  "ledger": "ptvmadhyama/passages.jsonl",
+  "source_sha_file": null,
+  "verses": "1-9",
+  "witness": {
+   "id": null,
+   "status": "UNPINNED"
+  }
+ },
+ "verdict": "COMPLETE",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
+}

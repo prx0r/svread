@@ -1,0 +1,169 @@
+{
+ "assurance": {
+  "chunk_gate": "BLOCKED",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "PASS",
+  "witness": "UNPINNED"
+ },
+ "caveats": [
+  "layer:t1=whole-song-span",
+  "layer:l0=whole-song-span",
+  "layer:argmap=whole-song-span",
+  "layer:l2=whole-song-span",
+  "layer:c1=whole-song-span",
+  "layer:l3=whole-song-span",
+  "layer:l4=whole-song-span",
+  "song_proof warnings: 1",
+  "chunk_gate BLOCKED: ABSTENTION,CITATION_GROUNDING"
+ ],
+ "chunk": {
+  "immutable_id": "pt:pid:ts:a06:eeab5d3c2a2b",
+  "target": "tsa06-p03",
+  "work": "tantrasara-a06"
+ },
+ "essays": {
+  "citing": [],
+  "projection_sha256": "5fbff4cf113f9eb10ab74f35f5e8f659c5ab7cf02e7c91c6124b4454580710e6"
+ },
+ "formal": {
+  "status": "none",
+  "theorems": []
+ },
+ "format": "trika-trace/1",
+ "gaps": [],
+ "identity": {
+  "db": "postgresql://patala:***@localhost:5432/openpatala",
+  "rows": {
+   "editions": [
+    {
+     "id": "tantrasara-a06:edition:1",
+     "title": "tantrasara-a06"
+    }
+   ],
+   "etexts": [
+    {
+     "artifact": "e31ff76247199980ca1044440838815616156053cc67a9e41a7420297e57b48e",
+     "id": "tantrasara-a06:etext:1",
+     "provider": "translation-work"
+    }
+   ],
+   "passage": {
+    "citation_value": "tsa06-p03",
+    "work_id": "tantrasara-a06"
+   },
+   "witnesses_total": 0
+  },
+  "status": "BOUND"
+ },
+ "layers": {
+  "argmap": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "tantrasara-a06/data/tsa-a06.argmap.json",
+   "present": true,
+   "sha256": "93f9daf01583726c2303795868a6783ef518f2ed6ee3ed3b47a75b8372423a6f",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  "c1": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "tantrasara-a06/data/tsa-a06.c1.json",
+   "present": true,
+   "sha256": "229bad3fe398581dcbec1ed4472f49a2e2137ab31897040b48b316f6588b08a7",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  "c2": {
+   "note": "C2 renders are optional (owner: existing C2 stays; waived)",
+   "present": false,
+   "status": "NOT-APPLICABLE"
+  },
+  "l0": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "tantrasara-a06/data/tsa-a06.l0.json",
+   "present": true,
+   "sha256": "7c805ceaa4f5ca2a688c5380c1c51f8568b4a355576b7554ce1342998bb14952",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  "l2": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "tantrasara-a06/data/tsa-a06.l2.json",
+   "present": true,
+   "sha256": "feafd88fd9846ccd221e4d188246a35b63af5f2f77cfd87abe66c49886ecab13",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  "l3": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "tantrasara-a06/data/tsa-a06.l3.json",
+   "present": true,
+   "sha256": "40688590729aed5e4466f27717010c57dd1d2148e40aac871865a51d7bc9ff92",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  "l4": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "tantrasara-a06/data/tsa-a06.l4.json",
+   "present": true,
+   "sha256": "d5e962aaef4240f7235e49d3ee286da317696d5618775ea86374888512c29d59",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  "t1": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "tantrasara-a06/data/tsa-a06.t1.json",
+   "present": true,
+   "sha256": "433c168c872a18d8d6d6ab9a5fc0e5359b5aaa137c620d40a647557d5366d6fa",
+   "status": "BOUND-WHOLE-SONG"
+  }
+ },
+ "open_problems": [],
+ "proofs": {
+  "chunk_gate": {
+   "blocking": [
+    "ABSTENTION",
+    "CITATION_GROUNDING"
+   ],
+   "checks_pass": {
+    "ABSTENTION": false,
+    "CITATION_GROUNDING": false,
+    "COVERAGE": true,
+    "SOURCE_BINDING": true,
+    "TERM_CONSISTENCY": true
+   },
+   "deterministic_gate": "BLOCKED",
+   "entry_sha256": "923f11fdbc52b8e0378659c7af1680eb45b5658a9340b0aadec7296080b14a70",
+   "status": "BLOCKED"
+  },
+  "song_proof": {
+   "blocking": [],
+   "deterministic_gate": "PASS",
+   "file": "tantrasara-a06/proof/proof-tsa-a06.json",
+   "sha256": "af3aea93791510c03e4f66adf24a01136d93749ca2039f064ae9cfaa72b00df5",
+   "status": "PASS",
+   "tool": "proof_record v1 2026-11-01",
+   "warnings": 1
+  }
+ },
+ "source": {
+  "bytes_present": true,
+  "bytes_sha256": "eeab5d3c2a2b5103bafdf0a4f3bd8809745bc02d4f53fefac971801e87634dd4",
+  "edition": {
+   "label": "gretil_tantrasara_clean.txt (Nirnaya Sagara 1918, GRETIL)",
+   "status": "CANDIDATE-EDITION"
+  },
+  "immutable_id": "pt:pid:ts:a06:eeab5d3c2a2b",
+  "ledger": "tantrasara-a06/passages.jsonl",
+  "source_sha_file": "tantrasara-a06/SOURCE.sha",
+  "source_sha_note": "ledger span vs volume file differ by design; no equality claimed",
+  "source_sha_recorded": "5a3f0b81bdf3",
+  "verses": "6.44-6.70",
+  "witness": {
+   "id": null,
+   "status": "UNPINNED"
+  }
+ },
+ "verdict": "COMPLETE",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
+}

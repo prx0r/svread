@@ -1,0 +1,153 @@
+{
+ "assurance": {
+  "chunk_gate": "BLOCKED",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "PASS",
+  "witness": "UNPINNED"
+ },
+ "caveats": [
+  "chunk_gate BLOCKED: COVERAGE,ABSTENTION"
+ ],
+ "chunk": {
+  "immutable_id": "pt:pid:stav:a224bba3572d",
+  "target": "stav-p01",
+  "work": "stavacintamani"
+ },
+ "essays": {
+  "citing": [],
+  "projection_sha256": "6e5bc498f683e52c9865c1da56871932f5adc37ad6a9513230f7553f2ee0ba73"
+ },
+ "formal": {
+  "status": "none",
+  "theorems": []
+ },
+ "format": "trika-trace/1",
+ "gaps": [],
+ "identity": {
+  "db": "postgresql://patala:***@localhost:5432/openpatala",
+  "rows": {
+   "editions": [
+    {
+     "id": "stavacintamani:edition:1",
+     "title": "stavacintamani"
+    }
+   ],
+   "etexts": [
+    {
+     "artifact": "b7e43f9ae8bf26b47759847a48b2ec2b511e22ecfb4ec9491bf584b633f6dbcb",
+     "id": "stavacintamani:etext:1",
+     "provider": "translation-work"
+    }
+   ],
+   "passage": {
+    "citation_value": "stav-p01",
+    "work_id": "stavacintamani"
+   },
+   "witnesses_total": 0
+  },
+  "status": "BOUND"
+ },
+ "layers": {
+  "argmap": {
+   "path": "stavacintamani/data/stav-p01.argmap.json",
+   "present": true,
+   "sha256": "0805ddde9cb157309898ccf556043d81e7ff1124b3ae80233231f2e4b9f9d37e",
+   "status": "BOUND"
+  },
+  "c1": {
+   "path": "stavacintamani/data/stav-p01.c1.json",
+   "present": true,
+   "sha256": "3ea3b9287236a917a1f20b58c3eea90e0728c23994596508be08256cafb352a7",
+   "status": "BOUND"
+  },
+  "c2": {
+   "path": "stavacintamani/data/stav-p01.c2.json",
+   "present": true,
+   "sha256": "1d57af6047389170766562724ca648cde756254986d5897d7c626497e4c97c33",
+   "status": "BOUND"
+  },
+  "l0": {
+   "path": "stavacintamani/data/stav-p01.l0.json",
+   "present": true,
+   "sha256": "cbb615de585a2d32fd3be2469690e07351267cf925826b14db12fccc293a3f35",
+   "status": "BOUND"
+  },
+  "l2": {
+   "path": "stavacintamani/data/stav-p01.l2.json",
+   "present": true,
+   "sha256": "fa316d37ceb25c8bfad3e245964ef9de88929db1636598a576dff1218f9723db",
+   "status": "BOUND"
+  },
+  "l3": {
+   "path": "stavacintamani/data/stav-p01.l3.json",
+   "present": true,
+   "sha256": "558eaca690bdbe9b1e9618d26599ca8a17899c9f42e3a4339be4bcc6a7849be3",
+   "status": "BOUND"
+  },
+  "l4": {
+   "path": "stavacintamani/data/stav-p01.l4.json",
+   "present": true,
+   "sha256": "ba9bc36c22de184f7a3edc618b1f3ff7cf857011defd2e2569a8ad8f456ce783",
+   "status": "BOUND"
+  },
+  "t1": {
+   "path": "stavacintamani/data/stav-p01.t1.json",
+   "present": true,
+   "sha256": "3792b587b19b15baae468b2776cf2919bdb33a7b11c9b127ed7997cee05527ed",
+   "status": "BOUND"
+  }
+ },
+ "open_problems": [],
+ "proofs": {
+  "chunk_gate": {
+   "blocking": [
+    "COVERAGE",
+    "ABSTENTION"
+   ],
+   "checks_pass": {
+    "ABSTENTION": false,
+    "CITATION_GROUNDING": true,
+    "COVERAGE": false,
+    "SOURCE_BINDING": true,
+    "TERM_CONSISTENCY": true
+   },
+   "deterministic_gate": "BLOCKED",
+   "entry_sha256": "de56df3b31d7ad846154c7fa778d429e1e16f67343a4042e3e5ef6f6d1f02dbc",
+   "status": "BLOCKED"
+  },
+  "song_proof": {
+   "blocking": [],
+   "deterministic_gate": "PASS",
+   "file": "stavacintamani/proof/proof-stav-p01.json",
+   "sha256": "c356b9a518dd031089cdcd392a7d75249b682fec57e4776f9a24e2ef00afb943",
+   "status": "PASS",
+   "tool": "proof_record v1 2026-11-01",
+   "warnings": 0
+  }
+ },
+ "source": {
+  "bytes_present": true,
+  "bytes_sha256": "a224bba3572d433ddc55aa626943b96bc28a47398f13c8890188624ea0a00d0c",
+  "edition": {
+   "label": null,
+   "status": "UNKNOWN"
+  },
+  "immutable_id": "pt:pid:stav:a224bba3572d",
+  "ledger": "stavacintamani/passages.jsonl",
+  "source_sha_file": null,
+  "verses": "2-11",
+  "witness": {
+   "id": null,
+   "status": "UNPINNED"
+  }
+ },
+ "verdict": "COMPLETE",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
+}
