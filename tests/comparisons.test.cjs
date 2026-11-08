@@ -83,15 +83,18 @@ test('browser compares, keeps notes local and withholds a stale snapshot',
       await page.locator('#note-anu-p01').fill(note);
       await page.locator('#comparison-anu-p01 .compare-save').click();
       assert.match(await page.locator('#comparison-anu-p01 [role=status]').innerText(), /Saved/);
+      assert.equal(await page.locator('#comparison-anu-p01 .compare-note-view').innerText(), note);
       await page.reload();
       await page.waitForSelector('#comparison-anu-p08');
       assert.equal(await page.locator('#note-anu-p01').inputValue(), note);
+      assert.equal(await page.locator('#comparison-anu-p01 .compare-note-view').innerText(), note);
       assert.equal(await page.evaluate(() => window.noteExecuted), undefined);
       await page.locator('#comparison-anu-p01 summary').click();
       await page.locator('#comparison-anu-p01 .compare-clear').click();
       await page.reload();
       await page.waitForSelector('#comparison-anu-p08');
       assert.equal(await page.locator('#note-anu-p01').inputValue(), '');
+      assert.match(await page.locator('#comparison-anu-p01 .compare-note-view').innerText(), /Add your own/);
       const dimensions = await page.evaluate(() => ({body:document.body.scrollWidth, viewport:innerWidth}));
       assert.ok(dimensions.body <= dimensions.viewport, `mobile overflow: ${JSON.stringify(dimensions)}`);
       await page.route('**/data/anuttarastika.json', async route => {

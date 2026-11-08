@@ -926,7 +926,8 @@ async function comparisonView(){
       + `<h3>Verse ${esc(p.number)} <a class="compare-permalink" href="#comparison-${esc(p.locator)}" aria-label="Link to verse ${esc(p.number)}">#</a></h3>`
       + `<p class="compare-sanskrit" lang="sa-Latn">${esc(original.sanskrit)}</p>`
       + `<div class="compare-pair"><section><h4>Current reader · machine-proposed</h4><p>${esc(existing)}</p></section>`
-      + `<section><h4>Comparison draft · unreviewed</h4><p>${esc(p.draft)}</p></section></div>`
+      + `<section><h4>Comparison draft · unreviewed</h4><p>${esc(p.draft)}</p></section>`
+      + `<section><h4>Your reading · local</h4><p class="compare-note-view">Add your own wording or note below.</p></section></div>`
       + `<p><strong>For the editor:</strong> ${esc(p.focus)}</p><p class="compare-meta">${esc(p.status)}</p>`
       + `<details class="compare-personal"><summary>Your note for this verse</summary>`
       + `<label for="note-${esc(p.locator)}">Your note or wording</label>`
@@ -941,14 +942,16 @@ async function comparisonView(){
     + `<p class="compare-meta">Notes stay in this browser's local storage, are not account-synced, and can disappear if site data is cleared.</p>${rows}`;
   main.querySelectorAll('.compare-passage').forEach(article=>{
     const field=article.querySelector('textarea'),status=article.querySelector('.compare-note-status');
+    const personal=article.querySelector('.compare-note-view');
+    const showPersonal=()=>{personal.textContent=field.value||'Add your own wording or note below.';};
     const key=`svread-compare/1/${work.id}/${audit.source_projection_sha256}/${article.dataset.locator}`;
-    try{field.value=localStorage.getItem(key)||'';}catch{status.textContent=' Browser storage is unavailable.';}
+    try{field.value=localStorage.getItem(key)||'';showPersonal();}catch{status.textContent=' Browser storage is unavailable.';}
     article.querySelector('.compare-save').addEventListener('click',()=>{
-      try{localStorage.setItem(key,field.value);status.textContent=' Saved on this device.';}
+      try{localStorage.setItem(key,field.value);showPersonal();status.textContent=' Saved on this device.';}
       catch{status.textContent=' Could not save in this browser.';}
     });
     article.querySelector('.compare-clear').addEventListener('click',()=>{
-      try{localStorage.removeItem(key);field.value='';status.textContent=' Cleared from this device.';}
+      try{localStorage.removeItem(key);field.value='';showPersonal();status.textContent=' Cleared from this device.';}
       catch{status.textContent=' Could not clear browser storage.';}
     });
   });
