@@ -78,17 +78,33 @@
    "sha256": "02651badc7fe4640dc27122d67a48dc3d142ff74436c8d4d8aa241dff39ec18b"
   }
  ],
+ "assurance": {
+  "chunk_gate": "PASS",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "PASS",
+  "witness": "UNPINNED"
+ },
+ "caveats": [],
  "chunk": {
   "immutable_id": "pt:pid:bh:516427fc7cfd",
   "target": "bh-p05",
   "work": "bhairavastava"
  },
  "format": "trika-verify-pack/1",
+ "gaps": [],
  "how_to_verify": "For each artifact: curl -s https://svread.pages.dev/data/verify/bhairavastava-bh-p05/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
- "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). Tiers: MODEL_CHECKED applies only to formal theorems inside their stated finite model.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
  "trace": {
   "file": "traces/bhairavastava-bh-p05.json",
   "sha256": "0e35009a2dfb8b2e0b1e0a0deea8ccf6033757d8e4d36fbb8a09702d82819473"
  },
- "verdict": "COMPLETE"
+ "verdict": "COMPLETE",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
 }

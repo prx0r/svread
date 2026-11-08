@@ -78,17 +78,33 @@
    "sha256": "4e11a56cbbd93c6f9c531f74fb3f4de5048a18334b238d79eb88223922494961"
   }
  ],
+ "assurance": {
+  "chunk_gate": "PASS",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "PASS",
+  "witness": "UNPINNED"
+ },
+ "caveats": [],
  "chunk": {
   "immutable_id": "pt:pid:phrdaya:003",
   "target": "phr-p03",
   "work": "phrdaya"
  },
  "format": "trika-verify-pack/1",
+ "gaps": [],
  "how_to_verify": "For each artifact: curl -s https://svread.pages.dev/data/verify/phrdaya-phr-p03/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
- "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). Tiers: MODEL_CHECKED applies only to formal theorems inside their stated finite model.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
  "trace": {
   "file": "traces/phrdaya-phr-p03.json",
   "sha256": "33b1853cf9cf407a382c86e1dffc59a8ed59454c5b287ef3da66fe261e3143b1"
  },
- "verdict": "COMPLETE"
+ "verdict": "COMPLETE",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
 }

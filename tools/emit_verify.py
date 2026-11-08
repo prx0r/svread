@@ -137,6 +137,12 @@ def main() -> int:
                       "immutable_id": chunk.get("immutable_id")},
             "trace": {"file": f"traces/{bp.name}", "sha256": sha(bp.read_bytes())},
             "verdict": trace.get("verdict"),
+            "verdict_scope": trace.get("verdict_scope") or (
+                "links present only — not approval, proof, or witness "
+                "verification"),
+            "assurance": trace.get("assurance") or {},
+            "caveats": trace.get("caveats") or [],
+            "gaps": trace.get("gaps") or [],
             "artifacts": arts,
             "how_to_verify": (
                 "For each artifact: curl -s https://svread.pages.dev/data/"
@@ -149,9 +155,10 @@ def main() -> int:
             "limits": (
                 "Matching bytes prove the trace and these files agree. They do "
                 "NOT prove the translation is correct, that a human reviewed "
-                "it, or that a witness exists (witnesses are UNPINNED). Tiers: "
-                "MODEL_CHECKED applies only to formal theorems inside their "
-                "stated finite model."),
+                "it, or that a witness exists (witnesses are UNPINNED). A "
+                "formal theorem is REGISTERED unless a per-declaration run "
+                "digest is bound; MODEL_CHECKED would require that binding and "
+                "never extends beyond the stated finite model."),
         }
         rendered[f"{base}/manifest.json"] = (json.dumps(
             manifest, ensure_ascii=False, sort_keys=True, indent=1) + "\n").encode()

@@ -78,17 +78,35 @@
    "sha256": "d291b5568605f4dae9187c1c570ede8069d8ef0cb83f133e6e3e3bf5a1f7538d"
   }
  ],
+ "assurance": {
+  "chunk_gate": "BLOCKED",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "PASS",
+  "witness": "UNPINNED"
+ },
+ "caveats": [
+  "chunk_gate BLOCKED: ABSTENTION"
+ ],
  "chunk": {
   "immutable_id": "pt:pid:svab:edd5bd5efb1e",
   "target": "svab-p04",
   "work": "svabodhasiddhi"
  },
  "format": "trika-verify-pack/1",
+ "gaps": [],
  "how_to_verify": "For each artifact: curl -s https://svread.pages.dev/data/verify/svabodhasiddhi-svab-p04/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
- "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). Tiers: MODEL_CHECKED applies only to formal theorems inside their stated finite model.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
  "trace": {
   "file": "traces/svabodhasiddhi-svab-p04.json",
   "sha256": "43065de08e54f9ba48793652cd80e82e93b8e2ca5f380aefd201107edb45e4ff"
  },
- "verdict": "COMPLETE"
+ "verdict": "COMPLETE",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
 }

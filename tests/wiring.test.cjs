@@ -129,3 +129,21 @@ test('chat answers carry a verify footer (R4)', () => {
   assert.ok(src.includes('unverified — no trace'), 'untraced chunks labelled, not linked');
   assert.ok(src.includes('manifest.json'), 'pack manifest linked');
 });
+
+test('verify packs disclose gate status, not just a verdict (PR #7)', () => {
+  const fs2 = require('node:fs'), path2 = require('node:path');
+  const dir = path2.join(ROOT, 'data', 'verify');
+  if (!fs2.existsSync(dir)) { return; }
+  const walk = (d) => fs2.readdirSync(d, {withFileTypes:true}).flatMap(e =>
+    e.isDirectory() ? walk(path2.join(d, e.name)) : [path2.join(d, e.name)]);
+  const packs = walk(dir).filter(f => f.endsWith('manifest.json')).slice(0, 50);
+  assert.ok(packs.length > 0, 'packs exist');
+  for (const f of packs) {
+    const m = JSON.parse(fs2.readFileSync(f, 'utf8'));
+    assert.ok(m.assurance && typeof m.assurance === 'object',
+      `${f}: assurance block present`);
+    assert.ok('chunk_gate' in m.assurance, `${f}: gate status disclosed`);
+    assert.ok(Array.isArray(m.caveats), `${f}: caveats array present`);
+    assert.ok(/REGISTERED/.test(m.limits || ''), `${f}: current wording`);
+  }
+});

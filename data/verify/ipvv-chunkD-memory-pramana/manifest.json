@@ -15,17 +15,43 @@
    "status": "BOUND"
   }
  ],
+ "assurance": {
+  "chunk_gate": "BLOCKED",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "FAIL",
+  "witness": "UNPINNED"
+ },
+ "caveats": [
+  "chunk_gate BLOCKED: PROOF_NOT_RUN"
+ ],
  "chunk": {
   "immutable_id": "pt:pid:ipvv:80f9c7f414ed",
   "target": "chunkD-memory-pramana",
   "work": "ipvv"
  },
  "format": "trika-verify-pack/1",
+ "gaps": [
+  "layer:t1",
+  "layer:l0",
+  "layer:argmap",
+  "layer:c1",
+  "layer:l3",
+  "layer:l4",
+  "proofs:song"
+ ],
  "how_to_verify": "For each artifact: curl -s https://svread.pages.dev/data/verify/ipvv-chunkD-memory-pramana/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
- "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). Tiers: MODEL_CHECKED applies only to formal theorems inside their stated finite model.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
  "trace": {
   "file": "traces/ipvv-chunkD-memory-pramana.json",
   "sha256": "475b8443b2b40451da154dcbd03ef96f78882299c0f53a7e06ba283624b5f6a9"
  },
- "verdict": "PARTIAL"
+ "verdict": "PARTIAL",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
 }
