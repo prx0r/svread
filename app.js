@@ -861,9 +861,105 @@ async function verifyView(){
   document.title = 'Verify · svread';
 }
 
+// Comparison catalog: external translations stay with their authors. Only our
+// original draft and a hash-matched existing reader projection are displayed.
+function comparisonHref(work){return `?view=compare&work=${encodeURIComponent(work)}`;}
+function comparisonExternal(url){
+  try{const u=new URL(url);return u.protocol==='https:' ? u.href : '';}catch{return '';}
+}
+async function comparisonView(){
+  const catalog=await get('data/comparisons/catalog.json');
+  if(catalog?.format!=='svread-comparisons/1'||!Array.isArray(catalog.works))
+    throw new Error('Comparison catalog is unavailable');
+  const requested=qs.get('work');
+  const work=catalog.works.find(w=>w.id===requested);
+  const main=$('.reader-main');
+  const item=w=>`<li><a href="${comparisonHref(w.id)}">${esc(w.title)}</a>`
+    + ` <span class="compare-meta">${esc(w.author||'')} · ${(w.sources||[]).filter(s=>/translation|reading/i.test(s.kind||'')).length} linked reading(s)</span></li>`;
+  const list=`<ul class="compare-work-list">${catalog.works.map(item).join('')}</ul>`;
+  const archiveURL=comparisonExternal(catalog.archive?.url);
+  if(!work){
+    main.innerHTML=`<div class="comparison"><h1>Compare translations</h1>`
+      + `<p>Explore different translators alongside our own readings. Select a work to see the source, coverage and any editorial questions.</p>`
+      + (requested?`<p class="compare-notice">No comparison is catalogued for ${esc(requested)} yet.</p>`:'')
+      + `<h2>Works in this pilot</h2>${list}`
+      + `<h2>A Sanskrit source collection</h2><p>${esc(catalog.archive?.description||'')}</p>`
+      + (archiveURL?`<p><a href="${esc(archiveURL)}" target="_blank" rel="noopener noreferrer">Open the archive's download page</a> · ${esc(catalog.archive?.attribution||'')}</p>`:'')
+      + `<p class="compare-meta">External translations open on their authors' sites. Coverage and permissions differ.</p></div>`;
+    document.title='Compare translations · svread';return;
+  }
+  const sourceRows=(Array.isArray(work.sources)?work.sources:[]).map(s=>{
+    const url=comparisonExternal(s.url);
+    return `<li><strong>${esc(s.name)}</strong> · ${esc(s.kind)}<br>`
+      + `<span class="compare-meta">${esc(s.coverage)} · ${esc(s.rights)}</span>`
+      + (url?`<br><a href="${esc(url)}" target="_blank" rel="noopener noreferrer">Open original source ↗</a>`:'')+`</li>`;
+  }).join('');
+  main.innerHTML=`<div class="comparison"><p><a href="?view=compare">← All comparisons</a></p>`
+    + `<h1>${esc(work.title)}</h1><p class="compare-meta">${esc(work.author||'')}</p>`
+    + `<p>${esc(work.description||'')}</p>`
+    + `<p><a href="?work=${encodeURIComponent(work.id)}">Open our reader</a> · `
+    + `<a href="?work=${encodeURIComponent(work.id)}&amp;left=sa-iast&amp;right=mine">Compare a personal reading in the reader</a></p>`
+    + (work.editorial_note?`<p class="compare-notice">${esc(work.editorial_note)}</p>`:'')
+    + `<h2>Other readings and sources</h2><p>Open each translator's own page. Links do not grant permission to reproduce a translation.</p>`
+    + `<ul class="compare-source-list">${sourceRows}</ul><div id="comparison-audit"></div></div>`;
+  document.title=`${work.title} · Compare · svread`;
+  if(!work.audit)return;
+  if(!/^data\/comparisons\/[a-z0-9-]+\.json$/.test(work.audit))throw new Error('Invalid audit path');
+  const audit=await get(work.audit);
+  if(audit?.format!=='svread-comparison-audit/1'||audit.work!==work.id||
+     audit.source_projection!==`data/${work.id}.json`||!Array.isArray(audit.passages))
+    throw new Error('Invalid comparison audit');
+  let projection;
+  try{projection=await getReaderData(audit.source_projection);}catch{projection=null;}
+  if(!projection?.sha256||projection.sha256!==audit.source_projection_sha256||projection.data.work!==work.id){
+    $('#comparison-audit').innerHTML='<p class="compare-notice">The source snapshot has changed or cannot be verified. The verse comparison is withheld until its evidence is updated; the external links remain available.</p>';
+    return;
+  }
+  const byId=new Map((projection.data.chunks||[]).map(c=>[c.chunk,c]));
+  if(new Set(audit.passages.map(p=>p.locator)).size!==audit.passages.length||
+     audit.passages.some(p=>!/^[-a-z0-9]+$/.test(p.locator)||!byId.has(p.locator)))
+    throw new Error('Comparison passages do not match the source snapshot');
+  const rows=audit.passages.map(p=>{
+    const original=byId.get(p.locator);
+    const existing=isReaderPass(original)?original.l2:'Existing reading withheld.';
+    return `<article class="compare-passage" id="comparison-${esc(p.locator)}" data-locator="${esc(p.locator)}">`
+      + `<h3>Verse ${esc(p.number)} <a class="compare-permalink" href="#comparison-${esc(p.locator)}" aria-label="Link to verse ${esc(p.number)}">#</a></h3>`
+      + `<p class="compare-sanskrit" lang="sa-Latn">${esc(original.sanskrit)}</p>`
+      + `<div class="compare-pair"><section><h4>Current reader · machine-proposed</h4><p>${esc(existing)}</p></section>`
+      + `<section><h4>Comparison draft · unreviewed</h4><p>${esc(p.draft)}</p></section></div>`
+      + `<p><strong>For the editor:</strong> ${esc(p.focus)}</p><p class="compare-meta">${esc(p.status)}</p>`
+      + `<details class="compare-personal"><summary>Your note for this verse</summary>`
+      + `<label for="note-${esc(p.locator)}">Your note or wording</label>`
+      + `<textarea id="note-${esc(p.locator)}" maxlength="10000"></textarea>`
+      + `<button class="savebtn compare-save" type="button">Save on this device</button> `
+      + `<button class="savebtn compare-clear" type="button">Clear</button>`
+      + `<span class="compare-note-status" role="status"></span></details></article>`;
+  }).join('');
+  $('#comparison-audit').innerHTML=`<h2>Verse-by-verse study</h2>`
+    + `<p class="compare-notice"><strong>${esc(audit.status)}</strong>. This is a research draft, not a scholar-approved gold standard.</p>`
+    + `<p>${esc(audit.method)}</p><p class="compare-meta">${esc(audit.source_notice)}</p>`
+    + `<p class="compare-meta">Notes stay in this browser's local storage, are not account-synced, and can disappear if site data is cleared.</p>${rows}`;
+  main.querySelectorAll('.compare-passage').forEach(article=>{
+    const field=article.querySelector('textarea'),status=article.querySelector('.compare-note-status');
+    const key=`svread-compare/1/${work.id}/${audit.source_projection_sha256}/${article.dataset.locator}`;
+    try{field.value=localStorage.getItem(key)||'';}catch{status.textContent=' Browser storage is unavailable.';}
+    article.querySelector('.compare-save').addEventListener('click',()=>{
+      try{localStorage.setItem(key,field.value);status.textContent=' Saved on this device.';}
+      catch{status.textContent=' Could not save in this browser.';}
+    });
+    article.querySelector('.compare-clear').addEventListener('click',()=>{
+      try{localStorage.removeItem(key);field.value='';status.textContent=' Cleared from this device.';}
+      catch{status.textContent=' Could not clear browser storage.';}
+    });
+  });
+  if(/^#comparison-[-a-z0-9]+$/.test(location.hash))document.getElementById(location.hash.slice(1))?.scrollIntoView();
+}
+
 async function biblioView(){
   const B = await get('data/biblio.json');
   const TR = await get('data/traces/index.json').catch(()=>({entries:[],count:0}));
+  const CC = await get('data/comparisons/catalog.json').catch(()=>({works:[]}));
+  const compared = new Set((CC.works||[]).map(w=>w.id));
   const traceByWork = {};
   for (const e of (TR.entries||[])) {
     (traceByWork[e.work] = traceByWork[e.work] || []).push(e);
@@ -883,7 +979,8 @@ async function biblioView(){
       ? trs_.map(e=>`<a href="data/traces/${esc(e.file.split('/').pop())}" target="_blank" rel="noopener" title="${esc(e.target||'')}">${esc(e.target||'')}</a> <span class="sk-badge">${esc(e.verdict||'')}</span>`).join('<br>')
       : '<span class="mut">—</span>';
     const sch = w.has_projection ? `<a href="?work=${encodeURIComponent(w.id)}&view=scholar">${w.essays} essays</a>` : '—';
-    const reader = w.has_reader ? `<a href="?work=${encodeURIComponent(w.id)}">reader</a>` : (w.passages>0 ? `<span class="mut">${w.passages} passages · reader pending</span>` : '<span class="mut">no passages</span>');
+    const reader = (w.has_reader ? `<a href="?work=${encodeURIComponent(w.id)}">reader</a>` : (w.passages>0 ? `<span class="mut">${w.passages} passages · reader pending</span>` : '<span class="mut">no passages</span>'))
+      + (compared.has(w.id)?` · <a href="${comparisonHref(w.id)}">compare</a>`:'');
     return `<tr data-id="${esc(w.id)}" data-title="${esc((w.title||'')+' '+w.id+' '+(w.author||''))}" data-kind="${w.status?'lost':(w.translations&&w.translations.length?'trans':'none')}${w.essays?' essays':''}${w.formalized!=null?' formal':''}">`
       + `<td><b>${esc(w.title||w.id)}</b><div class="mut">${esc(w.id)}${w.author?` · ${esc(w.author)}`:''}</div></td>`
       + `<td>${w.status?`<span class="sk-badge">${esc(w.status.split(':')[0])}</span>`:'—'}<div class="mut">${w.status?esc(w.status.slice(0,120)):''}</div></td>`
@@ -899,8 +996,8 @@ async function biblioView(){
     + `<p><a href="?view=verify"><b>Verify any claim yourself</b></a> — trace bundles, exact bytes, hashes you can re-compute with curl + sha256sum. No install, no account.</p>`
     + `<p><input id="bibq" placeholder="filter: title, work id, author…" style="width:min(32rem,90%)"> `
     + `<select id="bibf"><option value="">all</option><option value="lost">lost / unverified</option>`
-    + `<option value="trans">has translations</option><option value="essays">has essays</option><option value="formal">formalized</option></select></p>`
-    + `<table class="sk-table"><thead><tr><th>Work</th><th>Status</th><th>Passages</th><th>Editions</th><th>Translations</th><th>Formal</th><th>Traces</th><th>Essays</th></tr></thead>`
+    + `<option value="trans">has translations</option><option value="essays">has essays</option><option value="formal">formal registry tracked</option></select></p>`
+    + `<table class="sk-table"><thead><tr><th>Work</th><th>Status</th><th>Passages</th><th>Editions</th><th>Translations</th><th>Passages referenced by formal registry</th><th>Traces</th><th>Essays</th></tr></thead>`
     + `<tbody id="bibbody">${B.works.map(tRow).join('')}</tbody></table>`
     + `<p class="mut">Lost &amp; unverified (${lost.length}): ${lost.map(w=>esc(w.title||w.id)).join(' · ')}</p>`;
   document.title = 'Bibliography · svread';
@@ -921,6 +1018,13 @@ async function main(){
   if(ns) ns.onclick = e=>{ e.preventDefault(); location.href = `?work=${encodeURIComponent(WORK)}&view=scholar`; };
   const nsk = $('#navsanskrit');
   if(nsk) nsk.onclick = e=>{ e.preventDefault(); location.href = `?work=${encodeURIComponent(WORK)}&view=sanskrit`; };
+  const nc = $('#navcompare');
+  if(nc && qs.has('work')) nc.href=comparisonHref(WORK);
+  if(qs.get('view')==='compare'){
+    try{ await comparisonView(); }
+    catch(err){ $('.reader-main').innerHTML = `<p id="err">Comparison: ${esc(String(err&&err.message||err))}</p>`; }
+    return;
+  }
   if(qs.get('view')==='sanskrit'){
     try{ await sanskritView(); }
     catch(err){ $('.reader-main').innerHTML = `<p id="err">Sanskrit view: ${esc(String(err&&err.message||err))}</p>`; }
