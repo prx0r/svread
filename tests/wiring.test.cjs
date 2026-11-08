@@ -120,3 +120,12 @@ test('verify view + VERIFY.md are wired', () => {
   assert.ok(/UNPINNED/.test(md), 'witness honesty');
   assert.ok(/trika-trace\/1|trace/.test(md), 'points at traces');
 });
+
+test('chat answers carry a verify footer (R4)', () => {
+  const src = fs.readFileSync(path.join(ROOT, 'app.js'), 'utf8');
+  assert.ok(src.includes('verifyFooter'), 'footer builder present');
+  assert.ok(src.includes('data/traces/index.json'), 'footer reads trace index');
+  assert.ok(src.includes('data/verify/'), 'footer links verify packs');
+  assert.ok(src.includes('unverified — no trace'), 'untraced chunks labelled, not linked');
+  assert.ok(src.includes('manifest.json'), 'pack manifest linked');
+});

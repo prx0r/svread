@@ -2026,6 +2026,42 @@ function buildRightRail(verses){
     return `I answer only from this work's files — try “what does … mean”, “translate §N”, “why §N”, or “§N”.`;
   }
   const convo = $('#convo');
+  /* R4 verify footer: every chunk id cited in an answer is checked against
+     data/traces/index.json. Trace-bearing chunks get working verify links
+     (trace bundle + verify pack); anything else is labelled unverified.
+     Missing index = no footer, never a broken link. */
+  let TRACE_IDX_P = null;
+  const traceIndex = ()=>{
+    if(!TRACE_IDX_P){
+      TRACE_IDX_P = fetch('data/traces/index.json')
+        .then(r=>r.ok?r.json():null).catch(()=>null);
+    }
+    return TRACE_IDX_P;
+  };
+  const verifyFooter = (replyText, idx)=>{
+    const seen = [];
+    const re = /\[([A-Za-z0-9_.-]+:[A-Za-z0-9_.-]+)\]/g;
+    let m;
+    while((m = re.exec(replyText||''))){
+      const id = m[1];
+      if(id.includes('/') || id.includes(' ') || seen.includes(id)) continue;
+      seen.push(id);
+    }
+    if(!seen.length) return '';
+    const byKey = {};
+    ((idx && idx.entries)||[]).forEach(e=>{
+      byKey[`${e.work}:${e.target}`] = e;
+    });
+    const parts = seen.map(id=>{
+      const e = byKey[id];
+      if(e){
+        const v = e.verdict || 'PARTIAL';
+        return `<a href="data/traces/${esc(e.file.split('/').pop())}" title="trace bundle ${esc(v)}">${esc(id)} · trace (${esc(v)})</a> <a href="data/verify/${esc(e.work)}-${esc(e.target)}/manifest.json" title="verify pack: exact bytes + hashes">pack</a>`;
+      }
+      return `<span class="mut">${esc(id)} · unverified — no trace for this chunk</span>`;
+    });
+    return `<div class="qverify"><span class="mut">Verify:</span> ${parts.join(' · ')}</div>`;
+  };
   const qsay = (cls, html)=>{
     if(!convo) return;
     const d = document.createElement('div');
@@ -2146,6 +2182,14 @@ function buildRightRail(verses){
       });
       qsay('a', html
         + (d.suggestion ? `<div class="qsug">Try: <a href="#" data-qask="${esc(d.suggestion)}">${esc(d.suggestion)}</a></div>` : ''));
+      traceIndex().then(idx=>{
+        if(!idx) return;
+        const foot = verifyFooter(d.reply||'', idx);
+        if(!foot) return;
+        const bubbles = convo.querySelectorAll('.qbub.a');
+        const last = bubbles[bubbles.length-1];
+        if(last){ last.insertAdjacentHTML('beforeend', foot); convo.scrollTop = convo.scrollHeight; }
+      }).catch(()=>{});
       const sug = convo.querySelector('.qsug a[data-qask]');
       if(sug) sug.onclick = ev=>{ ev.preventDefault(); inp.value = ev.target.textContent; qrun(); };
     })
