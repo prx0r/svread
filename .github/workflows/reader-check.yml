@@ -15,6 +15,7 @@ jobs:
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
         with:
           python-version: '3.11'
+      - run: python3 tools/emit_index_meta.py --check
       - run: python3 scripts/release_manifest.py
       - run: node --check app.js && node --check sw.js && node --check scholar-workspace-ui.js && node --check scholar-voice.js
       - run: node --test tests/*.cjs

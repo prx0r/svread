@@ -26,6 +26,8 @@ import os
 import sys
 from pathlib import Path
 
+ORIGIN = os.environ.get("SITE_ORIGIN", "https://svread.pages.dev").rstrip("/")
+
 ROOT = Path(__file__).resolve().parent.parent
 TRACES = ROOT / "data" / "traces"
 OUT = ROOT / "data" / "verify"
@@ -145,8 +147,8 @@ def main() -> int:
             "gaps": trace.get("gaps") or [],
             "artifacts": arts,
             "how_to_verify": (
-                "For each artifact: curl -s https://svread.pages.dev/data/"
-                f"{base}/<name> | sha256sum, then compare that hash with the "
+                "For each artifact: curl -s "
+                f"{ORIGIN}/data/{base}/<name> | sha256sum, then compare that hash with the "
                 "same artifact's 'sha256' above and in the trace. If every "
                 "artifact matches and the trace's recorded verdict/gaps agree "
                 "with what you read, the chain is intact. A mismatch means the "

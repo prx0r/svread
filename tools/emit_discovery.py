@@ -7,7 +7,7 @@ from versioned sources (no hand lists to rot):
 - data/pushing.json: digest of ipvv pushing INDEX (id, work, question,
   verdict, source file). Read-only wrt /root/ipvv.
 - llms.txt: site map in markdown for LLMs (what this is, views, data
-  endpoints, how to cite). Absolute https://svread.pages.dev URLs.
+  endpoints, how to cite). Absolute URLs from SITE_ORIGIN (default pages.dev).
 - sitemap.xml: HTML entry points (views are query-param routes on /).
 - robots.txt: permissive (incl. named AI crawlers) + sitemap pointer.
 

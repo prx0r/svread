@@ -67,7 +67,8 @@ test('emitters are deterministic (--check green)', (t) => {
     'emit_verify.py': hasTrika && hasTW, 'emit_formal.py': hasTrika,
     'emit_biblio.py': 'db' };
   for (const tool of ['emit_biblio.py', 'emit_traces.py', 'emit_verify.py',
-                      'emit_formal.py', 'emit_discovery.py']) {
+                      'emit_formal.py', 'emit_discovery.py',
+                      'emit_index_meta.py']) {
     if (needsInfra[tool] === false) {
       t.skip(`${tool} needs a sibling checkout; not present here`);
       continue;
