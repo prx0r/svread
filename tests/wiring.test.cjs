@@ -56,11 +56,22 @@ test('llms.txt claims are measured, not inflated', () => {
   assert.ok(llms.includes('formal__gaps'), 'formal tool family named');
 });
 
-test('emitters are deterministic (--check green)', () => {
+test('emitters are deterministic (--check green)', (t) => {
   for (const tool of ['emit_biblio.py', 'emit_traces.py', 'emit_verify.py',
                       'emit_formal.py', 'emit_discovery.py']) {
-    const out = execFileSync('python3', ['tools/' + tool, '--check'],
-      { cwd: ROOT, encoding: 'utf8' });
+    let out;
+    try {
+      out = execFileSync('python3', ['tools/' + tool, '--check'],
+        { cwd: ROOT, encoding: 'utf8' });
+    } catch (e) {
+      // PR #7 P1: missing DB infrastructure SKIPs, never fails.
+      if (tool === 'emit_biblio.py' &&
+          /No module named 'psycopg2'|DB unreachable|connection|psql/i.test((e.stdout || '') + (e.message || ''))) {
+        t.skip('emit_biblio needs a database; not present here');
+        continue;
+      }
+      throw e;
+    }
     assert.ok(/GREEN/.test(out), `${tool}: ${out}`);
   }
 });
