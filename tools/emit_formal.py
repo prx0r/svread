@@ -5,7 +5,8 @@ Writes data/formal.json: what has been formally checked, its scope, what is
 gap, and the runs that produced it. Read-only over trika-x.
 
 Honesty rules baked in:
-  - Every theorem carries MODEL_CHECKED + "inside its stated finite model".
+  - Every theorem carries REGISTERED unless a per-declaration run digest is
+    bound; MODEL_CHECKED is reserved for that binding (none exist yet).
   - KEY entries are counts (tradition's numbers), not derived results.
   - Gap counts are reported, never smoothed into a coverage percentage claim.
   - Axiom audit is the STATIC half only; the kernel verdict needs the pinned

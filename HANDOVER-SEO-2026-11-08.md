@@ -163,15 +163,16 @@ penalises schema that doesn't match visible content). `reviewedBy` stays
 
 ## 5. The traps (these will bite you)
 
-1. **`ORIGIN` is hardcoded** at `tools/emit_discovery.py:27`
+1. **`ORIGIN` was hardcoded** at `tools/emit_discovery.py` (**fixed**: reads
+   `SITE_ORIGIN`; the note stays because any new emitter must do the same)
    (`https://svread.pages.dev`). Replace with `SITE_ORIGIN` env before doing
    anything else, or every canonical/sitemap/llms URL is wrong after cutover.
-2. **`tests/wiring.test.cjs:59` asserts `ld.url.includes('svread.pages.dev')`.**
-   It will fail on the custom domain. Make it read `SITE_ORIGIN`.
-3. **`llms.txt` has a stale count**: `emit_discovery.py:103` says "Trace index
-   **(13 chunks**…)" while there are 909. Make it dynamic from
-   `data/traces/index.json`. This is exactly the class of bug the whole
-   project exists to prevent — do not leave it.
+2. **`tests/wiring.test.cjs` asserted `svread.pages.dev`** (**fixed**: reads
+   `SITE_ORIGIN`) — any new origin assertion must do the same.
+3. **`llms.txt` stale count — FIXED 2026-11-08.** It used to say "13 chunks";
+   it now derives 909 + the COMPLETE/PARTIAL split from
+   `data/traces/index.json`. Keep it derived — this is the class of bug the
+   project exists to prevent.
 4. **`discovery.test.cjs:42` asserts exactly 10 lesson URLs.** Adding claim
    pages is fine; changing lesson count is not.
 5. **`release_manifest.py` must run LAST**, after every content change, or
@@ -221,9 +222,10 @@ python3 -m unittest discover -s mcp -p "test_*.py"
 
 ## 7. Do this, in this order (first three moves)
 
-1. **Fix `SITE_ORIGIN`** in `emit_discovery.py` + the wiring test (traps 1–2),
-   and make the trace count in `llms.txt` dynamic (trap 3). Commit. This makes
-   tomorrow's domain a one-line change and removes a live stale number.
+1. ~~Fix `SITE_ORIGIN` … dynamic trace count~~ **DONE 2026-11-08 (`cc847f5`)**:
+   `emit_discovery.py` reads `SITE_ORIGIN`, `llms.txt` reports 909 chunks live,
+   the wiring test is origin-aware. Traps 1–3 are now historical notes, kept
+   because the *pattern* recurs.
 2. **Hand-build B02**: one perfect claim page at
    `claim/tantrasara-a08/tsa08-p03/index.html` using the §2.1 spec and real
    values from `data/traces/tantrasara-a08-tsa08-p03.json` and
@@ -268,6 +270,7 @@ is not `SITE_ORIGIN`.
 - A measurement baseline exists, and the first tactic experiment has a kill
   criterion.
 - `data/release-manifest.json` is current and `reader-check` is green.
+- No stale numbers anywhere: `grep -rn "13 chunks\|98%\|MODEL_CHECKED theorem"` returns nothing.
 
 ---
 

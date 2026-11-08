@@ -111,7 +111,7 @@ def build_llms(pushing: dict, biblio: dict, sanskrit: dict) -> str:
         f"- Scholar projections: {ORIGIN}/data/scholar/<work>.json (versions, essays, reviews, signoffs, projection_sha256)",
         f"- Pushing digest ({pushing['count']} live questions + hound verdicts): {ORIGIN}/data/pushing.json",
         f"- Sanskrit lessons (rendered pages): {ORIGIN}/data/sanskrit/site/lesson-01.html ... lesson-10.html",
-        f"- Formal registry (every MODEL_CHECKED theorem, its scope, and the unformalised gap list): {ORIGIN}/data/formal.json",
+        f"- Formal registry (every REGISTERED theorem, its scope, and the unformalised gap list): {ORIGIN}/data/formal.json",
         f"- Verification packs + no-code recipe (fetch + sha256sum, no install): {ORIGIN}/data/verify/index.json",
         f"- Trace index ({n_traces} chunks; {complete} COMPLETE / {partial} PARTIAL; "
         f"per-chunk source->layers->proofs->theorems->essays, hash-pinned): "
