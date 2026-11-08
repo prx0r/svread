@@ -18,13 +18,14 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "data"
 IPVV_PUSHING = Path("/root/ipvv/site/data/pushing/INDEX.json")
-ORIGIN = "https://svread.pages.dev"
+ORIGIN = os.environ.get("SITE_ORIGIN", "https://svread.pages.dev").rstrip("/")
 
 
 def load_json(p: Path):
@@ -60,6 +61,15 @@ def build_pushing() -> dict:
                     "ask follow-ups via the pushing lab."}
 
 
+def trace_stats() -> tuple[int, dict]:
+    """Live trace count + verdicts from data/traces/index.json (no stale numbers)."""
+    try:
+        d = json.loads((ROOT / "data" / "traces" / "index.json").read_text())
+        return int(d.get("count") or 0), (d.get("verdicts") or {})
+    except (OSError, ValueError):
+        return 0, {}
+
+
 def build_llms(pushing: dict, biblio: dict, sanskrit: dict) -> str:
     works = biblio.get("counts", {}).get("works", 0)
     lost = biblio.get("counts", {}).get("lost_or_unverified", 0)
@@ -69,6 +79,9 @@ def build_llms(pushing: dict, biblio: dict, sanskrit: dict) -> str:
     with_pass = sum(1 for w in rows if w.get("passages"))
     projected = sum(1 for w in rows if w.get("has_projection"))
     formal = sum(1 for w in rows if w.get("formalized"))
+    n_traces, tr_verdicts = trace_stats()
+    complete = tr_verdicts.get("COMPLETE", 0)
+    partial = tr_verdicts.get("PARTIAL", 0)
     lines = [
         "# Svatantrya Reader (svread)",
         "",
@@ -100,7 +113,9 @@ def build_llms(pushing: dict, biblio: dict, sanskrit: dict) -> str:
         f"- Sanskrit lessons (rendered pages): {ORIGIN}/data/sanskrit/site/lesson-01.html ... lesson-10.html",
         f"- Formal registry (every MODEL_CHECKED theorem, its scope, and the unformalised gap list): {ORIGIN}/data/formal.json",
         f"- Verification packs + no-code recipe (fetch + sha256sum, no install): {ORIGIN}/data/verify/index.json",
-        f"- Trace index (13 chunks; per-chunk source->layers->proofs->theorems->essays, hash-pinned): {ORIGIN}/data/traces/index.json",
+        f"- Trace index ({n_traces} chunks; {complete} COMPLETE / {partial} PARTIAL; "
+        f"per-chunk source->layers->proofs->theorems->essays, hash-pinned): "
+        f"{ORIGIN}/data/traces/index.json",
         f"- Trace bundles (one JSON per chunk, trika-trace/1, re-verifiable): {ORIGIN}/data/traces/<work>-<target>.json",
         "- Or ask an MCP client with the openpatala-federation gateway for formal__trace {work, target} (plus formal__bridge, formal__gaps, formal__evidence, formal__table, formal__runs, formal__axioms)",
         "",
