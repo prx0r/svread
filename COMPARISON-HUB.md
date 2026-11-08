@@ -1,6 +1,6 @@
 # Translation comparison pilot
 
-The reader's `?view=compare` catalog links to translators' own publications. `?view=compare&work=anuttarastika` adds an eight-verse comparison of the existing reader's L2 and a newly prepared English research draft. The new draft, notes, and source alignments are **machine-proposed and await independent Sanskrit review**; they are not a scholar-certified gold translation. The external translators' words are not republished in this repository. A reader can add a personal third wording or note beside those drafts; it is stored only in their browser and scoped to the exact bundled projection hash.
+The reader's `?view=compare` catalog links to translators' own publications. `?view=compare&work=anuttarastika` adds an eight-verse comparison of the existing reader's L2 and a newly prepared English research draft. The new draft, notes, and source alignments are **machine-proposed and await independent Sanskrit review**; they are not a scholar-certified gold translation. The external translators' words are not republished in this repository. A reader can add a personal third wording or note beside those drafts; it is stored only in their browser and scoped to the exact bundled projection hash. When that snapshot changes the old note will not appear against the new text; clearing browser site data may remove notes altogether.
 
 ## Source and rights
 

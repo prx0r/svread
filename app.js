@@ -939,7 +939,7 @@ async function comparisonView(){
   $('#comparison-audit').innerHTML=`<h2>Verse-by-verse study</h2>`
     + `<p class="compare-notice"><strong>${esc(audit.status)}</strong>. This is a research draft, not a scholar-approved gold standard.</p>`
     + `<p>${esc(audit.method)}</p><p class="compare-meta">${esc(audit.source_notice)}</p>`
-    + `<p class="compare-meta">Notes stay in this browser's local storage, are not account-synced, and can disappear if site data is cleared.</p>${rows}`;
+    + `<p class="compare-meta">Notes stay in this browser's local storage and are not account-synced. They are tied to this source snapshot, so they will not appear against a changed snapshot and can disappear if site data is cleared.</p>${rows}`;
   main.querySelectorAll('.compare-passage').forEach(article=>{
     const field=article.querySelector('textarea'),status=article.querySelector('.compare-note-status');
     const personal=article.querySelector('.compare-note-view');
