@@ -57,17 +57,34 @@ test('llms.txt claims are measured, not inflated', () => {
 });
 
 test('emitters are deterministic (--check green)', (t) => {
+  // PR #7 P1: emitters needing sibling checkouts or a database SKIP with
+  // a reason when that infrastructure is absent on the runner. Only
+  // self-contained emitters must pass everywhere.
+  const fs2 = require('node:fs');
+  const hasTrika = fs2.existsSync(process.env.TRIKA_X_ROOT || '/root/trika-x');
+  const hasTW = fs2.existsSync(process.env.TRANSLATION_WORK || '/root/translation-work');
+  const needsInfra = { 'emit_traces.py': hasTrika,
+    'emit_verify.py': hasTrika && hasTW, 'emit_formal.py': hasTrika,
+    'emit_biblio.py': 'db' };
   for (const tool of ['emit_biblio.py', 'emit_traces.py', 'emit_verify.py',
                       'emit_formal.py', 'emit_discovery.py']) {
+    if (needsInfra[tool] === false) {
+      t.skip(`${tool} needs a sibling checkout; not present here`);
+      continue;
+    }
     let out;
     try {
       out = execFileSync('python3', ['tools/' + tool, '--check'],
         { cwd: ROOT, encoding: 'utf8' });
     } catch (e) {
-      // PR #7 P1: missing DB infrastructure SKIPs, never fails.
-      if (tool === 'emit_biblio.py' &&
-          /No module named 'psycopg2'|DB unreachable|connection|psql/i.test((e.stdout || '') + (e.message || ''))) {
-        t.skip('emit_biblio needs a database; not present here');
+      // Missing infrastructure SKIPs, never fails; the emitter itself
+      // fails closed ("refusing stale write"). emit_biblio needs both
+      // the trika-x EVIDENCE file and a database.
+      const msg = (e.stdout || '') + (e.message || '');
+      if (needsInfra[tool] === 'db' &&
+          (/No module named 'psycopg2'|DB unreachable|connection|psql/i.test(msg) ||
+           (!hasTrika && /EVIDENCE unreadable|No such file/i.test(msg)))) {
+        t.skip(`${tool} needs trika-x and/or a database; not present here`);
         continue;
       }
       throw e;
