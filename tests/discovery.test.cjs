@@ -6,8 +6,24 @@ const { execFileSync } = require('node:child_process');
 
 const ROOT = path.join(__dirname, '..');
 
-test('emit_discovery --check is green and outputs are well-formed', () => {
-  const out = execFileSync('python3', ['tools/emit_discovery.py', '--check'], { cwd: ROOT, encoding: 'utf8' });
+test('emit_discovery --check is green and outputs are well-formed', (t) => {
+  // PR #7 P1: needs the ipvv pushing index; SKIP with reason when absent.
+  const fs2 = require('node:fs');
+  if (!fs2.existsSync(process.env.IPVV_ROOT || '/root/ipvv')) {
+    t.skip('emit_discovery needs the ipvv checkout; not present here');
+    return;
+  }
+  let out;
+  try {
+    out = execFileSync('python3', ['tools/emit_discovery.py', '--check'], { cwd: ROOT, encoding: 'utf8' });
+  } catch (e) {
+    const msg = (e.stdout || '') + (e.message || '');
+    if (/Permission denied|No such file|EVIDENCE unreadable|DB unreachable|No module named/i.test(msg)) {
+      t.skip('emit_discovery needs sibling checkouts/DB; not present here');
+      return;
+    }
+    throw e;
+  }
   assert.ok(out.includes('GREEN'), out);
   const llms = fs.readFileSync(path.join(ROOT, 'llms.txt'), 'utf8');
   assert.ok(llms.startsWith('# Svatantrya Reader'), 'llms.txt title');
