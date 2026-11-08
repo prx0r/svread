@@ -261,7 +261,8 @@ def resolve_expansion_essay(slug: str) -> dict:
     if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.:-]{0,159}", slug or ""):
         raise Unresolvable(f"bad expansion slug: {slug!r}")
     base = TRIKA_X / "formal-trika" / "swarm" / slug
-    md, ej, rcp = (base.with_suffix(x) for x in (".md", ".essay.json", ".receipt.json"))
+    # Literal suffix append: with_suffix would turn slug "a.b" into "a.md".
+    md, ej, rcp = (Path(str(base) + x) for x in (".md", ".essay.json", ".receipt.json"))
     if not md.is_file() or not ej.is_file():
         raise Unresolvable(f"not an expansion essay: {slug}")
     try:
@@ -408,6 +409,11 @@ def links(i: str) -> list:
     elif i.startswith("essay:scholar:"):
         rest = i[len("essay:scholar:"):]
         out.add(f"work:{rest.split(':')[0]}")
+    elif i.startswith("essay:expansion:"):
+        d = resolve_expansion_essay(i[len("essay:expansion:"):])
+        if d.get("chunk") and ":" in d["chunk"]:
+            out.add(f"chunk:{d['chunk']}")
+            out.add(f"work:{d['chunk'].split(':')[0]}")
     elif i.startswith("work:"):
         work = i[len("work:"):]
         for r in pushing_catalog():

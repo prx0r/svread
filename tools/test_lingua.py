@@ -174,6 +174,29 @@ class Fixture(unittest.TestCase):
         self.assertIn("withheld", e["excerpt"])
         self.assertEqual(len(e["text_sha256"]), 64)
 
+    def test_links_expansion_essay(self):
+        # PR #7: links() rejected expansion atoms as an unknown kind.
+        got = lingua.links("essay:expansion:expansion-demo-essay")
+        self.assertIn("chunk:demo-a01:d01-p01", got)
+        self.assertIn("work:demo-a01", got)
+
+    def test_dotted_slug_resolves_literally(self):
+        # PR #7: Path.with_suffix turned slug "a.b" into "a.md". Suffixes
+        # append literally now; a slug naming a different file fails closed.
+        write(self.tmp / "trika-x" / "formal-trika" / "swarm" / "expansion-demo.v2.md",
+              "# Demo v2 (EXPANSION DRAFT)\n")
+        write(self.tmp / "trika-x" / "formal-trika" / "swarm" / "expansion-demo.v2.essay.json",
+              json.dumps({"id": "essay:expansion-demo.v2", "title": "Demo v2",
+                          "date": "2026-11-08", "chunk": "demo-a01:d01-p01",
+                          "verses": [], "voice": [],
+                          "claims": [{"id": "CLM-1", "text": "t",
+                                      "tier": "R"}],
+                          "tracks": [], "theorems": [], "status": "DRAFT"}))
+        e = lingua.resolve("essay:expansion:expansion-demo.v2")
+        self.assertEqual(e["title"], "Demo v2")
+        with self.assertRaises(Unresolvable):
+            lingua.resolve("essay:expansion:expansion-demo.v2.md")
+
     def test_resolve_fails_closed(self):
         for bad in ("work:nope", "chunk:demo-a01:nope", "tension:ghost",
                     "crux:demo-a01:nope", "essay:personal:essays/nope.md",
