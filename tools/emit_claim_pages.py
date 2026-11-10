@@ -116,31 +116,46 @@ def claim_rows(doc: dict) -> list[tuple[str, str, str]]:
                  "assurance: ledger span is an excerpt; volume not hashed"))
     return rows
 
+def fmt_layer(k: str, v) -> str:
+    if not isinstance(v, dict):
+        return f"layer {k}: malformed entry (not an object)"
+    sha = v.get("sha256") or ""
+    path = v.get("path") or ""
+    status = v.get("status") or "UNKNOWN"
+    if sha and path:
+        return f"layer {k}: {sha[:16]}…  {path}  {status}"
+    if path:
+        return f"layer {k}: {status} (bytes unrecorded) — {path}"
+    return f"layer {k}: {status} (no bytes recorded)"
+
 
 def build_claim_page(work: str, target: str, doc: dict, man: dict,
-                     verse: str, l2: str | None, prev: str | None,
+                     verse: str, l2: str | None,
+                     prev: str | None,
                      nxt: str | None, bundle_sha: str) -> str:
     ass = doc.get("assurance", {}) or {}
     src = doc.get("source", {}) or {}
     layers = doc.get("layers", {}) or {}
     proofs = doc.get("proofs", {}) or {}
     formal = doc.get("formal", {}) or {}
-    verses = src.get("verses", target)
+    verses = src.get("verses") or target
     answer = answer_for(work, verses, doc)
     if words(answer) > 40:
         raise ValueError(f"answer too long ({words(answer)}w): {answer}")
-    edition = (src.get("edition", {}) or {}).get("label", "edition unrecorded")
-    ed_status = (src.get("edition", {}) or {}).get("status", "UNKNOWN")
+    edition = ((src.get("edition", {}) or {}).get("label")
+                 or "edition unrecorded")
+    ed_status = ((src.get("edition", {}) or {}).get("status")
+                 or "UNKNOWN")
     ledger = src.get("ledger", "ledger unrecorded")
     cg = proofs.get("chunk_gate", {}) or {}
     sp = proofs.get("song_proof", {}) or {}
     artifacts = man.get("artifacts", []) or []
     art_lines = "\n".join(
-        f"{a.get('name')}  {(a.get('sha256') or '')[:16]}…  {a.get('bytes', '?')}B"
+        f"{a.get('name') or '?'}  {(a.get('sha256') or '')[:16]}…  "
+        f"{a.get('bytes') if a.get('bytes') is not None else '?'}B"
         for a in artifacts)
     layer_lines = "\n".join(
-        f"layer {k}: {(v.get('sha256') or '')[:16]}…  {v.get('path')}  {v.get('status')}"
-        for k, v in layers.items() if isinstance(v, dict))
+        fmt_layer(k, v) for k, v in layers.items())
     htv = man.get("how_to_verify") or (
         "For each artifact: curl the pack file, sha256sum it, compare with "
         "the manifest sha256 and the trace hashes. Any mismatch means the "
@@ -260,7 +275,7 @@ def build_claim_page(work: str, target: str, doc: dict, man: dict,
 <pre>source excerpt: {(src.get('bytes_sha256') or '')}
   ledger: {esc(ledger)} · edition: {esc(edition)} ({esc(ed_status)})
 {esc(layer_lines)}
-song proof {(sp.get('file') or '')}: {(sp.get('sha256') or '')}  {(sp.get('status') or '')} ({(sp.get('warnings') or 0)} warnings)
+song proof {esc(sp.get('file') or '')}: {esc(sp.get('sha256') or '')}  {esc(sp.get('status') or '')} ({esc(str(sp.get('warnings') or 0))} warnings)
 trace bundle traces/{esc(work)}-{esc(target)}.json: {esc(bundle_sha)}
 verify pack artifacts (bytes):
 {esc(art_lines)}</pre>
@@ -412,7 +427,7 @@ def main() -> int:
         except ValueError as ex:
             failures.append(f"{key}: {ex}")
             continue
-        verses = (doc.get("source", {}) or {}).get("verses", target)
+        verses = (doc.get("source", {}) or {}).get("verses") or target
         answer = answer_for(work, verses, doc)
         rendered[f"claim/{work}/{target}/index.html"] = page
         rendered[f"claim/{work}/{target}/index.md"] = build_md(
@@ -427,8 +442,7 @@ def main() -> int:
             verses = ""
             try:
                 d = load_json(TRACES / f"{work}-{x.get('target')}.json")
-                verses = (d.get("source", {}) or {}).get("verses",
-                                                          x.get("target"))
+                verses = (d.get("source", {}) or {}).get("verses") or x.get("target")
                 items.append((x.get("target"), x.get("verdict"),
                               answer_for(work, verses, d)))
             except (FileNotFoundError, KeyError):
