@@ -439,6 +439,22 @@ async function scholarView(){
     const r = await fetch(API + '/api/auth/me', {credentials: 'include'});
     SCHPROF = (await r.json()).profile;
   }catch(e){ SCHPROF = null; }
+  // Auto sign-in via ORCID (owner, 2026-11-10): first scholar visit per
+  // browser session hands off to the OAuth handshake — with an active
+  // orcid.org session that is one click, then svsess stays good 7 days.
+  // Manual signout (renderLib) sets the same flag so deliberate exits don't
+  // bounce; an expired session redirects again (re-auth is the point).
+  // Capability-checked: harnesses/embedded contexts without sessionStorage
+  // simply show the normal sign-in UI (no crash, no loop).
+  const canAutoOrcid = typeof sessionStorage !== 'undefined'
+    && typeof location !== 'undefined' && typeof location.replace === 'function';
+  if(!SCHPROF && canAutoOrcid && !sessionStorage.getItem('svv-orcid-once')){
+    sessionStorage.setItem('svv-orcid-once','1');
+    location.replace('https://ipvv-api.tradesprior.workers.dev/api/auth/orcid/start?redirect='
+      + encodeURIComponent((location.pathname || '/') + (location.search || '')));
+    return;
+  }
+  if(SCHPROF && canAutoOrcid) sessionStorage.removeItem('svv-orcid-once');
   let idx = null;
   try{ idx = await get('data/scholar/index.json'); }catch(e){}
   SCH = await get(`data/scholar/${WORK}.json`).catch(()=>null);
@@ -459,7 +475,11 @@ async function scholarView(){
   const q=new URL(globalThis.location?.href||'https://svread.invalid/').searchParams;
   const qLayer=q.get('layer'),qTarget=q.get('target');
   const linked=!!(SLAY[qLayer]&&qTarget&&Object.hasOwn(SCH.originals?.[qLayer]||{},qTarget));
-  const st = { layer: linked?qLayer:(SLAY[st0.layer] ? st0.layer : 'l3'), target: linked?qTarget:(st0.target || null), base: null };
+  const st = { layer: linked ? qLayer : (SLAY[qLayer] && qTarget ? qLayer : (SLAY[st0.layer] ? st0.layer : 'l3')),
+    // a ?target= deep-link always sticks (reader ✎ handoff), canonical or not
+    target: (qTarget && typeof qTarget === 'string' && qTarget.length <= 120)
+      ? qTarget : (st0.target || null),
+    base: null };
   let publicationEndpoint = '';
   const workspace=typeof ScholarWorkspace==='function'?new ScholarWorkspace({api:API,work:WORK,
     profile:()=>SCHPROF,onStatus:message=>{const node=$('#schmsg');if(node)node.textContent=message;}}):null;
@@ -485,6 +505,60 @@ async function scholarView(){
     return {content: v.content, label: `${v.author}'s version (${v.version_id})`};
   }
 
+  /* ---- Passage context (reader twin) + Mine panel: 2026-11-10 owner ask ----
+     Scholar becomes the editable copy of the reader: same Sanskrit + English
+     above the editor. English only when the gate passes (same fail-closed
+     rule as the reader). Context loads from the reader bundle once. */
+  let CTXROWS = null;
+  try{
+    const rb = await getReaderData('data/' + WORK + '.json');
+    CTXROWS = ((rb.data && (rb.data.chunks || rb.data.verses)) || [])
+      .filter(r => r && String(r.sanskrit || r.sa || '').trim());
+  }catch(e){ CTXROWS = null; }
+
+  function ctxRow(target){
+    if(!CTXROWS || !target) return null;
+    const t = String(target);
+    return CTXROWS.find(r => String(r.chunk || r.id) === t)
+      || CTXROWS.find(r => t.startsWith(String(r.chunk || r.id) + '-v'))
+      || CTXROWS.find(r => String(r.chunk || r.id) === t.split('-v')[0])
+      || null;
+  }
+  function ctxSectionHtml(target){
+    const row = ctxRow(target);
+    if(!row) return '';
+    const sa = String(row.sanskrit || row.sa || '');
+    if(!sa.trim()) return '';
+    const saHtml = sa.split('\n').filter(l => l.trim()).map(l =>
+      `<div class="ctx-iast">${esc(l)}</div>` +
+      `<div class="ctx-deva">${esc(IAST_DEVA.convert(cleanSA(l)))}</div>`).join('');
+    const en = String(row.l2 || row.l1 || row.c1 || '').trim();
+    const enOk = row.gate === 'PASS' && en;
+    const enHtml = enOk
+      ? `<div class="ctx-en">${esc(en).replace(/\n/g, '<br>')}</div>`
+      : `<div class="ctx-en ctx-withheld">English withheld (gate: ${esc(row.gate || 'UNKNOWN')})${row.source_issue ? ' — ' + esc(row.source_issue) : ''}</div>`;
+    return `<div class="schctx"><div class="schctx-h">Passage · ${esc(target)}` +
+      ` <span class="cmp-note">reader context — edit on the right, never here</span></div>` +
+      saHtml + enHtml + `</div>`;
+  }
+  function mineSectionHtml(){
+    const all = (SCH.versions || []).concat(typeof schDrafts === 'function' ? schDrafts() : []);
+    const mineV = all.filter(v => v && (String(v.version_id || '').startsWith('local:')
+      || (SCHPROF && v.author === SCHPROF.display_name))).slice(0, 12);
+    const vRows = mineV.length
+      ? mineV.map(v => `<div><a href="#" class="schmine-link" data-layer="${esc(v.layer || '')}" data-target="${esc(v.target || '')}" data-base="${esc(v.version_id || '')}">${String(v.version_id).startsWith('local:') ? '◇' : '◆'} ${esc(v.layer || '?')} · ${esc(v.target || '?')}</a> <span class="cmp-note">${esc(String(v.created_at || v.date || '').slice(0, 16))}</span></div>`).join('')
+      : `<div class="cmp-note">no saved versions yet — edit on the right, then “Save as my version”.</div>`;
+    const essays = workspace
+      ? [...workspace.docs.values()].map(x => x.data).filter(d => d && d.kind === 'essay')
+      : [];
+    const eRows = essays.length
+      ? essays.map(d => `<div class="cmp-note">✎ ${esc(d.title || 'untitled essay')} · rev ${esc(String(d.revision == null ? '' : d.revision))}</div>`).join('')
+      : `<div class="cmp-note">none yet — “New essay” below writes one for this passage.</div>`;
+    return `<div class="c2box"><div class="schctx-h">Mine</div>` +
+      `<div class="schctx-sub">My translations (${mineV.length})</div>${vRows}` +
+      `<div class="schctx-sub">My essays (${essays.length})</div>${eRows}</div>`;
+  }
+
   function renderCols(){
     const def = SLAY[st.layer];
     const orig = (SCH.originals[st.layer]||{})[st.target];
@@ -494,8 +568,9 @@ async function scholarView(){
           ? `<div class="urn" style="white-space:pre-wrap">${esc(JSON.stringify(orig,null,1))}</div>`
           : `<div class="enp">${esc(schTextOf(st.layer, orig)).replace(/\n/g,'<br>')}</div>`)
       : `<div class="milestone">no canonical ${esc(st.layer)} for this target.</div>`;
-    $('#cols').innerHTML =
+    $('#cols').innerHTML = ctxSectionHtml(st.target) +
       `<section class="col left">
+         ${mineSectionHtml()}
          <div class="verbar"><div class="version-select"><span class="vlab">ORIGINAL</span>
            <span class="vdesc">${esc(def.label)} · ${esc(st.target||'—')}</span>
            <span class="vmeta">canonical pipeline bytes — never edited</span></div></div>
@@ -528,6 +603,15 @@ async function scholarView(){
            <div class="cmp-note" id="schmsg"></div>
          </div>
        </section>`;
+    $('#cols').querySelectorAll('.schmine-link').forEach(a=>{
+      a.onclick = e=>{
+        e.preventDefault();
+        const lay = a.getAttribute('data-layer'), tgt = a.getAttribute('data-target');
+        if(!SLAY[lay] || !tgt) return;
+        st.layer = lay; st.target = tgt; st.base = a.getAttribute('data-base') || null;
+        persist(); renderCols();
+      };
+    });
     const comparable=schAllVersions(st.layer,st.target);
     $('#schcompare-left').value='original';
     $('#schcompare-right').value=st.base||comparable[0]?.version_id||'original';
@@ -751,6 +835,8 @@ async function scholarView(){
     const sout = $('#schout');
     if(sout) sout.onclick = async ()=>{
       try{ await fetch(API + '/api/auth/logout', {method:'POST', credentials:'include'}); }catch(e){}
+      // deliberate signout: suppress the scholar tab's one-shot ORCID redirect
+      sessionStorage.setItem('svv-orcid-once','1');
       SCHPROF = null; if(workspace)await workspace.load(); renderLib(); renderCols();
     };
     $('#lib').querySelectorAll('.widget h2').forEach(h=>{ h.onclick = ()=>h.parentElement.classList.toggle('closed'); });
@@ -1935,6 +2021,7 @@ function buildRightRail(verses){
       <span class="hbsep"></span>
       <button id="readSa" class="hbbtn" title="language: Sanskrit">स</button>
       <button id="readEn" class="hbbtn hbsel" title="language: English (selected)">EN</button>
+      <button id="readEdit" class="hbbtn" title="edit this passage in Scholar">✎</button>
       <button id="rcAll" class="hbbtn" title="play English">▶</button>
     </div>
     <div id="readMsg" class="cmp-note hbmsg"></div>`;
@@ -1961,6 +2048,13 @@ function buildRightRail(verses){
   };
   if(readSa) readSa.onclick = ()=>setSel('sa');
   if(readEn) readEn.onclick = ()=>setSel('en');
+  // ✎ → open this exact passage in the Scholar editor (auto-signin handles auth)
+  const readEdit = $('#readEdit');
+  if(readEdit) readEdit.onclick = ()=>{
+    const vid = (DATA && DATA.verses && DATA.verses[CURIX] && DATA.verses[CURIX].id) || '';
+    if(!vid){ $('#readMsg').textContent = 'no passage selected'; return; }
+    location.href = `?work=${encodeURIComponent(WORK)}&view=scholar&layer=l2&target=${encodeURIComponent(vid)}`;
+  };
   if(rcA) rcA.onclick = ()=>{
     if(PS){ splayToggle(PS.kind, PS.i); return; }   // ⏸ pause / ▶ resume
     splayStart(SEL_LANG, CURIX || 0);               // idle → play from here, selected language
