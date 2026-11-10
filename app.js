@@ -64,6 +64,10 @@ const IAST_DEVA = (()=>{
   const HAL='\u094d';
   const ALL=Object.keys(CON).concat(Object.keys(VOW)).sort((a,b)=>b.length-a.length);
   function convert(s){
+    // Render-safety guard: never transliterate source/licence metadata into
+    // Devanagari (the ipv.txt `### Provenance` bug class). Punctuation-only
+    // input ('||') still converts. Root fix lives in extractProvenance().
+    if(s && /#|Provenance:|Source file:|Vendored:|CC BY|GRETIL|\.(txt|json|md)\b|respect licence/i.test(String(s))) return s;
     s=(s||'').normalize('NFC');
     const tk=[]; let i=0;
     while(i<s.length){
@@ -155,6 +159,7 @@ function setCol(which, v){
 
 let DATA = null;
 let DATA_SOURCE = null;
+let PROVENANCE = [];   // source/licence lines extracted from `###` headers (verbatim)
 
 // The same gate controls every reader surface, including audio and exports.
 function isReaderPass(v){return !!(v&&v.gate==='PASS'&&
@@ -179,9 +184,43 @@ function engLaneId(){
    so Sanskrit and English read across at the same eye line. Grow-only with an
    equality guard -> converges (no ResizeObserver loop). */
 
+/* Source-header extraction (pure, testable — tests/render-integrity):
+   `###`-prefixed lines and any all-header paragraphs are provenance metadata,
+   not verses. Returns {verses, provenance}; provenance lines keep their text
+   minus the `#` markers, and mixed paragraphs keep only their non-header lines.
+   Never transliterated (rendered via esc()). */
+function extractProvenance(verses){
+  const out = [], prov = [];
+  const headLine = l => /^###\s\S/.test(l.trim());            // `### ...` whole-line header
+  const labelSplit = l => l.match(/^(#{1,6}\s+[A-Za-z][A-Za-z-]*\s+)(\S[\s\S]*)$/);  // `# Text  <verse>`
+  const labelOnly = l => /^#{1,6}\s+[A-Za-z][A-Za-z-]*\s*$/.test(l.trim());          // `# Text` alone
+  const strip = s => s.trim().replace(/^#+\s*/, '').trim();
+  for(const v of verses || []){
+    const sa = String((v && v.sa) || '');
+    const lines = sa.split('\n');
+    const body = [];
+    for(const rawLine of lines){
+      const l = rawLine.trim();
+      if(headLine(rawLine)){ prov.push(strip(rawLine)); continue; }
+      if(l.startsWith('#')){
+        const m = labelSplit(rawLine);
+        if(m){ prov.push(strip(m[1])); body.push(m[2]); continue; }
+        if(labelOnly(rawLine)){ prov.push(strip(rawLine)); continue; }
+        body.push(rawLine);  // hash-like but not a header pattern: keep verbatim
+        continue;
+      }
+      body.push(rawLine);
+    }
+    const rest = body.join('\n').trim();
+    if(!rest) continue;                       // header-only paragraph: never a verse
+    out.push(Object.assign({}, v, {sa: rest}));
+  }
+  return {verses: out, provenance: prov};
+}
+
 const VDEF = {
-  'sa-deva': v=>({label:v.title||WORK, desc:'Sanskrit text, Devanagari', meta:''}),
-  'sa-iast': v=>({label:v.title||WORK, desc:'Sanskrit text, IAST transliteration', meta:''}),
+  'sa-deva': v=>({label:v.title||WORK, desc:'', meta:''}),
+  'sa-iast': v=>({label:v.title||WORK, desc:'', meta:''}),
   'l1': ()=>({label:'Literal', desc:'Close translation — faithful to the Sanskrit', meta:'eng translation'}),
   'l2': ()=>({label:'English translation', desc:'The English translation — clear, direct prose', meta:'eng translation'}),
   'c1': ()=>({label:'Commentary', desc:'Commentary — SUMMARY plus rasa reading', meta:'eng commentary'}),
@@ -988,6 +1027,19 @@ async function main(){
     $('.reader-main').innerHTML = `<p id="err">Nothing on file for “${esc(WORK)}” yet.</p>`;
     return;
   }
+  // Render integrity (R04): `###` source/licence headers are metadata, never
+  // verses. Pull them out once here so no transliteration path (sa-deva,
+  // karaoke, speech) can mangle them. Extracted lines render verbatim in a
+  // source box. tests/render-integrity.test.cjs guards this class of bug.
+  {
+    const ex = extractProvenance(verses);
+    verses = ex.verses;
+    PROVENANCE = ex.provenance;
+    if(!verses.length){
+      $('.reader-main').innerHTML = `<p id="err">“${esc(WORK)}” has no reading text (only source headers).</p>`;
+      return;
+    }
+  }
   if(WORK==='ghatakarpara'){
     const pinned=await pinnedGhatakarpara();
     verses=verses.map(v=>{
@@ -1538,7 +1590,8 @@ function renderCol(side, vid){
   const ids = side==='L' ? LIDS : RIDS;
   const v0 = DATA.verses[0];
   const d = VDEF[vid]({title:DATA.title});
-  labelEl.innerHTML = vid==='none' ? '' : `<div class="vlab" style="font-weight:700">${esc(d.label)}</div><div class="vdesc">${esc(d.desc)}</div><div class="vmeta">${esc(d.meta)}</div>`;
+  const laneLabel = (d.label === DATA.title) ? '' : d.label;   // no duplicate work title
+  labelEl.innerHTML = vid==='none' ? '' : `<div class="vlab" style="font-weight:700">${esc(laneLabel)}</div>${d.desc ? `<div class="vdesc">${esc(d.desc)}</div>` : ''}${d.meta ? `<div class="vmeta">${esc(d.meta)}</div>` : ''}`;
    /* grouped picker: Translations header with narrow bars (Final · Literal · Plain · Commentary),
       then Sanskrit, then Yours. Version ids unchanged — old links keep working. */
   /* Translations bars: Final (l3, the one translation) · Literal (word-gloss l0 where on file, else close l1) · Plain (l2) · Commentary (c1). Lane ids unchanged — old links keep working. */
@@ -1601,7 +1654,10 @@ function renderCol(side, vid){
     textEl.innerHTML='';
     return;
   }
-  textEl.innerHTML = DATA.verses.map((v,i)=>
+  const provBox = (side==='L' && PROVENANCE.length)
+    ? `<div class="srcprov"><div class="srcprov-h">Source &amp; licence</div><ul>${PROVENANCE.map(p=>`<li>${esc(p)}</li>`).join('')}</ul></div>`
+    : '';
+  textEl.innerHTML = provBox + DATA.verses.map((v,i)=>
     `<div class="verse" data-i="${i}" id="v${i}"><a class="vref" href="#v${i}" data-i="${i}" title="recite this verse">§ ${i+1}</a>${verseText(v, vid, side, i)}</div>`
   ).join('');
   textEl.querySelectorAll('.splay').forEach(b=>{

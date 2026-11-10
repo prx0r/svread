@@ -36,6 +36,7 @@ test('Scholar keeps a local fork chain and submits the same data', async () => {
   }
   const context = vm.createContext({
     WORK: 'paramarthasara', document: {}, URL,
+    location: {pathname:'/', search:'?work=paramarthasara&view=scholar'},
     localStorage: {getItem: key => storage.get(key) || null, setItem: (key, value) => storage.set(key, value)},
     crypto: {randomUUID: () => `test-${++uuid}`},
     get: async name => name.endsWith('index.json') ? {paramarthasara: {}} : data,
