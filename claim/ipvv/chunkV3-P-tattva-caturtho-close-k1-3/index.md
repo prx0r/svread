@@ -2,6 +2,8 @@
 
 ipvv chunkV3-P-tattva-caturtho-close-k1-3 (M00022:12263-12539) links incomplete (8 gaps named); no formal theorems bound. Chunk gate BLOCKED; no witness verified.
 
+> Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
+
 Canonical: https://svread.pages.dev/claim/ipvv/chunkV3-P-tattva-caturtho-close-k1-3/
 
 ## Passage (excerpt as hashed)
@@ -288,13 +290,14 @@ mabhinavaguptapādānām ||
 
 ## Reading
 
-Withheld: no reader bundle covers this passage in this release. See the verify pack for layer bytes.
+Withheld. no verified L2 layer in this pack
 
 ## Claims
 
 | Claim | Status | Basis |
 |---|---|---|
 | Link completeness | FAIL (8 gaps named) | assurance.trace_links_present + gaps |
+| Human review | UNREVIEWED (machine rendering; no human sign-off) | assurance.review |
 | Deterministic chunk gate | BLOCKED (PROOF_NOT_RUN) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

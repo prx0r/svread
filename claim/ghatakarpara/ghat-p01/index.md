@@ -2,6 +2,10 @@
 
 ghatakarpara ghat-p01 (1-9) passes link checks; no formal theorems bound. Chunk gate UNKNOWN; no witness verified.
 
+> Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
+
+> Editorial hold: Translation produced from incomplete passages; withheld for rechecking against the complete source. English withheld until: recheck coverage vs complete source.
+
 Canonical: https://svread.pages.dev/claim/ghatakarpara/ghat-p01/
 
 ## Passage (excerpt as hashed)
@@ -12,13 +16,14 @@ manmathe ca hṛdi hantum udyate proṣitapramadayedam udyate nirdayena paradeś
 
 ## Reading
 
-In the heart, Kāma wakes to kill.
+Withheld under editorial hold (see above).
 
 ## Claims
 
 | Claim | Status | Basis |
 |---|---|---|
 | Link completeness | PASS | assurance.trace_links_present + gaps |
+| Human review | UNREVIEWED (machine rendering; no human sign-off) | assurance.review |
 | Deterministic chunk gate | UNKNOWN (none) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

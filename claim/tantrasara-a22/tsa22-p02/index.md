@@ -2,6 +2,8 @@
 
 tantrasara-a22 tsa22-p02 (22.12-22.33) passes link checks; no formal theorems bound. Chunk gate passes; no witness verified.
 
+> Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
+
 Canonical: https://svread.pages.dev/claim/tantrasara-a22/tsa22-p02/
 
 ## Passage (excerpt as hashed)
@@ -27,15 +29,19 @@ ucchalati prāgvad iti trividho 'nvartho visargo 'yam // abhts_22.32 etad visarg
 tattatsaṃvidgarbhe mantras tattatphalaṃ sūte // abhts_22.33
 ```
 
-## Reading
+## Reading (machine draft, verse-mapped)
 
-Withheld: no reader bundle covers this passage in this release. See the verify pack for layer bytes.
+**tsa-a22-v12** — So it has been said: having fully enclosed emission.
+**tsa-a22-v13** — Then, having offered incense, smoke, wine, flowers, and the rest, down to self-surrender, having murmured in one’s own rest and gathered it all in, one should cast it into water.
+**tsa-a22-v15** — Now, in the Śakti. There — the goddesses and heroes of the Śakti-circle being mutually of both natures, from the awakening of Śiva and Śakti that runs from play's beginning to emission's end, through mutual activity, by the Supreme Lord's ordainment, in pure form — preeminence lies there. By this, even the distinguished wheel's Śakti-ness stands explained. There, worship is by the tuft-binding pervasion alone, upon the seat ending in the three powers; in the triangle, in the middle, the emission-power — but in the pervasion lies the distinction.
+**tsa-a22-v16** — So too in one's own body: in that very wheel there; then in the sub-wheels beginning with the crown-aperture.
 
 ## Claims
 
 | Claim | Status | Basis |
 |---|---|---|
 | Link completeness | PASS | assurance.trace_links_present + gaps |
+| Human review | UNREVIEWED (machine rendering; no human sign-off) | assurance.review |
 | Deterministic chunk gate | PASS (none) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

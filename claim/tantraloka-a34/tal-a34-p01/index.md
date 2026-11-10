@@ -2,6 +2,8 @@
 
 tantraloka-a34 tal-a34-p01 (34.1-34.4) links incomplete (5 gaps named); counts REGISTERED without a per-declaration run. Chunk gate BLOCKED; no witness verified.
 
+> Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
+
 Canonical: https://svread.pages.dev/claim/tantraloka-a34/tal-a34-p01/
 
 ## Passage (excerpt as hashed)
@@ -12,13 +14,14 @@ Canonical: https://svread.pages.dev/claim/tantraloka-a34/tal-a34-p01/
 
 ## Reading
 
-Withheld: no reader bundle covers this passage in this release. See the verify pack for layer bytes.
+Withheld. no verified L2 layer in this pack
 
 ## Claims
 
 | Claim | Status | Basis |
 |---|---|---|
 | Link completeness | FAIL (5 gaps named) | assurance.trace_links_present + gaps |
+| Human review | UNREVIEWED (machine rendering; no human sign-off) | assurance.review |
 | Ladder.lean :: abandon_strict | REGISTERED, run UNBOUND (tier R) | trace formal; EVIDENCE registry reference only |
 | Ladder.lean :: chain_trans | REGISTERED, run UNBOUND (tier R) | trace formal; EVIDENCE registry reference only |
 | Ladder.lean :: terminal_no_successor | REGISTERED, run UNBOUND (tier R) | trace formal; EVIDENCE registry reference only |

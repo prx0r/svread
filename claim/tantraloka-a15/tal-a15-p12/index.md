@@ -2,6 +2,8 @@
 
 tantraloka-a15 tal-a15-p12 (15.111-15.120) links incomplete (5 gaps named); counts REGISTERED without a per-declaration run. Chunk gate BLOCKED; no witness verified.
 
+> Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
+
 Canonical: https://svread.pages.dev/claim/tantraloka-a15/tal-a15-p12/
 
 ## Passage (excerpt as hashed)
@@ -12,13 +14,14 @@ Canonical: https://svread.pages.dev/claim/tantraloka-a15/tal-a15-p12/
 
 ## Reading
 
-Withheld: no reader bundle covers this passage in this release. See the verify pack for layer bytes.
+Withheld. no verified L2 layer in this pack
 
 ## Claims
 
 | Claim | Status | Basis |
 |---|---|---|
 | Link completeness | FAIL (5 gaps named) | assurance.trace_links_present + gaps |
+| Human review | UNREVIEWED (machine rendering; no human sign-off) | assurance.review |
 | Nyasa.lean :: matrika_total | REGISTERED, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
 | Nyasa.lean :: order_chief | REGISTERED, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
 | Deterministic chunk gate | BLOCKED (ABSTENTION) | proofs.chunk_gate |

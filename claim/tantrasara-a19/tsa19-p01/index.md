@@ -2,6 +2,8 @@
 
 tantrasara-a19 tsa19-p01 (19.1-19.7) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
 
+> Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
+
 Canonical: https://svread.pages.dev/claim/tantrasara-a19/tsa19-p01/
 
 ## Passage (excerpt as hashed)
@@ -10,15 +12,22 @@ Canonical: https://svread.pages.dev/claim/tantrasara-a19/tsa19-p01/
 tantrasāra, ekonaviṃśam āhnikam atha adharaśāsanasthānāṃ gurvantānām api maraṇasamanantaraṃ mṛtoddhāroditaśaktipātayogād eva antyasaṃskārākhyāṃ dīkṣāṃ kuryāt ūrdhvaśāsanasthānām api luptasamayānām akṛtaprāyaścittānām iti parameśvarājñā // abhts_19.1 tatra yo mṛtoddhāre vidhiḥ uktaḥ sa sarva eva śarīre kartavyaḥ pūrṇāhutyā śavaśarīradāhaḥ mūḍhānāṃ tu pratītirūḍhaye sapratyayām antyeṣṭiṃ kriyājñānayogabalāt kuryāt tatra śavaśarīre saṃhārakrameṇa mantrān nyasya jālakrameṇa ākṛṣya rodhanavedhanaghaṭṭanādi kuryāt prāṇasaṃcārakrameṇa hṛdi kaṇṭhe lalāṭe ca ity evaṃ śavaśarīraṃ kampate // abhts_19.2 tataḥ paramaśive yojanikāṃ kṛtvā tat dahet pūrṇāhutyā antyeṣṭyā śuddhānām anyeṣām api vā śrāddhadīkṣāṃ tryahaṃ turye dine māsi māsi saṃvatsare saṃvatsare kuryāt // abhts_19.3 tatra homāntaṃ vidhiṃ kṛtvā naivedyam ekahaste kṛtvā tadīyāṃ vīryarūpāṃ śaktiṃ bhogyākārāṃ paśugatabhogyaśaktitādātmyapratipannāṃ dhyātvā parameśvare bhoktari arpayet ity evaṃ bhogyabhāve nivṛtte patir eva bhavati antyeṣṭimṛtoddharaṇaśrāddhadīkṣāṇām anyatamenāpi yadyapi kṛtārthatā tathāpi bubhukṣoḥ kriyābhūyastvaṃ phalabhūyastvāya iti sarvam ācaret // abhts_19.4 mumukṣor api tanmayībhāvasiddhaye ayam jīvataḥ pratyaham anuṣṭhānābhyāsavat // abhts_19.5 tattvajñāninas tu na ko 'py ayam antyeṣṭyādiśrāddhānto vidhiḥ upayogī tanmaraṇaṃ tadvidyāsaṃtānināṃ parvadinaṃ saṃvidaṃśapūraṇāt tāvataḥ saṃtānasya ekasaṃvinmātraparamārthatvāt jīvato jñānalābhasaṃtānadivasavat // abhts_19.6 sarvatra ca atra śrāddhādividhau mūrtiyāgaḥ pradhānam iti śrīsiddhāmatam tadvidhiś ca vakṣyate naimittikaprakāśane // abhts_19.7
 ```
 
-## Reading
+## Reading (machine draft, verse-mapped)
 
-Withheld: no reader bundle covers this passage in this release. See the verify pack for layer bytes.
+**tsa-a19-v01** — Now, for those standing in lower doctrines, even up to gurus — immediately after death, solely by the power-descent arisen for raising the dead, let him perform the initiation called the final sacrament; and for those standing in higher doctrines, who have lost their observance and performed no expiation — thus is the Lord's command.
+**tsa-a19-v02** — Therein, whatever rite was told for raising the dead — all of it is to be done to the body: by the full oblation, the burning of the corpse-body. But for the deluded, to plant conviction, let him perform, with the force of ritual-knowledge-yoga, a trust-bearing funeral rite; therein, on the corpse-body, having placed mantras in the withdrawing order, having drawn them in by the net-sequence, having done curbing-piercing-rubbing and the rest, let him do, by the breath-moving sequence, in heart, throat, forehead — and lo, the corpse-body trembles.
+**tsa-a19-v03** — Then, having made the joining with the supreme Śiva, let him burn it with the full oblation; for the purified by funeral, and for the others too — or: a three-day śrāddha-initiation: on the fourth day, month by month, year by year, let him perform it.
+**tsa-a19-v04** — Therein, having performed the rite ending in oblation, having made a food-offering in one hand, having meditated on his power of virile form, knowable-formed, that has attained identity with the knowable-power present in the beast — let him offer it to the Lord as enjoyer. Thus, when knowable-being ceases, he becomes the Lord himself. Whether by funeral-raising-śrāddha-initiations one has succeeded or not, still, for one desiring enjoyment, multitude of rites for multitude of fruit — thus, let him perform all.
+**tsa-a19-v05** — Even of the liberation-seeker, for the attainment of made-of-That-ness, this — of the living, daily, like sustained practice.
+**tsa-a19-v06** — But for the knower of reality, no rite here ending in funeral and śrāddha is of any use: his death is a festival day for those continuing his knowledge-lineage, from the filling of consciousness-portion — of so much lineage, since the sole reality is mere consciousness — like the day of the lineage's attainment of knowledge while living.
+**tsa-a19-v07** — But everywhere here, in the śrāddha rite, image-abandonment is chief — so holds the revered Siddhāmata; and its rule will be told in the exposition of the occasional.
 
 ## Claims
 
 | Claim | Status | Basis |
 |---|---|---|
 | Link completeness | PASS | assurance.trace_links_present + gaps |
+| Human review | UNREVIEWED (machine rendering; no human sign-off) | assurance.review |
 | Deterministic chunk gate | BLOCKED (ABSTENTION, CITATION_GROUNDING) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

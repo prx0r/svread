@@ -2,6 +2,8 @@
 
 ipvv chunkC-svatma-maya-upanishad (M00020:1200-1800) links incomplete (7 gaps named); no formal theorems bound. Chunk gate BLOCKED; no witness verified.
 
+> Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
+
 Canonical: https://svread.pages.dev/claim/ipvv/chunkC-svatma-maya-upanishad/
 
 ## Passage (excerpt as hashed)
@@ -612,13 +614,14 @@ rāmāvataraṇakāle nāhamabhūvamityapi hi tasya kālasya anubhavo vaktavya�
 
 ## Reading
 
-Withheld: no reader bundle covers this passage in this release. See the verify pack for layer bytes.
+Withheld. no pack L2 entry maps to this passage excerpt (verse-level mapping required, none found)
 
 ## Claims
 
 | Claim | Status | Basis |
 |---|---|---|
 | Link completeness | FAIL (7 gaps named) | assurance.trace_links_present + gaps |
+| Human review | UNREVIEWED (machine rendering; no human sign-off) | assurance.review |
 | Deterministic chunk gate | BLOCKED (PROOF_NOT_RUN) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

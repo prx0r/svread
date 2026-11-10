@@ -2,6 +2,8 @@
 
 vbt vbt-p04 (32-41) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
 
+> Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
+
 Canonical: https://svread.pages.dev/claim/vbt/vbt-p04/
 
 ## Passage (excerpt as hashed)
@@ -10,15 +12,24 @@ Canonical: https://svread.pages.dev/claim/vbt/vbt-p04/
 śikhipakṣaiś citrarūpair ma.ṅdalaiḥ śūnyapañcakam | dhyāyato 'nuttare śūnye praveśo hṛdaye bhavet īdṛśena krameṇaiva yatra kutrāpi cintanā | śūnye kuḍye pare pātre svayaṃ līnā varapradā kapālāntar mano nyasya tiṣṭhan mīlitalocanaḥ | krameṇa manaso dārḍhyāt lakṣayet laṣyam uttamam madhyanāḍī madhyasaṃsthā bisasūtrābharūpayā | dhyātāntarvyomayā devyā tayā devaḥ prakāśate kararuddhadṛgastreṇa bhrūbhedād dvārarodhanāt | dṛṣṭe bindau kramāl līne tanmadhye paramā sthitiḥ dhāmāntaḥkṣobhasambhūtasūkṣmāgnitilakākṛtim | binduṃ śikhānte hṛdaye layānte dhyāyato layaḥ anāhate pātrakarṇe 'bhagnaśabde sariddrute | śabdabrahmaṇi niṣṇātaḥ param brahmādhigacchati praṇavādisamuccārāt plutānte śūnyabhāvānāt | śūnyayā parayā śaktyā śūnyatām eti bhairavi yasya kasyāpi varṇasya pūrvāntāv anubhāvayet | śūnyayā śūnyabhūto 'sau śūnyākāraḥ pumān bhavet tantryādivādyaśabdeṣu dīrgheṣu kramasaṃsthiteḥ | ananyacetāḥ pratyante paravyomavapur bhavet
 ```
 
-## Reading
+## Reading (machine draft, verse-mapped)
 
-Withheld: no reader bundle covers this passage in this release. See the verify pack for layer bytes.
+**vbt-p04-v32** — With peacock feathers, with varied forms, with circles, in the five-void: of the meditating one, in the unsurpassed void, entry in the heart may be.
+**vbt-p04-v33** — By just such course — wherever thought: in void, on the wall, on the supreme, on the vessel, self dissolved — the boon-giving.
+**vbt-p04-v34** — Inside the skull, mind placed; standing with eyes half closed: in order, from the mind's firmness, mark the to-be-marked — the highest.
+**vbt-p04-v35** — Middle channel, standing in the middle, like a lotus-fiber; by the meditated inner sky, O Goddess — by that, god shines forth.
+**vbt-p04-v36** — By the hand-blocked gaze-weapon, from the brow's splitting, from the door's blocking; when seen in the drop, in order, when dissolved — in that middle, the supreme standing.
+**vbt-p04-v37** — The mark of subtle fire born of dwelling-inner-churn — the drop at the crest's end, in the heart, at dissolution's end: for the meditating one, dissolving.
+**vbt-p04-v38** — In the unstruck, in the vessel-ear, in the broken sound, in the river's rushing; bathed in word-brahman, the supreme brahman is attained.
+**vbt-p04-v39** — From the prolonged utterance of oṃ and the rest, at the prolonged end, from contemplating void: by void, by supreme power — to voidness she goes, O Bhairavī.
+**vbt-p04-v40** — Of any letter whatsoever, the beginning and end should be contemplated: by void, become void, that man becomes void-formed.
 
 ## Claims
 
 | Claim | Status | Basis |
 |---|---|---|
 | Link completeness | PASS | assurance.trace_links_present + gaps |
+| Human review | UNREVIEWED (machine rendering; no human sign-off) | assurance.review |
 | Deterministic chunk gate | BLOCKED (ABSTENTION) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

@@ -2,6 +2,8 @@
 
 tantrasara-a01 tsa01-p01 (1.1-1.5) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
 
+> Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
+
 Canonical: https://svread.pages.dev/claim/tantrasara-a01/tsa01-p01/
 
 ## Passage (excerpt as hashed)
@@ -24,13 +26,14 @@ saṃchādya yat punar api prathayeta pūrṇaṃ tac ca kramākramavaśād atha
 
 ## Reading
 
-Withheld: no reader bundle covers this passage in this release. See the verify pack for layer bytes.
+Withheld. no pack L2 entry maps to this passage excerpt (verse-level mapping required, none found)
 
 ## Claims
 
 | Claim | Status | Basis |
 |---|---|---|
 | Link completeness | PASS | assurance.trace_links_present + gaps |
+| Human review | UNREVIEWED (machine rendering; no human sign-off) | assurance.review |
 | Deterministic chunk gate | BLOCKED (ABSTENTION, CITATION_GROUNDING) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

@@ -2,6 +2,8 @@
 
 sivastotravali sivst-p04 (stotra 13-16) links incomplete (7 gaps named); no formal theorems bound. Chunk gate UNKNOWN; no witness verified.
 
+> Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
+
 Canonical: https://svread.pages.dev/claim/sivastotravali/sivst-p04/
 
 ## Passage (excerpt as hashed)
@@ -22,13 +24,14 @@ pāśānudbhedanāma ṣoḍaśaṃ stotram na kiñcid eva lokānāṃ bhavadāv
 
 ## Reading
 
-Withheld: no reader bundle covers this passage in this release. See the verify pack for layer bytes.
+Withheld. no verified L2 layer in this pack
 
 ## Claims
 
 | Claim | Status | Basis |
 |---|---|---|
 | Link completeness | FAIL (7 gaps named) | assurance.trace_links_present + gaps |
+| Human review | UNREVIEWED (machine rendering; no human sign-off) | assurance.review |
 | Deterministic chunk gate | UNKNOWN (none) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

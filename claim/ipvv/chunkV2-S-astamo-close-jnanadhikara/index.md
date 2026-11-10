@@ -2,6 +2,8 @@
 
 ipvv chunkV2-S-astamo-close-jnanadhikara (M00021:13200-13405) links incomplete (8 gaps named); no formal theorems bound. Chunk gate BLOCKED; no witness verified.
 
+> Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
+
 Canonical: https://svread.pages.dev/claim/ipvv/chunkV2-S-astamo-close-jnanadhikara/
 
 ## Passage (excerpt as hashed)
@@ -217,13 +219,14 @@ samāptaśca ayaṃ jñānādhikāraḥ prathamaḥ ||
 
 ## Reading
 
-Withheld: no reader bundle covers this passage in this release. See the verify pack for layer bytes.
+Withheld. no verified L2 layer in this pack
 
 ## Claims
 
 | Claim | Status | Basis |
 |---|---|---|
 | Link completeness | FAIL (8 gaps named) | assurance.trace_links_present + gaps |
+| Human review | UNREVIEWED (machine rendering; no human sign-off) | assurance.review |
 | Deterministic chunk gate | BLOCKED (PROOF_NOT_RUN) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

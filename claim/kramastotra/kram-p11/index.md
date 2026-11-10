@@ -2,6 +2,8 @@
 
 kramastotra kram-p11 (11) passes link checks; no formal theorems bound. Chunk gate passes; no witness verified.
 
+> Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
+
 Canonical: https://svread.pages.dev/claim/kramastotra/kram-p11/
 
 ## Passage (excerpt as hashed)
@@ -12,13 +14,14 @@ amuṣmāt saṃpūrnāt vata rasamahollāsasarasān nijāṃ śaktiṃ bhedaṃ
 
 ## Reading
 
-Hence the Lord's power — enjoying varied, unvaried, beyond-difference stations — ever goes, never into division, nohow. So on this unagitated ground — Your step it is — may my heart-ground grow one-pointed, Bhairava Lord.
+Withheld. no pack L2 entry maps to this passage excerpt (verse-level mapping required, none found)
 
 ## Claims
 
 | Claim | Status | Basis |
 |---|---|---|
 | Link completeness | PASS | assurance.trace_links_present + gaps |
+| Human review | UNREVIEWED (machine rendering; no human sign-off) | assurance.review |
 | Deterministic chunk gate | PASS (none) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

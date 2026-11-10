@@ -2,6 +2,8 @@
 
 kramastotra kram-p15 (15) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
 
+> Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
+
 Canonical: https://svread.pages.dev/claim/kramastotra/kram-p15/
 
 ## Passage (excerpt as hashed)
@@ -12,13 +14,14 @@ visṛṣṭe bhāvāṃśe bahir atiśayāsvādavirase yadā tatraiva tvaṃ bh
 
 ## Reading
 
-Before, emission dissolved, fire-made — where would it shine, facing beyond-joy? It goes, moon-touch-lovely, sharing fire-moon-expanse-both-power. O Bhairava Lord — may this emission-named of Yours sport always in my mind.
+Withheld. no pack L2 entry maps to this passage excerpt (verse-level mapping required, none found)
 
 ## Claims
 
 | Claim | Status | Basis |
 |---|---|---|
 | Link completeness | PASS | assurance.trace_links_present + gaps |
+| Human review | UNREVIEWED (machine rendering; no human sign-off) | assurance.review |
 | Deterministic chunk gate | BLOCKED (CITATION_GROUNDING) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |
