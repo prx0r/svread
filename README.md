@@ -1,5 +1,10 @@
 # svread — fresh trika reader, from scratch
 
+> NOTE 2026-11-10: this file describes the original reader scaffold. Current
+> system docs: `PRODUCTION.md` (go-live manual: build/verify/deploy/ops),
+> `SPEC.md` (reader architecture), `HANDOVER-SEO-2026-11-08.md` + 
+> `SEO-GEO-PLAN-2026-11-08.md` (claim-page surface). Body below kept as history.
+
 New standalone site. Old readers (`ipvv/site/app`, deitybody lab) untouched.
 
 ## Working code it stands on

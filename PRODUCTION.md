@@ -97,8 +97,8 @@ human signs. `.md` mirror per page; work indexes; chain pages.
   bridge 28/154 BYTES_MATCH · axiom CLEAN · essay_check 6/6 READY (PARTIAL,
   human gate) · essay_derive 6 PARTIAL 0 BROKEN · review 0 Core/157 Frontier.
 - svread: emit_traces/verify/discovery/formal/claim_pages --check GREEN ·
-  seo_check 10/10 GREEN (909==909, 0 broken claim/chain links, sitemap 1919
-  urls) · node 51 pass 0 fail · mcp 40 OK · manifest 10,897 assets pinned.
+  seo_check 10/10 GREEN (909==909 incl. full G05, 0 broken claim/chain links,
+  0 literal Nones, sitemap 1919 urls) · node 51 pass 0 fail · mcp 40 OK · manifest 10,897 assets pinned.
 - openpatala: check.py GREEN (4 PASS + 2 recorded BLOCKED) · API counts match DB.
 - Red team: 20/20 probes in `trika-x/testing/` (logs T02–T19 + FINAL-2026-11-10):
   17 HOLDs (incl. 1-byte tamper caught, 8/8 twins refuse, 7 forgery tests fail
@@ -133,6 +133,9 @@ inbound links · chunk-verse 64 OPEN · decision-trail ingest wiring.
 4. **Branch skew**: translation-work `box/decision-trail` vs `origin/master`
    (MVV) diverged both ways; ipvv `box/two-sources-v2` 1 ahead of master.
    Lanes dispose; no cross-merge from here.
+5. **Slop-scan catch post-push**: literal `None` on 719 pages (unescaped
+   path interpolation) + blank edition labels — fixed, re-published,
+   re-deployed; slop-scan now 0; seo G05 upgraded 50-spot → full 909/909.
 
 ## 8. Go-live checklist (today)
 
@@ -143,7 +146,8 @@ inbound links · chunk-verse 64 OPEN · decision-trail ingest wiring.
 - [x] S08 chain pages (+md)
 - [x] S10 seo_check 10/10 + CI step + emitter in wiring test + manifest covers new tree
 - [x] R4 footer links claim pages; ROADMAP R4 stale-note recorded
-- [x] node suite re-run after app.js/test edits (51/0 FINAL; 51/0 FINAL-node2 post-deploy pending §9 log)
-- [x] `./deploy.sh` + live curl checks (3,839 files; answer+hash no-JS ✓; sitemap 1919 ✓; about/cite/llms-full/catalog 200 ✓; prod 200 ✓)
+- [x] node suite: 51/0 FINAL-node4, 51/0 FINAL-node6 (pristine tree, quiet box);
+  release-manifest test re-proven after every regen
+- [x] `./deploy.sh` + live curl checks (3,839 files; answer+hash no-JS ✓; sitemap 1919 ✓; about/cite/llms-full/catalog 200 ✓; pristine redeploy on branch alias ✓, prod follows on merge)
 - [ ] Search Console verify + sitemap submit + IndexNow (owner)
 - [ ] geo_measure baseline (S09) before claiming any tactic works
