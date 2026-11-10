@@ -23,6 +23,8 @@
 - Verification packs + no-code recipe (fetch + sha256sum, no install): https://svread.pages.dev/data/verify/index.json
 - Trace index (909 chunks; 236 COMPLETE / 673 PARTIAL; per-chunk source->layers->proofs->theorems->essays, hash-pinned): https://svread.pages.dev/data/traces/index.json
 - Trace bundles (one JSON per chunk, trika-trace/1, re-verifiable): https://svread.pages.dev/data/traces/<work>-<target>.json
+- Claim pages (one pre-rendered HTML page per chunk: answer-first verdict, passage excerpt, claim table, limits, hashes, verify steps): https://svread.pages.dev/claim/<work>/<target>/ — start at a work index https://svread.pages.dev/work/<work>/
+- This llms.txt is for agents; Google ignores it (measured, 2026). For citation, use a claim page URL.
 - Or ask an MCP client with the openpatala-federation gateway for formal__trace {work, target} (plus formal__bridge, formal__gaps, formal__evidence, formal__table, formal__runs, formal__axioms)
 
 ## Layers (internal codes -> public names; codes are load-bearing)
