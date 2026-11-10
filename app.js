@@ -604,9 +604,10 @@ async function scholarView(){
     const tgtIds = schVsort(Object.keys(SCH.originals[st.layer]||{}));
     $('#lib').innerHTML =
       W('schauth','Scholar account', SCHPROF
-        ? `<table class="wtable"><tr><td>signed in</td><td>${esc(SCHPROF.display_name||'')} · ${esc(SCHPROF.email||'')}${SCHPROF.orcid?`<div class="cmp-note">ORCID ${esc(SCHPROF.orcid)}</div>`:''}</tr></table><div style="margin-top:.4rem"><button class="c2btn" id="schout">sign out</button></div>`
+        ? `<table class="wtable"><tr><td>signed in</td><td>${esc(SCHPROF.display_name||'')} · ${esc(SCHPROF.email||'')}${SCHPROF.orcid?`<div class="cmp-note">ORCID ${esc(SCHPROF.orcid)}</div>`:`<div style="margin-top:.3rem"><a class="c2btn" href="https://ipvv-api.tradesprior.workers.dev/api/auth/orcid/start?redirect=${encodeURIComponent(location.pathname+location.search)}">Connect ORCID iD</a></div>`}</tr></table><div style="margin-top:.4rem"><button class="c2btn" id="schout">sign out</button></div>`
         : `<div class="c2row"><input id="schemail" placeholder="email" type="email"/><input id="schname" placeholder="display name"/></div>
            <div class="c2row" style="margin-top:.3rem"><input id="schpw" placeholder="password (8+ chars)" type="password"/><button class="c2btn" id="schgo">sign in / join</button></div>
+           <div class="c2row" style="margin-top:.3rem"><a class="c2btn" href="https://ipvv-api.tradesprior.workers.dev/api/auth/orcid/start?redirect=${encodeURIComponent(location.pathname+location.search)}">Continue with ORCID</a></div>
            <div class="cmp-note" id="schauthmsg">Sign in to save private work, request review, and submit a signed version.</div>`)
       + W('schhub','Scholar',
         `<table class="wtable">`
