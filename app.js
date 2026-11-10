@@ -998,6 +998,19 @@ async function main(){
     if(pinned&&DATA_SOURCE)DATA_SOURCE.sourceSha=GHATA_SOURCE_SHA256;
   }
   verses=verses.map(safeReaderVerse);
+  // Shared editorial holds (data/holds.json): any listed work gets English
+  // withheld in the reader, same rule the claim pages enforce. Ghatakarpara
+  // keeps its pinned-source block above; this covers the rest.
+  try{
+    if(WORK!=='ghatakarpara'){
+      const holds=await fetch('data/holds.json').then(r=>r.ok?r.json():null).catch(()=>null);
+      const h=holds&&Array.isArray(holds.holds)?holds.holds.find(x=>x&&x.work===WORK):null;
+      if(h&&(h.scope||[]).includes('english')){
+        verses.forEach(v=>{v.gate='WITHHELD';v.source_issue=v.source_issue||h.note||'English withheld under editorial hold.';});
+        DATA_SOURCE=DATA_SOURCE||{};DATA_SOURCE.hold=h.review||'pending review';
+      }
+    }
+  }catch(e){}
   DATA = {title:(D.title||WORK), master:(D.master||''), source_edition:(D.source_edition||''),
     source:typeof D.source==='string'?D.source:'', verses};
   DATA.verses.forEach((v,i)=>{ v.n = i+1; });

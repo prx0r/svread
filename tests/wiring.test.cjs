@@ -56,43 +56,58 @@ test('llms.txt claims are measured, not inflated', () => {
   assert.ok(llms.includes('formal__gaps'), 'formal tool family named');
 });
 
-test('emitters are deterministic (--check green)', (t) => {
+const EMITTERS = [
   // PR #7 P1: emitters needing sibling checkouts or a database SKIP with
   // a reason when that infrastructure is absent on the runner. Only
-  // self-contained emitters must pass everywhere.
+  // self-contained emitters must pass everywhere. One test per tool so a
+  // skip can never mask a later failure (a t.skip() ends its own test only).
+  { tool: 'emit_biblio.py', need: 'db' },
+  { tool: 'emit_traces.py', need: 'trika' },
+  { tool: 'emit_verify.py', need: 'trika+tw' },
+  { tool: 'emit_formal.py', need: 'trika' },
+  { tool: 'emit_discovery.py', need: null },
+  { tool: 'emit_claim_pages.py', need: null },
+  { tool: 'emit_index_meta.py', need: null },
+];
+
+function emitterSkipReason(need) {
   const fs2 = require('node:fs');
   const hasTrika = fs2.existsSync(process.env.TRIKA_X_ROOT || '/root/trika-x');
   const hasTW = fs2.existsSync(process.env.TRANSLATION_WORK || '/root/translation-work');
-  const needsInfra = { 'emit_traces.py': hasTrika,
-    'emit_verify.py': hasTrika && hasTW, 'emit_formal.py': hasTrika,
-    'emit_biblio.py': 'db' };
-    for (const tool of ['emit_biblio.py', 'emit_traces.py', 'emit_verify.py',
-                      'emit_formal.py', 'emit_discovery.py',
-                      'emit_claim_pages.py', 'emit_index_meta.py']) {
-    if (needsInfra[tool] === false) {
-      t.skip(`${tool} needs a sibling checkout; not present here`);
-      continue;
+  if (need === 'db') return 'SKIP-IF-NO-DB';
+  if (need === 'trika' && !hasTrika) return 'needs trika-x checkout';
+  if (need === 'trika+tw' && !(hasTrika && hasTW)) return 'needs sibling checkouts';
+  return null;
+}
+
+for (const { tool, need } of EMITTERS) {
+  test(`emitter deterministic --check: ${tool}`, (t) => {
+    const pre = emitterSkipReason(need);
+    if (pre === 'SKIP-IF-NO-DB') {
+      // decided after attempt: only a missing database skips, nothing else
+    } else if (pre) {
+      t.skip(`${tool}: ${pre}; not present here`);
+      return;
     }
     let out;
     try {
       out = execFileSync('python3', ['tools/' + tool, '--check'],
         { cwd: ROOT, encoding: 'utf8' });
     } catch (e) {
-      // Missing infrastructure SKIPs, never fails; the emitter itself
-      // fails closed ("refusing stale write"). emit_biblio needs both
-      // the trika-x EVIDENCE file and a database.
       const msg = (e.stdout || '') + (e.message || '');
-      if (needsInfra[tool] === 'db' &&
+      const fs2b = require('node:fs');
+      const hasTrikaB = fs2b.existsSync(process.env.TRIKA_X_ROOT || '/root/trika-x');
+      if (need === 'db' &&
           (/No module named 'psycopg2'|DB unreachable|connection|psql/i.test(msg) ||
-           (!hasTrika && /EVIDENCE unreadable|No such file/i.test(msg)))) {
+           (!hasTrikaB && /EVIDENCE unreadable|No such file/i.test(msg)))) {
         t.skip(`${tool} needs trika-x and/or a database; not present here`);
-        continue;
+        return;
       }
       throw e;
     }
     assert.ok(/GREEN/.test(out), `${tool}: ${out}`);
-  }
-});
+  });
+}
 
 test('formal registry is published and honest', () => {
   const f = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'formal.json'), 'utf8'));

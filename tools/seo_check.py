@@ -42,6 +42,20 @@ def gate(n: int, ok: bool, msg: str) -> None:
 def main() -> int:
     index = json.loads((ROOT / "data/traces/index.json").read_text())
     entries = index.get("entries", [])
+    try:
+        holds_doc = json.loads((ROOT / "data/holds.json").read_text())
+        held = {h["work"] for h in holds_doc.get("holds", []) or []
+                if isinstance(h, dict) and h.get("work")}
+        holds_valid = isinstance(holds_doc.get("format"), str)
+    except (OSError, ValueError):
+        held, holds_valid = set(), False
+    try:
+        srcs_doc = json.loads((ROOT / "data/sources.json").read_text())
+        SOURCE_HOSTS = {urlparse(v.get("source_url") or "").netloc
+                        for v in srcs_doc.get("works", {}).values()
+                        if isinstance(v, dict)} - {""}
+    except (OSError, ValueError):
+        SOURCE_HOSTS = set()
     pages = sorted((ROOT / "claim").rglob("index.html")) if (
         ROOT / "claim").exists() else []
     # G01 count equality (html pages only)
@@ -76,8 +90,20 @@ def main() -> int:
             ok3 = False
         if not ok3:
             gate(3, False, f"{rel}: json-ld mismatch")
-        # G08 hardcoded origin
-        for u in set(re.findall(r"https?://[A-Za-z0-9.\-:/_?=%]+", t)):
+        # G08 hardcoded origin: every real link target (href/src) must be
+        # the canonical origin, schema.org, or a declared source-record
+        # host. Cited source URLs in visible text are bibliography, not
+        # navigation, and are not checked here.
+        for u in set(re.findall(r'(?:href|src)="([^"]+)"', t)):
+            if u.startswith("https://schema.org"):
+                continue  # JSON-LD namespace, not a page host
+            host = urlparse(u).netloc
+            if not host or u.startswith(ORIGIN):
+                continue  # relative link or canonical
+            if host in SOURCE_HOSTS:
+                continue  # declared source record
+            gate(8, False, f"{rel}: foreign origin {u[:60]}")
+            break
             if u.startswith("https://schema.org"):
                 continue  # JSON-LD namespace, not a page host
             if urlparse(u).netloc and u.startswith("http") and \
@@ -125,13 +151,41 @@ def main() -> int:
     sm = (ROOT / "sitemap.xml").read_text() if (
         ROOT / "sitemap.xml").exists() else ""
     n_claim_urls = sm.count("/claim/")
-    gate(6, n_claim_urls == len(entries),
-         f"sitemap claim urls ({n_claim_urls} vs {len(entries)})")
+    held_entries = sum(1 for e in entries if e.get("work") in held)
+    gate(6, n_claim_urls == len(entries) - held_entries,
+         f"sitemap claim urls ({n_claim_urls} vs {len(entries) - held_entries}, "
+         f"{held_entries} held excluded)")
     # G07 robots
     rb = (ROOT / "robots.txt").read_text() if (
         ROOT / "robots.txt").exists() else ""
     gate(7, all(c in rb for c in CRAWLERS) and "Sitemap:" in rb,
          "robots crawlers + sitemap")
+    # G11 editorial holds: valid file; held pages noindexed + English-free;
+    # held claim pages absent from sitemap; llms-full marks them WITHHELD
+    ok11 = holds_valid
+    if not holds_valid:
+        print("  G11: holds.json missing/invalid")
+    llms_full = (ROOT / "llms-full.txt").read_text() if (
+        ROOT / "llms-full.txt").exists() else ""
+    for w in sorted(held):
+        for p in (ROOT / "claim" / w).glob("*/index.html"):
+            t = p.read_text(encoding="utf-8")
+            if 'name="robots" content="noindex"' not in t:
+                ok11 = False
+                print(f"  G11 miss: {w} page without noindex")
+                break
+            if "Machine rendering" in t:
+                ok11 = False
+                print(f"  G11 miss: {w} page quotes English under hold")
+                break
+        if f"/claim/{w}/" in sm:
+            ok11 = False
+            print(f"  G11 miss: {w} promoted in sitemap")
+        w_lines = [ln for ln in llms_full.splitlines() if f"/claim/{w}/" in ln]
+        if w_lines and not all("WITHHELD" in ln for ln in w_lines):
+            ok11 = False
+            print(f"  G11 miss: {w} promoted in llms-full without WITHHELD")
+    gate(11, ok11, f"holds honored ({len(held)} works held)")
     # G10 llms honesty: every claim-like token resolves to a trace target
     llms = (ROOT / "llms.txt").read_text() if (
         ROOT / "llms.txt").exists() else ""

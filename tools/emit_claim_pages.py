@@ -20,14 +20,149 @@ import hashlib
 import html
 import json
 import os
+import re
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(os.environ.get("SVREAD_ROOT") or Path(__file__).resolve().parent.parent)
 TRACES = ROOT / "data" / "traces"
 VERIFY = ROOT / "data" / "verify"
+HOLDS = ROOT / "data" / "holds.json"
+SOURCES = ROOT / "data" / "sources.json"
 
 ORIGIN = os.environ.get("SITE_ORIGIN", "https://svread.pages.dev").rstrip("/")
+
+MIN_CITE_LEN = 20
+
+
+def load_holds() -> dict:
+    try:
+        d = json.loads(HOLDS.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+    out = {}
+    for h in d.get("holds", []) or []:
+        if isinstance(h, dict) and h.get("work"):
+            out[h["work"]] = h
+    return out
+
+
+def load_sources() -> dict:
+    try:
+        d = json.loads(SOURCES.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+    return d.get("works", {}) or {}
+
+
+def norm(s: str) -> str:
+    return re.sub(r"\s+", " ", re.sub(r"//\s*abhts_[\d.]+", "", s or "")).strip()
+
+
+def sha_bytes(b: bytes) -> str:
+    return hashlib.sha256(b).hexdigest()
+
+
+def verify_inputs(key: str, doc: dict, man: dict, entry_sha: str,
+                  pack: Path) -> tuple[dict, str | None]:
+    """Byte-verify every input by role and identity. Returns (blobs, None)
+    on success or ({}, reason) on any mismatch — fail closed, no partial."""
+    blobs: dict[str, bytes] = {}
+
+    def read(name: str) -> bytes | None:
+        p = pack / name
+        try:
+            return p.read_bytes()
+        except OSError:
+            return None
+
+    trace_raw = (TRACES / f"{key}.json").read_bytes()
+    if sha_bytes(trace_raw) != (entry_sha or ""):
+        return {}, f"{key}: trace bytes do not match index sha"
+    man_by_name = {}
+    for a in man.get("artifacts", []) or []:
+        if isinstance(a, dict) and a.get("name"):
+            man_by_name[a["name"]] = a
+    src = doc.get("source", {}) or {}
+    # source bytes vs trace AND manifest (role source-bytes)
+    raw = read("source.txt")
+    if raw is None:
+        return {}, f"{key}: missing pack source.txt"
+    if sha_bytes(raw) != (src.get("bytes_sha256") or ""):
+        return {}, f"{key}: source.txt does not match trace source sha"
+    msrc = man_by_name.get("source.txt")
+    if not msrc or msrc.get("role") != "source-bytes" or \
+            msrc.get("sha256") != sha_bytes(raw):
+        return {}, f"{key}: source.txt not bound by manifest as source-bytes"
+    blobs["source.txt"] = raw
+    # song proof vs trace AND manifest (role proof) — only when the trace
+    # asserts one; honest absence (PARTIAL) is not a mismatch
+    sp = (doc.get("proofs", {}) or {}).get("song_proof", {}) or {}
+    spfile = sp.get("file") or ""
+    spname = spfile.split("/")[-1]
+    if sp.get("sha256"):
+        if not spname:
+            return {}, f"{key}: trace asserts proof sha but no proof file"
+        praw = read(spname)
+        if praw is None:
+            return {}, f"{key}: missing pack proof file {spname}"
+        if sha_bytes(praw) != sp["sha256"]:
+            return {}, f"{key}: proof bytes do not match trace"
+        mproof = man_by_name.get(spname)
+        if not mproof or mproof.get("role") != "proof" or \
+                mproof.get("sha256") != sha_bytes(praw):
+            return {}, f"{key}: proof not bound by manifest as proof"
+        blobs[spname] = praw
+    # every trace layer with a sha must byte-match a manifest artifact
+    for lname, lval in (doc.get("layers", {}) or {}).items():
+        if not isinstance(lval, dict) or not lval.get("sha256"):
+            continue
+        fname = (lval.get("path") or "").split("/")[-1]
+        if not fname:
+            return {}, f"{key}: layer {lname} has sha but no file path"
+        lraw = read(fname)
+        if lraw is None:
+            return {}, f"{key}: missing pack layer file {fname}"
+        if sha_bytes(lraw) != lval["sha256"]:
+            return {}, f"{key}: {fname} does not match trace layer sha"
+        mart = man_by_name.get(fname)
+        if not mart or mart.get("sha256") != sha_bytes(lraw):
+            return {}, f"{key}: {fname} not bound by manifest"
+        blobs[fname] = lraw
+    return blobs, None
+
+
+def verified_reading(blobs: dict, excerpt: str) -> tuple[list | None, str]:
+    """English derived ONLY from verified pack L2 bytes, joined by explicit
+    verse mapping (entry sanskrit_cite byte-present in the verified passage
+    excerpt). Returns (lines[(verse_id, text)], '') or (None, reason)."""
+    l2name = next((n for n in blobs
+                   if n.endswith(".l2.json")), None)
+    if not l2name:
+        return None, "no verified L2 layer in this pack"
+    try:
+        entries = json.loads(blobs[l2name].decode("utf-8"))
+    except (ValueError, UnicodeDecodeError):
+        return None, "verified L2 bytes do not parse as JSON"
+    if not isinstance(entries, list):
+        return None, "verified L2 is not a verse list"
+    nsrc = norm(excerpt)
+    lines = []
+    for e in entries:
+        if not isinstance(e, dict):
+            continue
+        text = (e.get("plain_english") or "").strip()
+        cite = norm(e.get("sanskrit_cite") or "")
+        vid = e.get("verse_id") or f"v{e.get('verse', '?')}"
+        if not text or len(cite) < MIN_CITE_LEN:
+            continue
+        if cite in nsrc:
+            lines.append((str(e.get("verse", 0)), str(vid), text))
+    if not lines:
+        return None, ("no pack L2 entry maps to this passage excerpt "
+                       "(verse-level mapping required, none found)")
+    lines.sort(key=lambda x: (x[0], x[1]))
+    return [(vid, t) for _, vid, t in lines], ""
 
 
 def esc(s) -> str:
@@ -96,6 +231,9 @@ def claim_rows(doc: dict) -> list[tuple[str, str, str]]:
     rows.append(("Link completeness",
                  f"{links0}" + (f" ({len(gaps0)} gaps named)" if links0 == "FAIL" and gaps0 else ""),
                  "assurance.trace_links_present + gaps"))
+    rows.append(("Human review",
+                 f"{ass0.get('review', 'UNREVIEWED')} (machine rendering; no human sign-off)",
+                 "assurance.review"))
     for t in (doc.get("formal", {}) or {}).get("theorems", []) or []:
         st = "REGISTERED" if t.get("status") in (
             "ARGMAP-PINNED", "REGISTERED") else (t.get("status") or "UNKNOWN")
@@ -130,7 +268,8 @@ def fmt_layer(k: str, v) -> str:
 
 
 def build_claim_page(work: str, target: str, doc: dict, man: dict,
-                     verse: str, l2: str | None,
+                     verse: str, reading: list | None, read_note: str,
+                     hold: dict | None, srcinfo: dict | None,
                      prev: str | None,
                      nxt: str | None, bundle_sha: str) -> str:
     ass = doc.get("assurance", {}) or {}
@@ -163,15 +302,44 @@ def build_claim_page(work: str, target: str, doc: dict, man: dict,
     claim_trs = "\n".join(
         f"<tr><td>{esc(c)}</td><td>{esc(s)}</td><td>{esc(b)}</td></tr>"
         for c, s, b in claim_rows(doc))
-    if l2:
-        l2_block = (f"<p>{esc(l2)}</p>\n<p>Every clause traces to the layer "
-                    "bytes above; read them in the verify pack.</p>")
+    review_state = str(ass.get("review", "UNREVIEWED"))
+    if reading:
+        verse_lines = "\n".join(
+            f"<p><b>{esc(vid)}</b> — {esc(t)}</p>" for vid, t in reading)
+        l2_block = (
+            f"<p><strong>Machine rendering — unreviewed draft, not an "
+            f"approved translation.</strong> Each line below is the pack's "
+            f"verified L2 for the named verse (bytes checked against trace "
+            f"and manifest). Clause-level proof is not claimed.</p>\n"
+            f"{verse_lines}")
+    elif hold:
+        l2_block = (
+            f"<p><strong>Reading translation: withheld under editorial hold."
+            f"</strong> {esc(str(hold.get('note', '')))} "
+            f"Review required: {esc(str(hold.get('review', 'pending review')))}."
+            f" The verify pack carries the layer bytes; no English is quoted "
+            f"until the hold clears.</p>")
     else:
-        l2_block = (f"<p><strong>Reading translation: withheld.</strong> No "
-                    f"reader bundle in this release quotes an English rendering "
-                    f"for this passage, so none is quoted. The verify pack "
-                    f"carries the layer bytes; read them there rather than "
-                    f"trusting a rendering we cannot show.</p>")
+        l2_block = (
+            f"<p><strong>Reading translation: withheld.</strong> "
+            f"{esc(read_note)} The verify pack carries the layer bytes; no "
+            f"English is quoted without a verified verse mapping.</p>")
+    noindex = ('\n<meta name="robots" content="noindex">' if hold else "")
+    if hold:
+        hold_banner = (
+            f'<p class="hold"><strong>Editorial hold.</strong> '
+            f'{esc(str(hold.get("note", "")))} English is withheld until: '
+            f'{esc(str(hold.get("review", "review")))}.</p>')
+    else:
+        hold_banner = ""
+    translators = (srcinfo or {}).get("translators", []) or []
+    credit = ("Translators/editors of record here: "
+              + "; ".join(translators) + ". " if translators else
+              "Translators/editors of record: not established here — "
+              "see edition record. ")
+    src_record_url = ((srcinfo or {}).get("source_url") or "").strip()
+    src_licence = ((srcinfo or {}).get("licence") or "").strip()
+    src_status = ((srcinfo or {}).get("status") or "unknown").strip()
     rels = []
     if prev:
         rels.append(f'<li>Previous claim in work: <a href="{ORIGIN}/claim/{esc(work)}/{esc(prev)}/">{esc(prev)}</a></li>')
@@ -201,7 +369,8 @@ def build_claim_page(work: str, target: str, doc: dict, man: dict,
          "@id": f"{ORIGIN}/claim/{work}/{target}/#claim",
          "name": f"{work} {target}", "text": answer,
          "inLanguage": ["sa", "en"],
-         "isBasedOn": {"@type": "CreativeWork", "name": edition},
+         "isBasedOn": {"@type": "CreativeWork", "name": edition,
+                       **({"sameAs": src_record_url} if src_record_url else {})},
          "citation": {"@type": "CreativeWork",
                       "url": f"{ORIGIN}/data/traces/{work}-{target}.json"},
          "isPartOf": {"@type": "Dataset", "name": "Svatantrya Reader trace corpus",
@@ -234,7 +403,7 @@ def build_claim_page(work: str, target: str, doc: dict, man: dict,
 <link rel="alternate" type="text/markdown" href="{ORIGIN}/claim/{esc(work)}/{esc(target)}/index.md">
 <link rel="describedby" href="{ORIGIN}/llms.txt">
 <meta name="citation_title" content="{esc(work)} {esc(target)} ({esc(verses)}) — trace-backed claim page">
-<meta name="citation_author" content="Svatantrya Reader">
+<meta name="citation_author" content="Svatantrya Reader">{noindex}
 <meta property="og:title" content="{esc(work)} {esc(verses)} — gate, count and verifiability">
 <meta property="og:type" content="article">
 <meta property="og:url" content="{ORIGIN}/claim/{esc(work)}/{esc(target)}/">
@@ -243,7 +412,7 @@ def build_claim_page(work: str, target: str, doc: dict, man: dict,
 <nav aria-label="Breadcrumb"><a href="{ORIGIN}/">Svatantrya Reader</a> › <a href="{ORIGIN}/work/{esc(work)}/">{esc(work)}</a> › {esc(target)}</nav>
 <main>
 <p class="answer" id="answer">{esc(answer)}</p>
-
+{hold_banner}
 <h2>The passage</h2>
 <p>Passage excerpt exactly as hashed (from <code>{esc(ledger)}</code>). Devanagari is not in the ledger, so none is rendered. The recorded hash covers this excerpt, not the edition volume.</p>
 <blockquote cite="{ORIGIN}/data/traces/{esc(work)}-{esc(target)}.json"><pre>{esc(verse)}</pre></blockquote>
@@ -256,8 +425,8 @@ def build_claim_page(work: str, target: str, doc: dict, man: dict,
 
 <h2>What this does NOT establish</h2>
 <ul>
-<li>That any translation is correct — matching bytes never prove correctness{"; no English is quoted on this page" if not l2 else ""}.</li>
-<li>That a human reviewed anything — review UNREVIEWED, publication NOT_AUTHORIZED.</li>
+<li>That any translation is correct — matching bytes never prove correctness{"; no English is quoted on this page" if not reading else ", and the rendering above is an unreviewed machine draft"}.</li>
+<li>That a human reviewed anything — review {esc(review_state)}, publication NOT_AUTHORIZED.</li>
 <li>That a manuscript witness exists — witnesses are UNPINNED until manuscript records exist.</li>
 <li>That a formal count is proved for this passage — theorems are REGISTERED via reference; no per-declaration run digest is bound.</li>
 <li>That the excerpt is the whole span — span completeness is {esc(str(ass.get('source_span_verified', 'UNKNOWN')))}.</li>
@@ -286,7 +455,7 @@ verify pack artifacts (bytes):
 </tbody></table>
 
 <h2>Cite this</h2>
-<p>Svatantrya Reader, “{esc(work)} {esc(target)} ({esc(verses)})”, <code>{ORIGIN}/claim/{esc(work)}/{esc(target)}/</code>, version <code>trace {esc(bundle_sha[:16])}…</code>. “Complete” means links present — not approval, proof, or witness verification.</p>
+<p>Svatantrya Reader, “{esc(work)} {esc(target)} ({esc(verses)})”, <code>{ORIGIN}/claim/{esc(work)}/{esc(target)}/</code>, version <code>trace {esc(bundle_sha)}</code> (full sha256 of the trace bundle). Retrieve and re-verify: <code>curl -s {ORIGIN}/data/traces/{esc(work)}-{esc(target)}.json | sha256sum</code> must print this digest. {esc(credit)}The URL serves the live version; the digest pins the cited bytes. There is no archival resolver: the digest is integrity evidence, not durable storage or scholarly validation. “Complete” means links present — not approval, proof, or witness verification.</p>
 
 <h2>Related</h2>
 <ul>
@@ -295,9 +464,9 @@ verify pack artifacts (bytes):
 
 <h2>Provenance</h2>
 <ul>
-<li>Edition: <code>{esc(edition)}</code> ({esc(ed_status)}). Licence: consult the edition source; layers are quoted only from pinned bundles in this release.</li>
+<li>Edition: <code>{esc(edition)}</code> ({esc(ed_status)}). Source record: {esc(src_record_url or "unrecorded")} (status: {esc(src_status)}). Licence: {esc(src_licence or "unestablished — consult the edition source; do not redistribute")}. A hash is not a licence.</li>
 <li>Ledger: <code>{esc(ledger)}</code> (translation-work lane; read-only from here).</li>
-<li>Generated by <code>tools/emit_claim_pages.py</code> from the trace bundle + pack manifest. Regenerates byte-identically or fails closed.</li>
+<li>Generated by <code>tools/emit_claim_pages.py</code> from byte-verified trace + pack (every file hashed against trace and manifest by role). Regenerates byte-identically or fails closed.</li>
 </ul>
 </main>
 </body></html>
@@ -305,12 +474,22 @@ verify pack artifacts (bytes):
 
 
 def build_md(work: str, target: str, verses: str, answer: str, verse: str,
-             l2: str | None, rows: list[tuple[str, str, str]]) -> str:
+             reading: list | None, read_note: str, hold: dict | None,
+             review_state: str,
+             rows: list[tuple[str, str, str]]) -> str:
     trs = "\n".join(f"| {c} | {s} | {b} |" for c, s, b in rows)
-    l2_sec = f"\n## Reading\n\n{l2}\n" if l2 else (
-        "\n## Reading\n\nWithheld: no reader bundle covers this passage in "
-        "this release. See the verify pack for layer bytes.\n")
-    return (f"# {work} {target} ({verses})\n\n{answer}\n\n"
+    warn = (f"\n> Machine rendering — {review_state}, not an approved "
+            f"translation. No English here was human-reviewed.\n")
+    if hold:
+        warn += (f"\n> Editorial hold: {hold.get('note', '')} "
+                 f"English withheld until: {hold.get('review', 'review')}.\n")
+    if reading:
+        l2_sec = "\n## Reading (machine draft, verse-mapped)\n\n" + "\n".join(
+            f"**{vid}** — {t}" for vid, t in reading) + "\n"
+    else:
+        l2_sec = (f"\n## Reading\n\nWithheld. {read_note}\n" if not hold else
+                  "\n## Reading\n\nWithheld under editorial hold (see above).\n")
+    return (f"# {work} {target} ({verses})\n\n{answer}\n{warn}\n"
             f"Canonical: {ORIGIN}/claim/{work}/{target}/\n\n"
             f"## Passage (excerpt as hashed)\n\n```\n{verse}\n```\n"
             f"{l2_sec}\n## Claims\n\n| Claim | Status | Basis |\n"
@@ -387,6 +566,8 @@ def main() -> int:
         print("emit_claim_pages: zero entries; refusing empty publish",
               file=sys.stderr)
         return 2
+    holds = load_holds()
+    sources = load_sources()
     by_work: dict[str, list[dict]] = {}
     for e in entries:
         by_work.setdefault(e.get("work") or "?", []).append(e)
@@ -401,37 +582,47 @@ def main() -> int:
         except FileNotFoundError as ex:
             failures.append(f"{key}: missing input ({ex.filename})")
             continue
-        # hash agreement: manifest artifacts vs trace layers/source/proof
-        trace_shas = {s for s in (src_sha(doc), proof_sha(doc),
-                                  *layer_shas(doc).values()) if s}
-        man_shas = {(a.get("sha256") or "") for a in man.get("artifacts", [])}
-        if not trace_shas or not (trace_shas & man_shas):
-            failures.append(f"{key}: no manifest sha matches any trace sha")
+        # F03: byte-verify every input by role and identity before rendering
+        blobs, reason = verify_inputs(
+            key, doc, man, e.get("sha256") or "", VERIFY / key)
+        if reason:
+            failures.append(reason)
             continue
         try:
-            verse = (VERIFY / key / "source.txt").read_text(encoding="utf-8")
-        except FileNotFoundError:
-            failures.append(f"{key}: missing pack source.txt")
+            verse = blobs["source.txt"].decode("utf-8")
+        except UnicodeDecodeError:
+            failures.append(f"{key}: source.txt not utf-8")
             continue
         if "```" in verse:
             failures.append(f"{key}: verse contains code fence; refusing")
             continue
-        l2 = work_l2(work, target)
+        hold = holds.get(work)
+        if hold and "english" in (hold.get("scope") or []):
+            reading, read_note = None, "editorial hold"
+        else:
+            reading, read_note = verified_reading(blobs, verse)
+        if reading and any("```" in t for _, t in reading):
+            failures.append(f"{key}: reading contains code fence; refusing")
+            continue
         sibs = [x.get("target") for x in by_work[work]]
         i = sibs.index(target)
         prev = sibs[i - 1] if i > 0 else None
         nxt = sibs[i + 1] if i + 1 < len(sibs) else None
         try:
-            page = build_claim_page(work, target, doc, man, verse, l2,
+            page = build_claim_page(work, target, doc, man, verse, reading,
+                                    read_note, hold, sources.get(work),
                                     prev, nxt, e.get("sha256") or "")
         except ValueError as ex:
             failures.append(f"{key}: {ex}")
             continue
         verses = (doc.get("source", {}) or {}).get("verses") or target
         answer = answer_for(work, verses, doc)
+        review_state = str((doc.get("assurance", {}) or {}).get(
+            "review", "UNREVIEWED"))
         rendered[f"claim/{work}/{target}/index.html"] = page
         rendered[f"claim/{work}/{target}/index.md"] = build_md(
-            work, target, verses, answer, verse, l2, claim_rows(doc))
+            work, target, verses, answer, verse, reading, read_note, hold,
+            review_state, claim_rows(doc))
         rendered[f"chain/{work}/{target}/index.html"] = build_chain_page(
             work, target, doc)
         rendered[f"chain/{work}/{target}/index.md"] = build_chain_md(
@@ -478,40 +669,6 @@ def main() -> int:
     print(f"published {len(entries)} claim pages (+md mirrors, "
           f"{len(by_work)} work indexes, chain pages)")
     return 0
-
-
-def src_sha(doc: dict) -> str:
-    return (doc.get("source", {}) or {}).get("bytes_sha256") or ""
-
-
-def proof_sha(doc: dict) -> str:
-    return ((doc.get("proofs", {}) or {}).get("song_proof", {}) or {}).get(
-        "sha256") or ""
-
-
-def layer_shas(doc: dict) -> dict[str, str]:
-    out = {}
-    for k, v in ((doc.get("layers", {}) or {}).items()):
-        if isinstance(v, dict) and v.get("sha256"):
-            out[k] = v["sha256"]
-    return out
-
-
-def work_l2(work: str, target: str) -> str | None:
-    p = ROOT / "data" / f"{work}.json"
-    if not p.exists():
-        return None
-    try:
-        d = load_json(p)
-    except ValueError:
-        return None
-    for c in d.get("chunks", []) or []:
-        if str(c.get("chunk", "")).split("-v")[0] == target:
-            l2 = c.get("l2")
-            if isinstance(l2, str) and l2.strip():
-                return l2.strip()
-            return None
-    return None
 
 
 if __name__ == "__main__":

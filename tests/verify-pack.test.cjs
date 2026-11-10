@@ -92,8 +92,7 @@ test('external agent can verify a trace with fetch + sha256 alone', async () => 
   }
 });
 
-test('verify packs cover every published trace and nothing stale', () => {
-  const tIdx = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/traces/index.json'), 'utf8'));
+test('verify packs cover every published trace and nothing stale', () => {  const tIdx = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/traces/index.json'), 'utf8'));
   const vIdx = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/verify/index.json'), 'utf8'));
   const traceKeys = new Set(tIdx.entries.map(e => `${e.work}|${e.target}`));
   const packKeys = new Set(vIdx.packs.map(p => `${p.work}|${p.target}`));
@@ -113,4 +112,58 @@ test('verify packs cover every published trace and nothing stale', () => {
     assert.equal(sha(fs.readFileSync(tPath)), man.trace.sha256,
       `${p.target}: pack pins the real trace`);
   }
+});
+
+test('every pack byte-reproduces its trace (all packs, by role)', () => {
+  // Reviewer P0: the fetch test above samples one COMPLETE entry, so a
+  // tampered pack+manifest pair passed 2/2. This test cross-checks EVERY
+  // pack against its trace by role — never trust the manifest alone.
+  const tIdx = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'traces', 'index.json'), 'utf8'));
+  const vIdx = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'verify', 'index.json'), 'utf8'));
+  const byKey = new Map(tIdx.entries.map(e => [`${e.work}|${e.target}`, e]));
+  let checked = 0;
+  for (const p of vIdx.packs) {
+    const key = `${p.work}|${p.target}`;
+    const entry = byKey.get(key);
+    assert.ok(entry, `trace index covers pack ${key}`);
+    const dir = path.join(ROOT, 'data', p.path);
+    // index -> trace hash
+    const tPath = path.join(ROOT, 'data', 'traces', `${p.work}-${p.target}.json`);
+    assert.equal(sha(fs.readFileSync(tPath)), entry.sha256,
+      `${key}: trace bytes reproduce index sha`);
+    const trace = JSON.parse(fs.readFileSync(tPath, 'utf8'));
+    const man = JSON.parse(fs.readFileSync(path.join(dir, 'manifest.json'), 'utf8'));
+    const byName = new Map(man.artifacts.map(a => [a.name, a]));
+    // source bytes vs trace AND manifest role
+    const src = fs.readFileSync(path.join(dir, 'source.txt'));
+    assert.equal(sha(src), trace.source.bytes_sha256,
+      `${key}: source reproduces trace`);
+    assert.equal(byName.get('source.txt').role, 'source-bytes');
+    assert.equal(sha(src), byName.get('source.txt').sha256,
+      `${key}: source reproduces manifest`);
+    // every trace layer with a sha must byte-match a manifest artifact
+    for (const [lname, layer] of Object.entries(trace.layers || {})) {
+      if (!layer || !layer.sha256) continue;
+      const fname = path.basename(layer.path || '');
+      assert.ok(fname, `${key}: layer ${lname} names a file`);
+      const got = sha(fs.readFileSync(path.join(dir, fname)));
+      assert.equal(got, layer.sha256, `${key}: ${fname} reproduces trace`);
+      assert.ok(byName.has(fname), `${key}: ${fname} in manifest`);
+      assert.equal(byName.get(fname).sha256, got,
+        `${key}: ${fname} manifest agrees`);
+      checked++;
+    }
+    // song proof, when the trace asserts one
+    const sp = (trace.proofs || {}).song_proof || {};
+    if (sp.sha256) {
+      const fname = path.basename(sp.file || '');
+      const got = sha(fs.readFileSync(path.join(dir, fname)));
+      assert.equal(got, sp.sha256, `${key}: proof reproduces trace`);
+      assert.equal(byName.get(fname).role, 'proof');
+      assert.equal(byName.get(fname).sha256, got,
+        `${key}: proof manifest agrees`);
+      checked++;
+    }
+  }
+  assert.ok(checked > 1000, `substantial cross-checks ran (${checked})`);
 });
