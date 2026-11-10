@@ -83,6 +83,9 @@ def main() -> int:
                     help="build + validate bundle only (default if no --submit)")
     ap.add_argument("--submit", action="store_true")
     ap.add_argument("--confirm-live", action="store_true")
+    ap.add_argument("--draft-only", action="store_true",
+                    help="create unpublished draft deposit (no publish action); "
+                    "safe to run without signoff, clearly marked unsigned")
     ap.add_argument("--check-token", action="store_true",
                     help="GET /api/deposit/depositions to verify the token only")
     a = ap.parse_args()
@@ -174,7 +177,7 @@ def main() -> int:
     print("metadata license:", metadata["license"],
           "| related:", len(metadata["related_identifiers"]))
 
-    if not a.submit:
+    if not a.submit and not a.draft_only:
         print("dry-run: bundle validated locally, nothing sent. "
               "To submit: set $ZENODO_TOKEN, pass --signoff signoff:<uuid> "
               "--submit --confirm-live (sandbox first: --sandbox).")
@@ -183,15 +186,22 @@ def main() -> int:
               "See https://developers.zenodo.org/#quickstart-upload")
         return 0
 
-    # ---- submit path (fail-closed gates) ----
-    if not a.signoff.startswith("signoff-"):
+    if a.draft_only and (a.submit or a.confirm_live):
+        print("zenodo: --draft-only is exclusive with --submit/--confirm-live",
+              file=sys.stderr)
+        return 2
+
+    if a.submit and not a.signoff.startswith("signoff-"):
         print("zenodo: REFUSING — --submit requires --signoff signoff:<uuid> "
               "(human sign-off of this exact revision)", file=sys.stderr)
         return 1
-    if not a.confirm_live:
+    if a.submit and not a.confirm_live:
         print("zenodo: REFUSING — add --confirm-live to publish for real",
               file=sys.stderr)
         return 1
+    if a.draft_only and not a.signoff.startswith("signoff-"):
+        print("zenodo: note — no signoff supplied; draft will be marked "
+              "UNSIGNED-DRAFT and must never be published as-is")
     if not token:
         print("zenodo: no token (set $ZENODO_TOKEN or --sandbox token)",
               file=sys.stderr)
@@ -224,7 +234,15 @@ def main() -> int:
     if st != 200:
         print(f"zenodo: metadata failed: HTTP {st}", file=sys.stderr)
         return 1
-    print("metadata set. Publish with:")
+    print("metadata set.")
+    if a.draft_only:
+        print(f"draft deposition {dep_id} ready (UNPUBLISHED, invisible). "
+              f"Review at https://zenodo.org/deposit/{dep_id} (or sandbox "
+              f"equivalent). To publish after human sign-off, re-run with "
+              f"--submit --signoff signoff:<uuid> --confirm-live, or POST "
+              f"{base}/deposit/depositions/{dep_id}/actions/publish yourself.")
+        return 0
+    print("Publish with:")
     print(f"  POST {base}/deposit/depositions/{dep_id}/actions/publish")
     print("Refusing to auto-publish: run the publish call yourself after "
           "reviewing the draft deposition in the browser.")
