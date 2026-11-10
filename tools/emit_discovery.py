@@ -28,7 +28,7 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "data"
 IPVV_PUSHING = Path(os.environ.get("IPVV_PUSHING_INDEX",
                                    "/root/ipvv/site/data/pushing/INDEX.json"))
-ORIGIN = os.environ.get("SITE_ORIGIN", "https://svread.pages.dev").rstrip("/")
+ORIGIN = (os.environ.get("SITE_ORIGIN") or "https://svatantrya.net").rstrip("/")
 
 
 def load_json(p: Path):

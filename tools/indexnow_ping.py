@@ -2,7 +2,7 @@
 """indexnow_ping.py — submit sitemap URLs to IndexNow (Bing/Yandex).
 
 Usage:
-  python3 tools/indexnow_ping.py --key <32-hex> [--host svread.pages.dev] [--dry-run]
+  python3 tools/indexnow_ping.py --key <32-hex> [--host svatantrya.net] [--dry-run]
 
 Reads sitemap.xml URLs for the host, POSTs them in one batch (<=10k) to
 https://api.indexnow.org/indexnow. The key file must already be deployed
@@ -26,8 +26,7 @@ ROOT = Path(__file__).resolve().parent.parent
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--key", default=os.environ.get("INDEXNOW_KEY", ""))
-    ap.add_argument("--host", default=os.environ.get(
-        "SITE_ORIGIN", "https://svread.pages.dev").rstrip("/").split("://")[-1])
+    ap.add_argument("--host", default=(os.environ.get("SITE_ORIGIN") or "https://svatantrya.net").rstrip("/").split("://")[-1])
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--batch", type=int, default=200,
                     help="urls per request (first full submit got 403)")

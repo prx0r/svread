@@ -26,7 +26,7 @@ import os
 import sys
 from pathlib import Path
 
-ORIGIN = os.environ.get("SITE_ORIGIN", "https://svread.pages.dev").rstrip("/")
+ORIGIN = (os.environ.get("SITE_ORIGIN") or "https://svatantrya.net").rstrip("/")
 
 ROOT = Path(__file__).resolve().parent.parent
 TRACES = ROOT / "data" / "traces"

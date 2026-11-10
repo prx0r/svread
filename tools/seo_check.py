@@ -26,7 +26,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parent.parent
-ORIGIN = os.environ.get("SITE_ORIGIN", "https://svread.pages.dev").rstrip("/")
+ORIGIN = (os.environ.get("SITE_ORIGIN") or "https://svatantrya.net").rstrip("/")
 CRAWLERS = ["GPTBot", "ChatGPT-User", "OAI-SearchBot", "ClaudeBot",
             "anthropic-ai", "PerplexityBot"]
 

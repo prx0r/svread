@@ -23,9 +23,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 INDEX = ROOT / "index.html"
-ORIGIN = os.environ.get("SITE_ORIGIN", "https://svread.pages.dev").rstrip("/")
+ORIGIN = (os.environ.get("SITE_ORIGIN") or "https://svatantrya.net").rstrip("/")
 
-KNOWN_ORIGINS = ("https://svread.pages.dev",)
+KNOWN_ORIGINS = ("https://svatantrya.net", "https://svread.pages.dev")
 
 
 def rewrite(html: str) -> str:

@@ -6,7 +6,7 @@ Reads data/traces/index.json + each bundle + each verify-pack manifest +
 index.html + index.md, work/<work>/index.html, chain/<work>/<target>/
 index.html. Hand-built exemplar: claim/tantrasara-a08/tsa08-p03/index.html.
 
-SITE_ORIGIN env (default https://svread.pages.dev, trailing slash stripped)
+SITE_ORIGIN env (default https://svatantrya.net, trailing slash stripped)
 is the only place the hostname appears. Deterministic: sorted entries, no
 timestamps except the data's own produced_at (omitted when absent).
 --dry-run prints counts, writes nothing. --check byte-compares.
@@ -30,7 +30,7 @@ VERIFY = ROOT / "data" / "verify"
 HOLDS = ROOT / "data" / "holds.json"
 SOURCES = ROOT / "data" / "sources.json"
 
-ORIGIN = os.environ.get("SITE_ORIGIN", "https://svread.pages.dev").rstrip("/")
+ORIGIN = (os.environ.get("SITE_ORIGIN") or "https://svatantrya.net").rstrip("/")
 
 MIN_CITE_LEN = 20
 

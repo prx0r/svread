@@ -31,7 +31,7 @@ import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-UA = "svread-zenodo/1.0 (+https://svread.pages.dev)"
+UA = "svread-zenodo/1.0 (+https://svatantrya.net)"
 
 
 def sha(b: bytes) -> str:
@@ -125,7 +125,7 @@ def main() -> int:
     title = next((ln.strip("# ").strip() for ln in text.splitlines()
                   if ln.strip().startswith("#")), essay.stem)
     chunk = a.chunk_locator or a.target
-    trace_url = f"https://svread.pages.dev/data/traces/{a.work}-{a.target}.json"
+    trace_url = f"https://svatantrya.net/data/traces/{a.work}-{a.target}.json"
     claim_url = f"https://svread.pages.dev/claim/{a.work}/{a.target}/"
     creator: dict = {"name": a.creator, "affiliation": a.affiliation}
     if a.orcid:

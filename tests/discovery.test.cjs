@@ -59,7 +59,8 @@ test('emit_discovery --check is green and outputs are well-formed', (t) => {
   const html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
   const ld = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
   assert.equal(ld['@type'], 'WebSite');
-  assert.ok(ld.url.includes('svread.pages.dev'), 'canonical origin');
+  const SITE_ORIGIN=(process.env.SITE_ORIGIN||'https://svatantrya.net').replace(/\/$/,'');
+  assert.ok(ld.url.includes(new URL(SITE_ORIGIN).host), 'canonical origin matches SITE_ORIGIN');
 });
 
 test('no private material in crawler-facing files', () => {
