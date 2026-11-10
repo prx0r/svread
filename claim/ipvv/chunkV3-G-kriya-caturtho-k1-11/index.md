@@ -1,6 +1,6 @@
 # ipvv chunkV3-G-kriya-caturtho-k1-11 (M00022:5514-6300)
 
-ipvv chunkV3-G-kriya-caturtho-k1-11 (M00022:5514-6300) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+ipvv chunkV3-G-kriya-caturtho-k1-11 (M00022:5514-6300) links incomplete (7 gaps named); no formal theorems bound. Chunk gate BLOCKED; no witness verified.
 
 Canonical: https://svread.pages.dev/claim/ipvv/chunkV3-G-kriya-caturtho-k1-11/
 
@@ -804,6 +804,7 @@ Withheld: no reader bundle covers this passage in this release. See the verify p
 
 | Claim | Status | Basis |
 |---|---|---|
+| Link completeness | FAIL (7 gaps named) | assurance.trace_links_present + gaps |
 | Deterministic chunk gate | BLOCKED (PROOF_NOT_RUN) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

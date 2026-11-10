@@ -1,6 +1,6 @@
 # tantraloka-a16 tal-a16-p27 (16.261-16.270)
 
-tantraloka-a16 tal-a16-p27 (16.261-16.270) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+tantraloka-a16 tal-a16-p27 (16.261-16.270) links incomplete (5 gaps named); no formal theorems bound. Chunk gate BLOCKED; no witness verified.
 
 Canonical: https://svread.pages.dev/claim/tantraloka-a16/tal-a16-p27/
 
@@ -18,6 +18,7 @@ Withheld: no reader bundle covers this passage in this release. See the verify p
 
 | Claim | Status | Basis |
 |---|---|---|
+| Link completeness | FAIL (5 gaps named) | assurance.trace_links_present + gaps |
 | Deterministic chunk gate | BLOCKED (ABSTENTION) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

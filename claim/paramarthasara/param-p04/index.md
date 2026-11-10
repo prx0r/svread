@@ -18,6 +18,7 @@ So dharma and adharma, heaven and hell, birth and death, pleasure and pain — c
 
 | Claim | Status | Basis |
 |---|---|---|
+| Link completeness | PASS | assurance.trace_links_present + gaps |
 | Pramatr.lean :: seven | REGISTERED, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
 | Deterministic chunk gate | BLOCKED (ABSTENTION) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |

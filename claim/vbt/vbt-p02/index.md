@@ -18,6 +18,7 @@ Withheld: no reader bundle covers this passage in this release. See the verify p
 
 | Claim | Status | Basis |
 |---|---|---|
+| Link completeness | PASS | assurance.trace_links_present + gaps |
 | Vbt.lean :: coords_three | SPAN-PINNED, run UNBOUND (tier R) | trace formal; EVIDENCE registry reference only |
 | Deterministic chunk gate | BLOCKED (ABSTENTION) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |

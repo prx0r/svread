@@ -18,6 +18,7 @@ From the middle's opening — knowing-bliss won.
 
 | Claim | Status | Basis |
 |---|---|---|
+| Link completeness | PASS | assurance.trace_links_present + gaps |
 | Phrdaya.lean :: closes_four | SPAN-PINNED, run UNBOUND (tier R) | trace formal; EVIDENCE registry reference only |
 | Phrdaya.lean :: means_once | SPAN-PINNED, run UNBOUND (tier R) | trace formal; EVIDENCE registry reference only |
 | Deterministic chunk gate | PASS (none) | proofs.chunk_gate |

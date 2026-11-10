@@ -18,6 +18,7 @@ So it is with the free one, distinguishing by His own power: makings and unmakin
 
 | Claim | Status | Basis |
 |---|---|---|
+| Link completeness | PASS | assurance.trace_links_present + gaps |
 | Deterministic chunk gate | BLOCKED (CITATION_GROUNDING) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

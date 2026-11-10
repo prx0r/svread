@@ -1,6 +1,6 @@
 # tantraloka-a03 tal-a03-p29 (3.280-3.289)
 
-tantraloka-a03 tal-a03-p29 (3.280-3.289) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+tantraloka-a03 tal-a03-p29 (3.280-3.289) links incomplete (5 gaps named); no formal theorems bound. Chunk gate BLOCKED; no witness verified.
 
 Canonical: https://svread.pages.dev/claim/tantraloka-a03/tal-a03-p29/
 
@@ -18,6 +18,7 @@ Withheld: no reader bundle covers this passage in this release. See the verify p
 
 | Claim | Status | Basis |
 |---|---|---|
+| Link completeness | FAIL (5 gaps named) | assurance.trace_links_present + gaps |
 | Deterministic chunk gate | BLOCKED (ABSTENTION) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

@@ -18,6 +18,7 @@ Bearing thirty-six principles, full-eyed in body-making: own or other's body, ja
 
 | Claim | Status | Basis |
 |---|---|---|
+| Link completeness | PASS | assurance.trace_links_present + gaps |
 | Deterministic chunk gate | BLOCKED (COVERAGE, ABSTENTION) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

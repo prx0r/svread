@@ -18,6 +18,7 @@ Consciousness stands free — cause of the world's proving.
 
 | Claim | Status | Basis |
 |---|---|---|
+| Link completeness | PASS | assurance.trace_links_present + gaps |
 | Phrdaya.lean :: epithet_three | SPAN-PINNED, run UNBOUND (tier R) | trace formal; EVIDENCE registry reference only |
 | Deterministic chunk gate | PASS (none) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |

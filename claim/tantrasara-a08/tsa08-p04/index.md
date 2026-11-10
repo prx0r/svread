@@ -18,6 +18,7 @@ Withheld: no reader bundle covers this passage in this release. See the verify p
 
 | Claim | Status | Basis |
 |---|---|---|
+| Link completeness | PASS | assurance.trace_links_present + gaps |
 | Correction.lean :: grasp_first | SPAN-PINNED, run UNBOUND (tier R) | trace formal; EVIDENCE registry reference only |
 | Correction.lean :: joints_two | SPAN-PINNED, run UNBOUND (tier R) | trace formal; EVIDENCE registry reference only |
 | EgoOrigin.lean :: nonrivalled_does_work | REGISTERED, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |

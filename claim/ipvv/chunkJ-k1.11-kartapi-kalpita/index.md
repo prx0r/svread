@@ -1,6 +1,6 @@
 # ipvv chunkJ-k1.11-kartapi-kalpita (M00020:5585-5750)
 
-ipvv chunkJ-k1.11-kartapi-kalpita (M00020:5585-5750) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+ipvv chunkJ-k1.11-kartapi-kalpita (M00020:5585-5750) links incomplete (8 gaps named); no formal theorems bound. Chunk gate BLOCKED; no witness verified.
 
 Canonical: https://svread.pages.dev/claim/ipvv/chunkJ-k1.11-kartapi-kalpita/
 
@@ -183,6 +183,7 @@ Withheld: no reader bundle covers this passage in this release. See the verify p
 
 | Claim | Status | Basis |
 |---|---|---|
+| Link completeness | FAIL (8 gaps named) | assurance.trace_links_present + gaps |
 | Deterministic chunk gate | BLOCKED (PROOF_NOT_RUN) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

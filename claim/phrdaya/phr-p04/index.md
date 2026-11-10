@@ -18,6 +18,7 @@ By climbing to knowing's seat — knowing.
 
 | Claim | Status | Basis |
 |---|---|---|
+| Link completeness | PASS | assurance.trace_links_present + gaps |
 | Mala.lean :: count_3 | REGISTERED, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
 | MalaFuel.lean :: fuel_terminates | REGISTERED, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
 | MalaFuel.lean :: grace_ignites | REGISTERED, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |

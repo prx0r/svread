@@ -18,6 +18,7 @@ Withheld: no reader bundle covers this passage in this release. See the verify p
 
 | Claim | Status | Basis |
 |---|---|---|
+| Link completeness | PASS | assurance.trace_links_present + gaps |
 | AnswerKey.lean :: key_grace_term | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
 | Grace.lean :: readiness_insufficient | CONTEXT_ONLY, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
 | Mala.lean :: count_3 | REGISTERED, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |

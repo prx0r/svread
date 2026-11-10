@@ -1,6 +1,6 @@
 # ipvv chunkI-k1.9-1.10-kriya-karyakarana (M00020:5077-5585)
 
-ipvv chunkI-k1.9-1.10-kriya-karyakarana (M00020:5077-5585) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+ipvv chunkI-k1.9-1.10-kriya-karyakarana (M00020:5077-5585) links incomplete (7 gaps named); no formal theorems bound. Chunk gate BLOCKED; no witness verified.
 
 Canonical: https://svread.pages.dev/claim/ipvv/chunkI-k1.9-1.10-kriya-karyakarana/
 
@@ -526,6 +526,7 @@ Withheld: no reader bundle covers this passage in this release. See the verify p
 
 | Claim | Status | Basis |
 |---|---|---|
+| Link completeness | FAIL (7 gaps named) | assurance.trace_links_present + gaps |
 | Deterministic chunk gate | BLOCKED (PROOF_NOT_RUN) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

@@ -18,6 +18,7 @@ In the sixty-sixth year, on the ninth dark day, in Mārgaśīrṣa, by me Abhina
 
 | Claim | Status | Basis |
 |---|---|---|
+| Link completeness | PASS | assurance.trace_links_present + gaps |
 | Deterministic chunk gate | BLOCKED (COVERAGE) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

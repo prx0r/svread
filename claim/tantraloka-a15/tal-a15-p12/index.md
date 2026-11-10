@@ -1,6 +1,6 @@
 # tantraloka-a15 tal-a15-p12 (15.111-15.120)
 
-tantraloka-a15 tal-a15-p12 (15.111-15.120) passes link checks; counts REGISTERED without a per-declaration run. Chunk gate BLOCKED; no witness verified.
+tantraloka-a15 tal-a15-p12 (15.111-15.120) links incomplete (5 gaps named); counts REGISTERED without a per-declaration run. Chunk gate BLOCKED; no witness verified.
 
 Canonical: https://svread.pages.dev/claim/tantraloka-a15/tal-a15-p12/
 
@@ -18,6 +18,7 @@ Withheld: no reader bundle covers this passage in this release. See the verify p
 
 | Claim | Status | Basis |
 |---|---|---|
+| Link completeness | FAIL (5 gaps named) | assurance.trace_links_present + gaps |
 | Nyasa.lean :: matrika_total | REGISTERED, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
 | Nyasa.lean :: order_chief | REGISTERED, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
 | Deterministic chunk gate | BLOCKED (ABSTENTION) | proofs.chunk_gate |

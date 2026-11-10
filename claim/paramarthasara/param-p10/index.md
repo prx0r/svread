@@ -18,6 +18,7 @@ In a shrine or an outcaste hut, memory lost though, abandoning the body — free
 
 | Claim | Status | Basis |
 |---|---|---|
+| Link completeness | PASS | assurance.trace_links_present + gaps |
 | Deterministic chunk gate | BLOCKED (COVERAGE, ABSTENTION) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

@@ -18,6 +18,7 @@ Done, yet not for fruit — how then birth? yoked to birth-bond gone, the Śiva-
 
 | Claim | Status | Basis |
 |---|---|---|
+| Link completeness | PASS | assurance.trace_links_present + gaps |
 | Deterministic chunk gate | BLOCKED (COVERAGE, ABSTENTION, CITATION_GROUNDING) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

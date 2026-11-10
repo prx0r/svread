@@ -43,28 +43,44 @@ def load_json(p: Path):
     return json.loads(p.read_text(encoding="utf-8"))
 
 
-def answer_for(work: str, verses: str, doc: dict) -> str:
+def answer_for(work: str, verses: str, doc: dict, target: str = "") -> str:
     ass = doc.get("assurance", {}) or {}
     formal = doc.get("formal", {}) or {}
     gate = proofs_gate(doc)
-    n_thm = len(formal.get("theorems") or [])
-    if gate == "BLOCKED":
-        gate_phrase = "Chunk gate BLOCKED"
-    elif gate == "PASS":
-        gate_phrase = "Chunk gate passes"
+    links = ass.get("trace_links_present", "UNKNOWN")
+    gaps = doc.get("gaps", []) or []
+    if links == "PASS":
+        link_phrase = "passes link checks"
+    elif links == "FAIL":
+        link_phrase = (f"links incomplete ({len(gaps)} gaps named)"
+                       if gaps else "links incomplete")
     else:
-        gate_phrase = f"Chunk gate {gate}"
+        link_phrase = f"links {links}"
+    n_thm = len(formal.get("theorems") or [])
     if n_thm and all(not t.get("run_bound") for t in formal["theorems"]):
         formal_phrase = "counts REGISTERED without a per-declaration run"
     elif n_thm:
         formal_phrase = f"{n_thm} theorems REGISTERED"
     else:
         formal_phrase = "no formal theorems bound"
+    if gate == "BLOCKED":
+        gate_phrase = "Chunk gate BLOCKED"
+    elif gate == "PASS":
+        gate_phrase = "Chunk gate passes"
+    else:
+        gate_phrase = f"Chunk gate {gate}"
     wit = ass.get("witness", "UNPINNED")
     wit_phrase = "no witness verified" if wit == "UNPINNED" else f"witness {wit}"
-    vlabel = f"{work} {doc.get('chunk', {}).get('target', '')} ({verses})"
-    return (f"{vlabel} passes link checks; {formal_phrase}. "
-            f"{gate_phrase}; {wit_phrase}.")
+    tgt = target or (doc.get("chunk", {}) or {}).get("target", "")
+    vlabel = f"{work} {tgt} ({verses})"
+    answer = (f"{vlabel} {link_phrase}; {formal_phrase}. "
+              f"{gate_phrase}; {wit_phrase}.")
+    # fail closed: the link claim must match the assurance value
+    if (links == "PASS") != ("passes link checks" in answer):
+        raise ValueError(f"link-phrase/assurance mismatch: {links}: {answer}")
+    if (links == "FAIL") != ("links incomplete" in answer):
+        raise ValueError(f"link-phrase/assurance mismatch: {links}: {answer}")
+    return answer
 
 
 def proofs_gate(doc: dict) -> str:
@@ -74,6 +90,12 @@ def proofs_gate(doc: dict) -> str:
 
 def claim_rows(doc: dict) -> list[tuple[str, str, str]]:
     rows = []
+    ass0 = doc.get("assurance", {}) or {}
+    links0 = ass0.get("trace_links_present", "UNKNOWN")
+    gaps0 = doc.get("gaps", []) or []
+    rows.append(("Link completeness",
+                 f"{links0}" + (f" ({len(gaps0)} gaps named)" if links0 == "FAIL" and gaps0 else ""),
+                 "assurance.trace_links_present + gaps"))
     for t in (doc.get("formal", {}) or {}).get("theorems", []) or []:
         st = "REGISTERED" if t.get("status") in (
             "ARGMAP-PINNED", "REGISTERED") else (t.get("status") or "UNKNOWN")
@@ -131,22 +153,29 @@ def build_claim_page(work: str, target: str, doc: dict, man: dict,
                     "bytes above; read them in the verify pack.</p>")
     else:
         l2_block = (f"<p><strong>Reading translation: withheld.</strong> No "
-                    f"reader bundle (<code>data/{esc(work)}.json</code>) covers "
-                    f"this passage in this release, so no English rendering is "
-                    f"quoted. The verify pack carries the layer bytes; read them "
-                    f"there rather than trusting a rendering we cannot show.</p>")
+                    f"reader bundle in this release quotes an English rendering "
+                    f"for this passage, so none is quoted. The verify pack "
+                    f"carries the layer bytes; read them there rather than "
+                    f"trusting a rendering we cannot show.</p>")
     rels = []
     if prev:
         rels.append(f'<li>Previous claim in work: <a href="{ORIGIN}/claim/{esc(work)}/{esc(prev)}/">{esc(prev)}</a></li>')
     if nxt:
         rels.append(f'<li>Next claim in work: <a href="{ORIGIN}/claim/{esc(work)}/{esc(nxt)}/">{esc(nxt)}</a></li>')
     rels.append(f'<li>Work index: <a href="{ORIGIN}/work/{esc(work)}/">{esc(work)}</a></li>')
+    verdict = doc.get('verdict', 'UNKNOWN')
+    if verdict == "COMPLETE":
+        trace_status = "links present only"
+    elif verdict == "PARTIAL":
+        trace_status = "links incomplete — see gaps"
+    else:
+        trace_status = "see gaps"
     chain_trs = "\n".join([
         f"<tr><td>SOURCE edition + span</td><td>{esc(edition)}; verses {esc(verses)} excerpt</td><td>{esc(ed_status)}; span {esc(str(ass.get('source_span_verified', 'UNKNOWN')))}</td></tr>",
         f"<tr><td>LAYERS</td><td>shas below; song-file paths</td><td>{esc(', '.join(sorted({str((v or {}).get('status')) for v in layers.values() if isinstance(v, dict)})))}</td></tr>",
         f"<tr><td>GATE deterministic</td><td>{esc(', '.join(cg.get('blocking', []) or ['none']))}</td><td>{esc(cg.get('deterministic_gate', 'UNKNOWN'))}</td></tr>",
         f"<tr><td>FORMAL theorems</td><td>registry references, run_bound false</td><td>{esc(formal.get('status', 'UNKNOWN'))}</td></tr>",
-        f"<tr><td>TRACE bundle</td><td><code>{esc(bundle_sha[:16])}…</code></td><td>{esc(doc.get('verdict', 'UNKNOWN'))} (links present only)</td></tr>",
+        f"<tr><td>TRACE bundle</td><td><code>{esc(bundle_sha[:16])}…</code></td><td>{esc(verdict)} ({esc(trace_status)})</td></tr>",
         f"<tr><td>PACK manifest</td><td>{len(artifacts)} artifacts</td><td>links present</td></tr>",
         f"<tr><td>WITNESS</td><td>none verified</td><td>{esc(str(ass.get('witness', 'UNPINNED')))}</td></tr>",
         f"<tr><td>REVIEW</td><td>none bound</td><td>{esc(str(ass.get('review', 'UNREVIEWED')))}</td></tr>",
@@ -358,16 +387,19 @@ def main() -> int:
             failures.append(f"{key}: missing input ({ex.filename})")
             continue
         # hash agreement: manifest artifacts vs trace layers/source/proof
-        trace_shas = {src_sha(doc), proof_sha(doc)}
-        trace_shas |= set(layer_shas(doc).values())
+        trace_shas = {s for s in (src_sha(doc), proof_sha(doc),
+                                  *layer_shas(doc).values()) if s}
         man_shas = {(a.get("sha256") or "") for a in man.get("artifacts", [])}
-        if not (trace_shas & man_shas):
+        if not trace_shas or not (trace_shas & man_shas):
             failures.append(f"{key}: no manifest sha matches any trace sha")
             continue
         try:
             verse = (VERIFY / key / "source.txt").read_text(encoding="utf-8")
         except FileNotFoundError:
             failures.append(f"{key}: missing pack source.txt")
+            continue
+        if "```" in verse:
+            failures.append(f"{key}: verse contains code fence; refusing")
             continue
         l2 = work_l2(work, target)
         sibs = [x.get("target") for x in by_work[work]]
@@ -423,7 +455,6 @@ def main() -> int:
                     encoding="utf-8") != blob:
                 print(f"mismatch or missing: {name}")
                 ok = False
-        # exemplar is hand-built: must still satisfy the gates
         print("emit claim pages --check: " + ("GREEN" if ok else "RED"))
         return 0 if ok else 1
     for name, blob in rendered.items():

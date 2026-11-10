@@ -18,6 +18,7 @@ Withheld: no reader bundle covers this passage in this release. See the verify p
 
 | Claim | Status | Basis |
 |---|---|---|
+| Link completeness | PASS | assurance.trace_links_present + gaps |
 | AnswerKey.lean :: key_thirtysix_tattvas | REGISTERED, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
 | Avarana.lean :: course_ascends | REGISTERED, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
 | Tattva.lean :: eleven_wombed | REGISTERED, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |

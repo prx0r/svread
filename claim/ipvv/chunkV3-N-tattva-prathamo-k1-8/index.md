@@ -1,6 +1,6 @@
 # ipvv chunkV3-N-tattva-prathamo-k1-8 (M00022:10895-11600)
 
-ipvv chunkV3-N-tattva-prathamo-k1-8 (M00022:10895-11600) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+ipvv chunkV3-N-tattva-prathamo-k1-8 (M00022:10895-11600) links incomplete (7 gaps named); no formal theorems bound. Chunk gate BLOCKED; no witness verified.
 
 Canonical: https://svread.pages.dev/claim/ipvv/chunkV3-N-tattva-prathamo-k1-8/
 
@@ -723,6 +723,7 @@ Withheld: no reader bundle covers this passage in this release. See the verify p
 
 | Claim | Status | Basis |
 |---|---|---|
+| Link completeness | FAIL (7 gaps named) | assurance.trace_links_present + gaps |
 | Deterministic chunk gate | BLOCKED (PROOF_NOT_RUN) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

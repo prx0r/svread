@@ -1,6 +1,6 @@
 # sivastotravali sivst-p03 (stotra 9-12)
 
-sivastotravali sivst-p03 (stotra 9-12) passes link checks; no formal theorems bound. Chunk gate UNKNOWN; no witness verified.
+sivastotravali sivst-p03 (stotra 9-12) links incomplete (7 gaps named); no formal theorems bound. Chunk gate UNKNOWN; no witness verified.
 
 Canonical: https://svread.pages.dev/claim/sivastotravali/sivst-p03/
 
@@ -28,6 +28,7 @@ Withheld: no reader bundle covers this passage in this release. See the verify p
 
 | Claim | Status | Basis |
 |---|---|---|
+| Link completeness | FAIL (7 gaps named) | assurance.trace_links_present + gaps |
 | Deterministic chunk gate | UNKNOWN (none) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

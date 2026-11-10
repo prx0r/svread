@@ -18,6 +18,7 @@ Withheld: no reader bundle covers this passage in this release. See the verify p
 
 | Claim | Status | Basis |
 |---|---|---|
+| Link completeness | PASS | assurance.trace_links_present + gaps |
 | AnswerKey.lean :: key_five_kancukas | REGISTERED, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
 | AnswerKey.lean :: key_seven_experients | REGISTERED, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
 | Coords.lean :: coords_covered_once | REGISTERED, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
