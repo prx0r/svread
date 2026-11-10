@@ -33,8 +33,13 @@ def build() -> tuple[dict, list[str]]:
     # scholar_server imports the shared resolver from tools at runtime.
     assets += [ROOT / 'tools' / 'lingua.py']
     assets += [p for p in (ROOT / '.github' / 'workflows').glob('*') if p.is_file()]
-    assets += [p for folder in ('data', 'align', 'scripts', 'mcp') for p in (ROOT / folder).rglob('*')
+    assets += [p for folder in ('data', 'align', 'scripts', 'mcp', 'claim',
+                                'work', 'chain', 'about', 'cite')
+               for p in (ROOT / folder).rglob('*')
                if p.is_file() and p != MANIFEST and '__pycache__' not in p.parts and not p.name.endswith('.pyc')]
+    assets += [ROOT / name for name in ('llms.txt', 'llms-full.txt',
+                                        'ai-catalog.json', 'sitemap.xml',
+                                        'robots.txt') if (ROOT / name).is_file()]
     files = {p.relative_to(ROOT).as_posix(): sha(p.read_bytes()) for p in sorted(assets)}
     works, missing_editions = 0, []
     for path in sorted((ROOT / 'data').glob('*.json')):

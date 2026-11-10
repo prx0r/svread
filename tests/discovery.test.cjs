@@ -36,7 +36,10 @@ test('emit_discovery --check is green and outputs are well-formed', (t) => {
   assert.ok(llms.includes('SELF_ATTESTED'), 'honesty vocabulary present');
   const sm = fs.readFileSync(path.join(ROOT, 'sitemap.xml'), 'utf8');
   assert.ok(sm.includes('<urlset'), 'sitemap root');
-  assert.ok(sm.includes('?view=sanskrit'), 'sanskrit in sitemap');
+  assert.ok(!sm.includes('?view='), 'no query-string app routes in sitemap (not crawlable)');
+  assert.ok(sm.includes('/claim/'), 'claim pages listed');
+  assert.ok(sm.includes('/chain/'), 'chain pages listed');
+  assert.ok(sm.includes('/work/'), 'work indexes listed');
   assert.ok(sm.includes('pushing.html'), 'pushing in sitemap');
   assert.ok(sm.includes('data/sanskrit/site/lesson-01.html'), 'static lessons crawlable without JS');
   assert.equal((sm.match(/lesson-\d+\.html/g) || []).length, 10, 'all 10 lessons listed');

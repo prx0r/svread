@@ -10,7 +10,8 @@ test('release check detects changed assets and refuses an invalid Scholar projec
   const root=path.join(__dirname,'..'),tmp=fs.mkdtempSync(path.join(os.tmpdir(),'svread-release-'));
   try{
     for(const name of ['.nojekyll','index.html','app.js','styles.css','sw.js','manifest.webmanifest','README.md','SPEC.md','READER-ARCHITECTURE.md',
-      'scholar-voice.js','scholar-workspace-ui.js','SCHOLAR-PRIVACY.md','PUSHING-LAB.md','PUSHING-NEXT.md','PUSHING-RESEARCH.md','pushing.html','pushing.css','pushing-core.js','pushing-ui.js','data','align','scripts','mcp'])
+      'scholar-voice.js','scholar-workspace-ui.js','SCHOLAR-PRIVACY.md','PUSHING-LAB.md','PUSHING-NEXT.md','PUSHING-RESEARCH.md','pushing.html','pushing.css','pushing-core.js','pushing-ui.js','data','align','scripts','mcp','claim','work','chain','about','cite',
+      'llms.txt','llms-full.txt','ai-catalog.json','sitemap.xml','robots.txt'])
       fs.cpSync(path.join(root,name),path.join(tmp,name),{recursive:true});
     fs.mkdirSync(path.join(tmp,'tools'));
     fs.copyFileSync(path.join(root,'tools/lingua.py'),path.join(tmp,'tools/lingua.py'));

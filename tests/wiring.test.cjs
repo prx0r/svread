@@ -66,9 +66,9 @@ test('emitters are deterministic (--check green)', (t) => {
   const needsInfra = { 'emit_traces.py': hasTrika,
     'emit_verify.py': hasTrika && hasTW, 'emit_formal.py': hasTrika,
     'emit_biblio.py': 'db' };
-  for (const tool of ['emit_biblio.py', 'emit_traces.py', 'emit_verify.py',
+    for (const tool of ['emit_biblio.py', 'emit_traces.py', 'emit_verify.py',
                       'emit_formal.py', 'emit_discovery.py',
-                      'emit_index_meta.py']) {
+                      'emit_claim_pages.py', 'emit_index_meta.py']) {
     if (needsInfra[tool] === false) {
       t.skip(`${tool} needs a sibling checkout; not present here`);
       continue;
@@ -129,6 +129,7 @@ test('chat answers carry a verify footer (R4)', () => {
   assert.ok(src.includes('data/verify/'), 'footer links verify packs');
   assert.ok(src.includes('unverified — no trace'), 'untraced chunks labelled, not linked');
   assert.ok(src.includes('manifest.json'), 'pack manifest linked');
+  assert.ok(src.includes('claim/${esc(e.work)}/${esc(e.target)}/'), 'footer links readable claim page');
 });
 
 test('verify packs disclose gate status, not just a verdict (PR #7)', () => {
