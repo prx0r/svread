@@ -56,7 +56,16 @@ def load_sources() -> dict:
 
 
 def norm(s: str) -> str:
-    return re.sub(r"\s+", " ", re.sub(r"//\s*abhts_[\d.]+", "", s or "")).strip()
+    s = re.sub(r"//\s*abhts_[\d.]+", " ", s or "")
+    s = re.sub(r"[|/‖]+", " ", s)  # danda variants differ by layer: unify
+    return re.sub(r"\s+", " ", s).strip()
+
+
+def flat(s: str) -> str:
+    """Spacing-stripped form for sandhi-joined compounds (bahir asau in the
+    gloss vs bahirasau in the ledger). Used only as a fallback join, with
+    the same minimum length, never for display."""
+    return re.sub(r"[\s\-‐‑]+", "", norm(s))
 
 
 def sha_bytes(b: bytes) -> str:
@@ -139,24 +148,38 @@ def verified_reading(blobs: dict, excerpt: str) -> tuple[list | None, str]:
     l2name = next((n for n in blobs
                    if n.endswith(".l2.json")), None)
     if not l2name:
+        if "L2.md" in blobs:
+            return None, ("legacy markdown rendering (section-level, not "
+                           "verse-mapped to this passage)")
         return None, "no verified L2 layer in this pack"
     try:
-        entries = json.loads(blobs[l2name].decode("utf-8"))
+        raw_text = blobs[l2name].decode("utf-8")
+        entries = json.loads(raw_text)
     except (ValueError, UnicodeDecodeError):
+        if raw_text.lstrip().startswith("#"):
+            return None, ("legacy markdown rendering (section-level, not "
+                           "verse-mapped to this passage)")
         return None, "verified L2 bytes do not parse as JSON"
     if not isinstance(entries, list):
         return None, "verified L2 is not a verse list"
+    if entries and not any(isinstance(x, dict) and x.get("sanskrit_cite")
+                           for x in entries):
+        return None, ("pack L2 entries carry no Sanskrit cites to join on "
+                       "(no verse mapping possible)")
     nsrc = norm(excerpt)
+    fsrc = flat(excerpt)
     lines = []
     for e in entries:
         if not isinstance(e, dict):
             continue
         text = (e.get("plain_english") or "").strip()
         cite = norm(e.get("sanskrit_cite") or "")
-        vid = e.get("verse_id") or f"v{e.get('verse', '?')}"
         if not text or len(cite) < MIN_CITE_LEN:
             continue
+        vid = e.get("verse_id") or f"v{e.get('verse', '?')}"
         if cite in nsrc:
+            lines.append((str(e.get("verse", 0)), str(vid), text))
+        elif len(flat(cite)) >= MIN_CITE_LEN and flat(cite) in fsrc:
             lines.append((str(e.get("verse", 0)), str(vid), text))
     if not lines:
         return None, ("no pack L2 entry maps to this passage excerpt "
@@ -310,7 +333,9 @@ def build_claim_page(work: str, target: str, doc: dict, man: dict,
             f"<p><strong>Machine rendering — unreviewed draft, not an "
             f"approved translation.</strong> Each line below is the pack's "
             f"verified L2 for the named verse (bytes checked against trace "
-            f"and manifest). Clause-level proof is not claimed.</p>\n"
+            f"and manifest; join: cited Sanskrit occurs in the hashed "
+            f"excerpt, spacing-normalized). Clause-level proof is not "
+            f"claimed.</p>\n"
             f"{verse_lines}")
     elif hold:
         l2_block = (
