@@ -2056,7 +2056,7 @@ function buildRightRail(verses){
       const e = byKey[id];
       if(e){
         const v = e.verdict || 'PARTIAL';
-        return `<a href="data/traces/${esc(e.file.split('/').pop())}" title="trace bundle ${esc(v)}">${esc(id)} · trace (${esc(v)})</a> <a href="data/verify/${esc(e.work)}-${esc(e.target)}/manifest.json" title="verify pack: exact bytes + hashes">pack</a>`;
+        return `<a href="data/traces/${esc(e.file.split('/').pop())}" title="trace bundle ${esc(v)}">${esc(id)} · trace (${esc(v)})</a> <a href="data/verify/${esc(e.work)}-${esc(e.target)}/manifest.json" title="verify pack: exact bytes + hashes">pack</a> <a href="claim/${esc(e.work)}/${esc(e.target)}/" title="readable claim page: verdict, excerpt, hashes">claim</a>`;
       }
       return `<span class="mut">${esc(id)} · unverified — no trace for this chunk</span>`;
     });
