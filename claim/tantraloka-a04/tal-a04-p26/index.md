@@ -4,7 +4,7 @@ tantraloka-a04 tal-a04-p26 (4.251-4.260) links incomplete (5 gaps named); no for
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/tantraloka-a04/tal-a04-p26/
+Canonical: https://svatantrya.net/claim/tantraloka-a04/tal-a04-p26/
 
 ## Passage (excerpt as hashed)
 

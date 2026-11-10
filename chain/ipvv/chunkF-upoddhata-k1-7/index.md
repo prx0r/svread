@@ -1,6 +1,6 @@
 # Chain: ipvv chunkF-upoddhata-k1-7
 
-Canonical: https://svread.pages.dev/chain/ipvv/chunkF-upoddhata-k1-7/
+Canonical: https://svatantrya.net/chain/ipvv/chunkF-upoddhata-k1-7/
 
 | Field | Value |
 |---|---|

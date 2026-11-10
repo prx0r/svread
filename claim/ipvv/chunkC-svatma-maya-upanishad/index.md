@@ -4,7 +4,7 @@ ipvv chunkC-svatma-maya-upanishad (M00020:1200-1800) links incomplete (7 gaps na
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/ipvv/chunkC-svatma-maya-upanishad/
+Canonical: https://svatantrya.net/claim/ipvv/chunkC-svatma-maya-upanishad/
 
 ## Passage (excerpt as hashed)
 

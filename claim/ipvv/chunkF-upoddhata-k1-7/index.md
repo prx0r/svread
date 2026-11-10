@@ -4,7 +4,7 @@ ipvv chunkF-upoddhata-k1-7 (M00020:3126-3700) links incomplete (7 gaps named); n
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/ipvv/chunkF-upoddhata-k1-7/
+Canonical: https://svatantrya.net/claim/ipvv/chunkF-upoddhata-k1-7/
 
 ## Passage (excerpt as hashed)
 

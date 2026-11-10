@@ -4,7 +4,7 @@ tantraloka-a08 tal-a08-p31 (8.301-8.310) links incomplete (5 gaps named); no for
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/tantraloka-a08/tal-a08-p31/
+Canonical: https://svatantrya.net/claim/tantraloka-a08/tal-a08-p31/
 
 ## Passage (excerpt as hashed)
 

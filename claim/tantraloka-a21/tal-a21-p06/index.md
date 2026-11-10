@@ -4,7 +4,7 @@ tantraloka-a21 tal-a21-p06 (21.51-21.60) links incomplete (5 gaps named); no for
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/tantraloka-a21/tal-a21-p06/
+Canonical: https://svatantrya.net/claim/tantraloka-a21/tal-a21-p06/
 
 ## Passage (excerpt as hashed)
 

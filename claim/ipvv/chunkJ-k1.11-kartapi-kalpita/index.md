@@ -4,7 +4,7 @@ ipvv chunkJ-k1.11-kartapi-kalpita (M00020:5585-5750) links incomplete (8 gaps na
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/ipvv/chunkJ-k1.11-kartapi-kalpita/
+Canonical: https://svatantrya.net/claim/ipvv/chunkJ-k1.11-kartapi-kalpita/
 
 ## Passage (excerpt as hashed)
 

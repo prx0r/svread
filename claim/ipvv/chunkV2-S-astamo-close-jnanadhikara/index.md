@@ -4,7 +4,7 @@ ipvv chunkV2-S-astamo-close-jnanadhikara (M00021:13200-13405) links incomplete (
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/ipvv/chunkV2-S-astamo-close-jnanadhikara/
+Canonical: https://svatantrya.net/claim/ipvv/chunkV2-S-astamo-close-jnanadhikara/
 
 ## Passage (excerpt as hashed)
 

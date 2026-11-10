@@ -4,7 +4,7 @@ ipvv chunkV2-E-pancamo-jnanasakti-k5 (M00021:2800-3600) links incomplete (7 gaps
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/ipvv/chunkV2-E-pancamo-jnanasakti-k5/
+Canonical: https://svatantrya.net/claim/ipvv/chunkV2-E-pancamo-jnanasakti-k5/
 
 ## Passage (excerpt as hashed)
 

@@ -1,6 +1,6 @@
 # Chain: ipvv chunkV3-F-kriya-trtiyo-close
 
-Canonical: https://svread.pages.dev/chain/ipvv/chunkV3-F-kriya-trtiyo-close/
+Canonical: https://svatantrya.net/chain/ipvv/chunkV3-F-kriya-trtiyo-close/
 
 | Field | Value |
 |---|---|

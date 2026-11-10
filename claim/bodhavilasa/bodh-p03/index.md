@@ -4,7 +4,7 @@ bodhavilasa bodh-p03 (21-30) passes link checks; no formal theorems bound. Chunk
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/bodhavilasa/bodh-p03/
+Canonical: https://svatantrya.net/claim/bodhavilasa/bodh-p03/
 
 ## Passage (excerpt as hashed)
 

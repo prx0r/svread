@@ -1,6 +1,6 @@
 # Chain: bhairavanukarana bhair-p02
 
-Canonical: https://svread.pages.dev/chain/bhairavanukarana/bhair-p02/
+Canonical: https://svatantrya.net/chain/bhairavanukarana/bhair-p02/
 
 | Field | Value |
 |---|---|

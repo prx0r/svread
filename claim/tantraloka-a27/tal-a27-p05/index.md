@@ -4,7 +4,7 @@ tantraloka-a27 tal-a27-p05 (27.41-27.50) links incomplete (5 gaps named); no for
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/tantraloka-a27/tal-a27-p05/
+Canonical: https://svatantrya.net/claim/tantraloka-a27/tal-a27-p05/
 
 ## Passage (excerpt as hashed)
 

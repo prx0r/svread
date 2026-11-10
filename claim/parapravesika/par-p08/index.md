@@ -4,7 +4,7 @@ parapravesika par-p08 (5 sheaths; kañcuka; prakrti; antahkarana; indriyas; tanm
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/parapravesika/par-p08/
+Canonical: https://svatantrya.net/claim/parapravesika/par-p08/
 
 ## Passage (excerpt as hashed)
 

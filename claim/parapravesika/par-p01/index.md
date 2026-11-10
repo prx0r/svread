@@ -4,7 +4,7 @@ parapravesika par-p01 (mangala) passes link checks; no formal theorems bound. Ch
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/parapravesika/par-p01/
+Canonical: https://svatantrya.net/claim/parapravesika/par-p01/
 
 ## Passage (excerpt as hashed)
 

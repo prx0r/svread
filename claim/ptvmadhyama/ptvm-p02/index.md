@@ -4,7 +4,7 @@ ptvmadhyama ptvm-p02 (10-18) passes link checks; no formal theorems bound. Chunk
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/ptvmadhyama/ptvm-p02/
+Canonical: https://svatantrya.net/claim/ptvmadhyama/ptvm-p02/
 
 ## Passage (excerpt as hashed)
 

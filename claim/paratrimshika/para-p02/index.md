@@ -4,7 +4,7 @@ paratrimshika para-p02 (11-19) links incomplete (5 gaps named); no formal theore
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/paratrimshika/para-p02/
+Canonical: https://svatantrya.net/claim/paratrimshika/para-p02/
 
 ## Passage (excerpt as hashed)
 

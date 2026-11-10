@@ -4,7 +4,7 @@ vbt vbt-p16 (152-161) passes link checks; no formal theorems bound. Chunk gate B
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/vbt/vbt-p16/
+Canonical: https://svatantrya.net/claim/vbt/vbt-p16/
 
 ## Passage (excerpt as hashed)
 

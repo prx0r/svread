@@ -4,7 +4,7 @@ sambandhasiddhi samb-p01 (2-9) passes link checks; no formal theorems bound. Chu
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/sambandhasiddhi/samb-p01/
+Canonical: https://svatantrya.net/claim/sambandhasiddhi/samb-p01/
 
 ## Passage (excerpt as hashed)
 

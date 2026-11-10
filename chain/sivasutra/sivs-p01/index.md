@@ -1,6 +1,6 @@
 # Chain: sivasutra sivs-p01
 
-Canonical: https://svread.pages.dev/chain/sivasutra/sivs-p01/
+Canonical: https://svatantrya.net/chain/sivasutra/sivs-p01/
 
 | Field | Value |
 |---|---|

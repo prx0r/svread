@@ -1,6 +1,6 @@
 # Chain: ipvv chunkL-memory-error-sankaranandana
 
-Canonical: https://svread.pages.dev/chain/ipvv/chunkL-memory-error-sankaranandana/
+Canonical: https://svatantrya.net/chain/ipvv/chunkL-memory-error-sankaranandana/
 
 | Field | Value |
 |---|---|

@@ -4,7 +4,7 @@ ipvv chunkV2-B-sahajavimarsa-prakasavimarsa (M00021:700-1400) links incomplete (
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/ipvv/chunkV2-B-sahajavimarsa-prakasavimarsa/
+Canonical: https://svatantrya.net/claim/ipvv/chunkV2-B-sahajavimarsa-prakasavimarsa/
 
 ## Passage (excerpt as hashed)
 

@@ -1,6 +1,6 @@
 # Chain: paramarthasara param-p07
 
-Canonical: https://svread.pages.dev/chain/paramarthasara/param-p07/
+Canonical: https://svatantrya.net/chain/paramarthasara/param-p07/
 
 | Field | Value |
 |---|---|

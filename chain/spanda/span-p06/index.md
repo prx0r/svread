@@ -1,6 +1,6 @@
 # Chain: spanda span-p06
 
-Canonical: https://svread.pages.dev/chain/spanda/span-p06/
+Canonical: https://svatantrya.net/chain/spanda/span-p06/
 
 | Field | Value |
 |---|---|

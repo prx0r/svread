@@ -4,7 +4,7 @@ ipvv chunkN-close-mahesvara-saktis (M00020:7600-8313) links incomplete (7 gaps n
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/ipvv/chunkN-close-mahesvara-saktis/
+Canonical: https://svatantrya.net/claim/ipvv/chunkN-close-mahesvara-saktis/
 
 ## Passage (excerpt as hashed)
 

@@ -1,6 +1,6 @@
 # Chain: ipvv chunkE-cit-acid-dvairasya
 
-Canonical: https://svread.pages.dev/chain/ipvv/chunkE-cit-acid-dvairasya/
+Canonical: https://svatantrya.net/chain/ipvv/chunkE-cit-acid-dvairasya/
 
 | Field | Value |
 |---|---|

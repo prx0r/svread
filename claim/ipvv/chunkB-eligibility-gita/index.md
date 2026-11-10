@@ -4,7 +4,7 @@ ipvv chunkB-eligibility-gita (M00020:600-900) links incomplete (7 gaps named); n
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/ipvv/chunkB-eligibility-gita/
+Canonical: https://svatantrya.net/claim/ipvv/chunkB-eligibility-gita/
 
 ## Passage (excerpt as hashed)
 

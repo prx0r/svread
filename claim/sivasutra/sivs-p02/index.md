@@ -4,7 +4,7 @@ sivasutra sivs-p02 (1.11-1.20) links incomplete (5 gaps named); no formal theore
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/sivasutra/sivs-p02/
+Canonical: https://svatantrya.net/claim/sivasutra/sivs-p02/
 
 ## Passage (excerpt as hashed)
 

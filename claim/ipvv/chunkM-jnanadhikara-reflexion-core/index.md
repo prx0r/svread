@@ -4,7 +4,7 @@ ipvv chunkM-jnanadhikara-reflexion-core (M00020:6900-7600) links incomplete (7 g
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/ipvv/chunkM-jnanadhikara-reflexion-core/
+Canonical: https://svatantrya.net/claim/ipvv/chunkM-jnanadhikara-reflexion-core/
 
 ## Passage (excerpt as hashed)
 

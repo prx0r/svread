@@ -4,7 +4,7 @@ tantrasara-a15 tsa15-p01 (15.1-15.7) passes link checks; no formal theorems boun
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/tantrasara-a15/tsa15-p01/
+Canonical: https://svatantrya.net/claim/tantrasara-a15/tsa15-p01/
 
 ## Passage (excerpt as hashed)
 

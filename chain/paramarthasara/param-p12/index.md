@@ -1,6 +1,6 @@
 # Chain: paramarthasara param-p12
 
-Canonical: https://svread.pages.dev/chain/paramarthasara/param-p12/
+Canonical: https://svatantrya.net/chain/paramarthasara/param-p12/
 
 | Field | Value |
 |---|---|

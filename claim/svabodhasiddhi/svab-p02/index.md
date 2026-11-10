@@ -4,7 +4,7 @@ svabodhasiddhi svab-p02 (11-19) passes link checks; no formal theorems bound. Ch
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/svabodhasiddhi/svab-p02/
+Canonical: https://svatantrya.net/claim/svabodhasiddhi/svab-p02/
 
 ## Passage (excerpt as hashed)
 

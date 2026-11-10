@@ -1,6 +1,6 @@
 # Chain: tantrasara-a11 tsa11-p02
 
-Canonical: https://svread.pages.dev/chain/tantrasara-a11/tsa11-p02/
+Canonical: https://svatantrya.net/chain/tantrasara-a11/tsa11-p02/
 
 | Field | Value |
 |---|---|

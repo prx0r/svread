@@ -4,7 +4,7 @@ vbt vbt-p04 (32-41) passes link checks; no formal theorems bound. Chunk gate BLO
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/vbt/vbt-p04/
+Canonical: https://svatantrya.net/claim/vbt/vbt-p04/
 
 ## Passage (excerpt as hashed)
 

@@ -1,6 +1,6 @@
 # Chain: ipvv chunkG-k1.2.7-1.8-citsvarupam
 
-Canonical: https://svread.pages.dev/chain/ipvv/chunkG-k1.2.7-1.8-citsvarupam/
+Canonical: https://svatantrya.net/chain/ipvv/chunkG-k1.2.7-1.8-citsvarupam/
 
 | Field | Value |
 |---|---|

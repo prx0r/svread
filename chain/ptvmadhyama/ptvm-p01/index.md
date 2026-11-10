@@ -1,6 +1,6 @@
 # Chain: ptvmadhyama ptvm-p01
 
-Canonical: https://svread.pages.dev/chain/ptvmadhyama/ptvm-p01/
+Canonical: https://svatantrya.net/chain/ptvmadhyama/ptvm-p01/
 
 | Field | Value |
 |---|---|

@@ -4,7 +4,7 @@ ipvv chunkV3-C-kriya-trtiyo-k1-2 (M00022:2055-3000) links incomplete (7 gaps nam
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/ipvv/chunkV3-C-kriya-trtiyo-k1-2/
+Canonical: https://svatantrya.net/claim/ipvv/chunkV3-C-kriya-trtiyo-k1-2/
 
 ## Passage (excerpt as hashed)
 

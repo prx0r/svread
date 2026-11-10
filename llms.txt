@@ -4,26 +4,26 @@
 
 ## Views (single-page app; these URLs load the view)
 
-- Reader (browse; 90 works currently have a reader bundle): https://svread.pages.dev/
-- Sanskrit lessons (10, Learn/Decode/Recognise tabs): https://svread.pages.dev/?view=sanskrit
-- Bibliography index (555 works, 11 lost/unverified): https://svread.pages.dev/?view=biblio
+- Reader (browse; 90 works currently have a reader bundle): https://svatantrya.net/
+- Sanskrit lessons (10, Learn/Decode/Recognise tabs): https://svatantrya.net/?view=sanskrit
+- Bibliography index (555 works, 11 lost/unverified): https://svatantrya.net/?view=biblio
 - Scholar hub (per work, ?work=<id>&view=scholar): drafts, review, signoff, DOI
-- Pushing Lab (live enquiries): https://svread.pages.dev/pushing.html
+- Pushing Lab (live enquiries): https://svatantrya.net/pushing.html
 - Chat: every page has a chat rail answering from that work's gated passages with citations.
 
 ## Data (fetchable JSON, hash-pinned in data/release-manifest.json)
 
-- Bibliography (works, editions, translations+links, lost with basis, formal coverage): https://svread.pages.dev/data/biblio.json
-- Sanskrit lessons index + rule boxes: https://svread.pages.dev/data/sanskrit/index.json
-- Per-work reader bundle: https://svread.pages.dev/data/<work>.json (55+ works; originals, layers, hashes)
-- Scholar projections: https://svread.pages.dev/data/scholar/<work>.json (versions, essays, reviews, signoffs, projection_sha256)
-- Pushing digest (115 live questions + hound verdicts): https://svread.pages.dev/data/pushing.json
-- Sanskrit lessons (rendered pages): https://svread.pages.dev/data/sanskrit/site/lesson-01.html ... lesson-10.html
-- Formal registry (every REGISTERED theorem, its scope, and the unformalised gap list): https://svread.pages.dev/data/formal.json
-- Verification packs + no-code recipe (fetch + sha256sum, no install): https://svread.pages.dev/data/verify/index.json
-- Trace index (909 chunks; 236 COMPLETE / 673 PARTIAL; per-chunk source->layers->proofs->theorems->essays, hash-pinned): https://svread.pages.dev/data/traces/index.json
-- Trace bundles (one JSON per chunk, trika-trace/1, re-verifiable): https://svread.pages.dev/data/traces/<work>-<target>.json
-- Claim pages (one pre-rendered HTML page per chunk: answer-first verdict, passage excerpt, claim table, limits, hashes, verify steps): https://svread.pages.dev/claim/<work>/<target>/ — start at a work index https://svread.pages.dev/work/<work>/
+- Bibliography (works, editions, translations+links, lost with basis, formal coverage): https://svatantrya.net/data/biblio.json
+- Sanskrit lessons index + rule boxes: https://svatantrya.net/data/sanskrit/index.json
+- Per-work reader bundle: https://svatantrya.net/data/<work>.json (55+ works; originals, layers, hashes)
+- Scholar projections: https://svatantrya.net/data/scholar/<work>.json (versions, essays, reviews, signoffs, projection_sha256)
+- Pushing digest (115 live questions + hound verdicts): https://svatantrya.net/data/pushing.json
+- Sanskrit lessons (rendered pages): https://svatantrya.net/data/sanskrit/site/lesson-01.html ... lesson-10.html
+- Formal registry (every REGISTERED theorem, its scope, and the unformalised gap list): https://svatantrya.net/data/formal.json
+- Verification packs + no-code recipe (fetch + sha256sum, no install): https://svatantrya.net/data/verify/index.json
+- Trace index (909 chunks; 236 COMPLETE / 673 PARTIAL; per-chunk source->layers->proofs->theorems->essays, hash-pinned): https://svatantrya.net/data/traces/index.json
+- Trace bundles (one JSON per chunk, trika-trace/1, re-verifiable): https://svatantrya.net/data/traces/<work>-<target>.json
+- Claim pages (one pre-rendered HTML page per chunk: answer-first verdict, passage excerpt, claim table, limits, hashes, verify steps): https://svatantrya.net/claim/<work>/<target>/ — start at a work index https://svatantrya.net/work/<work>/
 - This llms.txt is for agents; Google ignores it (measured, 2026). For citation, use a claim page URL.
 - Or ask an MCP client with the openpatala-federation gateway for formal__trace {work, target} (plus formal__bridge, formal__gaps, formal__evidence, formal__table, formal__runs, formal__axioms)
 
@@ -33,7 +33,7 @@ T1 draft-translation · L0 literal-gloss · ARGMAP argument-map · L2 reading-tr
 
 ## How to cite (so answers stay traceable)
 
-- Self-verification (no code, no account): https://svread.pages.dev/?view=verify and https://svread.pages.dev/VERIFY.md — fetch the trace + pack, sha256sum the bytes, compare. Matching hashes prove identity; they do not prove quality.
+- Self-verification (no code, no account): https://svatantrya.net/?view=verify and https://svatantrya.net/VERIFY.md — fetch the trace + pack, sha256sum the bytes, compare. Matching hashes prove identity; they do not prove quality.
 
 - Cite work id + chunk locator (e.g. bhairavastava bh-p02) + immutable_id (pt:pid:...) + projection_sha256 when quoting a projection.
 - OURS-* translations are machine-proposed, human review pending — say so. Lost works are scholar-REPORTED (finding-aid basis), not witnessed. Scholar essays are SELF_ATTESTED positions unless independently reviewed — say which.

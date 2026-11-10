@@ -4,7 +4,7 @@ tantraloka-a22 tal-a22-p04 (22.31-22.40) links incomplete (5 gaps named); no for
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/tantraloka-a22/tal-a22-p04/
+Canonical: https://svatantrya.net/claim/tantraloka-a22/tal-a22-p04/
 
 ## Passage (excerpt as hashed)
 

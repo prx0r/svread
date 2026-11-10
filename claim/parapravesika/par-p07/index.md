@@ -4,7 +4,7 @@ parapravesika par-p07 (laksanas 1-6; purusa/samsari/mukta; kañcuka origin (king
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/parapravesika/par-p07/
+Canonical: https://svatantrya.net/claim/parapravesika/par-p07/
 
 ## Passage (excerpt as hashed)
 

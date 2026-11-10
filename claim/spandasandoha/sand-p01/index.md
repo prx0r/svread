@@ -4,7 +4,7 @@ spandasandoha sand-p01 (1-2) passes link checks; no formal theorems bound. Chunk
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/spandasandoha/sand-p01/
+Canonical: https://svatantrya.net/claim/spandasandoha/sand-p01/
 
 ## Passage (excerpt as hashed)
 

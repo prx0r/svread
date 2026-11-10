@@ -1,6 +1,6 @@
 # Chain: ipvv chunkM-jnanadhikara-reflexion-core
 
-Canonical: https://svread.pages.dev/chain/ipvv/chunkM-jnanadhikara-reflexion-core/
+Canonical: https://svatantrya.net/chain/ipvv/chunkM-jnanadhikara-reflexion-core/
 
 | Field | Value |
 |---|---|

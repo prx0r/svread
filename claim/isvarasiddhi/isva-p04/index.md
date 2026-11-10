@@ -4,7 +4,7 @@ isvarasiddhi isva-p04 (28-36) passes link checks; no formal theorems bound. Chun
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/isvarasiddhi/isva-p04/
+Canonical: https://svatantrya.net/claim/isvarasiddhi/isva-p04/
 
 ## Passage (excerpt as hashed)
 

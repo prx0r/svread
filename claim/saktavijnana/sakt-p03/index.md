@@ -4,7 +4,7 @@ saktavijnana sakt-p03 (21-30) passes link checks; no formal theorems bound. Chun
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/saktavijnana/sakt-p03/
+Canonical: https://svatantrya.net/claim/saktavijnana/sakt-p03/
 
 ## Passage (excerpt as hashed)
 

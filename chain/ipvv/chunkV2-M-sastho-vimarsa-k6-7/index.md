@@ -1,6 +1,6 @@
 # Chain: ipvv chunkV2-M-sastho-vimarsa-k6-7
 
-Canonical: https://svread.pages.dev/chain/ipvv/chunkV2-M-sastho-vimarsa-k6-7/
+Canonical: https://svatantrya.net/chain/ipvv/chunkV2-M-sastho-vimarsa-k6-7/
 
 | Field | Value |
 |---|---|

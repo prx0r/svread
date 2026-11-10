@@ -1,6 +1,6 @@
 # Chain: ipvv chunkV3-H-kriya-caturtho-k12-19
 
-Canonical: https://svread.pages.dev/chain/ipvv/chunkV3-H-kriya-caturtho-k12-19/
+Canonical: https://svatantrya.net/chain/ipvv/chunkV3-H-kriya-caturtho-k12-19/
 
 | Field | Value |
 |---|---|

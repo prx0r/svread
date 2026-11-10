@@ -1,6 +1,6 @@
 # Chain: bhairavastava bh-p07
 
-Canonical: https://svread.pages.dev/chain/bhairavastava/bh-p07/
+Canonical: https://svatantrya.net/chain/bhairavastava/bh-p07/
 
 | Field | Value |
 |---|---|

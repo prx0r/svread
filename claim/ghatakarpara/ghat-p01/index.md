@@ -6,7 +6,7 @@ ghatakarpara ghat-p01 (1-9) passes link checks; no formal theorems bound. Chunk 
 
 > Editorial hold: Translation produced from incomplete passages; withheld for rechecking against the complete source. English withheld until: recheck coverage vs complete source.
 
-Canonical: https://svread.pages.dev/claim/ghatakarpara/ghat-p01/
+Canonical: https://svatantrya.net/claim/ghatakarpara/ghat-p01/
 
 ## Passage (excerpt as hashed)
 

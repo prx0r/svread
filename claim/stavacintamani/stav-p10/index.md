@@ -4,7 +4,7 @@ stavacintamani stav-p10 (91-100) passes link checks; no formal theorems bound. C
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/stavacintamani/stav-p10/
+Canonical: https://svatantrya.net/claim/stavacintamani/stav-p10/
 
 ## Passage (excerpt as hashed)
 

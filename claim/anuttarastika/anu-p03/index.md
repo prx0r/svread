@@ -4,7 +4,7 @@ anuttarastika anu-p03 (3) passes link checks; no formal theorems bound. Chunk ga
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/anuttarastika/anu-p03/
+Canonical: https://svatantrya.net/claim/anuttarastika/anu-p03/
 
 ## Passage (excerpt as hashed)
 

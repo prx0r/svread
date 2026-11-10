@@ -1,6 +1,6 @@
 # Chain: phrdaya phr-p04
 
-Canonical: https://svread.pages.dev/chain/phrdaya/phr-p04/
+Canonical: https://svatantrya.net/chain/phrdaya/phr-p04/
 
 | Field | Value |
 |---|---|

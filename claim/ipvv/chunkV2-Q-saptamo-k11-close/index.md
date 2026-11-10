@@ -4,7 +4,7 @@ ipvv chunkV2-Q-saptamo-k11-close (M00021:12000-12423) links incomplete (7 gaps n
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/ipvv/chunkV2-Q-saptamo-k11-close/
+Canonical: https://svatantrya.net/claim/ipvv/chunkV2-Q-saptamo-k11-close/
 
 ## Passage (excerpt as hashed)
 

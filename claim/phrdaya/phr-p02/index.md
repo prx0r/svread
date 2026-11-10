@@ -4,7 +4,7 @@ phrdaya phr-p02 (5-8) passes link checks; counts REGISTERED without a per-declar
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/phrdaya/phr-p02/
+Canonical: https://svatantrya.net/claim/phrdaya/phr-p02/
 
 ## Passage (excerpt as hashed)
 

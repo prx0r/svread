@@ -1,6 +1,6 @@
 # Chain: ipvv chunkV3-N-tattva-prathamo-k1-8
 
-Canonical: https://svread.pages.dev/chain/ipvv/chunkV3-N-tattva-prathamo-k1-8/
+Canonical: https://svatantrya.net/chain/ipvv/chunkV3-N-tattva-prathamo-k1-8/
 
 | Field | Value |
 |---|---|

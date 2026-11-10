@@ -1,6 +1,6 @@
 # Chain: tantraloka-a06 tal-a06-p15
 
-Canonical: https://svread.pages.dev/chain/tantraloka-a06/tal-a06-p15/
+Canonical: https://svatantrya.net/chain/tantraloka-a06/tal-a06-p15/
 
 | Field | Value |
 |---|---|

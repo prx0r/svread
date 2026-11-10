@@ -1,6 +1,6 @@
 # Chain: vbt vbt-p14
 
-Canonical: https://svread.pages.dev/chain/vbt/vbt-p14/
+Canonical: https://svatantrya.net/chain/vbt/vbt-p14/
 
 | Field | Value |
 |---|---|

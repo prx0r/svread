@@ -1,6 +1,6 @@
 # Chain: ipvv chunkV2-O-saptamo-vimarsa
 
-Canonical: https://svread.pages.dev/chain/ipvv/chunkV2-O-saptamo-vimarsa/
+Canonical: https://svatantrya.net/chain/ipvv/chunkV2-O-saptamo-vimarsa/
 
 | Field | Value |
 |---|---|

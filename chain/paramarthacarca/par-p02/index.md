@@ -1,6 +1,6 @@
 # Chain: paramarthacarca par-p02
 
-Canonical: https://svread.pages.dev/chain/paramarthacarca/par-p02/
+Canonical: https://svatantrya.net/chain/paramarthacarca/par-p02/
 
 | Field | Value |
 |---|---|

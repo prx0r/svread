@@ -1,6 +1,6 @@
 # Chain: tantrasara-a03 tsa03-p02
 
-Canonical: https://svread.pages.dev/chain/tantrasara-a03/tsa03-p02/
+Canonical: https://svatantrya.net/chain/tantrasara-a03/tsa03-p02/
 
 | Field | Value |
 |---|---|

@@ -4,7 +4,7 @@ tantrasara-a22 tsa22-p03 (22.34-22.54) passes link checks; no formal theorems bo
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/tantrasara-a22/tsa22-p03/
+Canonical: https://svatantrya.net/claim/tantrasara-a22/tsa22-p03/
 
 ## Passage (excerpt as hashed)
 

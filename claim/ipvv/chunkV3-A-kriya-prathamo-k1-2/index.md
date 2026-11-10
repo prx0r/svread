@@ -4,7 +4,7 @@ ipvv chunkV3-A-kriya-prathamo-k1-2 (M00022:57-837) links incomplete (7 gaps name
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/ipvv/chunkV3-A-kriya-prathamo-k1-2/
+Canonical: https://svatantrya.net/claim/ipvv/chunkV3-A-kriya-prathamo-k1-2/
 
 ## Passage (excerpt as hashed)
 

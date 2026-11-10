@@ -4,7 +4,7 @@ vbt vbt-p02 (12-21) passes link checks; counts REGISTERED without a per-declarat
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/vbt/vbt-p02/
+Canonical: https://svatantrya.net/claim/vbt/vbt-p02/
 
 ## Passage (excerpt as hashed)
 

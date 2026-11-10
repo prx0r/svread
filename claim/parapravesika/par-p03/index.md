@@ -4,7 +4,7 @@ parapravesika par-p03 (mula-2 + vrtti (ten names defined)) passes link checks; n
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/parapravesika/par-p03/
+Canonical: https://svatantrya.net/claim/parapravesika/par-p03/
 
 ## Passage (excerpt as hashed)
 

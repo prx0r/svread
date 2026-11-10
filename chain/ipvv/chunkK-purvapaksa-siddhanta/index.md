@@ -1,6 +1,6 @@
 # Chain: ipvv chunkK-purvapaksa-siddhanta
 
-Canonical: https://svread.pages.dev/chain/ipvv/chunkK-purvapaksa-siddhanta/
+Canonical: https://svatantrya.net/chain/ipvv/chunkK-purvapaksa-siddhanta/
 
 | Field | Value |
 |---|---|

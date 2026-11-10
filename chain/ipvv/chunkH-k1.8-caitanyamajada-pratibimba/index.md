@@ -1,6 +1,6 @@
 # Chain: ipvv chunkH-k1.8-caitanyamajada-pratibimba
 
-Canonical: https://svread.pages.dev/chain/ipvv/chunkH-k1.8-caitanyamajada-pratibimba/
+Canonical: https://svatantrya.net/chain/ipvv/chunkH-k1.8-caitanyamajada-pratibimba/
 
 | Field | Value |
 |---|---|

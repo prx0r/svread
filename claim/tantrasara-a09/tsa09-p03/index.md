@@ -4,7 +4,7 @@ tantrasara-a09 tsa09-p03 (9.36-9.53) passes link checks; no formal theorems boun
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/tantrasara-a09/tsa09-p03/
+Canonical: https://svatantrya.net/claim/tantrasara-a09/tsa09-p03/
 
 ## Passage (excerpt as hashed)
 

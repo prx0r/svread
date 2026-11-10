@@ -4,7 +4,7 @@ vbt vbt-p10 (92-101) passes link checks; no formal theorems bound. Chunk gate BL
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/vbt/vbt-p10/
+Canonical: https://svatantrya.net/claim/vbt/vbt-p10/
 
 ## Passage (excerpt as hashed)
 

@@ -1,6 +1,6 @@
 # Chain: bhairavanukarana bhair-p03
 
-Canonical: https://svread.pages.dev/chain/bhairavanukarana/bhair-p03/
+Canonical: https://svatantrya.net/chain/bhairavanukarana/bhair-p03/
 
 | Field | Value |
 |---|---|

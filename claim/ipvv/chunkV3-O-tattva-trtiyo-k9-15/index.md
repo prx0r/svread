@@ -4,7 +4,7 @@ ipvv chunkV3-O-tattva-trtiyo-k9-15 (M00022:11600-12263) links incomplete (7 gaps
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/ipvv/chunkV3-O-tattva-trtiyo-k9-15/
+Canonical: https://svatantrya.net/claim/ipvv/chunkV3-O-tattva-trtiyo-k9-15/
 
 ## Passage (excerpt as hashed)
 

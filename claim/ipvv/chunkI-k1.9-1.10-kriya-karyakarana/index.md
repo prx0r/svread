@@ -4,7 +4,7 @@ ipvv chunkI-k1.9-1.10-kriya-karyakarana (M00020:5077-5585) links incomplete (7 g
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/ipvv/chunkI-k1.9-1.10-kriya-karyakarana/
+Canonical: https://svatantrya.net/claim/ipvv/chunkI-k1.9-1.10-kriya-karyakarana/
 
 ## Passage (excerpt as hashed)
 

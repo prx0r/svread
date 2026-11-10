@@ -1,6 +1,6 @@
 # Chain: parapravesika par-p08
 
-Canonical: https://svread.pages.dev/chain/parapravesika/par-p08/
+Canonical: https://svatantrya.net/chain/parapravesika/par-p08/
 
 | Field | Value |
 |---|---|

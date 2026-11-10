@@ -4,7 +4,7 @@ kramastotra kram-p07 (7) passes link checks; no formal theorems bound. Chunk gat
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/kramastotra/kram-p07/
+Canonical: https://svatantrya.net/claim/kramastotra/kram-p07/
 
 ## Passage (excerpt as hashed)
 

@@ -4,7 +4,7 @@ tantrasara-a06 tsa06-p01 (6.1-6.17) passes link checks; no formal theorems bound
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/tantrasara-a06/tsa06-p01/
+Canonical: https://svatantrya.net/claim/tantrasara-a06/tsa06-p01/
 
 ## Passage (excerpt as hashed)
 

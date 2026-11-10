@@ -4,7 +4,7 @@ ipvv chunkL-memory-error-sankaranandana (M00020:6300-6900) links incomplete (7 g
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/ipvv/chunkL-memory-error-sankaranandana/
+Canonical: https://svatantrya.net/claim/ipvv/chunkL-memory-error-sankaranandana/
 
 ## Passage (excerpt as hashed)
 

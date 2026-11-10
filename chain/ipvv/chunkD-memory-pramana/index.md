@@ -1,6 +1,6 @@
 # Chain: ipvv chunkD-memory-pramana
 
-Canonical: https://svread.pages.dev/chain/ipvv/chunkD-memory-pramana/
+Canonical: https://svatantrya.net/chain/ipvv/chunkD-memory-pramana/
 
 | Field | Value |
 |---|---|

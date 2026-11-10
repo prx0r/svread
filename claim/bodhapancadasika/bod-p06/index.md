@@ -4,7 +4,7 @@ bodhapancadasika bod-p06 (6) passes link checks; no formal theorems bound. Chunk
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/bodhapancadasika/bod-p06/
+Canonical: https://svatantrya.net/claim/bodhapancadasika/bod-p06/
 
 ## Passage (excerpt as hashed)
 

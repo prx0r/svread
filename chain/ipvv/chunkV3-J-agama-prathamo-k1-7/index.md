@@ -1,6 +1,6 @@
 # Chain: ipvv chunkV3-J-agama-prathamo-k1-7
 
-Canonical: https://svread.pages.dev/chain/ipvv/chunkV3-J-agama-prathamo-k1-7/
+Canonical: https://svatantrya.net/chain/ipvv/chunkV3-J-agama-prathamo-k1-7/
 
 | Field | Value |
 |---|---|

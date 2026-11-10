@@ -1,6 +1,6 @@
 # Chain: svabodhasiddhi svab-p03
 
-Canonical: https://svread.pages.dev/chain/svabodhasiddhi/svab-p03/
+Canonical: https://svatantrya.net/chain/svabodhasiddhi/svab-p03/
 
 | Field | Value |
 |---|---|

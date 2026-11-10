@@ -4,7 +4,7 @@ paramarthacarca par-p06 (6) passes link checks; no formal theorems bound. Chunk 
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/paramarthacarca/par-p06/
+Canonical: https://svatantrya.net/claim/paramarthacarca/par-p06/
 
 ## Passage (excerpt as hashed)
 

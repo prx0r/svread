@@ -1,6 +1,6 @@
 # Chain: sambandhasiddhi samb-p02
 
-Canonical: https://svread.pages.dev/chain/sambandhasiddhi/samb-p02/
+Canonical: https://svatantrya.net/chain/sambandhasiddhi/samb-p02/
 
 | Field | Value |
 |---|---|

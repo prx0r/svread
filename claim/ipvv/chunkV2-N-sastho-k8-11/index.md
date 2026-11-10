@@ -4,7 +4,7 @@ ipvv chunkV2-N-sastho-k8-11 (M00021:10000-10385) links incomplete (7 gaps named)
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/ipvv/chunkV2-N-sastho-k8-11/
+Canonical: https://svatantrya.net/claim/ipvv/chunkV2-N-sastho-k8-11/
 
 ## Passage (excerpt as hashed)
 

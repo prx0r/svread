@@ -1,6 +1,6 @@
 # Chain: sivasutra sivs-p05
 
-Canonical: https://svread.pages.dev/chain/sivasutra/sivs-p05/
+Canonical: https://svatantrya.net/chain/sivasutra/sivs-p05/
 
 | Field | Value |
 |---|---|

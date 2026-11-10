@@ -4,7 +4,7 @@ paramarthasara param-p04 (29-37) passes link checks; counts REGISTERED without a
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/paramarthasara/param-p04/
+Canonical: https://svatantrya.net/claim/paramarthasara/param-p04/
 
 ## Passage (excerpt as hashed)
 

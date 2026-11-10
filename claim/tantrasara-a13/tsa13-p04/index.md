@@ -4,7 +4,7 @@ tantrasara-a13 tsa13-p04 (13.62-13.101) passes link checks; no formal theorems b
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/tantrasara-a13/tsa13-p04/
+Canonical: https://svatantrya.net/claim/tantrasara-a13/tsa13-p04/
 
 ## Passage (excerpt as hashed)
 

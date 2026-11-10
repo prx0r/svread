@@ -4,7 +4,7 @@ ipvv chunkV3-I-kriya-caturtho-close-k20-21 (M00022:7200-7662) links incomplete (
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/ipvv/chunkV3-I-kriya-caturtho-close-k20-21/
+Canonical: https://svatantrya.net/claim/ipvv/chunkV3-I-kriya-caturtho-close-k20-21/
 
 ## Passage (excerpt as hashed)
 

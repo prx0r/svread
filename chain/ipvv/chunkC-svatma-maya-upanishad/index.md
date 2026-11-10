@@ -1,6 +1,6 @@
 # Chain: ipvv chunkC-svatma-maya-upanishad
 
-Canonical: https://svread.pages.dev/chain/ipvv/chunkC-svatma-maya-upanishad/
+Canonical: https://svatantrya.net/chain/ipvv/chunkC-svatma-maya-upanishad/
 
 | Field | Value |
 |---|---|

@@ -1,6 +1,6 @@
 # Chain: paratrimshika para-p02
 
-Canonical: https://svread.pages.dev/chain/paratrimshika/para-p02/
+Canonical: https://svatantrya.net/chain/paratrimshika/para-p02/
 
 | Field | Value |
 |---|---|

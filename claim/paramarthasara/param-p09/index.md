@@ -4,7 +4,7 @@ paramarthasara param-p09 (74-82) passes link checks; no formal theorems bound. C
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/paramarthasara/param-p09/
+Canonical: https://svatantrya.net/claim/paramarthasara/param-p09/
 
 ## Passage (excerpt as hashed)
 

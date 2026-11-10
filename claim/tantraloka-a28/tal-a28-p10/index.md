@@ -4,7 +4,7 @@ tantraloka-a28 tal-a28-p10 (28.91-28.100) links incomplete (5 gaps named); no fo
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p10/
+Canonical: https://svatantrya.net/claim/tantraloka-a28/tal-a28-p10/
 
 ## Passage (excerpt as hashed)
 

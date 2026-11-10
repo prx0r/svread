@@ -4,7 +4,7 @@ ipvv chunkV2-G-pancamo-vimarsa-k7-10 (M00021:4400-5200) links incomplete (7 gaps
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/ipvv/chunkV2-G-pancamo-vimarsa-k7-10/
+Canonical: https://svatantrya.net/claim/ipvv/chunkV2-G-pancamo-vimarsa-k7-10/
 
 ## Passage (excerpt as hashed)
 

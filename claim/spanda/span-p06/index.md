@@ -4,7 +4,7 @@ spanda span-p06 (16-2) links incomplete (5 gaps named); no formal theorems bound
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/spanda/span-p06/
+Canonical: https://svatantrya.net/claim/spanda/span-p06/
 
 ## Passage (excerpt as hashed)
 

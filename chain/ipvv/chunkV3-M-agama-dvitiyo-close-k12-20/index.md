@@ -1,6 +1,6 @@
 # Chain: ipvv chunkV3-M-agama-dvitiyo-close-k12-20
 
-Canonical: https://svread.pages.dev/chain/ipvv/chunkV3-M-agama-dvitiyo-close-k12-20/
+Canonical: https://svatantrya.net/chain/ipvv/chunkV3-M-agama-dvitiyo-close-k12-20/
 
 | Field | Value |
 |---|---|

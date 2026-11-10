@@ -4,7 +4,7 @@ ipvv chunkH-k1.8-caitanyamajada-pratibimba (M00020:4300-5077) links incomplete (
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/ipvv/chunkH-k1.8-caitanyamajada-pratibimba/
+Canonical: https://svatantrya.net/claim/ipvv/chunkH-k1.8-caitanyamajada-pratibimba/
 
 ## Passage (excerpt as hashed)
 

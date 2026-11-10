@@ -4,7 +4,7 @@ ipvv chunkV2-L-sastho-vimarsa-smrti-apohana (M00021:8405-9200) links incomplete 
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/ipvv/chunkV2-L-sastho-vimarsa-smrti-apohana/
+Canonical: https://svatantrya.net/claim/ipvv/chunkV2-L-sastho-vimarsa-smrti-apohana/
 
 ## Passage (excerpt as hashed)
 

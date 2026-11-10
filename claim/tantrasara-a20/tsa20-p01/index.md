@@ -4,7 +4,7 @@ tantrasara-a20 tsa20-p01 (20.1-20.20) passes link checks; no formal theorems bou
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/tantrasara-a20/tsa20-p01/
+Canonical: https://svatantrya.net/claim/tantrasara-a20/tsa20-p01/
 
 ## Passage (excerpt as hashed)
 

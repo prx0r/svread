@@ -4,7 +4,7 @@ stavacintamani stav-p01 (2-11) passes link checks; no formal theorems bound. Chu
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/stavacintamani/stav-p01/
+Canonical: https://svatantrya.net/claim/stavacintamani/stav-p01/
 
 ## Passage (excerpt as hashed)
 

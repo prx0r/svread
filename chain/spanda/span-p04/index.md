@@ -1,6 +1,6 @@
 # Chain: spanda span-p04
 
-Canonical: https://svread.pages.dev/chain/spanda/span-p04/
+Canonical: https://svatantrya.net/chain/spanda/span-p04/
 
 | Field | Value |
 |---|---|

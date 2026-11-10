@@ -1,6 +1,6 @@
 # Chain: isvarasiddhi isva-p06
 
-Canonical: https://svread.pages.dev/chain/isvarasiddhi/isva-p06/
+Canonical: https://svatantrya.net/chain/isvarasiddhi/isva-p06/
 
 | Field | Value |
 |---|---|

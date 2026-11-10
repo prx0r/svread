@@ -1,6 +1,6 @@
 # Chain: pancashloki pan-p03
 
-Canonical: https://svread.pages.dev/chain/pancashloki/pan-p03/
+Canonical: https://svatantrya.net/chain/pancashloki/pan-p03/
 
 | Field | Value |
 |---|---|

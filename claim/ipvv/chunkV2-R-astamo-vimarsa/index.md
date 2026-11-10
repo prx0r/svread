@@ -4,7 +4,7 @@ ipvv chunkV2-R-astamo-vimarsa (M00021:12423-13200) links incomplete (7 gaps name
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/ipvv/chunkV2-R-astamo-vimarsa/
+Canonical: https://svatantrya.net/claim/ipvv/chunkV2-R-astamo-vimarsa/
 
 ## Passage (excerpt as hashed)
 

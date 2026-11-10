@@ -4,7 +4,7 @@ bhairavastava bh-p01 (1) passes link checks; no formal theorems bound. Chunk gat
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/bhairavastava/bh-p01/
+Canonical: https://svatantrya.net/claim/bhairavastava/bh-p01/
 
 ## Passage (excerpt as hashed)
 

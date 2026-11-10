@@ -4,7 +4,7 @@ ipvv chunkV2-A-caturtho-vimarsa-aham (M00021:29-700) links incomplete (7 gaps na
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/ipvv/chunkV2-A-caturtho-vimarsa-aham/
+Canonical: https://svatantrya.net/claim/ipvv/chunkV2-A-caturtho-vimarsa-aham/
 
 ## Passage (excerpt as hashed)
 

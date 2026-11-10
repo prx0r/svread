@@ -1,6 +1,6 @@
 # Chain: parapravesika par-p06
 
-Canonical: https://svread.pages.dev/chain/parapravesika/par-p06/
+Canonical: https://svatantrya.net/chain/parapravesika/par-p06/
 
 | Field | Value |
 |---|---|

@@ -4,7 +4,7 @@ kramastotra kram-p23 (23) passes link checks; no formal theorems bound. Chunk ga
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/kramastotra/kram-p23/
+Canonical: https://svatantrya.net/claim/kramastotra/kram-p23/
 
 ## Passage (excerpt as hashed)
 

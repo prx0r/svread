@@ -1,6 +1,6 @@
 # Chain: stavacintamani stav-p05
 
-Canonical: https://svread.pages.dev/chain/stavacintamani/stav-p05/
+Canonical: https://svatantrya.net/chain/stavacintamani/stav-p05/
 
 | Field | Value |
 |---|---|

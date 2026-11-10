@@ -1,6 +1,6 @@
 # Chain: paramarthasara param-p08
 
-Canonical: https://svread.pages.dev/chain/paramarthasara/param-p08/
+Canonical: https://svatantrya.net/chain/paramarthasara/param-p08/
 
 | Field | Value |
 |---|---|

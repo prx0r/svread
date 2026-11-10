@@ -1,6 +1,6 @@
 # Chain: ipvv chunkV2-A-caturtho-vimarsa-aham
 
-Canonical: https://svread.pages.dev/chain/ipvv/chunkV2-A-caturtho-vimarsa-aham/
+Canonical: https://svatantrya.net/chain/ipvv/chunkV2-A-caturtho-vimarsa-aham/
 
 | Field | Value |
 |---|---|

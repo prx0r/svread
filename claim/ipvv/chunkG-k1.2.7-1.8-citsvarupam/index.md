@@ -4,7 +4,7 @@ ipvv chunkG-k1.2.7-1.8-citsvarupam (M00020:3700-4300) links incomplete (7 gaps n
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/ipvv/chunkG-k1.2.7-1.8-citsvarupam/
+Canonical: https://svatantrya.net/claim/ipvv/chunkG-k1.2.7-1.8-citsvarupam/
 
 ## Passage (excerpt as hashed)
 

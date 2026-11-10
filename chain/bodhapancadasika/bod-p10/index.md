@@ -1,6 +1,6 @@
 # Chain: bodhapancadasika bod-p10
 
-Canonical: https://svread.pages.dev/chain/bodhapancadasika/bod-p10/
+Canonical: https://svatantrya.net/chain/bodhapancadasika/bod-p10/
 
 | Field | Value |
 |---|---|

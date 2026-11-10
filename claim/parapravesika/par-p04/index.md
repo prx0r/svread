@@ -4,7 +4,7 @@ parapravesika par-p04 (mula-3 + vrtti (karyatva; abheda; tirodhana denied)) pass
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/parapravesika/par-p04/
+Canonical: https://svatantrya.net/claim/parapravesika/par-p04/
 
 ## Passage (excerpt as hashed)
 

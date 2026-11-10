@@ -4,7 +4,7 @@ sivastotravali sivst-p01 (stotra 1-4) links incomplete (7 gaps named); no formal
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/sivastotravali/sivst-p01/
+Canonical: https://svatantrya.net/claim/sivastotravali/sivst-p01/
 
 ## Passage (excerpt as hashed)
 

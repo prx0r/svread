@@ -1,6 +1,6 @@
 # Chain: tantrasara-a08 tsa08-p01
 
-Canonical: https://svread.pages.dev/chain/tantrasara-a08/tsa08-p01/
+Canonical: https://svatantrya.net/chain/tantrasara-a08/tsa08-p01/
 
 | Field | Value |
 |---|---|

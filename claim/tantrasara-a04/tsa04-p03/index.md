@@ -4,7 +4,7 @@ tantrasara-a04 tsa04-p03 (4.34-4.46) passes link checks; no formal theorems boun
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/tantrasara-a04/tsa04-p03/
+Canonical: https://svatantrya.net/claim/tantrasara-a04/tsa04-p03/
 
 ## Passage (excerpt as hashed)
 

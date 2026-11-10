@@ -4,7 +4,7 @@ ipvv chunkV3-H-kriya-caturtho-k12-19 (M00022:6300-7200) links incomplete (7 gaps
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/ipvv/chunkV3-H-kriya-caturtho-k12-19/
+Canonical: https://svatantrya.net/claim/ipvv/chunkV3-H-kriya-caturtho-k12-19/
 
 ## Passage (excerpt as hashed)
 

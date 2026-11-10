@@ -1,6 +1,6 @@
 # Chain: ipvv chunkJ-k1.11-kartapi-kalpita
 
-Canonical: https://svread.pages.dev/chain/ipvv/chunkJ-k1.11-kartapi-kalpita/
+Canonical: https://svatantrya.net/chain/ipvv/chunkJ-k1.11-kartapi-kalpita/
 
 | Field | Value |
 |---|---|

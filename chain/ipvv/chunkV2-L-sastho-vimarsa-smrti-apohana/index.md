@@ -1,6 +1,6 @@
 # Chain: ipvv chunkV2-L-sastho-vimarsa-smrti-apohana
 
-Canonical: https://svread.pages.dev/chain/ipvv/chunkV2-L-sastho-vimarsa-smrti-apohana/
+Canonical: https://svatantrya.net/chain/ipvv/chunkV2-L-sastho-vimarsa-smrti-apohana/
 
 | Field | Value |
 |---|---|

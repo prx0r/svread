@@ -4,7 +4,7 @@ pancashloki pan-p05 (5) passes link checks; no formal theorems bound. Chunk gate
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/pancashloki/pan-p05/
+Canonical: https://svatantrya.net/claim/pancashloki/pan-p05/
 
 ## Passage (excerpt as hashed)
 

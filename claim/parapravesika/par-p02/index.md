@@ -4,7 +4,7 @@ parapravesika par-p02 (mula-1 + vrtti (nanu; dvidha; sun-analogy)) passes link c
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/parapravesika/par-p02/
+Canonical: https://svatantrya.net/claim/parapravesika/par-p02/
 
 ## Passage (excerpt as hashed)
 

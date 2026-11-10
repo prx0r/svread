@@ -4,7 +4,7 @@ ajadapramatrsiddhi ajad-p01 (1-9) passes link checks; no formal theorems bound. 
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/ajadapramatrsiddhi/ajad-p01/
+Canonical: https://svatantrya.net/claim/ajadapramatrsiddhi/ajad-p01/
 
 ## Passage (excerpt as hashed)
 

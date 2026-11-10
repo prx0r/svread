@@ -1,6 +1,6 @@
 # Chain: ipvv chunkA-svatyandya
 
-Canonical: https://svread.pages.dev/chain/ipvv/chunkA-svatyandya/
+Canonical: https://svatantrya.net/chain/ipvv/chunkA-svatyandya/
 
 | Field | Value |
 |---|---|

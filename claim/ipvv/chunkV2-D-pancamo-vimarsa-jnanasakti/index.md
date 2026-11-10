@@ -4,7 +4,7 @@ ipvv chunkV2-D-pancamo-vimarsa-jnanasakti (M00021:2082-2800) links incomplete (7
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/ipvv/chunkV2-D-pancamo-vimarsa-jnanasakti/
+Canonical: https://svatantrya.net/claim/ipvv/chunkV2-D-pancamo-vimarsa-jnanasakti/
 
 ## Passage (excerpt as hashed)
 

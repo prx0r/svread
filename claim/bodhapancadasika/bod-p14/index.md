@@ -4,7 +4,7 @@ bodhapancadasika bod-p14 (14) passes link checks; no formal theorems bound. Chun
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/bodhapancadasika/bod-p14/
+Canonical: https://svatantrya.net/claim/bodhapancadasika/bod-p14/
 
 ## Passage (excerpt as hashed)
 

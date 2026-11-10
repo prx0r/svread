@@ -1,6 +1,6 @@
 # Chain: ipvv chunkV2-B-sahajavimarsa-prakasavimarsa
 
-Canonical: https://svread.pages.dev/chain/ipvv/chunkV2-B-sahajavimarsa-prakasavimarsa/
+Canonical: https://svatantrya.net/chain/ipvv/chunkV2-B-sahajavimarsa-prakasavimarsa/
 
 | Field | Value |
 |---|---|

@@ -1,6 +1,6 @@
 # Chain: tantraloka-a20 tal-a20-p02
 
-Canonical: https://svread.pages.dev/chain/tantraloka-a20/tal-a20-p02/
+Canonical: https://svatantrya.net/chain/tantraloka-a20/tal-a20-p02/
 
 | Field | Value |
 |---|---|

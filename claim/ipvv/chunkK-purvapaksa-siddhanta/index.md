@@ -4,7 +4,7 @@ ipvv chunkK-purvapaksa-siddhanta (M00020:5750-6300) links incomplete (7 gaps nam
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/ipvv/chunkK-purvapaksa-siddhanta/
+Canonical: https://svatantrya.net/claim/ipvv/chunkK-purvapaksa-siddhanta/
 
 ## Passage (excerpt as hashed)
 

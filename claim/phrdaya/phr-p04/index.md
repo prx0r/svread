@@ -4,7 +4,7 @@ phrdaya phr-p04 (13-16) passes link checks; counts REGISTERED without a per-decl
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/phrdaya/phr-p04/
+Canonical: https://svatantrya.net/claim/phrdaya/phr-p04/
 
 ## Passage (excerpt as hashed)
 

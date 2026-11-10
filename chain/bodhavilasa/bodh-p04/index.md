@@ -1,6 +1,6 @@
 # Chain: bodhavilasa bodh-p04
 
-Canonical: https://svread.pages.dev/chain/bodhavilasa/bodh-p04/
+Canonical: https://svatantrya.net/chain/bodhavilasa/bodh-p04/
 
 | Field | Value |
 |---|---|

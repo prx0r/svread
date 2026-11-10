@@ -1,6 +1,6 @@
 # Chain: ipvv chunkN-close-mahesvara-saktis
 
-Canonical: https://svread.pages.dev/chain/ipvv/chunkN-close-mahesvara-saktis/
+Canonical: https://svatantrya.net/chain/ipvv/chunkN-close-mahesvara-saktis/
 
 | Field | Value |
 |---|---|

@@ -1,6 +1,6 @@
 # Chain: sivastotravali sivst-p03
 
-Canonical: https://svread.pages.dev/chain/sivastotravali/sivst-p03/
+Canonical: https://svatantrya.net/chain/sivastotravali/sivst-p03/
 
 | Field | Value |
 |---|---|

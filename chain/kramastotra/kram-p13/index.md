@@ -1,6 +1,6 @@
 # Chain: kramastotra kram-p13
 
-Canonical: https://svread.pages.dev/chain/kramastotra/kram-p13/
+Canonical: https://svatantrya.net/chain/kramastotra/kram-p13/
 
 | Field | Value |
 |---|---|

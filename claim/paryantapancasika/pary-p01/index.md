@@ -4,7 +4,7 @@ paryantapancasika pary-p01 (1-7) passes link checks; no formal theorems bound. C
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/paryantapancasika/pary-p01/
+Canonical: https://svatantrya.net/claim/paryantapancasika/pary-p01/
 
 ## Passage (excerpt as hashed)
 

@@ -4,7 +4,7 @@ bodhavilasa bodh-p04 (31-40) passes link checks; no formal theorems bound. Chunk
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/bodhavilasa/bodh-p04/
+Canonical: https://svatantrya.net/claim/bodhavilasa/bodh-p04/
 
 ## Passage (excerpt as hashed)
 

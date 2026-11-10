@@ -4,7 +4,7 @@ parapravesika par-p06 (mula-5 + 36-tattva list + tattva definition) passes link 
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/parapravesika/par-p06/
+Canonical: https://svatantrya.net/claim/parapravesika/par-p06/
 
 ## Passage (excerpt as hashed)
 

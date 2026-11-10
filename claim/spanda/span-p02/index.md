@@ -4,7 +4,7 @@ spanda span-p02 (11-19) passes link checks; no formal theorems bound. Chunk gate
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/spanda/span-p02/
+Canonical: https://svatantrya.net/claim/spanda/span-p02/
 
 ## Passage (excerpt as hashed)
 

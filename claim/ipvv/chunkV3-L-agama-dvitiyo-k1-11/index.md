@@ -4,7 +4,7 @@ ipvv chunkV3-L-agama-dvitiyo-k1-11 (M00022:9272-10000) links incomplete (7 gaps 
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/ipvv/chunkV3-L-agama-dvitiyo-k1-11/
+Canonical: https://svatantrya.net/claim/ipvv/chunkV3-L-agama-dvitiyo-k1-11/
 
 ## Passage (excerpt as hashed)
 

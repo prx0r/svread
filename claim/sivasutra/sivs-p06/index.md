@@ -4,7 +4,7 @@ sivasutra sivs-p06 (3.21-3.30) links incomplete (5 gaps named); no formal theore
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/sivasutra/sivs-p06/
+Canonical: https://svatantrya.net/claim/sivasutra/sivs-p06/
 
 ## Passage (excerpt as hashed)
 

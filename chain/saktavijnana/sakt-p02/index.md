@@ -1,6 +1,6 @@
 # Chain: saktavijnana sakt-p02
 
-Canonical: https://svread.pages.dev/chain/saktavijnana/sakt-p02/
+Canonical: https://svatantrya.net/chain/saktavijnana/sakt-p02/
 
 | Field | Value |
 |---|---|

@@ -4,7 +4,7 @@ tantraloka-a13 tal-a13-p12 (13.111-13.120) links incomplete (5 gaps named); no f
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p12/
+Canonical: https://svatantrya.net/claim/tantraloka-a13/tal-a13-p12/
 
 ## Passage (excerpt as hashed)
 

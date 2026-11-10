@@ -1,6 +1,6 @@
 # Chain: spandasandoha sand-p01
 
-Canonical: https://svread.pages.dev/chain/spandasandoha/sand-p01/
+Canonical: https://svatantrya.net/chain/spandasandoha/sand-p01/
 
 | Field | Value |
 |---|---|

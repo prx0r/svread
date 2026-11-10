@@ -4,7 +4,7 @@ tantrasara-a08 tsa08-p01 (8.1-8.17) passes link checks; counts REGISTERED withou
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/tantrasara-a08/tsa08-p01/
+Canonical: https://svatantrya.net/claim/tantrasara-a08/tsa08-p01/
 
 ## Passage (excerpt as hashed)
 

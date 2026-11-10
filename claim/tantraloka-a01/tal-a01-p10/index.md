@@ -4,7 +4,7 @@ tantraloka-a01 tal-a01-p10 (1.91-1.100) links incomplete (5 gaps named); no form
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/tantraloka-a01/tal-a01-p10/
+Canonical: https://svatantrya.net/claim/tantraloka-a01/tal-a01-p10/
 
 ## Passage (excerpt as hashed)
 

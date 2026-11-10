@@ -1,6 +1,6 @@
 # Chain: paryantapancasika pary-p06
 
-Canonical: https://svread.pages.dev/chain/paryantapancasika/pary-p06/
+Canonical: https://svatantrya.net/chain/paryantapancasika/pary-p06/
 
 | Field | Value |
 |---|---|

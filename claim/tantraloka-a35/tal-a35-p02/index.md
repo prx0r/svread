@@ -4,7 +4,7 @@ tantraloka-a35 tal-a35-p02 (35.11-35.20) links incomplete (5 gaps named); no for
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/tantraloka-a35/tal-a35-p02/
+Canonical: https://svatantrya.net/claim/tantraloka-a35/tal-a35-p02/
 
 ## Passage (excerpt as hashed)
 

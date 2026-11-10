@@ -4,7 +4,7 @@ ipvv chunkV2-C-vistanti-ajadapramatrsiddhi (M00021:1400-2082) links incomplete (
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/ipvv/chunkV2-C-vistanti-ajadapramatrsiddhi/
+Canonical: https://svatantrya.net/claim/ipvv/chunkV2-C-vistanti-ajadapramatrsiddhi/
 
 ## Passage (excerpt as hashed)
 

@@ -4,7 +4,7 @@ tantraloka-a23 tal-a23-p10 (23.91-23.100) links incomplete (5 gaps named); no fo
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/tantraloka-a23/tal-a23-p10/
+Canonical: https://svatantrya.net/claim/tantraloka-a23/tal-a23-p10/
 
 ## Passage (excerpt as hashed)
 

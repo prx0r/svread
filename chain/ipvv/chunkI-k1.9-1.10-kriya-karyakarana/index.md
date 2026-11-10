@@ -1,6 +1,6 @@
 # Chain: ipvv chunkI-k1.9-1.10-kriya-karyakarana
 
-Canonical: https://svread.pages.dev/chain/ipvv/chunkI-k1.9-1.10-kriya-karyakarana/
+Canonical: https://svatantrya.net/chain/ipvv/chunkI-k1.9-1.10-kriya-karyakarana/
 
 | Field | Value |
 |---|---|

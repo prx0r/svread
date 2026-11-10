@@ -1,6 +1,6 @@
 # Chain: pancashloki pan-p02
 
-Canonical: https://svread.pages.dev/chain/pancashloki/pan-p02/
+Canonical: https://svatantrya.net/chain/pancashloki/pan-p02/
 
 | Field | Value |
 |---|---|

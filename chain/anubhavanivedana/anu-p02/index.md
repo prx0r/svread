@@ -1,6 +1,6 @@
 # Chain: anubhavanivedana anu-p02
 
-Canonical: https://svread.pages.dev/chain/anubhavanivedana/anu-p02/
+Canonical: https://svatantrya.net/chain/anubhavanivedana/anu-p02/
 
 | Field | Value |
 |---|---|

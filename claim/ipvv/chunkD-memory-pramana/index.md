@@ -4,7 +4,7 @@ ipvv chunkD-memory-pramana (M00020:1800-2400) links incomplete (7 gaps named); n
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/ipvv/chunkD-memory-pramana/
+Canonical: https://svatantrya.net/claim/ipvv/chunkD-memory-pramana/
 
 ## Passage (excerpt as hashed)
 

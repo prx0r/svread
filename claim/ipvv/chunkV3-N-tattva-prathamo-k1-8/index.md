@@ -4,7 +4,7 @@ ipvv chunkV3-N-tattva-prathamo-k1-8 (M00022:10895-11600) links incomplete (7 gap
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/ipvv/chunkV3-N-tattva-prathamo-k1-8/
+Canonical: https://svatantrya.net/claim/ipvv/chunkV3-N-tattva-prathamo-k1-8/
 
 ## Passage (excerpt as hashed)
 

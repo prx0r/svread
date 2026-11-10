@@ -4,7 +4,7 @@ ipvv chunkE-cit-acid-dvairasya (M00020:2400-3126) links incomplete (7 gaps named
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/ipvv/chunkE-cit-acid-dvairasya/
+Canonical: https://svatantrya.net/claim/ipvv/chunkE-cit-acid-dvairasya/
 
 ## Passage (excerpt as hashed)
 

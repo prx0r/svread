@@ -4,7 +4,7 @@ kramastotra kram-p28 (28) passes link checks; no formal theorems bound. Chunk ga
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/kramastotra/kram-p28/
+Canonical: https://svatantrya.net/claim/kramastotra/kram-p28/
 
 ## Passage (excerpt as hashed)
 

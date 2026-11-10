@@ -4,7 +4,7 @@ parapravesika par-p05 (mula-4 + vrtti (pramana-needs-none) + taduktam verse) pas
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/parapravesika/par-p05/
+Canonical: https://svatantrya.net/claim/parapravesika/par-p05/
 
 ## Passage (excerpt as hashed)
 

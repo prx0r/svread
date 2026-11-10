@@ -4,7 +4,7 @@ paramarthasara param-p12 (101-105) passes link checks; no formal theorems bound.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/paramarthasara/param-p12/
+Canonical: https://svatantrya.net/claim/paramarthasara/param-p12/
 
 ## Passage (excerpt as hashed)
 

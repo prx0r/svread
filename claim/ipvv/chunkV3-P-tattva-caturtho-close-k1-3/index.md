@@ -4,7 +4,7 @@ ipvv chunkV3-P-tattva-caturtho-close-k1-3 (M00022:12263-12539) links incomplete 
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/ipvv/chunkV3-P-tattva-caturtho-close-k1-3/
+Canonical: https://svatantrya.net/claim/ipvv/chunkV3-P-tattva-caturtho-close-k1-3/
 
 ## Passage (excerpt as hashed)
 

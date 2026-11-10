@@ -4,7 +4,7 @@ ipvv chunkV2-P-saptamo-k5-10 (M00021:11200-12000) links incomplete (7 gaps named
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/ipvv/chunkV2-P-saptamo-k5-10/
+Canonical: https://svatantrya.net/claim/ipvv/chunkV2-P-saptamo-k5-10/
 
 ## Passage (excerpt as hashed)
 

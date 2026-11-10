@@ -1,6 +1,6 @@
 # Chain: ipvv chunkV2-C-vistanti-ajadapramatrsiddhi
 
-Canonical: https://svread.pages.dev/chain/ipvv/chunkV2-C-vistanti-ajadapramatrsiddhi/
+Canonical: https://svatantrya.net/chain/ipvv/chunkV2-C-vistanti-ajadapramatrsiddhi/
 
 | Field | Value |
 |---|---|

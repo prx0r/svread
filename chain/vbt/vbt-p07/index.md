@@ -1,6 +1,6 @@
 # Chain: vbt vbt-p07
 
-Canonical: https://svread.pages.dev/chain/vbt/vbt-p07/
+Canonical: https://svatantrya.net/chain/vbt/vbt-p07/
 
 | Field | Value |
 |---|---|

@@ -1,6 +1,6 @@
 # Chain: ipvv chunkV2-D-pancamo-vimarsa-jnanasakti
 
-Canonical: https://svread.pages.dev/chain/ipvv/chunkV2-D-pancamo-vimarsa-jnanasakti/
+Canonical: https://svatantrya.net/chain/ipvv/chunkV2-D-pancamo-vimarsa-jnanasakti/
 
 | Field | Value |
 |---|---|

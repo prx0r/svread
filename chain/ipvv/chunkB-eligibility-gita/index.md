@@ -1,6 +1,6 @@
 # Chain: ipvv chunkB-eligibility-gita
 
-Canonical: https://svread.pages.dev/chain/ipvv/chunkB-eligibility-gita/
+Canonical: https://svatantrya.net/chain/ipvv/chunkB-eligibility-gita/
 
 | Field | Value |
 |---|---|

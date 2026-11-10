@@ -1,6 +1,6 @@
 # Chain: ipvv chunkV2-Q-saptamo-k11-close
 
-Canonical: https://svread.pages.dev/chain/ipvv/chunkV2-Q-saptamo-k11-close/
+Canonical: https://svatantrya.net/chain/ipvv/chunkV2-Q-saptamo-k11-close/
 
 | Field | Value |
 |---|---|

@@ -1,6 +1,6 @@
 # Chain: ajadapramatrsiddhi ajad-p02
 
-Canonical: https://svread.pages.dev/chain/ajadapramatrsiddhi/ajad-p02/
+Canonical: https://svatantrya.net/chain/ajadapramatrsiddhi/ajad-p02/
 
 | Field | Value |
 |---|---|

@@ -1,6 +1,6 @@
 # Chain: ghatakarpara ghat-p01
 
-Canonical: https://svread.pages.dev/chain/ghatakarpara/ghat-p01/
+Canonical: https://svatantrya.net/chain/ghatakarpara/ghat-p01/
 
 | Field | Value |
 |---|---|

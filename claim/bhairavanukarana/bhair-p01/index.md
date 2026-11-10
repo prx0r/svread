@@ -4,7 +4,7 @@ bhairavanukarana bhair-p01 (1-10) passes link checks; no formal theorems bound. 
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/bhairavanukarana/bhair-p01/
+Canonical: https://svatantrya.net/claim/bhairavanukarana/bhair-p01/
 
 ## Passage (excerpt as hashed)
 

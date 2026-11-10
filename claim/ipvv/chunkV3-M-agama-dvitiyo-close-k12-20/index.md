@@ -4,7 +4,7 @@ ipvv chunkV3-M-agama-dvitiyo-close-k12-20 (M00022:10000-10886) links incomplete 
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/ipvv/chunkV3-M-agama-dvitiyo-close-k12-20/
+Canonical: https://svatantrya.net/claim/ipvv/chunkV3-M-agama-dvitiyo-close-k12-20/
 
 ## Passage (excerpt as hashed)
 

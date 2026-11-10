@@ -4,7 +4,7 @@ spanda span-p01 (2-10) passes link checks; counts REGISTERED without a per-decla
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/spanda/span-p01/
+Canonical: https://svatantrya.net/claim/spanda/span-p01/
 
 ## Passage (excerpt as hashed)
 

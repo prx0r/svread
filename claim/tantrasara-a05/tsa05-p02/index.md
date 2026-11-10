@@ -4,7 +4,7 @@ tantrasara-a05 tsa05-p02 (5.20-5.43) passes link checks; no formal theorems boun
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/tantrasara-a05/tsa05-p02/
+Canonical: https://svatantrya.net/claim/tantrasara-a05/tsa05-p02/
 
 ## Passage (excerpt as hashed)
 

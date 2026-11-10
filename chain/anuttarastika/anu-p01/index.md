@@ -1,6 +1,6 @@
 # Chain: anuttarastika anu-p01
 
-Canonical: https://svread.pages.dev/chain/anuttarastika/anu-p01/
+Canonical: https://svatantrya.net/chain/anuttarastika/anu-p01/
 
 | Field | Value |
 |---|---|

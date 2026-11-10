@@ -4,7 +4,7 @@ parapravesika par-p09 (bija verse (amnaya); pot/ghee; phonemic involution; hrida
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/parapravesika/par-p09/
+Canonical: https://svatantrya.net/claim/parapravesika/par-p09/
 
 ## Passage (excerpt as hashed)
 

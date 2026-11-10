@@ -6,7 +6,7 @@ ghatakarpara ghat-p02 (10-18) passes link checks; no formal theorems bound. Chun
 
 > Editorial hold: Translation produced from incomplete passages; withheld for rechecking against the complete source. English withheld until: recheck coverage vs complete source.
 
-Canonical: https://svread.pages.dev/claim/ghatakarpara/ghat-p02/
+Canonical: https://svatantrya.net/claim/ghatakarpara/ghat-p02/
 
 ## Passage (excerpt as hashed)
 

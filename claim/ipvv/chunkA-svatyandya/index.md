@@ -4,7 +4,7 @@ ipvv chunkA-svatyandya (M00020:200-600) links incomplete (7 gaps named); no form
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
-Canonical: https://svread.pages.dev/claim/ipvv/chunkA-svatyandya/
+Canonical: https://svatantrya.net/claim/ipvv/chunkA-svatyandya/
 
 ## Passage (excerpt as hashed)
 
