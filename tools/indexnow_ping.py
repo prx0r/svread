@@ -16,6 +16,7 @@ import json
 import os
 import re
 import sys
+import time
 import urllib.request
 from pathlib import Path
 
@@ -28,6 +29,8 @@ def main() -> int:
     ap.add_argument("--host", default=os.environ.get(
         "SITE_ORIGIN", "https://svread.pages.dev").rstrip("/").split("://")[-1])
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--batch", type=int, default=200,
+                    help="urls per request (first full submit got 403)")
     a = ap.parse_args()
     if not re.fullmatch(r"[0-9a-f]{16,128}", a.key or ""):
         print("indexnow: need --key (hex)", file=sys.stderr)
@@ -38,22 +41,36 @@ def main() -> int:
     if not urls:
         print("indexnow: no sitemap urls for host", file=sys.stderr)
         return 2
-    payload = json.dumps({"host": a.host, "key": a.key,
-                          "urlList": urls}).encode()
-    print(f"indexnow: {len(urls)} urls for {a.host} (key {a.key[:8]}...)")
+    payload0 = {"host": a.host, "key": a.key}
+    print(f"indexnow: {len(urls)} urls for {a.host} (key {a.key[:8]}...), "
+          f"batches of {a.batch}")
     if a.dry_run:
         print("dry-run: nothing sent")
         return 0
-    req = urllib.request.Request("https://api.indexnow.org/indexnow",
-                                 data=payload,
-                                 headers={"Content-Type": "application/json"})
-    try:
-        with urllib.request.urlopen(req, timeout=60) as r:
-            print(f"indexnow: HTTP {r.status}")
-            return 0 if r.status in (200, 202) else 1
-    except Exception as e:  # noqa: BLE001 — report, don't crash silently
-        print(f"indexnow: submit failed: {e}", file=sys.stderr)
-        return 1
+    bad = 0
+    for i in range(0, len(urls), a.batch):
+        chunk = urls[i:i + a.batch]
+        payload = json.dumps({**payload0, "urlList": chunk}).encode()
+        ok = False
+        for attempt in (1, 2, 3):
+            req = urllib.request.Request(
+                "https://api.indexnow.org/indexnow", data=payload,
+                headers={"Content-Type": "application/json",
+                         "User-Agent": "svread-indexnow/1"})
+            try:
+                with urllib.request.urlopen(req, timeout=60) as r:
+                    print(f"  batch {i // a.batch + 1}: HTTP {r.status}")
+                    ok = r.status in (200, 202)
+                    break
+            except Exception as e:  # noqa: BLE001
+                print(f"  batch {i // a.batch + 1} try {attempt}: {e}",
+                      file=sys.stderr)
+                time.sleep(5 * attempt)
+        if not ok:
+            bad += 1
+        time.sleep(2)
+    print("indexnow: " + ("ALL SENT" if not bad else f"{bad} batches failed"))
+    return 0 if not bad else 1
 
 
 if __name__ == "__main__":
