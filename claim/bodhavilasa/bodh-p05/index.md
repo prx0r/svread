@@ -12,9 +12,10 @@ Canonical: https://svread.pages.dev/claim/bodhavilasa/bodh-p05/
 etad advayam ity uktaṃ jñānāmṛtam anuttamam yaḥ pibec chāmyate tasya saṃsāraviṣamūrchanam bodhollāsavidhāneyaṃ śivaprāpyai mahātmanām rājñaḥ kṣemābhidhānasya śāstram atyantanirmalam iti śrīkṣemarājakṛtaṃ bodhavilāsākhyaṃ yogaśāstram
 ```
 
-## Reading
+## Reading (machine draft, verse-mapped)
 
-Withheld. no pack L2 entry maps to this passage excerpt (verse-level mapping required, none found)
+**bodh-p05-v41** — This non-dual thus said — nectar-of-knowledge unsurpassed — who may drink is quenched. His fever-of-saṃsāra-poison.
+**bodh-p05-v42** — This bliss-of-awareness-method for attaining Śiva — of great souls, of king Kṣema-named — treatise extremely pure.
 
 ## Claims
 

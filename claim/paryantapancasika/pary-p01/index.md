@@ -12,9 +12,9 @@ Canonical: https://svread.pages.dev/claim/paryantapancasika/pary-p01/
 ādyantāntargatānantaśaktiviśrāntinirbharām anuccāryām ahaṃ vācam adhīye hṛdayaṃ vibhoḥ
 ```
 
-## Reading
+## Reading (machine draft, verse-mapped)
 
-Withheld. no pack L2 entry maps to this passage excerpt (verse-level mapping required, none found)
+**pary-p01-v01** — Filled with rest of beginning-end-entered endless power — unspeakable — I study speech: the Lord's heart.
 
 ## Claims
 

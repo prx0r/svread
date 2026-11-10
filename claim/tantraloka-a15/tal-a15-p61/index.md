@@ -14,7 +14,7 @@ Canonical: https://svread.pages.dev/claim/tantraloka-a15/tal-a15-p61/
 
 ## Reading
 
-Withheld. no verified L2 layer in this pack
+Withheld. legacy markdown rendering (section-level, not verse-mapped to this passage)
 
 ## Claims
 

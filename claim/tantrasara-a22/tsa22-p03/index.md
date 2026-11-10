@@ -27,7 +27,20 @@ karṇākṣimukhanāsādicakrasthaṃ devatāgaṇam // abhts_22.45 grahītāra
 
 ## Reading (machine draft, verse-mapped)
 
+**tsa-a22-v34** — Upon the lotus that covers eternal, rising auspiciousness, resting within the triangle — the stalk never parted, rooted in the true sixteen-petalled lotus.
+**tsa-a22-v35** — In the fire at the course of rubbing the pair of lotuses strung upon the central stalk — from the collision, in the middle, of moon-beauty and the flood of the sun's rays.
+**tsa-a22-v36** — From union with the three-petalled ruddy ray of power, in the middle — sprout-emission. Thus, by the seal of the wondrous gathering of moon and sun, in a flash.
+**tsa-a22-v37** — Carrying out within the order that begins with emission, one gains steadiness in the fourth — this in the entry of the sky-going seal, mutually, of one's own power and power-bearer.
+**tsa-a22-v38** — Whoever would abide made of relish amid drinking, enjoyment, play, laughter, and the rest — with unmanifest sound, roar, outburst, hearing, tone, and tone's end.
+**tsa-a22-v39** — That mantra-power, with unbroken, unstruck ultimate realities — in the rests of going and coming, in the ear, in the eye, in contact with the double mark.
+**tsa-a22-v40** — In the yoga of their closing, called the body's end — and in the couple, in the wheel — that which, throat-reaching from the heart-place between the breasts to the lip's end, is unmanifest.
+**tsa-a22-v41** — Having heard that which lies between the two wheels, when agitation ends they come to rest there — and thus this is the supreme eightfold Nāda-Bhairava.
+**tsa-a22-v42** — Since she is light and sound, that mantra-bearing pervasion is called the highest: in every act, for the knower, there would be release while living.
+**tsa-a22-v43** — Knowing that, liberated in scripture — a vessel of alien Kula wisdom is the womb — one should make the void-and-nonvoid abode, with fire and wind in the single staff.
+**tsa-a22-v44** — Having made the trident of one taste — essence abiding in essence, as it were — with doubt abandoned, riteless: I am not — thus contemplating.
+**tsa-a22-v45** — Beholding the goddesses dwelling in the body — joy, agitation, and the rest in the mass of consciousness — the host of goddesses stationed in the wheels of ear, eye, mouth, and nose.
 **tsa-a22-v47** — Ever beholding the grasper — by Khecarī one succeeds, certainly.
+**tsa-a22-v48** — In a far distant chasm, in a flash hurling one's own body — dwelling without violence, having drawn in both hands, gazing — one should practice this sky-going seal.
 **tsa-a22-v50** — In the stated-pervaded breath, made of the universe — strengthening, by the taught pervasion of consciousness, through the offering of libation, food, perfume, incense, and the rest — that is breath-sacrifice.
 **tsa-a22-v51** — But rest's establishment is consciousness-sacrifice — already taught before.
 **tsa-a22-v52** — Thus, having performed any one of these sacrifices — should the disciple become one whose heart is painted with such doubtlessness — then for him, preceded by the beholding of that sacrifice and needing no prior offering of sesame and ghee, one should perform initiation by a glance, in the order of contemplation through the aforesaid pervasion. But at the close of the occasional rite, for indirect initiation and the rest, the earlier rule alone holds.

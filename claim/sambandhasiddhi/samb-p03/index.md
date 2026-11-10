@@ -12,9 +12,11 @@ Canonical: https://svread.pages.dev/claim/sambandhasiddhi/samb-p03/
 iti saṃbandhagatyuktā māyīyajñātṛniṣṭhitāḥ | dhiyo vibhinnārthadṛśo vyavahārapravartikāḥ na paraṃ tāstathā bhrāntāḥ sarvā api pratikṣaṇāt | svasaṃvitsaṃjñakānantacidvimarśapratiṣṭhitāḥ (p. 15) uktaḥ svasaṃvitsiddho'yaṃ nirbādha upayogavān | saṃbandhaḥ pratyabhijñāyāṃ pūrṇaḥ parikaraḥ punaḥ
 ```
 
-## Reading
+## Reading (machine draft, verse-mapped)
 
-Withheld. no pack L2 entry maps to this passage excerpt (verse-level mapping required, none found)
+**samb-p03-v21** — Thus relation's course told: resting-on-Māyā-knowers — intellects of varied-thing-views, transaction-causing.
+**samb-p03-v22** — Not — but those, though called so erred — all even — moment by moment grounded in endless-awareness reflection called self-awareness.
+**samb-p03-v23** — Told, self-awareness-proved, this: unrefuted, useful — relation in recognition — full apparatus besides.
 
 ## Claims
 

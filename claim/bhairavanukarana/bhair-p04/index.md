@@ -12,9 +12,9 @@ Canonical: https://svread.pages.dev/claim/bhairavanukarana/bhair-p04/
 śāktāṇḍakhaṇḍamadhye viśvarasāḥ sarvam ahaṃ pibāmi sadā | vyañjayasi narakapālagarudhiramiṣād etad iva me 'ntaḥ
 ```
 
-## Reading
+## Reading (machine draft, verse-mapped)
 
-Withheld. no pack L2 entry maps to this passage excerpt (verse-level mapping required, none found)
+**bhair-p04-v31** — In Śakti-egg-fragment middle, world-juices — all I drink always. Shown by skull-cup-blood-pretext — this as-it-were my within.
 
 ## Claims
 

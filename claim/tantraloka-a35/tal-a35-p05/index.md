@@ -14,7 +14,7 @@ Canonical: https://svread.pages.dev/claim/tantraloka-a35/tal-a35-p05/
 
 ## Reading
 
-Withheld. no verified L2 layer in this pack
+Withheld. legacy markdown rendering (section-level, not verse-mapped to this passage)
 
 ## Claims
 

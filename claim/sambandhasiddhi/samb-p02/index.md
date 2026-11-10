@@ -12,9 +12,15 @@ Canonical: https://svread.pages.dev/claim/sambandhasiddhi/samb-p02/
 vyāpāro'nena ruddho'sau na vikalpāntaraṃ spṛśet | vikalpāntarasaṃsparśe mātṛbhedaprasaṅgataḥ tadekāmarśavartyekaśabdādhyāsavaśādbrajet | aneko'pyekatāmartho yathā ghaṭapaṭāviti (p. 13) ityasti tāvadanyaśca viśeṣaṇaviśeṣyayoḥ | saṃbandha upakārārthaḥ sa jñātumupayujyate bahutve'pi bhaveddvitvaṃ viśeṣaṇaviśeṣyayoḥ | dvivimarśabhuvo yadvadrājño'śvarathapattayaḥ vimarśo rājña ityekaḥ svasāmānyonmukhaḥ paraḥ | svāmisāmānyasaṃbandhasahaḥ puruṣa ityayam rājñaḥ puruṣa ityeṣa paścātsaṃbandhagocaraḥ | kalpyo'nenātha vā kalpyau pūrvau te sarvathā trayaḥ ṣaṣṭhyādivācyaḥ saṃbandho viniviṣṭo viśeṣaṇe | viśeṣyaikatvamāpanne svaṃ ca rūpamanujjhati (p. 14) ekahānyā pradhānena śuddhenānyānyayogitā | syādguṇasya yathā rājñaḥ puruṣo brāhmaṇasya ca tathānyena pradhānena yaikatānyāpareṇa vā | saṃbandhākhyā guṇasya syādrājño'śvaḥ puruṣo yathā
 ```
 
-## Reading
+## Reading (machine draft, verse-mapped)
 
-Withheld. no pack L2 entry maps to this passage excerpt (verse-level mapping required, none found)
+**samb-p02-v12** — Activity blocked by this — it should touch no other thought; for on touching another thought, knower-difference follows.
+**samb-p02-v13** — Abiding in that-one-reflection, by one-word-superimposition force — the many too would reach unity — as pot-cloth means.
+**samb-p02-v14** — So there is also another — qualifier-qualified relation, for helping; it serves for knowing.
+**samb-p02-v15** — Even in manyness there'd be twoness — from double-reflection birth — as the king's horses, chariots, men.
+**samb-p02-v16** — Reflection 'of king' is one, facing own-generality; the other — 'man,' this, with master-generality-relation.
+**samb-p02-v17** — 'The king's man' — this, after, in relation's range — is to be thought by this; or the former two to be thought — those three in every way.
+**samb-p02-v18** — Genitive-stated relation, settled in the qualifier — reaching qualified-oneness, yet not abandoning own form.
 
 ## Claims
 

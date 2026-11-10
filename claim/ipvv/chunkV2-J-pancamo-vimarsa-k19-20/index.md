@@ -814,7 +814,7 @@ eva | tathāhi pradhānatvena arthakriyopayogena bhedyatvena
 
 ## Reading
 
-Withheld. no pack L2 entry maps to this passage excerpt (verse-level mapping required, none found)
+Withheld. pack L2 entries carry no Sanskrit cites to join on (no verse mapping possible)
 
 ## Claims
 

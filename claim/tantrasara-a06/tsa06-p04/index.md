@@ -25,6 +25,7 @@ sākaṃ sṛṣṭisthemasaṃhāracakrair nityodyukto bhairavībhāvam eti // 
 **tsa-a06-v79** — Therefore until between pulses has not arisen, so long one knowing alone.
 **tsa-a06-v80** — Hence very eighty-one, when remembering the word, through entering various natures — that one alone, having the Lord as object, that thought, when time is devoured, results as thought-free-natured alone — thus.
 **tsa-a06-v81** — Thus seeing the entire time-course in breath-rise alone, and the various countless emissions-dissolutions, noting right there, by self alone recognizing lordship — one is freed alone — thus.
+**tsa-a06-v82** — Seeing the awareness-formed self's breath-power, the form going there and beyond time together, with emission-stay-dissolution wheels, ever-ready attains Bhairavī-being.
 
 ## Claims
 

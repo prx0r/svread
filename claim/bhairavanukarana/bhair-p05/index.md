@@ -12,9 +12,9 @@ Canonical: https://svread.pages.dev/claim/bhairavanukarana/bhair-p05/
 vividhaśmaśānamālāvetālāvṛtaḥ prakāśayase | saṃvittiviṣayakalanāmadhyaś citibhairavo 'smīti
 ```
 
-## Reading
+## Reading (machine draft, verse-mapped)
 
-Withheld. no pack L2 entry maps to this passage excerpt (verse-level mapping required, none found)
+**bhair-p05-v41** — Much-cremation-garland-ghoul-girt, shown sense-field-measuring-midst — Consciousness-Bhairava am I — thus.
 
 ## Claims
 

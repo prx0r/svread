@@ -14,7 +14,7 @@ Canonical: https://svread.pages.dev/claim/tantraloka-a14/tal-a14-p03/
 
 ## Reading
 
-Withheld. no verified L2 layer in this pack
+Withheld. legacy markdown rendering (section-level, not verse-mapped to this passage)
 
 ## Claims
 

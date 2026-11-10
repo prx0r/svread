@@ -12,9 +12,9 @@ Canonical: https://svread.pages.dev/claim/bhairavanukarana/bhair-p03/
 varadena pāṇinā tvaṃ viśvavibhūtipradatvam abhinayasi | na khalu paratattvaniṣṭho vibhavamalaiḥ spṛśyate jātu
 ```
 
-## Reading
+## Reading (machine draft, verse-mapped)
 
-Withheld. no pack L2 entry maps to this passage excerpt (verse-level mapping required, none found)
+**bhair-p03-v21** — By the boon-giving hand, You enact universe-glory-giving. Not indeed supreme-principle-fixed by glory-stains touched ever.
 
 ## Claims
 

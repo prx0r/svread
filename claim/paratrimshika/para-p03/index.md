@@ -14,7 +14,7 @@ anena jñātamātreṇa jñāyate sarvaśaktibhiḥ | śākinīkulasāmānyo bha
 
 ## Reading
 
-Withheld. no verified L2 layer in this pack
+Withheld. legacy markdown rendering (section-level, not verse-mapped to this passage)
 
 ## Claims
 

@@ -30,6 +30,7 @@ tatra digaṣṭake saṃcaran taddikpaticeṣṭām iva pramātuḥ anukārayat
 **tsa-a06-v57** — Thus as in out-breath is time-rise, so too in in-breath, from the heart to the root-seat's end.
 **tsa-a06-v58** — And as in heart-throat-palate-brow-cleft-twelve-ends the six causes called Brahmā-Viṣṇu-Rudra-Īśa-Sadāśiva-Unsupported, just so too in in-breath, in heart-bulb-bliss-contraction-expansion-twelve-ends — these childhood-youth-age-rebirth-release lords.
 **tsa-a06-v59** — Now in equal-breath is time-rise.
+**tsa-a06-v60** — The equal-breath, moving in the ten heart-channels, conveys juices and the rest evenly through the whole body. There moving in the eight directions, it imitates as it were the regents' doings of the knower.
 **tsa-a06-v61** — But moving up and down, in three channels it does going-coming.
 **tsa-a06-v62** — There on equinox-day, outside, at dawn-time, a ghaṭikā and a quarter it carries in the middle path.
 **tsa-a06-v63** — Then nine hundred breath-castings — thus by counting, outside two and a half ghaṭikās — left, right, left, right, left — thus five passages.

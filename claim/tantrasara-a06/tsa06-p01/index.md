@@ -29,6 +29,7 @@ tatra sapañcāṃśe aṅgule caṣaka iti sthityā ghaṭikodayaḥ ghaṭikā
 **tsa-a06-v05** — There, though even in the body, with outer and inner, breath is warp-and-woof-formed — yet of distinctly sensible effort, that, from the heart beginning — thus from that alone this is to be described.
 **tsa-a06-v06** — There lord-power, self-power, and effort — thus a triad — are the cause in driving breath, through secondary-primary states.
 **tsa-a06-v07** — There, from the heart to the twelve-end's end, by one's own fingers, of all is the thirty-six-fingered breath-course, in going out and in coming in, since of each is fitted strength, effort, and body.
+**tsa-a06-v08** — There the water-clock, the lunar day, the month, the year, and as year-group-natured — thus the entire time is completed. There, in the finger and a fifth, the finger, caṣaka — thus by the rule is the ghaṭikā-rise; for a ghaṭikā is by sixty caṣakas; hence seventy-two-fingered it is.
 
 ## Claims
 
