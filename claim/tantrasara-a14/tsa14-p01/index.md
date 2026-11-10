@@ -1,0 +1,23 @@
+# tantrasara-a14 tsa14-p01 (14.1-14.29)
+
+tantrasara-a14 tsa14-p01 (14.1-14.29) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+
+Canonical: https://svread.pages.dev/claim/tantrasara-a14/tsa14-p01/
+
+## Passage (excerpt as hashed)
+
+```
+tantrasāra, caturdaśam āhnikam atha putrakadīkṣāvidhiḥ // abhts_14.1 sa ca vistīrṇaḥ tantrālokāt avadhāryaḥ // abhts_14.2 saṃkṣiptas tu ucyate // abhts_14.3 samayyantaṃ vidhiṃ kṛtvā tṛtīye 'hni triśūlābje maṇḍale sāmudāyikaṃ yāgaṃ pūjayet tatra bāhyaparivāraṃ dvāradevatācakraṃ ca bahiḥ pūjayet tato maṇḍalapūrvabhāge aiśakoṇāt ārabhya āgneyāntaṃ paṅktikrameṇa gaṇapatiṃ guruṃ paramaguruṃ parameṣṭhinaṃ pūrvācāryān yoginīcakraṃ vāgīśvarīṃ kṣetrapālaṃ ca pūjayet // abhts_14.4 tata ājñāṃ samucitām ādāya śūlamūlāt prabhṛti sitakamalāntaṃ samastam adhvānaṃ nyasya arcayet tato madhyame triśūle madhyārāyāṃ bhagavatī śrīparābhaṭṭārikā bhairavanāthena saha vāmārāyāṃ tathaiva śrīmadaparā dakṣiṇārāyāṃ śrīparāparā dakṣiṇe triśūle madhye śrīparāparā vāme triśūle madhye śrīmadaparā dve tu yathāsvam // abhts_14.5 evaṃ sarvasthānādhiṣṭhātṛtve bhagavatyāḥ sarvaṃ pūrṇaṃ tadadhiṣṭhānāt bhavati iti // abhts_14.6 tato madhyaśūlamadhyārāyāṃ samastaṃ devatācakraṃ lokapālāstraparyantam abhinnatayaiva pūjayet tadadhiṣṭhānāt sarvatra pūjitam // abhts_14.7 tataḥ kumbhe kalaśe maṇḍale agnau svātmani ca abhedabhāvanayā pañcādhikaraṇam anusaṃdhiṃ kuryāt tataḥ parameśvarādvayarasabṛṃhitena puṣpādinā viśeṣapūjāṃ kuryāt // abhts_14.8 kiṃ bahunā tarpaṇanaivedyaparipūrṇaṃ vittaśāṭhyavirahito yāgasthānaṃ kuryāt // abhts_14.9 asati vitte tu mahāmaṇḍalayāgo na kartavya eva // abhts_14.10 paśūṃś ca jīvato nivedayet // abhts_14.11 te 'pi hi evam anugṛhītā bhavanti iti kāruṇikatayā paśuvidhau na vicikitset // abhts_14.12 tato 'gnau parameśvaraṃ tilājyādibhiḥ saṃtarpya tadagre 'nyaṃ paśuṃ vapāhomārthaṃ kuryāt devatācakraṃ tadvapayā tarpayet punar maṇḍalaṃ pūjayet tataḥ parameśvaraṃ vijñapya sarvābhinnasamastaṣaḍadhvaparipūrṇam ātmānaṃ bhāvayitvā śiṣyaṃ puro 'vasthitaṃ kuryāt // abhts_14.13 parokṣadīkṣāyāṃ jīvanmṛtarūpāyām agre taṃ dhyāyet tadīyāṃ vā pratikṛtiṃ darbhagomayādimayīm agre sthāpayet // abhts_14.14 tathāvidhaṃ śiṣyam arghapātravipruṭprokṣitaṃ puṣpādibhiś ca pūjitaṃ kṛtvā samastam adhvānaṃ taddehe nyaset // abhts_14.15 tata itthaṃ vicārayet bhogecchoḥ śubhaṃ na śodhayet // abhts_14.16 mumukṣos tu śubhāśubham ubhayam api // abhts_14.17 nirbījāyāṃ tu samayapāśān api śodhayet sā ca āsannamaraṇasya atyantamūrkhasyāpi kartavyā iti parameśvarājñā tasyāpi tu gurudevatāgnibhaktiniṣṭhatvamātrāt siddhiḥ // abhts_14.18 atra ca sarvatra vāsanāgrahaṇam eva bhedakam mantrāṇāṃ vāsanānuguṇyena tattatkāryakāritvāt // abhts_14.19 evaṃ vāsanābhedam anusaṃdhāya mukhyamantraparāmarśaviśeṣeṇa samastam adhvānaṃ svadehagataṃ śivādvayabhāvanayā śodhayet // abhts_14.20 evaṃ krameṇa pādāṅguṣṭhāt prabhṛti dvādaśāntaparyantaṃ svātmadehasvātmacaitanyābhinnīkṛtadehacaitanyasya śiṣyasya āsādya tatraiva anantānandasarasi svātantryaiśvaryasāre samastecchājñānakriyāśaktinirbharasamastadevatācakreśvare samastādhvabharite cinmātrāvaśeṣaviśvabhāvamaṇḍale tathāvidharūpaikīkāreṇa śiṣyātmanā saha ekībhūto viśrāntim āsādayet ity evaṃ parameśvarābhinno 'sau bhavati // abhts_14.21 tato yadi bhogecchuḥ syāt tato yatraiva tattve bhogecchā asya bhavati tatraiva samastavyastatayā yojayet // abhts_14.22 tadanantaraṃ śeṣavṛttaye parameśvarasvabhāvāt jhaṭiti prasṛtaṃ śuddhatattvamayaṃ deham asmai cintayet ity eṣā samastapāśaviyojikā dīkṣā // abhts_14.23 tataḥ śiṣyo guruṃ dakṣiṇābhiḥ pūrvavat pūjayet // abhts_14.24 tato 'gnau śiṣyasya vidhiṃ kuryāt śrīparāmantraḥ amukasyāmukaṃ tattvaṃ śodhayāmi iti svāhāntaṃ pratitattvaṃ tisra āhutayaḥ ante pūrṇā vauṣaḍantā // abhts_14.25 evaṃ śivāntatattvaśuddhiḥ tato yojanikoktakrameṇa pūrṇāhutiḥ // abhts_14.26 bhogecchoḥ bhogasthāne yojanikārtham aparā śuddhatattvasṛṣṭyartham anyā // abhts_14.27 tato guroḥ dakṣiṇābhiḥ pūjanam ity eṣā putrakadīkṣā // abhts_14.28 yatra vartamānam ekaṃ varjayitvā bhūtaṃ bhaviṣyac ca karma śudhyati // abhts_14.29
+```
+
+## Reading
+
+Withheld: no reader bundle covers this passage in this release. See the verify pack for layer bytes.
+
+## Claims
+
+| Claim | Status | Basis |
+|---|---|---|
+| Deterministic chunk gate | BLOCKED (ABSTENTION) | proofs.chunk_gate |
+| Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
+| Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

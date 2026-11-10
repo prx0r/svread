@@ -1,0 +1,23 @@
+# tantraloka-a15 tal-a15-p46 (15.451-15.460)
+
+tantraloka-a15 tal-a15-p46 (15.451-15.460) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+
+Canonical: https://svread.pages.dev/claim/tantraloka-a15/tal-a15-p46/
+
+## Passage (excerpt as hashed)
+
+```
+[and]-dṛśornivārayetso@pi śiṣyo jhaṭiti paśyati / jhaṭityālokite māntraprabhāvollāsite sthale tadāveśavaśācchiṣyastanmayatvaṃ prapadyate / yathā hi raktahṛdayastāṃstānkāntāguṇānsvayam paśyatyevaṃ śaktipātasaṃskṛto mantrasannidhim / cakṣurādīndriyāṇāṃ hi sahakāriṇi tādṛśe satyatyantamadṛṣṭe prāgapi jāyeta yogyatā / kṛtaprajñā hi vinyastamantraṃ dehaṃ jalaṃ sthalam pratimādi ca paśyanto viduḥ saṃnidhyasaṃnidhī / nyastamantrāṃśusubhagātkiṃcidbhūtādimudritāḥ trasyantīveti tattaccidakṣaistatsahakāribhiḥ / tataḥ sa dakṣiṇe haste dīptaṃ sarvādhvapūritam mantracakraṃ yajedvāmapāṇinā pāśadāhakam / taṃ śiṣyasya karaṃ mūrdhni dehanyastādhvasaṃtateḥ nyasyetkrameṇa sarvāṃṅgaṃ tenaivāsya ca saṃspṛśet / uktaṃ dīkṣottare caitajjvālāsaṃpātaśobhinā dattena śivahastena samayī sa vidhīyate / sāyujyamīśvare tattve jīvato@dhītiyogyatā śrīdevyāthāmale tūktamaṣṭārāntastriśūlake / cakre bhairavasannābhāvaghorādyaṣṭakārake
+```
+
+## Reading
+
+Withheld: no reader bundle covers this passage in this release. See the verify pack for layer bytes.
+
+## Claims
+
+| Claim | Status | Basis |
+|---|---|---|
+| Deterministic chunk gate | BLOCKED (ABSTENTION) | proofs.chunk_gate |
+| Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
+| Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

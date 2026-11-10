@@ -1,0 +1,23 @@
+# tantraloka-a09 tal-a09-p16 (9.151-9.160)
+
+tantraloka-a09 tal-a09-p16 (9.151-9.160) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+
+Canonical: https://svread.pages.dev/claim/tantraloka-a09/tal-a09-p16/
+
+## Passage (excerpt as hashed)
+
+```
+[and]-garbhīkṛtānantabhāvivibhāsā sā parā niśā / sā jaḍā bhedarūpatvāt kāryaṃ cāsyā jaḍaṃ yataḥ vyāpinī viśvahetutvāt sūkṣmā kāryaikakalpanāt / śivaśaktyavinābhāvānnityaikā mūlakāraṇam acetanamanekātma sarva kārya yathā ghaṭaḥ / pradhānaṃ ca tathā tasmāt kārya nātmā tu cetanaḥ ata evādhvani proktā pūrvaṃ māyā dvidhā sthitā / yathā ca māyā devasya śaktirabhyeti bhedinam tattvabhāvaṃ tathānyo@pi kalādistattvavistaraḥ / niruddhaśakteryā kiṃcitkartṛtodvalanātmikā nāthasya śaktiḥ sādhastātpuṃsaḥ kṣeptrī kalocyate / evaṃ vidyādayo@pyete dharāntāḥ paramārthataḥ śivaśaktimayā eva proktanyāyānusārataḥ / tathāpi yatpṛthagbhānaṃ kalāderīśvarecchayā tato jaḍatve kāryatve pṛthaktattvasthitau dhruvam / upādānaṃ smṛtā māyā kvacittatkāryameva ca tathāvabhāsacitraṃ ca rūpamanyonyavarjitam / yadbhāti kila saṃkalpe tadasti ghaṭavadvahiḥ khapuṣpādyastitāṃ brūmastato na vyabhicāritā / khapuṣpaṃ kāladiṅmātṛsāpekṣaṃ nāstiśabdataḥ
+```
+
+## Reading
+
+Withheld: no reader bundle covers this passage in this release. See the verify pack for layer bytes.
+
+## Claims
+
+| Claim | Status | Basis |
+|---|---|---|
+| Deterministic chunk gate | BLOCKED (ABSTENTION) | proofs.chunk_gate |
+| Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
+| Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

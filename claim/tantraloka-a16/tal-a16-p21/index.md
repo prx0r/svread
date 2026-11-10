@@ -1,0 +1,23 @@
+# tantraloka-a16 tal-a16-p21 (16.201-16.210)
+
+tantraloka-a16 tal-a16-p21 (16.201-16.210) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+
+Canonical: https://svread.pages.dev/claim/tantraloka-a16/tal-a16-p21/
+
+## Passage (excerpt as hashed)
+
+```
+[and]-iti kecittadayuktaṃ sa vicitro bhoga eva kathitaḥ syāt / saṃskāraśeṣavartanajīvitamadhye@sya samayalopādyam nāyāti vighnajālaṃ kriyābahutvaṃ mumukṣostat / yasmāt sabījadīkṣāsaṃskṛtapuruṣasya samayalopādye bhukte bhogānmokṣo naivaṃ nirbījadīkṣāyām / iti kecinmanyante yuktaṃ taccāpi yatsmṛtaṃ śāstre samayollaṅghanāddevi kravyādatvaṃ śataṃ samāḥ tasmāduruśiṣyamatau śivabhāvanirūḍhivitaraṇasamartham / kramikaṃ tattvoddharaṇādi karma mokṣe@pi yuktamativitatam yastu sadā bhāvanayā svabhyastajñānavānguruḥ sa śiśoḥ / apavargāya yathecchaṃ yaṃ kaṃcidupāyamanutiṣṭhet evaṃ śiṣyatanau śodhyaṃ nyasyādhvānaṃ yathepsitam / śodhakaṃ mantramupari nyasyettattvānusārataḥ dvayormātṛkayostattvasthityā varṇakramaḥ purā / kathitastaṃ tathā nyasyettattattattvaviśuddhaye varṇādhvā yadyapi proktaḥ śodhyaḥ pāśātmakastu saḥ / māyīyaḥ śodhakastvanyaḥ śivātmā paravāṅmayaḥ uvāca sadyojyotiśca vṛttau svāyambhuvasya tat / bāḍhameko hi pāśātmā śabdo@nyaśca śivātmakaḥ
+```
+
+## Reading
+
+Withheld: no reader bundle covers this passage in this release. See the verify pack for layer bytes.
+
+## Claims
+
+| Claim | Status | Basis |
+|---|---|---|
+| Deterministic chunk gate | BLOCKED (ABSTENTION) | proofs.chunk_gate |
+| Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
+| Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

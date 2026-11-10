@@ -1,0 +1,23 @@
+# tantraloka-a22 tal-a22-p02 (22.11-22.20)
+
+tantraloka-a22 tal-a22-p02 (22.11-22.20) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+
+Canonical: https://svread.pages.dev/claim/tantraloka-a22/tal-a22-p02/
+
+## Passage (excerpt as hashed)
+
+```
+[and]-bhogyatvapāśavatyāgaḥ patikartṛtvasaṃkṣayaḥ / svātmasthitiścetyevaṃ hi darśanāntarasaṃsthiteḥ proktamuddharaṇīyatvaṃ śivaśaktīritasya hi / atha vaiṣṇavabauddhāditantrāntādharavartinām yadā śivārkaraśmyoghairvikāsi hṛdayāmbujam / liṅgoddhṛtistadā pūrvaṃ dīkṣākarma tataḥ param prāgliṅgāntarasaṃstho@pi dīkṣātaḥ śivatāṃ vrajet / tatropavāsya taṃ cānyadine sādhāramantrataḥ sthaṇḍile pūjayitveśaṃ śrāvayettasya vartanīm / eṣa prāgabhavalliṅgī coditastvadhunā tvayā prasannena tadetasmai kuru samyaganugraham / svaliṅgatyāgaśaṅkotthaṃ prāyaścittaṃ ca māsya bhūt acirāttvanmayībhūya bhogaṃ mokṣaṃ prapadyatām / evamastvityathājñāṃ ca gṛhīrvā vratamasya tat apāsyāmbhasi nikṣipya snapayedanurūpataḥ / snātaṃ saṃprokṣayedarghapātrāmbhobhiranantaram pañcagavyaṃ dantakāṣṭhaṃ tatastasmai samarpayet / tatastaṃ baddhanetraṃ ca praveśya praṇipātayet praṇavo mātṛkā māyā vyomavyāpī ṣaḍakṣaraḥ / bahurūpo@tha netrākhyaḥ sapta sādhāraṇā amī
+```
+
+## Reading
+
+Withheld: no reader bundle covers this passage in this release. See the verify pack for layer bytes.
+
+## Claims
+
+| Claim | Status | Basis |
+|---|---|---|
+| Deterministic chunk gate | BLOCKED (ABSTENTION) | proofs.chunk_gate |
+| Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
+| Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

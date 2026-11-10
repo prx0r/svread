@@ -1,0 +1,23 @@
+# tantraloka-a13 tal-a13-p20 (13.191-13.200)
+
+tantraloka-a13 tal-a13-p20 (13.191-13.200) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+
+Canonical: https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p20/
+
+## Passage (excerpt as hashed)
+
+```
+[and]-na manobuddhihīnastu jñānasyādhigamaḥ priye / parabhāvāttu tatsūkṣmaṃ śaktitattvaṃ nigadyate vivekaḥ sarvabhāvānāṃ śuddhabhāvānmahāśayaḥ / buddhitattvaṃ tu triguṇamuttamādhamamadhyamam aṇimādigataṃ cāpi bandhakaṃ jaḍamindriyam / nanu prātibhato muktau dīkṣayā kiṃ śivādhvare ūce@jñānā hi dīkṣāyāṃ bālavāliśayoṣitaḥ / pāśacchedādvimucyante prabuddhyante śivādhvare tasmāddīkṣā bhavatyeṣu kāraṇatvena sundari / dīkṣayā pāśamokṣe tu śuddhabhāvādvivekajam ityeṣa paṭhito granthaḥ svayaṃ ye boddhumakṣamāḥ / teṣāṃ śivoktisaṃvādādbodho dārḍhyaṃ vrajediti śrīmanniśāṭane cātmaguruśāstravaśāttridhā / jñānaṃ mukhyaṃ svopalabdhi vikalpārṇavatāraṇam mantrātmabhūtadravyāśadivyatattvādigocarā / śaṃkā vikalpamūlā hi śāmyetsvapratyayāditi enamevārthamantaḥsthaṃ gṛhītvā mālinīmate / evamasyātmanaḥ kāle kasmiṃścidyogyatāvaśāt śaivī saṃbadhyate śaktiḥ śāntā muktiphalapradā / tatsaṃbandhāttataḥ kaścittatkṣaṇādapavṛjyate
+```
+
+## Reading
+
+Withheld: no reader bundle covers this passage in this release. See the verify pack for layer bytes.
+
+## Claims
+
+| Claim | Status | Basis |
+|---|---|---|
+| Deterministic chunk gate | BLOCKED (ABSTENTION) | proofs.chunk_gate |
+| Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
+| Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

@@ -1,0 +1,23 @@
+# tantraloka-a11 tal-a11-p02 (11.11-11.20)
+
+tantraloka-a11 tal-a11-p02 (11.11-11.20) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+
+Canonical: https://svread.pages.dev/claim/tantraloka-a11/tal-a11-p02/
+
+## Passage (excerpt as hashed)
+
+```
+[and]-upadeśatadāveśaparamārthatvasiddhaye / bodhyatāmānayandevaḥ sphuṭameva vibhāvyate yato@taḥ śivatattve@pi kalāsaṃgatirucyate / aṇḍaṃ ca nāma bhuvanavibhāgasthitikāraṇam prāhurāvaraṇaṃ tacca śaktyantaṃ yāvadasti hi / yadyapi prāk śivākhye@pi tattve bhuvanapaddhatiḥ uktā tathāpyapratighe nāsminnāvṛtisaṃbhavaḥ / nanvevaṃ dharaṇīṃ muktvā śaktau prakṛtimāyayoḥ api cāpratighatve@pi kathamaṇḍasya saṃbhavaḥ / atrāsmadguravaḥ prāhuryatpṛthivyādipañcakam pratyakṣamidamābhāti tato@nyannāsti kiṃcana / meyatve sthūlasūkṣmatvānmānatve karaṇatvataḥ kartṛtollāsataḥ kartṛbhāve sphuṭatayoditam / triṃśattattvaṃ vibhedātma tadabhedo niśā matā kāryatvakaraṇatvādivibhāgagalane sati / vikāsotkasvatantratve śivāntaṃ pañcakaṃ jaguḥ śrīmatkālottarādau ca kathitaṃ bhūyasā tathā / pañcaitāni tu tattvāni yairvyāptamakhilaṃ jagat pañcamantratanau tena sadyojātādi bhaṇyate / īśānāntaṃ tatra tatra dharādigaganāntakam
+```
+
+## Reading
+
+Withheld: no reader bundle covers this passage in this release. See the verify pack for layer bytes.
+
+## Claims
+
+| Claim | Status | Basis |
+|---|---|---|
+| Deterministic chunk gate | BLOCKED (ABSTENTION) | proofs.chunk_gate |
+| Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
+| Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

@@ -1,0 +1,23 @@
+# tantraloka-a09 tal-a09-p15 (9.141-9.150)
+
+tantraloka-a09 tal-a09-p15 (9.141-9.150) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+
+Canonical: https://svread.pages.dev/claim/tantraloka-a09/tal-a09-p15/
+
+## Passage (excerpt as hashed)
+
+```
+[and]-mahāntaṃ te tathāntaḥsthabhāvanāpākasauṣṭhavāt / mantratvaṃ pratipadyante citrāccitraṃ ca karmataḥ asya kārmamalasyeyanmāyāntādhvavisāriṇaḥ / pradhānaṃ kāraṇaṃ proktamajñānātmāṇavo malaḥ kṣobho@sya lolikākhyasya sahakāritayā sphuṭam / tiṣṭhāsāyogyataunmukhyamīśvarecchāvaśācca tat na jaḍaścidadhiṣṭhānaṃ vinā kvāpi kṣamo yataḥ / aṇavo nāma naivānyatprakāśātmā maheśvaraḥ cidacidrūpatābhāsī pudgalaḥ kṣetravitpaśuḥ / cidrūpatvācca sa vyāpī nirguṇo niṣkriyastataḥ yogopāyepsako nityo mūrtivandhyaḥ prabhāṣyate / acittvādajñatā bhedo bhogyādbhoktrantarādatha teṣāmaṇūnāṃ sa mala īśvarecchāvaśādbhṛśam / prabudhyate tathā coktaṃ śāstre śrīpūrvanāmani īśvarecchāvaśādasya bhogecchā saṃprajāyate / bhogecchorupakārārthamādyo mantramaheśvaraḥ māyāṃ vikṣobhya saṃsāraṃ nirmimīte vicitrakam / māyā ca nāma devasya śaktiravyatirekiṇī bhedāvabhāsasvātantryaṃ tathāhi sa tayā kṛtaḥ / ādyo bhedāvabhāso yo vibhāgamanupeyivān
+```
+
+## Reading
+
+Withheld: no reader bundle covers this passage in this release. See the verify pack for layer bytes.
+
+## Claims
+
+| Claim | Status | Basis |
+|---|---|---|
+| Deterministic chunk gate | BLOCKED (ABSTENTION) | proofs.chunk_gate |
+| Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
+| Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

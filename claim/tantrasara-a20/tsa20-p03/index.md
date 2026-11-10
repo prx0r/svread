@@ -1,0 +1,23 @@
+# tantrasara-a20 tsa20-p03 (20.36-20.52)
+
+tantrasara-a20 tsa20-p03 (20.36-20.52) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+
+Canonical: https://svread.pages.dev/claim/tantrasara-a20/tsa20-p03/
+
+## Passage (excerpt as hashed)
+
+```
+tatra ādhāre viśvamayaṃ pātraṃ sthāpayitvā devatācakraṃ tarpayitvā svātmānaṃ vanditena tena tarpayet pātrābhāve bhadraṃ vellitaśuktiḥ vā dakṣahastena pātrākāraṃ bhadraṃ dvābhyām uparigatadakṣiṇābhyāṃ niḥsaṃdhīkṛtābhyām vellitaśuktiḥ patadbhiḥ bindubhiḥ vetālaguhyakāḥ saṃtuṣyanti dhārayā bhairavaḥ atra praveśo na kasyacit deyaḥ pramādāt praviṣṭasya vicāraṃ na kuryāt kṛtvā punar dviguṇaṃ cakrayāgaṃ kuryāt tato 'vadaṃśān bhojanādīn ca agre yatheṣṭaṃ vikīryeta guptagṛhe vā saṃketābhidhānavarjaṃ devatāśabdena sarvān yojayet iti vīrasaṃkarayāgaḥ // abhts_20.36 tato 'nte dakṣiṇātāmbūlavastrādibhiḥ tarpayet iti pradhānatamo 'yaṃ mūrtiyāgaḥ // abhts_20.37 adṛṣṭamaṇḍalo 'pi mūrtiyāgena parvadināni pūjayan varṣād eva putrakoktaṃ phalam eti vinā saṃdhyānuṣṭhānādibhiḥ iti vṛddhānāṃ bhogināṃ strīṇāṃ vidhir ayam śaktipāte sati upadeṣṭavyo guruṇā // abhts_20.38 atha pavitrakavidhiḥ // abhts_20.39 sa ca śrīratnamālātriśiromataśrīsiddhāmatādau vidhipūrvakaḥ pārameśvarājñāpūrakaś ca uktaṃ caitat śrītantrāloke vinā pavitrakeṇa sarvaṃ niṣphalam iti // abhts_20.40 tatra āṣāḍhaśuklāt kulapūrṇimādināntaṃ kāryaṃ pavitrakam tatra kārttikakṛṣṇapañcadaśī kulacakraṃ nityācakraṃ pūrayati iti śrīnityātantravidaḥ // abhts_20.41 māghaśuklapañcadaśī iti śrībhairavakulormividaḥ // abhts_20.42 dakṣiṇāyanāntapañcadaśī iti śrītantrasadbhāvavidaḥ // abhts_20.43 tatra vibhavena devaṃ pūjayitvā āhutyā tarpayitvā pavitrakaṃ dadyāt sauvarṇamuktāratnaviracitāt prabhṛti paṭasūtrakārpāsakuśagarbhāntam api kuryāt // abhts_20.44 tac ca tattvasaṃkhyagranthikaṃ padakalābhuvanavarṇamantrasaṃkhyagranthi ca jānvantam ekaṃ nābhyantam aparaṃ kaṇṭhāntam anyat śirasi anyat iti catvāri pavitrakāṇi devāya gurave ca samastādhvaparipūrṇatadrūpabhāvanena dadyāt śeṣebhya ekam iti // abhts_20.45 tato mahotsavaḥ kāryaḥ cāturmāsyaṃ saptadinaṃ tridinaṃ ca iti mukhyānvāpatkalpāḥ sati vibhave māsi māsi pavitrakam atha vā caturṣu māseṣu atha vā sakṛt tadakaraṇe prāyaścittaṃ japet jñānī api sambhavadvitto 'pi akaraṇe pratyavaiti lobhopahitajñānākaraṇe jñānanindāpatteḥ // abhts_20.46 yadā prāpyāpi vijñānaṃ dūṣitaṃ parameśaśāsanaṃ tadā prāyaścittī // abhts_20.47 iti vacanāt // abhts_20.48 ity eṣa pavitrakavidhiḥ // abhts_20.49 jñānalābhādau laukikotsavānte 'pi sarvatra saṃvidullāsādhikyaṃ devatācakrasaṃnidhiḥ viśeṣato bhavati iti tathāvidhādhikyaparyālocanayā tathāvidham eva viśeṣam anuyāgādau kuryāt // abhts_20.50 atha vyākhyāvidhiḥ // abhts_20.51 sarvaśāstrasampūrṇaṃ guruṃ vyākhyārtham abhyarthayeta so 'pi svaśiṣyāya paraśiṣyāyāpi vā samucitasaṃskārocitaṃ śāstraṃ vyācakṣīta adharaśāsanasthāyāpi karuṇāvaśāt īśvarecchāvaicitryodbhāvitaśaktipātasambhāvanābhāvitahṛdayo vyācakṣīta marmopadeśavarjam // abhts_20.52
+```
+
+## Reading
+
+Withheld: no reader bundle covers this passage in this release. See the verify pack for layer bytes.
+
+## Claims
+
+| Claim | Status | Basis |
+|---|---|---|
+| Deterministic chunk gate | BLOCKED (ABSTENTION) | proofs.chunk_gate |
+| Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
+| Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

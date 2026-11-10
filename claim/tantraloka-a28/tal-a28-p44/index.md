@@ -1,0 +1,23 @@
+# tantraloka-a28 tal-a28-p44 (28.431-28.435)
+
+tantraloka-a28 tal-a28-p44 (28.431-28.435) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+
+Canonical: https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p44/
+
+## Passage (excerpt as hashed)
+
+```
+[and]-tasmādavaśyaṃ dātavyā gurave dakṣiṇā punaḥ / pūrvaṃ hi yāgāṅgatayā proktaṃ tattuṣṭaye tvidam tajjuṣṭamatha tasyājñāṃ prāpyāśnīyātsvayaṃ śiśuḥ / tataḥ prapūjayeccakraṃ yathāvibhavasambhavam akṛtvā guruyāgaṃ tu kṛtamapyakṛtaṃ yataḥ / tasmātprayatnataḥ kāryo guruyāgo yathābalam atatrastho@pi hi guruḥ pūjyaḥ saṃkalpya pūrvavat / taddravyaṃ devatākṛtye kuryādbhaktajaneṣvatha parvapavitraprabhṛtiprabhedi naimittikaṃ tvidaṃ karma / [AbhT_28.435]
+```
+
+## Reading
+
+Withheld: no reader bundle covers this passage in this release. See the verify pack for layer bytes.
+
+## Claims
+
+| Claim | Status | Basis |
+|---|---|---|
+| Deterministic chunk gate | BLOCKED (ABSTENTION) | proofs.chunk_gate |
+| Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
+| Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

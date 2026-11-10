@@ -1,0 +1,23 @@
+# tantraloka-a03 tal-a03-p04 (3.30-3.39)
+
+tantraloka-a03 tal-a03-p04 (3.30-3.39) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+
+Canonical: https://svread.pages.dev/claim/tantraloka-a03/tal-a03-p04/
+
+## Passage (excerpt as hashed)
+
+```
+[and]-sāṃmukhyaṃ cocyate tādṛgdarpaṇābhedasaṃsthiteḥ ataḥ kūpādipiṭhirākāśe tatpratibimbitam / vaktrākāśaṃ saśabdaṃ sadbhāti tatparavaktavat yathā cādarśapāścātyabhāgastho vetti no mukham / tathā tathāvidhākāśapaścātstho vetti na dhvanim śabdo na cānabhivyaktaḥ pratibimbati taddhruvam / abhivyaktiśrutī tasya samakālaṃ dvitīyake kṣaṇe tu pratibimbatvaṃ śrutiśca samakālikā / tulyakālaṃ hi no hastatacchāyārūpaniścayaḥ itthaṃ pradarśite@mutra pratibimbasatattvake / prakṛtaṃ brūmahe tatra pratibimbanamarhati śabdo nabhasi sānande sparśadhāmani sundaraḥ / sparśo@nyo@pi dṛḍhāghātaśūlaśītādikodbhavaḥ / parasthaḥ pratibimbatvātsvadehoddhūlanākaraḥ na caiṣa mukhyastatkāryapāramparyāprakāśanāt evaṃ ghrāṇāntare gandho raso dantodake sphuṭaḥ yathā ca rūpaṃ pratibimbitaṃ dṛśorna cakṣuṣānyena vinā hi lakṣyate / tathā rasasparśanasaurabhādikaṃ na lakṣyate@kṣeṇa vinā sthitaṃ tvapi
+```
+
+## Reading
+
+Withheld: no reader bundle covers this passage in this release. See the verify pack for layer bytes.
+
+## Claims
+
+| Claim | Status | Basis |
+|---|---|---|
+| Deterministic chunk gate | BLOCKED (ABSTENTION) | proofs.chunk_gate |
+| Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
+| Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

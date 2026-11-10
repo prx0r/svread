@@ -1,0 +1,48 @@
+# tantraloka-a28 — 44 claims
+
+Canonical: https://svread.pages.dev/work/tantraloka-a28/
+
+- [tal-a28-p01](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p01/) — PARTIAL — tantraloka-a28 tal-a28-p01 (28.1-28.10) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p02](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p02/) — PARTIAL — tantraloka-a28 tal-a28-p02 (28.11-28.20) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p03](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p03/) — PARTIAL — tantraloka-a28 tal-a28-p03 (28.21-28.30) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p04](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p04/) — PARTIAL — tantraloka-a28 tal-a28-p04 (28.31-28.40) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p05](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p05/) — PARTIAL — tantraloka-a28 tal-a28-p05 (28.41-28.50) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p06](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p06/) — PARTIAL — tantraloka-a28 tal-a28-p06 (28.51-28.60) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p07](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p07/) — PARTIAL — tantraloka-a28 tal-a28-p07 (28.61-28.70) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p08](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p08/) — PARTIAL — tantraloka-a28 tal-a28-p08 (28.71-28.80) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p09](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p09/) — PARTIAL — tantraloka-a28 tal-a28-p09 (28.81-28.90) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p10](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p10/) — PARTIAL — tantraloka-a28 tal-a28-p10 (28.91-28.100) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p11](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p11/) — PARTIAL — tantraloka-a28 tal-a28-p11 (28.101-28.110) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p12](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p12/) — PARTIAL — tantraloka-a28 tal-a28-p12 (28.111-28.120) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p13](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p13/) — PARTIAL — tantraloka-a28 tal-a28-p13 (28.121-28.130) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p14](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p14/) — PARTIAL — tantraloka-a28 tal-a28-p14 (28.131-28.140) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p15](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p15/) — PARTIAL — tantraloka-a28 tal-a28-p15 (28.141-28.150) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p16](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p16/) — PARTIAL — tantraloka-a28 tal-a28-p16 (28.151-28.160) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p17](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p17/) — PARTIAL — tantraloka-a28 tal-a28-p17 (28.161-28.170) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p18](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p18/) — PARTIAL — tantraloka-a28 tal-a28-p18 (28.171-28.180) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p19](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p19/) — PARTIAL — tantraloka-a28 tal-a28-p19 (28.181-28.190) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p20](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p20/) — PARTIAL — tantraloka-a28 tal-a28-p20 (28.191-28.200) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p21](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p21/) — PARTIAL — tantraloka-a28 tal-a28-p21 (28.201-28.210) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p22](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p22/) — PARTIAL — tantraloka-a28 tal-a28-p22 (28.211-28.220) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p23](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p23/) — PARTIAL — tantraloka-a28 tal-a28-p23 (28.221-28.230) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p24](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p24/) — PARTIAL — tantraloka-a28 tal-a28-p24 (28.231-28.240) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p25](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p25/) — PARTIAL — tantraloka-a28 tal-a28-p25 (28.241-28.250) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p26](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p26/) — PARTIAL — tantraloka-a28 tal-a28-p26 (28.251-28.260) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p27](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p27/) — PARTIAL — tantraloka-a28 tal-a28-p27 (28.261-28.270) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p28](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p28/) — PARTIAL — tantraloka-a28 tal-a28-p28 (28.271-28.280) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p29](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p29/) — PARTIAL — tantraloka-a28 tal-a28-p29 (28.281-28.290) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p30](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p30/) — PARTIAL — tantraloka-a28 tal-a28-p30 (28.291-28.300) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p31](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p31/) — PARTIAL — tantraloka-a28 tal-a28-p31 (28.301-28.310) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p32](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p32/) — PARTIAL — tantraloka-a28 tal-a28-p32 (28.311-28.320) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p33](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p33/) — PARTIAL — tantraloka-a28 tal-a28-p33 (28.321-28.330) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p34](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p34/) — PARTIAL — tantraloka-a28 tal-a28-p34 (28.331-28.340) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p35](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p35/) — PARTIAL — tantraloka-a28 tal-a28-p35 (28.341-28.350) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p36](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p36/) — PARTIAL — tantraloka-a28 tal-a28-p36 (28.351-28.360) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p37](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p37/) — PARTIAL — tantraloka-a28 tal-a28-p37 (28.361-28.370) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p38](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p38/) — PARTIAL — tantraloka-a28 tal-a28-p38 (28.371-28.380) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p39](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p39/) — PARTIAL — tantraloka-a28 tal-a28-p39 (28.381-28.390) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p40](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p40/) — PARTIAL — tantraloka-a28 tal-a28-p40 (28.391-28.400) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p41](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p41/) — PARTIAL — tantraloka-a28 tal-a28-p41 (28.401-28.410) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p42](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p42/) — PARTIAL — tantraloka-a28 tal-a28-p42 (28.411-28.420) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p43](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p43/) — PARTIAL — tantraloka-a28 tal-a28-p43 (28.421-28.430) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a28-p44](https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p44/) — PARTIAL — tantraloka-a28 tal-a28-p44 (28.431-28.435) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.

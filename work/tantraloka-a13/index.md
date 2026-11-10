@@ -1,0 +1,41 @@
+# tantraloka-a13 — 37 claims
+
+Canonical: https://svread.pages.dev/work/tantraloka-a13/
+
+- [tal-a13-p01](https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p01/) — PARTIAL — tantraloka-a13 tal-a13-p01 (13.1-13.10) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a13-p02](https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p02/) — PARTIAL — tantraloka-a13 tal-a13-p02 (13.11-13.20) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a13-p03](https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p03/) — PARTIAL — tantraloka-a13 tal-a13-p03 (13.21-13.30) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a13-p04](https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p04/) — PARTIAL — tantraloka-a13 tal-a13-p04 (13.31-13.40) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a13-p05](https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p05/) — PARTIAL — tantraloka-a13 tal-a13-p05 (13.41-13.50) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a13-p06](https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p06/) — PARTIAL — tantraloka-a13 tal-a13-p06 (13.51-13.60) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a13-p07](https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p07/) — PARTIAL — tantraloka-a13 tal-a13-p07 (13.61-13.70) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a13-p08](https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p08/) — PARTIAL — tantraloka-a13 tal-a13-p08 (13.71-13.80) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a13-p09](https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p09/) — PARTIAL — tantraloka-a13 tal-a13-p09 (13.81-13.90) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a13-p10](https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p10/) — PARTIAL — tantraloka-a13 tal-a13-p10 (13.91-13.100) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a13-p11](https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p11/) — PARTIAL — tantraloka-a13 tal-a13-p11 (13.101-13.110) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a13-p12](https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p12/) — PARTIAL — tantraloka-a13 tal-a13-p12 (13.111-13.120) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a13-p13](https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p13/) — PARTIAL — tantraloka-a13 tal-a13-p13 (13.121-13.130) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a13-p14](https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p14/) — PARTIAL — tantraloka-a13 tal-a13-p14 (13.131-13.140) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a13-p15](https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p15/) — PARTIAL — tantraloka-a13 tal-a13-p15 (13.141-13.150) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a13-p16](https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p16/) — PARTIAL — tantraloka-a13 tal-a13-p16 (13.151-13.160) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a13-p17](https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p17/) — PARTIAL — tantraloka-a13 tal-a13-p17 (13.161-13.170) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a13-p18](https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p18/) — PARTIAL — tantraloka-a13 tal-a13-p18 (13.171-13.180) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a13-p19](https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p19/) — PARTIAL — tantraloka-a13 tal-a13-p19 (13.181-13.190) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a13-p20](https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p20/) — PARTIAL — tantraloka-a13 tal-a13-p20 (13.191-13.200) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a13-p21](https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p21/) — PARTIAL — tantraloka-a13 tal-a13-p21 (13.201-13.210) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a13-p22](https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p22/) — PARTIAL — tantraloka-a13 tal-a13-p22 (13.211-13.220) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a13-p23](https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p23/) — PARTIAL — tantraloka-a13 tal-a13-p23 (13.221-13.230) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a13-p24](https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p24/) — PARTIAL — tantraloka-a13 tal-a13-p24 (13.231-13.240) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a13-p25](https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p25/) — PARTIAL — tantraloka-a13 tal-a13-p25 (13.241-13.250) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a13-p26](https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p26/) — PARTIAL — tantraloka-a13 tal-a13-p26 (13.251-13.260) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a13-p27](https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p27/) — PARTIAL — tantraloka-a13 tal-a13-p27 (13.261-13.270) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a13-p28](https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p28/) — PARTIAL — tantraloka-a13 tal-a13-p28 (13.271-13.280) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a13-p29](https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p29/) — PARTIAL — tantraloka-a13 tal-a13-p29 (13.281-13.290) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a13-p30](https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p30/) — PARTIAL — tantraloka-a13 tal-a13-p30 (13.291-13.300) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a13-p31](https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p31/) — PARTIAL — tantraloka-a13 tal-a13-p31 (13.301-13.310) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a13-p32](https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p32/) — PARTIAL — tantraloka-a13 tal-a13-p32 (13.311-13.320) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a13-p33](https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p33/) — PARTIAL — tantraloka-a13 tal-a13-p33 (13.321-13.330) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a13-p34](https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p34/) — PARTIAL — tantraloka-a13 tal-a13-p34 (13.331-13.340) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a13-p35](https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p35/) — PARTIAL — tantraloka-a13 tal-a13-p35 (13.341-13.350) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a13-p36](https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p36/) — PARTIAL — tantraloka-a13 tal-a13-p36 (13.351-13.360) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a13-p37](https://svread.pages.dev/claim/tantraloka-a13/tal-a13-p37/) — PARTIAL — tantraloka-a13 tal-a13-p37 (13.361-13.362) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.

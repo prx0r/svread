@@ -1,0 +1,32 @@
+# tantrasara-a08 tsa08-p03 (8.39-8.64)
+
+tantrasara-a08 tsa08-p03 (8.39-8.64) passes link checks; counts REGISTERED without a per-declaration run. Chunk gate BLOCKED; no witness verified.
+
+Canonical: https://svread.pages.dev/claim/tantrasara-a08/tsa08-p03/
+
+## Passage (excerpt as hashed)
+
+```
+māyāgarbhādhikāriṇas tu kasyacid īśvarasya prasādāt sarvakarmakṣaye māyāpuruṣaviveko bhavati yena māyordhve vijñānākala āste na jātucit māyādhaḥ kalāpuṃviveko vā yena kalordhve tiṣṭhati // abhts_8.39 prakṛtipuruṣaviveko vā yena pradhānādho na saṃsaret // abhts_8.40 malapuruṣaviveke tu śivasamānatvam // abhts_8.41 puruṣapūrṇatādṛṣṭau tu śivatvam eveti // abhts_8.42 evaṃ kalātattvam eva kiṃcitkartṛtvadāyi na ca // abhts_8.43 kartṛtvam ajñasya iti // abhts_8.44 kiṃcijjñatvadāyiny aśuddhavidyā kalāto jātā sā ca vidyā buddhiṃ paśyati tadgatāṃś ca sukhādīn vivekena gṛhṇāti // abhts_8.45 buddher guṇasaṃkīrṇākārāyā vivekena grahītum asāmarthyāt // abhts_8.46 tasmāt buddhipratibimbito bhāvo vidyayā vivicyate // abhts_8.47 kiṃcitkartṛtvaṃ kiṃcidbhāgasiddhaye kvacid eva kartṛtvam ity atra arthe paryavasyati kvacid eva ca ity atra bhāge rāgatattvasya vyāpāraḥ // abhts_8.48 na ca avairāgyakṛtaṃ tat avairāgyasyāpi araktidarśanāt // abhts_8.49 vairāgye dharmādāv api raktir dṛśyate // abhts_8.50 tṛptasya ca annādau avairāgyābhāve 'pi antaḥstharāgānapāyāt // abhts_8.51 tena vinā punar avairāgyānutpattiprasaṅgāt // abhts_8.52 kālaś ca kāryaṃ kalayaṃs tadavacchinnaṃ kartṛtvam api kalayati tulye kvacittve asminn eva kartṛtvam ity atrārthe niyater vyāpāraḥ // abhts_8.53 kāryakāraṇabhāve 'pi asyā eva vyāpāraḥ tena kalāta eva etac catuṣkaṃ jātam idam eva kiṃcid adhunā jānan abhiṣvaktaḥ karomi ity evaṃrūpā saṃvid dehapuryaṣṭakādigatā paśur ity ucyate // abhts_8.54 tad idaṃ māyādiṣaṭkaṃ kañcukaṣaṭkam ucyate // abhts_8.55 saṃvido māyayā apahastitatvena kalādīnām uparipātināṃ kañcukavat avasthānāt // abhts_8.56 evaṃ kiṃcitkartṛtvaṃ yat māyākāryaṃ tatra kiṃcit tv aviśiṣṭaṃ yat kartṛtvaṃ viśeṣyaṃ tatra vyāpriyamāṇā kalā vidyādiprasavahetuḥ iti nirūpitam // abhts_8.57 idānīṃ viśeṣaṇabhāgo yaḥ kiṃcid ity ukto jñeyaḥ kāryaś ca taṃ yāvat sā kalā svātmanaḥ pṛthak kurute tāvat eṣa eva sukhaduḥkhamohātmakabhogyaviśeṣānusyūtasya sāmānyamātrasya tadguṇasāmyāparanāmnaḥ prakṛtitattvasya sargaḥ iti bhoktṛbhogyayugalasya samam eva kalātattvāyattā sṛṣṭiḥ // abhts_8.58 atra caiṣāṃ vāstavena pathā kramavandhyaiva sṛṣṭir ity uktaṃ kramāvabhāso 'pi cāstīty api uktam eva // abhts_8.59 kramaś ca vidyārāgādīnāṃ vicitro 'pi dṛṣṭaḥ kaścid rajyan vetti ko 'pi vidan rajyate ityādi // abhts_8.60 tena bhinnakramanirūpaṇam api rauravādiṣu śāstreṣu aviruddhaṃ mantavyaṃ tad eva tu bhogyasāmānyaṃ prakṣobhagataṃ guṇatattvam // abhts_8.61 yatra sukhaṃ bhogyarūpaprakāśaḥ sattvam duḥkhaṃ prakāśāprakāśāndolanātmakam ata eva kriyārūpaṃ rajaḥ mohaḥ prakāśābhāvarūpas tamaḥ // abhts_8.62 tritayam api etat bhogyarūpam // abhts_8.63 evaṃ kṣubdhāt pradhānāt kartavyāntarodayaḥ na akṣubdhād iti // abhts_8.64
+```
+
+## Reading
+
+Withheld: no reader bundle covers this passage in this release. See the verify pack for layer bytes.
+
+## Claims
+
+| Claim | Status | Basis |
+|---|---|---|
+| AnswerKey.lean :: key_five_kancukas | REGISTERED, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
+| AnswerKey.lean :: key_seven_experients | REGISTERED, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
+| Coords.lean :: coords_covered_once | REGISTERED, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
+| Kancuka.lean :: count_5 | REGISTERED, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
+| Kancuka.lean :: pairings_distinct | REGISTERED, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
+| KancukaCorr.lean :: corr_pull_raga | REGISTERED, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
+| KancukaCorr.lean :: corr_stall_kala | REGISTERED, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
+| Pramatr.lean :: seven | REGISTERED, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
+| TattvaInventory.lean :: maya_six_count | CONTEXT_ONLY, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
+| Deterministic chunk gate | BLOCKED (ABSTENTION, CITATION_GROUNDING) | proofs.chunk_gate |
+| Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
+| Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

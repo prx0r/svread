@@ -1,0 +1,23 @@
+# tantraloka-a28 tal-a28-p14 (28.131-28.140)
+
+tantraloka-a28 tal-a28-p14 (28.131-28.140) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+
+Canonical: https://svread.pages.dev/claim/tantraloka-a28/tal-a28-p14/
+
+## Passage (excerpt as hashed)
+
+```
+[and]-hemaratnāṅkitagranthi kuryānmuktāpavitrakam / sauvarṇasūtraṃ triguṇaṃ saikagranthiśataṃ gurau pare gurau tu tryadhikamadhyabdhi parameṣṭhini / prāksiddhācāryayogeśa viṣaye tu rasādhikam aṣṭādhikaṃ śivasyoktaṃ citraratnaprapūritam / vidyāpīṭhākṣasūtrādau guruvacchivavat punaḥ vaṭuke kanakābhāve raupyaṃ tu parikalpayet / pāṭṭasūtramatha kṣaumaṃ kārpāsaṃ tritritānitam tasmānnavaguṇāt sūtrāttriguṇādikramāt kuru / caṇḍāṃśuguṇaparyantaṃ tato@pi triguṇaṃ ca vā tenāṣṭādaśatantūtthamadhamaṃ madhyamaṃ punaḥ / aṣṭottaraśataṃ tasmāt triguṇaṃ tūttamaṃ matam granthayastattvasaṃkhyātāḥ ṣaḍadhvakalanāvaśāt / yadvā vyāsasamāsābhyāṃ citrāḥ sadgandhapūritāḥ viśeṣavidhinā pūrvaṃ pūjayitvārpayettataḥ / pavitrakaṃ samastādhvaparipūrṇatvabhāvanāt gurvātmanorjānunābhikaṇṭhamūrdhāntagaṃ ca vā / tato mahotsavaḥ kāryo gurupūjāpuraḥsaraḥ tarpyāḥ śāsanagāḥ sarve dakṣiṇāvastrabhojanaiḥ / mahotsavaḥ prakartavyo gītanṛttātmako mahān
+```
+
+## Reading
+
+Withheld: no reader bundle covers this passage in this release. See the verify pack for layer bytes.
+
+## Claims
+
+| Claim | Status | Basis |
+|---|---|---|
+| Deterministic chunk gate | BLOCKED (ABSTENTION) | proofs.chunk_gate |
+| Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
+| Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

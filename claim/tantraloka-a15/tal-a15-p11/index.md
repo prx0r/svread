@@ -1,0 +1,23 @@
+# tantraloka-a15 tal-a15-p11 (15.101-15.110)
+
+tantraloka-a15 tal-a15-p11 (15.101-15.110) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+
+Canonical: https://svread.pages.dev/claim/tantraloka-a15/tal-a15-p11/
+
+## Passage (excerpt as hashed)
+
+```
+[and]-viśvametatkimanyaiḥ syādbahirbhramaṇaḍambaraiḥ / ityevamantarbāhye ca tattaccakraphalārthinām sthānabhedo vicitraśca sa śāstre saṃkhyayojjhitaḥ / śrīvīrāvalihṛdaye sapta sthānāni śaktikamalayugam surapathacatuṣpathākhyaśmaśānamekāntaśūnyavṛkṣau ca / iti nirvacanaguṇasthityupacāradṛśā vibodha evoktaḥ tadadhiṣṭhite ca cakre śārīre bahiratho bhavedyāgaḥ / muktaye tanna yāgasya sthānabhedaḥ prakalpyate deśopāyā na sā yasmātsā hi bhāvaprasādataḥ / uktaṃ ca śrīniśācāre siddhisādhanakāṅkṣiṇām sthānaṃ mumukṣuṇā tyājyaṃ sarpakañcukavattvidam / muktirna sthānajanitā yadā śrotrapathaṃ gatam gurostattvaṃ tadā muktistaddārḍhyāya tu pūjanam / yatra yatra hṛdambhojaṃ vikāsaṃ pratipadyate tatraiva dhāmni bāhye@ntaryāgaśrīḥ pratitiṣṭhati / nānyatragatyā mokṣo@sti so@jñānagranthikartanāt tacca saṃvidvikāsena śrīmadvīrāvalīpade / guravastu vimuktau vā siddhau vā vimalā matiḥ heturityubhayatrāpi yāgauko yanmanoramam / niyatiprāṇatāyogātsāmagrītastu yadyapi
+```
+
+## Reading
+
+Withheld: no reader bundle covers this passage in this release. See the verify pack for layer bytes.
+
+## Claims
+
+| Claim | Status | Basis |
+|---|---|---|
+| Deterministic chunk gate | BLOCKED (ABSTENTION) | proofs.chunk_gate |
+| Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
+| Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

@@ -1,0 +1,23 @@
+# tantraloka-a09 tal-a09-p29 (9.281-9.290)
+
+tantraloka-a09 tal-a09-p29 (9.281-9.290) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+
+Canonical: https://svread.pages.dev/claim/tantraloka-a09/tal-a09-p29/
+
+## Passage (excerpt as hashed)
+
+```
+[and]-yatsāmānyaṃ hi gandhatvaṃ gandhatanmātranāma tat / vyāpakaṃ tata evoktaṃ sahetutvāttu na dhruvam svakāraṇe tirobhūtirdhvaso yattena nādhruvam / evaṃ rasādiśabdāntatanmātreṣvapi yojanā viśeṣāṇāṃ yato@vaśyaṃ daśā prāgaviśeṣiṇī / kṣubhitaṃ śabdatanmātraṃ citrākārāḥ śratīrdadhat nabhaḥ śabdo@vakāśātmā vācyādhyāsasaho yataḥ / tadetatsparśatanmātrayogāt prakṣobhamāgatam vāyutāmeti tenātra śabdasparśobhayātmatā / anye tvāhurdhvaniḥ khaikaguṇastadapi yujyate yato vāyurnijaṃ rūpaṃ labhate na vināmbarāt / uttarottarabhūteṣu pūrvapūrvasthitiryataḥ tata eva marudvyomnoraviyogo mithaḥ smṛtaḥ / śabdasparśau tu rūpeṇa samaṃ prakṣobhamāgatau tejastattvaṃ tribhirdharmaiḥ prāhuḥ pūrvavadeva tat / taistribhiḥ sarasairāpaḥ sagandhairbhūriti kramaḥ tatra pratyakṣataḥ siddho dharādiguṇasaṃcayaḥ / nahi gandhādidharmaughavyatiriktā vibhāti bhūḥ yathā guṇaguṇidvaitavādināmekamapyadaḥ / citraṃ rūpaṃ paṭe bhāti kramāddharmāstathā bhuvi
+```
+
+## Reading
+
+Withheld: no reader bundle covers this passage in this release. See the verify pack for layer bytes.
+
+## Claims
+
+| Claim | Status | Basis |
+|---|---|---|
+| Deterministic chunk gate | BLOCKED (ABSTENTION) | proofs.chunk_gate |
+| Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
+| Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

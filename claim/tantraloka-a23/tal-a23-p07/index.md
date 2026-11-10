@@ -1,0 +1,23 @@
+# tantraloka-a23 tal-a23-p07 (23.61-23.70)
+
+tantraloka-a23 tal-a23-p07 (23.61-23.70) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+
+Canonical: https://svread.pages.dev/claim/tantraloka-a23/tal-a23-p07/
+
+## Passage (excerpt as hashed)
+
+```
+[and]-śivābhedena tatkuryāttadvatpañcamamapyayam / tirobhāvābhidhaṃ kṛtyaṃ tathāsau śivatātmakaḥ ata eva śive śāstre jñāne cāśvāsabhājanam / gurormūḍhatayā kopadhāmāpi na tirohitaḥ gururhi kupito yasya sa tirohita ucyate / saṃsārī satu devo hi gururna ca mṛṣāvidaḥ tata eva ca śāstrādidūṣako yadyapi krudhā / na dahyate@sau guruṇā tathāpyeṣa tirohitaḥ asmadgurvāgamastveṣa tirobhūte svayaṃ śiśau / na kupyenna śapeddhīmān sa hyanugrāhakaḥ sadā īśecchācoditaḥ pāśaṃ yadi kaṇṭhe nipīḍayet / kimācāryeṇa tatrāsya kāryā syātsahakāritā śivābhinno@pi hi gururanugrahamayīṃ vibhoḥ / mukhyāṃ śaktimupāsīno@nugṛhṇīyātsa sarvathā svātantryamātrajñaptyai tu kathitaṃ śāstra īdṛśam / na kāryaṃ patatāṃ hastālambaḥ sahyo na pātanam ata eva svatantratvādicchāyāḥ punarunmukham / prāyaścittairviśodhyainaṃ dīkṣeta kṛpayā guruḥ ūrdhvadṛṣṭau prapannaḥ sannanāśvastastataḥ param / adhaḥśāstraṃ prapadyāpi na śreyaḥpātratāmiyāt
+```
+
+## Reading
+
+Withheld: no reader bundle covers this passage in this release. See the verify pack for layer bytes.
+
+## Claims
+
+| Claim | Status | Basis |
+|---|---|---|
+| Deterministic chunk gate | BLOCKED (ABSTENTION) | proofs.chunk_gate |
+| Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
+| Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

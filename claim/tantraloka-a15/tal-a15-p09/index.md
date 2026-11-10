@@ -1,0 +1,23 @@
+# tantraloka-a15 tal-a15-p09 (15.81-15.90)
+
+tantraloka-a15 tal-a15-p09 (15.81-15.90) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+
+Canonical: https://svread.pages.dev/claim/tantraloka-a15/tal-a15-p09/
+
+## Passage (excerpt as hashed)
+
+```
+[and]-tadbāhyamiha tatsiddhiviśeṣāya na muktaye / ābhyantaraṃ nagāgrādi dehāntaḥ prāṇayojanam sādhakānāmupāyaḥ syātsiddhaye natu muktaye / pīṭhasthānaṃ sadā yāgayogyaṃ śāstreṣu bhaṇyate tacca bāhyāntarādrūpādbahirdehe ca susphuṭam / yataḥ śrīnaiśasañcāre parameśo nyarūpayat tasyecchā pīṭhamādhāro yatrasthaṃ sacarācaram / agryaṃ tatkāmarūpaṃ syādbindunādadvayaṃ tataḥ nādapīṭhaṃ pūrṇagirirdakṣiṇe vāmataḥ punaḥ / pīṭhamuḍḍayanaṃ bindurmukhyaṃ pīṭhatrayaṃ tvidam jñeyaṃ saṃkalpanārūpamardhapīṭhamataḥ param / śāktaṃ kuṇḍalinī vedakalaṃ ca tryupapīṭhakam devīkoṭṭojjayinyau dve tathā kulagiriḥ paraḥ / lālanaṃ baindavaṃ vyāptiriti saṃdohakatrayam puṇḍravardhanavārendre tathaikāmramidaṃ bahiḥ / navadhā kathitaṃ pīṭhamantarbāhyakrameṇa tat kṣetrāṣṭakaṃ kṣetravido hṛdambhojadalāṣṭakam / prayāgo varaṇā paścādaṭṭahāso jayantikā vārāṇasī ca kāliṅgaṃ kulūtā lāhulā tathā / upakṣetrāṣṭakaṃ prāhurhṛtpadmāgradalāṣṭakam
+```
+
+## Reading
+
+Withheld: no reader bundle covers this passage in this release. See the verify pack for layer bytes.
+
+## Claims
+
+| Claim | Status | Basis |
+|---|---|---|
+| Deterministic chunk gate | BLOCKED (ABSTENTION) | proofs.chunk_gate |
+| Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
+| Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

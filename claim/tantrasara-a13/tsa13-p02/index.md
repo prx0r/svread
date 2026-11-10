@@ -1,0 +1,23 @@
+# tantrasara-a13 tsa13-p02 (13.20-13.34)
+
+tantrasara-a13 tsa13-p02 (13.20-13.34) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+
+Canonical: https://svread.pages.dev/claim/tantrasara-a13/tsa13-p02/
+
+## Passage (excerpt as hashed)
+
+```
+tatra madhye bhagavān ūrdhve 'sya aiśānaṃ vaktram adhaḥ pātālavaktram pūrvādidikcatuṣke śrītatpuruṣāghorasadyovāmākhyaṃ dikcatuṣkamadhye anyāś catasraḥ // abhts_13.20 ity evaṃ saṃvinmahimaiva mūrtikṛtaṃ digbhedaṃ bhāsayati iti dik na tattvāntaram // abhts_13.21 yathā yathā ca svacchāyā laṅghayitum iṣṭā satī puraḥ puro bhavati tathā parameśvaramadhyatām eti sarvādhiṣṭhātṛtaiva mādhyasthyam ity uktam // abhts_13.22 evaṃ yathā bhagavān digvibhāgakārī tathā sūryo 'pi sa hi pārameśvary eva jñānaśaktir ity uktaṃ tatra tatra tatra pūrvaṃ vyakteḥ pūrvā yatraiva ca tathā tatraiva evaṃ svātmādhīnāpi svasammukhīnasya deśasya purastāttvāt // abhts_13.23 evaṃ svātmasūryaparameśatritayaikībhāvanayā dikcarcā iti abhinavaguptaguravaḥ // abhts_13.24 evaṃ sthite uttarābhimukham upaviśya dehapuryaṣṭakādau ahambhāvatyāgena dehatāṃ dahet saṃnidhāv api paradehavat adehatvāt tato nistaraṅgadhruvadhāmarūḍhasya dṛṣṭisvābhāvyāt yā kila ādyā spandakalā saiva mūrtiḥ tadupari yathopadiṣṭayājyadevatācakranyāsaḥ prādhānyena ca iha śaktayo yājyāḥ // abhts_13.25 tadāsanatvāt bhagavannavātmādīnāṃ śakter eva ca pūjyatvāt iti guravaḥ // abhts_13.26 tatra ca pañca avasthā jāgradādyāḥ ṣaṣṭhī ca anuttarā nāma svabhāvadaśā anusaṃdheyā // abhts_13.27 iti ṣoḍhā nyāso bhavati // abhts_13.28 tatra kāraṇānāṃ brahmaviṣṇurudreśasadāśivaśaktirūpāṇāṃ pratyekam adhiṣṭhānāt ṣaṭtriṃśattattvakalāpasya laukikatattvottīrṇasya bhairavabhaṭṭārakābhedavṛtte nyāse pūrṇatvāt bhairavībhāvaḥ tena etat anavakāśam // abhts_13.29 yad āhuḥ ataraṅgarūḍhau labdhāyāṃ punaḥ kiṃ tattvasṛṣṭir nyāsādinā iti // abhts_13.30 tāvat hi tad ataraṅgaṃ bhairavavapuḥ yat svātmani avabhāsitasṛṣṭisaṃhārāvaicitryakoṭi // abhts_13.31 evam anyonyamelakayogena parameśvarībhūtaṃ prāṇadehabuddhyādi bhāvayitvā bahir antaḥ puṣpadhūpatarpaṇādyair yathāsambhavaṃ pūjayet // abhts_13.32 tatra śarīre prāṇe dhiyi ca tadanusāreṇa śūlābjanyāsaṃ kuryāt tad yathā ādhāraśaktimūle mūlaṃ kanda āmūlasārakaṃ lambikānte kalātattvānto daṇḍaḥ māyātmako granthiḥ catuṣkikātmā śuddhavidyāpadmaṃ tatraiva sadāśivabhaṭṭārakaḥ sa eva mahāpretaḥ prakarṣeṇa līnatvāt bodhāt prādhānyena vedyātmakadehakṣayāt nādāmarśātmakatvāc ca iti // abhts_13.33 tan nābhyutthitaṃ tanmūrdharandhratrayanirgataṃ nādāntarvartiśaktivyāpinīsamanārūpamarātrayaṃ dviṣaṭkāntaṃ tadupari śuddhapadmatrayam aunmanasam etasmin viśvamaye bhede āsanīkṛte adhiṣṭhātṛtayā vyāpakabhāvena ādheyabhūtāṃ yathābhimatāṃ devatāṃ kalpayitvā yat tatraiva samasvabhāvanirbharātmani viśvabhāvārpaṇaṃ tad eva pūjanaṃ yad eva tanmayībhavanaṃ tad dhyānaṃ yat tathāvidhāntaḥparāmarśasadbhāvanādāndolanaṃ sa japaḥ yat tathāvidhaparāmarśakramaprabuddhamahātejasā tathābalād eva viśvātmīkaraṇaṃ sa homaḥ tad evaṃ kṛtvā parivāraṃ tata eva vahnirāśer visphuliṅgavat dhyātvā tathaiva pūjayet // abhts_13.34
+```
+
+## Reading
+
+Withheld: no reader bundle covers this passage in this release. See the verify pack for layer bytes.
+
+## Claims
+
+| Claim | Status | Basis |
+|---|---|---|
+| Deterministic chunk gate | BLOCKED (ABSTENTION, CITATION_GROUNDING) | proofs.chunk_gate |
+| Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
+| Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

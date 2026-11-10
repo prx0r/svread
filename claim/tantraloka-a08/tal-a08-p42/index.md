@@ -1,0 +1,23 @@
+# tantraloka-a08 tal-a08-p42 (8.411-8.420)
+
+tantraloka-a08 tal-a08-p42 (8.411-8.420) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+
+Canonical: https://svread.pages.dev/claim/tantraloka-a08/tal-a08-p42/
+
+## Passage (excerpt as hashed)
+
+```
+[and]-aṣṭāvantaḥ sākaṃ śarveṇetīdṛśī nivṛttiriyaṃ syāt / rudrāḥ kālī vīro dharābdhilakṣmyaḥ sarasvatī guhyam ityaṣṭakaṃ jale@nau vahnyatiguhyadvayaṃ maruti vāyoḥ / svapuraṃ gayādi khe ca vyoma pavitrāṣṭakaṃ ca bhuvanayugam abhimāne@haṅkāracchagalādyaṣṭakamathāntarā nabho@haṃkṛt / tanmātrārkenduśratipurāṣṭakaṃ buddhikarmadevānām daśa tanmātrasamūhe bhuvanaṃ punarakṣavargavinipatite / manasaścetyabhimāne dvāviṃśatireva bhuvanānām dhiyi daivīnāmaṣṭau kruttejoyogasaṃjñakaṃ trayaṃ tadumā / tatpatiratha mūrtyaṣṭakasuśivadvādaśakavīrabhadrāḥ syuḥ tadatha mahādevāṣṭakamiti buddhau saptadaśa saṃkhyā / guṇatattve paṅktitrayamiti ṣaṭpañcāśataṃ purāṇi viduḥ yadyapi guṇasāmyātmani mūle krodheśvarāṣṭakaṃ tathāpi dhiyi / tacchodhitamiti gaṇanāṃ na punaḥ prāptaṃ pratiṣṭhāyām iti jalatattvānmūlaṃ tattvacaturviṃśatiḥ pratiṣṭhāyām / ambādituṣṭivargastārādyāḥ siddhayo@ṇimādigaṇaḥ guravo guruśiṣyā ṛṣivarga iḍādiśca vigrahāṣṭakayuk / gandhādivikārapuraṃ buddhiguṇāṣṭakamahaṃkriyā viṣayaguṇāḥ kāmādisaptaviṃśakamāgantu tathā gaṇeśavidyeśamayau / iti pāśeṣu puratrayamitthaṃ puruṣe@tra bhuvanaṣoḍaśakam
+```
+
+## Reading
+
+Withheld: no reader bundle covers this passage in this release. See the verify pack for layer bytes.
+
+## Claims
+
+| Claim | Status | Basis |
+|---|---|---|
+| Deterministic chunk gate | BLOCKED (ABSTENTION) | proofs.chunk_gate |
+| Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
+| Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

@@ -1,0 +1,23 @@
+# tantraloka-a26 tal-a26-p02 (26.11-26.20)
+
+tantraloka-a26 tal-a26-p02 (26.11-26.20) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+
+Canonical: https://svread.pages.dev/claim/tantraloka-a26/tal-a26-p02/
+
+## Passage (excerpt as hashed)
+
+```
+[and]-tatraiṣāṃ śeṣavṛttyarthaṃ nityanaimittike dhruve / kāmyavarjaṃ yataḥ kāmāścitrāścitrābhyupāyakāḥ tatra nityo vidhiḥ sandhyānuṣṭhānaṃ devatāvraje / gurvagniśāstrasahite pūjā bhūtadayetyayam naimittikastu sarveṣāṃ parvaṇāṃ pūjanaṃ japaḥ / viśeṣavaśataḥ kiṃca pavitrakavidhikramaḥ ācāryasya ca dīkṣeyaṃ bahubhedā vivecitā / vyākhyādikaṃ ca tattasyādhikaṃ naimittikaṃ dhruvam tatrādau śiśave vrūyādgururnityavidhiṃ sphuṭam / tadyogyatāṃ samālokya vitatāvitatātmanām mukhyetarādimantrāṇāṃ vīryavyāptyādiyogyatām / dṛṣṭvā śiṣye tamevāsmai mūlamantraṃ samarpayet tacchāstradīkṣito hyeṣa niryantrācāraśaṅkitaḥ / na mukhye yogya ityanyasevātaḥ syāttu yogyatā sādhakasya bubhukṣostu sādhakībhāvino@pivā / puṣpapātavaśātsiddho mantro@rpyaḥ sādhyasiddhaye vitate guṇabhūte vā vidhau diṣṭe punarguruḥ / jñātvāsmai yogyatāṃ sāraṃ saṃkṣiptaṃ vidhimācaret tatraiṣa niyamo yadyanmāntraṃ rūpaṃ na tadguruḥ / likhitvā prathayecchiṣye viśeṣādūrdhvaśāsane
+```
+
+## Reading
+
+Withheld: no reader bundle covers this passage in this release. See the verify pack for layer bytes.
+
+## Claims
+
+| Claim | Status | Basis |
+|---|---|---|
+| Deterministic chunk gate | BLOCKED (ABSTENTION) | proofs.chunk_gate |
+| Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
+| Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

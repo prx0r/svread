@@ -1,0 +1,11 @@
+# tantraloka-a32 — 7 claims
+
+Canonical: https://svread.pages.dev/work/tantraloka-a32/
+
+- [tal-a32-p01](https://svread.pages.dev/claim/tantraloka-a32/tal-a32-p01/) — PARTIAL — tantraloka-a32 tal-a32-p01 (32.1-32.10) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a32-p02](https://svread.pages.dev/claim/tantraloka-a32/tal-a32-p02/) — PARTIAL — tantraloka-a32 tal-a32-p02 (32.11-32.20) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a32-p03](https://svread.pages.dev/claim/tantraloka-a32/tal-a32-p03/) — PARTIAL — tantraloka-a32 tal-a32-p03 (32.21-32.30) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a32-p04](https://svread.pages.dev/claim/tantraloka-a32/tal-a32-p04/) — PARTIAL — tantraloka-a32 tal-a32-p04 (32.31-32.40) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a32-p05](https://svread.pages.dev/claim/tantraloka-a32/tal-a32-p05/) — PARTIAL — tantraloka-a32 tal-a32-p05 (32.41-32.50) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a32-p06](https://svread.pages.dev/claim/tantraloka-a32/tal-a32-p06/) — PARTIAL — tantraloka-a32 tal-a32-p06 (32.51-32.60) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [tal-a32-p07](https://svread.pages.dev/claim/tantraloka-a32/tal-a32-p07/) — PARTIAL — tantraloka-a32 tal-a32-p07 (32.61-32.68) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.

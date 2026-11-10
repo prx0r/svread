@@ -1,0 +1,23 @@
+# tantraloka-a15 tal-a15-p50 (15.491-15.500)
+
+tantraloka-a15 tal-a15-p50 (15.491-15.500) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+
+Canonical: https://svread.pages.dev/claim/tantraloka-a15/tal-a15-p50/
+
+## Passage (excerpt as hashed)
+
+```
+[and]-na kiṃcittāmasastasya sukhaduḥkhācchubhāśubham / nanvatra tāmaso nāma kathaṃ yogyo vidhau bhavet maiva mā vigrahaṃ kaścitkvacitkasyāpi vai guṇaḥ / sarvasāttvikaceṣṭo@pi bhojane yadi tāmasaḥ kiṃ tataḥ so@dhamaḥ kivāpyutkṛṣṭastadviparyayaḥ / āyātaśaktipāto@pi dīkṣito@pi guṇasthiteḥ vicitrātmā bhavedeva mukhye tvarthe samāhitaḥ / tato guruḥ śiśormantrapūrvakaṃ devatārcanam deśayetsa ca tatkuryātsaṃskuryāttaṃ tato guruḥ / hṛdādicakraṣaṭkasthānbrahmādīn ṣaṭ samāhitaḥ spṛśecchiśoḥ prāṇavṛttyā pratyekaṃ cāṣṭa saṃskriyāḥ / hṛdayādidviṣaṭkāntaṃ bodhasparśapavitritaḥ āhārabījabhāvādidoṣadhvaṃsādbhaveddvijaḥ / vasuvedākhyasaṃskārapūrṇa itthaṃ dvijaḥ sthitaḥ garbhādhānaṃ puṃsavanaṃ sīmanto jātakarma ca / nāma niṣkrāmaṇaṃ cānnapraśaścūḍā tathāṣṭamī vratabandhaiṣṭike maujjībhautike saumikaṃ kramāt / godānamiti vedendusaṃskriyā brahmacaryataḥ pratyudvāhaḥ pañcadaśaḥ sapta pākamakhāstvataḥ / aṣṭakāḥ pārvaṇī śrāddhaṃ śrāvaṇyāgrāyaṇīdvayam
+```
+
+## Reading
+
+Withheld: no reader bundle covers this passage in this release. See the verify pack for layer bytes.
+
+## Claims
+
+| Claim | Status | Basis |
+|---|---|---|
+| Deterministic chunk gate | BLOCKED (ABSTENTION) | proofs.chunk_gate |
+| Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
+| Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

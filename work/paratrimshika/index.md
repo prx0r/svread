@@ -1,0 +1,8 @@
+# paratrimshika — 4 claims
+
+Canonical: https://svread.pages.dev/work/paratrimshika/
+
+- [para-p01](https://svread.pages.dev/claim/paratrimshika/para-p01/) — PARTIAL — paratrimshika para-p01 (2-10) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [para-p02](https://svread.pages.dev/claim/paratrimshika/para-p02/) — PARTIAL — paratrimshika para-p02 (11-19) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [para-p03](https://svread.pages.dev/claim/paratrimshika/para-p03/) — PARTIAL — paratrimshika para-p03 (20-28) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [para-p04](https://svread.pages.dev/claim/paratrimshika/para-p04/) — PARTIAL — paratrimshika para-p04 (29-36) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
