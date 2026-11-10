@@ -136,6 +136,17 @@ inbound links · chunk-verse 64 OPEN · decision-trail ingest wiring.
 5. **Slop-scan catch post-push**: literal `None` on 719 pages (unescaped
    path interpolation) + blank edition labels — fixed, re-published,
    re-deployed; slop-scan now 0; seo G05 upgraded 50-spot → full 909/909.
+6. **Independent review P0s (2026-11-10, PR #12) — fixed before merge:**
+   Ghaṭakarpara English was published despite the reader hold → shared
+   `data/holds.json`, honored by emitter (withhold + noindex, out of
+   sitemap/llms-full) and reader; generator accepted altered source (only
+   set-intersection checked) → full byte verification by role (index→trace,
+   source/layers/proof vs trace AND manifest), displayed English derived
+   ONLY from verified pack bytes with explicit verse mapping (cite-in-excerpt
+   join) or withheld; `work_l2` bundle path removed; "every clause traces"
+   replaced with verse-scoped evidence claim; 6 negative tests; CI split per
+   emitter (no masking); all-packs by-role cross-check; hand exemplar
+   preserved as independent fixture + spec test.
 
 ## 8. Go-live checklist (today)
 
