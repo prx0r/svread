@@ -1,5 +1,15 @@
 # svread — fresh trika reader, from scratch
 
+> **START HERE (2026-11-11):**
+> - **[`AGENT-HANDOFF.md`](AGENT-HANDOFF.md)** — split of concerns: integration
+>   agent (grunt/integration) vs external agent (strategy/spec/tests), full
+>   TODO queue, repo map. Work is tracked in **PR #13**.
+> - **[`MASTERPLAN3.md`](MASTERPLAN3.md)** — the operative full plan (files,
+>   dev steps, justifications).
+> - **[`PROGRESS.md`](PROGRESS.md)** — build reports, newest after each wave.
+> - Go-live manual: [`PRODUCTION.md`](PRODUCTION.md) · architecture:
+>   [`SPEC.md`](SPEC.md).
+
 > NOTE 2026-11-10: this file describes the original reader scaffold. Current
 > system docs: `PRODUCTION.md` (go-live manual: build/verify/deploy/ops),
 > `SPEC.md` (reader architecture), `HANDOVER-SEO-2026-11-08.md` + 
