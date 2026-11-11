@@ -149,6 +149,93 @@ def ident(v):
     if not isinstance(v,str) or not IDENT.fullmatch(v): raise ValueError('Invalid ID')
     return v
 
+
+def _wheel_norm(t):
+    import unicodedata
+    t = (t or '').lower()
+    t = ''.join(c for c in unicodedata.normalize('NFD', t) if unicodedata.category(c) != 'Mn')
+    return ''.join(c for c in t if c.isalnum())
+
+def _wheel_pack():
+    return json.loads((ROOT / 'data' / 'grammar' / 'wheel-pack.json').read_text(encoding='utf-8'))
+
+def _wheel_harness():
+    return json.loads((ROOT / 'data' / 'wheels' / 'harness.json').read_text(encoding='utf-8'))
+
+def _wheel_find(form):
+    pack = _wheel_pack()
+    nq = _wheel_norm(form)
+    if not nq: raise ValueError('Empty form')
+    for e in pack.get('entries', []):
+        cands = {_wheel_norm(e.get('iast', '')), _wheel_norm(e.get('deva', ''))}
+        cands.update(_wheel_norm(x.get('iast', '')) for x in (e.get('all_surfaces') or []))
+        cands.update(_wheel_norm(x.get('deva', '')) for x in (e.get('all_surfaces') or []))
+        if nq in cands or (e.get('deva', '') or '').strip() == (form or '').strip():
+            return e
+    raise ValueError('Form not on file: no pack entry matches (closed world: unlisted forms never render)')
+
+def wheel_lookup(a):
+    e = _wheel_find(a.get('form'))
+    links = json.loads((ROOT / 'data' / 'grammar' / 'wheel-links.json').read_text(encoding='utf-8')).get('links', {})
+    lk = links.get(e['id'], {})
+    return {'id': e['id'], 'kind': e.get('kind'), 'iast': e.get('iast'), 'deva': e.get('deva'),
+            'status': e.get('status'), 'teaching_sutra': e.get('teaching_sutra'),
+            'curated_note': e.get('curated_note'),
+            'machine_rules': e.get('machine_rules', []),
+            'prakriya': e.get('prakriya', [])[:12],
+            'lessons': (lk.get('lessons') or [])[:4],
+            'verses': (lk.get('verses') or [])[:6],
+            'warning': 'Machine trace is unreviewed computation; CURATED notes are teaching entries, not derivations.'}
+
+def wheel_verify(a):
+    e = _wheel_find(a.get('form'))
+    cc = json.loads((ROOT / 'data' / 'grammar' / 'crosscheck.json').read_text(encoding='utf-8'))
+    rows = {r['id']: r for r in cc.get('rows', [])}
+    attr2end = {'tral': 'place', 'da': 'time', 'tasil': 'source', 'thal': 'manner'}
+    row = None
+    if e['id'] == 'kim-katham':
+        row = dict(rows.get('kim-manner', {})); row['crosscheck_id'] = 'kim-manner'
+    else:
+        parts = e['id'].split('-')
+        if len(parts) == 2 and parts[1] in attr2end:
+            rid = parts[0] + '-' + attr2end[parts[1]]
+            if rid in rows:
+                row = dict(rows[rid]); row['crosscheck_id'] = rid
+    verdict = 'UNVERIFIED'
+    if e.get('status') == 'DERIVED': verdict = 'MACHINE_DERIVED'
+    if e.get('kind') == 'curated-note' or e.get('status') == 'CURATED': verdict = 'CURATED_ONLY'
+    if row is not None:
+        if row.get('agree') is True: verdict = 'AGREE'
+        elif row.get('agree') is False: verdict = 'DISAGREE_STANDS'
+        else: verdict = 'MACHINE_GAP'
+    return {'form': a.get('form'), 'pack_id': e['id'], 'verdict': verdict,
+            'iast': e.get('iast'), 'deva': e.get('deva'),
+            'evidence': {'machine_rules': e.get('machine_rules', []),
+                         'machine_surfaces': (row or {}).get('machine_surfaces'),
+                         'note': (row or {}).get('note') or e.get('curated_note'),
+                         'verses': (json.loads((ROOT / 'data' / 'grammar' / 'wheel-links.json').read_text(encoding='utf-8')).get('links', {}).get(e['id'], {}).get('verses') or [])[:4]},
+            'rule': 'AGREE = machine confirms curated. DISAGREE_STANDS = teach curated, name the special. MACHINE_GAP = say the machine cannot derive it. Never invent a trace.'}
+
+def wheel_level(a):
+    n = a.get('level')
+    if not isinstance(n, int) or not 1 <= n <= 6: raise ValueError('level must be 1-6')
+    h = _wheel_harness()
+    t = h['tutor'][n - 1]
+    text = (ROOT / 'data' / 'wheels' / 'tutor' / t['file']).read_text(encoding='utf-8')
+    stages = h['decision_tree']['stages']
+    return {'level': n, 'title': t['title'], 'covers': t['covers'], 'url': t['url'],
+            'prompt': text, 'gate': stages[n - 1],
+            'display': h['display']['anchors'].get(f'level-{n}')}
+
+def wheel_harness(a):
+    h = _wheel_harness()
+    return {'format': h['format'], 'origin': h['origin'], 'display': h['display'],
+            'decision_tree': h['decision_tree'],
+            'tutor': h['tutor'], 'verify_summary': h['verify']['crosscheck_summary'],
+            'disagreements': h['verify']['disagreements'], 'gaps': h['verify']['gaps'],
+            'pronunciation': h['pronunciation'], 'trika': h['trika'],
+            'note': 'Full datasets + pack index: fetch data/wheels/harness.json (101KB, one fetch). This tool returns the map, not the territory.'}
+
 def call(name,a):
     if not isinstance(a,dict): raise ValueError('Arguments must be an object')
     if name=='list_works':
@@ -237,6 +324,10 @@ def call(name,a):
                                    'status': 'CANDIDATE'})
         return {'format': 'scholar-pushback/1', 'issues': issues,
                 'note': 'Candidate issues for author accept/reject/revise/defer. Not entailment, not peer review.'}
+    if name=='wheel_harness': return wheel_harness(a)
+    if name=='wheel_lookup': return wheel_lookup(a)
+    if name=='wheel_verify': return wheel_verify(a)
+    if name=='wheel_level': return wheel_level(a)
     if name in ('resolve_ref','ref_links'):
         if lingua_resolver is None: raise ValueError('Shared-language resolver unavailable')
         ident(a.get('id'))
@@ -281,6 +372,10 @@ TOOLS=[
   ('link_claims','Build a revision-bound claim table. CURRENT means the recorded hash matches a locally verified bundled projection, not textual authority or the latest online version.',S({'text':T,'refs':{'type':'array','items':{'type':'object'}},'essay_rev':T,'source_revs':{'type':'object'}},['text'])),
   ('check_claim_staleness','Recheck a claim table against the essay and local bundled projections; caller-provided revisions do not establish freshness.',S({'record':{'type':'object'},'text':T,'source_revs':{'type':'object'}},['record','text'])),
   ('pushback','Revision-bound candidate issues (failed quotes, uncited paragraphs, unresolved links) for author accept/reject/revise/defer. Agent report, not peer review.',S({'text':T,'refs':{'type':'array','items':{'type':'object'}},'sources':{'type':'object'}},['text'])),
+ ('wheel_harness','Learning-harness map: stages, gates, tutor files, verify summary, trika links (fetch harness.json for the full one-fetch program).',S({})),
+ ('wheel_lookup','Look up one Sanskrit form in the vendored grammar pack: gloss layer, derivation trace, lessons, verses.',S({'form':T},['form'])),
+ ('wheel_verify','Prove one form fast: AGREE / DISAGREE_STANDS / MACHINE_GAP / CURATED_ONLY with evidence.',S({'form':T},['form'])),
+ ('wheel_level','Get one tutor level prompt (goal, rules, drills, gate) by number 1-6.',S({'level':{'type':'integer','minimum':1,'maximum':6}},['level'])),
  ('resolve_ref','Resolve any shared-language ID (work/chunk/tension/crux/essay/pack/aoc) to bytes, status and license. Fails closed.',S({'id':T},['id'])),
  ('ref_links','Every ID connected to the given one — tension is the hub, links are verified both directions.',S({'id':T},['id']))]
 

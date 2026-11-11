@@ -40,6 +40,20 @@ def load_json(p: Path):
 
 
 def build_pushing() -> dict:
+    # Fresh-checkout contract: the pushing digest is vendored output. When the
+    # ipvv checkout is present we rebuild from it; when it is not (CI, a clean
+    # clone) we keep the vendored digest byte-for-byte so --check stays green
+    # without pretending to have read a file we cannot see.
+    if not IPVV_PUSHING.exists():
+        vendored = ROOT / "data" / "pushing.json"
+        if vendored.exists():
+            try:
+                return json.loads(vendored.read_text(encoding="utf-8"))
+            except ValueError:
+                pass
+        print(f"emit discovery: pushing INDEX missing and no vendored digest ({IPVV_PUSHING})",
+              file=sys.stderr)
+        raise SystemExit(2)
     idx = load_json(IPVV_PUSHING)
     recs = idx.get("records", []) if isinstance(idx, dict) else []
     if not recs:
@@ -118,6 +132,7 @@ def build_llms(pushing: dict, biblio: dict, sanskrit: dict) -> str:
         f"- Grammar pack (Vidyut machine derivations for wheel forms, unreviewed): {ORIGIN}/data/grammar/wheel-pack.json",
         f"- Curated-vs-machine cross-check (per-form agreement, specials, gaps): {ORIGIN}/data/grammar/crosscheck.json",
         f"- Learning harness (ONE fetch: all wheels + decision tree + verify index + links): {ORIGIN}/data/wheels/harness.json",
+        f"- One-URL answers (no registration, no JS: fetch a form, get verdict + derivation + scripture): {ORIGIN}/a/<form>/ — index {ORIGIN}/a/index.json",
         f"- Harness master prompt (how a tutor model uses the site): {ORIGIN}/data/wheels/HARNESS.md",
         f"- Wheel datasets (word/sentence/trika/karaka constructors): {ORIGIN}/data/wheels/word.json, sentence.json, trika.json, karaka.json",
         f"- Tutor levels (one prompt file per level, machine-readable): {ORIGIN}/data/wheels/tutor/level-01-bases.md ... level-06-karaka.md",
@@ -213,6 +228,7 @@ def build_ai_catalog(n_traces: int) -> dict:
                         "(one prompt file per level: goal, data URLs, closed-world rules, drills)",
         "grammar_pack": f"{ORIGIN}/data/grammar/wheel-pack.json "
                         "(Vidyut machine derivations, unreviewed) + crosscheck.json (curated-vs-machine agreement)",
+        "answer_index": f"{ORIGIN}/a/index.json (one static page per form: /a/<slug>/ = finished answer)",
         "harness": f"{ORIGIN}/data/wheels/harness.json "
                    "(one-fetch learning harness: wheels + decision tree + verify index + tutor/trika links)",
         "counts": {"traces": n_traces},
@@ -235,6 +251,13 @@ def build_sitemap() -> str:
     # chain/work pages stay (evidence + navigation, not promotion).
     held = load_holds()
     urls = ["", "pushing.html", "wheels.html", "about/", "cite/"]
+    try:
+        ans = json.loads((ROOT / "a" / "index.json").read_text())
+        for e in ans.get("entries", []):
+            if e.get("slug"):
+                urls.append(f"a/{e['slug']}/")
+    except (OSError, ValueError):
+        pass
     try:
         idx = json.loads((ROOT / "data" / "sanskrit" / "index.json").read_text())
         for e in idx.get("lessons", []):

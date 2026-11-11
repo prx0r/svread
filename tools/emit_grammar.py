@@ -65,6 +65,7 @@ MACHINE_A = [
 KATHAM_NOTE = {
     'id': 'kim-katham',
     'iast': 'katham',
+    'deva': 'कथम्',
     'kind': 'curated-note',
     'status': 'CURATED',
     'teaching_sutra': '5.3.24-25',
@@ -231,6 +232,7 @@ def main() -> int:
         ('asmad', 'Pum', 'Sasthi', 'Eka', 'mama', 'pers-pron-1sg-gen', '1st sg genitive (possessor): mama mata'),
         ('yuzmad', 'Pum', 'Sasthi', 'Eka', 'tava', 'pers-pron-2sg-gen', '2nd sg genitive (possessor)'),
         ('tad', 'Pum', 'Sasthi', 'Eka', 'tasya', 'pers-pron-3sg-gen', '3rd sg genitive (possessor)'),
+        ('tad', 'Stri', 'Sasthi', 'Eka', 'tasyAH', 'pers-pron-3sg-fem-gen', '3rd sg fem genitive (possessor): tasyaah mata'),
         ('mAtf', 'Stri', 'Prathama', 'Eka', 'mAtA', 'kin-mata-nom', 'mother, fem nom sg: pairs with asti + sukhini'),
         ('pitf', 'Pum', 'Prathama', 'Eka', 'pitA', 'kin-pita-nom', 'father, masc nom sg: pairs with asti + sukhi'),
         # object / locus nouns for the karaka level (ESG Topic III examples)

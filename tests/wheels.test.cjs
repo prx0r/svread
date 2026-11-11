@@ -85,8 +85,9 @@ test('wheel datasets reference ready pack entries only', () => {
     for (const o of w.options) {
       if (o.source_status === 'LINKED') {
         assert.ok(o.concept_ref && o.concept_ref.file, `${o.id} has ref`);
-        assert.ok(fs.existsSync(`/root/translation-work/lore/concepts/${o.concept_ref.file}`), `${o.id} concept file exists`);
-        const d = JSON.parse(fs.readFileSync(`/root/translation-work/lore/concepts/${o.concept_ref.file}`, 'utf8'));
+        const cpath = path.join(ROOT, 'data/wheels/concepts', o.concept_ref.file);
+        assert.ok(fs.existsSync(cpath), `${o.id} concept file vendored`);
+        const d = JSON.parse(fs.readFileSync(cpath, 'utf8'));
         assert.ok((d.definition || '').includes(o.concept_ref.definition.slice(0, 40)), `${o.id} quote matches`);
       } else {
         assert.equal(o.source_status, 'PENDING', `${o.id} honest pending`);
@@ -143,8 +144,11 @@ test('karaka wheel: six relationships, honest examples', () => {
     if (e.iast) surfs.add(e.iast.replace(/\s+/g, ' '));
     for (const s of (e.all_surfaces || [])) surfs.add(s.iast);
   }
-  const cur = JSON.parse(require('node:child_process')
-    .execSync('node -e "const D=require(\'/root/svread/vendor/sanskrit-bruno-wheels/data.js\');console.log(JSON.stringify(D))"', {encoding: 'utf8'}));
+  const cp = require('node:child_process');
+  const vendorPath = path.join(ROOT, 'vendor/sanskrit-bruno-wheels/data.js');
+  const cur = JSON.parse(cp.execFileSync('node',
+    ['-e', 'console.log(JSON.stringify(require(process.argv[1])))', vendorPath],
+    { encoding: 'utf8' }));
   const curForms = new Set();
   for (const p of cur.predicates) for (const k2 of Object.keys(p.forms)) curForms.add(p.forms[k2]);
   for (const o of opts) {
@@ -222,6 +226,30 @@ test('harness is the one-fetch program', () => {
   for (const t of h.tutor) {
     assert.ok(fs.existsSync(path.join(ROOT, 'data/wheels/tutor', t.file)), `tutor file: ${t.file}`);
   }
+});
+
+test('one-URL answers: static, no-JS, verdict-correct', () => {
+  const idx = J('a/index.json');
+  const pack = J('data/grammar/wheel-pack.json');
+  const ready = pack.entries.filter(e => e.status === 'DERIVED' || e.status === 'CURATED');
+  assert.equal(idx.count, ready.length, 'one page per ready form');
+  assert.equal(idx.entries.length, idx.count);
+  const bySlug = new Map(idx.entries.map(e => [e.slug, e]));
+  // flagship verdicts
+  assert.equal(bySlug.get('katham').verdict, 'DISAGREE_STANDS');
+  assert.equal(bySlug.get('sarvatra').verdict, 'AGREE');
+  assert.equal(bySlug.get('asti').verdict, 'MACHINE_DERIVED');
+  for (const e of idx.entries) {
+    const html = read(`a/${e.slug}/index.html`);
+    assert.ok(html.includes('class="answer"'), `${e.slug} answer-first`);
+    assert.ok(html.includes(`https://svatantrya.net/a/${e.slug}/`), `${e.slug} canonical`);
+    assert.ok(!/<script src=/.test(html), `${e.slug} no external JS`);
+    assert.ok(html.includes('What this does not establish'), `${e.slug} limits section`);
+    assert.ok(html.includes('application/ld+json'), `${e.slug} json-ld`);
+  }
+  // the answer paragraph itself must state the verdict word
+  const kath = read('a/katham/index.html');
+  assert.ok(/class="answer">katham: curated form; the machine differs/.test(kath), 'katham answer line');
 });
 
 test('reader word panel wired, chat prefill kept', () => {

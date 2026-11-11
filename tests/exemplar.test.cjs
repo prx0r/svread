@@ -7,7 +7,8 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const ROOT = path.join(__dirname, '..');
-const FIX = path.join('/root/trika-x/testing/fixtures/exemplar-tsa08-p03.template.html');
+const FIX = process.env.TRIKA_X_FIXTURE
+  || path.join(__dirname, 'fixtures', 'exemplar-tsa08-p03.template.html');
 const PAGE = path.join(ROOT, 'claim/tantrasara-a08/tsa08-p03/index.html');
 
 const ORDER = ['The passage', 'Claim table', 'What this does NOT establish',

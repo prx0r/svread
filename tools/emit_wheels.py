@@ -17,7 +17,8 @@ import sys
 from pathlib import Path
 
 SVREAD = Path(__file__).resolve().parent.parent
-CONCEPTS = Path('/root/translation-work/lore/concepts')
+CONCEPTS = SVREAD / 'data' / 'wheels' / 'concepts'
+CONCEPTS_UPSTREAM = Path('/root/translation-work/lore/concepts')
 GRAMMAR = SVREAD / 'data' / 'grammar'
 
 BASES = [
@@ -206,6 +207,10 @@ def main() -> int:
             cref = None
             if cfile:
                 p = CONCEPTS / cfile
+                if not p.exists():
+                    up = CONCEPTS_UPSTREAM / cfile
+                    if up.exists():
+                        p = up
                 if p.exists():
                     try:
                         d = json.loads(p.read_text(encoding='utf-8'))

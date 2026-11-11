@@ -7,12 +7,9 @@ const { execFileSync } = require('node:child_process');
 const ROOT = path.join(__dirname, '..');
 
 test('emit_discovery --check is green and outputs are well-formed', (t) => {
-  // PR #7 P1: needs the ipvv pushing index; SKIP with reason when absent.
-  const fs2 = require('node:fs');
-  if (!fs2.existsSync(process.env.IPVV_ROOT || '/root/ipvv')) {
-    t.skip('emit_discovery needs the ipvv checkout; not present here');
-    return;
-  }
+  // Fresh-checkout contract: emit_discovery falls back to the vendored
+  // pushing digest when the ipvv checkout is absent, so this test runs
+  // everywhere instead of skipping (a skip here hid real breakage).
   let out;
   try {
     out = execFileSync('python3', ['tools/emit_discovery.py', '--check'], { cwd: ROOT, encoding: 'utf8' });

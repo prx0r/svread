@@ -80,7 +80,11 @@ class McpSearchTest(unittest.TestCase):
         self.assertIn("link_claims", names)
         self.assertIn("check_claim_staleness", names)
         self.assertIn("pushback", names)
-        self.assertEqual(len(names), 33)
+        # wheel tools (reader + harness surface)
+        for t in ("wheel_harness", "wheel_lookup", "wheel_verify", "wheel_level"):
+            self.assertIn(t, names)
+        # no silent removal: the historical core set must still be present
+        self.assertGreaterEqual(len(names), 37)
 
     def test_themes_and_audit_end_to_end(self):
         rs = run([
