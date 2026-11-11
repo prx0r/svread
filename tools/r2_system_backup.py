@@ -47,6 +47,8 @@ REPOS = {
     'openpatala': '/root/openpatala',
     'bruno': '/root/bruno',
     'satsang': '/tmp/opencode/prx0r-satsang-ef85d86',
+    'sanskrithelp': '/root/sanskrithelp',
+    'sanskritbench': '/root/sanskritbench',
 }
 # regenerable/junk never worth a backup byte
 TAR_EXCLUDES = ['--exclude=__pycache__', '--exclude=.wrangler',
