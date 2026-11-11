@@ -1,5 +1,13 @@
 # Progress storage and identity (2026-11-11)
 
+> **Owner decision (2026-11-11), binding:** **Google is the site account.**
+> You sign in with Google to read-save, keep progress, and use the scholar
+> workspace. **ORCID is not a login here — it is the publishing credential**,
+> connected after sign-in, used when a version is published (Zenodo / DOI).
+> The UI says this explicitly; ORCID login remains only as a legacy path for
+> scholars who already have no Google account.
+
+
 Question: how do we store progress — Google sign-in on the site, or the
 ChatGPT plugin?
 

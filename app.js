@@ -727,15 +727,23 @@ async function scholarView(){
     const nOrig = Object.keys(SCH.originals[st.layer]||{}).length;
     const tgtIds = schVsort(Object.keys(SCH.originals[st.layer]||{}));
     $('#lib').innerHTML =
-      W('schauth','Scholar account', SCHPROF
-        ? `<table class="wtable"><tr><td>signed in</td><td>${esc(SCHPROF.display_name||'')} · ${esc(SCHPROF.email||'')}${SCHPROF.orcid?`<div class="cmp-note">ORCID ${esc(SCHPROF.orcid)}</div>`:`<div style="margin-top:.3rem"><a class="c2btn" href="https://ipvv-api.tradesprior.workers.dev/api/auth/orcid/start?redirect=${encodeURIComponent(location.pathname+location.search)}">Connect ORCID iD</a></div>`}</tr></table><div style="margin-top:.4rem"><button class="c2btn" id="schout">sign out</button></div>`
-        : `<div class="cmp-note" style="margin-bottom:.3rem"><b>Scholar account</b> — sign in to keep your progress, save private versions, request review, and submit signed work. Browsing is free; sign-in is only for saving.</div>
+      W('schauth','Account', SCHPROF
+        ? `<table class="wtable">`
+          + `<tr><td>site account</td><td>${esc(SCHPROF.display_name||'')}${SCHPROF.email?`<div class="cmp-note">${esc(SCHPROF.email)}</div>`:''}<div class="cmp-note">${esc(SCHPROF.provider==='google'?'via Google':'via '+ (SCHPROF.provider||'account'))}</div></td></tr>`
+          + `<tr><td>publishing</td><td>${SCHPROF.orcid
+              ? `ORCID ${esc(SCHPROF.orcid)}<div class="cmp-note">connected — used for Zenodo DOI only</div>`
+              : `<span class="mut">not connected</span><div class="cmp-note">ORCID is for the publishing step (Zenodo / DOI). It is never needed to read, learn or save.</div><div style="margin-top:.3rem"><a class="c2btn" href="https://ipvv-api.tradesprior.workers.dev/api/auth/orcid/start?redirect=${encodeURIComponent(location.pathname+location.search)}">Connect ORCID iD</a></div>`}</td></tr>`
+          + `</table>
+             <div class="cmp-note" style="margin-top:.4rem">You are signed in to the site with Google. That account keeps your progress and saves; ORCID only identifies you when a version is published.</div>
+             <div style="margin-top:.4rem"><button class="c2btn" id="schout">sign out</button></div>`
+        : `<div class="cmp-note" style="margin-bottom:.3rem"><b>Sign in with Google</b> — that is your site account: it keeps your progress, saves private versions, and requests review. Reading and practice are free.</div>
            <div class="c2row"><button class="c2btn primary" id="schgoogle" style="font-size:1rem;padding:.5rem 1rem">Continue with Google</button></div>
-           <div class="c2row" style="margin-top:.3rem"><a class="c2btn" href="https://ipvv-api.tradesprior.workers.dev/api/auth/orcid/start?redirect=${encodeURIComponent(location.pathname+location.search)}">Continue with ORCID (scholars)</a></div>
-           <details style="margin-top:.4rem"><summary class="mut">or use email + password</summary>
+           <div class="cmp-note" style="margin-top:.5rem"><b>ORCID is not a login here.</b> It is the publishing credential: connect it later (after signing in with Google) when you want a published version to carry your scholarly identity and a Zenodo DOI.</div>
+           <details style="margin-top:.4rem"><summary class="mut">existing email / ORCID scholar account</summary>
            <div class="c2row" style="margin-top:.3rem"><input id="schemail" placeholder="email" type="email"/><input id="schname" placeholder="display name"/></div>
-           <div class="c2row" style="margin-top:.3rem"><input id="schpw" placeholder="password (8+ chars)" type="password"/><button class="c2btn" id="schgo">sign in / join</button></div></details>
-           <div class="cmp-note" id="schauthmsg">One click if you have an ORCID session; the sign-in lasts 7 days on this device.</div>`)
+           <div class="c2row" style="margin-top:.3rem"><input id="schpw" placeholder="password (8+ chars)" type="password"/><button class="c2btn" id="schgo">sign in / join</button></div>
+           <div class="c2row" style="margin-top:.3rem"><a class="c2btn" href="https://ipvv-api.tradesprior.workers.dev/api/auth/orcid/start?redirect=${encodeURIComponent(location.pathname+location.search)}">Sign in with ORCID (legacy scholars)</a></div></details>
+           <div class="cmp-note" id="schauthmsg">Google sign-in lasts 7 days on this device; nothing is posted anywhere without you.</div>`)
       + W('schhub','Scholar',
         `<table class="wtable">`
         + `<tr><td>work</td><td>${esc(SCH.work)}</td></tr>`
