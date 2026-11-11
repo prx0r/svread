@@ -170,7 +170,8 @@ number.
 
 ## 7. The one-line version
 
-**Server-scored gates make learning uncheatable; certificates make
+**Server-scored gates make progress server-recorded and replay-proof (a practice
+check while the pool is public, not mastery); certificates make
 verification instant; a blind benchmark makes quality measurable; training
 then optimises against that measurement instead of against our own
 enthusiasm.**

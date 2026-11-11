@@ -1,4 +1,4 @@
-/* gate.test.cjs — the uncheatable-gate contract.
+/* gate.test.cjs — the server-scored gate contract (practice check, not mastery).
    What the server enforces at runtime is mirrored here as build-time invariants:
    pools must make 18/20 possible, fair, and cumulative; served payloads must
    never carry answers; the worker must hold the key server-side. */

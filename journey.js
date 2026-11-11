@@ -278,12 +278,12 @@ function copyPrompt(circle){
     try{ done(document.execCommand('copy')); }catch(e){ done(false); } t.remove();
   }
 }
-/* ---- server-scored gates (the uncheatable path) ----
+/* ---- server-scored gates (server records the score; practice check, not mastery) ----
    When signed in, quizzes run as server sessions: the server samples,
    shuffles, holds the key, scores, and writes the unlock. The local drill
    stays for signed-out practice, labelled unverified. */
 const SRV_API = (typeof window!=='undefined' && window.SVREAD_API) || 'https://ipvv-api.tradesprior.workers.dev';
-const SRV = {me: null, progress: null, session: null, busy: false};
+const SRV = {me: null, progress: null, progressState: 'signed-out', session: null, busy: false};
 async function srvJson(path, opts){
   const r = await fetch(SRV_API + path, Object.assign({credentials:'include'}, opts||{}));
   let j = null; try{ j = await r.json(); }catch(e){ j = null; }
@@ -300,9 +300,9 @@ async function srvSync(){
       const pr = await srvJson('/api/wheel/progress');
       const m = {};
       for(const p of (pr.progress||[])) m[p.curriculum] = p;
-      SRV.progress = m;
-    }catch(e){ SRV.progress = {}; }
-  } else SRV.progress = null;
+      SRV.progress = m; SRV.progressState = 'ok';
+    }catch(e){ SRV.progress = null; SRV.progressState = 'failed'; }
+  } else { SRV.progress = null; SRV.progressState = 'signed-out'; }
   paintSrvBanner();
   return SRV;
 }
@@ -321,10 +321,12 @@ function paintSrvBanner(){
     el.id = 'j-srv'; el.setAttribute('class','mut');
     host.insertBefore(el, host.firstChild);
   }
-  if(SRV.me){
+  if(SRV.me && SRV.progressState === 'ok'){
     const w = (SRV.progress && SRV.progress.word) || {stage:1};
     const sn = (SRV.progress && SRV.progress.sentence) || {stage:1};
-    el.innerHTML = 'signed in as <b>'+esc(SRV.me.display_name||SRV.me.email||'scholar')+'</b> · scored by the server · word layer '+esc(String(Math.min(w.stage,5)))+' · sentence layer '+esc(String(Math.min(sn.stage,4)))+' · <span class="mut">ChatGPT uses the same record</span>';
+    el.innerHTML = 'signed in as <b>'+esc(SRV.me.display_name||SRV.me.email||'scholar')+'</b> · server-recorded practice progress · word layer '+esc(String(Math.min(w.stage,5)))+' · sentence layer '+esc(String(Math.min(sn.stage,4)))+' · <span class="mut">low-stakes check, not mastery · ChatGPT uses the same record</span>';
+  } else if(SRV.me){
+    el.innerHTML = 'signed in as <b>'+esc(SRV.me.display_name||SRV.me.email||'scholar')+'</b> · <span class="cmp-note">progress unavailable right now — nothing is being recorded. Try again shortly; local practice below still works.</span>';
   } else {
     el.textContent = 'practising locally (unverified) — sign in via the Scholar tab to make scores count.';
   }
@@ -401,7 +403,7 @@ renderJourney = function(){
   _renderJourneyOrig();
   srvSync().then(()=>{
     paintSrvBanner();
-    if(!SRV.me) return;
+    if(!SRV.me || SRV.progressState !== 'ok') return;
     const st = jstate(); const circle = st.circle||'word';
     const box = document.getElementById('j-quiz');
     if(box && !SRV.session){
