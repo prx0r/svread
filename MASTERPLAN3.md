@@ -12,12 +12,25 @@ essays, books, video explainers, podcasts, courses, interactive practise
 modules · formalisation of tantric traditions and practices · the realisation of
 freedom for everyone, by themselves, independent of institutions.
 
-**Near-term product test:** a reader opens a short work and can identify its
-edition and passage, inspect the Sanskrit, compare distinct translations where
-reuse is authorized, follow each wording to its source, and see where the
-translators or editors differ. The project should preserve those differences
-and explain them; it should not imply that a single machine-generated wording
-settles the interpretation. Rights and source metadata are part of the product.
+**Corpus endgame:** systematically catalogue and translate the Muktabodha
+holdings, with English as the first production language. The first translation
+campaign is the complete searchable e-text collection. The longer programme
+also accounts for the IFP paper transcripts and Gokarna Vedic collections;
+image-only or fragmentary items need a transcription and source-review stage
+before they can enter translation. Muktabodha currently describes more than
+3,000 digitally preserved items, over 570 searchable e-texts, over 2,000 IFP
+transcripts, and a separate Vedic manuscript collection
+([collection overview](https://muktabodha.org/digital-library/)). A 499-item
+work queue is therefore a working subset, not a complete corpus denominator.
+
+**Near-term product test:** one complete, rights-cleared short work moves from
+an identified source edition through full passage coverage and independent
+review into a reader, a learning path, and a reusable book-generation input. A
+reader can inspect the Sanskrit, compare distinct translations where reuse is
+authorized, follow each wording to its source, and see where translators or
+editors differ. Preserve those differences; do not imply that one machine
+wording settles the interpretation. Rights and source metadata are part of the
+product.
 
 **Strategy in one line:** be a source-aware reading and learning system alongside
 AI assistants: the software checks defined bytes, schemas, and computations;
@@ -30,21 +43,26 @@ that a translation or interpretation is true.
 # Part 0 — Current state (snapshot; recheck before implementation)
 
 The counts and infrastructure claims in earlier drafts are historical until
-reproduced. This snapshot was checked on 2026-11-11 against `svread` main at
-`df304e0e` and the inspected `ipvv` master at `c2cb6b3`; PR #14 is a separate,
-open documentation branch, not yet part of main. These are repository facts,
-not proof that deployed services have the same state.
+reproduced. This snapshot was refreshed on 2026-11-11 against `svread` main at
+`0b929e6a` (PR #14 is merged) and the inspected `ipvv` master at `c2cb6b3`.
+PR state and workflow results below refer to the exact heads named; repository
+facts do not prove that deployed services have the same state.
 
 | Area | Verified state | Consequence |
 |---|---|---|
-| `svread` main CI | Inspected main run [42973083646](https://github.com/prx0r/svread/actions/runs/42973083646) failed on a stale release manifest. PR #14 is a separate open branch; rerun its checks after every update. | Keep manifest generation last; a PR result does not mean main is green. |
+| `svread` main / PR #14 | PR #14 merged as `0b929e6a`; its review recorded 82 Node checks passing, 0 failing, 12 skipped and 40 MCP checks passing, 1 skipped. The earlier run [42973083646](https://github.com/prx0r/svread/actions/runs/42973083646) was before that merge and failed on a stale manifest. | Treat the merged PR's test report as a pinned result, not a guarantee about later main or deployment. |
 | Release / source checks | Current main's claim-page byte checks, negative tests, and Ghaṭakarpara English hold pass. | Preserve the source-byte and publication-hold gates. |
 | Edition metadata | Release-manifest check reports 95 works and 37 without a named source edition. | Treat edition/witness identification as a publication blocker for affected works; do not let a valid byte hash imply a reliable source text. |
 | Gate UI | `journey.js` calls `/api/wheel/progress` and `/api/wheel/gate/{start,submit}`. | Client references do not mean the routes exist or are deployed. |
 | Public gate bank | `data/wheels/gates.json` contains answers for all 61 public items. | This is public practice material; it cannot support secure assessment or mastery claims. |
 | `ipvv` backend | Inspected `c2cb6b3` has none of the wheel gate routes, `gate_sessions`, migration 0013/0014, `learner_progress`, or `learner_attempts`. | W1 is not shipped. The old plan's “tables live” statement was wrong. |
 | Gate integration test | In `node --test tests/gate.test.cjs` with `IPVV_ROOT` set to that checkout, 4 checks pass and the route-presence integration check fails because the routes are absent. | Keep this failure visible until the backend is implemented and reviewed. |
-| MCP implementations | Local stdio servers and a federation gateway exist in sibling repositories. Their current count, deployment, availability, auth behavior, and transport support have not been re-verified here. | Do not promise a 104-tool hosted service or a particular connector path. |
+| OpenPatala interface | Current OpenPatala main has a 46-route GET API and a 5-tool stdio MCP. The MCP `search`/`resolve` implementations scan up to 10,000 works; `get_frontier` returns a general work list rather than a translation/source frontier. No MCP write/job tools exist. | OpenPatala is the right registry owner, but its MCP is not yet the promised control panel. Build a narrow typed service contract before exposing job writes. |
+| OpenPatala credentials | Current `patala/db/connection.py` defaults to a password-free local URL, while `patala/db/store.py` still has a `patala:patala` fallback. PR #16 in `svread` copies that value into `OPENPATALA-CONNECTION.md`; its latest head `bca2e47c` has Reader integrity run [42982438119](https://github.com/prx0r/svread/actions/runs/42982438119) passing. | Remove password-bearing examples/defaults, use the approved secret mechanism, and rotate the value if it was used beyond an isolated local database. A green docs check does not clear credential handling. |
+| Muktabodha scope | The official overview describes three distinct collections: searchable e-texts, IFP paper transcripts, and Gokarna Vedic manuscripts. The current translation-work queue has 499 rows, not a demonstrated census of all three collections. | Count every catalogued item; give exclusions an explicit reason; track transcription readiness separately from translation. |
+| translation-work PR #18 | Current head `0ad2804d` adds a 499-row queue, 492 ranked rows, and 355 discovery rows. Seven queued Buddhist records are filtered out; 270/355 discovery records report zero confirmed translations across three queried sources. Its 980 assessor entries are process judgments, not named human Sanskrit reviews. The head has no PR workflow runs or commit statuses. | Keep the full denominator and label search completeness; zero hits are “not found in these searches,” not “untranslated.” No translation-complete claim is supported by these discovery counts. |
+| PR #18 reproducibility/security | `prioritize_mukta.py` reads `/tmp/mukta_census.json` and a `/root/openpatalaproject` index; read errors silently become empty data and default to `T=0` (“unserved”). `mukta_deepfind_batch.py` hardcodes `/root` imports and a `patala:patala` DB password. | Pin inputs, use repository/config roots and environment-based credentials, and make missing data an explicit blocked/error state before merge or batch runs. |
+| Kulārṇavatantra sample in PR #18 | `T1-kul-p04.md` / `p05.md` and their parsed JSON are machine-proposed glosses; parsed `quick_english` is blank for all 25 verses in each file. The p04 glosses omit the first half of verses; p05 labels the colophon and next chapter as vv.122–125. Muktabodha M00031's text ends ullāsa I at v.121, has a colophon, then starts ullāsa II at v.1. | Treat the files as partial machine artifacts, not translations or full source coverage. Passage locators must preserve chapter-local numbering and paratext. |
 | Runtime credentials / quotas | Not verified for this snapshot. | Check live provider settings immediately before use; do not bake quotas or secret paths into the plan. |
 
 Reproduction notes for this audit: `python3 scripts/release_manifest.py` reported
@@ -147,6 +165,19 @@ tools/                     build_l0, proof_record, emit_site, mitra_grounds,
 REGISTRY.json              gold/pending (machine-proposed ≠ human-approved)
 ```
 
+### OpenPatala (canonical registry + control plane)
+```
+patala/                     identities, editions, passages, rights, provenance
+patala/api.py               typed read API; current main exposes GET routes
+patala/mcp_server.py        current five-tool stdio reader; not yet a job console
+migrations/                 append-only events, artifacts, rights, observations,
+                            candidates, assertions, editions, witnesses, texts
+```
+OpenPatala owns canonical IDs and current registry state. It should own the job
+ledger and release pointers too, but translation workers must not write
+directly to its database. Content remains in revisioned, hash-addressed
+artifacts; OpenPatala records their identity, rights, locators, and event links.
+
 ### trika-x (formal + federation)
 ```
 formal-trika/control/*.lean     named models + must-fail twins
@@ -161,7 +192,7 @@ tools/mcp_catalog.py            catalog drift gate (banned-action guard)
 ### sibling checkouts (integration boundaries)
 ```
 SATSANG_ROOT/auth/src/*.js               Google sign-in worker (verify origin list)
-OPENPATALA_ROOT/patala/mcp_server.py     identity tools (verify current interface)
+OPENPATALA_ROOT/patala/mcp_server.py     registry MCP (current tools are read-only)
 BOOKFACTORY_ROOT/bf_mcp/server.py        books (verify current catalogue)
 VIDEOFACTORY_ROOT/vf_mcp_server.py       video (verify current catalogue)
 DEITYBODY_ROOT/data/curriculum.json      Mātṛkā curriculum (pin revision)
@@ -316,8 +347,10 @@ Sanskrit review of the exact formalized derivations.
 
 ## W3 — Access layer (read-only first)
 
-**Goal.** An assistant can retrieve bounded, source-linked reading and evidence
-through one supported, authenticated, observable interface.
+**Goal.** OpenPatala is the single registry/control plane. ChatGPT is the
+learning, research, and writing interface through a small, authenticated MCP;
+it can read source-linked records and submit bounded candidate jobs without
+becoming the source of truth or release authority.
 
 **Justification.** Existing local servers are stdio. The remote transport,
 authentication, and product connector must be checked against the current
@@ -325,35 +358,61 @@ official specifications and the actual deployment before implementation.
 Treat transport and connector support as implementation choices, not strategy
 assumptions.
 
+**Current gap.** The current OpenPatala MCP has five read tools and its
+`get_frontier` implementation is not a true translation frontier. Its API has
+typed GET routes, but no job/candidate/review write contract. The MCP is a
+useful prototype, not yet a control panel. The general trika-x federation is a
+worker aggregation layer; its catalogue is not an authorization boundary and
+should not be exposed wholesale as ChatGPT's privileged interface.
+
 **Files**
-- Add a small read-only adapter beside the chosen federation runtime; expose
-  only reviewed tools, with schemas, source citations, budgets, timeouts, and
-  request IDs.
+- Extend OpenPatala's service boundary first; add a small read-only MCP surface
+  beside it with reviewed schemas, source citations, budgets, timeouts, and
+  request IDs. Do not use direct SQL from ChatGPT, svread, or translation
+  workers.
 - Use the transport and authorization flow required by the current official
   connector specification. Avoid anonymous discovery of sensitive tools.
 - Never put credentials, user data, or write arguments in URLs. Use scoped
   credentials, revocation, rate limits, and auditable actions where supported.
 - Keep authorization policy owned by the service responsible for the data; do
   not trust a federation gateway's catalogue as an access-control boundary.
+- First read tools: `catalog.search`, `work.dossier`, `source.coverage`,
+  `translation.matrix`, `queue.preview`, and `job.status`. Every response names
+  the exact source edition, artifact hash, locator, rights state, review state,
+  and any unavailable evidence.
+- Later write tools, only after review: `job.create` and `candidate.submit` may
+  create private work. `review.submit` records a named review. Release approval
+  remains a human action with an explicit, separate permission. A model may
+  never turn its own candidate into an approved or public translation.
+- Each job pins canonical work/edition/locator IDs, source hash, target
+  language/layer, rights decision, prompt and model versions, output hashes,
+  reviewer state, retry/idempotency key, and an append-only provenance event.
+- ChatGPT may teach from approved public layers, compare authorized
+  translations, help write essays, and request new drafts. Bookfactory and
+  other generators consume only approved release snapshots; generated books,
+  courses, and media link back to the exact released text and sources.
 - Add `data/mcp.json` and `llms.txt` only after endpoint, transport, auth, and
   privacy behavior have been verified in the deployed environment.
 
 **Dev steps**
-1. Inventory currently available tools; choose the smallest useful read-only
-   set and test each response for source, rights, provenance, and failure mode.
-2. Implement one supported transport and verify protocol negotiation,
+1. Inventory available OpenPatala routes and every MCP grant; close the
+   frontier/search gaps and define typed response schemas.
+2. Implement one supported read transport and verify protocol negotiation,
    authentication, timeouts, rate limits, and shutdown behavior.
-3. Test with an actual connector and account that has the required grants.
-4. Consider narrowly scoped writes only after the read path and consent flow
-   pass review.
+3. Test with an actual connector and account that has the required grants;
+   test DB/API and child-service outages explicitly.
+4. Add private candidate-job writes only after the read path, consent flow,
+   job ledger, and recovery behavior pass review.
 
 **Acceptance**
-- Tool list contains only reviewed tools and no accidental write or admin
-  actions.
+- Initial tool list contains only reviewed read tools and no accidental write
+  or admin actions; later write tools are separately scoped and permissioned.
 - Malformed input, unauthorized calls, expired/revoked credentials, child
-  failure, timeouts, and rate limits fail safely and leave an audit record.
-- A supported client can retrieve a source-linked result in a clean session;
-  every connector capability claimed is observed and recorded.
+  failure, timeouts, and rate limits return an explicit error, never empty
+  success or a stale “healthy” result; actions leave an audit record.
+- A supported client can retrieve a source-linked dossier and translation
+  comparison in a clean session; every connector capability claimed is
+  observed and recorded.
 
 **Depends on:** source-aware read responses and an implemented, security-reviewed
 transport. W2 is optional; tools must state when no mechanical certificate exists.
@@ -400,9 +459,11 @@ depends on W1, but the practice surface itself does not.
 baseline, while tracking data rights and provenance.
 
 **Files**
-- New `data/eval/trika-blind-50.json` (+ `.md` rubric): held-out passages with
+- New `data/eval/muktabodha-blind-set.json` (+ `.md` rubric): held-out passages with
   documented provenance, permissions, categories, difficulty, and separation
-  from prompts, retrieval, and training.
+  from prompts, retrieval, and training. Stratify across verse, prose, ritual,
+  philosophical argument, commentary, and source quality where the corpus
+  supports those categories.
 - New `tools/eval_blind.py`: runs candidates (pipeline export, MITRA-MT output,
   tool stack), scores correction effort, writes `data/eval/results-<date>.json`.
 - New `data/licenses/registry.json` + `tools/check_licenses.py`: per dataset
@@ -469,15 +530,24 @@ humans review all linguistic decisions and control publication.
   into a reader bundle.
 - Reuse `tools/emit_verify.py`, `tools/emit_claim_pages.py`,
   `tools/emit_traces.py`, `tools/emit_biblio.py` (svread).
-- If a stable, authenticated OpenPatala interface is available, add a
-  revision-pinned exporter for work/edition/passage/tradition IDs. Keep it
-  disabled until that interface and its write permissions are verified.
+- Use OpenPatala IDs for all work/edition/passage joins. A worker submits a
+  candidate artifact through the OpenPatala service contract; it never writes
+  straight to the canonical DB. Until job writes are implemented and reviewed,
+  run jobs locally and attach them as clearly provisional artifacts.
+- The T1 gloss is an alignment aid, not a finished translation. Require full
+  source coverage before downstream L0/argument-map/literal/readable layers;
+  empty English fields, missing pādas, broken segmentation, or unresolved
+  chapter boundaries keep the job `BLOCKED`.
+- Keep source census, extant-translation research, machine-draft coverage,
+  human-reviewed coverage, and released coverage as separate measures. A search
+  with no hit is not proof that no translation exists.
 
 **Dev steps**
-1. Pick one small work; run driver; keep every failure BLOCKED.
-2. Emit reader bundle → verify pack → claim pages.
-3. Verify rights, metadata, work/edition/passages, and ID resolution.
-4. Independent blind review on the new work. A human explicitly approves each
+1. Pick one complete, short work from the inventory; pin source, rights, IDs,
+   locators, and the full expected passage count.
+2. Run driver; require exact text coverage and keep every failure BLOCKED.
+3. Emit reader bundle → verify pack → claim pages from an approved snapshot.
+4. Independent blind review on the work. A human explicitly approves each
    release; a label does not substitute for review or publication permission.
 
 **Acceptance:** source → private candidate layers → independent review → an
@@ -490,21 +560,126 @@ W3 is optional; an assistant connector is not required for a reliable pipeline.
 
 ---
 
+## W8 — Muktabodha translation programme (the corpus endgame)
+
+**Goal.** Produce an English translation for every catalogued Muktabodha text
+that can be transcribed and legally processed, while keeping source
+transcription, translation, review, and publication distinct. Text or rights
+barriers remain explicit work states. “Complete” is measured against named
+collections and passage coverage, never the volume of model output.
+
+**Scope and denominators**
+- Begin with the complete catalog of searchable Muktabodha e-texts. The
+  Institute currently reports more than 570; reconcile the official catalog,
+  source files, and OpenPatala ledger by catalog ID before using a percentage.
+- In parallel, catalogue all IFP transcripts and Gokarna Vedic holdings.
+  Track image-only, partial, damaged, and not-yet-transcribed items as
+  transcription work; they enter translation after usable text is established.
+- Include every tradition represented in scope. Delayed or excluded works stay
+  in the registry with the reason, owner, and next action. The queue must not
+  silently filter Buddhist or other records by title substring.
+- Queue order is a scheduling choice, separate from the corpus census. A
+  “shortest first” score preserves the full denominator and discloses its
+  signals, sources, uncertainty, and excluded/blocked rows.
+
+**Canonical passage dossier**
+For every text unit, OpenPatala links the canonical work ID and collection
+catalog ID to the exact source edition/artifact and checksum, rights state for
+discovery/fetching/derivative/release, stable chapter-local locator, source
+text, segmentation state, cited alternate translations and reuse rights,
+translation layers, and review/release events. A witness is recorded only when
+source evidence identifies one. Colophons, appendices, and chapter-local
+numbering remain distinct from verse sequences.
+
+**Editorial layers and status**
+1. **Source transcription:** exact bytes and line/pāda mapping; unresolved
+   readings remain visible.
+2. **T1 gloss:** token/pāda alignment and morphology/gloss candidates. It is an
+   alignment aid; translation coverage begins at the complete English layers.
+3. **Literal draft:** complete sense-preserving English with one aligned unit
+   per source passage.
+4. **Readable draft:** idiomatic English linked to the literal layer and
+   Sanskrit, with unresolved choices and alternatives recorded.
+5. **Scholarly apparatus:** translation decisions, variants, lexical evidence,
+   commentarial evidence, and citations, with claims attributable.
+6. **Human reviews:** Sanskrit/language review, tradition/interpretive review,
+   and editorial copyedit recorded as separate decisions.
+7. **Release:** rights-cleared, versioned public snapshot approved by a human;
+   `bookfactory` and `svread` consume that snapshot, never a mutable worker
+   directory.
+
+Track source and rights states separately from translation states. Suggested
+translation states are `draft_pending`, `machine_draft`, `language_review`,
+`philology_review`, `copyedit`, `approved`, `released`, `withheld`, and
+`blocked`. Remove `DONE = machine-translated` from user-facing or corpus
+completion reporting. Report at least catalog coverage, source-text coverage,
+rights-cleared coverage, machine-draft coverage, human-reviewed coverage, and
+released coverage.
+
+**Discovery and alternate-translation research**
+Search named catalogs and indexes with versioned queries. Record date, source,
+access/coverage result, matched edition, language, translator, and evidence URL.
+Interpret `0 hits` as a result of those searches only. Label availability
+`unknown` until the search protocol has adequate coverage; use `no known
+translation located` only with a dated, documented search. Avoid translation
+counts based on title matches alone. Store full alternate wording only where
+its license/use permits it; otherwise retain citation metadata and a link.
+
+**Quality gates**
+- Expected source passage count and actual count reconcile before translation;
+  every pāda/line has explicit coverage or an exception record.
+- Source and target passage locators stay aligned. Chapter numbering restarts
+  where the edition restarts; colophons remain paratext.
+- Every layer carries source hash, tool/model/prompt version, run ID, and
+  reviewer/status. Candidate and approved versions are immutable and linked.
+- Machine drafts cannot set `approved`, `released`, or canonical scholarly
+  assertions. Unresolved source or rights states are visible to editors and
+  readers.
+- Reader, lesson, essay, book, audio, video, and course outputs record their
+  exact release snapshot and source links so each derivative is reproducible.
+
+**Build order**
+1. Reconcile PR #16's connection guide with current code; remove password
+   examples/defaults and credential-bearing shell commands before using it as
+   onboarding documentation.
+2. Import the official Muktabodha catalog as registry records; reconcile all
+   three collections and create a gap report against the current 499-row queue.
+3. Define OpenPatala schemas and service endpoints for collection/work/edition,
+   source artifacts, passage coverage, rights, alternatives, jobs, candidates,
+   reviews, and releases. Keep ingestion staged until reviewed.
+4. Finish one complete short work under the gates above. Use the current
+   Kulārṇavatantra p04/p05 machine artifacts as a negative case for missing
+   pāda coverage, blank English, and chapter/colophon boundaries.
+5. Add ChatGPT's read-only learning/writing cockpit, then narrow candidate-job
+   writes with consent and provenance. Publish only through human approval.
+6. Batch across the full e-text corpus after coverage metrics and review cost
+   are stable. Expand to image-only IFP/Gokarna materials as separate
+   transcription-plus-translation campaigns.
+
+**Completion evidence.** Every catalog item has an explicit state and next
+action; every translatable passage is accounted for; every public translation
+has complete coverage, source/rights metadata, independent review, and a human
+release event. Report draft throughput separately from scholarly publication.
+
+---
+
 # Part 4 — Sequencing
 
 | Stage | Work | Exit evidence |
 |---|---|---|
-| 0. Make the repo truthful | Reconcile PR #14; keep release manifest and checks green on a fresh checkout; rebase PR #11 and resolve conflicts without weakening translation-rights rules. | Reproducible CI and a clean integration diff; current backend limitations documented. |
-| 1. Prove reader value | Choose one short work with an identifiable edition; document witnesses and rights; compare only reusable translations or excerpts authorized for the use; publish a carefully reviewed two-verse pilot with source links and uncertainty notes. | Independent Sanskrit review; readers can compare distinct wording and trace claims to sources without an implied consensus. |
-| 2. Measure the experience | Establish a human-reviewed translation baseline and run small learner/reader sessions; separate reading comprehension, terminology, and correction effort. | A frozen protocol and recorded results, including disagreements and limitations. |
-| 3. Improve practice | Ship a usable practice surface. Add saved, low-stakes progress only after the IPVV routes, auth, schema, and tests exist. Keep public answer-bank practice labelled honestly. | Usability evidence; progress behavior is integration-tested and never represented as mastery. |
-| 4. Add evidence tools | Build only the certificates and read-only assistant functions that solve observed reader/reviewer needs. | Exact provenance and checker receipts; narrow reviewed tool catalogue; failure and privacy controls. |
-| 5. Expand carefully | Add more works after licensing, metadata, review capacity, and human approval are ready. Consider model adaptation only if the evaluation shows a persistent bottleneck. | Per-work review and explicit publication decision; held-out improvement before any model change. |
+| 0. Secure and stabilize | Reconcile PR #16's connection guide with credential policy and current code. Keep PR #18's machine outputs explicitly provisional; correct denominator, locator, and coverage defects before presenting its queue as a translation programme. Preserve fresh-checkout checks and generate the release manifest last. | Credential-free docs/defaults; current CI evidence; PR #18 reports drafts, not completed translations. |
+| 1. Census the corpus | Import the official Muktabodha catalogs into OpenPatala and reconcile searchable e-texts, IFP transcripts, and Gokarna items by catalog ID. Record transcription readiness, collection, rights state, and exclusions for every item. | A source-linked inventory with a known denominator and a gap report for the existing 499-row queue. |
+| 2. Prove one full work | Select a complete, rights-cleared short work with an identifiable edition. Build full source and passage coverage, literal/readable English layers, documented alternatives, independent review, and a public reader snapshot. | Every passage accounted for; reviewers can trace decisions; a reader can compare versions and understand uncertainty. |
+| 3. Build the editorial factory | Implement source alignment, layer jobs, coverage/locator gates, provenance, and human review in translation-work, with OpenPatala IDs and staged artifact submission. Measure correction effort on held-out passages. | Reproducible job receipts and reviewer evidence; machine output stays private until approval. |
+| 4. Add OpenPatala MCP | Ship the reviewed read-only catalog/dossier/coverage/translation tools first. Add private candidate-job writes only after auth, idempotency, audit events, consent, and recovery are proven. | A supported client retrieves exact source-linked records; failure modes are explicit; no model can self-approve. |
+| 5. Deliver ChatGPT and book generation | Use ChatGPT as the learning, research, and writing desk over approved OpenPatala dossiers. Feed bookfactory and other generators from versioned release snapshots with attribution and source links. | Learners can ask about a passage; generated essays/books/media identify their exact released inputs. |
+| 6. Scale to all collections | Batch through the searchable e-text collection under stable gates; separately fund and schedule OCR/transcription for image-first IFP and Gokarna material. Expand by reviewable releases and tradition-aware queues. | Collection and passage coverage advance transparently; drafts, reviewed translations, and published works are reported separately. |
 
 Always-on: fresh-checkout CI, manifest generated last, no blanket skips,
 revision-pinned sibling inputs, and explicit rights/review status. The flagship
-is a source-transparent small translation pilot; a sophisticated connector or
-formal certificate is optional until it improves that reader experience.
+is a source-transparent complete-work pilot. A connector, certificate, or new
+model earns priority only when it reduces measured work or improves reader and
+reviewer outcomes without weakening source, rights, or approval controls.
 
 ---
 
@@ -574,6 +749,11 @@ the evidence supporting that statement; missing review is shown as pending.
 private candidate layers and independent review to an explicitly approved
 release. No automated step publishes linguistic interpretation.
 
+**Corpus.** Every item in each named Muktabodha collection has a registry
+record and explicit readiness/state. Passage-level source and translation
+coverage is measurable. Machine-draft, human-reviewed, and released counts are
+separate; an incomplete catalog cannot be reported as full-corpus progress.
+
 **Access.** A supported client can retrieve a bounded, source-linked answer
 through a reviewed read-only interface. Any later write is explicitly
 authorized, narrowly scoped, auditable, and tested; no subscription tier or
@@ -601,24 +781,30 @@ connector feature is assumed.
    minimized receipts, and no secrets in chat, URLs, logs, or artifacts.
 9. Unnecessary infrastructure/training → defer until reader studies and the
    benchmark show a concrete bottleneck.
+10. False corpus coverage → reconcile every official catalog and collection;
+    never let a work-priority queue, search failure, or machine-draft status
+    stand in for a complete translation denominator.
 
 ---
 
 # Part 9 — Next five actions (start here)
 
-1. Reconcile PR #14 and restore reproducible fresh-checkout checks; regenerate
-   the release manifest last.
-2. Rebase PR #11 and resolve its manifest/style/service-worker conflicts while
-   retaining the source and license restrictions; review the final diff.
-3. Select one small translation pilot: verify edition and rights, map extant
-   translations, choose two verses, and commission independent Sanskrit review.
-4. Define a human-reviewed translation/reader baseline and an isolated
-   evaluation protocol before comparing models or training.
-5. Decide whether low-stakes progress is worth the IPVV backend work; if yes,
-   implement and test routes/schema there before claiming server-scored gates.
+1. Fix the credential-bearing OpenPatala defaults/examples and revise PR #16;
+   its latest Reader integrity run passes, but this security issue remains.
+2. Reconcile the official Muktabodha catalog against all 499 queued records;
+   explain the seven filtered records and identify missing collection items.
+3. Repair the Kulārṇavatantra sample's full pāda coverage, English layer, and
+   chapter-local locators; keep the current artifacts marked as machine drafts.
+4. Select a complete, short, rights-cleared work and establish the source,
+   segmentation, alternatives, translation layers, and independent-review
+   protocol for a gold-standard end-to-end pilot.
+5. Specify OpenPatala's job/candidate/review/release service contract and
+   source-linked MCP read tools; keep all generated content private until an
+   authorized human release.
 
-Only after these unblockers should W2 certificates, W3 assistant access, and W6
-training be prioritized. The outcome is useful when a reader can inspect the
-source, compare translation choices, understand uncertainty, and learn from
-well-attributed scholarship. The site checks specified artifacts and workflows;
+Then batch the full searchable e-text corpus. Plan transcription as a distinct
+stage for image-first holdings. The system is useful when people can discover
+reliable source text, see translation alternatives and uncertainty, learn from
+primary sources, and reuse approved translations to create attributed books,
+essays, lessons, and media. The site checks defined artifacts and workflows;
 scholars and readers judge the interpretation.
