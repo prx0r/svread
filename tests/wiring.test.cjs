@@ -100,6 +100,7 @@ for (const { tool, need } of EMITTERS) {
       out = execFileSync('python3', ['tools/' + tool, '--check'],
         { cwd: ROOT, encoding: 'utf8' });
     } catch (e) {
+      if (e.status === 3) { t.skip(String(e.stdout || '').trim().split('\n').pop()); return; }
       const msg = (e.stdout || '') + (e.message || '');
       const fs2b = require('node:fs');
       const hasTrikaB = fs2b.existsSync(process.env.TRIKA_X_ROOT || '/root/trika-x');

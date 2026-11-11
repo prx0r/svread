@@ -11,8 +11,14 @@ test('emit_biblio --check is green and bundle is honest', (t) => {
   try {
     out = execFileSync('python3', ['tools/emit_biblio.py', '--check'], { cwd: ROOT, encoding: 'utf8' });
   } catch (e) {
+    // BLOCKED is its own state: exit 3 = this box's DB is BEHIND the committed
+    // view (another box emitted an enriched bibliography). Skip with the
+    // reason, never pass silently and never call it a defect.
+    if (e.status === 3) {
+      t.skip(String(e.stdout || '').trim().split('\n').pop());
+      return;
+    }
     // PR #7 P1: missing DB infrastructure SKIPs, never fails.
-    // The emitter itself fails closed ("refusing stale write").
     if (/No module named 'psycopg2'|DB unreachable|connection|psql/i.test((e.stdout || '') + (e.message || ''))) {
       t.skip('no database/DB driver in this environment');
       return;
