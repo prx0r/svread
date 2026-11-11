@@ -1,3 +1,7 @@
+<!-- status: reference — source/tool inventory -->
+
+> **Status (2026-11-11):** reference — source/tool inventory.
+
 # RESOURCES — complete inventory + the autonomous scholar loop
 
 Status: living note, 2026-11-05. Every entry is on this box or one fetch

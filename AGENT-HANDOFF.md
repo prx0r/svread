@@ -1,3 +1,7 @@
+<!-- status: historical — the intake that seeded EXTERNAL-STRATEGY.md; its queue was executed or superseded -->
+
+> **Status (2026-11-11):** historical — the intake that seeded EXTERNAL-STRATEGY.md; its queue was executed or superseded.
+
 # AGENT HANDOFF — split of concerns (2026-11-11)
 
 This PR packages everything: what is done, what is next (the full TODO list),

@@ -1,5 +1,11 @@
 # MASTERPLAN 3 — svatantrya: full plan, files, and dev steps
 
+> **Status (2026-11-11):** W1 ✅ · W2 ✅ · W3 ◐ (registry + plan; bridge pending) ·
+> W4 ✅ · W5 ◐ · W6/W7 ⬜ by design. The measured status, evidence and the one
+> **BLOCKED** live in [`PROGRESS-REPORT-2026-11-11.md`](PROGRESS-REPORT-2026-11-11.md);
+> do not infer completion from this plan. Docs map: [`docs/INDEX.md`](docs/INDEX.md).
+
+
 **Date:** 2026-11-11 · **Owner:** prx0r · **Status:** operative strategy, with
 the evidence correction below taking precedence over older implementation notes.
 It consolidates the ad-hoc plans from this session (`PLAN-VERIFIED-RUNTIME.md`, `CHATGPT-ENDGAME-PLAN.md`,

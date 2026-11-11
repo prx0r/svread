@@ -1,3 +1,7 @@
+<!-- status: reference/review record — the audit stands; the plan lives in MCP-INTEGRATION.md -->
+
+> **Status (2026-11-11):** reference/review record — the audit stands; the plan lives in MCP-INTEGRATION.md.
+
 # MCP federation — review + plan to reach ChatGPT (2026-11-11)
 
 Answers: what MCPs exist, what each exposes, and how ChatGPT gets to them

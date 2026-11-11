@@ -1,3 +1,7 @@
+<!-- status: historical vision — see MASTERPLAN3.md -->
+
+> **Status (2026-11-11):** historical vision — see MASTERPLAN3.md.
+
 # Tensions Endgame — the name of the game
 
 Owner decision (2026-11-04, verbatim in `SCHOLAR-ENDGAME-VISION.md`): the

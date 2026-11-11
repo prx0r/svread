@@ -1,3 +1,7 @@
+<!-- status: historical — superseded by MASTERPLAN3.md -->
+
+> **Status (2026-11-11):** historical — superseded by MASTERPLAN3.md.
+
 # ENDBAME BUILD PLAN — what this became, the roles, the granular plan
 
 Session handover, 2026-11-05. Read this first tomorrow. Companion docs:

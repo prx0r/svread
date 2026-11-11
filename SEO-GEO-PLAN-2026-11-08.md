@@ -1,3 +1,7 @@
+<!-- status: historical plan — shipped; claim pages live -->
+
+> **Status (2026-11-11):** historical plan — shipped; claim pages live.
+
 # SEO / GEO EXECUTION PLAN — svread as the citable authority (2026-11-08)
 
 *Execution plan. Research notes live in `AI-DISCOVERABILITY-2026-11-08.md`.

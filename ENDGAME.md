@@ -1,3 +1,7 @@
+<!-- status: historical vision — superseded by MASTERPLAN3.md -->
+
+> **Status (2026-11-11):** historical vision — superseded by MASTERPLAN3.md.
+
 # ENDGAME — the shape, the varieties, what's genuinely worth using
 
 Status: strategic spec, 2026-11-05. Companion to `SCHOLAR-ENDGAME-SPEC.md`

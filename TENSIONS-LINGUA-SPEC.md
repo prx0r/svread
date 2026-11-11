@@ -1,3 +1,7 @@
+<!-- status: reference — crux/tension language spec -->
+
+> **Status (2026-11-11):** reference — crux/tension language spec.
+
 # Tensions Lingua Spec — one language, zero migrations
 
 Status: **spec + reference implementation** (`tools/lingua.py`, stdlib only,

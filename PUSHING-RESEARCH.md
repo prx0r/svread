@@ -1,3 +1,7 @@
+<!-- status: reference — Pushing Lab research -->
+
+> **Status (2026-11-11):** reference — Pushing Lab research.
+
 # Pushing, Logicvid and essay research — working index
 
 This is a navigation and implementation handoff, not an evaluation of every

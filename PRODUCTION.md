@@ -4,6 +4,40 @@ Living doc. How the whole estate fits, how to build/verify/deploy, what is
 green, what is openly not done. Numbers below were measured on box
 2026-11-10; reproduce with the commands given, never quote from memory.
 
+## 0. Delta since 2026-11-10 (measured 2026-11-11)
+
+**New and live** (merged to main, deployed, verified):
+- **Server-scored wheel gates** — `POST /api/wheel/gate/{start,submit}`,
+  `GET /api/wheel/progress`; no repeated items, `pass = ceil(0.9·n)`, atomic
+  CAS consume, one D1 batch (receipt + progress + stored result), identical
+  retry returns the same receipt. 13/13 worker tests.
+- **Certificates** — 44 in `data/grammar/certificates.json`; Lean slice
+  `trika-x/formal-trika/control/PrakriyaSlice.lean` (68 codes, 44 traces,
+  4 mutants, **Lean 4.34.1 exit 0**) + vendored receipt; `lean_status`
+  receipt-bound (stale pack ⇒ pending); MCP `wheel_certificate` re-binds
+  independently.
+- **Practice tab** — `?view=practice`, 10 deitybody Mātṛkā stages, verbatim
+  cards, provenance sha256.
+- **Measurement** — licence gate (10 entries, 3 refusal classes proven),
+  held-out blind set (50 passages / 49 works), correction-effort rubric,
+  coverage-only runner.
+- **Whole system on R2** — bucket `svatantrya-system`, root `INDEX.json`:
+  12 repo archives (with .git) + 6 packages ≈ 2.28 GB; secrets excluded.
+- **MCP registry** — `data/mcp-registry.json` (8 servers probed, 109 federated
+  tools) + `MCP-INTEGRATION.md` (bridge/tunnel/OAuth plan).
+- **Google = site account, ORCID = publishing** (worker routes + UI copy).
+- **CI portability** — vendored fixtures/concepts; unreadable `/root` paths
+  treated as absent; no blanket skips.
+
+**One BLOCKED:** this box's openpatala DB has **555 works**; the committed
+`data/biblio.json` was emitted elsewhere from a **2,051-work** DB (Muktabodha
+enrichment). `emit_biblio.py --check` returns **exit 3 (BLOCKED)** and the
+tests skip with that reason. Clear by syncing the enriched DB dump here, then
+`emit_biblio.py` + manifest.
+
+**Still not built:** MCP bridge/tunnel + OAuth; candidate eval run; Mātṛkā
+stage gating; W6/W7 (training/factory) by design.
+
 ## 1. The system in one diagram
 
 ```
@@ -131,6 +165,9 @@ recipes R1–R8 consent paths · R9 movies NOT YET · Search Console/outreach/
 inbound links · chunk-verse 64 OPEN · decision-trail ingest wiring.
 
 ## 7. Known defects (file:line, repro, owner)
+
+> 2026-11-11: #1 (proof-harness stdout) was fixed upstream; #5 and #6 are
+> closed. The biblio BLOCKED above is the only open gate failure on this box.
 
 1. **translation-work proof harness** `tools/proof_record.py:410` prints
    `decision trail: ...` to stdout after the JSON document; `check.py:83`

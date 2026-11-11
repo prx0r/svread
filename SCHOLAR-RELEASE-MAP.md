@@ -1,3 +1,7 @@
+<!-- status: historical — release map superseded by PRODUCTION.md -->
+
+> **Status (2026-11-11):** historical — release map superseded by PRODUCTION.md.
+
 # Scholar suite: release map
 
 This is the checkpoint map for svread PR #3 and its companion Worker and translation-work PRs. The PR is draft and currently has merge conflicts; do not deploy until resolved and tested.

@@ -1,3 +1,7 @@
+<!-- status: historical — the SEO/GEO build shipped; see PRODUCTION.md -->
+
+> **Status (2026-11-11):** historical — the SEO/GEO build shipped; see PRODUCTION.md.
+
 # HANDOVER — SEO/GEO build (svread + trika-x), 2026-11-08
 
 **Read this first, then `SEO-GEO-PLAN-2026-11-08.md`, then run §7.** This file

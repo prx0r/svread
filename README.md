@@ -1,17 +1,18 @@
 # svread — fresh trika reader, from scratch
 
 > **START HERE (2026-11-11):**
-> - **[`AGENT-HANDOFF.md`](AGENT-HANDOFF.md)** — split of concerns: integration
->   agent (grunt/integration) vs external agent (strategy/spec/tests), full
->   TODO queue, repo map. Intake merged in **PR #13**; next deliverables land
->   as new PRs from this split.
-> - **[`MASTERPLAN3.md`](MASTERPLAN3.md)** — the operative full plan (files,
->   dev steps, justifications).
-> - **[`PROGRESS.md`](PROGRESS.md)** — build reports, newest after each wave.
-> - **[`EXTERNAL-STRATEGY.md`](EXTERNAL-STRATEGY.md)** — current integration contracts,
->   independent review findings, test strategy, repository ownership, and roadmap.
-> - Go-live manual: [`PRODUCTION.md`](PRODUCTION.md) · architecture:
->   [`SPEC.md`](SPEC.md).
+> - **[`docs/INDEX.md`](docs/INDEX.md)** — the map: canonical, reference, history.
+>   Read this before anything else.
+> - **[`PRODUCTION.md`](PRODUCTION.md)** — build / verify / deploy / ops (§0 = today's delta).
+> - **[`MASTERPLAN3.md`](MASTERPLAN3.md)** — the operative plan (W1–W7).
+> - **[`PROGRESS-REPORT-2026-11-11.md`](PROGRESS-REPORT-2026-11-11.md)** — what is
+>   actually done against it, including the one **BLOCKED**.
+> - **[`EXTERNAL-STRATEGY.md`](EXTERNAL-STRATEGY.md)** — the independent
+>   integration contract + M0–M6 roadmap we are held to.
+> - **[`MCP-INTEGRATION.md`](MCP-INTEGRATION.md)** — the one MCP surface for
+>   ChatGPT (registry: [`data/mcp-registry.json`](data/mcp-registry.json)).
+> - Reader spec: [`SPEC.md`](SPEC.md) · architecture:
+>   [`READER-ARCHITECTURE.md`](READER-ARCHITECTURE.md) · testing: [`TESTING.md`](TESTING.md).
 
 > NOTE 2026-11-10: this file describes the original reader scaffold. Current
 > system docs: `PRODUCTION.md` (go-live manual: build/verify/deploy/ops),

@@ -1,3 +1,7 @@
+<!-- status: reference — chant audio to R2 -->
+
+> **Status (2026-11-11):** reference — chant audio to R2.
+
 # Chant audio → R2 (handover for next agent)
 
 ## State: R2 audio + karaoke complete for all chanted works (verified 2026-11-02)

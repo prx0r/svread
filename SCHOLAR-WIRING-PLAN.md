@@ -1,3 +1,7 @@
+<!-- status: historical — scholar wiring shipped -->
+
+> **Status (2026-11-11):** historical — scholar wiring shipped.
+
 # Scholar wiring plan — review of codex's three draft PRs
 
 *2026-11-04. Reviewed: svread #3 (client), ipvv #9 (worker), translation-

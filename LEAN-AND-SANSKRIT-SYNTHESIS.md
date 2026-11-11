@@ -1,3 +1,7 @@
+<!-- status: reference design note — W2 certificates implemented the first joint (see PROGRESS-REPORT) -->
+
+> **Status (2026-11-11):** reference design note — W2 certificates implemented the first joint (see PROGRESS-REPORT).
+
 # Lean × Sanskrit — what it can and cannot do here (2026-11-11)
 
 Answer to: how does Lean fit, does it connect to the Sanskrit repos in the

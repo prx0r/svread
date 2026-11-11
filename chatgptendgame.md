@@ -1,3 +1,7 @@
+<!-- status: owner verbatim — never edit; vision reference -->
+
+> **Status (2026-11-11):** owner verbatim — never edit; vision reference.
+
 # ChatGPT Endgame (owner verbatim, 2026-11-11)
 
 practise tab

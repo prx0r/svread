@@ -1,3 +1,7 @@
+<!-- status: owner verbatim audit — never edit; findings tracked in REVIEW-FINDINGS.md -->
+
+> **Status (2026-11-11):** owner verbatim audit — never edit; findings tracked in REVIEW-FINDINGS.md.
+
 # Sanskrit AI ecosystem audit, November 2026
 
 Repositories: `translation-work` · `svread` · `trika-x` · Treeka

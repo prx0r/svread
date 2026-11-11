@@ -1,3 +1,7 @@
+<!-- status: reference — scholar endgame contract -->
+
+> **Status (2026-11-11):** reference — scholar endgame contract.
+
 # Scholar Endgame — Specification
 
 Status: **live in production** (see §9 for the verification record).

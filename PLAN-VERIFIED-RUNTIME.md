@@ -1,3 +1,7 @@
+<!-- status: superseded by MASTERPLAN3.md + PROGRESS-REPORT-2026-11-11.md; kept for the reasoning trail -->
+
+> **Status (2026-11-11):** superseded by MASTERPLAN3.md + PROGRESS-REPORT-2026-11-11.md; kept for the reasoning trail.
+
 # Plan: verified runtime + benchmark + training (2026-11-11)
 
 Four things, in dependency order: **(1) a deterministic gate the model cannot

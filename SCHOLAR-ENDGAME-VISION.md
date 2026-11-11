@@ -1,3 +1,7 @@
+<!-- status: reference — scholar endgame vision -->
+
+> **Status (2026-11-11):** reference — scholar endgame vision.
+
 # Scholar Endgame Vision (owner message, verbatim)
 
 Saved 2026-11-04. The text below is the owner's message exactly as written, typos included.

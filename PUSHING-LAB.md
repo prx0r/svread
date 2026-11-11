@@ -1,3 +1,7 @@
+<!-- status: reference — Pushing Lab boundaries -->
+
+> **Status (2026-11-11):** reference — Pushing Lab boundaries.
+
 # Pushing Lab — prototype and handoff
 
 ## Purpose

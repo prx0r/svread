@@ -1,3 +1,7 @@
+<!-- status: reference — Pushing Lab next steps -->
+
+> **Status (2026-11-11):** reference — Pushing Lab next steps.
+
 # Pushing and Scholar: next features and production handoff
 
 **For the next implementing agent.** This is a proposed roadmap and acceptance
