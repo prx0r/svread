@@ -74,6 +74,7 @@ const EMITTERS = [
   { tool: 'emit_eval_set.py', need: null },
   { tool: 'check_licenses.py', need: null },
   { tool: 'eval_blind.py', need: null },
+  { tool: 'eval_export_ours.py', need: 'tw' },
 ];
 
 function emitterSkipReason(need) {
@@ -83,6 +84,7 @@ function emitterSkipReason(need) {
   if (need === 'db') return 'SKIP-IF-NO-DB';
   if (need === 'trika' && !hasTrika) return 'needs trika-x checkout';
   if (need === 'trika+tw' && !(hasTrika && hasTW)) return 'needs sibling checkouts';
+  if (need === 'tw' && !hasTW) return 'needs translation-work checkout';
   return null;
 }
 

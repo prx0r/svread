@@ -57,6 +57,27 @@ test('blind set: 50 held-out, machine labels honest, no hold works', () => {
   assert.ok(rub.includes('No aggregate'));
 });
 
+test('candidate #1 (ours) is exported with honest coverage', () => {
+  const cand = read('data/eval/candidates/ours.json');
+  const man = read('data/eval/candidates/ours.manifest.json');
+  assert.equal(man.format, 'svatantrya.eval-candidate/1');
+  assert.equal(man.candidate, 'ours');
+  assert.equal(Object.keys(cand).length, man.passages_with_text, 'count matches manifest');
+  assert.ok(man.passages_total === 50, 'set size recorded');
+  assert.ok(man.passages_with_text > 0, 'some translations on file');
+  assert.ok(man.passages_with_text <= 50);
+  // every exported passage belongs to the held-out set
+  const set = read('data/eval/trika-blind-50.json');
+  const ids = new Set(set.items.map(i => i.id));
+  for (const id of Object.keys(cand)) assert.ok(ids.has(id), 'exported id in set: ' + id);
+  // results skeleton exists and scores nothing
+  const res = read('data/eval/results-ours.json');
+  assert.equal(res.human.status, 'PENDING_HUMAN');
+  assert.equal(res.coverage.answered, man.passages_with_text);
+  assert.ok(!('mean_minutes' in res));
+  assert.ok(man.note.includes('no text is generated'));
+});
+
 test('candidate runner records coverage only, never scores', () => {
   const set = read('data/eval/trika-blind-50.json');
   const tmp = path.join(ROOT, 'data/eval', '_tmp-cand.json');

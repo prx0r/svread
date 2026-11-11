@@ -54,14 +54,23 @@ Legend: **✅ done** · **◐ partial** · **⬜ not started** · **⛔ blocked*
 - ⬜ Mātṛkā stages are not yet gate-scored (W1 gate covers wheels only).
 - Evidence: PR #18.
 
-### W5 — Measurement ◐
+### W5 — Measurement ◐ (candidate #1 exported)
 - **Licence gate** live: 10 entries; `--admit` refuses excluded, pending,
   read-only. Mitrasaṃgraha NC-ND slice permanently excluded.
 - **Blind set** live: 50 held-out passages, one per work (49 works),
   Ghaṭakarpara excluded, trace shas pinned, categories honestly `null`.
 - **Rubric** live: correction effort, mean minutes; machine writes no score.
 - **Runner** live: coverage only (`PENDING_HUMAN` skeleton).
-- ⬜ No candidate run yet (needs verified licences + a candidate).
+- **Candidate #1 = OURS, exported**: `tools/eval_export_ours.py` pulls our own
+  translations from on-file layers only (no generation) →
+  `data/eval/candidates/ours.json`, **24/50 passages covered** (all from
+  translation-work L2), manifest records layer+file per passage;
+  `data/eval/results-ours.json` = coverage only, `PENDING_HUMAN`.
+  The 26 uncovered passages are the honest scope gap, not a scoring failure.
+- ⬜ Candidate #2 = MITRA-MT: blocked on licence verification (`mitra-mt` is
+  `pending_verification` in the registry — read the weights licence, run the
+  Kaggle batch, then `eval_blind --candidate`).
+- ⬜ Human scoring of candidate #1 with `RUBRIC.md` (correction effort).
 - ⛔ holdout is not technically enforced against contributors (noted in review).
 
 ### W6 — Training ⬜
