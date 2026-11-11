@@ -1,0 +1,127 @@
+{
+  "format": "svatantrya.licence-registry/1",
+  "rule": "No dataset or model enters the translation pipeline, a training run, or a bundled corpus without a row here. pending_verification = do not use yet (verify release + checksum first). excluded = never bundle, never train. read_only = owner assets, touch only on explicit instruction. Checksums are null until the exact bytes are fetched and hashed — a null checksum with pending status is honest; a filled checksum without bytes is not.",
+  "verified_on": "2026-11-11",
+  "entries": [
+    {
+      "id": "gretil-editions",
+      "kind": "text-source",
+      "name": "GRETIL Sanskrit editions (source texts)",
+      "source_url": "https://gretil.sub.uni-goettingen.de/",
+      "release": "per-edition; the edition label is recorded on every claim page",
+      "checksum": null,
+      "attribution": "edition named on the claim page; GRETIL materials carry CC BY-NC-SA 4.0 where stated (e.g. the Ghaṭakarpara Parlier edition)",
+      "allowed": {"train": false, "infer": true, "quote": true, "redistribute": false},
+      "status": "registered",
+      "notes": "Non-commercial: quoting with attribution is how the site already uses these texts; no training, no redistribution of the files. Per-edition licences vary — claim pages name the edition, never a licence we have not verified."
+    },
+    {
+      "id": "mitrasamgraha-sa",
+      "kind": "parallel-corpus",
+      "name": "Mitrasaṃgraha — CC BY-SA slice",
+      "source_url": null,
+      "release": "372,791 Sanskrit–English pairs, CC BY-SA 4.0 (as reported by the 2026-11-11 ecosystem audit; locate the exact dataset revision and verify the card before use)",
+      "checksum": null,
+      "attribution": "Mitrasaṃgraha authors, CC BY-SA 4.0",
+      "allowed": {"train": true, "infer": true, "quote": true, "redistribute": true},
+      "status": "pending_verification",
+      "notes": "Candidate eval/training corpus. Before any run: fetch the exact revision, sha256 it, record the card URL, then flip to registered. Audit notes compound interpretation and philosophical terminology as known model weaknesses — relevant to our domain."
+    },
+    {
+      "id": "mitrasamgraha-nc-nd",
+      "kind": "parallel-corpus",
+      "name": "Mitrasaṃgraha — restricted extra slice",
+      "source_url": null,
+      "release": "18,757 additional pairs, CC BY-NC-ND 4.0 (audit-reported)",
+      "checksum": null,
+      "attribution": "same authors, different licence",
+      "allowed": {"train": false, "infer": false, "quote": true, "redistribute": false},
+      "status": "excluded",
+      "notes": "ND forbids derivatives: no bundling with the BY-SA slice, no fine-tuning, no redistribution. Quote for reference only. Never enters a corpus file."
+    },
+    {
+      "id": "mitra-mt",
+      "kind": "model",
+      "name": "MITRA-MT (WMT 2026, classical Asian languages)",
+      "source_url": "https://aclanthology.org/2026.wmt-main.26/",
+      "release": "open-weight 9B; weights licence to be read from the release page before any use",
+      "checksum": null,
+      "attribution": "MITRA-MT authors (Buddhist-literature domain focus)",
+      "allowed": {"train": false, "infer": false, "quote": true, "redistribute": false},
+      "status": "pending_verification",
+      "notes": "Benchmark candidate only (blind eval set). Domain is Buddhist literature — success there does not establish Trika accuracy. infer flips to true after licence + weights are verified."
+    },
+    {
+      "id": "mitra-lexicon",
+      "kind": "lexicon",
+      "name": "Dharmamitra MITRA lexicon",
+      "source_url": "https://github.com/dharmamitra/dharmamitra-lexicon",
+      "release": "repo revision to pin before use",
+      "checksum": null,
+      "attribution": "Dharmamitra project",
+      "allowed": {"train": false, "infer": false, "quote": true, "redistribute": false},
+      "status": "pending_verification",
+      "notes": "translation-work already holds a provenance-recorded read-only subset (tools/mitra_grounds.py, 219 Trika headwords). Corpus frequency is evidence, never a vote for philosophical meaning."
+    },
+    {
+      "id": "process-sanskrit-db",
+      "kind": "linguistic-db",
+      "name": "Process-Sanskrit linguistic database",
+      "source_url": "https://github.com/Giacomo-De-Luca/Process-Sanskrit",
+      "release": "downloadable DB carries non-commercial terms independent of the Python package (audit-reported)",
+      "checksum": null,
+      "attribution": "Process-Sanskrit authors",
+      "allowed": {"train": false, "infer": false, "quote": true, "redistribute": false},
+      "status": "pending_verification",
+      "notes": "Second-opinion morphology alongside Vidyut. Read the DB licence before download; package licence may differ."
+    },
+    {
+      "id": "sanskrit-travelogue",
+      "kind": "corpus",
+      "name": "Sanskrit Travelogue (LREC 2026)",
+      "source_url": "https://aclanthology.org/2026.lrec-1.535/",
+      "release": "12,394 texts / 73.1M tokens; published resources described as non-commercial (audit-reported)",
+      "checksum": null,
+      "attribution": "Travelogue authors",
+      "allowed": {"train": false, "infer": false, "quote": true, "redistribute": false},
+      "status": "pending_verification",
+      "notes": "Research/search infrastructure candidate only after licence check."
+    },
+    {
+      "id": "deitybody-curriculum",
+      "kind": "internal-curriculum",
+      "name": "Deitybody Mātṛkā curriculum + cards",
+      "source_url": "github.com/prx0r/deitybody",
+      "release": "vendored 2026-11-11 into svread/data/practice/",
+      "checksum": null,
+      "attribution": "owner content; provenance sha256 recorded in data/practice/*.json source blocks",
+      "allowed": {"train": true, "infer": true, "quote": true, "redistribute": true},
+      "status": "internal",
+      "notes": "Owner's own material. Assembly rule shown verbatim wherever it renders: modern apparatus, never doctrine."
+    },
+    {
+      "id": "sanskrit-bruno-wheels",
+      "kind": "vendored-code",
+      "name": "Sanskrit Bruno Wheels (MIT)",
+      "source_url": "github.com/prx0r (vendored at svread/vendor/sanskrit-bruno-wheels)",
+      "release": "Sanskrit_Bruno_Wheels_Source.zip sha256 e04b6d6c67916e23fe536b7d6d2c1fc6199daeba5b902fc1fdf60677ae52c049",
+      "checksum": "e04b6d6c67916e23fe536b7d6d2c1fc6199daeba5b902fc1fdf60677ae52c049",
+      "attribution": "MIT, © 2026 Sanskrit Bruno Wheels project contributors",
+      "allowed": {"train": true, "infer": true, "quote": true, "redistribute": true},
+      "status": "registered",
+      "notes": "Curated teaching tier; byte-identical upstream per ATTRIBUTION.md."
+    },
+    {
+      "id": "kaggle-chant-assets",
+      "kind": "owner-dataset",
+      "name": "Kaggle chant gold (kashmir-chant-cards, vagdhenu-chant-gpu)",
+      "source_url": "kaggle.com/priortrades",
+      "release": "as uploaded",
+      "checksum": null,
+      "attribution": "owner",
+      "allowed": {"train": false, "infer": false, "quote": false, "redistribute": false},
+      "status": "read_only",
+      "notes": "MASTERPLAN3 guardrail: read-only forever without explicit owner instruction. Never modified, never a training input, never a benchmark target unless the owner says so."
+    }
+  ]
+}

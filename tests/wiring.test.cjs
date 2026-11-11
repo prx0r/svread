@@ -71,6 +71,9 @@ const EMITTERS = [
   { tool: 'emit_practice.py', need: null },
   { tool: 'emit_claim_pages.py', need: null },
   { tool: 'emit_index_meta.py', need: null },
+  { tool: 'emit_eval_set.py', need: null },
+  { tool: 'check_licenses.py', need: null },
+  { tool: 'eval_blind.py', need: null },
 ];
 
 function emitterSkipReason(need) {
