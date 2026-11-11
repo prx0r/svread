@@ -241,12 +241,44 @@ def wheel_certificate(a):
     if cert is None:
         return {'form': e.get('iast'), 'pack_id': e['id'], 'certificate': None,
                 'reason': 'certificate missing for this traced entry — regenerate'}
+    tier2 = certlib.verify(entry, cert)
+    # Independent Lean check (external review of svread #15): never trust the
+    # certificate's own lean_status. Re-bind it to the vendored receipt and the
+    # current pack bytes.
+    lean_independent = {'checked': False, 'reason': 'no receipt'}
+    rp = ROOT / 'data' / 'grammar' / 'prakriya-receipt.json'
+    if rp.exists():
+        try:
+            rec = json.loads(rp.read_text(encoding='utf-8'))
+            pack_sha = __import__('hashlib').sha256(
+                (ROOT / 'data' / 'grammar' / 'wheel-pack.json').read_bytes()).hexdigest()
+            lean = cert.get('lean') or {}
+            problems = []
+            if rec.get('exit_code') != 0:
+                problems.append('receipt records a failed lean run')
+            if rec.get('pack_sha256') != pack_sha:
+                problems.append('receipt is stale (pack changed)')
+            if lean.get('pack_sha256') != pack_sha:
+                problems.append('certificate binding does not match this pack')
+            if lean.get('file_sha256') != rec.get('file_sha256'):
+                problems.append('certificate binding does not match the receipt file')
+            if cert.get('lean_status') != 'checked':
+                problems.append('certificate does not claim checked')
+            lean_independent = ({'checked': True,
+                                 'lean_version': rec.get('lean_version'),
+                                 'scope': rec.get('scope')}
+                                if not problems else
+                                {'checked': False, 'reason': '; '.join(problems)})
+        except Exception as exc:
+            lean_independent = {'checked': False, 'reason': f'receipt unreadable: {exc}'}
     return {'form': e.get('iast'), 'pack_id': e['id'], 'certificate': cert,
-            'tier2': certlib.verify(entry, cert),
+            'tier2': tier2,
             'lean_status': cert.get('lean_status'),
-            'note': ('Tier-2 recomputes from the pack. lean_status pending = the '
-                     'Lean rule slice (W2b) has not run. A certificate pins the '
-                     'trace; it never proves meaning.')}
+            'lean_independent': lean_independent,
+            'note': ('Tier-2 recomputes from the pack; lean_independent re-binds the '
+                     'certificate to the vendored receipt and the pack bytes. Even when '
+                     'checked, the scope is structural well-formedness over the rule '
+                     'set — never a derivation from the Aṣṭādhyāyī, never meaning.')}
 
 def wheel_level(a):
     n = a.get('level')

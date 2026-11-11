@@ -41,7 +41,7 @@ def compute(entry: dict, lean_status: str = 'pending',
         'codes_well_formed': all(CODE_RE.match(c) for c in codes) if codes else False,
         'steps_have_after': all(bool((s.get('after') or '').strip()) for s in prak) if prak else False,
         'unknown_corpus_codes': sum(1 for s in prak if not (s.get('sutra_iast') or '').strip()),
-        'rule_table_sha': sha(canonical(sorted(set(codes)))),
+        'rule_set_sha': sha(canonical(sorted(set(codes)))),  # set of codes, not rule texts
     }
     trace = sha(canonical(prak))
     body = {
@@ -49,7 +49,7 @@ def compute(entry: dict, lean_status: str = 'pending',
         'pack_id': entry.get('id'),
         'form': entry.get('iast'),
         'trace_sha': trace,
-        'rule_table_sha': checks['rule_table_sha'],
+        'rule_set_sha': checks['rule_set_sha'],
         'checks': checks,
         'lean_status': lean_status,
         'note': ('Pins the stored derivation trace and its rule set. Tier-2 check '

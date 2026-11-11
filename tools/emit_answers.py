@@ -99,7 +99,7 @@ def build(entry: dict, row: dict | None, lk: dict, cert: dict | None = None) -> 
         cert_block = (f'<h2>Certificate</h2>\n'
                       f'<p><code>{esc(cert["cert_sha"])}</code> — trace pinned '
                       f'(tier-2 recompute passes). Structure: {cert["checks"]["steps"]} steps, '
-                      f'rule table <code>{esc(cert["rule_table_sha"][:16])}…</code>. '
+                      f'rule set <code>{esc(cert["rule_set_sha"][:16])}…</code>. '
                       f'{lean_txt}.</p>')
     elif entry.get('prakriya'):
         cert_block = '<h2>Certificate</h2>\n<p class="muted">certificate pending regeneration — run tools/emit_certificates.py.</p>'
