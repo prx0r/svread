@@ -10,6 +10,11 @@ try:
     import lingua as lingua_resolver
 except ImportError:
     lingua_resolver = None
+try:
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent / 'tools'))
+    import certlib
+except ImportError:
+    certlib = None
 
 ROOT = Path(__file__).resolve().parent.parent
 IDENT = re.compile(r'^[A-Za-z0-9][A-Za-z0-9_.:-]{0,159}$')
@@ -216,6 +221,33 @@ def wheel_verify(a):
                          'verses': (json.loads((ROOT / 'data' / 'grammar' / 'wheel-links.json').read_text(encoding='utf-8')).get('links', {}).get(e['id'], {}).get('verses') or [])[:4]},
             'rule': 'AGREE = machine confirms curated. DISAGREE_STANDS = teach curated, name the special. MACHINE_GAP = say the machine cannot derive it. Never invent a trace.'}
 
+def wheel_certificate(a):
+    """Mechanics stamp: the stored certificate + a live tier-2 recompute
+    (recompute from the pack, never trust the stored bytes)."""
+    if certlib is None:
+        raise ValueError('certlib unavailable')
+    e = _wheel_find(a.get('form'))
+    pack = _wheel_pack()
+    entry = next((x for x in pack.get('entries', []) if x['id'] == e['id']), None)
+    if not entry or not entry.get('prakriya'):
+        return {'form': e.get('iast'), 'pack_id': e['id'], 'certificate': None,
+                'reason': 'no derivation trace on file — a certificate is not applicable'}
+    cp = ROOT / 'data' / 'grammar' / 'certificates.json'
+    if not cp.exists():
+        return {'form': e.get('iast'), 'pack_id': e['id'], 'certificate': None,
+                'reason': 'certificates not generated — run tools/emit_certificates.py'}
+    certs = {c['pack_id']: c for c in json.loads(cp.read_text(encoding='utf-8')).get('entries', [])}
+    cert = certs.get(e['id'])
+    if cert is None:
+        return {'form': e.get('iast'), 'pack_id': e['id'], 'certificate': None,
+                'reason': 'certificate missing for this traced entry — regenerate'}
+    return {'form': e.get('iast'), 'pack_id': e['id'], 'certificate': cert,
+            'tier2': certlib.verify(entry, cert),
+            'lean_status': cert.get('lean_status'),
+            'note': ('Tier-2 recomputes from the pack. lean_status pending = the '
+                     'Lean rule slice (W2b) has not run. A certificate pins the '
+                     'trace; it never proves meaning.')}
+
 def wheel_level(a):
     n = a.get('level')
     if not isinstance(n, int) or not 1 <= n <= 6: raise ValueError('level must be 1-6')
@@ -327,6 +359,7 @@ def call(name,a):
     if name=='wheel_harness': return wheel_harness(a)
     if name=='wheel_lookup': return wheel_lookup(a)
     if name=='wheel_verify': return wheel_verify(a)
+    if name=='wheel_certificate': return wheel_certificate(a)
     if name=='wheel_level': return wheel_level(a)
     if name in ('resolve_ref','ref_links'):
         if lingua_resolver is None: raise ValueError('Shared-language resolver unavailable')
@@ -376,6 +409,7 @@ TOOLS=[
  ('wheel_lookup','Look up one Sanskrit form in the vendored grammar pack: gloss layer, derivation trace, lessons, verses.',S({'form':T},['form'])),
  ('wheel_verify','Prove one form fast: AGREE / DISAGREE_STANDS / MACHINE_GAP / CURATED_ONLY with evidence.',S({'form':T},['form'])),
  ('wheel_level','Get one tutor level prompt (goal, rules, drills, gate) by number 1-6.',S({'level':{'type':'integer','minimum':1,'maximum':6}},['level'])),
+ ('wheel_certificate','Derivation certificate for one form: stored cert + live tier-2 recompute (never trusts stored bytes).',S({'form':T},['form'])),
  ('resolve_ref','Resolve any shared-language ID (work/chunk/tension/crux/essay/pack/aoc) to bytes, status and license. Fails closed.',S({'id':T},['id'])),
  ('ref_links','Every ID connected to the given one — tension is the hub, links are verified both directions.',S({'id':T},['id']))]
 

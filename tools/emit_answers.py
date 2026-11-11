@@ -74,7 +74,7 @@ def answer_line(entry: dict, row: dict | None, verdict: str) -> str:
     return ' '.join(parts)
 
 
-def build(entry: dict, row: dict | None, lk: dict) -> str:
+def build(entry: dict, row: dict | None, lk: dict, cert: dict | None = None) -> str:
     verdict = verdict_for(entry, row)
     iast = entry.get('iast') or ''
     deva = entry.get('deva') or ''
@@ -86,6 +86,17 @@ def build(entry: dict, row: dict | None, lk: dict) -> str:
     lessons = lk.get('lessons') or []
     note = (row or {}).get('note') or entry.get('curated_note') or ''
     alts = (row or {}).get('machine_surfaces') or []
+    if cert:
+        cert_block = (f'<h2>Certificate</h2>\n'
+                      f'<p><code>{esc(cert["cert_sha"])}</code> — trace pinned '
+                      f'(tier-2 recompute passes). Structure: {cert["checks"]["steps"]} steps, '
+                      f'rule table <code>{esc(cert["rule_table_sha"][:16])}…</code>. '
+                      f'Lean: <b>{esc(cert["lean_status"])}</b> (rule slice lands in W2b; '
+                      f'this is not a Lean proof and not a claim about meaning).</p>')
+    elif entry.get('prakriya'):
+        cert_block = '<h2>Certificate</h2>\n<p class="muted">certificate pending regeneration — run tools/emit_certificates.py.</p>'
+    else:
+        cert_block = '<h2>Certificate</h2>\n<p class="muted">no derivation claimed for this form — a certificate is not applicable.</p>'
 
     prak_rows = ''.join(
         f'<tr><td class="su">{esc(s.get("sutra",""))}</td>'
@@ -156,6 +167,7 @@ h2{{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:#6b5d2a
 </table>
 {('<details><summary>full derivation (' + str(len(prak)) + ' steps)</summary><table><tr><th>sūtra</th><th>text</th><th>after</th></tr>' + prak_rows + '</table></details>') if prak else ''}
 <p class="muted">Trace is Vidyut 0.4.0 machine output, unreviewed. Cross-check source: <a href="/data/grammar/crosscheck.json">crosscheck.json</a>.</p>
+{cert_block}
 
 <h2>In scripture</h2>
 {('<ul>' + verse_items + '</ul>') if verse_items else '<p class="muted">No linked passages on file.</p>'}
@@ -185,6 +197,10 @@ def main() -> int:
     pack = json.loads((GRAMMAR / 'wheel-pack.json').read_text(encoding='utf-8'))
     links = json.loads((GRAMMAR / 'wheel-links.json').read_text(encoding='utf-8')).get('links', {})
     cc = json.loads((GRAMMAR / 'crosscheck.json').read_text(encoding='utf-8'))
+    certs = {}
+    cp = GRAMMAR / 'certificates.json'
+    if cp.exists():
+        certs = {c['pack_id']: c for c in json.loads(cp.read_text(encoding='utf-8')).get('entries', [])}
     rows = {r['id']: r for r in cc.get('rows', [])}
     cc_by_id = {}
     for rid, r in rows.items():
@@ -209,7 +225,7 @@ def main() -> int:
         if slug in pages:
             print(f'emit_answers: slug collision {slug}', file=sys.stderr)
             return 1
-        pages[slug] = build(e, row, links.get(e['id'], {}))
+        pages[slug] = build(e, row, links.get(e['id'], {}), certs.get(e['id']))
         index.append({'slug': slug, 'id': e['id'], 'iast': e.get('iast'),
                       'deva': e.get('deva'), 'verdict': verdict_for(e, row)})
 

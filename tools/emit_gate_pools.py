@@ -199,6 +199,7 @@ def main() -> int:
         if OUT.read_text(encoding='utf-8') != want:
             print('emit_gate_pools --check: gates.json differs', file=sys.stderr)
             return 1
+        print('emit gate pools --check: GREEN')
         return 0
     OUT.write_text(json.dumps(doc, ensure_ascii=False, sort_keys=True, indent=2) + '\n', encoding='utf-8')
     counts = {c: {s: len(v['items']) for s, v in doc['curricula'][c]['stages'].items()} for c in ('word', 'sentence')}
