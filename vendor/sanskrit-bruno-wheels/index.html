@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#172c38">
+  <title>Sanskrit Bruno Wheels · Construct, Rotate, Speak</title>
+  <meta name="description" content="A rule-aware Sanskrit word wheel and sentence wheel. Learn -tra, -dā, -tas, -thā and build simple conversations.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand"><span class="brand-mark">अ</span><span><strong>SANSKRIT WHEELS</strong><small>A grammar laboratory</small></span></div>
+    <nav aria-label="Sections"><button class="nav-link active" data-tab="word" aria-current="page">01 · Words</button><button class="nav-link" data-tab="sentence">02 · Sentences</button><button class="nav-link" data-tab="practice">03 · Mastery</button><a href="README.md" class="nav-link nav-readme">How it works ↗</a></nav>
+  </header>
+  <main>
+    <section class="hero"><div class="eyebrow">GIORDANO BRUNO × PĀṆINI</div><h1>Rotate the meaning.<br><em>Discover the Sanskrit.</em></h1><p>One wheel constructs words from familiar stems and four endings. Another assembles short sentences, changing agreement automatically. Keep the grammar visible. Keep the vocabulary small.</p></section>
+
+    <section class="workbench" id="view-word" data-view="word">
+      <div class="work-title"><div><span class="eyebrow">WHEEL I · WORD CONSTRUCTION</span><h2>Six stems. Four meanings.</h2><p>Rotate the outer and inner rings. The central word is selected from a reviewed set of forms.</p></div><button class="download-btn" id="export-word" title="Download the current SVG wheel"><span aria-hidden="true">↓</span> Export SVG</button></div>
+      <div class="workspace-grid">
+        <div class="wheel-card"><svg id="word-svg" class="wheel-svg" viewBox="0 0 600 600" role="img" aria-label="Interactive concentric Sanskrit word wheel"></svg><div class="wheel-legend"><span><i class="legend-dot sea"></i>Outer: stem</span><span><i class="legend-dot gold"></i>Inner: ending</span></div></div>
+        <div class="control-card">
+          <div class="control-title">Rotate your rings <span>01 / 02</span></div>
+          <div class="rotator"><div class="rotator-label">OUTER RING <small>meaning stem</small></div><div class="rotator-buttons"><button id="stem-prev" aria-label="Previous stem">‹</button><div><b id="stem-label">किम्</b><small id="stem-gloss">question</small></div><button id="stem-next" aria-label="Next stem">›</button></div></div>
+          <div class="rotator"><div class="rotator-label">INNER RING <small>meaning ending</small></div><div class="rotator-buttons"><button id="end-prev" aria-label="Previous ending">‹</button><div><b id="ending-label">त्र</b><small id="ending-gloss">place</small></div><button id="end-next" aria-label="Next ending">›</button></div></div>
+          <div class="result-box"><div class="eyebrow">THE WORD YOU CONSTRUCTED</div><div class="big-deva" id="word-answer">कुत्र</div><h3 id="word-meaning">where?</h3><div class="formula" id="word-formula">किम् → कु- · + -त्र</div><p class="rule" id="word-rule">Pāṇini 5.3.10</p></div>
+          <div class="example"><span class="eyebrow">A REAL CONVERSATION</span><div id="word-example" class="deva-example">कुत्र गच्छसि?</div><div id="word-example-en">Where are you going?</div><p id="word-special" class="small-muted"></p></div>
+          <div class="action-row"><label class="toggle"><input id="hide-word" type="checkbox"> Hide answers to test recall</label><button class="small-button" id="random-word">Random combination ↝</button></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="workbench hidden" id="view-sentence" data-view="sentence">
+      <div class="work-title"><div><span class="eyebrow">WHEEL II · SENTENCE CONSTRUCTION</span><h2>Turn a single thought into a sentence.</h2><p>Five rings assemble the subject, possessor, place, time, and predicate. Grammar adjusts verb forms and the happy adjective.</p></div><button class="download-btn" id="export-sentence"><span aria-hidden="true">↓</span> Export SVG</button></div>
+      <div class="workspace-grid sentence-grid">
+        <div class="wheel-card"><svg id="sentence-svg" class="wheel-svg" viewBox="0 0 600 600" role="img" aria-label="Interactive five-ring Sanskrit sentence wheel"></svg><div class="wheel-legend"><span><i class="legend-dot sea"></i>Person & place</span><span><i class="legend-dot gold"></i>Time & predicate</span></div></div>
+        <div class="control-card">
+          <div class="control-title">Five connected rings <span>01 / 05</span></div>
+          <div id="sentence-controls"></div>
+          <div class="gender-row"><label for="gender-choice">For “I” and “you”:</label><select id="gender-choice"><option value="m">Masculine adjective</option><option value="f">Feminine adjective</option></select></div>
+          <div class="mode-title">SENTENCE TYPE</div><div class="mode-picker" id="mode-picker"></div>
+        </div>
+      </div>
+      <div class="sentence-result"><div class="eyebrow">YOUR GENERATED SENTENCE · WORDS SEPARATED FOR STUDY</div><div id="sentence-answer" class="big-sentence">अहम् सर्वदा अत्र सुखी अस्मि।</div><div id="sentence-english" class="sentence-english">I am always happy here.</div><p id="sentence-warning" class="warning hidden"></p><div class="sentence-actions"><button class="small-button" id="copy-sentence">Copy Sanskrit</button><button class="small-button" id="toggle-grammar">Show why it works ↓</button></div><div id="sentence-grammar" class="grammar-details hidden"></div></div>
+    </section>
+
+    <section class="workbench hidden" id="view-practice" data-view="practice">
+      <div class="work-title"><div><span class="eyebrow">WHEEL III · MEMORY</span><h2>Correct ones disappear.</h2><p>Reveal the full Devanāgarī only after saying it aloud. Missed questions go to the back of the deck. Progress stays in this browser.</p></div><button id="reset-practice" class="download-btn">Reset mastered</button></div>
+      <div class="practice-panel"><div class="practice-top"><span id="practice-progress">0 / 33 mastered</span><span id="practice-misses">0 retries</span></div><div class="progress-rail"><div id="practice-progress-bar"></div></div><div class="quiz-body" id="quiz-body"></div><div class="quiz-buttons" id="quiz-buttons"></div></div>
+    </section>
+
+    <section class="bottom-note"><h2>What this is, and what it isn't.</h2><p>Every word on the first wheel is a curated Sanskrit form, not an arbitrary string. Sentence generation here covers a small, controlled set of <strong>singular present-tense sentences</strong>. The generated text is intentionally displayed word by word; full external sandhi and unrestricted Pāṇinian derivations are future integrations, not features secretly claimed to exist.</p><p>Further research: <a href="https://www.premabase.com/siddhanta-kaumudi/p40/textbook/index.html" target="_blank" rel="noopener">Siddhāntakaumudī</a> · <a href="https://en.wikisource.org/wiki/Sanskrit_Grammar_(Whitney)/Chapter_XVI" target="_blank" rel="noopener">Whitney</a> · <a href="https://github.com/ambuda-org/vidyut" target="_blank" rel="noopener">Vidyut</a>. See <a href="README.md">the expansion plan and rules</a>.</p></section>
+  </main>
+  <footer><span>SANSKRIT WHEELS / EXPERIMENT 01</span><span>Offline · No external dependencies · Your progress remains local</span></footer>
+  <script src="data.js"></script><script src="engine.js"></script><script src="app.js"></script>
+</body>
+</html>

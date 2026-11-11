@@ -66,6 +66,9 @@ python3 tools/emit_biblio.py            # needs DB (skips in CI by design)
 python3 tools/emit_formal.py
 python3 tools/emit_claim_pages.py --dry-run   # counts only
 python3 tools/emit_claim_pages.py             # 909 claim + md + 87 work + chain
+python3 tools/emit_grammar.py             # Vidyut pack + scripture links (needs vidyut 0.4.0 + kosha)
+python3 tools/check_curated.py            # curated-vs-machine crosscheck (needs node + vidyut)
+python3 tools/emit_wheels.py              # word/sentence/trika/karaka datasets + wheels.html (needs crosscheck.json)
 python3 tools/emit_discovery.py         # llms(+full), sitemap, robots, pushing, ai-catalog
 python3 scripts/release_manifest.py --write   # LAST, after every content change
 python3 tools/seo_check.py              # 10 gates

@@ -28,6 +28,10 @@ def build() -> tuple[dict, list[str]]:
     assets = [ROOT / name for name in ('.nojekyll', 'index.html', 'app.js', 'styles.css', 'sw.js',
                                         'manifest.webmanifest', 'README.md', 'SPEC.md', 'READER-ARCHITECTURE.md',
                                         'PUSHING-LAB.md', 'PUSHING-NEXT.md', 'PUSHING-RESEARCH.md', 'pushing.html', 'pushing.css', 'pushing-core.js', 'pushing-ui.js')]
+    assets += [ROOT / name for name in ('wheels.html', 'wheels.js', 'SANSKRIT-MEMORY-ENGINE-THESIS.md')
+               if (ROOT / name).is_file()]
+    assets += [p for p in (ROOT / 'vendor' / 'sanskrit-bruno-wheels').rglob('*')
+               if p.is_file()]
     assets += [ROOT / name for name in ('scholar-voice.js', 'scholar-workspace-ui.js', 'SCHOLAR-PRIVACY.md')
                if (ROOT / name).is_file()]
     # scholar_server imports the shared resolver from tools at runtime.

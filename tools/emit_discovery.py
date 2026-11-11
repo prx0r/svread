@@ -104,6 +104,7 @@ def build_llms(pushing: dict, biblio: dict, sanskrit: dict) -> str:
         f"- Bibliography index ({works} works, {lost} lost/unverified): {ORIGIN}/?view=biblio",
         "- Scholar hub (per work, ?work=<id>&view=scholar): drafts, review, signoff, DOI",
         f"- Pushing Lab (live enquiries): {ORIGIN}/pushing.html",
+        f"- Memory wheels (word/sentence/Trika constructors, machine-derived forms): {ORIGIN}/wheels.html",
         "- Chat: every page has a chat rail answering from that work's gated passages with citations.",
         "",
         "## Data (fetchable JSON, hash-pinned in data/release-manifest.json)",
@@ -114,6 +115,10 @@ def build_llms(pushing: dict, biblio: dict, sanskrit: dict) -> str:
         f"- Scholar projections: {ORIGIN}/data/scholar/<work>.json (versions, essays, reviews, signoffs, projection_sha256)",
         f"- Pushing digest ({pushing['count']} live questions + hound verdicts): {ORIGIN}/data/pushing.json",
         f"- Sanskrit lessons (rendered pages): {ORIGIN}/data/sanskrit/site/lesson-01.html ... lesson-10.html",
+        f"- Grammar pack (Vidyut machine derivations for wheel forms, unreviewed): {ORIGIN}/data/grammar/wheel-pack.json",
+        f"- Curated-vs-machine cross-check (per-form agreement, specials, gaps): {ORIGIN}/data/grammar/crosscheck.json",
+        f"- Wheel datasets (word/sentence/trika/karaka constructors): {ORIGIN}/data/wheels/word.json, sentence.json, trika.json, karaka.json",
+        f"- Tutor levels (one prompt file per level, machine-readable): {ORIGIN}/data/wheels/tutor/level-01-bases.md ... level-06-karaka.md",
         f"- Formal registry (every REGISTERED theorem, its scope, and the unformalised gap list): {ORIGIN}/data/formal.json",
         f"- Verification packs + no-code recipe (fetch + sha256sum, no install): {ORIGIN}/data/verify/index.json",
         f"- Trace index ({n_traces} chunks; {complete} COMPLETE / {partial} PARTIAL; "
@@ -220,7 +225,7 @@ def build_sitemap() -> str:
     # editorial hold are excluded from discovery (noindex + withheld English);
     # chain/work pages stay (evidence + navigation, not promotion).
     held = load_holds()
-    urls = ["", "pushing.html", "about/", "cite/"]
+    urls = ["", "pushing.html", "wheels.html", "about/", "cite/"]
     try:
         idx = json.loads((ROOT / "data" / "sanskrit" / "index.json").read_text())
         for e in idx.get("lessons", []):

@@ -904,6 +904,8 @@ async function sanskritView(){
         + byStage[s].map(l=>`<div style="margin:.4rem 0"><a href="?view=sanskrit&work=${encodeURIComponent(l.work)}&lesson=${encodeURIComponent(l.id)}"><b>${esc(l.title)}</b></a> <span class="mut">${esc(l.source_ref||'')}</span>${l.has_reader?'':' <span class="mut">(reader forthcoming)</span>'}</div>`).join('')).join('')
       + `<h2>Rule boxes</h2>` + (rules.rule_boxes||[]).map(r=>`<div class="sk-rulebox"><div class="sk-rb-t">${esc(r.title)}</div><div>${esc(r.body)}</div></div>`).join('')
       + `<p><a href="?view=biblio">Browse the full bibliography</a> \u2014 every work, edition, translation with links, lost works with their basis, formal coverage, essays.</p>`
+      + `<h2>Memory wheels</h2>`
+      + `<p><a href="wheels.html"><b>Bruno meets P\u0101\u1e47ini: word constructor, sentence constructor, Trika wheels</b></a> \u2014 rotate meaning rings, grammar handles the rest. Every form machine-derived (Vidyut), every Trika gloss sourced or marked pending.</p>`
       + `<p class="mut">Lessons: bookfactory prints/learn-sanskrit, imported verbatim (see data/sanskrit/provenance.json).</p>`;
     document.title = 'Sanskrit \u00b7 svread';
     SK_LESSON = null;
@@ -1827,7 +1829,29 @@ function bindProbes(){
     a.onclick = e=>{ e.preventDefault(); const el=document.querySelector(`.verse[data-i="${a.getAttribute('data-pj')}"]`); if(el) el.scrollIntoView({block:'center',behavior:'smooth'}); };
   });
 }
-/* tap a Sanskrit word: prefill the chat with a grounded question about it */
+/* ---- Word breakdown (reverse-engineering mode) ----
+   Tap a Sanskrit word: L0 gloss (deterministic spine) + vendored Vidyut
+   prakriya where the form is in the grammar pack + links to verses/lessons.
+   The pack is build-time bytes (tools/emit_grammar.py), hash-pinned like all
+   bundled data. No live derivation, no invented traces: unmatched words show
+   the gloss with derivation marked pending. Chat prefill is kept. */
+let GRAMMAR = null, GRAMLINKS = null, GRAMLOAD = null;
+function loadGrammar(){
+  if(GRAMLOAD) return GRAMLOAD;
+  GRAMLOAD = Promise.all([
+    get('data/grammar/wheel-pack.json').catch(()=>null),
+    get('data/grammar/wheel-links.json').catch(()=>null),
+  ]).then(([p, l])=>{ GRAMMAR = p; GRAMLINKS = (l && l.links) || {}; return true; })
+    .catch(()=>{ GRAMMAR = null; GRAMLINKS = {}; return false; });
+  return GRAMLOAD;
+}
+function grammarFind(ia){
+  if(!GRAMMAR || !ia) return null;
+  const nq = normQ(ia);
+  if(!nq) return null;
+  return (GRAMMAR.entries||[]).find(e=>e.iast && (normQ(e.iast)===nq)) || null;
+}
+/* tap a Sanskrit word: breakdown panel + prefill the chat with a grounded question */
 function askWord(w){
   document.querySelectorAll('.w.sel').forEach(x=>x.classList.remove('sel'));
   w.classList.add('sel');
@@ -1839,7 +1863,66 @@ function askWord(w){
     inp.focus();
   }
   const rail = $('#wid-chat');
-  if(rail){ rail.classList.remove('closed'); rail.scrollIntoView({block:'nearest'}); }
+  renderWordPanel(ia, id, i);
+  void rail;
+}
+function renderWordPanel(ia, id, i){
+  const body = $('#wordbody');
+  if(!body) return;
+  const v = (DATA.verses||[])[i];
+  const gate = v ? (v.gate||'BLOCKED') : 'BLOCKED';
+  let l0 = null;
+  try{
+    const toks = (typeof L0!=='undefined' && L0 && (L0[id]||L0[(v&&v.chunk)])) || [];
+    const nq = normQ(ia||'');
+    l0 = toks.find(t=>{ const k=normQ(t.iast||''); return k&&nq&&(k===nq||k.includes(nq)||nq.includes(k)); }) || null;
+  }catch(e){ l0 = null; }
+  const deva = (()=>{ try{ return IAST_DEVA.convert(cleanSA(ia||'')); }catch(e){ return ia||''; } })();
+  let html = `<div class="ctx-deva" style="font-size:1.5em">${esc(deva)}</div>`
+    + `<div class="mut"><i>${esc(ia||'')}</i> · §${i>=0?i+1:'?'} · gate ${esc(gate)}</div>`;
+  if(l0){
+    html += `<div style="margin:.4rem 0"><b>L0 gloss:</b> ${esc(l0.gloss||'—')}`
+      + (l0.status && l0.status!=='PARSED' ? ` <span class="l0st">${esc(l0.status)}</span>` : '') + `</div>`;
+  } else {
+    html += `<div class="mut" style="margin:.4rem 0">No L0 gloss on file for this token in this verse.</div>`;
+  }
+  html += `<div id="wordgram" class="mut">derivation: loading…</div><div id="wordlinks"></div>`;
+  html += `<div style="margin-top:.4rem"><a href="#" id="wordask">ask in chat ↓</a></div>`;
+  body.innerHTML = html;
+  const ask = $('#wordask');
+  if(ask) ask.onclick = e=>{ e.preventDefault(); const r=$('#wid-chat'); if(r){ r.classList.remove('closed'); r.scrollIntoView({block:'nearest'}); } const q=$('#qin'); if(q) q.focus(); };
+  const wid = $('#wid-word');
+  if(wid) wid.classList.remove('closed');
+  loadGrammar().then(()=>paintWordGrammar(ia));
+}
+function paintWordGrammar(ia){
+  const g = $('#wordgram'), lk = $('#wordlinks');
+  if(!g) return;
+  const e = grammarFind(ia);
+  if(!e){
+    g.innerHTML = `derivation: <span class="mut">pending — this form is not in the vendored grammar pack yet (no trace invented).</span>`;
+  } else if(e.kind === 'curated-note'){
+    g.innerHTML = `<b>${esc(e.iast)}</b> · curated note (sutra ${esc(e.teaching_sutra||'')})<div class="mut">${esc(e.note||'')}</div>`;
+  } else {
+    const steps = (e.prakriya||[]).filter(s=>s.sutra && /^(4\.|5\.|7\.|8\.|1\.4|3\.4|6\.)/.test(s.sutra)).slice(0, 8);
+    g.innerHTML = `<b>${esc(e.iast)}</b> · ${esc(e.kind||'')} · ${esc(e.status||'')}`
+      + (e.teaching_sutra ? `<div class="mut">teaching ref: ${esc(e.teaching_sutra)}${GRAMMAR?'':''}</div>` : '')
+      + (e.curated_note ? `<div class="mut">${esc(e.curated_note)}</div>` : '')
+      + (steps.length ? `<ol class="prak">${steps.map(s=>`<li><span class="psutra">${esc(s.sutra)}</span> → ${esc(s.after)}${s.sutra_iast?` <span class="mut">${esc(s.sutra_iast)}</span>`:''}</li>`).join('')}</ol><div class="mut">machine trace (Vidyut ${esc((GRAMMAR&&GRAMMAR.generator&&GRAMMAR.generator.version)||'0.4.0')}), full trace in pack · unreviewed</div>` : '')
+      + (e.agreement || e.linga ? `<div>agreement: ${esc(e.curated_note||e.linga||'')}</div>` : '');
+  }
+  if(lk){
+    const ids = e ? [e.id] : [];
+    const refs = (GRAMLINKS && e && GRAMLINKS[e.id]) || null;
+    if(refs && (refs.verses||[]).length){
+      lk.innerHTML = `<div style="margin-top:.4rem"><b>scripture:</b> `
+        + refs.verses.slice(0,6).map(r=>`<a href="?work=${encodeURIComponent(r.work)}#${encodeURIComponent(r.verse)}" title="${esc(r.work)} ${esc(r.verse)}">${esc(r.work.replace(/^tantrasara-a/,'tsa'))} ${esc(r.verse)}</a>`).join(' · ')
+        + ((refs.lessons||[]).length ? `<div class="mut">lessons: ${refs.lessons.map(l=>esc(l)).join(', ')}</div>` : '')
+        + `</div>`;
+    } else {
+      lk.innerHTML = '';
+    }
+  }
 }
 
 function quiet(){
@@ -2025,10 +2108,12 @@ function buildRightRail(verses){
       <button id="rcAll" class="hbbtn" title="play English">▶</button>
     </div>
     <div id="readMsg" class="cmp-note hbmsg"></div>`;
+  const chatW = W('chat','Chat', `<div id="convo" aria-live="polite"></div><div class="wsearch wsbox"><textarea id="qin" placeholder="${DEFAULT_PH}" aria-label="ask about this work"></textarea><span class="wsrow"><span class="wsrow"><button id="qgo" class="circbtn trident" title="send"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M12 21V3M6.5 5.5v4M17.5 5.5v4M6.5 9.5h11"/></svg><span class="sr">send</span></button></span></span></div>`).replace('<span class="tog">⌄</span>','');
   $('#rail').innerHTML =
-    W('chat','Chat', `<div id="convo" aria-live="polite"></div><div class="wsearch wsbox"><textarea id="qin" placeholder="${DEFAULT_PH}" aria-label="ask about this work"></textarea><span class="wsrow"><span class="wsrow"><button id="qgo" class="circbtn trident" title="send"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M12 21V3M6.5 5.5v4M17.5 5.5v4M6.5 9.5h11"/></svg><span class="sr">send</span></button></span></span></div>`).replace('<span class="tog">⌄</span>',''),
+    W('word','Word', `<div id="wordbody" class="mut">Tap any Sanskrit word: gloss, derivation and links land here.</div>`)
+    + chatW,
   // collapsible widgets
-  document.querySelectorAll('#headbar .widget h2').forEach(h=>{
+  document.querySelectorAll('#headbar .widget h2, #rail .widget h2').forEach(h=>{
     h.onclick = ()=>h.parentElement.classList.toggle('closed');
   });
   // recitation
