@@ -66,6 +66,7 @@ const EMITTERS = [
   { tool: 'emit_verify.py', need: 'trika+tw' },
   { tool: 'emit_formal.py', need: 'trika' },
   { tool: 'emit_discovery.py', need: null },
+  { tool: 'emit_gate_pools.py', need: null },
   { tool: 'emit_claim_pages.py', need: null },
   { tool: 'emit_index_meta.py', need: null },
 ];

@@ -278,5 +278,142 @@ function copyPrompt(circle){
     try{ done(document.execCommand('copy')); }catch(e){ done(false); } t.remove();
   }
 }
+/* ---- server-scored gates (the uncheatable path) ----
+   When signed in, quizzes run as server sessions: the server samples,
+   shuffles, holds the key, scores, and writes the unlock. The local drill
+   stays for signed-out practice, labelled unverified. */
+const SRV_API = (typeof window!=='undefined' && window.SVREAD_API) || 'https://ipvv-api.tradesprior.workers.dev';
+const SRV = {me: null, progress: null, session: null, busy: false};
+async function srvJson(path, opts){
+  const r = await fetch(SRV_API + path, Object.assign({credentials:'include'}, opts||{}));
+  let j = null; try{ j = await r.json(); }catch(e){ j = null; }
+  if(!r.ok) throw new Error((j&&j.error)||('http '+r.status));
+  return j;
+}
+async function srvSync(){
+  try{
+    const me = await srvJson('/api/auth/me');
+    SRV.me = (me && me.profile) || null;
+  }catch(e){ SRV.me = null; }
+  if(SRV.me){
+    try{
+      const pr = await srvJson('/api/wheel/progress');
+      const m = {};
+      for(const p of (pr.progress||[])) m[p.curriculum] = p;
+      SRV.progress = m;
+    }catch(e){ SRV.progress = {}; }
+  } else SRV.progress = null;
+  paintSrvBanner();
+  return SRV;
+}
+function srvStage(circle){
+  if(!SRV.progress) return null;
+  const p = SRV.progress[circle];
+  if(!p) return 1;
+  return Math.min(Number(p.stage)||1, maxLayer(circle)+1);
+}
+function paintSrvBanner(){
+  let el = document.getElementById('j-srv');
+  if(!el){
+    const host = document.getElementById('journey');
+    if(!host) return;
+    el = document.createElement('div');
+    el.id = 'j-srv'; el.setAttribute('class','mut');
+    host.insertBefore(el, host.firstChild);
+  }
+  if(SRV.me){
+    const w = (SRV.progress && SRV.progress.word) || {stage:1};
+    const sn = (SRV.progress && SRV.progress.sentence) || {stage:1};
+    el.innerHTML = 'signed in as <b>'+esc(SRV.me.display_name||SRV.me.email||'scholar')+'</b> · scored by the server · word layer '+esc(String(Math.min(w.stage,5)))+' · sentence layer '+esc(String(Math.min(sn.stage,4)))+' · <span class="mut">ChatGPT uses the same record</span>';
+  } else {
+    el.textContent = 'practising locally (unverified) — sign in via the Scholar tab to make scores count.';
+  }
+}
+function srvQuizHtml(it, i, n){
+  return '<div class="mut">scored gate · question '+(i+1)+' of '+n+' · answers stay on the server</div><h3>'+esc(it.prompt)+'</h3>'
+    + '<div class="chips">'+it.options.map(o=>'<button data-sa="'+esc(o)+'">'+esc(o)+'</button>').join('')+'</div><div id="j-fb" class="mut"></div>';
+}
+async function srvStart(circle){
+  if(SRV.busy) return;
+  const st = jstate(); const sl = circle==='word'?st.word:st.sentence;
+  const stage = srvStage(circle) || sl.layer;
+  if(stage > maxLayer(circle)){ return; }
+  SRV.busy = true;
+  try{
+    const r = await srvJson('/api/wheel/gate/start', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({curriculum:circle, stage})});
+    SRV.session = {circle, stage, id:r.session_id, items:r.items, idx:0, answers:[]};
+    srvRenderQ();
+  }catch(e){
+    const fb = document.getElementById('j-fb'); const m = document.getElementById('j-msg');
+    const msg = 'gate unavailable: '+e.message;
+    if(fb) fb.textContent = msg; else if(m) m.textContent = msg;
+  }finally{ SRV.busy = false; }
+}
+function srvRenderQ(){
+  const s = SRV.session; if(!s) return;
+  const it = s.items[s.idx];
+  if(!it){ srvSubmit(); return; }
+  const box = document.getElementById('j-quiz');
+  box.innerHTML = srvQuizHtml(it, s.idx, s.items.length);
+  Array.prototype.forEach.call(box.querySelectorAll('[data-sa]'), function(b){
+    b.addEventListener('click', function(){
+      s.answers.push({item_id: it.item_id, choice: b.getAttribute('data-sa')});
+      s.idx++;
+      if(s.idx >= s.items.length) srvSubmit(); else srvRenderQ();
+    });
+  });
+}
+async function srvSubmit(){
+  const s = SRV.session; if(!s) return;
+  SRV.session = null;
+  const box = document.getElementById('j-quiz');
+  box.innerHTML = '<span class="mut">scoring on the server…</span>';
+  try{
+    const r = await srvJson('/api/wheel/gate/submit', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({session_id:s.id, answers:s.answers})});
+    let html = '<div><b>server verdict: '+r.score+'/'+r.total+(r.passed?' — PASS':' — not yet')+'</b></div>';
+    html += '<div class="mut">receipt kept server-side · replaying this session changes nothing</div>';
+    if(r.passed && r.unlock){
+      html += r.unlock.done
+        ? '<div><b>'+esc(circleLabel(s.circle))+' complete.</b> The next circle opens when its gate is passed.</div>'
+        : '<div>Layer complete — next layer unlocked.</div>';
+    } else if(!r.passed){
+      html += '<div class="mut">under 18/20. Earlier layers were mixed in on purpose — that is the method.</div>';
+    }
+    box.innerHTML = html;
+    try{
+      const pr = await srvJson('/api/wheel/progress');
+      const m = {};
+      for(const p of (pr.progress||[])) m[p.curriculum] = p;
+      SRV.progress = m; paintSrvBanner();
+    }catch(e){}
+  }catch(e){
+    box.innerHTML = '<span class="mut">submit failed: '+esc(e.message)+' — start a fresh gate.</span>';
+  }
+}
+function srvStartButton(circle){
+  const st = jstate(); const sl = circle==='word'?st.word:st.sentence;
+  const stage = (SRV.me && srvStage(circle)) || sl.layer;
+  if(stage > maxLayer(circle)) return '';
+  return '<div style="margin:.5rem 0"><button id="j-gate">start scored gate · '+esc(layerName(circle,stage))+' (20 questions, 18 to pass)</button> <span class="muted">server-scored, receipt kept</span></div>';
+}
+const _renderJourneyOrig = renderJourney;
+renderJourney = function(){
+  _renderJourneyOrig();
+  srvSync().then(()=>{
+    paintSrvBanner();
+    if(!SRV.me) return;
+    const st = jstate(); const circle = st.circle||'word';
+    const box = document.getElementById('j-quiz');
+    if(box && !SRV.session){
+      const w = document.createElement('div');
+      w.innerHTML = srvStartButton(circle);
+      box.insertBefore(w, box.firstChild);
+      const b = document.getElementById('j-gate');
+      if(b) b.addEventListener('click', function(){ srvStart(circle); });
+    } else if(box && SRV.session && SRV.session.circle !== circle){
+      SRV.session = null;
+    }
+  }).catch(()=>{});
+};
 document.addEventListener('DOMContentLoaded',()=>{ renderJourney(); });
 })();
