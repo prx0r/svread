@@ -8,6 +8,8 @@
 > - **[`MASTERPLAN3.md`](MASTERPLAN3.md)** — the operative full plan (files,
 >   dev steps, justifications).
 > - **[`PROGRESS.md`](PROGRESS.md)** — build reports, newest after each wave.
+> - **[`EXTERNAL-STRATEGY.md`](EXTERNAL-STRATEGY.md)** — current integration contracts,
+>   independent review findings, test strategy, repository ownership, and roadmap.
 > - Go-live manual: [`PRODUCTION.md`](PRODUCTION.md) · architecture:
 >   [`SPEC.md`](SPEC.md).
 

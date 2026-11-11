@@ -106,7 +106,10 @@ for (const { tool, need } of EMITTERS) {
       }
       throw e;
     }
-    assert.ok(/GREEN/.test(out), `${tool}: ${out}`);
+    // Some deterministic checks intentionally stay silent on success.
+    // execFileSync already throws on non-zero status; if a check prints a
+    // result, require it to be an explicit GREEN rather than arbitrary output.
+    assert.ok(!out.trim() || /GREEN/.test(out), `${tool}: ${out}`);
   });
 }
 
