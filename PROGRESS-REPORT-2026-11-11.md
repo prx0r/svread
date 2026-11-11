@@ -125,11 +125,26 @@ which is the next build.
 | trika-x tests | slice tests 4/4; report tests 5/5 |
 | Live site | `?view=practice`, `wheels`, `/a/sarvatra/`, `about/`, `?view=scholar` all 200 |
 
-**The one BLOCKED, stated plainly:** this box's openpatala DB has **555 works**;
-the committed `data/biblio.json` was emitted elsewhere from a **2,051-work** DB
-(the Muktabodha enrichment). The gate now says `BLOCKED` (exit 3) instead of
-red or a silent pass. To clear it: get the enriched DB dump onto this box, then
-`python3 tools/emit_biblio.py` (write) and regenerate the manifest.
+**The one BLOCKED, stated plainly (updated):** this box's openpatala DB now has
+**1,034 works** (was 555); the committed `data/biblio.json` was emitted elsewhere
+from a **2,051-work** DB. Exact divergence, measured:
+
+| Set | Count |
+|---|---|
+| in committed biblio, missing here | **1,716** — `PTW_` 998 (scholarship records), `mukta-M` 482, `PTCND_` 217, `mukta-E` 12, other 7 |
+| in this DB, missing from committed biblio | **220** (e.g. `sivaqueue2_*`, `aitareyaaranyaka`) |
+
+**Done today:** `tools/seed_muktabodha.py` added **479 Muktabodha e-texts**
+(works + editions + etexts, ids `mukta-M#####`, correct IAST titles taken from
+the published bibliography, rights left NULL — never invented), sourced from the
+verified R2 snapshot `patala/source/ingestion/MUKTABODHA/.../2026-08-14`.
+Idempotent; re-run with `--dir` pointing at the extracted snapshot.
+
+**Why the rest is not reproducible here:** the `PTW_` ids are
+`PTW_<16 hex>` from a pipeline not in any repo on this box; simple hashes of the
+titles do not reproduce them. Clearing BLOCKED needs either that seeder or the
+enriched DB dump. Until then the gate stays `BLOCKED` (exit 3) — neither red
+nor a silent pass.
 
 ---
 
