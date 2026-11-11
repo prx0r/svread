@@ -156,6 +156,7 @@ def main() -> int:
         rows.append({
             "id": wid, "title": w["title"], "type": w["type"],
             "traditions": traditions,
+            "site_url": ext.get("site_url"),
             "author": meta.get(wid, {}).get("author"),
             "language": meta.get(wid, {}).get("language"),
             "status": meta.get(wid, {}).get("status"),
