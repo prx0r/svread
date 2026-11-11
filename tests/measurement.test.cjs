@@ -110,3 +110,41 @@ test('candidate runner records coverage only, never scores', () => {
     fs.unlinkSync(path.join(ROOT, 'data/eval/results-selftest.json'));
   }
 });
+
+test('blind scoring sheet hides identity and balances presentation order', () => {
+  const ours = read('data/eval/candidates/ours.json');
+  const stub = {};
+  for (const k of Object.keys(ours)) stub[k] = 'stub ' + k;
+  const tmp = path.join(ROOT, 'data/eval', '_tmp-stub.json');
+  const out = path.join(ROOT, 'data/eval', '_tmp-sheet');
+  fs.writeFileSync(tmp, JSON.stringify(stub));
+  try {
+    execFileSync('python3', ['tools/eval_score_sheet.py',
+      '--a', 'data/eval/candidates/ours.json', '--b', tmp,
+      '--a-manifest', 'data/eval/candidates/ours.manifest.json',
+      '--out', out, '--seed', '20261111'], { cwd: ROOT, encoding: 'utf8' });
+    const md = fs.readFileSync(path.join(out, 'worksheet.md'), 'utf8');
+    const structural = md.split('\n').filter(l => !l.startsWith('> ')).join('\n').toLowerCase();
+    for (const word of ['mitra', 'ours', 'qwen']) {
+      assert.ok(!structural.includes(word), 'sheet leaks ' + word);
+    }
+    const sheet = JSON.parse(fs.readFileSync(path.join(out, 'sheet.json'), 'utf8'));
+    const key = JSON.parse(fs.readFileSync(path.join(out, 'key.json'), 'utf8'));
+    assert.equal(key.note, 'Scorer must not read this file.');
+    for (const row of sheet.rows) {
+      assert.ok(key.mapping[row.id], 'key covers ' + row.id);
+      for (const v of ['A', 'B']) {
+        assert.ok(row.versions[v].text.length > 0, 'version text present');
+        assert.equal(row.versions[v].minutes, null, 'minutes not pre-filled');
+        assert.equal(row.versions[v].verdict, null, 'verdict not pre-filled');
+      }
+      assert.deepEqual(row.presentation.slice().sort(), ['A', 'B']);
+    }
+    // presentation order is randomised, not all one way
+    const aFirst = sheet.rows.filter(r => r.presentation[0] === 'A').length;
+    assert.ok(aFirst > 0 && aFirst < sheet.rows.length, 'order is mixed');
+  } finally {
+    fs.unlinkSync(tmp);
+    fs.rmSync(out, { recursive: true, force: true });
+  }
+});

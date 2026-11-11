@@ -18,8 +18,24 @@ if not IN or not os.path.exists(IN):
     print("MISSING INPUTS — aborting before model load", flush=True)
     raise SystemExit(3)
 
-for pkg in ("causal-conv1d", "flash-linear-attention"):
-    subprocess.run([sys.executable, "-m", "pip", "install", "-q", pkg], check=False)
+def _have(mod, minver=None):
+    try:
+        m = __import__(mod)
+    except Exception:
+        return False
+    if minver is None:
+        return True
+    try:
+        from importlib.metadata import version
+        return tuple(int(x) for x in version(mod).split(".")[:2]) >= minver
+    except Exception:
+        return True
+
+if not _have("bitsandbytes", (0, 46)):
+    subprocess.run([sys.executable, "-m", "pip", "install", "-q", "-U",
+                    "bitsandbytes>=0.46.1"], check=False)
+if not _have("bitsandbytes"):
+    print("bitsandbytes unavailable — 4-bit load will fail", flush=True)
 
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
