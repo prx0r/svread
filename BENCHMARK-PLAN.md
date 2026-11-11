@@ -24,9 +24,17 @@ passages are never used in prompts, tuning or training.
 
 Known skew, stated up front:
 
-- 26 of the 50 have no translation of ours on file, so the head-to-head only
-  covers **24** passages. MITRA-MT will be run on all 50 anyway — the extra 26
-  tell us what we are missing, not who wins.
+- Coverage was revised upward after a real bug fix (2026-11-11): the exporter
+  only looked for the blind set's target slug, while some works were translated
+  under a different slug (`paratrimshika` as `ptv-*`, `sivasutra` as `span-*`,
+  nine Tantrāloka ahnikas as `tal-aNN`). It now aligns a file by checking that
+  the file's own Sanskrit citations appear inside the blind passage, and it
+  joins only the matched rows. Result: **40/50** passages have text of ours,
+  **27** at full coverage, **4** flagged partial (ptvmadhyama, saktavijnana,
+  spanda, svabodhasiddhi), **9** unmeasurable, **10** genuinely untranslated
+  (Tantrāloka a01/a03/a04/a06/a08/a09/a10/a13/a15/a16 — parse stage only).
+  The head-to-head therefore uses the 27 full-coverage passages; partials are
+  scored but reported separately and never as a win.
 - `category` is null for every item: classification (compound / terminology /
   negation / ritual / verse / ambiguity) is a human job and stays pending. Any
   per-category claim before that is exploratory.
@@ -41,7 +49,7 @@ redistribution.
 
 | # | Candidate | Provenance | Source |
 |---|-----------|-----------|--------|
-| 1 | **ours** | translation-work L2 layers, 24/50 coverage | `data/eval/candidates/ours.json` |
+| 1 | **ours** | translation-work L2 layers, 40/50 coverage (27 full) | `data/eval/candidates/ours.json` |
 | 2 | **mitra-mt** | `buddhist-nlp/mitra-qwen35-translate` @ `66869d9b`, Apache-2.0, base Qwen3.5-9B | Kaggle kernel `priortrades/svatantrya-eval-mitra` |
 
 MITRA-MT is run with the paper's plain instruction prompt
@@ -66,8 +74,8 @@ Correction effort, per `data/eval/RUBRIC.md` — minutes a competent editor
 needs to make the passage publishable, scored 0–4 per passage by a human.
 Never BLEU, never an LLM judge, never a similarity score.
 
-Reported as: mean minutes per passage, per candidate, on the 24 shared
-passages; distribution of 0–4 scores; and the number of passages needing no
+Reported as: mean minutes per passage, per candidate, on the 27 full-coverage
+shared passages (partials reported separately); distribution of 0–4 scores; and the number of passages needing no
 edit at all.
 
 ## Protocol
@@ -86,7 +94,7 @@ edit at all.
 ## Acceptance (decided now, before data)
 
 - **MITRA-MT wins** if its mean correction minutes are lower than ours on the
-  24 shared passages by ≥0.5 min and it needs-no-edit on more passages.
+  27 full-coverage shared passages by ≥0.5 min and it needs-no-edit on more passages.
   Response: we stop claiming our pipeline is the quality path; we use MITRA-MT
   as a first draft and keep our layer for terminology and doctored reading.
 - **Ours wins** if the reverse holds. Response: document which kinds of passage
@@ -111,7 +119,7 @@ experiments/mitra-mt/
   dataset/            blind-inputs.json, dataset-metadata.json  (pushed private)
   kernel/             script.py, kernel-metadata.json           (pushed, GPU T4)
 data/eval/
-  candidates/ours.json                33→24 translations
+  candidates/ours.json                40 translations (27 full)
   candidates/mitra-mt.json            pulled back from Kaggle
   candidates/mitra-mt.manifest.json   provenance + hashes
   results-ours.json                   existing scaffold record

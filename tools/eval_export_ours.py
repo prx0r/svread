@@ -58,6 +58,85 @@ def from_tw(work: str, target: str):
     return '', '', ''
 
 
+def _norm(s: str) -> str:
+    return ''.join(ch for ch in s.lower() if ch.isalpha())
+
+
+def _load_rows(path: str) -> list:
+    try:
+        rows = json.loads(Path(path).read_text(encoding='utf-8'))
+    except (OSError, ValueError):
+        return []
+    return rows if isinstance(rows, list) else []
+
+
+def coverage(rows: list, text: str) -> float:
+    """Fraction of the blind text (normalised chars) covered by the rows' cites.
+
+    Approximate but conservative enough to flag partial translations: a file
+    with 159 verses answering a 10-verse passage scores near 0, not near 1.
+    """
+    n = _norm(text)
+    if not n:
+        return 0.0
+    if len(rows) <= 1:
+        return None          # a single row is the whole passage by construction
+    cites = [nc for nc in (_norm((r.get('sanskrit_cite') or r.get('sanskrit') or ''))
+                           for r in rows if isinstance(r, dict))
+             if len(nc) >= 10]
+    if not cites:
+        return None          # unmeasurable: the layer carries no Sanskrit cites
+    hit = sum(len(nc) for nc in cites if nc in n)
+    return min(1.0, hit / len(n))
+
+
+def _cites(rows: list) -> list[str]:
+    out = []
+    for r in rows:
+        if isinstance(r, dict):
+            c = r.get('sanskrit_cite') or r.get('sanskrit') or ''
+            if isinstance(c, str) and len(c.strip()) >= 10:
+                out.append(c.strip())
+    return out
+
+
+def from_tw_alias(work: str, text: str):
+    """Fallback when the blind set's target slug differs from the file slug.
+
+    Some works were translated under a different identifier (paratrimshika as
+    `ptv-*`, sivasutra as `span-*`). Guessing by slug would be unsound, so we
+    only accept a file whose own Sanskrit citations appear verbatim in the
+    blind passage. No match, no text.
+    """
+    d = TW / work / 'data'
+    if not d.is_dir():
+        return '', '', ''
+    ntext = _norm(text)
+    best = ('', '', '', 0)
+    for ext, key, label in (('.l3.json', 'l3', 'translation-work L3 (slug-aligned)'),
+                            ('.l2.json', 'plain_english', 'translation-work L2 (slug-aligned)')):
+        for p in sorted(d.glob('*' + ext)):
+            try:
+                rows = json.loads(p.read_text(encoding='utf-8'))
+            except (OSError, ValueError):
+                continue
+            if not isinstance(rows, list):
+                continue
+            matched = []
+            for r in rows:
+                if not isinstance(r, dict):
+                    continue
+                c = r.get('sanskrit_cite') or r.get('sanskrit') or ''
+                if isinstance(c, str) and len(_norm(c)) >= 10 and _norm(c) in ntext:
+                    matched.append(r)
+            if len(matched) > best[3]:
+                parts = [str(r.get(key) or '').strip() for r in matched]
+                t = ' '.join(x for x in parts if x)
+                if t:
+                    best = (t, label, str(p), len(matched))
+    return best[0], best[1], best[2]
+
+
 def from_svread(work: str, target: str):
     p = SVREAD / 'data' / f'{work}.json'
     if not p.exists():
@@ -88,15 +167,23 @@ def build() -> tuple[dict, dict]:
         pid, work, target = it['id'], it['work'], it['target']
         text, label, where = from_tw(work, target)
         if not text:
+            text, label, where = from_tw_alias(work, it['text'])
+        if not text:
             text, label, where = from_svread(work, target)
         if text:
+            cov = coverage(_load_rows(where), it['text'])
             cand[pid] = text
-            prov[pid] = {'layer': label, 'source': where}
+            prov[pid] = {'layer': label, 'source': where,
+                         'coverage': None if cov is None else round(cov, 3),
+                         'partial': cov is not None and cov < 0.6}
     manifest = {
         'format': 'svatantrya.eval-candidate/1',
         'candidate': 'ours',
         'set': 'trika-blind-50.json',
         'passages_with_text': len(cand),
+        'passages_full_coverage': sum(1 for v in prov.values() if v['coverage'] is not None and not v['partial']),
+        'passages_partial': sum(1 for v in prov.values() if v['partial']),
+        'passages_coverage_unmeasured': sum(1 for v in prov.values() if v['coverage'] is None),
         'passages_total': len(doc['items']),
         'note': ('Our own translations, taken from on-file layers only. Missing '
                  'passages are omitted so coverage is measured honestly; no text '

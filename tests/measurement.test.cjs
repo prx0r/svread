@@ -76,6 +76,18 @@ test('candidate #1 (ours) is exported with honest coverage', () => {
   assert.equal(res.coverage.answered, man.passages_with_text);
   assert.ok(!('mean_minutes' in res));
   assert.ok(man.note.includes('no text is generated'));
+  // slug-alignment regression: these translations live under a different slug
+  // than the blind set's target (paratrimshika -> ptv-*, sivasutra -> span-*)
+  assert.ok('paratrimshika:para-p01' in cand, 'paratrimshika aligned by citation');
+  assert.ok('sivasutra:sivs-p01' in cand, 'sivasutra aligned by citation');
+  // coverage accounting is complete: full + partial + unmeasured == with_text
+  assert.equal((man.passages_full_coverage || 0) + (man.passages_partial || 0) +
+               (man.passages_coverage_unmeasured || 0), man.passages_with_text);
+  assert.ok(man.passages_full_coverage >= 20, 'most exported passages fully covered');
+  // every partial flag carries a measured ratio below the threshold
+  for (const [id, v] of Object.entries(man.provenance)) {
+    if (v.partial) assert.ok(v.coverage !== null && v.coverage < 0.6, 'partial ratio: ' + id);
+  }
 });
 
 test('candidate runner records coverage only, never scores', () => {

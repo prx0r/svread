@@ -157,7 +157,7 @@ These predate the current `main` and are listed for completeness:
 
 - Blind set: 50 passages, 49 works, Ghaṭakarpara excluded, `category` null
   pending human classification.
-- Our candidate: 24/50 coverage, exported with a manifest.
+- Our candidate: 40/50 coverage (27 full, 4 partial), exported with a manifest.
 - MITRA-MT: harness packaged; Kaggle run failing on dataset mount, probe in
   flight. No score exists and none should be reported yet.
 - Licence gate: 10 entries, GREEN.
