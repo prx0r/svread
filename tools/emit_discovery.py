@@ -44,7 +44,13 @@ def build_pushing() -> dict:
     # ipvv checkout is present we rebuild from it; when it is not (CI, a clean
     # clone) we keep the vendored digest byte-for-byte so --check stays green
     # without pretending to have read a file we cannot see.
-    if not IPVV_PUSHING.exists():
+    def _readable(p):
+        try:
+            return p.is_file()
+        except OSError:
+            return False  # e.g. /root is not traversable for this user
+
+    if not _readable(IPVV_PUSHING):
         vendored = ROOT / "data" / "pushing.json"
         if vendored.exists():
             try:

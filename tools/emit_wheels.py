@@ -206,12 +206,17 @@ def main() -> int:
             cfile = o.get('concept')
             cref = None
             if cfile:
+                def _ok(x):
+                    try:
+                        return x.is_file()
+                    except OSError:
+                        return False
                 p = CONCEPTS / cfile
-                if not p.exists():
+                if not _ok(p):
                     up = CONCEPTS_UPSTREAM / cfile
-                    if up.exists():
+                    if _ok(up):
                         p = up
-                if p.exists():
+                if _ok(p):
                     try:
                         d = json.loads(p.read_text(encoding='utf-8'))
                         cref = {'file': cfile,
