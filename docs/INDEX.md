@@ -15,6 +15,10 @@ Read in this order if you are new:
    integration contract + M0–M6 roadmap (this is the standard we are held to).
 6. [`MCP-INTEGRATION.md`](../MCP-INTEGRATION.md) + [`data/mcp-registry.json`](../data/mcp-registry.json)
    — the one MCP surface for ChatGPT.
+7. [`BENCHMARK-PLAN.md`](../BENCHMARK-PLAN.md) — pre-registered
+   MITRA-MT vs ours comparison (correction minutes, never BLEU).
+8. [`HANDOFF-PR-REVIEW.md`](../HANDOFF-PR-REVIEW.md) — open PRs, merge order,
+   review focus (for an outside reviewer, not a status doc).
 
 ---
 
@@ -39,6 +43,9 @@ Read in this order if you are new:
 | `EXTERNAL-STRATEGY.md` | independent integration contract + roadmap | the review standard |
 | `REVIEW-FINDINGS.md` | second-round review findings (verbatim) | actionable list, dated heads |
 | `TESTING.md` | every suite + exact command | added 2026-11-11 |
+| `BENCHMARK-PLAN.md` | pre-registered blind benchmark of translation candidates | acceptance fixed before data |
+| `HANDOFF-PR-REVIEW.md` | external reviewer's map of open PRs | update when PRs close |
+| `docs/BIBLIO-AUTHORITY-GAP.md` | upstream biblio gaps measured, PG18→PG15 blocker | evidence, not blame |
 | `docs/INDEX.md` | this file | |
 
 ## Reference (read when relevant; not maintained as live truth)

@@ -25,11 +25,33 @@ for t in emit_grammar emit_wheels emit_gate_pools emit_certificates \
          emit_discovery; do python3 tools/$t.py --check; done
 python3 tools/check_licenses.py --check     # licence gate
 python3 tools/eval_blind.py --check         # blind set + rubric
+python3 tools/eval_export_ours.py --check   # our candidate, coverage honest
 python3 tools/seo_check.py                  # 10 SEO gates
 ```
 
 `emit_biblio.py --check` exits **3 = BLOCKED** when this box's DB lags the
 committed view. That is neither pass nor defect; the tests skip with the reason.
+
+## 2b. Blind evaluation loop
+
+```sh
+python3 tools/eval_export_ours.py                     # ours.json + manifest
+python3 tools/eval_fetch_candidate.py --kernel <ref> --name mitra-mt
+                                                      # pull, verify sha256, record
+python3 tools/eval_score_sheet.py --a data/eval/candidates/ours.json \
+    --b data/eval/candidates/mitra-mt.json \
+    --a-manifest data/eval/candidates/ours.manifest.json \
+    --out experiments/mitra-mt/scoring --seed 20261111
+python3 tools/eval_tally.py --sheet experiments/mitra-mt/scoring/sheet.json \
+    --key experiments/mitra-mt/scoring/key.json       # after a human fills it
+```
+
+Coverage is machine data; minutes and verdicts are human-only. `eval_fetch`
+refuses on a sha256 mismatch, `eval_score_sheet` refuses to leak candidate
+identity, `eval_tally` refuses on any unfilled field.
+
+Node tests (in `tests/measurement.test.cjs`, 5): licence gate, held-out set,
+our export, coverage-only runner, blind sheet.
 
 ## 3. Worker / gate (ipvv repo)
 
