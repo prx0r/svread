@@ -899,13 +899,14 @@ async function sanskritView(){
     (idx.lessons||[]).forEach(l=>{ (byStage[l.section]=byStage[l.section]||[]).push(l); });
     const STAGE_T = s=>({'stage-1-sounds':'Stage 1 \u00b7 Sounds','stage-2-language':'Stage 2 \u00b7 Language','stage-3-instructions':'Stage 3 \u00b7 Instructions','stage-4-trika-grammar':'Stage 4 \u00b7 Trika grammar','stage-5-original':'Stage 5 \u00b7 Originals'}[s]||s);
     main.innerHTML = `<h1>${esc(idx.title||'Learn Sanskrit')}</h1>`
-      + `<p class="mut">${esc(idx.subtitle||'')}</p>`
+      + `<p class="mut">The wheel flow first — six cumulative levels, one ring at a time. Lessons follow below.</p>`
+      + `<div style="margin:.4rem 0"><a href="wheels.html#level-1"><b>Level 1 \u00b7 Bases</b></a> <span class="mut">six question-words</span> \u00b7 <a href="wheels.html#level-2"><b>2 \u00b7 Endings</b></a> <span class="mut">20 cells + traces</span> \u00b7 <a href="wheels.html#level-3"><b>3 \u00b7 Who does what</b></a> <span class="mut">agreement</span> \u00b7 <a href="wheels.html#level-4"><b>4 \u00b7 When + where</b></a> \u00b7 <a href="wheels.html#level-5"><b>5 \u00b7 Asking</b></a> \u00b7 <a href="wheels.html#level-6"><b>6 \u00b7 K\u0101raka</b></a></div>`
+      + `<iframe id="sk-wheels" title="Sanskrit memory wheels" src="wheels.html" style="width:100%;border:1px solid var(--g200);border-radius:6px;min-height:80vh;background:#fff"></iframe>`
+      + `<h2>Lessons</h2>`
       + Object.keys(byStage).map(s=>`<h2>${esc(STAGE_T(s))}</h2>`
         + byStage[s].map(l=>`<div style="margin:.4rem 0"><a href="?view=sanskrit&work=${encodeURIComponent(l.work)}&lesson=${encodeURIComponent(l.id)}"><b>${esc(l.title)}</b></a> <span class="mut">${esc(l.source_ref||'')}</span>${l.has_reader?'':' <span class="mut">(reader forthcoming)</span>'}</div>`).join('')).join('')
       + `<h2>Rule boxes</h2>` + (rules.rule_boxes||[]).map(r=>`<div class="sk-rulebox"><div class="sk-rb-t">${esc(r.title)}</div><div>${esc(r.body)}</div></div>`).join('')
       + `<p><a href="?view=biblio">Browse the full bibliography</a> \u2014 every work, edition, translation with links, lost works with their basis, formal coverage, essays.</p>`
-      + `<h2>Memory wheels</h2>`
-      + `<p><a href="wheels.html"><b>Bruno meets P\u0101\u1e47ini: word constructor, sentence constructor, Trika wheels</b></a> \u2014 rotate meaning rings, grammar handles the rest. Every form machine-derived (Vidyut), every Trika gloss sourced or marked pending.</p>`
       + `<p class="mut">Lessons: bookfactory prints/learn-sanskrit, imported verbatim (see data/sanskrit/provenance.json).</p>`;
     document.title = 'Sanskrit \u00b7 svread';
     SK_LESSON = null;

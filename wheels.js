@@ -394,5 +394,14 @@ function renderDrill(){
     btns.appendChild(rev);
   }
 }
-document.addEventListener('DOMContentLoaded',()=>{ initToggle(); initLevels(); initWord(); initSentence(); initOptionWheels(); initDrill(); applyRingVisibility(); });
+document.addEventListener('DOMContentLoaded',()=>{
+  initToggle(); initLevels(); initWord(); initSentence(); initOptionWheels(); initDrill(); applyRingVisibility();
+  try{
+    const m=location.hash.match(/level-([1-6])/);
+    if(m) setLevel(parseInt(m[1],10));
+  }catch(e){}
+  window.addEventListener('hashchange',()=>{
+    try{ const m=location.hash.match(/level-([1-6])/); if(m) setLevel(parseInt(m[1],10)); }catch(e){}
+  });
+});
 })();

@@ -43,6 +43,8 @@ test('sanskrit + index views wired in app and header', () => {
   assert.ok(html.includes('id="navsanskrit"'), 'sanskrit header item');
   assert.ok(html.includes('id="navbiblio"'), 'index header item');
   assert.ok(!/Pushing Lab/.test(html), 'no pushing tab');
+  assert.ok(app.includes('sk-wheels'), 'sanskrit tab embeds the wheel flow');
+  assert.ok(app.includes('wheels.html#level-1') && app.includes('wheels.html#level-6'), 'level deep links present');
   const css = fs.readFileSync(path.join(ROOT, 'styles.css'), 'utf8');
   assert.ok(css.includes('.sk-rulebox'), 'rulebox styles present');
   assert.ok(css.includes('.sk-table'), 'biblio table styles present');
