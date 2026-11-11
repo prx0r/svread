@@ -17,7 +17,9 @@ Read in this order if you are new:
    — the one MCP surface for ChatGPT.
 7. [`BENCHMARK-PLAN.md`](../BENCHMARK-PLAN.md) — pre-registered
    MITRA-MT vs ours comparison (correction minutes, never BLEU).
-8. [`HANDOFF-PR-REVIEW.md`](../HANDOFF-PR-REVIEW.md) — open PRs, merge order,
+8. [`CHATGPT-PLUGIN.md`](../CHATGPT-PLUGIN.md) — the live MCP connector:
+   URL, auth, tool map, editing surface, systemd units, monitoring.
+9. [`HANDOFF-PR-REVIEW.md`](../HANDOFF-PR-REVIEW.md) — open PRs, merge order,
    review focus (for an outside reviewer, not a status doc).
 
 ---

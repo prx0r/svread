@@ -1,0 +1,16 @@
+[Unit]
+Description=svatantrya MCP gateway (197 tools)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/root/svread/mcp/gateway
+EnvironmentFile=/etc/svatantrya-mcp.env
+ExecStart=/usr/bin/python3 /root/svread/mcp/gateway/gateway.py --host 127.0.0.1 --port 8765
+Restart=always
+RestartSec=3
+NoNewPrivileges=yes
+
+[Install]
+WantedBy=multi-user.target
