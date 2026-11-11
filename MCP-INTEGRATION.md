@@ -1,5 +1,7 @@
 # MCP INTEGRATION — one surface for ChatGPT (2026-11-11)
 
+> **Status (2026-11-11): historical design record.** The endpoint is now live; use [CHATGPT-PLUGIN.md](CHATGPT-PLUGIN.md) and [data/mcp-registry.json](data/mcp-registry.json) for current connector, tool inventory, authentication, and operations. The bridge/tunnel rows below describe the earlier plan and are superseded.
+
 Companion to `data/mcp-registry.json` (probed live: 8 servers, 122 leaf tools,
 109 federated). This is the plan to make the whole estate reachable from
 ChatGPT as **one thing**, with the smallest honest surface.

@@ -1,6 +1,6 @@
-<!-- status: superseded by MCP-INTEGRATION.md + data/mcp-registry.json -->
+<!-- status: superseded by CHATGPT-NORTH-STAR.md, CHATGPT-PLUGIN.md, and data/mcp-registry.json -->
 
-> **Status (2026-11-11):** superseded by MCP-INTEGRATION.md + data/mcp-registry.json.
+> **Status (2026-11-11):** superseded by CHATGPT-NORTH-STAR.md, CHATGPT-PLUGIN.md, and data/mcp-registry.json.
 
 # ChatGPT Endgame — plan from here (2026-11-11)
 

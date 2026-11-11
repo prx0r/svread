@@ -7,18 +7,17 @@ kept for provenance, and which are the **owner's verbatim words** (never edit).
 Read in this order if you are new:
 
 1. [`README.md`](../README.md) — what the site is, START HERE block.
-2. [`PRODUCTION.md`](../PRODUCTION.md) — build / verify / deploy / ops manual.
-3. [`MASTERPLAN3.md`](../MASTERPLAN3.md) — the operative plan (W1–W7, estate map).
-4. [`PROGRESS-REPORT-2026-11-11.md`](../PROGRESS-REPORT-2026-11-11.md) — what is
+2. [`CHATGPT-NORTH-STAR.md`](../CHATGPT-NORTH-STAR.md) — product direction: ChatGPT as roboscholar, OpenPāṭala as control plane.
+3. [`PRODUCTION.md`](../PRODUCTION.md) — build / verify / deploy / ops manual.
+4. [`MASTERPLAN3.md`](../MASTERPLAN3.md) — the operative plan (W1–W7, estate map).
+5. [`PROGRESS-REPORT-2026-11-11.md`](../PROGRESS-REPORT-2026-11-11.md) — what is
    actually done against that plan, with the one BLOCKED stated plainly.
-5. [`EXTERNAL-STRATEGY.md`](../EXTERNAL-STRATEGY.md) — the independent review's
+6. [`EXTERNAL-STRATEGY.md`](../EXTERNAL-STRATEGY.md) — the independent review's
    integration contract + M0–M6 roadmap (this is the standard we are held to).
-6. [`MCP-INTEGRATION.md`](../MCP-INTEGRATION.md) + [`data/mcp-registry.json`](../data/mcp-registry.json)
-   — the one MCP surface for ChatGPT.
-7. [`BENCHMARK-PLAN.md`](../BENCHMARK-PLAN.md) — pre-registered
+7. [`CHATGPT-PLUGIN.md`](../CHATGPT-PLUGIN.md) + [`data/mcp-registry.json`](../data/mcp-registry.json)
+   — the live ChatGPT connector and its current tool registry.
+8. [`BENCHMARK-PLAN.md`](../BENCHMARK-PLAN.md) — pre-registered
    MITRA-MT vs ours comparison (correction minutes, never BLEU).
-8. [`CHATGPT-PLUGIN.md`](../CHATGPT-PLUGIN.md) — the live MCP connector:
-   URL, auth, tool map, editing surface, systemd units, monitoring.
 9. [`HANDOFF-PR-REVIEW.md`](../HANDOFF-PR-REVIEW.md) — open PRs, merge order,
    review focus (for an outside reviewer, not a status doc).
 
@@ -36,7 +35,8 @@ Read in this order if you are new:
 | `SPEC.md` | reader UX spec (lanes, rails, chat) | source of truth for the reader |
 | `READER-ARCHITECTURE.md` | data flow, release checks, source holds | gates + provenance rules |
 | `VERIFY.md` | how an outsider verifies a claim | hashes, curl+sha256sum |
-| `MCP-INTEGRATION.md` | MCP surface plan (bridge, sheaves, OAuth) | pairs with the registry JSON |
+| `CHATGPT-NORTH-STAR.md` | owner-directed product vision for ChatGPT and OpenPāṭala | target, not a live status report |
+| `CHATGPT-PLUGIN.md` | live ChatGPT connector: endpoint, tools, auth, editing limits, and operations | current MCP status |
 | `OPENPATALA-CONNECTION.md` | how svread ↔ openpatala connect; **how to add texts** | bibliography is a DB view |
 | `AUTH-AND-PROGRESS.md` | identity decisions: Google = site account, ORCID = publishing | binding owner decision |
 | `SCHOLAR-PRIVACY.md` | privacy contract for scholar data | hashed in the release manifest |
@@ -62,8 +62,10 @@ Read in this order if you are new:
 | `CHANT-UPLOAD.md` | how chant audio reaches R2 |
 | `LEAN-AND-SANSKRIT-SYNTHESIS.md` | Lean × Sanskrit brainstorm (design note) |
 | `MCP-FEDERATION-REVIEW.md` | MCP federation audit (evidence, not policy) |
+| [Live estate index](https://svatantrya.net/data/estate-index.json) | generated repository, asset, endpoint, route, and plugin-recipe map; reconcile its tool inventory against deployed tools |
+| `MCP-INTEGRATION.md` | original bridge and OAuth design; superseded for live status by `CHATGPT-PLUGIN.md` |
 | `PLAN-VERIFIED-RUNTIME.md` | earlier runtime plan; superseded by MASTERPLAN3 |
-| `CHATGPT-ENDGAME-PLAN.md` | earlier ChatGPT plan; superseded by MCP-INTEGRATION |
+| `CHATGPT-ENDGAME-PLAN.md` | earlier ChatGPT plan; superseded by CHATGPT-NORTH-STAR and CHATGPT-PLUGIN |
 
 ## History (kept for provenance; do not act on these)
 

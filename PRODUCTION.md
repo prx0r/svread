@@ -23,8 +23,10 @@ green, what is openly not done. Numbers below were measured on box
   coverage-only runner.
 - **Whole system on R2** — bucket `svatantrya-system`, root `INDEX.json`:
   12 repo archives (with .git) + 6 packages ≈ 2.28 GB; secrets excluded.
-- **MCP registry** — `data/mcp-registry.json` (8 servers probed, 109 federated
-  tools) + `MCP-INTEGRATION.md` (bridge/tunnel/OAuth plan).
+- **ChatGPT MCP connector** — live at `mcp.sanskrit.help`; current docs report
+  197 tools across seven server groups. The live estate index reports 198, so
+  reconcile the inventory before treating either count as final. The bridge
+  and tunnel are live; `CHATGPT-PLUGIN.md` records the endpoint and limits.
 - **Google = site account, ORCID = publishing** (worker routes + UI copy).
 - **CI portability** — vendored fixtures/concepts; unreadable `/root` paths
   treated as absent; no blanket skips.
@@ -35,8 +37,9 @@ enrichment). `emit_biblio.py --check` returns **exit 3 (BLOCKED)** and the
 tests skip with that reason. Clear by syncing the enriched DB dump here, then
 `emit_biblio.py` + manifest.
 
-**Still not built:** MCP bridge/tunnel + OAuth; candidate eval run; Mātṛkā
-stage gating; W6/W7 (training/factory) by design.
+**Still not built:** per-user OAuth and offline access for the ChatGPT MCP
+connector; candidate eval run; Mātṛkā stage gating; W6/W7 (training/factory)
+by design.
 
 ## 1. The system in one diagram
 

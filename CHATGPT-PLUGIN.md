@@ -2,6 +2,8 @@
 
 Status: **live**. One remote MCP endpoint, systemd-owned, survives reboots.
 
+Product scope and the OpenPāṭala control-plane direction are in [CHATGPT-NORTH-STAR.md](CHATGPT-NORTH-STAR.md). This file remains the operational source for the live connector.
+
 ## Connect it
 
 1. In ChatGPT: **Settings → Connectors → Add custom connector** (a "plugin" in
@@ -25,7 +27,7 @@ curl -s -o /dev/null -w '%{http_code}\n' -X POST https://mcp.sanskrit.help/mcp \
 # 401 = auth working
 ```
 
-## What is exposed (197 tools, 7 servers)
+## What is exposed (documented count: 197 tools, 7 servers)
 
 | Server | Tools | What ChatGPT can do |
 |---|---|---|
@@ -36,6 +38,11 @@ curl -s -o /dev/null -w '%{http_code}\n' -X POST https://mcp.sanskrit.help/mcp \
 | `videofactory` | 18 | lanes, units, render-gate status |
 | `aoc` | 20 | carousel factory: status, validate, review, receipts (writes are gated) |
 | `workspace` | 7 | **edit the repos**: list/read/write/patch/grep, git status/log/diff/add/commit |
+
+**Inventory drift:** the live estate index reports 198 tools and includes
+`workspace__estate_index` in `read_first`; this checked-in registry and generated
+catalogue report 197 and do not list that operation. Reconcile the authenticated
+`tools/list`, generator, and deployed code before using a single final count.
 
 Tool names are `<server>__<tool>`, e.g. `scholar__wheel_level`,
 `openpatala__search` (arg is `q`, not `query`), `workspace__ws_patch`.

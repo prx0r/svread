@@ -3,14 +3,17 @@
 > **START HERE (2026-11-11):**
 > - **[`docs/INDEX.md`](docs/INDEX.md)** — the map: canonical, reference, history.
 >   Read this before anything else.
+> - **[`CHATGPT-NORTH-STAR.md`](CHATGPT-NORTH-STAR.md)** — ChatGPT as roboscholar, with OpenPāṭala as the control plane.
+> - [Live estate index](https://svatantrya.net/data/estate-index.json) — repositories, assets, endpoints, routes, and plugin recipes.
 > - **[`PRODUCTION.md`](PRODUCTION.md)** — build / verify / deploy / ops (§0 = today's delta).
 > - **[`MASTERPLAN3.md`](MASTERPLAN3.md)** — the operative plan (W1–W7).
 > - **[`PROGRESS-REPORT-2026-11-11.md`](PROGRESS-REPORT-2026-11-11.md)** — what is
 >   actually done against it, including the one **BLOCKED**.
 > - **[`EXTERNAL-STRATEGY.md`](EXTERNAL-STRATEGY.md)** — the independent
 >   integration contract + M0–M6 roadmap we are held to.
-> - **[`MCP-INTEGRATION.md`](MCP-INTEGRATION.md)** — the one MCP surface for
->   ChatGPT (registry: [`data/mcp-registry.json`](data/mcp-registry.json)).
+> - [`MCP-INTEGRATION.md`](MCP-INTEGRATION.md) — earlier bridge and OAuth design; current status is in CHATGPT-PLUGIN.md.
+> - **[`CHATGPT-PLUGIN.md`](CHATGPT-PLUGIN.md)** — live ChatGPT MCP connector, tool map, authentication, and editing limits.
+> - **[`data/mcp-registry.json`](data/mcp-registry.json)** — server and endpoint registry.
 > - Reader spec: [`SPEC.md`](SPEC.md) · architecture:
 >   [`READER-ARCHITECTURE.md`](READER-ARCHITECTURE.md) · testing: [`TESTING.md`](TESTING.md).
 
@@ -83,7 +86,9 @@ For the local Scholar MCP bridge, account privacy, and tests, see [mcp/README.md
 ### Pushing Lab (prototype)
 
 Open `pushing.html` from the navigation to turn pasted conversation turns into a
-private, editable enquiry tree. Attach an available Scholar passage, select
-permissioned scholarly essays, and draft a private, source-linked essay with Qwen.
-Account, permissions and Qwen actions require the matching configured Worker. Read
+private, editable enquiry tree. Attach an available Scholar passage and select
+permissioned scholarly essays. The current browser prototype uses Qwen for optional
+challenge and drafting; the ChatGPT target uses ChatGPT with the estate MCP tools,
+as described in [`CHATGPT-NORTH-STAR.md`](CHATGPT-NORTH-STAR.md). The prototype's
+account and Qwen actions still require the matching configured Worker. Read
 [`PUSHING-LAB.md`](PUSHING-LAB.md) for boundaries, tests and the handoff.
