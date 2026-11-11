@@ -3,7 +3,8 @@
 > **START HERE (2026-11-11):**
 > - **[`AGENT-HANDOFF.md`](AGENT-HANDOFF.md)** — split of concerns: integration
 >   agent (grunt/integration) vs external agent (strategy/spec/tests), full
->   TODO queue, repo map. Work is tracked in **PR #13**.
+>   TODO queue, repo map. Intake merged in **PR #13**; next deliverables land
+>   as new PRs from this split.
 > - **[`MASTERPLAN3.md`](MASTERPLAN3.md)** — the operative full plan (files,
 >   dev steps, justifications).
 > - **[`PROGRESS.md`](PROGRESS.md)** — build reports, newest after each wave.
