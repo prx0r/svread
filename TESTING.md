@@ -26,6 +26,7 @@ for t in emit_grammar emit_wheels emit_gate_pools emit_certificates \
 python3 tools/check_licenses.py --check     # licence gate
 python3 tools/eval_blind.py --check         # blind set + rubric
 python3 tools/eval_export_ours.py --check   # our candidate, coverage honest
+python3 tools/emit_estate_index.py --check  # catalogue everything (reads live counts)
 python3 tools/seo_check.py                  # 10 SEO gates
 ```
 

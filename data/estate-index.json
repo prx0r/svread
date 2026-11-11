@@ -1,0 +1,410 @@
+{
+ "format": "svatantrya.estate-index/1",
+ "generated_by": "tools/emit_estate_index.py",
+ "purpose": "Read me first. Every Sanskrit asset, tool, doc and endpoint in one file, with the MCP tool that reaches it, and ready-made plugin recipes.",
+ "live": {
+  "site": "https://svatantrya.net",
+  "mcp": "https://mcp.sanskrit.help/mcp",
+  "transport": "streamable-http",
+  "protocol": "2025-06-18",
+  "tools": 198,
+  "auth": "Bearer (token on the box at /etc/svatantrya-mcp.env; 401 without)"
+ },
+ "rules": [
+  "BLOCKED != PASS. If a check cannot run, say BLOCKED and why.",
+  "Machine traces are DERIVED, not truth.",
+  "Nothing auto-publishes, auto-signs or auto-renders.",
+  "Never invent Sanskrit. A form not in the corpus does not render.",
+  "Licence gate first: tools/check_licenses.py --admit <id> infer.",
+  "Missing means not in the data, never that the tradition is silent."
+ ],
+ "counts": {
+  "works": 2051,
+  "people": 125,
+  "translations_songs": 268,
+  "l2_files": 325,
+  "certificates": 44,
+  "licence_entries": 10,
+  "mcp_servers": 7,
+  "mcp_tools": 198,
+  "blind_passages": 50,
+  "our_candidates": 40
+ },
+ "repos": [
+  {
+   "name": "svread",
+   "path": "/root/svread",
+   "what": "site: reader, wheels, practice, scholar, eval, MCP",
+   "start": "docs/INDEX.md"
+  },
+  {
+   "name": "ipvv",
+   "path": "/root/ipvv",
+   "what": "Cloudflare worker: Google auth, wheel gates, progress",
+   "start": "worker/src/index.js"
+  },
+  {
+   "name": "translation-work",
+   "path": "/root/translation-work",
+   "what": "the corpus: L0-L4 layers for 112 works",
+   "start": "AGENTS.md"
+  },
+  {
+   "name": "trika-x",
+   "path": "/root/trika-x",
+   "what": "formal layer (Lean prakriya), federation gateway, recipes",
+   "start": "INDEX.md"
+  },
+  {
+   "name": "openpatala",
+   "path": "/root/openpatala",
+   "what": "bibliography DB + MCP (resolve/search/get_bundle)",
+   "start": "patala/mcp_server.py"
+  },
+  {
+   "name": "bookfactory",
+   "path": "/root/bookfactory",
+   "what": "book production pipeline + MCP",
+   "start": "bf_mcp/server.py"
+  },
+  {
+   "name": "videofactory",
+   "path": "/root/videofactory",
+   "what": "video production pipeline + MCP",
+   "start": "vf_mcp_server.py"
+  },
+  {
+   "name": "aoc",
+   "path": "/root/aoc",
+   "what": "AI Onboard carousel factory, gated + receipted",
+   "start": "docs/HOW_IT_WORKS.md"
+  },
+  {
+   "name": "sleepdraw",
+   "path": "/root/sleepdraw",
+   "what": "journey renderer + seal CLI",
+   "start": "mcp_server.py"
+  },
+  {
+   "name": "deitybody",
+   "path": "/root/deitybody",
+   "what": "10-stage Matrka curriculum",
+   "start": "data/curriculum.json"
+  },
+  {
+   "name": "bruno",
+   "path": "/root/bruno",
+   "what": "curated Sanskrit wheel tier (MIT)",
+   "start": "README.md"
+  },
+  {
+   "name": "sanskrithelp",
+   "path": "/root/sanskrithelp",
+   "what": "atlas/host project",
+   "start": "README.md"
+  },
+  {
+   "name": "sanskritbench",
+   "path": "/root/sanskritbench",
+   "what": "benchmark scaffolding",
+   "start": "README.md"
+  }
+ ],
+ "data": [
+  {
+   "name": "bibliography",
+   "path": "data/biblio.json",
+   "tool": "scholar__list_works / openpatala__search",
+   "what": "2,051 works (authority digest pinned), 125 people; local mirror 1,034 works"
+  },
+  {
+   "name": "wheel-pack",
+   "path": "data/grammar/wheel-pack.json",
+   "tool": "scholar__wheel_harness",
+   "what": "Vidyut derivations for the wheel forms, reviewed/unreviewed per entry"
+  },
+  {
+   "name": "wheel-crosscheck",
+   "path": "data/grammar/crosscheck.json",
+   "tool": "scholar__wheel_verify",
+   "what": "Vidyut vs Process-Sanskrit disagreements"
+  },
+  {
+   "name": "certificates",
+   "path": "data/grammar/certificates.json",
+   "tool": "scholar__wheel_certificate",
+   "what": "44 structural certificates; lean_independent only when the receipt hash matches"
+  },
+  {
+   "name": "prakriya-receipt",
+   "path": "data/grammar/prakriya-receipt.json",
+   "tool": "scholar__wheel_certificate",
+   "what": "Lean 4 receipt: 44 traces, 68 error codes, 4 mutant theorems"
+  },
+  {
+   "name": "wheels-word",
+   "path": "data/wheels/word.json",
+   "tool": "scholar__wheel_lookup",
+   "what": "declension wheel: 4 endings x 5 bases"
+  },
+  {
+   "name": "wheels-sentence",
+   "path": "data/wheels/sentence.json",
+   "tool": "scholar__wheel_lookup",
+   "what": "sentence wheel"
+  },
+  {
+   "name": "wheels-trika",
+   "path": "data/wheels/trika.json",
+   "tool": "scholar__wheel_lookup",
+   "what": "Trika term wheel"
+  },
+  {
+   "name": "wheels-karaka",
+   "path": "data/wheels/karaka.json",
+   "tool": "scholar__wheel_lookup",
+   "what": "6 karakas"
+  },
+  {
+   "name": "gate-pools",
+   "path": "data/wheels/gates.json",
+   "tool": "worker /api/wheel/gate/start",
+   "what": "word L1=6 L2=4 L3=8 L4=20; sentence L1=4 L2=10 L3=9"
+  },
+  {
+   "name": "harness",
+   "path": "data/wheels/harness.json",
+   "tool": "scholar__wheel_harness",
+   "what": "per-level harness and prompts"
+  },
+  {
+   "name": "tutor",
+   "path": "data/wheels/tutor/",
+   "tool": "scholar__wheel_level",
+   "what": "level 1-4 tutor texts"
+  },
+  {
+   "name": "practice",
+   "path": "data/practice/curriculum.json",
+   "tool": "site ?view=practice",
+   "what": "10 Matrka stages, verbatim owner words, sha256 provenance"
+  },
+  {
+   "name": "practice-cards",
+   "path": "data/practice/cards.json",
+   "tool": "site ?view=practice",
+   "what": "per-stage cards"
+  },
+  {
+   "name": "eval-set",
+   "path": "data/eval/trika-blind-50.json",
+   "tool": "file read via workspace__ws_read",
+   "what": "50 held-out passages, 49 works, category null pending human"
+  },
+  {
+   "name": "eval-rubric",
+   "path": "data/eval/RUBRIC.md",
+   "tool": "file read",
+   "what": "correction effort in minutes; never BLEU"
+  },
+  {
+   "name": "eval-ours",
+   "path": "data/eval/candidates/ours.json",
+   "tool": "file read",
+   "what": "40/50 of our translations with per-passage coverage"
+  },
+  {
+   "name": "eval-results",
+   "path": "data/eval/results-ours.json",
+   "tool": "file read",
+   "what": "coverage only; human: PENDING_HUMAN"
+  },
+  {
+   "name": "licences",
+   "path": "data/licenses/registry.json",
+   "tool": "tools/check_licenses.py",
+   "what": "10 entries; excluded/pending/read_only statuses are enforced"
+  },
+  {
+   "name": "mcp-registry",
+   "path": "data/mcp-registry.json",
+   "tool": "file read",
+   "what": "every MCP server in the estate, probed live"
+  },
+  {
+   "name": "estate-index",
+   "path": "data/estate-index.json",
+   "tool": "workspace__ws_read",
+   "what": "this catalogue"
+  },
+  {
+   "name": "translations",
+   "path": "/root/translation-work/*/data/*.l{0,2,3,4}.json",
+   "tool": "workspace__ws_read",
+   "what": "279 songs; l3 final line-by-line, l2 readable, l0 parsed segments"
+  },
+  {
+   "name": "corpus-validator",
+   "path": "/root/translation-work/tools/validate_layers.py",
+   "tool": "workspace__ws_git",
+   "what": "coverage/phantom/double/empty checks; Tantrasara 22/22 clean"
+  }
+ ],
+ "docs": [
+  {
+   "path": "README.md",
+   "what": "START HERE for the site"
+  },
+  {
+   "path": "docs/INDEX.md",
+   "what": "which docs are canonical, reference, history"
+  },
+  {
+   "path": "CHATGPT-PLUGIN.md",
+   "what": "connector setup, tool map, editing limits, monitoring"
+  },
+  {
+   "path": "BENCHMARK-PLAN.md",
+   "what": "pre-registered translation benchmark"
+  },
+  {
+   "path": "MCP-INTEGRATION.md",
+   "what": "MCP surface plan (OAuth, bridge, sheaves)"
+  },
+  {
+   "path": "LEAN-AND-SANSKRIT-SYNTHESIS.md",
+   "what": "what Lean proves and does not (three stamps)"
+  },
+  {
+   "path": "EXTERNAL-STRATEGY.md",
+   "what": "external review contract and roadmap"
+  },
+  {
+   "path": "PRODUCTION.md",
+   "what": "build, verify, deploy"
+  },
+  {
+   "path": "TESTING.md",
+   "what": "every suite and exact command"
+  },
+  {
+   "path": "PROGRESS-REPORT-2026-11-11.md",
+   "what": "status against MASTERPLAN3"
+  },
+  {
+   "path": "docs/BIBLIO-AUTHORITY-GAP.md",
+   "what": "upstream biblio stubs, PG18 to PG15 blocker"
+  },
+  {
+   "path": "HANDOFF-PR-REVIEW.md",
+   "what": "open PRs, merge order, review focus"
+  }
+ ],
+ "mcp_servers": {
+  "scholar": {
+   "path": "/root/svread/mcp/scholar_server.py",
+   "role": "svread: passages, evidence, wheels, certificates, essays, reviews"
+  },
+  "openpatala": {
+   "path": "/root/openpatala/patala/mcp_server.py",
+   "role": "bibliography: resolve/search/get_bundle over the work DB"
+  },
+  "federation": {
+   "path": "/root/trika-x/formal-trika/tools/federation_gateway.py",
+   "role": "109-tool federation gateway (formal, treeka, bridge)"
+  },
+  "bookfactory": {
+   "path": "/root/bookfactory/bf_mcp/server.py",
+   "role": "book production pipeline"
+  },
+  "videofactory": {
+   "path": "/root/videofactory/vf_mcp_server.py",
+   "role": "video production pipeline"
+  },
+  "aoc": {
+   "path": "/root/aoc/mcp_server.py",
+   "role": "AI Onboard carousel factory (gated, receipted)"
+  },
+  "workspace": {
+   "path": "/root/svread/mcp/gateway/workspace_server.py",
+   "role": "read/edit the estate (scoped): ws_read, ws_write, ws_patch, ws_grep, ws_git"
+  }
+ },
+ "plugin_recipes": [
+  {
+   "name": "Wheel tutor plugin",
+   "uses": [
+    "scholar__wheel_level",
+    "scholar__wheel_lookup",
+    "scholar__wheel_verify",
+    "scholar__wheel_certificate"
+   ],
+   "build": "ask for a level, drill a form, show the derivation + certificate hash"
+  },
+  {
+   "name": "Reader with evidence",
+   "uses": [
+    "scholar__passage_evidence",
+    "scholar__list_versions",
+    "scholar__compare_versions"
+   ],
+   "build": "Sanskrit + editorial layers with hash-checked provenance"
+  },
+  {
+   "name": "Bibliography explorer",
+   "uses": [
+    "openpatala__resolve",
+    "openpatala__search",
+    "openpatala__get_bundle",
+    "openpatala__get_frontier"
+   ],
+   "build": "resolve a work, show dossiers, list what still needs translation"
+  },
+  {
+   "name": "Translation QA",
+   "uses": [
+    "workspace__ws_read",
+    "workspace__ws_grep",
+    "workspace__ws_git"
+   ],
+   "build": "run the corpus validator, show coverage gaps, patch a layer"
+  },
+  {
+   "name": "Book builder",
+   "uses": [
+    "bookfactory__factory_overview",
+    "bookfactory__list_lanes",
+    "bookfactory__read_thesis",
+    "bookfactory__check_lane"
+   ],
+   "build": "inspect a lane, read thesis/entries, run the single gate"
+  },
+  {
+   "name": "Video/seal pipeline",
+   "uses": [
+    "videofactory__vf_status",
+    "videofactory__vf_units"
+   ],
+   "build": "read render-gate state per unit"
+  },
+  {
+   "name": "Campaign carousels",
+   "uses": [
+    "aoc__aoc_status",
+    "aoc__aoc_validate",
+    "aoc__aoc_review",
+    "aoc__aoc_receipts"
+   ],
+   "build": "validate a hook, run the 15-point review, inspect receipt chain"
+  },
+  {
+   "name": "Formal evidence browser",
+   "uses": [
+    "federation__guide",
+    "formal__evidence",
+    "formal__gaps"
+   ],
+   "build": "navigate formal artifacts and gaps across the estate"
+  }
+ ]
+}

@@ -188,6 +188,7 @@ aoc__aoc_score                                           Score prospects from CS
 aoc__aoc_funnel                                          Acquisition funnel counts (leads, qualified, paid, revenue, 
 aoc__aoc_campaign                                        Create a campaign and link one approved creative. Refuses du
 aoc__aoc_personalize                                     Build one per-business variant (identity tokens only, resear
+workspace__estate_index                                  The whole estate in one JSON: repos, Sanskrit data, docs, MC
 workspace__ws_roots                                      Allowed roots, blocked paths and limits.
 workspace__ws_list                                       List a directory (names, sizes, dirs).
 workspace__ws_read                                       Read a text file under an allowed root.
@@ -196,4 +197,4 @@ workspace__ws_patch                                      Replace an exact unique
 workspace__ws_grep                                       Search file contents; bounded to 200 hits.
 workspace__ws_git                                        Repository git: status|log|diff|add|commit|branch|checkout|s
 
-197 tools across 7 servers
+198 tools across 7 servers

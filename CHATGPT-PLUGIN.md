@@ -2,6 +2,17 @@
 
 Status: **live**. One remote MCP endpoint, systemd-owned, survives reboots.
 
+## Read this first (for the model)
+
+Call `workspace__estate_index` (or read
+`https://svatantrya.net/data/estate-index.json`). One JSON with:
+
+- `counts` — 2,051 works, 268 translated songs, 44 certificates, 198 tools
+- `repos` — what each of the 13 trees is and where to start
+- `data` — every Sanskrit asset and **the MCP tool that reaches it**
+- `docs` — what to read for rules, Lean limits, deployment
+- `plugin_recipes` — eight buildable plugins with the exact tool chains
+
 ## Connect it
 
 1. In ChatGPT: **Settings → Connectors → Add custom connector** (a "plugin" in
@@ -25,7 +36,7 @@ curl -s -o /dev/null -w '%{http_code}\n' -X POST https://mcp.sanskrit.help/mcp \
 # 401 = auth working
 ```
 
-## What is exposed (197 tools, 7 servers)
+## What is exposed (198 tools, 7 servers)
 
 | Server | Tools | What ChatGPT can do |
 |---|---|---|
@@ -35,7 +46,7 @@ curl -s -o /dev/null -w '%{http_code}\n' -X POST https://mcp.sanskrit.help/mcp \
 | `bookfactory` | 22 | read lanes, theses, templates, entries, decisions, gate checks |
 | `videofactory` | 18 | lanes, units, render-gate status |
 | `aoc` | 20 | carousel factory: status, validate, review, receipts (writes are gated) |
-| `workspace` | 7 | **edit the repos**: list/read/write/patch/grep, git status/log/diff/add/commit |
+| `workspace` | 8 | **catalogue + edit the repos**: list/read/write/patch/grep, git status/log/diff/add/commit |
 
 Tool names are `<server>__<tool>`, e.g. `scholar__wheel_level`,
 `openpatala__search` (arg is `q`, not `query`), `workspace__ws_patch`.

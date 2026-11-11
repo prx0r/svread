@@ -68,6 +68,11 @@ def text_of(p: Path) -> str:
 
 
 TOOLS = [
+    types.Tool(name="estate_index",
+               description="The whole estate in one JSON: repos, Sanskrit data, docs, MCP servers, plugin recipes.",
+               inputSchema={"type": "object", "properties": {
+                   "section": {"type": "string",
+                               "description": "optional: counts|repos|data|docs|mcp_servers|plugin_recipes|rules"}}}),
     types.Tool(name="ws_roots", description="Allowed roots, blocked paths and limits.",
                inputSchema={"type": "object", "properties": {}}),
     types.Tool(name="ws_list", description="List a directory (names, sizes, dirs).",
@@ -115,6 +120,11 @@ async def on_call_tool(_ctx, p):
             type="text", text=obj if isinstance(obj, str) else json.dumps(obj, ensure_ascii=False, indent=1))])
 
     try:
+        if name == "estate_index":
+            idx = json.loads(Path("/root/svread/data/estate-index.json").read_text(encoding="utf-8"))
+            sec = a.get("section")
+            return out(idx.get(sec) if sec and sec in idx else idx)
+
         if name == "ws_roots":
             return out({"roots": [str(r) for r in ALLOW_ROOTS],
                         "deny_names": sorted(DENY_NAMES), "deny_suffix": list(DENY_SUFFIX),
