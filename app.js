@@ -1070,7 +1070,16 @@ async function googleExchange(){
   }catch(e){ return false; }
 }
 function initGoogleAuth(){
-  if(!window.SatsangAuth) return;
+  if(!window.SatsangAuth){
+    // the client is a blocking script, but a blocked CDN must not break the
+    // return-from-Google exchange; retry once the page has loaded.
+    if(typeof window.addEventListener==='function'){
+      window.addEventListener('load', ()=>{ try{ initGoogleAuth(); }catch(e){} }, {once:true});
+    }
+    return;
+  }
+  if(window.__svGoogleInit) return;
+  window.__svGoogleInit = true;
   try{
     window.SatsangAuth.init({ onChange: async (u)=>{
       if(!u) return;
