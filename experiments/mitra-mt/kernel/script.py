@@ -1,9 +1,17 @@
 import json, os, sys, time, hashlib, subprocess
 
 import glob
-_hits = glob.glob("/kaggle/input/*/blind-inputs.json")
+print("input tree:", flush=True)
+for root, dirs, files in os.walk("/kaggle/input"):
+    depth = root.count(os.sep) - 2
+    if depth > 2: dirs[:] = []; continue
+    print(" ", root, files[:5], flush=True)
+_hits = glob.glob("/kaggle/input/**/blind-inputs.json", recursive=True)
 IN = _hits[0] if _hits else "/kaggle/input/svatantrya-blind-50/blind-inputs.json"
 print("inputs:", IN, flush=True)
+if not os.path.exists(IN):
+    print("MISSING INPUTS — aborting before model load", flush=True)
+    raise SystemExit(3)
 OUT = "/kaggle/working/results-mitra-mt.json"
 MANIFEST = "/kaggle/working/results-mitra-mt.manifest.json"
 
