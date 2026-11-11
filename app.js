@@ -707,6 +707,15 @@ async function scholarView(){
         message.textContent = 'Submitted for review · ' + result.branch;
       }catch(err){ message.textContent = String(err.message||err); }
     };
+    const googleBtn = $('#schgoogle');
+    if(googleBtn && !SCHPROF){
+      googleBtn.onclick = ()=>{
+        const msg = $('#schauthmsg');
+        if(!window.SatsangAuth){ if(msg) msg.textContent = 'Google sign-in could not load — check your connection, or use ORCID.'; return; }
+        if(msg) msg.textContent = 'Opening Google…';
+        try{ window.SatsangAuth.signIn(); }catch(e){ if(msg) msg.textContent = String(e.message||e); }
+      };
+    }
     if(workspace){
       const selected=st.base && allV().find(x=>x.version_id===st.base);
       workspace.attach({container:$('#schworkspace'),textarea:$('#schta'),target:st.target,layer:st.layer,
@@ -720,8 +729,9 @@ async function scholarView(){
     $('#lib').innerHTML =
       W('schauth','Scholar account', SCHPROF
         ? `<table class="wtable"><tr><td>signed in</td><td>${esc(SCHPROF.display_name||'')} · ${esc(SCHPROF.email||'')}${SCHPROF.orcid?`<div class="cmp-note">ORCID ${esc(SCHPROF.orcid)}</div>`:`<div style="margin-top:.3rem"><a class="c2btn" href="https://ipvv-api.tradesprior.workers.dev/api/auth/orcid/start?redirect=${encodeURIComponent(location.pathname+location.search)}">Connect ORCID iD</a></div>`}</tr></table><div style="margin-top:.4rem"><button class="c2btn" id="schout">sign out</button></div>`
-        : `<div class="cmp-note" style="margin-bottom:.3rem"><b>Scholar account</b> — sign in to save private versions, request review, and submit signed work. Browsing is free; sign-in is only for saving.</div>
-           <div class="c2row"><a class="c2btn primary" style="font-size:1rem;padding:.5rem 1rem" href="https://ipvv-api.tradesprior.workers.dev/api/auth/orcid/start?redirect=${encodeURIComponent(location.pathname+location.search)}">Continue with ORCID</a></div>
+        : `<div class="cmp-note" style="margin-bottom:.3rem"><b>Scholar account</b> — sign in to keep your progress, save private versions, request review, and submit signed work. Browsing is free; sign-in is only for saving.</div>
+           <div class="c2row"><button class="c2btn primary" id="schgoogle" style="font-size:1rem;padding:.5rem 1rem">Continue with Google</button></div>
+           <div class="c2row" style="margin-top:.3rem"><a class="c2btn" href="https://ipvv-api.tradesprior.workers.dev/api/auth/orcid/start?redirect=${encodeURIComponent(location.pathname+location.search)}">Continue with ORCID (scholars)</a></div>
            <details style="margin-top:.4rem"><summary class="mut">or use email + password</summary>
            <div class="c2row" style="margin-top:.3rem"><input id="schemail" placeholder="email" type="email"/><input id="schname" placeholder="display name"/></div>
            <div class="c2row" style="margin-top:.3rem"><input id="schpw" placeholder="password (8+ chars)" type="password"/><button class="c2btn" id="schgo">sign in / join</button></div></details>
@@ -1039,7 +1049,40 @@ async function biblioView(){
   $('#bibf').addEventListener('change', filt);
 }
 
+/* Google sign-in via the shared satsang-auth service.
+   The browser never asserts identity: SatsangAuth proves it to the auth host,
+   we hand the access token to our worker, which verifies it server-to-server
+   and mints our own session. Then the profile is refetched. */
+async function googleExchange(){
+  if(!window.SatsangAuth) return false;
+  let access = null;
+  try{ access = await window.SatsangAuth.token(); }catch(e){ access = null; }
+  if(!access) return false;
+  try{
+    const r = await fetch(API + '/api/auth/google', {
+      method:'POST', credentials:'include',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({access})});
+    if(!r.ok) return false;
+    const j = await r.json();
+    SCHPROF = j.profile || SCHPROF;
+    return true;
+  }catch(e){ return false; }
+}
+function initGoogleAuth(){
+  if(!window.SatsangAuth) return;
+  try{
+    window.SatsangAuth.init({ onChange: async (u)=>{
+      if(!u) return;
+      const ok = await googleExchange();
+      if(ok && qs.get('view')==='scholar'){ try{ await scholarView(); }catch(e){} }
+      else if(ok){ try{ buildLeftRail(DATA && DATA.verses || [], LIBDATA); }catch(e){} }
+    }});
+  }catch(e){}
+}
+
 async function main(){
+  initGoogleAuth();
   const ns = $('#navscholar');
   if(ns) ns.onclick = e=>{ e.preventDefault(); location.href = `?work=${encodeURIComponent(WORK)}&view=scholar`; };
   const nsk = $('#navsanskrit');
