@@ -74,13 +74,20 @@ def main() -> int:
     for eid, wid, title in cur.fetchall():
         editions.setdefault(wid, []).append({"id": eid, "title": title})
     cur.execute("SELECT id, work_id, target_language, translator_ids, "
-                "completeness, provenance_refs FROM translations")
+                "completeness, provenance_refs, external_ids FROM translations")
     translations: dict[str, list] = {}
     ours = 0
-    for tid, wid, lang, trs, comp, prov in cur.fetchall():
+    for tid, wid, lang, trs, comp, prov, ext in cur.fetchall():
+        links = http_links(prov)
+        meta0 = (ext[0] if isinstance(ext, list) and ext else ext) or {}
+        if isinstance(meta0, dict):
+            u = meta0.get("url")
+            if u and u not in links:
+                links = (links or []) + [u]
         translations.setdefault(wid, []).append(
             {"id": tid, "lang": lang, "by": list(trs or []),
-             "completeness": comp, "links": http_links(prov),
+             "completeness": comp, "links": links,
+             "coverage": (meta0 or {}).get("coverage") if isinstance(meta0, dict) else None,
              "ours": tid.startswith("seed:ours:")})
         if tid.startswith("seed:ours:"):
             ours += 1
