@@ -13,7 +13,7 @@
 .wheel-page th,.wheel-page td{border:1px solid var(--g200,#e3e6ea);padding:.45rem .5rem;text-align:center;vertical-align:top}
 .wheel-page .wbase{text-align:left}
 .wheel-page button[data-cell],.chips button{font:inherit;background:#fff;border:1px solid var(--g200,#e3e6ea);border-radius:8px;padding:.35rem .6rem;cursor:pointer;line-height:1.5}
-.wheel-page button[data-cell].on,.chips button.on,#script-toggle button.on,#sent-modes button.on{border-color:#8a6d1f;background:#fffdf4}
+.wheel-page button[data-cell].on,.chips button.on,#sent-modes button.on{border-color:#8a6d1f;background:#fffdf4}
 .wring{margin:.8rem 0}
 .wring h4{margin:.2rem 0;text-transform:capitalize}
 .chips{display:flex;flex-wrap:wrap;gap:.4rem}
@@ -38,10 +38,18 @@ body.script-deva #word-disc .d-deva{display:block}
 body.script-iast #word-disc .d-iast{display:block}
 body.script-en #word-disc .d-en{display:block}
 #word-disc .d-en{font-size:.62em}
-#script-toggle button,#sent-modes button{font:inherit;background:#fff;border:1px solid var(--g200,#e3e6ea);border-radius:8px;padding:.3rem .7rem;cursor:pointer}
+#script-toggle label{font:inherit;background:#fff;border:1px solid var(--g200,#e3e6ea);border-radius:8px;padding:.3rem .7rem;cursor:pointer}
+#script-toggle label:has(input:checked){border-color:#8a6d1f;background:#fffdf4}
+#script-toggle input{accent-color:#8a6d1f}
+#sent-modes button{font:inherit;background:#fff;border:1px solid var(--g200,#e3e6ea);border-radius:8px;padding:.3rem .7rem;cursor:pointer}
 .tok{white-space:nowrap}
 #drill-bar-wrap{height:8px;background:#eee;border-radius:4px;overflow:hidden;margin:.4rem 0}
 #drill-bar{height:8px;background:#8a6d1f;width:0}
+#j-disc svg{width:100%;height:auto;max-width:420px;display:block;margin:0 auto}
+#j-disc .sector{fill:#eef3f1;stroke:#b7af9d;stroke-width:1}
+#j-disc .wedge.sel .sector{fill:#e8d9a8;stroke:#8a6d1f;stroke-width:2}
+#j-quiz h3{margin:.3rem 0}
+#j-quiz .chips button{min-width:7rem}
 </style>
 </head>
 <body class="reader script-deva">
@@ -60,7 +68,8 @@ body.script-en #word-disc .d-en{display:block}
 <main class="wheel-page">
 <h1>Sanskrit memory wheels</h1>
 <p class="mut">Bruno meets Pāṇini: you turn the meaning rings; Paninian grammar handles the transformations. Two tiers side by side — <b>curated teaching forms</b> (hand-entered, beginner-safe) and <b>machine traces</b> (Vidyut derivations, unreviewed). Full thesis: <a href="SANSKRIT-MEMORY-ENGINE-THESIS.md">SANSKRIT-MEMORY-ENGINE-THESIS.md</a>; upstream curated package (MIT): <a href="vendor/sanskrit-bruno-wheels/">vendor/sanskrit-bruno-wheels/</a>.</p>
-<div id="script-toggle" role="group" aria-label="script"><button data-script="deva">देवनागरी</button> <button data-script="iast">roman (IAST)</button> <button data-script="en">English</button></div>
+<div id="journey"><span class="mut">Journey lives here once JavaScript loads.</span></div>
+<div id="script-toggle" role="group" aria-label="scripts (tick any combination)"><label><input type="checkbox" data-script="deva" checked> देवनागरी</label> <label><input type="checkbox" data-script="iast"> roman (IAST)</label> <label><input type="checkbox" data-script="en"> English</label></div>
 <div style="margin:.4rem 0"><label class="mut" for="wheel-level">level</label> <select id="wheel-level"><option value="1">1 · bases</option><option value="2">2 · endings</option><option value="3">3 · who does what</option><option value="4">4 · when + where</option><option value="5">5 · asking</option><option value="6" selected>6 · everything</option></select> <span class="mut">cumulative: each level adds rings, never removes.</span></div>
 <p class="cmp-note">machine check over the curated table: 20 agree exactly, 1 special (katham), 3 machine gaps (ekatra, ekataḥ). Full per-form report: <a href="data/grammar/crosscheck.json">crosscheck.json</a>. Disagreement is a teaching decision or a machine gap — never a silent override.</p>
 <h2>Machine A: the word constructor</h2>
@@ -101,5 +110,6 @@ body.script-en #word-disc .d-en{display:block}
 <script src="vendor/sanskrit-bruno-wheels/data.js"></script>
 <script src="vendor/sanskrit-bruno-wheels/engine.js"></script>
 <script src="wheels.js"></script>
+<script src="journey.js"></script>
 </body>
 </html>

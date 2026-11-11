@@ -37,19 +37,38 @@ function packFind(deva,iast){
 function packSteps(e){
   return (e.prakriya||[]).filter(s=>s.sutra&&/^(4\.|5\.|7\.|8\.|1\.4|3\.4|6\.)/.test(s.sutra)).slice(0,8);
 }
-/* ---------- script toggle ---------- */
+/* ---------- script toggle (any combination) ---------- */
+function curScripts(){
+  try{
+    const s=JSON.parse(localStorage.getItem('svv-scripts')||'["deva"]');
+    if(Array.isArray(s)&&s.length) return s;
+    const old=localStorage.getItem('svv-script');
+    if(old&&['deva','iast','en'].includes(old)) return [old];
+    return ['deva'];
+  }catch(e){ return ['deva']; }
+}
 function initToggle(){
   const bar=$('#script-toggle'); if(!bar) return;
-  const cur=(()=>{ try{return localStorage.getItem('svv-script')||'deva';}catch(e){return 'deva';} })();
-  setScript(cur);
-  bar.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>setScript(b.getAttribute('data-script'))));
+  applyScripts(curScripts());
+  bar.querySelectorAll('input[type=checkbox]').forEach(c=>c.addEventListener('change',()=>{
+    let s=curScripts();
+    const v=c.getAttribute('data-script');
+    if(c.checked){ if(!s.includes(v)) s.push(v); }
+    else{
+      s=s.filter(x=>x!==v);
+      if(!s.length) s=['deva']; // never blank
+    }
+    applyScripts(s);
+  }));
 }
-function setScript(s){
-  document.body.classList.remove('script-deva','script-iast','script-en');
-  document.body.classList.add('script-'+s);
-  try{localStorage.setItem('svv-script',s);}catch(e){}
-  $$('#script-toggle button').forEach(b=>b.classList.toggle('on',b.getAttribute('data-script')===s));
+function applyScripts(s){
+  try{localStorage.setItem('svv-scripts',JSON.stringify(s));}catch(e){}
+  document.body.classList.toggle('script-deva',s.includes('deva'));
+  document.body.classList.toggle('script-iast',s.includes('iast'));
+  document.body.classList.toggle('script-en',s.includes('en'));
+  $$('#script-toggle input[type=checkbox]').forEach(c=>{ c.checked=s.includes(c.getAttribute('data-script')); });
 }
+function setScript(s){ applyScripts([s]); }
 /* ---------- Machine A: table + disc ---------- */
 let wordSel={base:'sarva',attr:'tral'};
 function curatedCell(base,attr){

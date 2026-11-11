@@ -435,26 +435,18 @@ function schTreeHtml(layer, target, onBase){
   return root.map(v=>line(v,0)).join('') + outside.map(v=>line(v,0)).join('');
 }
 async function scholarView(){
+  try{ document.body.classList.add('scholar'); }catch(e){}
   try{
     const r = await fetch(API + '/api/auth/me', {credentials: 'include'});
     SCHPROF = (await r.json()).profile;
   }catch(e){ SCHPROF = null; }
-  // Auto sign-in via ORCID (owner, 2026-11-10): first scholar visit per
-  // browser session hands off to the OAuth handshake — with an active
-  // orcid.org session that is one click, then svsess stays good 7 days.
-  // Manual signout (renderLib) sets the same flag so deliberate exits don't
-  // bounce; an expired session redirects again (re-auth is the point).
-  // Capability-checked: harnesses/embedded contexts without sessionStorage
-  // simply show the normal sign-in UI (no crash, no loop).
-  const canAutoOrcid = typeof sessionStorage !== 'undefined'
-    && typeof location !== 'undefined' && typeof location.replace === 'function';
-  if(!SCHPROF && canAutoOrcid && !sessionStorage.getItem('svv-orcid-once')){
-    sessionStorage.setItem('svv-orcid-once','1');
-    location.replace('https://ipvv-api.tradesprior.workers.dev/api/auth/orcid/start?redirect='
-      + encodeURIComponent((location.pathname || '/') + (location.search || '')));
-    return;
-  }
-  if(SCHPROF && canAutoOrcid) sessionStorage.removeItem('svv-orcid-once');
+  // ORCID sign-in is NEVER forced: the scholar view always renders, signed
+  // out or not, with a "Continue with ORCID" button in the Scholar account
+  // widget (renderLib). A past auto-redirect (location.replace on first
+  // visit) is deliberately gone: it bounced readers off-site before they
+  // saw anything, and broke the view whenever the worker was unreachable.
+  // Manual signout needs no flag anymore, but renderLib still sets
+  // svv-orcid-once for older cached copies of this file; harmless.
   let idx = null;
   try{ idx = await get('data/scholar/index.json'); }catch(e){}
   SCH = await get(`data/scholar/${WORK}.json`).catch(()=>null);
@@ -728,10 +720,12 @@ async function scholarView(){
     $('#lib').innerHTML =
       W('schauth','Scholar account', SCHPROF
         ? `<table class="wtable"><tr><td>signed in</td><td>${esc(SCHPROF.display_name||'')} · ${esc(SCHPROF.email||'')}${SCHPROF.orcid?`<div class="cmp-note">ORCID ${esc(SCHPROF.orcid)}</div>`:`<div style="margin-top:.3rem"><a class="c2btn" href="https://ipvv-api.tradesprior.workers.dev/api/auth/orcid/start?redirect=${encodeURIComponent(location.pathname+location.search)}">Connect ORCID iD</a></div>`}</tr></table><div style="margin-top:.4rem"><button class="c2btn" id="schout">sign out</button></div>`
-        : `<div class="c2row"><input id="schemail" placeholder="email" type="email"/><input id="schname" placeholder="display name"/></div>
-           <div class="c2row" style="margin-top:.3rem"><input id="schpw" placeholder="password (8+ chars)" type="password"/><button class="c2btn" id="schgo">sign in / join</button></div>
-           <div class="c2row" style="margin-top:.3rem"><a class="c2btn" href="https://ipvv-api.tradesprior.workers.dev/api/auth/orcid/start?redirect=${encodeURIComponent(location.pathname+location.search)}">Continue with ORCID</a></div>
-           <div class="cmp-note" id="schauthmsg">Sign in to save private work, request review, and submit a signed version.</div>`)
+        : `<div class="cmp-note" style="margin-bottom:.3rem"><b>Scholar account</b> — sign in to save private versions, request review, and submit signed work. Browsing is free; sign-in is only for saving.</div>
+           <div class="c2row"><a class="c2btn primary" style="font-size:1rem;padding:.5rem 1rem" href="https://ipvv-api.tradesprior.workers.dev/api/auth/orcid/start?redirect=${encodeURIComponent(location.pathname+location.search)}">Continue with ORCID</a></div>
+           <details style="margin-top:.4rem"><summary class="mut">or use email + password</summary>
+           <div class="c2row" style="margin-top:.3rem"><input id="schemail" placeholder="email" type="email"/><input id="schname" placeholder="display name"/></div>
+           <div class="c2row" style="margin-top:.3rem"><input id="schpw" placeholder="password (8+ chars)" type="password"/><button class="c2btn" id="schgo">sign in / join</button></div></details>
+           <div class="cmp-note" id="schauthmsg">One click if you have an ORCID session; the sign-in lasts 7 days on this device.</div>`)
       + W('schhub','Scholar',
         `<table class="wtable">`
         + `<tr><td>work</td><td>${esc(SCH.work)}</td></tr>`

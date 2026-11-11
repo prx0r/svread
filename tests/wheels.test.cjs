@@ -179,6 +179,9 @@ test('tutor levels are machine-readable and resolve', () => {
   assert.ok(html.includes('data-min="5"'), 'ring levels present');
   assert.ok(html.includes('data-karaka="karaka"'), 'karaka wheel present');
   assert.ok(html.includes('level-06-karaka.md'), 'tutor index present');
+  assert.ok(html.includes('id="journey"'), 'journey section present');
+  assert.ok(html.includes('journey.js'), 'journey script present');
+  assert.ok(html.includes('data-script="iast"') && html.includes('type="checkbox"'), 'combo script toggle present');
 });
 
 test('reader word panel wired, chat prefill kept', () => {
