@@ -65,10 +65,12 @@ def problems(doc: dict) -> list[str]:
         if ck is not None and not (isinstance(ck, str) and SHA_RE.match(ck)):
             out.append(f'{eid}: checksum must be sha256 hex or null')
         if ck is None and st == 'registered':
-            # registered without bytes only makes sense for text-sources whose
-            # per-item hashes live on claim pages; require a note saying so
-            if 'claim page' not in (e.get('notes', '') + e.get('release', '')):
-                out.append(f'{eid}: registered with null checksum and no claim-page note')
+            # registered without local bytes is only honest when the entry names
+            # where the pin lives: per-item hashes on claim pages (text sources)
+            # or an immutable release/revision (models, corpora).
+            pin_text = e.get('notes', '') + e.get('release', '')
+            if not any(k in pin_text for k in ('claim page', 'release page', 'revision')):
+                out.append(f'{eid}: registered with null checksum and no pin note (claim page / release page / revision)')
         if not e.get('attribution'):
             out.append(f'{eid}: missing attribution')
         if not (e.get('notes') or e.get('release')):
