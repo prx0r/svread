@@ -206,6 +206,11 @@ def build_ai_catalog(n_traces: int) -> dict:
                        "+ artifacts; recompute with sha256sum",
         "claim_page": f"{ORIGIN}/claim/<work>/<target>/ "
                       "(answer-first verdict, excerpt, claim table, hashes)",
+        "wheels": f"{ORIGIN}/wheels.html (word/sentence/karaka/Trika constructors, levels 1-6, drill)",
+        "tutor_levels": f"{ORIGIN}/data/wheels/tutor/level-01-bases.md ... level-06-karaka.md "
+                        "(one prompt file per level: goal, data URLs, closed-world rules, drills)",
+        "grammar_pack": f"{ORIGIN}/data/grammar/wheel-pack.json "
+                        "(Vidyut machine derivations, unreviewed) + crosscheck.json (curated-vs-machine agreement)",
         "counts": {"traces": n_traces},
         "note": "Counts derive from data/traces/index.json. "
                 "COMPLETE means links present, never approval.",
