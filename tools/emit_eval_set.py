@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
-"""emit_eval_set.py — the held-out Trika blind set (W5 scaffold).
+"""emit_eval_set.py — the retrospective Trika correction-effort set.
 
-Builds data/eval/trika-blind-50.json: 50 passages, machine-selected
-deterministically, stratified one-per-work across the trace corpus (max
-diversity), each pinned to its trace sha256 and source text.
+Builds data/eval/trika-blind-50.json: 50 passages across 49 works,
+machine-selected deterministically from the trace corpus, each pinned to its
+trace sha256 and source text. It selects one passage per work before taking a
+second passage from the first sorted work to reach 50.
 
-Held-out policy (recorded in the file): these passages are never used in
-prompts, tuning, or training. Selection and difficulty are machine signals;
-category classification is PENDING a human pass — nothing here pretends to be
-an expert label.
+This is a retrospective evaluation set, not a sealed holdout from earlier
+translation prompts, model training, or public exposure. Twenty-four passages
+already have stored L2 translations. No human correction scores were used to
+select the passages. Its holdout scope is the upcoming human correction-score
+pass; difficulty and category classification remain machine signals pending
+human review.
 
   python3 tools/emit_eval_set.py
   python3 tools/emit_eval_set.py --check
@@ -107,6 +110,7 @@ def build() -> dict:
             'category': None,
             'classify': 'pending-human',
             'held_out': True,
+            'held_out_scope': 'human-scoring-only',
         })
     # if text-less picks dropped us short, backfill deterministically
     if len(items) < N:
@@ -127,19 +131,21 @@ def build() -> dict:
                     'difficulty': difficulty(text),
                     'category_candidate': category_candidate(text),
                     'category': None, 'classify': 'pending-human',
-                    'held_out': True,
+                    'held_out': True, 'held_out_scope': 'human-scoring-only',
                 })
     items = items[:N]
     return {
         'format': 'svatantrya.blind-eval/1',
         'count': len(items),
         'held_out_policy': (
-            'Machine-selected 2026-11-11, stratified one-per-work from the '
-            'trace corpus, Ghaṭakarpara excluded (source hold). These passages '
-            'are NEVER used in prompts, tuning, or training. difficulty and '
-            'category_candidate are machine signals; category stays null until '
-            'a human classifies (compound / terminology / negation / ritual / '
-            'verse / ambiguity).'),
+            'Machine-selected 2026-11-11 from the trace corpus; Ghaṭakarpara '
+            'excluded (source hold). This is retrospective, not a sealed '
+            'holdout from prior prompts, training, or public exposure; 24 items '
+            'already have stored L2 translations. No human correction scores '
+            'were used to select items. Holdout scope: upcoming human correction '
+            'scoring only. difficulty and category_candidate are machine '
+            'signals; category stays null until a human classifies '
+            '(compound / terminology / negation / ritual / verse / ambiguity).'),
         'scoring': 'data/eval/RUBRIC.md — correction effort, never BLEU',
         'items': items,
     }
@@ -167,7 +173,7 @@ def main() -> int:
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(doc, ensure_ascii=False, sort_keys=True, indent=2) + '\n',
                    encoding='utf-8')
-    print(f'emit_eval_set: {doc["count"]} held-out passages, '
+    print(f'emit_eval_set: {doc["count"]} passages, human-scoring holdout, '
           f'{len(set(i["work"] for i in doc["items"]))} works')
     return 0
 

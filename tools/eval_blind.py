@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""eval_blind.py — run/record candidates against the held-out set (W5).
+"""eval_blind.py — record candidate coverage for the human-scoring set (W5).
 
 Automation is deliberately weak here: it validates the set, computes
 COVERAGE for a candidate file, and writes a results skeleton with
@@ -42,14 +42,17 @@ def check_set() -> list[str]:
     for x in items:
         if not x.get('held_out'):
             probs.append(f"{x.get('id')}: held_out not true")
+        if x.get('held_out_scope') != 'human-scoring-only':
+            probs.append(f"{x.get('id')}: held_out_scope must be human-scoring-only")
         if not x.get('text'):
             probs.append(f"{x.get('id')}: empty text")
         if not (x.get('trace_sha256') and SHA_RE.match(x['trace_sha256'])):
             probs.append(f"{x.get('id')}: bad trace_sha256")
         if x.get('category') is not None and x.get('classify') != 'human':
             probs.append(f"{x.get('id')}: category set without classify=human")
-    if 'NEVER used in prompts' not in (d.get('held_out_policy') or ''):
-        probs.append('held_out_policy missing the never-used rule')
+    policy = d.get('held_out_policy') or ''
+    if 'not a sealed holdout' not in policy or 'No human correction scores were used to select items' not in policy:
+        probs.append('held_out_policy must state the retrospective scope and selection rule')
     return probs
 
 
@@ -77,7 +80,7 @@ def main() -> int:
             print('FAIL ' + p, file=sys.stderr)
         return 1
     if args.check:
-        print('eval_blind --check: GREEN (50 held-out, rubric present)')
+        print('eval_blind --check: GREEN (50 passages, human-scoring holdout, rubric present)')
         return 0
 
     if not args.candidate:

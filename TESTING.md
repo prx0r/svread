@@ -29,6 +29,12 @@ python3 tools/eval_export_ours.py --check   # our candidate, coverage honest
 python3 tools/seo_check.py                  # 10 SEO gates
 ```
 
+The license-pin invariant also has focused tests:
+
+```sh
+python3 -m unittest discover -s tests -p 'test_license_pins.py' -v
+```
+
 `emit_biblio.py --check` exits **3 = BLOCKED** when this box's DB lags the
 committed view. That is neither pass nor defect; the tests skip with the reason.
 

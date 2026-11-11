@@ -32,7 +32,7 @@ test('licence registry passes its own gate; admission refuses the right things',
   assert.ok(/^ADMIT/.test(adm), adm);
 });
 
-test('blind set: 50 held-out, machine labels honest, no hold works', () => {
+test('evaluation set: 50 passages, retrospective scope and machine labels are honest', () => {
   const out = execFileSync('python3', ['tools/eval_blind.py', '--check'],
     { cwd: ROOT, encoding: 'utf8' });
   assert.ok(/GREEN/.test(out), out);
@@ -40,9 +40,11 @@ test('blind set: 50 held-out, machine labels honest, no hold works', () => {
   assert.equal(set.count, 50);
   assert.equal(set.items.length, 50);
   assert.equal(new Set(set.items.map(i => i.id)).size, 50, 'unique ids');
-  assert.ok(set.held_out_policy.includes('NEVER used in prompts'));
+  assert.ok(set.held_out_policy.includes('not a sealed holdout'));
+  assert.ok(set.held_out_policy.includes('No human correction scores were used to select items'));
   for (const it of set.items) {
     assert.equal(it.held_out, true, it.id);
+    assert.equal(it.held_out_scope, 'human-scoring-only', it.id);
     assert.ok(it.text && it.text.length > 10, it.id + ' has text');
     assert.match(it.trace_sha256, /^[0-9a-f]{64}$/, it.id);
     assert.equal(it.category, null, it.id + ' category waits for a human');
@@ -130,6 +132,8 @@ test('blind scoring sheet hides identity and balances presentation order', () =>
     }
     const sheet = JSON.parse(fs.readFileSync(path.join(out, 'sheet.json'), 'utf8'));
     const key = JSON.parse(fs.readFileSync(path.join(out, 'key.json'), 'utf8'));
+    assert.equal(sheet.rows.length, 27, 'only measurable full-coverage passages enter the comparison');
+    assert.equal(key.excluded_unmeasured.length, 9, 'unmeasured passages stay out of the head-to-head');
     assert.equal(key.note, 'Scorer must not read this file.');
     for (const row of sheet.rows) {
       assert.ok(key.mapping[row.id], 'key covers ' + row.id);

@@ -20,29 +20,44 @@ Branch `bench/mitra-mt-plan`.
 
 What it changes:
 
-- `data/licenses/registry.json`: `mitra-mt` flips `pending_verification` →
-  `registered`. Apache-2.0 was read from the HF API and the card, the model is
-  ungated, and the entry is pinned to HF revision `66869d9b…` with the paper
-  URL. `allowed` is now train/infer/quote/redistribute = true.
-- `tools/check_licenses.py`: registered entries with no local bytes may now pin
-  by release page or revision, not only claim page. This was needed because a
-  model is pinned by an immutable revision, not by a per-item hash.
-- `BENCHMARK-PLAN.md`: pre-registration. 50 blind passages; 24 shared with our
-  own translations; metric is human correction minutes; acceptance rules fixed
-  before any score exists.
-- `experiments/mitra-mt/`: inputs-only Kaggle dataset metadata (private) and a
-  T4 kernel that writes results plus a provenance manifest.
+- `data/licenses/registry.json`: `mitra-mt` is registered under Apache-2.0,
+  based on the Hugging Face API/model card, with immutable revision
+  `66869d9b73f5180fa124b4975c52f5033517e101`.
+- `tools/check_licenses.py`: registered non-text assets without local bytes
+  require an HTTPS source URL and a full 40- or 64-hex revision. A bare word
+  such as “revision” is not a pin. Text entries can use a claim-page note;
+  pending, excluded, and read-only entries remain refused. `tests/test_license_pins.py`
+  covers these cases.
+- `BENCHMARK-PLAN.md`: honest retrospective human-scoring comparison. The set
+  has 50 passages across 49 works (one extra passage from the first sorted
+  work); 40 have some stored L2 text, 27 full coverage, 4 partial, 9
+  unmeasurable, and 10 untranslated. The head-to-head is limited to the 27
+  full-coverage passages. It is a human-scoring holdout only, not a sealed set
+  against earlier generation, training, or public exposure. No scores exist.
+- `experiments/mitra-mt/`: inputs-only Kaggle dataset metadata and a chunked,
+  single-passage T4 runner using the released model-card prompt, disabled
+  thinking, float16 NF4 compute, and a runtime/provenance manifest. The runner
+  aborts before model load if the Kaggle input mount is missing.
+- `tools/eval_score_sheet.py`: writes a blinded, shuffled worksheet and a
+  separate identity key. It must restrict the comparison to the 27 measurable,
+  non-partial passages; the 9 unmeasurable passages are listed as excluded in
+  the key, not scored as if they were full coverage.
 
 Review focus:
 
-1. Is flipping the licence status justified by the bytes on the HF page?
-   `curl -s https://huggingface.co/api/models/buddhist-nlp/mitra-qwen35-translate | jq '.cardData.license,.gated'`
-2. Is the loosened licence-gate rule too loose? It still requires *some* pin
-   text and never admits `excluded`/`pending`/`read_only` entries.
-3. Does the plan pre-register honestly — could we move goalposts after seeing
-   scores? Check `BENCHMARK-PLAN.md` § Acceptance.
-4. Dataset licence is `other`, private, evaluation-only. Confirm we are not
-   redistributing GRETIL editions.
+1. Is the licence status supported by the HF API/model-card bytes?
+2. Is the licence gate appropriately strict? Check the full immutable pin,
+   HTTPS requirement, and refusal cases.
+3. Does the plan keep its pre-registered metric and acceptance rules honest?
+   Do not describe the set as hidden from earlier generation or the public.
+4. The new PR no longer adds a second public copy of the source payload, but
+   the canonical blind-set JSON on the base branch already publishes selected
+   excerpts, some pointing to GRETIL. The complete editions are not copied,
+   but the existing excerpt publication needs its own rights review because
+   GRETIL is marked non-redistributable in the registry.
+5. The Kaggle CLI was unavailable in this review environment. Dataset privacy
+   and execution on the remote T4 were not independently verified; no
+   MITRA-MT score exists.
 
 Run:
 
@@ -50,17 +65,10 @@ Run:
 cd svread && python3 tools/check_licenses.py --check
 python3 tools/check_licenses.py --admit mitra-mt infer
 python3 tools/check_licenses.py --admit mitrasamgraha-nc-nd infer   # must REFUSE, exit 2
-python3 scripts/release_manifest.py                                  # must PASS
-python3 -m pytest tests/ -q
+python3 -m unittest discover -s tests -p 'test_license_pins.py' -v
+python3 scripts/release_manifest.py
+node --test tests/measurement.test.cjs
 ```
-
-Known state, not a defect in this PR: the Kaggle kernel run is still being
-debugged. Versions 1–2 failed because the dataset did not appear under the
-expected `/kaggle/input` path; version 3 is a probe that prints the mount tree
-and aborts before loading the model if inputs are missing. Kernel:
-`priortrades/svatantrya-eval-mitra-mt-on-blind-50`. Do not merge a claim that
-MITRA-MT was benchmarked — only that the harness exists and the inputs are
-packaged.
 
 ### 2. ipvv #12 — Google site auth + server-scored wheel gates
 

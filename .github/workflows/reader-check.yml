@@ -18,6 +18,7 @@ jobs:
       - run: python3 tools/emit_index_meta.py --check
       - run: python3 scripts/release_manifest.py
       - run: python3 tools/seo_check.py
+      - run: python3 -m unittest discover -s tests -p 'test_license_pins.py' -v
       - run: node --check app.js && node --check sw.js && node --check scholar-workspace-ui.js && node --check scholar-voice.js
       - run: node --test tests/*.cjs
       - run: python3 -m unittest discover -s mcp -p "test_*.py" -v

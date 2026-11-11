@@ -9,8 +9,9 @@ Registry invariants, enforced fail-closed:
   * status=pending_verification-> admitted() refuses every purpose until the
     release and checksum are verified (allowed still records licence terms)
   * status=read_only           -> everything false except as the guardrail says
-  * checksum is sha256-hex or null; a null checksum requires pending/internal
-    status (a filled checksum with pending status is fine — bytes were hashed)
+  * checksum is sha256-hex or null; a registered entry with no local bytes
+    needs an external pin that can be checked (claim-page evidence for text,
+    a full immutable revision for other assets)
   * every entry carries attribution and a non-empty notes/release
 
 `--check` prints GREEN and exits 0 only if all invariants hold.
@@ -32,6 +33,7 @@ REG = SVREAD / 'data' / 'licenses' / 'registry.json'
 STATUS = {'registered', 'pending_verification', 'excluded', 'read_only', 'internal'}
 ALLOWED_KEYS = {'train', 'infer', 'quote', 'redistribute'}
 SHA_RE = re.compile(r'^[0-9a-f]{64}$')
+REVISION_RE = re.compile(r'(?<![0-9a-f])(?:[0-9a-f]{40}|[0-9a-f]{64})(?![0-9a-f])', re.IGNORECASE)
 
 
 def problems(doc: dict) -> list[str]:
@@ -65,12 +67,18 @@ def problems(doc: dict) -> list[str]:
         if ck is not None and not (isinstance(ck, str) and SHA_RE.match(ck)):
             out.append(f'{eid}: checksum must be sha256 hex or null')
         if ck is None and st == 'registered':
-            # registered without local bytes is only honest when the entry names
-            # where the pin lives: per-item hashes on claim pages (text sources)
-            # or an immutable release/revision (models, corpora).
-            pin_text = e.get('notes', '') + e.get('release', '')
-            if not any(k in pin_text for k in ('claim page', 'release page', 'revision')):
-                out.append(f'{eid}: registered with null checksum and no pin note (claim page / release page / revision)')
+            # A prose mention of "revision" or "release page" is not itself a
+            # pin. Text editions use per-item claim-page hashes; other external
+            # assets must carry a full immutable commit/revision in `release`.
+            source_url = e.get('source_url')
+            if not (isinstance(source_url, str) and source_url.startswith('https://')):
+                out.append(f'{eid}: registered with null checksum and no HTTPS source_url')
+            elif e.get('kind') == 'text-source':
+                pin_text = str(e.get('notes', '')) + str(e.get('release', ''))
+                if 'claim page' not in pin_text:
+                    out.append(f'{eid}: registered text source with null checksum and no claim-page hash note')
+            elif not REVISION_RE.search(str(e.get('release', ''))):
+                out.append(f'{eid}: registered with null checksum and no full immutable revision in release')
         if not e.get('attribution'):
             out.append(f'{eid}: missing attribution')
         if not (e.get('notes') or e.get('release')):

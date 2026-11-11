@@ -1,4 +1,5 @@
-import json, os, sys, time, hashlib, subprocess, glob, re
+import json, os, sys, time, hashlib, subprocess, glob, re, platform
+from importlib import metadata
 
 _hits = glob.glob("/kaggle/input/**/blind-inputs.json", recursive=True)
 IN = _hits[0] if _hits else ""
@@ -7,8 +8,16 @@ MANIFEST = "/kaggle/working/results-mitra-mt.manifest.json"
 
 MODEL = "buddhist-nlp/mitra-qwen35-translate"
 REVISION = "66869d9b73f5180fa124b4975c52f5033517e101"
-PROMPT = "Translate the following Sanskrit text into English:\n\n{text}"
-MAX_NEW = 700
+PROMPT = (
+    "You are an expert translator of classical Asian languages. In your translation, "
+    "make sure to use proper IAST diacritics if Sanskrit terms occur, but also translate "
+    "Sanskrit terms into English if English is the target language. The translation "
+    "should be fluid and accurate.\n\n"
+    "Here is a piece of text to translate: {text}\n"
+    "Provide only the translation, without any explanation or additional information. "
+    "Provide your translation in English:"
+)
+MAX_NEW = 2048
 CHUNK_CHARS = 1500
 
 os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
@@ -18,27 +27,35 @@ if not IN or not os.path.exists(IN):
     print("MISSING INPUTS — aborting before model load", flush=True)
     raise SystemExit(3)
 
+for pkg in ("causal-conv1d", "flash-linear-attention"):
+    subprocess.run([sys.executable, "-m", "pip", "install", "-q", pkg], check=False)
+subprocess.run([sys.executable, "-m", "pip", "install", "-q",
+                "transformers>=5.13,<6", "accelerate"], check=True)
+
 def _have(mod, minver=None):
     try:
-        m = __import__(mod)
+        __import__(mod)
     except Exception:
         return False
     if minver is None:
         return True
     try:
-        from importlib.metadata import version
-        return tuple(int(x) for x in version(mod).split(".")[:2]) >= minver
+        return tuple(int(x) for x in metadata.version(mod).split(".")[:2]) >= minver
     except Exception:
-        return True
+        return False
 
 if not _have("bitsandbytes", (0, 46)):
     subprocess.run([sys.executable, "-m", "pip", "install", "-q", "-U",
-                    "bitsandbytes>=0.46.1"], check=False)
+                    "bitsandbytes>=0.46.1"], check=True)
 if not _have("bitsandbytes"):
-    print("bitsandbytes unavailable — 4-bit load will fail", flush=True)
+    raise SystemExit("bitsandbytes unavailable; refusing 4-bit model load")
 
 import torch
+import transformers
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
+
+if not torch.cuda.is_available():
+    raise SystemExit("CUDA GPU required; refusing to run on CPU")
 
 doc = json.load(open(IN))
 items = doc["items"]
@@ -73,7 +90,7 @@ if tok.pad_token is None:
     tok.pad_token = tok.eos_token
 
 quant = BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_quant_type="nf4",
-                           bnb_4bit_compute_dtype=torch.bfloat16,
+                           bnb_4bit_compute_dtype=torch.float16,
                            bnb_4bit_use_double_quant=True)
 model = AutoModelForCausalLM.from_pretrained(
     MODEL, revision=REVISION, trust_remote_code=True,
@@ -94,10 +111,13 @@ for n, it in enumerate(items, 1):
     chunks = split_text(it["text"])
     outs = []
     try:
-        for ci, chunk in enumerate(chunks):
+        for chunk in chunks:
             msg = [{"role": "user", "content": PROMPT.format(text=chunk)}]
-            prompt = tok.apply_chat_template(msg, tokenize=False, add_generation_prompt=True)
-            enc = tok(prompt, return_tensors="pt", truncation=True, max_length=4096).to(model.device)
+            prompt = tok.apply_chat_template(
+                msg, tokenize=False, add_generation_prompt=True,
+                enable_thinking=False)
+            enc = tok(prompt, return_tensors="pt", truncation=True,
+                      max_length=4096).to(model.device)
             with torch.no_grad():
                 gen = model.generate(**enc, max_new_tokens=MAX_NEW, do_sample=False,
                                      num_beams=1, repetition_penalty=1.0,
@@ -127,14 +147,25 @@ json.dump({
     "model": MODEL,
     "revision": REVISION,
     "prompt": PROMPT,
-    "decoding": {"do_sample": False, "num_beams": 1, "max_new_tokens": MAX_NEW},
+    "prompt_protocol": "released model-card closed-book prompt; no retrieved references; enable_thinking=false",
+    "decoding": {"do_sample": False, "num_beams": 1, "max_new_tokens": MAX_NEW,
+                 "repetition_penalty": 1.0},
     "chunking": {"chars": CHUNK_CHARS, "split": "danda/sentence/word"},
-    "quantization": "bitsandbytes nf4 4-bit, batch 1",
+    "quantization": {"library": "bitsandbytes", "type": "nf4", "bits": 4,
+                     "double_quant": True, "compute_dtype": "float16"},
     "inputs_sha256": hashlib.sha256(open(IN, "rb").read()).hexdigest(),
     "outputs_sha256": hashlib.sha256(open(OUT, "rb").read()).hexdigest(),
     "translated": len(results),
     "errors": errors,
     "elapsed_sec": round(time.time() - t0, 1),
-    "torch": torch.__version__,
+    "runtime": {
+        "python": platform.python_version(),
+        "torch": str(torch.__version__),
+        "transformers": transformers.__version__,
+        "accelerate": metadata.version("accelerate"),
+        "bitsandbytes": metadata.version("bitsandbytes"),
+        "cuda": torch.version.cuda,
+        "gpu": torch.cuda.get_device_name(0),
+    },
 }, open(MANIFEST, "w"), indent=1)
 print(f"done {len(results)}/{len(items)} in {time.time()-t0:.0f}s", flush=True)

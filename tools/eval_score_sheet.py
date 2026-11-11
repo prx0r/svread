@@ -47,7 +47,9 @@ def build(set_path: Path, a: dict, b: dict, a_manifest: dict | None,
         if not man:
             return True
         p = (man.get('provenance') or {}).get(cand_id)
-        return bool(p) and not p.get('partial')
+        # The declared head-to-head is restricted to measurable, non-partial
+        # passages. A missing coverage ratio is not evidence of full coverage.
+        return bool(p) and p.get('coverage') is not None and not p.get('partial')
 
     ids = [pid for pid in items if pid in a and pid in b
            and full(pid, a_manifest) and full(pid, b_manifest)]
@@ -115,10 +117,11 @@ def main() -> int:
     bm = json.loads(Path(args.b_manifest).read_text(encoding='utf-8')) if args.b_manifest else None
 
     rows, key, balance = build(Path(args.set), a, b, am, bm, args.seed)
-    unmeasured = [r['id'] for r in rows
-                  if am and am.get('provenance', {}).get(r['id'], {}).get('coverage') is None]
+    shared = set(items) & set(a) & set(b)
+    unmeasured = sorted(pid for pid in shared if am and
+                        am.get('provenance', {}).get(pid, {}).get('coverage') is None)
     for pid in key:
-        key[pid]['coverage_unmeasured'] = pid in unmeasured
+        key[pid]['coverage_unmeasured'] = False
     if not rows:
         print('eval_score_sheet: no shared passages — nothing to score', file=sys.stderr)
         return 1
@@ -151,7 +154,8 @@ def main() -> int:
     (out / 'worksheet.md').write_text(md, encoding='utf-8')
     (out / 'key.json').write_text(json.dumps(
         {'seed': args.seed, 'note': 'Scorer must not read this file.',
-         'a': args.a, 'b': args.b, 'mapping': key},
+         'a': args.a, 'b': args.b, 'mapping': key,
+         'excluded_unmeasured': unmeasured},
         indent=1, ensure_ascii=False) + '\n', encoding='utf-8')
     (out / 'sheet.json').write_text(json.dumps(
         {'format': 'svatantrya.score-sheet/1', 'seed': args.seed,
