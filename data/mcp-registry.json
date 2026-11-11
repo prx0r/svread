@@ -23,7 +23,8 @@
     "write_sheaf": [
       "progress_get",
       "progress_record"
-    ]
+    ],
+    "status": "LIVE — public endpoint above; OAuth/offline_access still not built, bearer for now"
   },
   "format": "svatantrya.mcp-registry/1",
   "note": "Every MCP server in the estate, probed live (initialize -> tools/list). The federation gateway is the single entry point; children are also directly runnable. ipvv worker /mcp is legacy (protocol 2024-11-05) and superseded by the bridge plan.",
@@ -340,5 +341,26 @@
       "tools_count": 3,
       "transport": "cli+stdio"
     }
-  ]
+  ],
+  "public_endpoint": {
+    "url": "https://mcp.sanskrit.help/mcp",
+    "transport": "streamable-http",
+    "protocol": "2025-06-18",
+    "auth": "Bearer token (MCP_TOKEN on the box; 401 without it)",
+    "tools": 190,
+    "servers": [
+      "scholar",
+      "openpatala",
+      "federation",
+      "bookfactory",
+      "videofactory",
+      "aoc"
+    ],
+    "how": "named Cloudflare tunnel svatantrya-mcp (281e3446) -> 127.0.0.1:8765; gateway code in mcp/gateway/",
+    "cli_only": {
+      "translation": "translation-work CLI",
+      "sleepdraw": "sleepdraw CLI"
+    },
+    "verified": "2026-11-11: initialize + tools/list + scholar__wheel_level over the public URL"
+  }
 }

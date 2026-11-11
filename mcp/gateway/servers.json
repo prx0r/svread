@@ -1,0 +1,54 @@
+{
+  "format": "svatantrya.mcp-gateway/1",
+  "note": "One HTTP MCP endpoint over every stdio server in the estate. Tool names are prefixed <server>__<tool>. Edit only if a server path changes; the registry JSON in svread is the source of truth for tool inventories. translation and sleepdraw are CLI tools listed under cli_only; call them as `python3 <path> <tool> <json>`.",
+  "port": 8765,
+  "path": "/mcp",
+  "servers": {
+    "scholar": {
+      "path": "/root/svread/mcp/scholar_server.py",
+      "cwd": "/root/svread/mcp",
+      "role": "svread: passages, evidence, wheels, certificates, essays, reviews"
+    },
+    "openpatala": {
+      "path": "/root/openpatala/patala/mcp_server.py",
+      "cwd": "/root/openpatala",
+      "role": "bibliography: resolve/search/get_bundle over the work DB"
+    },
+    "federation": {
+      "path": "/root/trika-x/formal-trika/tools/federation_gateway.py",
+      "cwd": "/root/trika-x",
+      "role": "109-tool federation gateway (formal, treeka, bridge)",
+      "namespace_tools": false,
+      "collision_policy": "its tools are already <server>__<tool>; on a name clash the direct server wins"
+    },
+    "bookfactory": {
+      "path": "/root/bookfactory/bf_mcp/server.py",
+      "cwd": "/root/bookfactory",
+      "role": "book production pipeline"
+    },
+    "videofactory": {
+      "path": "/root/videofactory/vf_mcp_server.py",
+      "cwd": "/root/videofactory",
+      "role": "video production pipeline"
+    },
+    "aoc": {
+      "path": "/root/aoc/mcp_server.py",
+      "cwd": "/root/aoc",
+      "role": "AI Onboard carousel factory (gated, receipted)"
+    }
+  },
+  "cli_only": {
+    "translation": {
+      "path": "/root/translation-work/mcp_server.py",
+      "cwd": "/root/translation-work",
+      "role": "translation layers L0-L4, shastra tools",
+      "reason": "prints a banner to stdout before JSON-RPC; CLI dispatch, not protocol-clean stdio MCP"
+    },
+    "sleepdraw": {
+      "path": "/root/sleepdraw/mcp_server.py",
+      "cwd": "/root/sleepdraw",
+      "role": "journey renderer / sleepdraw",
+      "reason": "hand-rolled JSON-RPC CLI (presets/seal_prompt/render_seal), not MCP"
+    }
+  }
+}
