@@ -132,6 +132,7 @@ def build_llms(pushing: dict, biblio: dict, sanskrit: dict) -> str:
         f"- Grammar pack (Vidyut machine derivations for wheel forms, unreviewed): {ORIGIN}/data/grammar/wheel-pack.json",
         f"- Curated-vs-machine cross-check (per-form agreement, specials, gaps): {ORIGIN}/data/grammar/crosscheck.json",
         f"- Learning harness (ONE fetch: all wheels + decision tree + verify index + links): {ORIGIN}/data/wheels/harness.json",
+        f"- About / mission (verbatim owner statement, structured): {ORIGIN}/about/ · {ORIGIN}/about/about.json",
         f"- One-URL answers (no registration, no JS: fetch a form, get verdict + derivation + scripture): {ORIGIN}/a/<form>/ — index {ORIGIN}/a/index.json",
         f"- Harness master prompt (how a tutor model uses the site): {ORIGIN}/data/wheels/HARNESS.md",
         f"- Wheel datasets (word/sentence/trika/karaka constructors): {ORIGIN}/data/wheels/word.json, sentence.json, trika.json, karaka.json",
@@ -229,6 +230,7 @@ def build_ai_catalog(n_traces: int) -> dict:
         "grammar_pack": f"{ORIGIN}/data/grammar/wheel-pack.json "
                         "(Vidyut machine derivations, unreviewed) + crosscheck.json (curated-vs-machine agreement)",
         "answer_index": f"{ORIGIN}/a/index.json (one static page per form: /a/<slug>/ = finished answer)",
+        "about": f"{ORIGIN}/about/about.json (verbatim mission + four goals, structured)",
         "harness": f"{ORIGIN}/data/wheels/harness.json "
                    "(one-fetch learning harness: wheels + decision tree + verify index + tutor/trika links)",
         "counts": {"traces": n_traces},
