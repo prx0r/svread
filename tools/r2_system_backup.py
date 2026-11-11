@@ -51,7 +51,11 @@ REPOS = {
 # regenerable/junk never worth a backup byte
 TAR_EXCLUDES = ['--exclude=__pycache__', '--exclude=.wrangler',
                 '--exclude=node_modules', '--exclude=.venv',
-                '--exclude=*.log', '--exclude=.pytest_cache']
+                '--exclude=*.log', '--exclude=.pytest_cache',
+                # secrets never leave the box (external review of PR #19)
+                '--exclude=.env', '--exclude=.env.*', '--exclude=.dev.vars',
+                '--exclude=*.pem', '--exclude=.npmrc',
+                '--exclude=.git-credentials', '--exclude=credentials']
 PART = 64 * 1024 * 1024
 
 
@@ -153,6 +157,12 @@ def stream_tar_gz(s3, name: str, path: Path, key: str) -> tuple[str, int]:
         proc.stdout.close()
         proc.wait()
         pool.shutdown()
+    if proc.returncode != 0:
+        try:
+            s3.abort_multipart_upload(Bucket=BUCKET, Key=key, UploadId=uid)
+        except Exception:
+            pass
+        raise RuntimeError(f'tar exited {proc.returncode} — upload aborted, no manifest')
     s3.complete_multipart_upload(
         Bucket=BUCKET, Key=key, UploadId=uid,
         MultipartUpload={'Parts': [{'PartNumber': n, 'ETag': etags[n]}
@@ -164,9 +174,20 @@ def backup_repo(s3, name: str, path: Path, force: bool) -> dict:
     if not path.is_dir():
         return {'repo': name, 'status': 'SKIP', 'reason': 'path missing'}
     head, dirty = git_info(path)
+    # a dirty worktree can still change: hash the porcelain output so edits
+    # after a dirty snapshot are not skipped (external review of PR #19)
+    stat = ''
+    if (path / '.git').exists():
+        try:
+            stat = hashlib.sha256(subprocess.run(
+                ['git', '-C', str(path), 'status', '--porcelain'],
+                capture_output=True, text=True).stdout.encode()).hexdigest()
+        except Exception:
+            stat = 'unavailable'
     prior = remote_manifest(s3, name)
     if not force and prior and prior.get('git_head') == head \
-            and prior.get('git_dirty') == dirty and dirty is not None:
+            and prior.get('git_dirty') == dirty \
+            and prior.get('git_stat_sha') == stat and dirty is not None:
         return {'repo': name, 'status': 'SKIP',
                 'reason': f'unchanged at {str(head)[:12]}'}
     prefix = f'repos/{name}/'
@@ -177,11 +198,14 @@ def backup_repo(s3, name: str, path: Path, force: bool) -> dict:
     # count files (cheap walk, junk excluded)
     nfiles = sum(1 for p in path.rglob('*') if p.is_file()
                  and not any(x in p.parts for x in ('__pycache__', '.wrangler',
-                                                    'node_modules', '.venv', '.git')))
+                                                    'node_modules', '.venv', '.git'))
+                 and p.name not in ('.env', '.dev.vars', '.npmrc',
+                                    '.git-credentials', 'credentials')
+                 and not p.name.startswith('.env.'))
     manifest = {
         'format': 'svatantrya.system-backup/1',
         'repo': name, 'local_path': str(path), 'date': DATE,
-        'git_head': head, 'git_dirty': dirty,
+        'git_head': head, 'git_dirty': dirty, 'git_stat_sha': stat,
         'tar': {'key': tar_key, 'bytes': nbytes, 'sha256': sha},
         'files_excluded': TAR_EXCLUDES, 'files_counted': nfiles,
         'uploaded_at': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
