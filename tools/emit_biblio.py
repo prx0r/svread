@@ -149,8 +149,13 @@ def main() -> int:
         w = works[wid]
         ts = translations.get(wid, [])
         bundle = (ROOT / "data" / f"{wid}.json").exists()
+        ext = w.get("external_ids") or {}
+        traditions = (ext.get("traditions_authority")
+                      or ext.get("seed_traditions")
+                      or ext.get("traditions") or [])
         rows.append({
             "id": wid, "title": w["title"], "type": w["type"],
+            "traditions": traditions,
             "author": meta.get(wid, {}).get("author"),
             "language": meta.get(wid, {}).get("language"),
             "status": meta.get(wid, {}).get("status"),
