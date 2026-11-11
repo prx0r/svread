@@ -515,6 +515,8 @@ body.script-en #word-disc .d-en{{display:block}}
 {karaka_html}
 <p class="mut">Status: {esc(karaka["status"])}. {esc(karaka["warning"])}</p>
 
+<h2>Learning harness (for ChatGPT / any tutor model)</h2>
+<p>One fetch carries the whole program: <a href="data/wheels/harness.json"><b>harness.json</b></a> (all wheels + decision tree + verify index + links). The master prompt that teaches a model to use this site: <a href="data/wheels/HARNESS.md"><b>HARNESS.md</b></a> — display protocol, stages, verification, pronunciation, translation-work + trika-x links.</p>
 <h2>Tutor levels (machine-readable)</h2>
 <p>Point any tutor model at one file per level — data URLs, closed-world rules, drills, unlock order.</p>
 {tutor_html}

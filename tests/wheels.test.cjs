@@ -184,6 +184,46 @@ test('tutor levels are machine-readable and resolve', () => {
   assert.ok(html.includes('data-script="iast"') && html.includes('type="checkbox"'), 'combo script toggle present');
 });
 
+test('harness is the one-fetch program', () => {
+  const h = J('data/wheels/harness.json');
+  assert.equal(h.format, 'svatantrya.wheel-harness/1');
+  assert.ok(h.harness_prompt.endsWith('/data/wheels/HARNESS.md'), 'prompt linked');
+  assert.ok(fs.existsSync(path.join(ROOT, 'data/wheels/HARNESS.md')), 'prompt vendored');
+  for (const k of ['word', 'sentence', 'karaka', 'trika']) {
+    assert.ok(h.wheels[k] && h.wheels[k].format, `wheel embedded: ${k}`);
+  }
+  assert.equal(h.decision_tree.stages.length, 6, 'six stages');
+  assert.ok(h.decision_tree.stages.every(s => s.level && s.name && s.needs !== undefined && s.pass && s.on_pass && s.on_fail), 'stages complete');
+  const pack = J('data/grammar/wheel-pack.json');
+  const ready = new Set(pack.entries.filter(e => e.status === 'DERIVED' || e.status === 'CURATED').map(e => e.id));
+  for (const id of Object.keys(h.verify.pack_index)) assert.ok(ready.has(id), `pack index ready: ${id}`);
+  const cc = J('data/grammar/crosscheck.json');
+  assert.deepEqual(h.verify.crosscheck_summary, cc.summary, 'crosscheck summary matches');
+  assert.equal(h.verify.disagreements.length, cc.summary.disagree, 'every disagree recorded');
+  // every local URL in the harness resolves to a file on disk
+  const urls = [];
+  const walk = o => {
+    if (typeof o === 'string' && o.startsWith('https://svatantrya.net/')) urls.push(o);
+    else if (Array.isArray(o)) o.forEach(walk);
+    else if (o && typeof o === 'object') Object.values(o).forEach(walk);
+  };
+  walk(h);
+  let checked = 0;
+  for (const u of new Set(urls)) {
+    if (u.includes('<') || u.includes('>')) continue; // placeholder patterns, not files
+    const clean = u.split(' ')[0].split('#')[0].split('?')[0];
+    const m = clean.match(/^https:\/\/svatantrya\.net\/((?:data|vendor)\/.+|wheels\.html)$/);
+    if (!m) continue; // reader/claim routes with placeholders or query strings
+    const local = path.join(ROOT, m[1]);
+    assert.ok(fs.existsSync(local), `harness URL resolves: ${m[1]}`);
+    checked++;
+  }
+  assert.ok(checked > 10, `harness file URLs checked (${checked}); reader/claim routes are templates by design`);
+  for (const t of h.tutor) {
+    assert.ok(fs.existsSync(path.join(ROOT, 'data/wheels/tutor', t.file)), `tutor file: ${t.file}`);
+  }
+});
+
 test('reader word panel wired, chat prefill kept', () => {
   const app = read('app.js');
   assert.ok(app.includes('renderWordPanel'), 'panel renderer present');

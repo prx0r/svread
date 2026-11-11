@@ -117,6 +117,8 @@ def build_llms(pushing: dict, biblio: dict, sanskrit: dict) -> str:
         f"- Sanskrit lessons (rendered pages): {ORIGIN}/data/sanskrit/site/lesson-01.html ... lesson-10.html",
         f"- Grammar pack (Vidyut machine derivations for wheel forms, unreviewed): {ORIGIN}/data/grammar/wheel-pack.json",
         f"- Curated-vs-machine cross-check (per-form agreement, specials, gaps): {ORIGIN}/data/grammar/crosscheck.json",
+        f"- Learning harness (ONE fetch: all wheels + decision tree + verify index + links): {ORIGIN}/data/wheels/harness.json",
+        f"- Harness master prompt (how a tutor model uses the site): {ORIGIN}/data/wheels/HARNESS.md",
         f"- Wheel datasets (word/sentence/trika/karaka constructors): {ORIGIN}/data/wheels/word.json, sentence.json, trika.json, karaka.json",
         f"- Tutor levels (one prompt file per level, machine-readable): {ORIGIN}/data/wheels/tutor/level-01-bases.md ... level-06-karaka.md",
         f"- Formal registry (every REGISTERED theorem, its scope, and the unformalised gap list): {ORIGIN}/data/formal.json",
@@ -211,6 +213,8 @@ def build_ai_catalog(n_traces: int) -> dict:
                         "(one prompt file per level: goal, data URLs, closed-world rules, drills)",
         "grammar_pack": f"{ORIGIN}/data/grammar/wheel-pack.json "
                         "(Vidyut machine derivations, unreviewed) + crosscheck.json (curated-vs-machine agreement)",
+        "harness": f"{ORIGIN}/data/wheels/harness.json "
+                   "(one-fetch learning harness: wheels + decision tree + verify index + tutor/trika links)",
         "counts": {"traces": n_traces},
         "note": "Counts derive from data/traces/index.json. "
                 "COMPLETE means links present, never approval.",

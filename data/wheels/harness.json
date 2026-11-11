@@ -1,0 +1,3456 @@
+{
+  "decision_tree": {
+    "entry": "Start every learner at Level 1. Never skip: each level feeds the next.",
+    "journey_gates": "On-site journey mirrors these stages: each layer unlocks at 90% over 10+ tries, every layer re-drills earlier ones, sentence circle locked until the word circle completes.",
+    "stages": [
+      {
+        "items_from": "wheels.word.bases",
+        "level": 1,
+        "name": "Bases",
+        "needs": [],
+        "on_fail": "re-drill, mix all six bases",
+        "on_pass": "open Level 2",
+        "pass": "90% over 10+ tries",
+        "quiz": "EN meaning -> deva form, 4 options"
+      },
+      {
+        "items_from": "wheels.word.rows (20 cells) + verify.disagreements + verify.gaps",
+        "level": 2,
+        "name": "Endings",
+        "needs": [
+          1
+        ],
+        "on_fail": "re-drill with Level 1 mixed in (cumulative)",
+        "on_pass": "open Level 3",
+        "pass": "90% over 10+",
+        "quiz": "base+function -> form; name the special (katham) and the gaps"
+      },
+      {
+        "items_from": "wheels.sentence.rings[subject]",
+        "level": 3,
+        "name": "Who does what",
+        "needs": [
+          1,
+          2
+        ],
+        "on_fail": "re-drill; feminine agreement is the usual miss",
+        "on_pass": "open Level 4",
+        "pass": "90% over 10+",
+        "quiz": "subject -> verb + adjective (both must move)"
+      },
+      {
+        "items_from": "wheels.sentence.rings[time,place] + entry.verses[]",
+        "level": 4,
+        "name": "When and where",
+        "needs": [
+          3
+        ],
+        "on_fail": "re-drill; adverbs never inflect is the point",
+        "on_pass": "open Level 5",
+        "pass": "90% over 10+",
+        "quiz": "build full sentence; open one linked verse per form"
+      },
+      {
+        "items_from": "vendor curated modes/owners/predicates + verify.crosscheck",
+        "level": 5,
+        "name": "Asking",
+        "needs": [
+          4
+        ],
+        "on_fail": "re-drill; gate violations reset the run",
+        "on_pass": "open Level 6",
+        "pass": "two clean 10-turn conversations",
+        "quiz": "10-turn conversation script; respect the source gate (from where? needs come)"
+      },
+      {
+        "items_from": "wheels.karaka",
+        "level": 6,
+        "name": "Karaka",
+        "needs": [
+          5
+        ],
+        "on_fail": "relationship before ending, always",
+        "on_pass": "declensions next (Topics IX-X)",
+        "pass": "10 clean parses",
+        "quiz": "sentence -> verb, then each noun: karaka, then vibhakti, in that order"
+      }
+    ]
+  },
+  "display": {
+    "anchors": {
+      "journey": "https://svatantrya.net/wheels.html#journey",
+      "levels": {
+        "level-1": "https://svatantrya.net/wheels.html#level-1",
+        "level-2": "https://svatantrya.net/wheels.html#level-2",
+        "level-3": "https://svatantrya.net/wheels.html#level-3",
+        "level-4": "https://svatantrya.net/wheels.html#level-4",
+        "level-5": "https://svatantrya.net/wheels.html#level-5",
+        "level-6": "https://svatantrya.net/wheels.html#level-6"
+      }
+    },
+    "page": "https://svatantrya.net/wheels.html",
+    "protocol": "You cannot render the discs. The page is the display: send the learner a deep link (level anchor or #journey), name the exact ring positions to set, and narrate what changed. Describe every state in words (deva + iast + English) so voice-only works."
+  },
+  "format": "svatantrya.wheel-harness/1",
+  "harness_prompt": "https://svatantrya.net/data/wheels/HARNESS.md",
+  "origin": "https://svatantrya.net",
+  "pronunciation": {
+    "guide": "https://svatantrya.net/data/wheels/HARNESS.md#pronunciation",
+    "note": "IAST in every entry is the pronunciation key; the guide gives the reading rules (vowels, consonants, visarga, stress, slow syllable-by-syllable breakdown). Verse audio exists for reader passages, not isolated forms — say forms slowly instead."
+  },
+  "translation_work": {
+    "bundles": "https://svatantrya.net/data/<work>.json (sa/l1/l2/l3/l4/c1/argmap/gate per verse)",
+    "claims": "https://svatantrya.net/claim/<work>/<target>/ (answer-first, hashes, verify steps)",
+    "lessons": "https://svatantrya.net/?view=sanskrit (10 lessons + rule boxes)",
+    "reader": "https://svatantrya.net/?work=<work>",
+    "traces": "https://svatantrya.net/data/traces/<work>-<target>.json",
+    "word_gloss": "https://svatantrya.net/data/l0/<work>.json (per-token gloss + status)"
+  },
+  "trika": {
+    "essays": "https://svatantrya.net/data/scholar/<work>.json (published versions + signoffs)",
+    "formal": "https://svatantrya.net/data/formal.json",
+    "note": "Trika wheels cite translation-work lore/concepts files where they exist (LINKED) or carry owner glosses marked PENDING. Bring up: wheel option -> concept term -> C1 essence in the reader bundle -> claim page for proof. Guided meditations: drafts only, owner-gated, never auto-published (see HARNESS.md)."
+  },
+  "tutor": [
+    {
+      "covers": "six question-words, no endings",
+      "file": "level-01-bases.md",
+      "title": "Level 1 — Bases",
+      "url": "https://svatantrya.net/data/wheels/tutor/level-01-bases.md"
+    },
+    {
+      "covers": "20 cells + traces + crosscheck",
+      "file": "level-02-endings.md",
+      "title": "Level 2 — Endings",
+      "url": "https://svatantrya.net/data/wheels/tutor/level-02-endings.md"
+    },
+    {
+      "covers": "agreement",
+      "file": "level-03-subject-verb.md",
+      "title": "Level 3 — Who does what",
+      "url": "https://svatantrya.net/data/wheels/tutor/level-03-subject-verb.md"
+    },
+    {
+      "covers": "adverbs join, never inflect",
+      "file": "level-04-time-place.md",
+      "title": "Level 4 — When and where",
+      "url": "https://svatantrya.net/data/wheels/tutor/level-04-time-place.md"
+    },
+    {
+      "covers": "gated modes + possessors",
+      "file": "level-05-questions.md",
+      "title": "Level 5 — Asking",
+      "url": "https://svatantrya.net/data/wheels/tutor/level-05-questions.md"
+    },
+    {
+      "covers": "six karakas, verb at hub",
+      "file": "level-06-karaka.md",
+      "title": "Level 6 — Relationships",
+      "url": "https://svatantrya.net/data/wheels/tutor/level-06-karaka.md"
+    }
+  ],
+  "verify": {
+    "crosscheck_summary": {
+      "agree": 20,
+      "disagree": 1,
+      "gap": 3
+    },
+    "disagreements": [
+      {
+        "curated": "कथम्",
+        "id": "kim-manner",
+        "machine": [
+          "kathā"
+        ],
+        "note": "expected flagship: kim+thal derives katha; katham is kim+thamu per 5.3.24-25. Curated katham stands as the taught form."
+      }
+    ],
+    "fast_path": [
+      "1. pack_index below: exact deva or iast match?",
+      "2. crosscheck flags: agree (machine-confirmed), disagree (teach curated, name the special), gap (machine cannot derive — say so).",
+      "3. Need the full derivation? data/grammar/wheel-pack.json entry -> prakriya[].sutra + sutra_iast.",
+      "4. Need it in real text? entry.verses[] -> reader ?work=<work> (+ verse anchor); entry.lessons[] -> lesson ids."
+    ],
+    "gaps": [
+      {
+        "curated": "एकत्र",
+        "id": "eka-place",
+        "note": "machine gap (no derivation in Vidyut 0.4.0); curated form stands"
+      },
+      {
+        "curated": "एकतः",
+        "id": "eka-source",
+        "note": "machine gap (no derivation in Vidyut 0.4.0); curated form stands"
+      },
+      {
+        "curated": null,
+        "id": "eka-manner",
+        "note": "curated gap (intentional beginner omission)"
+      }
+    ],
+    "generator": "vidyut 0.4.0",
+    "pack_format": "svatantrya.grammar-pack/1",
+    "pack_index": {
+      "anya-da": {
+        "all_surfaces": [
+          {
+            "deva": "अन्यदा",
+            "iast": "anyadā"
+          }
+        ],
+        "deva": "अन्यदा",
+        "iast": "anyadā",
+        "id": "anya-da",
+        "lessons": [],
+        "machine_rules": [
+          "5.3.15",
+          "8.4.68"
+        ],
+        "status": "DERIVED",
+        "verses": [
+          {
+            "verse": "ipk-vrtti-g53",
+            "work": "ipk-vrtti"
+          },
+          {
+            "verse": "chunkG-k1.2.7-1.8-citsvarupam",
+            "work": "ipvv"
+          },
+          {
+            "verse": "chunkH-k1.8-caitanyamajada-pratibimba",
+            "work": "ipvv"
+          },
+          {
+            "verse": "chunkJ-k1.11-kartapi-kalpita",
+            "work": "ipvv"
+          }
+        ]
+      },
+      "anya-tasil": {
+        "all_surfaces": [
+          {
+            "deva": "अन्यतः",
+            "iast": "anyataḥ"
+          }
+        ],
+        "deva": "अन्यतः",
+        "iast": "anyataḥ",
+        "id": "anya-tasil",
+        "lessons": [
+          "l05-ma-kimcit"
+        ],
+        "machine_rules": [
+          "5.3.7",
+          "8.2.66",
+          "8.3.15",
+          "8.4.68"
+        ],
+        "status": "DERIVED",
+        "verses": [
+          {
+            "verse": "anu-p07",
+            "work": "anuttarastika"
+          },
+          {
+            "verse": "chunkK-purvapaksa-siddhanta",
+            "work": "ipvv"
+          },
+          {
+            "verse": "chunkV2-F-pancamo-vimarsa-k6",
+            "work": "ipvv"
+          },
+          {
+            "verse": "chunkV2-G-pancamo-vimarsa-k7-10",
+            "work": "ipvv"
+          }
+        ]
+      },
+      "anya-thal": {
+        "all_surfaces": [
+          {
+            "deva": "अन्यथा",
+            "iast": "anyathā"
+          }
+        ],
+        "deva": "अन्यथा",
+        "iast": "anyathā",
+        "id": "anya-thal",
+        "lessons": [],
+        "machine_rules": [
+          "5.3.25",
+          "8.4.68"
+        ],
+        "status": "DERIVED",
+        "verses": [
+          {
+            "verse": "ipk-vrtti-g103",
+            "work": "ipk-vrtti"
+          },
+          {
+            "verse": "ipk-vrtti-g138",
+            "work": "ipk-vrtti"
+          },
+          {
+            "verse": "ipk-vrtti-g163",
+            "work": "ipk-vrtti"
+          },
+          {
+            "verse": "ipk-vrtti-g86",
+            "work": "ipk-vrtti"
+          }
+        ]
+      },
+      "anya-tral": {
+        "all_surfaces": [
+          {
+            "deva": "अन्यत्र",
+            "iast": "anyatra"
+          }
+        ],
+        "deva": "अन्यत्र",
+        "iast": "anyatra",
+        "id": "anya-tral",
+        "lessons": [
+          "l06-sambhu-sarana"
+        ],
+        "machine_rules": [
+          "5.3.13",
+          "8.4.68"
+        ],
+        "status": "DERIVED",
+        "verses": [
+          {
+            "verse": "chunkC-svatma-maya-upanishad",
+            "work": "ipvv"
+          },
+          {
+            "verse": "chunkE-cit-acid-dvairasya",
+            "work": "ipvv"
+          },
+          {
+            "verse": "chunkF-upoddhata-k1-7",
+            "work": "ipvv"
+          },
+          {
+            "verse": "chunkG-k1.2.7-1.8-citsvarupam",
+            "work": "ipvv"
+          }
+        ]
+      },
+      "as-lat-Madhyama-Eka": {
+        "all_surfaces": [
+          {
+            "deva": "असि",
+            "iast": "asi"
+          }
+        ],
+        "deva": "असि",
+        "iast": "asi",
+        "id": "as-lat-Madhyama-Eka",
+        "lessons": [
+          "l01-mamatma",
+          "l03-hrdi-vande",
+          "l04-nryti",
+          "l05-ma-kimcit"
+        ],
+        "machine_rules": [
+          "3.1.68",
+          "3.2.123",
+          "3.4.113",
+          "3.4.78",
+          "7.4.50",
+          "8.4.68"
+        ],
+        "status": "DERIVED",
+        "verses": [
+          {
+            "verse": "ajad-p03-v24",
+            "work": "ajadapramatrsiddhi"
+          },
+          {
+            "verse": "anu-p05",
+            "work": "anuttarastika"
+          },
+          {
+            "verse": "bhair-p02-v16",
+            "work": "bhairavanukarana"
+          },
+          {
+            "verse": "bhair-p02-v17",
+            "work": "bhairavanukarana"
+          }
+        ]
+      },
+      "as-lat-Prathama-Eka": {
+        "all_surfaces": [
+          {
+            "deva": "अस्ति",
+            "iast": "asti"
+          }
+        ],
+        "deva": "अस्ति",
+        "iast": "asti",
+        "id": "as-lat-Prathama-Eka",
+        "lessons": [
+          "l01-mamatma",
+          "l03-hrdi-vande",
+          "l04-nryti",
+          "l10-tantrasara-prose"
+        ],
+        "machine_rules": [
+          "3.1.68",
+          "3.2.123",
+          "3.4.113",
+          "3.4.78",
+          "8.4.68"
+        ],
+        "status": "DERIVED",
+        "verses": [
+          {
+            "verse": "ajad-p02-v14",
+            "work": "ajadapramatrsiddhi"
+          },
+          {
+            "verse": "bh-p03",
+            "work": "bhairavastava"
+          },
+          {
+            "verse": "ipk-vrtti-g103",
+            "work": "ipk-vrtti"
+          },
+          {
+            "verse": "ipk-vrtti-g159",
+            "work": "ipk-vrtti"
+          }
+        ]
+      },
+      "as-lat-Uttama-Eka": {
+        "all_surfaces": [
+          {
+            "deva": "अस्मि",
+            "iast": "asmi"
+          }
+        ],
+        "deva": "अस्मि",
+        "iast": "asmi",
+        "id": "as-lat-Uttama-Eka",
+        "lessons": [
+          "l01-mamatma",
+          "l03-hrdi-vande",
+          "l04-nryti",
+          "l06-sambhu-sarana"
+        ],
+        "machine_rules": [
+          "3.1.68",
+          "3.2.123",
+          "3.4.113",
+          "3.4.78",
+          "8.4.68"
+        ],
+        "status": "DERIVED",
+        "verses": [
+          {
+            "verse": "anu-p04",
+            "work": "anubhavanivedana"
+          },
+          {
+            "verse": "bhair-p01-v08",
+            "work": "bhairavanukarana"
+          },
+          {
+            "verse": "KsBhAS_8",
+            "work": "bhairavanukaranastotra"
+          },
+          {
+            "verse": "bh-p04",
+            "work": "bhairavastava"
+          }
+        ]
+      },
+      "kim-da": {
+        "all_surfaces": [
+          {
+            "deva": "कदा",
+            "iast": "kadā"
+          }
+        ],
+        "deva": "कदा",
+        "iast": "kadā",
+        "id": "kim-da",
+        "lessons": [
+          "l06-sambhu-sarana"
+        ],
+        "machine_rules": [
+          "5.3.15",
+          "7.2.103",
+          "8.4.68"
+        ],
+        "status": "DERIVED",
+        "verses": [
+          {
+            "verse": "ghat-p01-v09",
+            "work": "ghatakarpara"
+          },
+          {
+            "verse": "ipk-vrtti-g151",
+            "work": "ipk-vrtti"
+          },
+          {
+            "verse": "ipk-vrtti-g164",
+            "work": "ipk-vrtti"
+          },
+          {
+            "verse": "ipk-vrtti-g237",
+            "work": "ipk-vrtti"
+          }
+        ]
+      },
+      "kim-katham": {
+        "all_surfaces": [],
+        "deva": "",
+        "iast": "katham",
+        "id": "kim-katham",
+        "lessons": [
+          "l06-sambhu-sarana"
+        ],
+        "machine_rules": [],
+        "status": "CURATED",
+        "verses": [
+          {
+            "verse": "ajad-p02-v10",
+            "work": "ajadapramatrsiddhi"
+          },
+          {
+            "verse": "ipk-vrtti-g103",
+            "work": "ipk-vrtti"
+          },
+          {
+            "verse": "ipk-vrtti-g25",
+            "work": "ipk-vrtti"
+          },
+          {
+            "verse": "ipk-vrtti-g26",
+            "work": "ipk-vrtti"
+          }
+        ]
+      },
+      "kim-tasil": {
+        "all_surfaces": [
+          {
+            "deva": "कुतः",
+            "iast": "kutaḥ"
+          }
+        ],
+        "deva": "कुतः",
+        "iast": "kutaḥ",
+        "id": "kim-tasil",
+        "lessons": [
+          "l05-ma-kimcit",
+          "l06-sambhu-sarana"
+        ],
+        "machine_rules": [
+          "5.3.7",
+          "7.2.104",
+          "8.2.66",
+          "8.3.15",
+          "8.4.68"
+        ],
+        "status": "DERIVED",
+        "verses": [
+          {
+            "verse": "anu-p06",
+            "work": "anuttarastika"
+          },
+          {
+            "verse": "chunkC-svatma-maya-upanishad",
+            "work": "ipvv"
+          },
+          {
+            "verse": "chunkE-cit-acid-dvairasya",
+            "work": "ipvv"
+          },
+          {
+            "verse": "chunkG-k1.2.7-1.8-citsvarupam",
+            "work": "ipvv"
+          }
+        ]
+      },
+      "kim-thal": {
+        "all_surfaces": [
+          {
+            "deva": "कथा",
+            "iast": "kathā"
+          }
+        ],
+        "deva": "कथा",
+        "iast": "kathā",
+        "id": "kim-thal",
+        "lessons": [
+          "l01-mamatma",
+          "l03-hrdi-vande",
+          "l04-nryti",
+          "l05-ma-kimcit"
+        ],
+        "machine_rules": [
+          "5.3.25",
+          "7.2.103",
+          "8.4.68"
+        ],
+        "status": "DERIVED",
+        "verses": [
+          {
+            "verse": "anu-p01",
+            "work": "anuttarastika"
+          },
+          {
+            "verse": "anu-p03",
+            "work": "anuttarastika"
+          },
+          {
+            "verse": "bh-p03",
+            "work": "bhairavastava"
+          },
+          {
+            "verse": "chunkB-eligibility-gita",
+            "work": "ipvv"
+          }
+        ]
+      },
+      "kim-tral": {
+        "all_surfaces": [
+          {
+            "deva": "कुत्र",
+            "iast": "kutra"
+          }
+        ],
+        "deva": "कुत्र",
+        "iast": "kutra",
+        "id": "kim-tral",
+        "lessons": [],
+        "machine_rules": [
+          "5.3.13",
+          "7.2.104",
+          "8.4.68"
+        ],
+        "status": "DERIVED",
+        "verses": [
+          {
+            "verse": "chunkA-svatyandya",
+            "work": "ipvv"
+          },
+          {
+            "verse": "chunkD-memory-pramana",
+            "work": "ipvv"
+          },
+          {
+            "verse": "chunkF-upoddhata-k1-7",
+            "work": "ipvv"
+          },
+          {
+            "verse": "chunkG-k1.2.7-1.8-citsvarupam",
+            "work": "ipvv"
+          }
+        ]
+      },
+      "sarva-da": {
+        "all_surfaces": [
+          {
+            "deva": "सदा",
+            "iast": "sadā"
+          },
+          {
+            "deva": "सर्वदा",
+            "iast": "sarvadā"
+          }
+        ],
+        "deva": "सदा",
+        "iast": "sadā",
+        "id": "sarva-da",
+        "lessons": [
+          "l05-ma-kimcit",
+          "l06-sambhu-sarana"
+        ],
+        "machine_rules": [
+          "5.3.15",
+          "5.3.6",
+          "8.3.111",
+          "8.4.68"
+        ],
+        "status": "DERIVED",
+        "verses": [
+          {
+            "verse": "anu-p06",
+            "work": "anuttarastika"
+          },
+          {
+            "verse": "bhair-p01-v10",
+            "work": "bhairavanukarana"
+          },
+          {
+            "verse": "bhair-p02-v20",
+            "work": "bhairavanukarana"
+          },
+          {
+            "verse": "bhair-p04-v31",
+            "work": "bhairavanukarana"
+          }
+        ]
+      },
+      "sarva-tasil": {
+        "all_surfaces": [
+          {
+            "deva": "सर्वतः",
+            "iast": "sarvataḥ"
+          }
+        ],
+        "deva": "सर्वतः",
+        "iast": "sarvataḥ",
+        "id": "sarva-tasil",
+        "lessons": [],
+        "machine_rules": [
+          "5.3.7",
+          "8.2.66",
+          "8.3.111",
+          "8.3.15",
+          "8.4.68"
+        ],
+        "status": "DERIVED",
+        "verses": [
+          {
+            "verse": "chunkB-eligibility-gita",
+            "work": "ipvv"
+          },
+          {
+            "verse": "chunkG-k1.2.7-1.8-citsvarupam",
+            "work": "ipvv"
+          },
+          {
+            "verse": "chunkH-k1.8-caitanyamajada-pratibimba",
+            "work": "ipvv"
+          },
+          {
+            "verse": "chunkV2-A-caturtho-vimarsa-aham",
+            "work": "ipvv"
+          }
+        ]
+      },
+      "sarva-thal": {
+        "all_surfaces": [
+          {
+            "deva": "सर्वथा",
+            "iast": "sarvathā"
+          }
+        ],
+        "deva": "सर्वथा",
+        "iast": "sarvathā",
+        "id": "sarva-thal",
+        "lessons": [
+          "l10-tantrasara-prose"
+        ],
+        "machine_rules": [
+          "5.3.25",
+          "8.3.111",
+          "8.4.68"
+        ],
+        "status": "DERIVED",
+        "verses": [
+          {
+            "verse": "ipk-vrtti-g154",
+            "work": "ipk-vrtti"
+          },
+          {
+            "verse": "ipk-vrtti-g388",
+            "work": "ipk-vrtti"
+          },
+          {
+            "verse": "ipk-vrtti-g389",
+            "work": "ipk-vrtti"
+          },
+          {
+            "verse": "chunkB-eligibility-gita",
+            "work": "ipvv"
+          }
+        ]
+      },
+      "sarva-tral": {
+        "all_surfaces": [
+          {
+            "deva": "सर्वत्र",
+            "iast": "sarvatra"
+          }
+        ],
+        "deva": "सर्वत्र",
+        "iast": "sarvatra",
+        "id": "sarva-tral",
+        "lessons": [],
+        "machine_rules": [
+          "5.3.13",
+          "8.3.111",
+          "8.4.68"
+        ],
+        "status": "DERIVED",
+        "verses": [
+          {
+            "verse": "bhair-p03-v30",
+            "work": "bhairavanukarana"
+          },
+          {
+            "verse": "KsBhAS_30",
+            "work": "bhairavanukaranastotra"
+          },
+          {
+            "verse": "ipk-vrtti-g65",
+            "work": "ipk-vrtti"
+          },
+          {
+            "verse": "chunkA-svatyandya",
+            "work": "ipvv"
+          }
+        ]
+      },
+      "sukhin-pum-nom-sg": {
+        "all_surfaces": [
+          {
+            "deva": "सुखी",
+            "iast": "sukhī"
+          }
+        ],
+        "deva": "सुखी",
+        "iast": "sukhī",
+        "id": "sukhin-pum-nom-sg",
+        "lessons": [],
+        "machine_rules": [
+          "4.1.2",
+          "8.2.7",
+          "8.3.111"
+        ],
+        "status": "DERIVED",
+        "verses": [
+          {
+            "verse": "ipk-vrtti-g378",
+            "work": "ipk-vrtti"
+          },
+          {
+            "verse": "chunkF-upoddhata-k1-7",
+            "work": "ipvv"
+          },
+          {
+            "verse": "chunkM-jnanadhikara-reflexion-core",
+            "work": "ipvv"
+          },
+          {
+            "verse": "chunkV2-C-vistanti-ajadapramatrsiddhi",
+            "work": "ipvv"
+          }
+        ]
+      },
+      "sukhin-stri-nom-sg": {
+        "all_surfaces": [
+          {
+            "deva": "सुखिनी",
+            "iast": "sukhinī"
+          }
+        ],
+        "deva": "सुखिनी",
+        "iast": "sukhinī",
+        "id": "sukhin-stri-nom-sg",
+        "lessons": [],
+        "machine_rules": [
+          "4.1.2",
+          "4.1.5",
+          "8.3.111"
+        ],
+        "status": "DERIVED",
+        "verses": []
+      },
+      "tad-da": {
+        "all_surfaces": [
+          {
+            "deva": "तदा",
+            "iast": "tadā"
+          }
+        ],
+        "deva": "तदा",
+        "iast": "tadā",
+        "id": "tad-da",
+        "lessons": [
+          "l01-mamatma",
+          "l03-hrdi-vande",
+          "l04-nryti",
+          "l06-sambhu-sarana"
+        ],
+        "machine_rules": [
+          "5.3.15",
+          "7.2.102",
+          "8.4.68"
+        ],
+        "status": "DERIVED",
+        "verses": [
+          {
+            "verse": "ajad-p03-v21",
+            "work": "ajadapramatrsiddhi"
+          },
+          {
+            "verse": "bh-p08",
+            "work": "bhairavastava"
+          },
+          {
+            "verse": "ipk-vrtti-g119",
+            "work": "ipk-vrtti"
+          },
+          {
+            "verse": "ipk-vrtti-g157",
+            "work": "ipk-vrtti"
+          }
+        ]
+      },
+      "tad-tasil": {
+        "all_surfaces": [
+          {
+            "deva": "ततः",
+            "iast": "tataḥ"
+          }
+        ],
+        "deva": "ततः",
+        "iast": "tataḥ",
+        "id": "tad-tasil",
+        "lessons": [
+          "l06-sambhu-sarana",
+          "l10-tantrasara-prose"
+        ],
+        "machine_rules": [
+          "5.3.7",
+          "7.2.102",
+          "8.2.66",
+          "8.3.15",
+          "8.4.68"
+        ],
+        "status": "DERIVED",
+        "verses": [
+          {
+            "verse": "ajad-p01-v04",
+            "work": "ajadapramatrsiddhi"
+          },
+          {
+            "verse": "bhair-p05-v45",
+            "work": "bhairavanukarana"
+          },
+          {
+            "verse": "KsBhAS_45",
+            "work": "bhairavanukaranastotra"
+          },
+          {
+            "verse": "ipk-vrtti-g102",
+            "work": "ipk-vrtti"
+          }
+        ]
+      },
+      "tad-thal": {
+        "all_surfaces": [
+          {
+            "deva": "तथा",
+            "iast": "tathā"
+          }
+        ],
+        "deva": "तथा",
+        "iast": "tathā",
+        "id": "tad-thal",
+        "lessons": [
+          "l05-ma-kimcit",
+          "l06-sambhu-sarana",
+          "l10-tantrasara-prose"
+        ],
+        "machine_rules": [
+          "5.3.25",
+          "7.2.102",
+          "8.4.68"
+        ],
+        "status": "DERIVED",
+        "verses": [
+          {
+            "verse": "ajad-p01-v06",
+            "work": "ajadapramatrsiddhi"
+          },
+          {
+            "verse": "ajad-p02-v16",
+            "work": "ajadapramatrsiddhi"
+          },
+          {
+            "verse": "anu-p02",
+            "work": "anuttarastika"
+          },
+          {
+            "verse": "KsBhAS_3",
+            "work": "bhairavanukaranastotra"
+          }
+        ]
+      },
+      "tad-tral": {
+        "all_surfaces": [
+          {
+            "deva": "तत्र",
+            "iast": "tatra"
+          }
+        ],
+        "deva": "तत्र",
+        "iast": "tatra",
+        "id": "tad-tral",
+        "lessons": [
+          "l06-sambhu-sarana",
+          "l10-tantrasara-prose"
+        ],
+        "machine_rules": [
+          "5.3.13",
+          "7.2.102",
+          "8.4.68"
+        ],
+        "status": "DERIVED",
+        "verses": [
+          {
+            "verse": "bhair-p05-v47",
+            "work": "bhairavanukarana"
+          },
+          {
+            "verse": "KsBhAS_47",
+            "work": "bhairavanukaranastotra"
+          },
+          {
+            "verse": "bodh-p01-v05",
+            "work": "bodhavilasa"
+          },
+          {
+            "verse": "bodh-p04-v35",
+            "work": "bodhavilasa"
+          }
+        ]
+      },
+      "yad-da": {
+        "all_surfaces": [
+          {
+            "deva": "यदा",
+            "iast": "yadā"
+          }
+        ],
+        "deva": "यदा",
+        "iast": "yadā",
+        "id": "yad-da",
+        "lessons": [
+          "l06-sambhu-sarana"
+        ],
+        "machine_rules": [
+          "5.3.15",
+          "7.2.102",
+          "8.4.68"
+        ],
+        "status": "DERIVED",
+        "verses": [
+          {
+            "verse": "anu-p01",
+            "work": "anubhavanivedana"
+          },
+          {
+            "verse": "bhair-p04-v40",
+            "work": "bhairavanukarana"
+          },
+          {
+            "verse": "KsBhAS_40",
+            "work": "bhairavanukaranastotra"
+          },
+          {
+            "verse": "ghat-p01-v06",
+            "work": "ghatakarpara"
+          }
+        ]
+      },
+      "yad-tasil": {
+        "all_surfaces": [
+          {
+            "deva": "यतः",
+            "iast": "yataḥ"
+          }
+        ],
+        "deva": "यतः",
+        "iast": "yataḥ",
+        "id": "yad-tasil",
+        "lessons": [
+          "l05-ma-kimcit",
+          "l06-sambhu-sarana"
+        ],
+        "machine_rules": [
+          "5.3.7",
+          "7.2.102",
+          "8.2.66",
+          "8.3.15",
+          "8.4.68"
+        ],
+        "status": "DERIVED",
+        "verses": [
+          {
+            "verse": "anu-p04",
+            "work": "anubhavanivedana"
+          },
+          {
+            "verse": "anu-p07",
+            "work": "anuttarastika"
+          },
+          {
+            "verse": "ipk-vrtti-g183",
+            "work": "ipk-vrtti"
+          },
+          {
+            "verse": "ipk-vrtti-g39",
+            "work": "ipk-vrtti"
+          }
+        ]
+      },
+      "yad-thal": {
+        "all_surfaces": [
+          {
+            "deva": "यथा",
+            "iast": "yathā"
+          }
+        ],
+        "deva": "यथा",
+        "iast": "yathā",
+        "id": "yad-thal",
+        "lessons": [
+          "l05-ma-kimcit",
+          "l06-sambhu-sarana"
+        ],
+        "machine_rules": [
+          "5.3.25",
+          "7.2.102",
+          "8.4.68"
+        ],
+        "status": "DERIVED",
+        "verses": [
+          {
+            "verse": "ajad-p01-v01",
+            "work": "ajadapramatrsiddhi"
+          },
+          {
+            "verse": "anu-p01",
+            "work": "anuttarastika"
+          },
+          {
+            "verse": "anu-p02",
+            "work": "anuttarastika"
+          },
+          {
+            "verse": "bhair-p01-v03",
+            "work": "bhairavanukarana"
+          }
+        ]
+      },
+      "yad-tral": {
+        "all_surfaces": [
+          {
+            "deva": "यत्र",
+            "iast": "yatra"
+          }
+        ],
+        "deva": "यत्र",
+        "iast": "yatra",
+        "id": "yad-tral",
+        "lessons": [
+          "l06-sambhu-sarana"
+        ],
+        "machine_rules": [
+          "5.3.13",
+          "7.2.102",
+          "8.4.68"
+        ],
+        "status": "DERIVED",
+        "verses": [
+          {
+            "verse": "anu-p04",
+            "work": "anubhavanivedana"
+          },
+          {
+            "verse": "ipk-vrtti-g163",
+            "work": "ipk-vrtti"
+          },
+          {
+            "verse": "ipk-vrtti-g19",
+            "work": "ipk-vrtti"
+          },
+          {
+            "verse": "ipk-vrtti-g237",
+            "work": "ipk-vrtti"
+          }
+        ]
+      }
+    },
+    "rule": "Never state a form from memory. Look it up here first."
+  },
+  "warning": "One fetch carries the program. Curated teaching forms and machine traces are labeled per entry; disagreements and gaps are data, never silent overrides. Nothing here is doctrine.",
+  "wheels": {
+    "karaka": {
+      "format": "svatantrya.wheel-karaka/1",
+      "status": "curated-teaching-unreviewed",
+      "title": "Kāraka wheel",
+      "warning": "Teaching glosses in our own words. Examples assemble only words already on file.",
+      "wheels": [
+        {
+          "id": "karaka",
+          "note": "The verb is the hub; every noun is one of six relationships to it. kāraka (relationship) first, vibhakti (ending) second — the ESG move.",
+          "options": [
+            {
+              "en": "agent, the doer",
+              "example": "ahaṃ gacchāmi",
+              "example_en": "I go",
+              "example_src": "curated verb forms",
+              "gloss": "the independent one who acts — the verb answers to it",
+              "id": "kartr",
+              "label": "kartṛ",
+              "source_status": "READY",
+              "sutra": "1.4.54",
+              "sutra_iast": "svatantraḥ kartā",
+              "vibhakti": "prathamā (1st)"
+            },
+            {
+              "en": "object, what is acted upon",
+              "example": "grāmaṃ gacchāmi",
+              "example_en": "I go to the village",
+              "example_src": "pack noun-grama-acc + curated gacchāmi",
+              "gloss": "what the doer most wants to reach through the act",
+              "id": "karman",
+              "label": "karman",
+              "source_status": "READY",
+              "sutra": "1.4.49",
+              "sutra_iast": "kartur īpsitatamaṃ karma",
+              "vibhakti": "dvitīyā (2nd)"
+            },
+            {
+              "en": "instrument, the means",
+              "example": "manasā",
+              "example_en": "with the mind (form on file; pair it with any action)",
+              "example_src": "pack noun-manas-inst",
+              "gloss": "the means the doer uses most effectively",
+              "id": "karana",
+              "label": "karaṇa",
+              "source_status": "READY",
+              "sutra": "1.4.42",
+              "sutra_iast": "sādhakatamaṃ karaṇam",
+              "vibhakti": "tṛtīyā (3rd)"
+            },
+            {
+              "en": "recipient",
+              "example": "pitre",
+              "example_en": "for father (form on file; giving verbs arrive later)",
+              "example_src": "pack kin-pita-dat",
+              "gloss": "the one the doer aims the act at — the receiver",
+              "id": "sampradana",
+              "label": "sampradāna",
+              "source_status": "READY",
+              "sutra": "1.4.32",
+              "sutra_iast": "karmaṇā yam abhipraiti sa sampradānam",
+              "vibhakti": "caturthī (4th)"
+            },
+            {
+              "en": "origin, point of departure",
+              "example": "grāmāt āgacchāmi",
+              "example_en": "I come from the village",
+              "example_src": "pack noun-grama-abl + curated āgacchāmi",
+              "gloss": "the fixed point from which something moves away",
+              "id": "apadana",
+              "label": "apādāna",
+              "source_status": "READY",
+              "sutra": "1.4.24",
+              "sutra_iast": "dhruvam apāye ’pādānam",
+              "vibhakti": "pañcamī (5th)"
+            },
+            {
+              "en": "locus, where it rests",
+              "example": "grāme asmi",
+              "example_en": "I am in the village",
+              "example_src": "pack noun-grama-loc + pack as-lat-Uttama-Eka",
+              "gloss": "the ground on which the act or being rests",
+              "id": "adhikarana",
+              "label": "adhikaraṇa",
+              "source_status": "READY",
+              "sutra": "1.4.45",
+              "sutra_iast": "ādhāro ’dhikaraṇam",
+              "vibhakti": "saptamī (7th)"
+            }
+          ],
+          "title": "Six relationships to the verb"
+        }
+      ]
+    },
+    "sentence": {
+      "agreement": "The subject selects person/number/gender; the verb and the state adjective follow. Adverbs (place/time/source/manner) never change.",
+      "format": "svatantrya.wheel-sentence/1",
+      "rings": [
+        {
+          "id": "subject",
+          "label": "who",
+          "options": [
+            {
+              "adj": "sukhin-pum-nom-sg",
+              "adj_surface": {
+                "deva": "सुखी",
+                "iast": "sukhī",
+                "id": "sukhin-pum-nom-sg",
+                "lessons": [],
+                "status": "DERIVED",
+                "verses": [
+                  {
+                    "verse": "ipk-vrtti-g378",
+                    "work": "ipk-vrtti"
+                  },
+                  {
+                    "verse": "chunkF-upoddhata-k1-7",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkM-jnanadhikara-reflexion-core",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkV2-C-vistanti-ajadapramatrsiddhi",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkV2-J-pancamo-vimarsa-k19-20",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkV2-L-sastho-vimarsa-smrti-apohana",
+                    "work": "ipvv"
+                  }
+                ]
+              },
+              "en": "I",
+              "id": "aham",
+              "label": "aham",
+              "note": "1st person singular: asmi; adjective unmarked masculine",
+              "verb": "as-lat-Uttama-Eka",
+              "verb_surface": {
+                "deva": "अस्मि",
+                "iast": "asmi",
+                "id": "as-lat-Uttama-Eka",
+                "lessons": [
+                  "l01-mamatma",
+                  "l03-hrdi-vande",
+                  "l04-nryti",
+                  "l06-sambhu-sarana"
+                ],
+                "status": "DERIVED",
+                "verses": [
+                  {
+                    "verse": "anu-p04",
+                    "work": "anubhavanivedana"
+                  },
+                  {
+                    "verse": "bhair-p01-v08",
+                    "work": "bhairavanukarana"
+                  },
+                  {
+                    "verse": "KsBhAS_8",
+                    "work": "bhairavanukaranastotra"
+                  },
+                  {
+                    "verse": "bh-p04",
+                    "work": "bhairavastava"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g225",
+                    "work": "ipk-vrtti"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g226",
+                    "work": "ipk-vrtti"
+                  }
+                ]
+              }
+            },
+            {
+              "adj": "sukhin-pum-nom-sg",
+              "adj_surface": {
+                "deva": "सुखी",
+                "iast": "sukhī",
+                "id": "sukhin-pum-nom-sg",
+                "lessons": [],
+                "status": "DERIVED",
+                "verses": [
+                  {
+                    "verse": "ipk-vrtti-g378",
+                    "work": "ipk-vrtti"
+                  },
+                  {
+                    "verse": "chunkF-upoddhata-k1-7",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkM-jnanadhikara-reflexion-core",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkV2-C-vistanti-ajadapramatrsiddhi",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkV2-J-pancamo-vimarsa-k19-20",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkV2-L-sastho-vimarsa-smrti-apohana",
+                    "work": "ipvv"
+                  }
+                ]
+              },
+              "en": "you",
+              "id": "tvam",
+              "label": "tvam",
+              "note": "2nd person singular: asi",
+              "verb": "as-lat-Madhyama-Eka",
+              "verb_surface": {
+                "deva": "असि",
+                "iast": "asi",
+                "id": "as-lat-Madhyama-Eka",
+                "lessons": [
+                  "l01-mamatma",
+                  "l03-hrdi-vande",
+                  "l04-nryti",
+                  "l05-ma-kimcit"
+                ],
+                "status": "DERIVED",
+                "verses": [
+                  {
+                    "verse": "ajad-p03-v24",
+                    "work": "ajadapramatrsiddhi"
+                  },
+                  {
+                    "verse": "anu-p05",
+                    "work": "anuttarastika"
+                  },
+                  {
+                    "verse": "bhair-p02-v16",
+                    "work": "bhairavanukarana"
+                  },
+                  {
+                    "verse": "bhair-p02-v17",
+                    "work": "bhairavanukarana"
+                  },
+                  {
+                    "verse": "bhair-p02-v18",
+                    "work": "bhairavanukarana"
+                  },
+                  {
+                    "verse": "bhair-p03-v21",
+                    "work": "bhairavanukarana"
+                  }
+                ]
+              }
+            },
+            {
+              "adj": "sukhin-stri-nom-sg",
+              "adj_surface": {
+                "deva": "सुखिनी",
+                "iast": "sukhinī",
+                "id": "sukhin-stri-nom-sg",
+                "lessons": [],
+                "status": "DERIVED",
+                "verses": []
+              },
+              "en": "my mother",
+              "id": "mama-mata",
+              "label": "mama mata",
+              "note": "3rd person singular feminine: asti; adjective feminises to sukhini",
+              "verb": "as-lat-Prathama-Eka",
+              "verb_surface": {
+                "deva": "अस्ति",
+                "iast": "asti",
+                "id": "as-lat-Prathama-Eka",
+                "lessons": [
+                  "l01-mamatma",
+                  "l03-hrdi-vande",
+                  "l04-nryti",
+                  "l10-tantrasara-prose"
+                ],
+                "status": "DERIVED",
+                "verses": [
+                  {
+                    "verse": "ajad-p02-v14",
+                    "work": "ajadapramatrsiddhi"
+                  },
+                  {
+                    "verse": "bh-p03",
+                    "work": "bhairavastava"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g103",
+                    "work": "ipk-vrtti"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g159",
+                    "work": "ipk-vrtti"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g292",
+                    "work": "ipk-vrtti"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g336",
+                    "work": "ipk-vrtti"
+                  }
+                ]
+              }
+            },
+            {
+              "adj": "sukhin-pum-nom-sg",
+              "adj_surface": {
+                "deva": "सुखी",
+                "iast": "sukhī",
+                "id": "sukhin-pum-nom-sg",
+                "lessons": [],
+                "status": "DERIVED",
+                "verses": [
+                  {
+                    "verse": "ipk-vrtti-g378",
+                    "work": "ipk-vrtti"
+                  },
+                  {
+                    "verse": "chunkF-upoddhata-k1-7",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkM-jnanadhikara-reflexion-core",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkV2-C-vistanti-ajadapramatrsiddhi",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkV2-J-pancamo-vimarsa-k19-20",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkV2-L-sastho-vimarsa-smrti-apohana",
+                    "work": "ipvv"
+                  }
+                ]
+              },
+              "en": "(my) father",
+              "id": "pita",
+              "label": "pita",
+              "note": "3rd person singular masculine: asti; adjective stays sukhi",
+              "verb": "as-lat-Prathama-Eka",
+              "verb_surface": {
+                "deva": "अस्ति",
+                "iast": "asti",
+                "id": "as-lat-Prathama-Eka",
+                "lessons": [
+                  "l01-mamatma",
+                  "l03-hrdi-vande",
+                  "l04-nryti",
+                  "l10-tantrasara-prose"
+                ],
+                "status": "DERIVED",
+                "verses": [
+                  {
+                    "verse": "ajad-p02-v14",
+                    "work": "ajadapramatrsiddhi"
+                  },
+                  {
+                    "verse": "bh-p03",
+                    "work": "bhairavastava"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g103",
+                    "work": "ipk-vrtti"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g159",
+                    "work": "ipk-vrtti"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g292",
+                    "work": "ipk-vrtti"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g336",
+                    "work": "ipk-vrtti"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "place",
+          "label": "place",
+          "options": [
+            {
+              "deva": "कुत्र",
+              "iast": "kutra",
+              "id": "kim-tral",
+              "lessons": [],
+              "status": "DERIVED",
+              "verses": [
+                {
+                  "verse": "chunkA-svatyandya",
+                  "work": "ipvv"
+                },
+                {
+                  "verse": "chunkD-memory-pramana",
+                  "work": "ipvv"
+                },
+                {
+                  "verse": "chunkF-upoddhata-k1-7",
+                  "work": "ipvv"
+                },
+                {
+                  "verse": "chunkG-k1.2.7-1.8-citsvarupam",
+                  "work": "ipvv"
+                },
+                {
+                  "verse": "chunkH-k1.8-caitanyamajada-pratibimba",
+                  "work": "ipvv"
+                },
+                {
+                  "verse": "chunkI-k1.9-1.10-kriya-karyakarana",
+                  "work": "ipvv"
+                }
+              ]
+            },
+            {
+              "deva": "तत्र",
+              "iast": "tatra",
+              "id": "tad-tral",
+              "lessons": [
+                "l06-sambhu-sarana",
+                "l10-tantrasara-prose"
+              ],
+              "status": "DERIVED",
+              "verses": [
+                {
+                  "verse": "bhair-p05-v47",
+                  "work": "bhairavanukarana"
+                },
+                {
+                  "verse": "KsBhAS_47",
+                  "work": "bhairavanukaranastotra"
+                },
+                {
+                  "verse": "bodh-p01-v05",
+                  "work": "bodhavilasa"
+                },
+                {
+                  "verse": "bodh-p04-v35",
+                  "work": "bodhavilasa"
+                },
+                {
+                  "verse": "bodh-p04-v39",
+                  "work": "bodhavilasa"
+                },
+                {
+                  "verse": "ipk-vrtti-g10",
+                  "work": "ipk-vrtti"
+                }
+              ]
+            },
+            {
+              "deva": "यत्र",
+              "iast": "yatra",
+              "id": "yad-tral",
+              "lessons": [
+                "l06-sambhu-sarana"
+              ],
+              "status": "DERIVED",
+              "verses": [
+                {
+                  "verse": "anu-p04",
+                  "work": "anubhavanivedana"
+                },
+                {
+                  "verse": "ipk-vrtti-g163",
+                  "work": "ipk-vrtti"
+                },
+                {
+                  "verse": "ipk-vrtti-g19",
+                  "work": "ipk-vrtti"
+                },
+                {
+                  "verse": "ipk-vrtti-g237",
+                  "work": "ipk-vrtti"
+                },
+                {
+                  "verse": "ipk-vrtti-g393",
+                  "work": "ipk-vrtti"
+                },
+                {
+                  "verse": "chunkA-svatyandya",
+                  "work": "ipvv"
+                }
+              ]
+            },
+            {
+              "deva": "सर्वत्र",
+              "iast": "sarvatra",
+              "id": "sarva-tral",
+              "lessons": [],
+              "status": "DERIVED",
+              "verses": [
+                {
+                  "verse": "bhair-p03-v30",
+                  "work": "bhairavanukarana"
+                },
+                {
+                  "verse": "KsBhAS_30",
+                  "work": "bhairavanukaranastotra"
+                },
+                {
+                  "verse": "ipk-vrtti-g65",
+                  "work": "ipk-vrtti"
+                },
+                {
+                  "verse": "chunkA-svatyandya",
+                  "work": "ipvv"
+                },
+                {
+                  "verse": "chunkB-eligibility-gita",
+                  "work": "ipvv"
+                },
+                {
+                  "verse": "chunkC-svatma-maya-upanishad",
+                  "work": "ipvv"
+                }
+              ]
+            },
+            {
+              "deva": "अन्यत्र",
+              "iast": "anyatra",
+              "id": "anya-tral",
+              "lessons": [
+                "l06-sambhu-sarana"
+              ],
+              "status": "DERIVED",
+              "verses": [
+                {
+                  "verse": "chunkC-svatma-maya-upanishad",
+                  "work": "ipvv"
+                },
+                {
+                  "verse": "chunkE-cit-acid-dvairasya",
+                  "work": "ipvv"
+                },
+                {
+                  "verse": "chunkF-upoddhata-k1-7",
+                  "work": "ipvv"
+                },
+                {
+                  "verse": "chunkG-k1.2.7-1.8-citsvarupam",
+                  "work": "ipvv"
+                },
+                {
+                  "verse": "chunkH-k1.8-caitanyamajada-pratibimba",
+                  "work": "ipvv"
+                },
+                {
+                  "verse": "chunkI-k1.9-1.10-kriya-karyakarana",
+                  "work": "ipvv"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "time",
+          "label": "time",
+          "options": [
+            {
+              "deva": "कदा",
+              "iast": "kadā",
+              "id": "kim-da",
+              "lessons": [
+                "l06-sambhu-sarana"
+              ],
+              "status": "DERIVED",
+              "verses": [
+                {
+                  "verse": "ghat-p01-v09",
+                  "work": "ghatakarpara"
+                },
+                {
+                  "verse": "ipk-vrtti-g151",
+                  "work": "ipk-vrtti"
+                },
+                {
+                  "verse": "ipk-vrtti-g164",
+                  "work": "ipk-vrtti"
+                },
+                {
+                  "verse": "ipk-vrtti-g237",
+                  "work": "ipk-vrtti"
+                },
+                {
+                  "verse": "ipk-vrtti-g53",
+                  "work": "ipk-vrtti"
+                },
+                {
+                  "verse": "chunkA-svatyandya",
+                  "work": "ipvv"
+                }
+              ]
+            },
+            {
+              "deva": "तदा",
+              "iast": "tadā",
+              "id": "tad-da",
+              "lessons": [
+                "l01-mamatma",
+                "l03-hrdi-vande",
+                "l04-nryti",
+                "l06-sambhu-sarana"
+              ],
+              "status": "DERIVED",
+              "verses": [
+                {
+                  "verse": "ajad-p03-v21",
+                  "work": "ajadapramatrsiddhi"
+                },
+                {
+                  "verse": "bh-p08",
+                  "work": "bhairavastava"
+                },
+                {
+                  "verse": "ipk-vrtti-g119",
+                  "work": "ipk-vrtti"
+                },
+                {
+                  "verse": "ipk-vrtti-g157",
+                  "work": "ipk-vrtti"
+                },
+                {
+                  "verse": "ipk-vrtti-g168",
+                  "work": "ipk-vrtti"
+                },
+                {
+                  "verse": "ipk-vrtti-g18",
+                  "work": "ipk-vrtti"
+                }
+              ]
+            },
+            {
+              "deva": "यदा",
+              "iast": "yadā",
+              "id": "yad-da",
+              "lessons": [
+                "l06-sambhu-sarana"
+              ],
+              "status": "DERIVED",
+              "verses": [
+                {
+                  "verse": "anu-p01",
+                  "work": "anubhavanivedana"
+                },
+                {
+                  "verse": "bhair-p04-v40",
+                  "work": "bhairavanukarana"
+                },
+                {
+                  "verse": "KsBhAS_40",
+                  "work": "bhairavanukaranastotra"
+                },
+                {
+                  "verse": "ghat-p01-v06",
+                  "work": "ghatakarpara"
+                },
+                {
+                  "verse": "ipk-vrtti-g225",
+                  "work": "ipk-vrtti"
+                },
+                {
+                  "verse": "ipk-vrtti-g292",
+                  "work": "ipk-vrtti"
+                }
+              ]
+            },
+            {
+              "deva": "सर्वदा",
+              "iast": "sarvadā",
+              "id": "sarva-da",
+              "lessons": [
+                "l05-ma-kimcit",
+                "l06-sambhu-sarana"
+              ],
+              "status": "DERIVED",
+              "verses": [
+                {
+                  "verse": "anu-p06",
+                  "work": "anuttarastika"
+                },
+                {
+                  "verse": "bhair-p01-v10",
+                  "work": "bhairavanukarana"
+                },
+                {
+                  "verse": "bhair-p02-v20",
+                  "work": "bhairavanukarana"
+                },
+                {
+                  "verse": "bhair-p04-v31",
+                  "work": "bhairavanukarana"
+                },
+                {
+                  "verse": "bhair-p04-v37",
+                  "work": "bhairavanukarana"
+                },
+                {
+                  "verse": "bhair-p05-v48",
+                  "work": "bhairavanukarana"
+                }
+              ]
+            },
+            {
+              "deva": "अन्यदा",
+              "iast": "anyadā",
+              "id": "anya-da",
+              "lessons": [],
+              "status": "DERIVED",
+              "verses": [
+                {
+                  "verse": "ipk-vrtti-g53",
+                  "work": "ipk-vrtti"
+                },
+                {
+                  "verse": "chunkG-k1.2.7-1.8-citsvarupam",
+                  "work": "ipvv"
+                },
+                {
+                  "verse": "chunkH-k1.8-caitanyamajada-pratibimba",
+                  "work": "ipvv"
+                },
+                {
+                  "verse": "chunkJ-k1.11-kartapi-kalpita",
+                  "work": "ipvv"
+                },
+                {
+                  "verse": "chunkK-purvapaksa-siddhanta",
+                  "work": "ipvv"
+                },
+                {
+                  "verse": "chunkV2-B-sahajavimarsa-prakasavimarsa",
+                  "work": "ipvv"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "source",
+          "label": "source",
+          "options": [
+            {
+              "deva": "कुतः",
+              "iast": "kutaḥ",
+              "id": "kim-tasil",
+              "lessons": [
+                "l05-ma-kimcit",
+                "l06-sambhu-sarana"
+              ],
+              "status": "DERIVED",
+              "verses": [
+                {
+                  "verse": "anu-p06",
+                  "work": "anuttarastika"
+                },
+                {
+                  "verse": "chunkC-svatma-maya-upanishad",
+                  "work": "ipvv"
+                },
+                {
+                  "verse": "chunkE-cit-acid-dvairasya",
+                  "work": "ipvv"
+                },
+                {
+                  "verse": "chunkG-k1.2.7-1.8-citsvarupam",
+                  "work": "ipvv"
+                },
+                {
+                  "verse": "chunkH-k1.8-caitanyamajada-pratibimba",
+                  "work": "ipvv"
+                },
+                {
+                  "verse": "chunkI-k1.9-1.10-kriya-karyakarana",
+                  "work": "ipvv"
+                }
+              ]
+            },
+            {
+              "deva": "ततः",
+              "iast": "tataḥ",
+              "id": "tad-tasil",
+              "lessons": [
+                "l06-sambhu-sarana",
+                "l10-tantrasara-prose"
+              ],
+              "status": "DERIVED",
+              "verses": [
+                {
+                  "verse": "ajad-p01-v04",
+                  "work": "ajadapramatrsiddhi"
+                },
+                {
+                  "verse": "bhair-p05-v45",
+                  "work": "bhairavanukarana"
+                },
+                {
+                  "verse": "KsBhAS_45",
+                  "work": "bhairavanukaranastotra"
+                },
+                {
+                  "verse": "ipk-vrtti-g102",
+                  "work": "ipk-vrtti"
+                },
+                {
+                  "verse": "ipk-vrtti-g159",
+                  "work": "ipk-vrtti"
+                },
+                {
+                  "verse": "ipk-vrtti-g257",
+                  "work": "ipk-vrtti"
+                }
+              ]
+            },
+            {
+              "deva": "यतः",
+              "iast": "yataḥ",
+              "id": "yad-tasil",
+              "lessons": [
+                "l05-ma-kimcit",
+                "l06-sambhu-sarana"
+              ],
+              "status": "DERIVED",
+              "verses": [
+                {
+                  "verse": "anu-p04",
+                  "work": "anubhavanivedana"
+                },
+                {
+                  "verse": "anu-p07",
+                  "work": "anuttarastika"
+                },
+                {
+                  "verse": "ipk-vrtti-g183",
+                  "work": "ipk-vrtti"
+                },
+                {
+                  "verse": "ipk-vrtti-g39",
+                  "work": "ipk-vrtti"
+                },
+                {
+                  "verse": "chunkA-svatyandya",
+                  "work": "ipvv"
+                },
+                {
+                  "verse": "chunkB-eligibility-gita",
+                  "work": "ipvv"
+                }
+              ]
+            },
+            {
+              "deva": "सर्वतः",
+              "iast": "sarvataḥ",
+              "id": "sarva-tasil",
+              "lessons": [],
+              "status": "DERIVED",
+              "verses": [
+                {
+                  "verse": "chunkB-eligibility-gita",
+                  "work": "ipvv"
+                },
+                {
+                  "verse": "chunkG-k1.2.7-1.8-citsvarupam",
+                  "work": "ipvv"
+                },
+                {
+                  "verse": "chunkH-k1.8-caitanyamajada-pratibimba",
+                  "work": "ipvv"
+                },
+                {
+                  "verse": "chunkV2-A-caturtho-vimarsa-aham",
+                  "work": "ipvv"
+                },
+                {
+                  "verse": "chunkV3-B-kriya-dvitiyo-k1-7",
+                  "work": "ipvv"
+                },
+                {
+                  "verse": "chunkV3-J-agama-prathamo-k1-7",
+                  "work": "ipvv"
+                }
+              ]
+            },
+            {
+              "deva": "अन्यतः",
+              "iast": "anyataḥ",
+              "id": "anya-tasil",
+              "lessons": [
+                "l05-ma-kimcit"
+              ],
+              "status": "DERIVED",
+              "verses": [
+                {
+                  "verse": "anu-p07",
+                  "work": "anuttarastika"
+                },
+                {
+                  "verse": "chunkK-purvapaksa-siddhanta",
+                  "work": "ipvv"
+                },
+                {
+                  "verse": "chunkV2-F-pancamo-vimarsa-k6",
+                  "work": "ipvv"
+                },
+                {
+                  "verse": "chunkV2-G-pancamo-vimarsa-k7-10",
+                  "work": "ipvv"
+                },
+                {
+                  "verse": "chunkV2-M-sastho-vimarsa-k6-7",
+                  "work": "ipvv"
+                },
+                {
+                  "verse": "chunkV2-S-astamo-close-jnanadhikara",
+                  "work": "ipvv"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "manner",
+          "label": "manner",
+          "options": [
+            {
+              "deva": "तथा",
+              "iast": "tathā",
+              "id": "tad-thal",
+              "lessons": [
+                "l05-ma-kimcit",
+                "l06-sambhu-sarana",
+                "l10-tantrasara-prose"
+              ],
+              "status": "DERIVED",
+              "verses": [
+                {
+                  "verse": "ajad-p01-v06",
+                  "work": "ajadapramatrsiddhi"
+                },
+                {
+                  "verse": "ajad-p02-v16",
+                  "work": "ajadapramatrsiddhi"
+                },
+                {
+                  "verse": "anu-p02",
+                  "work": "anuttarastika"
+                },
+                {
+                  "verse": "KsBhAS_3",
+                  "work": "bhairavanukaranastotra"
+                },
+                {
+                  "verse": "bodh-p04-v34",
+                  "work": "bodhavilasa"
+                },
+                {
+                  "verse": "ipk-vrtti-g114",
+                  "work": "ipk-vrtti"
+                }
+              ]
+            },
+            {
+              "deva": "यथा",
+              "iast": "yathā",
+              "id": "yad-thal",
+              "lessons": [
+                "l05-ma-kimcit",
+                "l06-sambhu-sarana"
+              ],
+              "status": "DERIVED",
+              "verses": [
+                {
+                  "verse": "ajad-p01-v01",
+                  "work": "ajadapramatrsiddhi"
+                },
+                {
+                  "verse": "anu-p01",
+                  "work": "anuttarastika"
+                },
+                {
+                  "verse": "anu-p02",
+                  "work": "anuttarastika"
+                },
+                {
+                  "verse": "bhair-p01-v03",
+                  "work": "bhairavanukarana"
+                },
+                {
+                  "verse": "KsBhAS_3",
+                  "work": "bhairavanukaranastotra"
+                },
+                {
+                  "verse": "ipk-vrtti-g100",
+                  "work": "ipk-vrtti"
+                }
+              ]
+            },
+            {
+              "deva": "सर्वथा",
+              "iast": "sarvathā",
+              "id": "sarva-thal",
+              "lessons": [
+                "l10-tantrasara-prose"
+              ],
+              "status": "DERIVED",
+              "verses": [
+                {
+                  "verse": "ipk-vrtti-g154",
+                  "work": "ipk-vrtti"
+                },
+                {
+                  "verse": "ipk-vrtti-g388",
+                  "work": "ipk-vrtti"
+                },
+                {
+                  "verse": "ipk-vrtti-g389",
+                  "work": "ipk-vrtti"
+                },
+                {
+                  "verse": "chunkB-eligibility-gita",
+                  "work": "ipvv"
+                },
+                {
+                  "verse": "chunkC-svatma-maya-upanishad",
+                  "work": "ipvv"
+                },
+                {
+                  "verse": "chunkD-memory-pramana",
+                  "work": "ipvv"
+                }
+              ]
+            },
+            {
+              "deva": "अन्यथा",
+              "iast": "anyathā",
+              "id": "anya-thal",
+              "lessons": [],
+              "status": "DERIVED",
+              "verses": [
+                {
+                  "verse": "ipk-vrtti-g103",
+                  "work": "ipk-vrtti"
+                },
+                {
+                  "verse": "ipk-vrtti-g138",
+                  "work": "ipk-vrtti"
+                },
+                {
+                  "verse": "ipk-vrtti-g163",
+                  "work": "ipk-vrtti"
+                },
+                {
+                  "verse": "ipk-vrtti-g86",
+                  "work": "ipk-vrtti"
+                },
+                {
+                  "verse": "ipk-vrtti-g87",
+                  "work": "ipk-vrtti"
+                },
+                {
+                  "verse": "chunkA-svatyandya",
+                  "work": "ipvv"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "verb",
+          "label": "being",
+          "note": "shown for study; the subject ring already selects the verb",
+          "options": [
+            {
+              "deva": "अस्मि",
+              "iast": "asmi",
+              "id": "as-lat-Uttama-Eka",
+              "lessons": [
+                "l01-mamatma",
+                "l03-hrdi-vande",
+                "l04-nryti",
+                "l06-sambhu-sarana"
+              ],
+              "status": "DERIVED",
+              "verses": [
+                {
+                  "verse": "anu-p04",
+                  "work": "anubhavanivedana"
+                },
+                {
+                  "verse": "bhair-p01-v08",
+                  "work": "bhairavanukarana"
+                },
+                {
+                  "verse": "KsBhAS_8",
+                  "work": "bhairavanukaranastotra"
+                },
+                {
+                  "verse": "bh-p04",
+                  "work": "bhairavastava"
+                },
+                {
+                  "verse": "ipk-vrtti-g225",
+                  "work": "ipk-vrtti"
+                },
+                {
+                  "verse": "ipk-vrtti-g226",
+                  "work": "ipk-vrtti"
+                }
+              ]
+            },
+            {
+              "deva": "असि",
+              "iast": "asi",
+              "id": "as-lat-Madhyama-Eka",
+              "lessons": [
+                "l01-mamatma",
+                "l03-hrdi-vande",
+                "l04-nryti",
+                "l05-ma-kimcit"
+              ],
+              "status": "DERIVED",
+              "verses": [
+                {
+                  "verse": "ajad-p03-v24",
+                  "work": "ajadapramatrsiddhi"
+                },
+                {
+                  "verse": "anu-p05",
+                  "work": "anuttarastika"
+                },
+                {
+                  "verse": "bhair-p02-v16",
+                  "work": "bhairavanukarana"
+                },
+                {
+                  "verse": "bhair-p02-v17",
+                  "work": "bhairavanukarana"
+                },
+                {
+                  "verse": "bhair-p02-v18",
+                  "work": "bhairavanukarana"
+                },
+                {
+                  "verse": "bhair-p03-v21",
+                  "work": "bhairavanukarana"
+                }
+              ]
+            },
+            {
+              "deva": "अस्ति",
+              "iast": "asti",
+              "id": "as-lat-Prathama-Eka",
+              "lessons": [
+                "l01-mamatma",
+                "l03-hrdi-vande",
+                "l04-nryti",
+                "l10-tantrasara-prose"
+              ],
+              "status": "DERIVED",
+              "verses": [
+                {
+                  "verse": "ajad-p02-v14",
+                  "work": "ajadapramatrsiddhi"
+                },
+                {
+                  "verse": "bh-p03",
+                  "work": "bhairavastava"
+                },
+                {
+                  "verse": "ipk-vrtti-g103",
+                  "work": "ipk-vrtti"
+                },
+                {
+                  "verse": "ipk-vrtti-g159",
+                  "work": "ipk-vrtti"
+                },
+                {
+                  "verse": "ipk-vrtti-g292",
+                  "work": "ipk-vrtti"
+                },
+                {
+                  "verse": "ipk-vrtti-g336",
+                  "work": "ipk-vrtti"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "status": "machine-generated-unreviewed",
+      "title": "Machine B: the sentence constructor",
+      "warning": "Assembled from machine-derived forms; combinations are grammatical but not all are idiomatic. Scripture links mark attested forms, not attested sentences."
+    },
+    "trika": {
+      "format": "svatantrya.wheel-trika/1",
+      "status": "curated-teaching-unreviewed",
+      "title": "Trika wheels",
+      "warning": "Teaching labels. LINKED options quote the concept file; PENDING options are owner glosses awaiting concept files. Nothing here is doctrine.",
+      "wheels": [
+        {
+          "id": "trika-bondage",
+          "note": "Rotate the three: who binds whom with what. The Trika answer is always given in the texts, never invented here.",
+          "options": [
+            {
+              "concept": null,
+              "concept_ref": null,
+              "en": "the Lord",
+              "gloss": "consciousness itself, free and self-aware",
+              "id": "pati",
+              "label": "pati",
+              "source_status": "PENDING"
+            },
+            {
+              "concept": "pasanudbheda.json",
+              "concept_ref": {
+                "definition": "bursting of the noose: the title's claim; the bond bursts from inside, not cut from outside.",
+                "file": "pasanudbheda.json",
+                "term": "pāśānudbheda"
+              },
+              "en": "the bound soul",
+              "gloss": "consciousness contracted by limitation",
+              "id": "pasu",
+              "label": "paśu",
+              "source_status": "LINKED"
+            },
+            {
+              "concept": null,
+              "concept_ref": null,
+              "en": "the bond",
+              "gloss": "what binds: limitation, impurity, action-traces",
+              "id": "pasa",
+              "label": "pāśa",
+              "source_status": "PENDING"
+            }
+          ],
+          "title": "The bound and the binder"
+        },
+        {
+          "id": "trika-speech",
+          "note": "The classic Trika triad of the goddess in sound. Options without concept files are teaching labels, marked pending.",
+          "options": [
+            {
+              "concept": "para.json",
+              "concept_ref": {
+                "definition": "supreme",
+                "file": "para.json",
+                "term": "para"
+              },
+              "en": "supreme speech",
+              "gloss": "undivided word-awareness, will alone",
+              "id": "para",
+              "label": "parā",
+              "source_status": "LINKED"
+            },
+            {
+              "concept": null,
+              "concept_ref": null,
+              "en": "middle speech",
+              "gloss": "word and meaning half-emerged",
+              "id": "parapara",
+              "label": "parāparā",
+              "source_status": "PENDING"
+            },
+            {
+              "concept": null,
+              "concept_ref": null,
+              "en": "lower speech",
+              "gloss": "fully uttered, differentiated speech",
+              "id": "apara",
+              "label": "aparā",
+              "source_status": "PENDING"
+            }
+          ],
+          "title": "Three levels of speech"
+        },
+        {
+          "id": "trika-powers",
+          "note": "Every Trika act is all three at once; the wheel isolates them to see each clearly.",
+          "options": [
+            {
+              "concept": "jnanadvibhinna.json",
+              "concept_ref": {
+                "definition": "dually distinct from knowledge",
+                "file": "jnanadvibhinna.json",
+                "term": "jñānadvibhinna"
+              },
+              "en": "knowledge",
+              "gloss": "the power by which consciousness knows",
+              "id": "jnana",
+              "label": "jñāna",
+              "source_status": "LINKED"
+            },
+            {
+              "concept": null,
+              "concept_ref": null,
+              "en": "will",
+              "gloss": "the power by which consciousness moves toward manifestation",
+              "id": "iccha",
+              "label": "icchā",
+              "source_status": "PENDING"
+            },
+            {
+              "concept": "kriya.json",
+              "concept_ref": {
+                "definition": "bodily action",
+                "file": "kriya.json",
+                "term": "kriyā"
+              },
+              "en": "action",
+              "gloss": "the power by which consciousness makes",
+              "id": "kriya",
+              "label": "kriyā",
+              "source_status": "LINKED"
+            }
+          ],
+          "title": "Three powers of the Lord"
+        },
+        {
+          "id": "trika-knowing",
+          "note": "The epistemic wheel: every claim page in this library is implicitly a pramāṇa/prameya pair. No concept files yet; all three marked pending.",
+          "options": [
+            {
+              "concept": null,
+              "concept_ref": null,
+              "en": "the knower",
+              "gloss": "the subject pole of any cognition",
+              "id": "pramatr",
+              "label": "pramātṛ",
+              "source_status": "PENDING"
+            },
+            {
+              "concept": null,
+              "concept_ref": null,
+              "en": "the means",
+              "gloss": "perception, inference, testimony -- how it is known",
+              "id": "pramana",
+              "label": "pramāṇa",
+              "source_status": "PENDING"
+            },
+            {
+              "concept": null,
+              "concept_ref": null,
+              "en": "the known",
+              "gloss": "the object pole, what is known",
+              "id": "prameya",
+              "label": "prameya",
+              "source_status": "PENDING"
+            }
+          ],
+          "title": "Knowing: knower, means, known"
+        }
+      ]
+    },
+    "word": {
+      "bases": [
+        {
+          "en": "what? which?",
+          "iast": "kim",
+          "slp1": "kim"
+        },
+        {
+          "en": "that",
+          "iast": "tad",
+          "slp1": "tad"
+        },
+        {
+          "en": "which (relative)",
+          "iast": "yad",
+          "slp1": "yad"
+        },
+        {
+          "en": "all, every",
+          "iast": "sarva",
+          "slp1": "sarva"
+        },
+        {
+          "en": "other",
+          "iast": "anya",
+          "slp1": "anya"
+        }
+      ],
+      "endings": [
+        {
+          "attr": "tral",
+          "en": "where",
+          "function": "place",
+          "sutra": "5.3.10"
+        },
+        {
+          "attr": "dA",
+          "en": "when",
+          "function": "time",
+          "sutra": "5.3.15"
+        },
+        {
+          "attr": "tasil",
+          "en": "from where",
+          "function": "source",
+          "sutra": "5.3.7"
+        },
+        {
+          "attr": "TAl",
+          "en": "how",
+          "function": "manner",
+          "sutra": "5.3.23"
+        }
+      ],
+      "format": "svatantrya.wheel-word/1",
+      "rows": [
+        {
+          "base": "kim",
+          "base_en": "what? which?",
+          "base_iast": "kim",
+          "cells": {
+            "TAl": {
+              "derived": {
+                "deva": "कथा",
+                "iast": "kathā",
+                "id": "kim-thal",
+                "lessons": [
+                  "l01-mamatma",
+                  "l03-hrdi-vande",
+                  "l04-nryti",
+                  "l05-ma-kimcit"
+                ],
+                "status": "DERIVED",
+                "verses": [
+                  {
+                    "verse": "anu-p01",
+                    "work": "anuttarastika"
+                  },
+                  {
+                    "verse": "anu-p03",
+                    "work": "anuttarastika"
+                  },
+                  {
+                    "verse": "bh-p03",
+                    "work": "bhairavastava"
+                  },
+                  {
+                    "verse": "chunkB-eligibility-gita",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkC-svatma-maya-upanishad",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkI-k1.9-1.10-kriya-karyakarana",
+                    "work": "ipvv"
+                  }
+                ]
+              },
+              "special": "kim-katham"
+            },
+            "dA": {
+              "derived": {
+                "deva": "कदा",
+                "iast": "kadā",
+                "id": "kim-da",
+                "lessons": [
+                  "l06-sambhu-sarana"
+                ],
+                "status": "DERIVED",
+                "verses": [
+                  {
+                    "verse": "ghat-p01-v09",
+                    "work": "ghatakarpara"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g151",
+                    "work": "ipk-vrtti"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g164",
+                    "work": "ipk-vrtti"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g237",
+                    "work": "ipk-vrtti"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g53",
+                    "work": "ipk-vrtti"
+                  },
+                  {
+                    "verse": "chunkA-svatyandya",
+                    "work": "ipvv"
+                  }
+                ]
+              },
+              "special": null
+            },
+            "tasil": {
+              "derived": {
+                "deva": "कुतः",
+                "iast": "kutaḥ",
+                "id": "kim-tasil",
+                "lessons": [
+                  "l05-ma-kimcit",
+                  "l06-sambhu-sarana"
+                ],
+                "status": "DERIVED",
+                "verses": [
+                  {
+                    "verse": "anu-p06",
+                    "work": "anuttarastika"
+                  },
+                  {
+                    "verse": "chunkC-svatma-maya-upanishad",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkE-cit-acid-dvairasya",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkG-k1.2.7-1.8-citsvarupam",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkH-k1.8-caitanyamajada-pratibimba",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkI-k1.9-1.10-kriya-karyakarana",
+                    "work": "ipvv"
+                  }
+                ]
+              },
+              "special": null
+            },
+            "tral": {
+              "derived": {
+                "deva": "कुत्र",
+                "iast": "kutra",
+                "id": "kim-tral",
+                "lessons": [],
+                "status": "DERIVED",
+                "verses": [
+                  {
+                    "verse": "chunkA-svatyandya",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkD-memory-pramana",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkF-upoddhata-k1-7",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkG-k1.2.7-1.8-citsvarupam",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkH-k1.8-caitanyamajada-pratibimba",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkI-k1.9-1.10-kriya-karyakarana",
+                    "work": "ipvv"
+                  }
+                ]
+              },
+              "special": null
+            }
+          }
+        },
+        {
+          "base": "tad",
+          "base_en": "that",
+          "base_iast": "tad",
+          "cells": {
+            "TAl": {
+              "derived": {
+                "deva": "तथा",
+                "iast": "tathā",
+                "id": "tad-thal",
+                "lessons": [
+                  "l05-ma-kimcit",
+                  "l06-sambhu-sarana",
+                  "l10-tantrasara-prose"
+                ],
+                "status": "DERIVED",
+                "verses": [
+                  {
+                    "verse": "ajad-p01-v06",
+                    "work": "ajadapramatrsiddhi"
+                  },
+                  {
+                    "verse": "ajad-p02-v16",
+                    "work": "ajadapramatrsiddhi"
+                  },
+                  {
+                    "verse": "anu-p02",
+                    "work": "anuttarastika"
+                  },
+                  {
+                    "verse": "KsBhAS_3",
+                    "work": "bhairavanukaranastotra"
+                  },
+                  {
+                    "verse": "bodh-p04-v34",
+                    "work": "bodhavilasa"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g114",
+                    "work": "ipk-vrtti"
+                  }
+                ]
+              },
+              "special": null
+            },
+            "dA": {
+              "derived": {
+                "deva": "तदा",
+                "iast": "tadā",
+                "id": "tad-da",
+                "lessons": [
+                  "l01-mamatma",
+                  "l03-hrdi-vande",
+                  "l04-nryti",
+                  "l06-sambhu-sarana"
+                ],
+                "status": "DERIVED",
+                "verses": [
+                  {
+                    "verse": "ajad-p03-v21",
+                    "work": "ajadapramatrsiddhi"
+                  },
+                  {
+                    "verse": "bh-p08",
+                    "work": "bhairavastava"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g119",
+                    "work": "ipk-vrtti"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g157",
+                    "work": "ipk-vrtti"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g168",
+                    "work": "ipk-vrtti"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g18",
+                    "work": "ipk-vrtti"
+                  }
+                ]
+              },
+              "special": null
+            },
+            "tasil": {
+              "derived": {
+                "deva": "ततः",
+                "iast": "tataḥ",
+                "id": "tad-tasil",
+                "lessons": [
+                  "l06-sambhu-sarana",
+                  "l10-tantrasara-prose"
+                ],
+                "status": "DERIVED",
+                "verses": [
+                  {
+                    "verse": "ajad-p01-v04",
+                    "work": "ajadapramatrsiddhi"
+                  },
+                  {
+                    "verse": "bhair-p05-v45",
+                    "work": "bhairavanukarana"
+                  },
+                  {
+                    "verse": "KsBhAS_45",
+                    "work": "bhairavanukaranastotra"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g102",
+                    "work": "ipk-vrtti"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g159",
+                    "work": "ipk-vrtti"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g257",
+                    "work": "ipk-vrtti"
+                  }
+                ]
+              },
+              "special": null
+            },
+            "tral": {
+              "derived": {
+                "deva": "तत्र",
+                "iast": "tatra",
+                "id": "tad-tral",
+                "lessons": [
+                  "l06-sambhu-sarana",
+                  "l10-tantrasara-prose"
+                ],
+                "status": "DERIVED",
+                "verses": [
+                  {
+                    "verse": "bhair-p05-v47",
+                    "work": "bhairavanukarana"
+                  },
+                  {
+                    "verse": "KsBhAS_47",
+                    "work": "bhairavanukaranastotra"
+                  },
+                  {
+                    "verse": "bodh-p01-v05",
+                    "work": "bodhavilasa"
+                  },
+                  {
+                    "verse": "bodh-p04-v35",
+                    "work": "bodhavilasa"
+                  },
+                  {
+                    "verse": "bodh-p04-v39",
+                    "work": "bodhavilasa"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g10",
+                    "work": "ipk-vrtti"
+                  }
+                ]
+              },
+              "special": null
+            }
+          }
+        },
+        {
+          "base": "yad",
+          "base_en": "which (relative)",
+          "base_iast": "yad",
+          "cells": {
+            "TAl": {
+              "derived": {
+                "deva": "यथा",
+                "iast": "yathā",
+                "id": "yad-thal",
+                "lessons": [
+                  "l05-ma-kimcit",
+                  "l06-sambhu-sarana"
+                ],
+                "status": "DERIVED",
+                "verses": [
+                  {
+                    "verse": "ajad-p01-v01",
+                    "work": "ajadapramatrsiddhi"
+                  },
+                  {
+                    "verse": "anu-p01",
+                    "work": "anuttarastika"
+                  },
+                  {
+                    "verse": "anu-p02",
+                    "work": "anuttarastika"
+                  },
+                  {
+                    "verse": "bhair-p01-v03",
+                    "work": "bhairavanukarana"
+                  },
+                  {
+                    "verse": "KsBhAS_3",
+                    "work": "bhairavanukaranastotra"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g100",
+                    "work": "ipk-vrtti"
+                  }
+                ]
+              },
+              "special": null
+            },
+            "dA": {
+              "derived": {
+                "deva": "यदा",
+                "iast": "yadā",
+                "id": "yad-da",
+                "lessons": [
+                  "l06-sambhu-sarana"
+                ],
+                "status": "DERIVED",
+                "verses": [
+                  {
+                    "verse": "anu-p01",
+                    "work": "anubhavanivedana"
+                  },
+                  {
+                    "verse": "bhair-p04-v40",
+                    "work": "bhairavanukarana"
+                  },
+                  {
+                    "verse": "KsBhAS_40",
+                    "work": "bhairavanukaranastotra"
+                  },
+                  {
+                    "verse": "ghat-p01-v06",
+                    "work": "ghatakarpara"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g225",
+                    "work": "ipk-vrtti"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g292",
+                    "work": "ipk-vrtti"
+                  }
+                ]
+              },
+              "special": null
+            },
+            "tasil": {
+              "derived": {
+                "deva": "यतः",
+                "iast": "yataḥ",
+                "id": "yad-tasil",
+                "lessons": [
+                  "l05-ma-kimcit",
+                  "l06-sambhu-sarana"
+                ],
+                "status": "DERIVED",
+                "verses": [
+                  {
+                    "verse": "anu-p04",
+                    "work": "anubhavanivedana"
+                  },
+                  {
+                    "verse": "anu-p07",
+                    "work": "anuttarastika"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g183",
+                    "work": "ipk-vrtti"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g39",
+                    "work": "ipk-vrtti"
+                  },
+                  {
+                    "verse": "chunkA-svatyandya",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkB-eligibility-gita",
+                    "work": "ipvv"
+                  }
+                ]
+              },
+              "special": null
+            },
+            "tral": {
+              "derived": {
+                "deva": "यत्र",
+                "iast": "yatra",
+                "id": "yad-tral",
+                "lessons": [
+                  "l06-sambhu-sarana"
+                ],
+                "status": "DERIVED",
+                "verses": [
+                  {
+                    "verse": "anu-p04",
+                    "work": "anubhavanivedana"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g163",
+                    "work": "ipk-vrtti"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g19",
+                    "work": "ipk-vrtti"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g237",
+                    "work": "ipk-vrtti"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g393",
+                    "work": "ipk-vrtti"
+                  },
+                  {
+                    "verse": "chunkA-svatyandya",
+                    "work": "ipvv"
+                  }
+                ]
+              },
+              "special": null
+            }
+          }
+        },
+        {
+          "base": "sarva",
+          "base_en": "all, every",
+          "base_iast": "sarva",
+          "cells": {
+            "TAl": {
+              "derived": {
+                "deva": "सर्वथा",
+                "iast": "sarvathā",
+                "id": "sarva-thal",
+                "lessons": [
+                  "l10-tantrasara-prose"
+                ],
+                "status": "DERIVED",
+                "verses": [
+                  {
+                    "verse": "ipk-vrtti-g154",
+                    "work": "ipk-vrtti"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g388",
+                    "work": "ipk-vrtti"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g389",
+                    "work": "ipk-vrtti"
+                  },
+                  {
+                    "verse": "chunkB-eligibility-gita",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkC-svatma-maya-upanishad",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkD-memory-pramana",
+                    "work": "ipvv"
+                  }
+                ]
+              },
+              "special": null
+            },
+            "dA": {
+              "derived": {
+                "deva": "सर्वदा",
+                "iast": "sarvadā",
+                "id": "sarva-da",
+                "lessons": [
+                  "l05-ma-kimcit",
+                  "l06-sambhu-sarana"
+                ],
+                "status": "DERIVED",
+                "verses": [
+                  {
+                    "verse": "anu-p06",
+                    "work": "anuttarastika"
+                  },
+                  {
+                    "verse": "bhair-p01-v10",
+                    "work": "bhairavanukarana"
+                  },
+                  {
+                    "verse": "bhair-p02-v20",
+                    "work": "bhairavanukarana"
+                  },
+                  {
+                    "verse": "bhair-p04-v31",
+                    "work": "bhairavanukarana"
+                  },
+                  {
+                    "verse": "bhair-p04-v37",
+                    "work": "bhairavanukarana"
+                  },
+                  {
+                    "verse": "bhair-p05-v48",
+                    "work": "bhairavanukarana"
+                  }
+                ]
+              },
+              "special": null
+            },
+            "tasil": {
+              "derived": {
+                "deva": "सर्वतः",
+                "iast": "sarvataḥ",
+                "id": "sarva-tasil",
+                "lessons": [],
+                "status": "DERIVED",
+                "verses": [
+                  {
+                    "verse": "chunkB-eligibility-gita",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkG-k1.2.7-1.8-citsvarupam",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkH-k1.8-caitanyamajada-pratibimba",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkV2-A-caturtho-vimarsa-aham",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkV3-B-kriya-dvitiyo-k1-7",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkV3-J-agama-prathamo-k1-7",
+                    "work": "ipvv"
+                  }
+                ]
+              },
+              "special": null
+            },
+            "tral": {
+              "derived": {
+                "deva": "सर्वत्र",
+                "iast": "sarvatra",
+                "id": "sarva-tral",
+                "lessons": [],
+                "status": "DERIVED",
+                "verses": [
+                  {
+                    "verse": "bhair-p03-v30",
+                    "work": "bhairavanukarana"
+                  },
+                  {
+                    "verse": "KsBhAS_30",
+                    "work": "bhairavanukaranastotra"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g65",
+                    "work": "ipk-vrtti"
+                  },
+                  {
+                    "verse": "chunkA-svatyandya",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkB-eligibility-gita",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkC-svatma-maya-upanishad",
+                    "work": "ipvv"
+                  }
+                ]
+              },
+              "special": null
+            }
+          }
+        },
+        {
+          "base": "anya",
+          "base_en": "other",
+          "base_iast": "anya",
+          "cells": {
+            "TAl": {
+              "derived": {
+                "deva": "अन्यथा",
+                "iast": "anyathā",
+                "id": "anya-thal",
+                "lessons": [],
+                "status": "DERIVED",
+                "verses": [
+                  {
+                    "verse": "ipk-vrtti-g103",
+                    "work": "ipk-vrtti"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g138",
+                    "work": "ipk-vrtti"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g163",
+                    "work": "ipk-vrtti"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g86",
+                    "work": "ipk-vrtti"
+                  },
+                  {
+                    "verse": "ipk-vrtti-g87",
+                    "work": "ipk-vrtti"
+                  },
+                  {
+                    "verse": "chunkA-svatyandya",
+                    "work": "ipvv"
+                  }
+                ]
+              },
+              "special": null
+            },
+            "dA": {
+              "derived": {
+                "deva": "अन्यदा",
+                "iast": "anyadā",
+                "id": "anya-da",
+                "lessons": [],
+                "status": "DERIVED",
+                "verses": [
+                  {
+                    "verse": "ipk-vrtti-g53",
+                    "work": "ipk-vrtti"
+                  },
+                  {
+                    "verse": "chunkG-k1.2.7-1.8-citsvarupam",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkH-k1.8-caitanyamajada-pratibimba",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkJ-k1.11-kartapi-kalpita",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkK-purvapaksa-siddhanta",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkV2-B-sahajavimarsa-prakasavimarsa",
+                    "work": "ipvv"
+                  }
+                ]
+              },
+              "special": null
+            },
+            "tasil": {
+              "derived": {
+                "deva": "अन्यतः",
+                "iast": "anyataḥ",
+                "id": "anya-tasil",
+                "lessons": [
+                  "l05-ma-kimcit"
+                ],
+                "status": "DERIVED",
+                "verses": [
+                  {
+                    "verse": "anu-p07",
+                    "work": "anuttarastika"
+                  },
+                  {
+                    "verse": "chunkK-purvapaksa-siddhanta",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkV2-F-pancamo-vimarsa-k6",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkV2-G-pancamo-vimarsa-k7-10",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkV2-M-sastho-vimarsa-k6-7",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkV2-S-astamo-close-jnanadhikara",
+                    "work": "ipvv"
+                  }
+                ]
+              },
+              "special": null
+            },
+            "tral": {
+              "derived": {
+                "deva": "अन्यत्र",
+                "iast": "anyatra",
+                "id": "anya-tral",
+                "lessons": [
+                  "l06-sambhu-sarana"
+                ],
+                "status": "DERIVED",
+                "verses": [
+                  {
+                    "verse": "chunkC-svatma-maya-upanishad",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkE-cit-acid-dvairasya",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkF-upoddhata-k1-7",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkG-k1.2.7-1.8-citsvarupam",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkH-k1.8-caitanyamajada-pratibimba",
+                    "work": "ipvv"
+                  },
+                  {
+                    "verse": "chunkI-k1.9-1.10-kriya-karyakarana",
+                    "work": "ipvv"
+                  }
+                ]
+              },
+              "special": null
+            }
+          }
+        }
+      ],
+      "specials": {
+        "kim-katham": {
+          "deva": "",
+          "iast": "katham",
+          "id": "kim-katham",
+          "lessons": [
+            "l06-sambhu-sarana"
+          ],
+          "status": "CURATED",
+          "verses": [
+            {
+              "verse": "ajad-p02-v10",
+              "work": "ajadapramatrsiddhi"
+            },
+            {
+              "verse": "ipk-vrtti-g103",
+              "work": "ipk-vrtti"
+            },
+            {
+              "verse": "ipk-vrtti-g25",
+              "work": "ipk-vrtti"
+            },
+            {
+              "verse": "ipk-vrtti-g26",
+              "work": "ipk-vrtti"
+            },
+            {
+              "verse": "ipk-vrtti-g34",
+              "work": "ipk-vrtti"
+            },
+            {
+              "verse": "ipk-vrtti-g41",
+              "work": "ipk-vrtti"
+            }
+          ]
+        }
+      },
+      "status": "machine-generated-unreviewed",
+      "title": "Machine A: the word constructor",
+      "warning": "Surfaces are Vidyut machine derivations, unreviewed. kim+thal gives katha; katham is the 5.3.24 special case."
+    }
+  }
+}
