@@ -66,7 +66,11 @@ Remaining (my queue, executes top-down):
 
 ## YOUR WORKSTREAM (strategy + spec + high-level tests)
 
-Deliverables, as documents (markdown in this repo or a branch on this PR):
+The current five deliverables and independent review are collected in
+[`EXTERNAL-STRATEGY.md`](EXTERNAL-STRATEGY.md). It is written against the
+current checked-in heads; re-check those heads before implementation.
+
+Deliverables, as documents (markdown in this repo or a follow-up PR branch):
 
 1. **INTEGRATION SPEC** — the contract between components: gate session
    lifecycle (start/submit/expiry/replay), certificate schema vs Lean slice,
@@ -92,9 +96,9 @@ never merged; no auto-sign/publish/render; BLOCKED never leaks; closed-world
 forms only; restricted-licence data never bundled; chant datasets on Kaggle
 are read-only; you do not deploy or merge production code.
 
-## Definition of done for THIS PR
+## Definition of done for the intake and follow-up work
 
-- [x] PROGRESS.md + this handoff + full TODO list in-repo
-- [x] Wave 1 (gates) shipped, CI green, pushed
+- [x] Intake PR #13: PROGRESS.md + this handoff + full TODO list in-repo
+- [ ] W1 server routes and migration verified on IPVV main and staging
 - [ ] External agent's five deliverables reviewed and merged
 - [ ] I execute queue items 3–9 against the merged spec

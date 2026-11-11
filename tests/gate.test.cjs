@@ -66,19 +66,35 @@ test('18/20 is achievable and 17/20 is not a pass', () => {
   assert.equal(decide(20), true);
 });
 
-test('worker holds the key server-side; served items carry no answers', () => {
-  const src = fs.readFileSync(path.join(ROOT, '../ipvv/worker/src/index.js'), 'utf8');
+test('reader follows the server gate request and response contract', () => {
+  const src = fs.readFileSync(path.join(ROOT, 'journey.js'), 'utf8');
+  assert.ok(src.includes("'/api/wheel/gate/start'"), 'starts a server gate');
+  assert.ok(src.includes("'/api/wheel/gate/submit'"), 'submits to a server gate');
+  assert.ok(src.includes("'/api/wheel/progress'"), 'refreshes server progress');
+  assert.ok(src.includes('answers:s.answers'), 'submits the selected answers');
+  assert.ok(src.includes('server verdict:'), 'shows the returned server verdict');
+  assert.ok(src.includes('practising locally (unverified)'),
+    'local practice is explicitly unverified');
+});
+
+test('pinned IPVV source contains the gate routes when integration is requested', (t) => {
+  const ipvvRoot = process.env.IPVV_ROOT;
+  if (!ipvvRoot) {
+    t.skip('set IPVV_ROOT to a pinned checkout; IPVV worker tests are still required before W1 is complete');
+    return;
+  }
+  const src = fs.readFileSync(path.join(ipvvRoot, 'worker/src/index.js'), 'utf8');
   const start = src.indexOf('/api/wheel/gate/start');
   const end = src.indexOf('/api/wheel/gate/submit');
   assert.ok(start !== -1 && end !== -1 && start < end, 'gate routes present');
   const block = src.slice(start, end);
-  // served items are built field-by-field with no answer anywhere near
+  // served items are built field-by-field with no answer anywhere near.
   const served = block.slice(block.indexOf('const items = gateShuffle'));
   const servedDecl = served.slice(0, served.indexOf('));') + 1);
   assert.ok(servedDecl.includes('item_id'), 'serves item_id');
   assert.ok(servedDecl.includes('prompt'), 'serves prompt');
   assert.ok(servedDecl.includes('options'), 'serves options');
   assert.ok(!servedDecl.includes('answer'), 'no answer field in served items');
-  // the key is stored in the session row, compared server-side on submit
+  // The key is stored in the session row, compared server-side on submit.
   assert.ok(src.includes('key_json'), 'worker stores a server-side key');
 });
