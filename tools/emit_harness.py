@@ -53,6 +53,8 @@ def main() -> int:
     links_doc = json.loads((GRAMMAR / 'wheel-links.json').read_text(encoding='utf-8'))
     links = links_doc.get('links', {})
     cc = json.loads((GRAMMAR / 'crosscheck.json').read_text(encoding='utf-8'))
+    certs_path = GRAMMAR / 'certificates.json'
+    certs_doc = json.loads(certs_path.read_text(encoding='utf-8')) if certs_path.exists() else None
 
     by_id = {e['id']: e for e in pack.get('entries', [])}
 
@@ -118,7 +120,18 @@ def main() -> int:
                 '2. crosscheck flags: agree (machine-confirmed), disagree (teach curated, name the special), gap (machine cannot derive — say so).',
                 '3. Need the full derivation? data/grammar/wheel-pack.json entry -> prakriya[].sutra + sutra_iast.',
                 '4. Need it in real text? entry.verses[] -> reader ?work=<work> (+ verse anchor); entry.lessons[] -> lesson ids.',
+                '5. Want the pinned trace? /a/<form>/ or data/grammar/certificates.json -> cert_sha (tier-2 recompute; Lean pending W2b).',
             ],
+            'certificates': ({
+                'path': f'{ORIGIN}/data/grammar/certificates.json',
+                'count': certs_doc.get('count', 0),
+                'lean_status': (
+                    'checked' if {e.get('lean_status') for e in certs_doc.get('entries', [])} == {'checked'}
+                    else 'pending' if {e.get('lean_status') for e in certs_doc.get('entries', [])} == {'pending'}
+                    else 'mixed'),
+                'note': certs_doc.get('lean_note', ''),
+            } if certs_doc else {'path': f'{ORIGIN}/data/grammar/certificates.json',
+                                  'status': 'not generated yet'}),
             'pack_format': pack.get('format'),
             'generator': pack.get('generator', {}).get('name', '') + ' ' + str(pack.get('generator', {}).get('version', '')),
             'pack_index': pack_index,

@@ -67,6 +67,7 @@ python3 tools/emit_formal.py
 python3 tools/emit_claim_pages.py --dry-run   # counts only
 python3 tools/emit_claim_pages.py             # 909 claim + md + 87 work + chain
 python3 tools/emit_grammar.py             # Vidyut pack + scripture links (needs vidyut 0.4.0 + kosha)
+python3 tools/emit_certificates.py        # trace-pinning certificates (needs wheel-pack.json)
 python3 tools/check_curated.py            # curated-vs-machine crosscheck (needs node + vidyut)
 python3 tools/emit_wheels.py              # word/sentence/trika/karaka datasets + wheels.html (needs crosscheck.json)
 python3 tools/emit_gate_pools.py          # server-scored gate item pools (needs wheels datasets)

@@ -150,6 +150,12 @@
     }
   ],
   "verify": {
+    "certificates": {
+      "count": 44,
+      "lean_status": "checked",
+      "note": "Lean-checked: structural well-formedness over the declared rule inventory, receipt-bound (file+pack+version+command). structural well-formedness over the declared rule inventory (every cited sutra code in inventory, every step carries a result, no empty trace/surface). NOT a derivation from the Aṣṭādhyāyī; a rule inventory is not a proof of rule applicability.",
+      "path": "https://svatantrya.net/data/grammar/certificates.json"
+    },
     "crosscheck_summary": {
       "agree": 20,
       "disagree": 1,
@@ -169,7 +175,8 @@
       "1. pack_index below: exact deva or iast match?",
       "2. crosscheck flags: agree (machine-confirmed), disagree (teach curated, name the special), gap (machine cannot derive — say so).",
       "3. Need the full derivation? data/grammar/wheel-pack.json entry -> prakriya[].sutra + sutra_iast.",
-      "4. Need it in real text? entry.verses[] -> reader ?work=<work> (+ verse anchor); entry.lessons[] -> lesson ids."
+      "4. Need it in real text? entry.verses[] -> reader ?work=<work> (+ verse anchor); entry.lessons[] -> lesson ids.",
+      "5. Want the pinned trace? /a/<form>/ or data/grammar/certificates.json -> cert_sha (tier-2 recompute; Lean pending W2b)."
     ],
     "gaps": [
       {
