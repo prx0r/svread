@@ -24,17 +24,29 @@
     "bookfactory": {
       "path": "/root/bookfactory/bf_mcp/server.py",
       "cwd": "/root/bookfactory",
-      "role": "book production pipeline"
+      "role": "book production pipeline",
+      "env": {
+        "BOOKFACTORY_ROOT": "/root/bookfactory",
+        "BOOKFACTORY_TRANSLATIONS": "/root/translation-work"
+      }
     },
     "videofactory": {
       "path": "/root/videofactory/vf_mcp_server.py",
       "cwd": "/root/videofactory",
-      "role": "video production pipeline"
+      "role": "video production pipeline",
+      "env": {
+        "VIDEOFACTORY_ROOT": "/root/videofactory"
+      }
     },
     "aoc": {
       "path": "/root/aoc/mcp_server.py",
       "cwd": "/root/aoc",
       "role": "AI Onboard carousel factory (gated, receipted)"
+    },
+    "workspace": {
+      "path": "/root/svread/mcp/gateway/workspace_server.py",
+      "cwd": "/root/svread",
+      "role": "read/edit the estate (scoped): ws_read, ws_write, ws_patch, ws_grep, ws_git"
     }
   },
   "cli_only": {

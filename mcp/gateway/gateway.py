@@ -25,27 +25,34 @@ CONF = json.loads((HERE / 'servers.json').read_text(encoding='utf-8'))
 SERVERS: dict = CONF['servers']
 CACHE_TTL = 60.0
 
-from mcp import ClientSession, StdioServerParameters
-from mcp.client.stdio import stdio_client
+from fastmcp import Client as FClient
+from fastmcp.client.transports import StdioTransport
 from mcp.server.lowlevel import Server
 import mcp.types as types
 
 
-def params(cfg: dict) -> StdioServerParameters:
+def transport(cfg: dict) -> StdioTransport:
     env = dict(os.environ)
+    env.update({k: str(v) for k, v in (cfg.get('env') or {}).items()})
     env['PYTHONPATH'] = str(cfg['cwd'])
     env.setdefault('PYTHONUNBUFFERED', '1')
-    return StdioServerParameters(command=sys.executable, args=[cfg['path']],
-                                 cwd=cfg['cwd'], env=env)
+    return StdioTransport(command=sys.executable, args=[cfg['path']],
+                          cwd=cfg['cwd'], env=env)
+
+
+def _as_tool(t) -> types.Tool:
+    if isinstance(t, types.Tool):
+        return t
+    schema = getattr(t, 'inputSchema', None) or getattr(t, 'input_schema', None) or {'type': 'object'}
+    return types.Tool(name=t.name, description=getattr(t, 'description', None) or '',
+                      inputSchema=schema)
 
 
 async def probe(name: str):
     """Return (tools, error) for one child, opening a fresh stdio session."""
     try:
-        async with stdio_client(params(SERVERS[name])) as (read, write):
-            async with ClientSession(read, write) as sess:
-                await sess.initialize()
-                return (await sess.list_tools()).tools, None
+        async with FClient(transport(SERVERS[name])) as c:
+            return [_as_tool(t) for t in await c.list_tools()], None
     except Exception as exc:
         return [], f'{type(exc).__name__}: {exc}'[:300]
 
@@ -70,7 +77,11 @@ async def on_list_tools(_ctx, _params):
                     if nm in seen:
                         continue
                 seen.add(nm)
-                tools.append(t.model_copy(update={'name': nm}))
+                # children sometimes declare an output schema but return only
+                # text content; the client then refuses the result. Rebuild the
+                # Tool without outputSchema so every tool stays callable.
+                tools.append(types.Tool(name=nm, description=t.description or '',
+                                        inputSchema=t.inputSchema))
         if problems:
             tools.append(types.Tool(
                 name='gateway__problems',
@@ -93,19 +104,15 @@ async def on_call_tool(_ctx, p):
                                        text=f'unknown tool {p.name!r}; names are <server>__<tool>')],
             is_error=True)
     try:
-        async with stdio_client(params(SERVERS[name])) as (read, write):
-            async with ClientSession(read, write) as sess:
-                await sess.initialize()
-                target = tool
-                if SERVERS[name].get('namespace_tools') is False:
-                    # the child keeps its own <server>__<tool> names; use the
-                    # full advertised name when it exists there
-                    names = {t.name for t in (await sess.list_tools()).tools}
-                    if p.name in names:
-                        target = p.name
-                res = await sess.call_tool(target, p.arguments or {})
-                return types.CallToolResult(content=res.content,
-                                            is_error=bool(getattr(res, 'is_error', False)))
+        async with FClient(transport(SERVERS[name])) as c:
+            target = tool
+            if SERVERS[name].get('namespace_tools') is False:
+                names = {t.name for t in await c.list_tools()}
+                if p.name in names:
+                    target = p.name
+            res = await c.call_tool(target, p.arguments or {})
+            return types.CallToolResult(content=res.content,
+                                        is_error=bool(getattr(res, 'is_error', False)))
     except Exception as exc:
         return types.CallToolResult(
             content=[types.TextContent(type='text', text=f'{type(exc).__name__}: {exc}'[:500])],

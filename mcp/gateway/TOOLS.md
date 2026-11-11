@@ -1,8 +1,3 @@
-# MCP tool catalogue (generated)
-
-Generated from a live probe of the gateway. Regenerate with
-`python3 gateway.py --list > TOOLS.md` after editing servers.json.
-
 scholar__list_works                                      List available bundled Scholar projections.
 scholar__passage_evidence                                Read hash-checked Sanskrit and editorial layers for a passag
 scholar__list_versions                                   List stored versions for an exact passage and layer.
@@ -47,15 +42,15 @@ openpatala__search                                       Search for Sanskrit wor
 openpatala__get_frontier                                 List works needing translations or sources.
 openpatala__get_health                                   Check system health.
 federation__openpatala__resolve                          Resolve a work to ledger + openpatala identity block (UNRESO
-federation__openpatala__coverage                         Source-map coverage: ledger works bridged vs todo (witnesses
-federation__federation__guide                            How an agent navigates openpatala -> translation -> scholar 
-federation__formal__trace                                Full Sanskrit-to-essay trace bundle for one chunk (bytes, la
-federation__formal__bridge                               Resolve chunk:<locator> to work/edition/etext rows; witness 
-federation__formal__evidence                             EVIDENCE rows for one theorem, or registry counts. Refs are 
-federation__formal__table                                TABLE readings: theorem beside its plain-English scope note 
-federation__formal__gaps                                 Treeka formal column: covered vs total chunks + the gap list
-federation__formal__runs                                 Runs ledger: harness verdicts + receipt count (never reruns 
-federation__formal__axioms                               Axiom audit state (static half; kernel verdict needs pinned 
+openpatala__coverage                                     Source-map coverage: ledger works bridged vs todo (witnesses
+federation__guide                                        How an agent navigates openpatala -> translation -> scholar 
+formal__trace                                            Full Sanskrit-to-essay trace bundle for one chunk (bytes, la
+formal__bridge                                           Resolve chunk:<locator> to work/edition/etext rows; witness 
+formal__evidence                                         EVIDENCE rows for one theorem, or registry counts. Refs are 
+formal__table                                            TABLE readings: theorem beside its plain-English scope note 
+formal__gaps                                             Treeka formal column: covered vs total chunks + the gap list
+formal__runs                                             Runs ledger: harness verdicts + receipt count (never reruns 
+formal__axioms                                           Axiom audit state (static half; kernel verdict needs pinned 
 federation__scholar__list_works                          [scholar] List available bundled Scholar projections.
 federation__scholar__passage_evidence                    [scholar] Read hash-checked Sanskrit and editorial layers fo
 federation__scholar__list_versions                       [scholar] List stored versions for an exact passage and laye
@@ -94,89 +89,67 @@ federation__scholar__wheel_level                         [scholar] Get one tutor
 federation__scholar__wheel_certificate                   [scholar] Derivation certificate for one form: stored cert +
 federation__scholar__resolve_ref                         [scholar] Resolve any shared-language ID (work/chunk/tension
 federation__scholar__ref_links                           [scholar] Every ID connected to the given one — tension is t
-federation__bookfactory__factory_overview                [bookfactory] Start here. Returns bookfactory goal, lanes, m
-federation__bookfactory__list_lanes                      [bookfactory] List every lane with registry stage, project s
-federation__bookfactory__check_lane                      [bookfactory] Run the only gate (check.py). Returns canonica
-federation__bookfactory__next_actions                    [bookfactory] Agent worklist: blocking problems, due-later p
-federation__bookfactory__read_thesis                     [bookfactory] Read a thesis: book lane thesis (book=) or a p
-federation__bookfactory__list_specs                      [bookfactory] List specs/, templates/, and styles/ available
-federation__bookfactory__read_template                   [bookfactory] Read a genre template JSON (entry_anatomy, lay
-federation__bookfactory__read_entries                    [bookfactory] Read prints/<book>/entries.json (all entries o
-federation__bookfactory__read_book                       [bookfactory] Read prints/<book>/book.json (meta, sections, 
-federation__bookfactory__read_decisions                  [bookfactory] Read projects/<book>/decisions.jsonl — every c
-federation__bookfactory__read_docs                       [bookfactory] Read a root markdown doc: FACTORY-SPEC | BOOKS
-federation__bookfactory__read_file                       [bookfactory] Read any file under bookfactory (relative path
-federation__bookfactory__list_dir                        [bookfactory] List a directory under bookfactory (relative p
-federation__bookfactory__inspect_verse                   [bookfactory] factory inspect: exact translation-layer verse
-federation__bookfactory__read_rule_boxes                 [bookfactory] Read foundational rule boxes for a lesson-book
-federation__bookfactory__decide                          [bookfactory] Append a justified construction decision. acti
-federation__bookfactory__new_book                        [bookfactory] Scaffold a new lane. Prefer thesis= (path or s
-federation__bookfactory__stage                           [bookfactory] Advance a lane stage (verified; failing checks
-federation__bookfactory__audio_plan                      [bookfactory] Write prints/<book>/audio-plan.json (NO API ca
-federation__bookfactory__epub                            [bookfactory] Build+validate reflowable EPUB3 for a book (af
-federation__bookfactory__package                         [bookfactory] Assemble customer package (EPUB + PDF + audio 
-federation__bookfactory__quote_preview                   [bookfactory] DRAFT quote postcard/social previews (watermar
-federation__translation__status                          [translation] SMALL+LARGE entry point: work state — REGISTRY
-federation__translation__validate                        [translation] Run the deterministic gates: validate_song (sc
-federation__translation__lore                            [translation] Return the cached 1-page transmission brief fo
-federation__translation__swarm_status                    [translation] Queue at a glance: pending/claimed/done/failed
-federation__translation__swarm_seed                      [translation] Seed swarmable triple tasks (gloss+CM+argmap+L
-federation__translation__swarm_review                    [translation] Assessor review packet for one DONE task: draf
-federation__translation__swarm_decide                    [translation] Approve or bounce a reviewed task. Bounce note
-federation__translation__promote                         [translation] Assessor promotion: assemble runs -> working f
-federation__translation__skill                           [translation] Return the governing SKILL.md for a lane (the 
-federation__translation__concepts                        [translation] Grounds for hand-glossing: concept-database en
-federation__translation__gates                           [translation] The one gate (SKILL largetext §10): manifest f
-federation__translation__recon                           [translation] Recon report for a work (read-only): source sp
-federation__translation__assemble                        [translation] Assessor act: assemble beam runs -> working-T1
-federation__translation__supervise                       [translation] Report the autonomous loop: continue.sh (regis
-federation__translation__swarm_workers                   [translation] Beam-worker throttle (don't pound the free tie
-federation__translation__review_sweep                    [translation] Run the assessor daemon sweep: mechanical verd
-federation__video__vf_projects                           [video] Discover render lanes (projects/*/project.json): nam
-federation__video__vf_status                             [video] Factory board: render-gate mode, milestones, locks, 
-federation__video__vf_units                              [video] Per-unit stage table for a lane (tantrasara 22, shiv
-federation__video__vf_unit                               [video] Deep unit state: storyboard sha, approval, issues, f
-federation__video__vf_issues                             [video] Full issues file for a unit (kinds route to skills; 
-federation__video__vf_gate                               [video] Evaluate the ONLY render gate: storyboard green + ow
-federation__video__vf_logs                               [video] Tail a factory log (batch, overnight, batch_ch14_ret
-federation__video__vf_finals                             [video] Shipped finals for a lane: sizes, verify/ship verdic
-federation__video__vf_skills                             [video] Issue-kind to skill lookup (core/skills/REGISTRY.jso
-federation__video__vf_skill                              [video] Full fix prescription for an issue kind (the linked 
-federation__video__vf_triage                             [video] Action list for a unit: gate verdict, per-issue skil
-federation__video__vf_skill_propose                      [video] Stage a new or updated issue skill (writes core/skil
-federation__video__vf_check                              [video] Run the canonical factory gate (check.py). Exit 0 = 
-federation__video__vf_tests                              [video] Run the factory test suite (quick subset default; fu
-federation__video__vf_launch                             [video] Render one unit detached (batch --ship). Enforces th
-federation__video__vf_queue                              [video] Queue a gated render into the next video-path gap (w
-federation__video__vf_publish                            [video] Publish a file to R2 (copyto, mount-flake tolerant) 
-federation__video__vf_pack                               [video] Zip shipped finals for comma unit ids (stored, no re
-federation__openpatala_mcp__resolve                      [openpatala_mcp] Resolve a Sanskrit work name to a canonical
-federation__openpatala_mcp__get_bundle                   [openpatala_mcp] Get full dossier for a work (assertions, ex
-federation__openpatala_mcp__search                       [openpatala_mcp] Search for Sanskrit works by title.
-federation__openpatala_mcp__get_frontier                 [openpatala_mcp] List works needing translations or sources.
-federation__openpatala_mcp__get_health                   [openpatala_mcp] Check system health.
-bookfactory__factory_overview                            Start here. Returns bookfactory goal, lanes, milestones, doc
-bookfactory__list_lanes                                  List every lane with registry stage, project stage, thesis t
-bookfactory__check_lane                                  Run the only gate (check.py). Returns canonical flag + full 
-bookfactory__next_actions                                Agent worklist: blocking problems, due-later problems, open 
-bookfactory__read_thesis                                 Read a thesis: book lane thesis (book=) or a pre-lane spec (
-bookfactory__list_specs                                  List specs/, templates/, and styles/ available to instantiat
-bookfactory__read_template                               Read a genre template JSON (entry_anatomy, layout, provenanc
-bookfactory__read_entries                                Read prints/<book>/entries.json (all entries or one by entry
-bookfactory__read_book                                   Read prints/<book>/book.json (meta, sections, trim, target_p
-bookfactory__read_decisions                              Read projects/<book>/decisions.jsonl — every construction ch
-bookfactory__read_docs                                   Read a root markdown doc: FACTORY-SPEC | BOOKS | PIPELINE | 
-bookfactory__read_file                                   Read any file under bookfactory (relative path, no ..). Set 
-bookfactory__list_dir                                    List a directory under bookfactory (relative path).
-bookfactory__inspect_verse                               factory inspect: exact translation-layer verse + gate state.
-bookfactory__read_rule_boxes                             Read foundational rule boxes for a lesson-book (default lear
-bookfactory__decide                                      Append a justified construction decision. action: add-sectio
-bookfactory__new_book                                    Scaffold a new lane. Prefer thesis= (path or specs name e.g.
-bookfactory__stage                                       Advance a lane stage (verified; failing checks refuse forwar
-bookfactory__audio_plan                                  Write prints/<book>/audio-plan.json (NO API calls / no Fish 
-bookfactory__epub                                        Build+validate reflowable EPUB3 for a book (after content ex
-bookfactory__package                                     Assemble customer package (EPUB + PDF + audio + sha256 manif
-bookfactory__quote_preview                               DRAFT quote postcard/social previews (watermarked, never a s
+bookfactory__factory_overview                            [bookfactory] Start here. Returns bookfactory goal, lanes, m
+bookfactory__list_lanes                                  [bookfactory] List every lane with registry stage, project s
+bookfactory__check_lane                                  [bookfactory] Run the only gate (check.py). Returns canonica
+bookfactory__next_actions                                [bookfactory] Agent worklist: blocking problems, due-later p
+bookfactory__read_thesis                                 [bookfactory] Read a thesis: book lane thesis (book=) or a p
+bookfactory__list_specs                                  [bookfactory] List specs/, templates/, and styles/ available
+bookfactory__read_template                               [bookfactory] Read a genre template JSON (entry_anatomy, lay
+bookfactory__read_entries                                [bookfactory] Read prints/<book>/entries.json (all entries o
+bookfactory__read_book                                   [bookfactory] Read prints/<book>/book.json (meta, sections, 
+bookfactory__read_decisions                              [bookfactory] Read projects/<book>/decisions.jsonl — every c
+bookfactory__read_docs                                   [bookfactory] Read a root markdown doc: FACTORY-SPEC | BOOKS
+bookfactory__read_file                                   [bookfactory] Read any file under bookfactory (relative path
+bookfactory__list_dir                                    [bookfactory] List a directory under bookfactory (relative p
+bookfactory__inspect_verse                               [bookfactory] factory inspect: exact translation-layer verse
+bookfactory__read_rule_boxes                             [bookfactory] Read foundational rule boxes for a lesson-book
+bookfactory__decide                                      [bookfactory] Append a justified construction decision. acti
+bookfactory__new_book                                    [bookfactory] Scaffold a new lane. Prefer thesis= (path or s
+bookfactory__stage                                       [bookfactory] Advance a lane stage (verified; failing checks
+bookfactory__audio_plan                                  [bookfactory] Write prints/<book>/audio-plan.json (NO API ca
+bookfactory__epub                                        [bookfactory] Build+validate reflowable EPUB3 for a book (af
+bookfactory__package                                     [bookfactory] Assemble customer package (EPUB + PDF + audio 
+bookfactory__quote_preview                               [bookfactory] DRAFT quote postcard/social previews (watermar
+translation__status                                      [translation] SMALL+LARGE entry point: work state — REGISTRY
+translation__validate                                    [translation] Run the deterministic gates: validate_song (sc
+translation__lore                                        [translation] Return the cached 1-page transmission brief fo
+translation__swarm_status                                [translation] Queue at a glance: pending/claimed/done/failed
+translation__swarm_seed                                  [translation] Seed swarmable triple tasks (gloss+CM+argmap+L
+translation__swarm_review                                [translation] Assessor review packet for one DONE task: draf
+translation__swarm_decide                                [translation] Approve or bounce a reviewed task. Bounce note
+translation__promote                                     [translation] Assessor promotion: assemble runs -> working f
+translation__skill                                       [translation] Return the governing SKILL.md for a lane (the 
+translation__concepts                                    [translation] Grounds for hand-glossing: concept-database en
+translation__gates                                       [translation] The one gate (SKILL largetext §10): manifest f
+translation__recon                                       [translation] Recon report for a work (read-only): source sp
+translation__assemble                                    [translation] Assessor act: assemble beam runs -> working-T1
+translation__supervise                                   [translation] Report the autonomous loop: continue.sh (regis
+translation__swarm_workers                               [translation] Beam-worker throttle (don't pound the free tie
+translation__review_sweep                                [translation] Run the assessor daemon sweep: mechanical verd
+video__vf_projects                                       [video] Discover render lanes (projects/*/project.json): nam
+video__vf_status                                         [video] Factory board: render-gate mode, milestones, locks, 
+video__vf_units                                          [video] Per-unit stage table for a lane (tantrasara 22, shiv
+video__vf_unit                                           [video] Deep unit state: storyboard sha, approval, issues, f
+video__vf_issues                                         [video] Full issues file for a unit (kinds route to skills; 
+video__vf_gate                                           [video] Evaluate the ONLY render gate: storyboard green + ow
+video__vf_logs                                           [video] Tail a factory log (batch, overnight, batch_ch14_ret
+video__vf_finals                                         [video] Shipped finals for a lane: sizes, verify/ship verdic
+video__vf_skills                                         [video] Issue-kind to skill lookup (core/skills/REGISTRY.jso
+video__vf_skill                                          [video] Full fix prescription for an issue kind (the linked 
+video__vf_triage                                         [video] Action list for a unit: gate verdict, per-issue skil
+video__vf_skill_propose                                  [video] Stage a new or updated issue skill (writes core/skil
+video__vf_check                                          [video] Run the canonical factory gate (check.py). Exit 0 = 
+video__vf_tests                                          [video] Run the factory test suite (quick subset default; fu
+video__vf_launch                                         [video] Render one unit detached (batch --ship). Enforces th
+video__vf_queue                                          [video] Queue a gated render into the next video-path gap (w
+video__vf_publish                                        [video] Publish a file to R2 (copyto, mount-flake tolerant) 
+video__vf_pack                                           [video] Zip shipped finals for comma unit ids (stored, no re
+openpatala_mcp__resolve                                  [openpatala_mcp] Resolve a Sanskrit work name to a canonical
+openpatala_mcp__get_bundle                               [openpatala_mcp] Get full dossier for a work (assertions, ex
+openpatala_mcp__search                                   [openpatala_mcp] Search for Sanskrit works by title.
+openpatala_mcp__get_frontier                             [openpatala_mcp] List works needing translations or sources.
+openpatala_mcp__get_health                               [openpatala_mcp] Check system health.
 videofactory__vf_projects                                Discover render lanes (projects/*/project.json): names, seri
 videofactory__vf_status                                  Factory board: render-gate mode, milestones, locks, live bui
 videofactory__vf_units                                   Per-unit stage table for a lane (tantrasara 22, shiva-sutras
@@ -215,5 +188,12 @@ aoc__aoc_score                                           Score prospects from CS
 aoc__aoc_funnel                                          Acquisition funnel counts (leads, qualified, paid, revenue, 
 aoc__aoc_campaign                                        Create a campaign and link one approved creative. Refuses du
 aoc__aoc_personalize                                     Build one per-business variant (identity tokens only, resear
+workspace__ws_roots                                      Allowed roots, blocked paths and limits.
+workspace__ws_list                                       List a directory (names, sizes, dirs).
+workspace__ws_read                                       Read a text file under an allowed root.
+workspace__ws_write                                      Create or overwrite a text file. Reports bytes written.
+workspace__ws_patch                                      Replace an exact unique string in a file.
+workspace__ws_grep                                       Search file contents; bounded to 200 hits.
+workspace__ws_git                                        Repository git: status|log|diff|add|commit|branch|checkout|s
 
-212 tools across 6 servers
+197 tools across 7 servers

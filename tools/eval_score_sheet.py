@@ -117,11 +117,8 @@ def main() -> int:
     bm = json.loads(Path(args.b_manifest).read_text(encoding='utf-8')) if args.b_manifest else None
 
     rows, key, balance = build(Path(args.set), a, b, am, bm, args.seed)
-    shared = set(items) & set(a) & set(b)
-    unmeasured = sorted(pid for pid in shared if am and
-                        am.get('provenance', {}).get(pid, {}).get('coverage') is None)
-    for pid in key:
-        key[pid]['coverage_unmeasured'] = False
+    unmeasured = sorted(pid for pid in (set(a) & set(b))
+                        if am and am.get('provenance', {}).get(pid, {}).get('coverage') is None)
     if not rows:
         print('eval_score_sheet: no shared passages — nothing to score', file=sys.stderr)
         return 1

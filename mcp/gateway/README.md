@@ -3,7 +3,7 @@
 ## Live now
 
 `https://mcp.sanskrit.help/mcp` — Streamable HTTP, protocol `2025-06-18`,
-**190 tools**, bearer auth (401 without it). Verified 2026-11-11 from outside:
+**197 tools**, bearer auth (401 without it). Verified 2026-11-11 from outside:
 `initialize`, `tools/list`, and `scholar__wheel_level` all answer.
 
 Named Cloudflare tunnel `svatantrya-mcp` (`281e3446-5a8d-4849-b37e-ee682a78c734`)
@@ -12,13 +12,29 @@ Named Cloudflare tunnel `svatantrya-mcp` (`281e3446-5a8d-4849-b37e-ee682a78c734`
 In ChatGPT: Settings → Connectors → Add custom connector → URL above →
 Authentication: Bearer → paste the token.
 
+## Editing, not just reading
+
+The `workspace` server gives an agent scoped read/edit over the repos:
+
+| Tool | Does |
+|---|---|
+| `ws_roots` | allowed roots, blocked names, size limits |
+| `ws_list` / `ws_read` | browse and read text files |
+| `ws_write` / `ws_patch` | create/overwrite, or exact unique-string replace |
+| `ws_grep` | regex search, 200-hit cap |
+| `ws_git` | status, log, diff, add, commit, branch, checkout, show |
+
+Secrets (`.env`, `.dev.vars`, `*.pem`, credentials) and `.git` internals are
+refused; `git push` is deliberately not available — the agent edits and
+commits, the owner pushes.
+
 ## What this endpoint is
 
 One Streamable HTTP MCP endpoint over every stdio server in the estate:
 
-- 190 tools from 6 servers: `scholar` (38), `openpatala` (5), `federation` (109,
+- 197 tools from 7 servers: `scholar` (38), `openpatala` (5), `federation` (109,
   already namespaced; 22 of its names duplicate a direct server and the direct
-  one wins), `bookfactory` (22), `videofactory` (18), `aoc` (20)
+  one wins), `bookfactory` (22), `videofactory` (18), `aoc` (20), `workspace` (7)
 - tool names are `<server>__<tool>` (e.g. `scholar__wheel_level`)
 - each call spawns the child, forwards, and returns — no state is cached
   between calls (child processes are short-lived)
