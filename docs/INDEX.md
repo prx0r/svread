@@ -19,7 +19,11 @@ Read in this order if you are new:
    MITRA-MT vs ours comparison (correction minutes, never BLEU).
 8. [`CHATGPT-PLUGIN.md`](../CHATGPT-PLUGIN.md) — the live MCP connector:
    URL, auth, tool map, editing surface, systemd units, monitoring.
-9. [`HANDOFF-PR-REVIEW.md`](../HANDOFF-PR-REVIEW.md) — open PRs, merge order,
+9. [`HANDOVER-NEXT-SESSION.md`](../HANDOVER-NEXT-SESSION.md) — plans resolved,
+   the ten next jobs, blockers, exact commands.
+10. [`docs/endgame/`](endgame/) — 17 vendored strategy docs (masterplans,
+   endgame forms, recipes, Lean limits) with source hashes.
+11. [`HANDOFF-PR-REVIEW.md`](../HANDOFF-PR-REVIEW.md) — open PRs, merge order,
    review focus (for an outside reviewer, not a status doc).
 
 ---

@@ -139,6 +139,7 @@ def build() -> dict:
     certs = json.loads((SVREAD / 'data' / 'grammar' / 'certificates.json').read_text(encoding='utf-8'))
     cert_n = certs.get('count') if isinstance(certs, dict) else len(certs)
     mcp = json.loads((SVREAD / 'data' / 'mcp-registry.json').read_text(encoding='utf-8'))
+    endgame = json.loads((SVREAD / 'data' / 'endgame-docs.json').read_text(encoding='utf-8'))
 
     return {
         'format': 'svatantrya.estate-index/1',
@@ -176,6 +177,16 @@ def build() -> dict:
         'repos': [{'name': n, 'path': p, 'what': w, 'start': s} for n, p, w, s in REPOS],
         'data': [{'name': n, 'path': p, 'tool': t, 'what': w} for n, p, t, w in DATASETS],
         'docs': [{'path': p, 'what': w} for p, w in DOCS],
+        'endgame_docs': endgame['docs'],
+        'reading_order': [
+            'workspace__estate_index (this file)',
+            'docs/endgame/estate-rules-and-vision.md — the rules and the vision',
+            'docs/endgame/endgame.md — the seven output forms',
+            'docs/endgame/lean-and-sanskrit.md — what Lean proves, what only a human can',
+            'docs/endgame/masterplan3.md + masterplan2.md — what is left to build',
+            'HANDOVER-NEXT-SESSION.md — the next ten jobs',
+            'docs/endgame/endgame-recipes.md — R1–R9 recipes',
+        ],
         'mcp_servers': {k: {'path': v['path'], 'role': v.get('role', '')} for k, v in gateway['servers'].items()},
         'plugin_recipes': RECIPES,
     }
