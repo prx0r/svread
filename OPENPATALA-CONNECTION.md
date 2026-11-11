@@ -76,7 +76,7 @@ same stdio JSON-RPC shape.)
 
 | Piece | Path / value |
 |---|---|
-| **DB** | PostgreSQL on the box: `postgresql://patala:patala@localhost:5432/openpatala` (env override `DATABASE_URL`) |
+| **DB** | PostgreSQL on the box. Connection string is `postgresql://<user>:<password>@localhost:5432/openpatala`, supplied via `DATABASE_URL` (or `PG*` env vars). Local dev credentials live in your shell/`.pgpass`, never in this document. |
 | Connect code | `/root/openpatala/patala/db/connection.py` → `get_connection()` (psycopg2) |
 | Write helpers | `/root/openpatala/patala/db/store.py` → `insert_work`, `insert_assertion`, `insert_external_id`, `insert_event`, `insert_artifact`, `insert_raw_observation`, … |
 | Migrations | `/root/openpatala/migrations/001_create_all_tables.sql` (34 tables) + `002_add_missing_tables.sql`; runner `patala/db/migrate.py` |
@@ -88,8 +88,8 @@ same stdio JSON-RPC shape.)
 
 Query it directly:
 ```sh
-PGPASSWORD=patala psql -h 127.0.0.1 -U patala -d openpatala \
-  -c "SELECT id, preferred_title FROM works ORDER BY created_at DESC LIMIT 10;"
+# credentials from the environment, never typed into docs
+psql "$DATABASE_URL" -c "SELECT id, preferred_title FROM works ORDER BY created_at DESC LIMIT 10;"
 ```
 
 ---
@@ -151,7 +151,7 @@ routes until then.
 
 ### After adding — the required chain
 1. `cd /root/openpatala && python3 check.py` (gate must not regress)
-2. `PGPASSWORD=patala psql … -c "SELECT count(*) FROM works"` (see it)
+2. `psql "$DATABASE_URL" -c "SELECT count(*) FROM works"` (see it)
 3. svread: add the work to `translation-work/source-maps/openpatala.json`
    (`openpatala_work_id` + mapping_status) — this is what makes svread's
    traces/claims cite the new identity
