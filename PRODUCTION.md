@@ -74,6 +74,7 @@ python3 tools/emit_gate_pools.py          # server-scored gate item pools (needs
 python3 tools/emit_harness.py             # one-fetch harness for tutor models (needs wheels + grammar)
 python3 tools/emit_answers.py             # /a/<slug>/ one-URL answers (needs grammar pack + links)
 python3 tools/emit_about.py               # about page + about.json (verbatim owner text)
+python3 tools/emit_practice.py           # deitybody curriculum vendored (fallback: vendored copy)
 python3 tools/emit_discovery.py         # llms(+full), sitemap, robots, pushing, ai-catalog
 python3 scripts/release_manifest.py --write   # LAST, after every content change
 python3 tools/seo_check.py              # 10 gates

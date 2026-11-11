@@ -68,6 +68,7 @@ const EMITTERS = [
   { tool: 'emit_discovery.py', need: null },
   { tool: 'emit_gate_pools.py', need: null },
   { tool: 'emit_certificates.py', need: null },
+  { tool: 'emit_practice.py', need: null },
   { tool: 'emit_claim_pages.py', need: null },
   { tool: 'emit_index_meta.py', need: null },
 ];

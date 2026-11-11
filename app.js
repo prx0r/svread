@@ -1098,6 +1098,42 @@ function initGoogleAuth(){
   }catch(e){}
 }
 
+/* ?view=practice — deitybody Mātṛkā curriculum (vendored, verbatim cards).
+   Assembly rule from the source is shown first: order/timings/graduation are
+   modern apparatus over attested elements — never doctrine. */
+async function practiceView(){
+  try{ buildRightRail([]); }catch(e){}
+  const hb = document.querySelector('#headbar'); if(hb) hb.style.display = 'none';
+  const [cur, cards] = await Promise.all([
+    get('data/practice/curriculum.json'),
+    get('data/practice/cards.json'),
+  ]);
+  const main = document.querySelector('.reader-main');
+  const C = cur.curriculum || {};
+  const byN = {};
+  for(const c of (cards.cards||[])) byN[c.n] = c;
+  const stages = (C.stages||[]).map(st=>{
+    const f = (byN[st.n]||{}).fields || {};
+    const fld = k => f[k] ? `<div class="pr-field"><b>${esc(k)}:</b> ${esc(f[k])}</div>` : '';
+    return `<section class="pr-stage" id="stage-${st.n}">
+      <h2>${esc(String(st.n))} · ${esc(st.title)}</h2>
+      <div class="mut">${esc(st.weeks||'')} · ${esc(st.nightly||'')}</div>
+      <p><b>goal:</b> ${esc(st.goal||'')}</p>
+      <p><b>graduation:</b> ${esc(st.graduation||'')}</p>
+      <div class="mut"><b>attested:</b> ${(st.attested||[]).map(esc).join(' · ')}</div>
+      ${fld('How to hold the sound (phonetics, not doctrine)')}
+      ${fld('DO')}${fld('IN THE MIND')}${fld('NOT')}${fld('SOURCE')}
+    </section>`;
+  }).join('');
+  main.innerHTML = `<h1>Practice</h1>`
+    + `<p class="cmp-note"><b>Assembly rule (verbatim from the source):</b> ${esc(cur.rule_verbatim||'')}</p>`
+    + `<p>${esc(C.title||'Mātṛkā install curriculum')}. Scored grammar practice: the <a href="wheels.html#journey">wheels journey</a> · lessons: <a href="?view=sanskrit">Sanskrit</a>.</p>`
+    + `<p class="mut">Vendored from prx0r/deitybody (read-only) · curriculum sha256 ${esc(String((cur.source||{}).sha256||'')).slice(0,16)}… · cards sha256 ${esc(String((cards.source||{}).sha256||'')).slice(0,16)}…</p>`
+    + stages;
+  document.title = 'Practice · svread';
+  SK_LESSON = null;
+}
+
 async function main(){
   initGoogleAuth();
   const ns = $('#navscholar');
@@ -1107,6 +1143,11 @@ async function main(){
   if(qs.get('view')==='sanskrit'){
     try{ await sanskritView(); }
     catch(err){ $('.reader-main').innerHTML = `<p id="err">Sanskrit view: ${esc(String(err&&err.message||err))}</p>`; }
+    return;
+  }
+  if(qs.get('view')==='practice'){
+    try{ await practiceView(); }
+    catch(err){ $('.reader-main').innerHTML = `<p id="err">Practice view: ${esc(String(err&&err.message||err))}</p>`; }
     return;
   }
   if(qs.get('view')==='verify'){
