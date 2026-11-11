@@ -20,12 +20,13 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import re
 import sys
 from pathlib import Path
 
 SVREAD = Path(__file__).resolve().parent.parent
-UP = Path('/root/deitybody')
+UP = Path(os.environ.get('DEITYBODY_ROOT', '/root/deitybody'))
 OUT = SVREAD / 'data' / 'practice'
 
 def _readable(p: Path) -> bool:

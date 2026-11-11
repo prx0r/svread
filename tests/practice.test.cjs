@@ -37,16 +37,21 @@ test('cards parse with the four canonical fields on most stages', () => {
   const s1 = cards.cards.find(c => c.n === 1);
   assert.ok(s1.fields['How to hold the sound (phonetics, not doctrine)'],
     'stage 1 phonetics field');
-  // byte-level: no card text may be paraphrased — every DO value must appear
-  // verbatim in the source markdown
-  const md = (() => {
-    const up = '/root/deitybody/practice/CURRICULUM_CARDS.md';
-    try { return fs.readFileSync(up, 'utf8'); } catch { return null; }
-  })();
+  // byte-level: no card text may be paraphrased — the FULL DO text must
+  // appear verbatim in the source markdown (external review of #18)
+  const mdPath = process.env.DEITYBODY_ROOT
+    ? path.join(process.env.DEITYBODY_ROOT, 'practice/CURRICULUM_CARDS.md')
+    : '/root/deitybody/practice/CURRICULUM_CARDS.md';
+  let md = null;
+  try { md = fs.readFileSync(mdPath, 'utf8'); } catch { md = null; }
   if (md) {
+    const squash = t => t.replace(/\s+/g, ' ').trim();
+    const mdSquashed = squash(md);
     for (const c of cards.cards) {
-      const doText = c.fields.DO.slice(0, 60);
-      assert.ok(md.includes(doText), `card ${c.n} DO text found verbatim in source`);
+      assert.ok(mdSquashed.includes(squash(c.fields.DO)),
+        `card ${c.n} FULL DO text found verbatim in source`);
+      assert.ok(mdSquashed.includes(squash(c.fields.SOURCE)),
+        `card ${c.n} FULL SOURCE line found verbatim`);
     }
   }
 });
@@ -64,14 +69,18 @@ test('practice view is wired: route, nav, render markers', () => {
   assert.ok(css.includes('.pr-stage'), 'stage styles present');
 });
 
-test('emitter is deterministic and survives fresh checkout', () => {
-  // with /root/deitybody present: byte-identical rerun
+test('emitter is deterministic; vendored fallback works without upstream', () => {
   const { execFileSync } = require('node:child_process');
-  execFileSync('python3', ['tools/emit_practice.py', '--check'], { cwd: ROOT, encoding: 'utf8' });
-  // without upstream: vendored fallback must still validate (simulate unreadable path)
-  const out = execFileSync('python3', ['tools/emit_practice.py', '--check'], {
-    cwd: ROOT, encoding: 'utf8',
-    env: { ...process.env },  // path is hardcoded in emitter; fallback branch
-  });
+  // with upstream present: byte-identical rerun
+  const out = execFileSync('python3', ['tools/emit_practice.py', '--check'],
+    { cwd: ROOT, encoding: 'utf8' });
   assert.ok(/GREEN/.test(out), out);
+  // without upstream (simulated via DEITYBODY_ROOT): the vendored fallback
+  // must validate on its own — this exercises the OTHER branch of the emitter
+  const fallback = execFileSync('python3', ['tools/emit_practice.py', '--check'], {
+    cwd: ROOT, encoding: 'utf8',
+    env: { ...process.env, DEITYBODY_ROOT: '/nonexistent-deitybody' },
+  });
+  assert.ok(/GREEN \(vendored fallback/.test(fallback),
+    'fallback branch reported: ' + fallback);
 });
