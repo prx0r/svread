@@ -4,7 +4,11 @@ Chronological. Latest first is never true; read top-down for order.
 
 ---
 
-## Report #1 — 2026-11-11 · Wave 1: uncheatable learning (W1)
+## Report #1 — 2026-11-11 · Wave 1: server-scored practice gates (W1)
+
+> Relabelled after external review (PR #14): public pool = practice progress
+> check, not mastery certification. "Uncheatable" overstated it — the server
+> holds the unlock, but the answer key is public.
 
 **Shipped.** Server-scored gates are live end to end.
 
