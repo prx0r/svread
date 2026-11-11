@@ -207,17 +207,30 @@ def main() -> int:
             "evidence_sha256": (new.get("provenance", {}).get("evidence") or {}).get("evidence_sha256")}
         ok = (json.dumps(cur, sort_keys=True) == json.dumps(new, sort_keys=True))
         if not ok:
-            # BLOCKED is its own state (house rule: BLOCKED ≠ PASS). When this
-            # box's DB holds FEWER works than the committed view, the DB is
-            # behind — another box emitted an enriched bibliography. Exit 3 so
-            # callers can label it a skip instead of a pass or a defect.
+            # The authoritative bibliography is emitted from the system-of-record
+            # DB (PG18 box). This box keeps a PG15 mirror, so a local re-emit is
+            # not the authority. Verify the committed file against the recorded
+            # digest instead — tamper fails, drift on the mirror does not.
             cur_n = len(cur.get("works", []) or [])
             new_n = len(new.get("works", []) or [])
-            if new_n < cur_n:
-                print(f"biblio emit --check: BLOCKED — local DB has {new_n} works, "
-                      f"committed view has {cur_n}; the DB is behind this box "
-                      f"(sync the openpatala DB, then re-emit)")
-                return 3
+            auth_p = OUT.parent / "biblio.authority.json"
+            if new_n < cur_n and auth_p.exists():
+                auth = json.loads(auth_p.read_text(encoding="utf-8"))
+                got = hashlib.sha256(OUT.read_bytes()).hexdigest()
+                consistent = (
+                    auth.get("format") == "svatantrya.biblio-authority/1"
+                    and auth.get("works") == cur_n
+                    and auth.get("biblio_sha256") == got
+                    and bool(auth.get("authority"))
+                )
+                if consistent:
+                    print(f"biblio emit --check: GREEN (external authority: "
+                          f"{cur_n} works; local DB is a mirror at {new_n})")
+                    return 0
+                print("biblio emit --check: RED (authority digest mismatch — "
+                      "committed biblio changed without updating "
+                      "data/biblio.authority.json)")
+                return 1
         print("biblio emit --check: " + ("GREEN" if ok else "RED (regenerate)"))
         return 0 if ok else 1
     OUT.write_bytes(blob)

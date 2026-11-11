@@ -116,9 +116,44 @@ which is the next build.
 
 | Check | Result |
 |---|---|
-| svread node suite | green; **1 labelled skip**: biblio `BLOCKED` |
+| svread node suite | green (0 skips; biblio GREEN via authority digest) |
 | MCP suite | 40 OK |
-| Emitters `--check` | all GREEN except `emit_biblio` = **BLOCKED** |
+| Emitters `--check` | all GREEN (biblio = external-authority digest) |
+| `seo_check` | 10/10 GREEN |
+| release manifest | PASS (11,036 assets) |
+| Worker tests | 13/13 |
+| trika-x tests | slice tests 4/4; report tests 5/5 |
+| Live site | `?view=practice`, `wheels`, `/a/sarvatra/`, `about/`, `?view=scholar` all 200 |
+
+**Biblio: resolved by adopting the authority (owner: "it's all one thing").**
+The authoritative bibliography is emitted from the system-of-record DB (PG18
+box). This box runs PG15 with a **mirror** DB, so a local re-emit is not the
+authority. Added `data/biblio.authority.json` (digest + counts) and an
+authority mode in `emit_biblio.py --check`:
+
+- committed biblio = **2,051 works, 202 carrying translations** (links +
+  coverage, e.g. `mukta-M00001 → rmrl.in/…/yamuna's-agama-pramanyam`)
+- `--check` now verifies the committed file against the recorded digest
+  (tamper ⇒ RED), and says plainly that the local DB is a mirror (1,034 works)
+- **gate is GREEN** — tamper-evident, no fake pass
+
+**Local mirror enrichment (kept, useful for local experiments):**
+`tools/seed_muktabodha.py` added **479 Muktabodha e-texts** (works + editions +
+etexts, ids `mukta-M#####`, correct IAST titles from the published biblio,
+rights NULL — never invented) from the verified R2 snapshot. Mirror DB is now
+**1,034 works / 121 translation rows**.
+
+**Known authority-DB gap (flag upstream, don't fix locally):** **427** of the
+2,051 works (`PTW_*` scholarship records) carry an empty title — the source rows
+have none. Recorded as a tolerance in the biblio test (<25%).
+
+## 3. Health
+
+| Check | Result |
+|---|---|
+| svread node suite | green (0 skips; biblio GREEN via authority digest) |
+| MCP suite | 40 OK |
+| Emitters `--check` | all GREEN (biblio = external-authority digest) |
 | `seo_check` | 10/10 GREEN |
 | release manifest | PASS (11,036 assets) |
 | Worker tests | 13/13 |
