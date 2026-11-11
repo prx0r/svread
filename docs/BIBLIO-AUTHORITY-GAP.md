@@ -45,3 +45,23 @@ authorship.
   published one). That is a coverage fact, not missing data.
 - 37 works have no named source edition. The release manifest reports this on
   every run by design.
+
+## Why the authority DB is not restored here (the exact blocker)
+
+The authoritative DB runs PostgreSQL 18. This box runs PostgreSQL 15. A dump
+taken with `pg_dump -Fc` on PG18 cannot be restored into PG15 — `pg_restore`
+rejects a dump made by a newer major version, and there is no flag that makes
+it accept one. Installing PG18 alongside is possible but would not make this
+box the authority, and the mirror is sufficient for local experiments.
+
+So the standing arrangement is:
+
+1. the authority re-emits `data/biblio.json` on the PG18 box;
+2. `data/biblio.authority.json` records the digest and counts of that emit;
+3. here, `emit_biblio.py --check` verifies the committed file against the
+   digest and prints `GREEN (external authority: 2051 works; local DB is a
+   mirror at 1034)`.
+
+The only honest local change is to the mirror (e.g. `tools/seed_muktabodha.py`),
+never to the committed authority file. If a future run prints RED, the file
+was edited or the authority changed — both are findings, not obstacles.
