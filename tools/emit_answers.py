@@ -87,12 +87,20 @@ def build(entry: dict, row: dict | None, lk: dict, cert: dict | None = None) -> 
     note = (row or {}).get('note') or entry.get('curated_note') or ''
     alts = (row or {}).get('machine_surfaces') or []
     if cert:
+        if cert.get('lean_status') == 'checked':
+            lv = str((cert.get('lean') or {}).get('lean_version') or 'Lean')
+            lv = lv.split(',')[0].replace('Lean (version ', '')
+            lean_txt = (f'Lean: <b>checked</b> ({esc(lv)} — structural check over the '
+                        f'rule inventory, receipt-bound; <b>NOT a derivation from the '
+                        f'Aṣṭādhyāyī</b> and not a claim about meaning)')
+        else:
+            lean_txt = ('Lean: <b>pending</b> — no matching receipt; structural '
+                        'checks only, not a derivation from the Aṣṭādhyāyī')
         cert_block = (f'<h2>Certificate</h2>\n'
                       f'<p><code>{esc(cert["cert_sha"])}</code> — trace pinned '
                       f'(tier-2 recompute passes). Structure: {cert["checks"]["steps"]} steps, '
                       f'rule table <code>{esc(cert["rule_table_sha"][:16])}…</code>. '
-                      f'Lean: <b>{esc(cert["lean_status"])}</b> (rule slice lands in W2b; '
-                      f'this is not a Lean proof and not a claim about meaning).</p>')
+                      f'{lean_txt}.</p>')
     elif entry.get('prakriya'):
         cert_block = '<h2>Certificate</h2>\n<p class="muted">certificate pending regeneration — run tools/emit_certificates.py.</p>'
     else:

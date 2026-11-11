@@ -14,6 +14,7 @@ Honest scope: trace pinning + structural checks + self-hash, re-verifiable by
 """
 from __future__ import annotations
 import argparse
+import hashlib
 import json
 import sys
 from pathlib import Path
@@ -26,21 +27,55 @@ GRAMMAR = SVREAD / 'data' / 'grammar'
 OUT = GRAMMAR / 'certificates.json'
 
 
+def lean_binding() -> tuple[str, dict | None, str]:
+    """Receipt -> (lean_status, lean binding or None, note).
+
+    checked only when the receipt records a passing lean run whose pack
+    sha256 matches the pack we are certifying right now. Any pack edit
+    invalidates the receipt -> pending until the slice is regenerated and
+    re-run (staleness is the point)."""
+    pack_sha = hashlib.sha256((GRAMMAR / 'wheel-pack.json').read_bytes()).hexdigest()
+    rp = GRAMMAR / 'prakriya-receipt.json'
+    if not rp.exists():
+        return 'pending', None, (
+            'No Lean receipt on file: certificates pin and structure-check '
+            'traces only (trika-x PrakriyaSlice not run against this pack).')
+    rec = json.loads(rp.read_text(encoding='utf-8'))
+    if rec.get('exit_code') != 0:
+        return 'pending', None, (
+            f"Lean receipt records failure (exit {rec.get('exit_code')}); "
+            'certificates remain structural-only until a passing run.')
+    if rec.get('pack_sha256') != pack_sha:
+        return 'pending', None, (
+            'Lean receipt is stale (pack changed since the run); regenerate '
+            'the slice in trika-x and re-run lean.')
+    scope = rec.get('scope', '')
+    return 'checked', {
+        'receipt': 'data/grammar/prakriya-receipt.json',
+        'lean_version': rec.get('lean_version'),
+        'command': rec.get('command'),
+        'file_sha256': rec.get('file_sha256'),
+        'pack_sha256': rec.get('pack_sha256'),
+        'checked_at': rec.get('checked_at'),
+        'seconds': rec.get('seconds'),
+        'scope': scope,
+    }, ('Lean-checked: structural well-formedness over the declared rule '
+        'inventory, receipt-bound (file+pack+version+command). ' + scope)
+
+
 def build() -> dict:
     pack = json.loads((GRAMMAR / 'wheel-pack.json').read_text(encoding='utf-8'))
+    lean_status, lean, lean_note = lean_binding()
     entries = []
     for e in pack.get('entries', []):
         if e.get('status') != 'DERIVED' or not e.get('prakriya'):
             continue
-        entries.append(certlib.compute(e, lean_status='pending'))
+        entries.append(certlib.compute(e, lean_status=lean_status, lean=lean))
     entries.sort(key=lambda c: c['pack_id'])
     return {
         'format': certlib.FORMAT,
         'status': 'machine-generated-unreviewed',
-        'lean_note': ('Every lean_status is pending: the Lean rule slice '
-                      '(trika-x PrakriyaSlice) has not run against these '
-                      'traces yet (W2b). Certificates pin and structure-check '
-                      'traces; they do not prove rule applicability.'),
+        'lean_note': lean_note,
         'verify_with': ('recompute from data/grammar/wheel-pack.json with '
                         'tools/certlib.py — wheel_certificate MCP tool does this'),
         'count': len(entries),
@@ -67,7 +102,7 @@ def main() -> int:
                    encoding='utf-8')
     ok = sum(1 for c in doc['entries'] if c['checks']['codes_well_formed'] and c['checks']['steps_have_after'])
     print(f"emit_certificates: {doc['count']} certificates, {ok} structurally clean, "
-          f"lean_status=pending for all (W2b)")
+          f"lean_status={doc['entries'][0]['lean_status'] if doc['entries'] else 'n/a'}")
     return 0
 
 

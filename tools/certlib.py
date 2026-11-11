@@ -29,8 +29,11 @@ def sha(text: str) -> str:
     return hashlib.sha256(text.encode('utf-8')).hexdigest()
 
 
-def compute(entry: dict, lean_status: str = 'pending') -> dict:
-    """Build the certificate for one wheel-pack entry. Pure function."""
+def compute(entry: dict, lean_status: str = 'pending',
+            lean: dict | None = None) -> dict:
+    """Build the certificate for one wheel-pack entry. Pure function.
+    `lean` is the receipt binding (version/command/file+pack sha/scope),
+    carried verbatim when present so verify() reproduces cert_sha."""
     prak = entry.get('prakriya') or []
     codes = [str(s.get('sutra') or '') for s in prak]
     checks = {
@@ -50,16 +53,20 @@ def compute(entry: dict, lean_status: str = 'pending') -> dict:
         'checks': checks,
         'lean_status': lean_status,
         'note': ('Pins the stored derivation trace and its rule set. Tier-2 check '
-                 'recomputes this from the pack. NOT a Lean proof of rule '
-                 'applicability (pending W2b) and NOT a claim about meaning.'),
+                 'recomputes this from the pack. Even when Lean-checked, the '
+                 'scope is structural well-formedness over the rule inventory — '
+                 'NOT a derivation from the Aṣṭādhyāyī and NOT a claim about meaning.'),
     }
+    if lean:
+        body['lean'] = lean
     body['cert_sha'] = sha(canonical(body))
     return body
 
 
 def verify(entry: dict, cert: dict) -> dict:
     """Tier-2: recompute from the pack entry; never trust the stored cert."""
-    fresh = compute(entry, lean_status=cert.get('lean_status', 'pending'))
+    fresh = compute(entry, lean_status=cert.get('lean_status', 'pending'),
+                    lean=cert.get('lean'))
     ok = (fresh['cert_sha'] == cert.get('cert_sha')
           and fresh['trace_sha'] == cert.get('trace_sha'))
     return {'ok': ok, 'recomputed_cert_sha': fresh['cert_sha'],

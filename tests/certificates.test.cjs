@@ -1,6 +1,9 @@
-/* certificates.test.cjs — mechanics stamp part 1: pin, structure-check, recompute.
-   Honesty locks: lean_status must be pending everywhere (no Lean claim until
-   W2b), and every certificate must recompute from the pack (tier-2). */
+/* certificates.test.cjs — mechanics stamp: pin, structure-check, recompute.
+   Honesty locks: lean_status may be 'checked' ONLY when a passing Lean
+   receipt pins this exact pack (file+pack sha); otherwise 'pending'.
+   Every certificate must recompute from the pack (tier-2), and checked
+   certificates must carry the scope disclaimer — an inventory check is
+   never a derivation from the Aṣṭādhyāyī. */
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -36,13 +39,34 @@ print(len(certs), len(bad), bad[:5])
   assert.equal(Number(out[1]), 0, 'tier-2 recompute failures: ' + out.slice(2).join(' '));
 });
 
-test('honesty: no certificate claims Lean', () => {
+test('honesty: lean status is receipt-bound, scoped, pack-pinned', () => {
+  const crypto = require('node:crypto');
   const certs = read('data/grammar/certificates.json');
+  const receipt = read('data/grammar/prakriya-receipt.json');
+  const packSha = crypto.createHash('sha256')
+    .update(fs.readFileSync(path.join(ROOT, 'data/grammar/wheel-pack.json'))).digest('hex');
+  const receiptLive = receipt.exit_code === 0 && receipt.pack_sha256 === packSha;
   for (const c of certs.entries) {
-    assert.equal(c.lean_status, 'pending', c.pack_id + ' must not claim lean');
-    assert.ok(c.note.includes('NOT a Lean proof'), c.pack_id + ' carries the scope note');
+    assert.ok(['checked', 'pending'].includes(c.lean_status), c.pack_id + ' known status');
+    assert.ok(c.note.includes('NOT a derivation'), c.pack_id + ' carries the scope note');
+    if (c.lean_status === 'checked') {
+      assert.ok(receiptLive, 'checked requires a passing receipt for this pack');
+      assert.ok(c.lean, c.pack_id + ' carries the lean binding');
+      assert.equal(c.lean.pack_sha256, packSha, c.pack_id + ' bound to this pack bytes');
+      assert.ok(c.lean.scope.includes('NOT a derivation'), c.pack_id + ' scope in binding');
+      assert.ok(c.lean.lean_version && c.lean.command && c.lean.file_sha256,
+        c.pack_id + ' binds version + command + file sha');
+    }
   }
-  assert.ok(certs.lean_note.includes('pending'), 'bundle-level lean note present');
+  if (receiptLive) {
+    assert.ok(certs.entries.every(c => c.lean_status === 'checked'),
+      'live receipt => every traced cert checked');
+    assert.ok(certs.lean_note.includes('structural') || certs.lean_note.includes('Lean-checked'),
+      'bundle note states what was checked');
+  } else {
+    assert.ok(certs.entries.every(c => c.lean_status === 'pending'),
+      'stale/absent receipt => everything pending');
+  }
 });
 
 test('answer pages and harness carry the certificate', () => {
@@ -50,12 +74,15 @@ test('answer pages and harness carry the certificate', () => {
   const certs = read('data/grammar/certificates.json');
   const sarv = certs.entries.find(c => c.pack_id === 'sarva-tral');
   assert.ok(html.includes(sarv.cert_sha), 'sarvatra page carries its cert_sha');
-  assert.ok(html.includes('Lean: <b>pending</b>'), 'page states Lean pending');
+  assert.ok(html.includes('Lean: <b>' + sarv.lean_status + '</b>'),
+    'page states the actual Lean status (' + sarv.lean_status + ')');
+  assert.ok(html.includes('NOT a derivation'), 'page states the scope disclaimer');
   const noCert = fs.readFileSync(path.join(ROOT, 'a/katham/index.html'), 'utf8');
   assert.ok(noCert.includes('no derivation claimed'), 'katham: no cert, said honestly');
   const h = read('data/wheels/harness.json');
   assert.equal(h.verify.certificates.count, certs.count, 'harness count matches');
-  assert.equal(h.verify.certificates.lean_status, 'pending');
+  assert.equal(h.verify.certificates.lean_status, certs.entries[0].lean_status,
+    'harness reports the same status as the certs');
   assert.ok(h.verify.fast_path.some(x => x.includes('cert_sha')), 'harness fast path mentions certs');
 });
 

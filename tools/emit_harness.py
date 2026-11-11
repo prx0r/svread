@@ -125,7 +125,10 @@ def main() -> int:
             'certificates': ({
                 'path': f'{ORIGIN}/data/grammar/certificates.json',
                 'count': certs_doc.get('count', 0),
-                'lean_status': 'pending',
+                'lean_status': (
+                    'checked' if {e.get('lean_status') for e in certs_doc.get('entries', [])} == {'checked'}
+                    else 'pending' if {e.get('lean_status') for e in certs_doc.get('entries', [])} == {'pending'}
+                    else 'mixed'),
                 'note': certs_doc.get('lean_note', ''),
             } if certs_doc else {'path': f'{ORIGIN}/data/grammar/certificates.json',
                                   'status': 'not generated yet'}),
