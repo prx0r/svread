@@ -122,13 +122,15 @@ BUNDLES = [
 ]
 
 CLI = {
-    "inspector": "npx @modelcontextprotocol/inspector@latest  # Transport: Streamable HTTP; URL https://<host>.svatantrya.net/mcp",
-    "claude_code": "claude mcp add --transport http <name> https://<host>.svatantrya.net/mcp  # authed: add --header \"Authorization: Bearer $MCP_TOKEN\"",
-    "opencode": "{\"mcp\": {\"<name>\": {\"type\": \"remote\", \"url\": \"https://<host>.svatantrya.net/mcp\", \"headers\": {\"Authorization\": \"Bearer $MCP_TOKEN\"}}}}  # drop headers for the five public hosts",
-    "curl_list": "curl -s -X POST https://<host>.svatantrya.net/mcp -H 'content-type: application/json' -H 'accept: application/json, text/event-stream' -d '{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"tools/list\",\"params\":{}}'  # SSE framing: read data: lines",
-    "fastmcp": "from fastmcp import Client\nasync with Client('https://<host>.svatantrya.net/mcp') as c:\n    tools = await c.list_tools()  # bearer hosts: Client(url, auth=BearerAuth(token))",
+    "try_it_now": "curl -s -X POST https://mcp.svatantrya.net/mcp -H 'content-type: application/json' -H 'accept: application/json, text/event-stream' -d '{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"tools/list\",\"params\":{}}'  # 40 public tools, no auth. Parse the data: lines as JSON.",
+    "inspector": "npx @modelcontextprotocol/inspector@latest  # Transport: Streamable HTTP, URL https://mcp.svatantrya.net/mcp (public, no headers). Bearer hosts (studio/factory/...): add Authorization: Bearer $MCP_TOKEN in Headers.",
+    "claude_code_public": "claude mcp add --transport http svatantrya https://mcp.svatantrya.net/mcp",
+    "claude_code_owner": "claude mcp add --transport http studio https://studio.svatantrya.net/mcp --header \"Authorization: Bearer $MCP_TOKEN\"",
+    "opencode_public": "{\"mcp\": {\"svatantrya\": {\"type\": \"remote\", \"url\": \"https://mcp.svatantrya.net/mcp\"}}}  # paste into ~/.config/opencode/opencode.jsonc",
+    "opencode_owner": "{\"mcp\": {\"studio\": {\"type\": \"remote\", \"url\": \"https://studio.svatantrya.net/mcp\", \"headers\": {\"Authorization\": \"Bearer $MCP_TOKEN\"}}}}",
+    "python_agent": "from fastmcp import Client\nasync with Client('https://mcp.svatantrya.net/mcp') as c:\n    tools = await c.list_tools()  # 40 tools, no auth\n    r = await c.call_tool('compose__next_level', {})  # study-order next",
+    "bearer_hosts": "studio svatantrya.net (47 tools) · factory (40) · essay (24) · books (22) · video (18) · tutor (5) · nibbana (4, private) · practice writes · all need Authorization: Bearer $MCP_TOKEN; reads on practice stay open.",
 }
-
 
 def esc(s: str) -> str:
     return (str(s).replace('&', '&amp;').replace('<', '&lt;')
