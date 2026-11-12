@@ -7,7 +7,17 @@ const crypto = require('node:crypto');
 const ROOT = process.cwd();
 const idx = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/endgame-docs.json'), 'utf8'));
 
-test('vendored endgame docs match their sources byte for byte', () => {
+const SOURCES_READABLE = idx.docs.every((d) => {
+  try {
+    fs.accessSync(d.source, fs.constants.R_OK);
+    return true;
+  } catch {
+    return false;
+  }
+});
+
+test('vendored endgame docs match their sources byte for byte',
+  {skip: SOURCES_READABLE ? false : 'sources live outside fresh checkouts (box-absolute paths); runs on the box'}, () => {
   assert.equal(idx.format, 'svatantrya.endgame-docs/1');
   assert.ok(idx.docs.length >= 12, 'the strategic docs are vendored');
   for (const d of idx.docs) {
