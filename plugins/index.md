@@ -8,14 +8,14 @@ Start with the three bundles, then go granular if you want. Install: chatgpt.com
 
 `https://mcp.svatantrya.net/mcp`
 
-Everything public in one install. All 40 public reads: bibliography, passages, wheels, translation briefs, formal layer, treeka chains, and the 60-level compose curriculum (levels, examples, study order).
+Everything public in one install. All 43 public reads: bibliography, passages, wheels, translation briefs, formal layer, treeka chains, the 60-level compose curriculum, and the four-wheel map + packs.
 
-Auth: none · Access: public — start here · Tools: 40
+Auth: none · Access: public — start here · Tools: 43
 
 Try:
-- What does Tantrasara chapter 20 verse 1 say, in Sanskrit and English?
-- Teach me wheel level 1
-- Show the formal coverage gaps
+- What are the four wheels?
+- Show me the Family pack
+- Why does aham paṭhāmi become bhavān paṭhati?
 
 ## Svatantrya Studio
 

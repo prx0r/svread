@@ -1,0 +1,78 @@
+{
+  "format": "svatantrya.wheelmap/1",
+  "note": "Four master wheels; the 15 v2 families become reusable patterns inside them. Family IDs are stable content IDs, not the study order and not the wheel.",
+  "wheels": [
+    {
+      "id": "conversation",
+      "number": 1,
+      "title": "Conversation",
+      "rings": ["person", "question", "topic", "answer", "follow_up"],
+      "pattern": "Ask -> Answer -> Follow up",
+      "generative": "the follow-up ring emits the next question, so turns can continue without bound",
+      "absorbs": ["1 conversation", "7 deictics", "14 quotation (reporting)"],
+      "cross_cutting": ["numbers (age)", "ka-ta-ya question words", "pronouns"]
+    },
+    {
+      "id": "expression",
+      "number": 2,
+      "title": "Expression",
+      "rings": ["speaker", "attitude", "subject", "connector", "reason"],
+      "pattern": "I think / like / want -> X -> because -> Y",
+      "generative": "reason and connector rings recombine; propositions stack one clause at a time",
+      "absorbs": ["2 expression", "5 logic", "12 correlatives", "14 quotation (thought)"],
+      "cross_cutting": ["comparisons", "conditions", "particles"]
+    },
+    {
+      "id": "action",
+      "number": 3,
+      "title": "Action",
+      "rings": ["actor", "action", "object", "location", "time"],
+      "pattern": "Who -> Does what -> To whom/what -> Where -> When",
+      "generative": "actor drives verb agreement; verb drives the legal object set; place/time are free",
+      "absorbs": ["3 action", "8 cases", "10 commands", "11 sequence", "13 causatives"],
+      "cross_cutting": ["transformation (person/tense/negation)", "numbers", "prefixes"]
+    },
+    {
+      "id": "description",
+      "number": 4,
+      "title": "Description",
+      "rings": ["demonstrative", "noun", "property", "degree", "relationship"],
+      "pattern": "This -> Thing -> Is/has -> Quality -> Relationship",
+      "generative": "noun gender drives adjective agreement; degree and relationship recombine",
+      "absorbs": ["4 description", "9 numbers", "15 compounds"],
+      "cross_cutting": ["gender", "possessives", "comparisons"]
+    }
+  ],
+  "families": {
+    "conversation": {"wheel": "conversation", "role": "primary"},
+    "deictics": {"wheel": "conversation", "role": "cross_cutting"},
+    "quotation": {"wheel": "conversation", "role": "cross_cutting", "also": "expression"},
+    "expression": {"wheel": "expression", "role": "primary"},
+    "logic": {"wheel": "expression", "role": "primary"},
+    "correlatives": {"wheel": "expression", "role": "cross_cutting"},
+    "action": {"wheel": "action", "role": "primary"},
+    "cases": {"wheel": "action", "role": "cross_cutting"},
+    "commands": {"wheel": "action", "role": "cross_cutting"},
+    "sequence": {"wheel": "action", "role": "cross_cutting"},
+    "causatives": {"wheel": "action", "role": "cross_cutting"},
+    "description": {"wheel": "description", "role": "primary"},
+    "numbers": {"wheel": "description", "role": "cross_cutting", "also": "conversation"},
+    "compounds": {"wheel": "description", "role": "cross_cutting"},
+    "transformation": {"wheel": null, "role": "mechanic", "note": "not a wheel: it is the 'Why did that change?' reveal applied to any wheel"}
+  },
+  "level_roadmap": [
+    {"stage": 1, "change": "Simple present-tense sentences"},
+    {"stage": 2, "change": "Questions and negatives"},
+    {"stage": 3, "change": "Different people and numbers"},
+    {"stage": 4, "change": "Locations, objects and relationships"},
+    {"stage": 5, "change": "Past, future and commands"},
+    {"stage": 6, "change": "Reasons, preferences and comparisons"},
+    {"stage": 7, "change": "Conditions, sequences and relative clauses"},
+    {"stage": 8, "change": "Complex Sanskrit and Trika expressions"}
+  ],
+  "mastery_axes": ["grammar (construction across packs)", "vocabulary (pack lexemes recognised)", "conversation (respond without reveal)"],
+  "migration": {
+    "note": "old level IDs stay valid; a wheel is a view over them, so stored progress is preserved",
+    "rule": "family -> wheel per families map; transformation levels attach to the wheel whose sentence they transform"
+  }
+}
