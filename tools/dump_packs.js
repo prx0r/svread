@@ -6,23 +6,28 @@ require(path.join(SRC, 'core.js'));
 require(path.join(SRC, 'shared.js'));
 require(path.join(SRC, 'packs.js'));
 const { runCombinations } = globalThis.SW;
-const { packs, action31, action32, build31, build32 } = globalThis.SWPacks;
+const { packs, actorRing } = globalThis.SWPacks;
 
 const LEVELS = [
-  { id: 'action.3.1', wheel: 'action', level: '3.1', title: 'Simple actions', rings: action31, build: build31 },
-  { id: 'action.3.2', wheel: 'action', level: '3.2', title: 'Where an action happens', rings: action32, build: build32 },
+  { level: '1.1', wheel: 'conversation', title: 'Dialogue', rings: 'conversation11', build: 'build11' },
+  { level: '2.1', wheel: 'expression', title: 'Simple thoughts', rings: 'expression21', build: 'build21' },
+  { level: '3.1', wheel: 'action', title: 'Simple actions', rings: 'action31', build: 'build31' },
+  { level: '3.2', wheel: 'action', title: 'Where an action happens', rings: 'action32', build: 'build32' },
+  { level: '4.1', wheel: 'description', title: 'Descriptions', rings: 'description41', build: 'build41' },
 ];
 
 const rows = [];
 for (const [packId, pack] of Object.entries(packs)) {
   for (const L of LEVELS) {
-    const actors = pack.subjects.map((s) => SWPacks.actorById(s));
-    const ringActor = { id: 'actor', title: 'Who?', options: actors.map((a) => SW.choose(a.id, a.dev, { en: a.en, person: a.person })) };
-    const level = { id: L.level, title: L.title, rings: L.rings(pack, ringActor), build: L.build(pack) };
+    const level = {
+      id: L.level, title: L.title,
+      rings: SWPacks[L.rings](pack, actorRing(pack)),
+      build: SWPacks[L.build](pack),
+    };
     try {
       runCombinations(level, (g) => {
         rows.push({
-          wheel: L.wheel, level: L.id, level_title: L.title,
+          wheel: L.wheel, level: `${L.wheel}.${L.level}`, level_title: L.title,
           pack: packId, pack_name: pack.name,
           rings: level.rings.map((r) => r.id),
           selection: g.state,
@@ -31,7 +36,7 @@ for (const [packId, pack] of Object.entries(packs)) {
         });
       });
     } catch (e) {
-      rows.push({ wheel: L.wheel, level: L.id, pack: packId, error: String(e.message || e) });
+      rows.push({ wheel: L.wheel, level: `${L.wheel}.${L.level}`, pack: packId, error: String(e.message || e) });
     }
   }
 }
