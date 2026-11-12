@@ -21,13 +21,13 @@ Try:
 
 `https://studio.svatantrya.net/mcp`
 
-Your writing + learning room. Tutor sessions, sourced essays, deterministic compose drills, server-scored gates. Owner token.
+Your writing + learning room. Tutor sessions, sourced essays, deterministic compose drills and the voice session loop (start/check/end), server-scored gates. Owner token.
 
-Auth: bearer · Access: owner · Tools: 36
+Auth: bearer · Access: owner · Tools: 39
 
 Try:
-- What is today's plan?
-- Drill me on numbers level 7.3
+- Start a warm-up session
+- Check my Sanskrit: bhavān katham asti
 - Show my scored progress
 
 ## Svatantrya Factory

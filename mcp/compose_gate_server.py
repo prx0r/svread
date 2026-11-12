@@ -85,6 +85,36 @@ def norm(s: str) -> str:
     return s
 
 
+def _tokens(t: str) -> set:
+    return set(re.findall(r"[a-z\u0101\u012b\u016b\u1e5b\u1e5d\u1e37\u1e39\u1e43\u1e25\u00f1\u1e45\u015b\u1e63\u1e6d\u1e0d\u1e47]+", (t or '').lower()))
+
+
+def _rows_for(level: str) -> list:
+    return [r for r in _load()['rows'] if r['level'] == level and r['review'] != 'HOLD']
+
+
+def _nearest(level: str, utterance: str):
+    ut = _tokens(utterance)
+    best = (-1.0, None)
+    for r in _rows_for(level):
+        rt = _tokens(r['lines'][0]['roman'])
+        jac = len(ut & rt) / max(1, len(ut | rt))
+        if jac > best[0]:
+            best = (jac, r)
+    return best[1], best[0]
+
+
+def _ring_diff(target: dict, other: dict) -> list:
+    """Which rings differ between two states of the same level."""
+    out = []
+    t = target.get('selection', {})
+    o = other.get('selection', {})
+    for k in t:
+        if t.get(k) != o.get(k):
+            out.append(k)
+    return out
+
+
 def _seed_for(user_id: str, level: str, seed: int | None) -> int:
     if seed is not None:
         return int(seed)
@@ -345,6 +375,109 @@ def progress(user_id: str = "owner") -> dict:
         a['right_total'] += r
     return {'user_id': user_id, 'levels': agg,
             'note': 'an item retires after 2 correct; review() replays the rest'}
+
+
+# ------------------------------------------------------------------ session
+# Voice/role-play loop: start -> check (per utterance) -> end. Uses the same
+# deterministic deal and server-held key as drill/submit; adds fuzzy matching
+# so a spoken attempt can be located in the level lattice.
+
+@mcp.tool()
+def session_start(level: str = "", user_id: str = "owner", n: int = 3,
+                  seed: int | None = None) -> dict:
+    """Start a warm-up session. If level is empty, uses the study-order next
+    level. Deals n items and returns a teacher brief (target rings, English
+    prompts, Sanskrit-first policy). Deterministic per (user, level, seed)."""
+    if not level:
+        order = _load()['curriculum']['study_order']
+        level = order[0]['id']
+    res = _drill_impl(level, user_id, int(n), seed)
+    if 'session_id' not in res:
+        return res
+    lvl = next((l for l in _load()['levels'] if l['level'] == level), {})
+    return {
+        'session_id': res['session_id'], 'level': level,
+        'level_title': lvl.get('title', ''), 'focus': lvl.get('focus', ''),
+        'seed': res['seed'], 'receipt': res['receipt'],
+        'brief': {
+            'policy': ('Sanskrit first: greet and ask in Sanskrit, one question at a '
+                       'time. Explain a rule in English only after a miss, then hand '
+                       'the same sentence back to repeat slowly. Never read the whole '
+                       'answer first. Do not claim pronunciation scores.'),
+            'setting': lvl.get('focus', ''),
+        },
+        'items': res['items'],
+    }
+
+
+@mcp.tool()
+def session_check(utterance: str = "", item_ref: str = "", session_id: str = "",
+                  user_id: str = "owner") -> dict:
+    """Check one spoken/written attempt. Returns ok / near / no, the expected
+    roman form, and which ring most likely went wrong. Server-side key only."""
+    c = _db()
+    try:
+        row = c.execute("SELECT user_id,level,key_json FROM sessions WHERE id=?",
+                        (session_id,)).fetchone()
+    finally:
+        c.close()
+    if not row:
+        return {'error': 'unknown session — call session_start() first'}
+    uid, level, key_json = row
+    if uid != user_id:
+        return {'error': 'session belongs to another learner'}
+    key = json.loads(key_json)
+    if item_ref not in key:
+        return {'error': f'item_ref not in this session: {item_ref}'}
+    exp_dev = key[item_ref]['dev']
+    exp_roman = key[item_ref]['roman']
+    g = norm(utterance)
+    if g and g in {norm(exp_dev), norm(exp_roman)}:
+        return {'verdict': 'ok', 'expected_roman': exp_roman,
+                'say': 'correct — say it once more, slowly'}
+    target = next((r for r in _load()['rows']
+                   if _item_id(r) == item_ref), None)
+    near, jac = _nearest(level, utterance)
+    out = {'verdict': 'near' if jac >= 0.5 else 'no',
+           'expected_roman': exp_roman, 'expected_dev': exp_dev,
+           'match_score': round(jac, 2)}
+    if target and near and _item_id(near) != item_ref:
+        diff = _ring_diff(target, near)
+        out['likely_ring'] = diff
+        titles = dict(zip(target.get('rings', []), target.get('ring_titles', [])))
+        out['hint'] = 'compare the ' + ', '.join(titles.get(x, x) for x in diff) + ' ring'
+    if out['verdict'] == 'no':
+        out['say'] = 'try again; the target is shown'
+    else:
+        out['say'] = 'almost — one part differs'
+    return out
+
+
+@mcp.tool()
+def session_end(session_id: str = "", user_id: str = "owner") -> dict:
+    """Close a session: mastery summary for the level + the next study-order
+    level to try."""
+    c = _db()
+    try:
+        row = c.execute("SELECT level FROM sessions WHERE id=? AND user_id=?",
+                        (session_id, user_id)).fetchone()
+    finally:
+        c.close()
+    if not row:
+        return {'error': 'unknown session'}
+    level = row[0]
+    order = _load()['curriculum']['study_order']
+    nxt = _next_impl(level)
+    return {'level': level, 'next': nxt,
+            'say': 'session closed — review the misses tomorrow, then continue'}
+
+
+def _drill_impl(level, user_id, n, seed):
+    return drill(level, user_id, n, seed)
+
+
+def _next_impl(level):
+    return next_level(level, None)
 
 
 if __name__ == "__main__":
