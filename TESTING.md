@@ -21,8 +21,9 @@ Every content emitter must be byte-identical on rerun:
 
 ```sh
 for t in emit_grammar emit_wheels emit_gate_pools emit_certificates \
-         emit_harness emit_answers emit_about emit_plugins emit_practice emit_eval_set \
+         emit_harness emit_answers emit_about emit_plugins emit_compose emit_practice emit_eval_set \
          emit_discovery; do python3 tools/$t.py --check; done
+python3 tools/check_compose.py --check      # compose vs Vidyut verb space (pilot)
 python3 tools/check_licenses.py --check     # licence gate
 python3 tools/eval_blind.py --check         # blind set + rubric
 python3 tools/eval_export_ours.py --check   # our candidate, coverage honest
