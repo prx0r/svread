@@ -177,7 +177,9 @@ python3 scripts/release_manifest.py && node --test tests/*.test.cjs
   translation-work for L0–L4 and Beam/Iceman; BookFactory and VideoFactory for
   derived media. Keep generation, review, author sign-off, publication and
   deployment as separate recorded gates.
-- Next: open the Satsang gateway PR, merge it after review, restart
-  `svatantrya-mcp`, then confirm `satsang__search_places`, sourced place
-  records, and the updated dynamic tool list. Do not deploy the Svread site as
-  a substitute for restarting the MCP service.
+- PR #26 is open from `feature/satsang-remote-mcp-2026-11-12` and was
+  mergeable on the first GitHub read; no CI statuses were returned. Next:
+  review/merge it, restart `svatantrya-mcp`, then confirm
+  `satsang__search_places`, sourced place records, and the updated dynamic tool
+  list. Do not deploy the Svread site as a substitute for restarting the MCP
+  service.
