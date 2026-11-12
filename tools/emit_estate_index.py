@@ -27,6 +27,9 @@ REPOS = [
     ('translation-work', '/root/translation-work', 'the corpus: L0-L4 layers for 112 works', 'AGENTS.md'),
     ('trika-x', '/root/trika-x', 'formal layer (Lean prakriya), federation gateway, recipes', 'INDEX.md'),
     ('openpatala', '/root/openpatala', 'bibliography DB + MCP (resolve/search/get_bundle)', 'patala/mcp_server.py'),
+    ('satsang', 'https://github.com/prx0r/satsang',
+     'public directory: traditions, teachers, practices, events and places; read-only MCP',
+     'mcp/README.md'),
     ('bookfactory', '/root/bookfactory', 'book production pipeline + MCP', 'bf_mcp/server.py'),
     ('videofactory', '/root/videofactory', 'video production pipeline + MCP', 'vf_mcp_server.py'),
     ('aoc', '/root/aoc', 'AI Onboard carousel factory, gated + receipted', 'docs/HOW_IT_WORKS.md'),
@@ -125,6 +128,10 @@ RECIPES = [
     {'name': 'Formal evidence browser', 'uses': ['federation__guide', 'formal__evidence',
      'formal__gaps'],
      'build': 'navigate formal artifacts and gaps across the estate'},
+    {'name': 'Satsang practice and place finder', 'uses': ['satsang__search',
+     'satsang__search_places', 'satsang__get_place', 'satsang__what_to_study',
+     'satsang__guide_me'],
+     'build': 'find sourced teachers, practice centres, events, texts and study paths'},
 ]
 
 
@@ -140,6 +147,18 @@ def build() -> dict:
     cert_n = certs.get('count') if isinstance(certs, dict) else len(certs)
     mcp = json.loads((SVREAD / 'data' / 'mcp-registry.json').read_text(encoding='utf-8'))
     endgame = json.loads((SVREAD / 'data' / 'endgame-docs.json').read_text(encoding='utf-8'))
+    mcp_servers = {}
+    for name, cfg in gateway.get('servers', {}).items():
+        entry = {}
+        if cfg.get('path'):
+            entry['path'] = cfg['path']
+        if cfg.get('url'):
+            entry['url'] = cfg['url']
+            entry['transport'] = 'streamable-http'
+        if cfg.get('allow_tools') is not None:
+            entry['allow_tools'] = cfg['allow_tools']
+        entry['role'] = cfg.get('role', '')
+        mcp_servers[name] = entry
 
     return {
         'format': 'svatantrya.estate-index/1',
@@ -187,7 +206,7 @@ def build() -> dict:
             'HANDOVER-NEXT-SESSION.md — the next ten jobs',
             'docs/endgame/endgame-recipes.md — R1–R9 recipes',
         ],
-        'mcp_servers': {k: {'path': v['path'], 'role': v.get('role', '')} for k, v in gateway['servers'].items()},
+        'mcp_servers': mcp_servers,
         'plugin_recipes': RECIPES,
     }
 

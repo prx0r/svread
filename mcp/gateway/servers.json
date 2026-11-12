@@ -1,6 +1,6 @@
 {
   "format": "svatantrya.mcp-gateway/1",
-  "note": "One HTTP MCP endpoint over every stdio server in the estate. Tool names are prefixed <server>__<tool>. Edit only if a server path changes; the registry JSON in svread is the source of truth for tool inventories. translation and sleepdraw are CLI tools listed under cli_only; call them as `python3 <path> <tool> <json>`.",
+  "note": "One HTTP MCP endpoint over local stdio and configured remote Streamable HTTP servers. Tool names are prefixed <server>__<tool>. Remote servers may use allow_tools to expose a closed tool set. Edit only if a server path or endpoint changes; the registry JSON in svread is the source of truth for configured servers. translation and sleepdraw are CLI tools listed under cli_only; call them as `python3 <path> <tool> <json>`.",
   "port": 8765,
   "path": "/mcp",
   "servers": {
@@ -13,6 +13,40 @@
       "path": "/root/openpatala/patala/mcp_server.py",
       "cwd": "/root/openpatala",
       "role": "bibliography: resolve/search/get_bundle over the work DB"
+    },
+    "satsang": {
+      "url": "https://mcp.tantrafiles.xyz/mcp",
+      "role": "public read-only directory: traditions, teachers, practices, retreats and places",
+      "allow_tools": [
+        "search",
+        "get_topic",
+        "get_teacher",
+        "get_lineage",
+        "list_practices",
+        "get_collection",
+        "list_courses",
+        "get_course",
+        "list_series",
+        "get_series",
+        "recommend",
+        "fetch",
+        "find_places",
+        "get_place",
+        "search_places",
+        "list_events",
+        "find_teachers",
+        "get_resources",
+        "get_lineage_path",
+        "what_to_study",
+        "guide_me",
+        "find_retreats",
+        "get_schedule",
+        "plan_retreat",
+        "compose_booking",
+        "site_health",
+        "list_findings",
+        "next_maintenance_task"
+      ]
     },
     "federation": {
       "path": "/root/trika-x/formal-trika/tools/federation_gateway.py",

@@ -7,11 +7,11 @@ Status: **live**. One remote MCP endpoint, systemd-owned, survives reboots.
 Call `workspace__estate_index` (or read
 `https://svatantrya.net/data/estate-index.json`). One JSON with:
 
-- `counts` — 2,051 works, 268 translated songs, 44 certificates, 198 tools
-- `repos` — what each of the 13 trees is and where to start
+- `counts` — current data counts and the deployed MCP snapshot (198 tools before the Satsang bridge is deployed)
+- `repos` — what each repository is and where to start
 - `data` — every Sanskrit asset and **the MCP tool that reaches it**
 - `docs` — what to read for rules, Lean limits, deployment
-- `plugin_recipes` — eight buildable plugins with the exact tool chains
+- `plugin_recipes` — nine buildable plugins with the exact tool chains, including Satsang place and practice discovery
 
 ## Connect it
 
@@ -25,18 +25,25 @@ Call `workspace__estate_index` (or read
    ```
 
 4. Save. The tool list appears as server tabs (`scholar`, `openpatala`,
-   `federation`, `bookfactory`, `videofactory`, `aoc`, `workspace`).
+   `federation`, `bookfactory`, `videofactory`, `aoc`, `workspace`, and—after
+   the Satsang gateway change is deployed—`satsang`).
 
 Health check without the handshake:
 
 ```sh
-curl -s https://mcp.sanskrit.help/health        # -> ok 7 servers
+curl -s https://mcp.sanskrit.help/health        # -> ok 7 now; 8 after Satsang deploy
 curl -s -o /dev/null -w '%{http_code}\n' -X POST https://mcp.sanskrit.help/mcp \
   -H 'content-type: application/json' -d '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
 # 401 = auth working
 ```
 
-## What is exposed (198 tools, 7 servers)
+## What is exposed
+
+The live endpoint snapshot has 198 tools across 7 configured servers. The
+Satsang bridge in this branch adds 28 allowlisted, read-only tools; after
+merging and restarting `svatantrya-mcp`, the endpoint will expose up to 226
+tools across 8 servers. The remote catalogue is discovered at runtime, so the
+live count may drop if a backend is unavailable.
 
 | Server | Tools | What ChatGPT can do |
 |---|---|---|
@@ -47,6 +54,7 @@ curl -s -o /dev/null -w '%{http_code}\n' -X POST https://mcp.sanskrit.help/mcp \
 | `videofactory` | 18 | lanes, units, render-gate status |
 | `aoc` | 20 | carousel factory: status, validate, review, receipts (writes are gated) |
 | `workspace` | 8 | **catalogue + edit the repos**: list/read/write/patch/grep, git status/log/diff/add/commit |
+| `satsang` | up to 28 | sourced spiritual directory: traditions, teachers, resources, practices, events, retreats and places; remote tools are explicitly allowlisted |
 
 Tool names are `<server>__<tool>`, e.g. `scholar__wheel_level`,
 `openpatala__search` (arg is `q`, not `query`), `workspace__ws_patch`.
@@ -70,7 +78,7 @@ PR. That keeps a human on the one action that publishes.
 
 | Goal | File |
 |---|---|
-| add a server to the endpoint | `mcp/gateway/servers.json` (path, cwd, env) |
+| add a server to the endpoint | `mcp/gateway/servers.json` (local path or remote URL, optional allowlist) |
 | change routing/auth/transport | `mcp/gateway/gateway.py` |
 | add a tool to a child server | that repo's server file, e.g. `svread/mcp/scholar_server.py`, `openpatala/patala/mcp_server.py`, `translation-work/mcp_server.py` |
 | edit files through MCP | `mcp/gateway/workspace_server.py` (roots, deny list, git allowlist) |
@@ -88,8 +96,9 @@ async def my_tool(query: str) -> str:
     return json.dumps(...)
 ```
 
-Then `systemctl restart svatantrya-mcp` (children are spawned per call, so the
-gateway picks it up immediately; no redeploy needed).
+After merging a gateway change, restart `svatantrya-mcp` so it loads the new
+server registry. The gateway opens fresh local or remote client sessions for
+each call.
 
 ## Running it
 
@@ -115,7 +124,7 @@ svatantrya-mcp`, then update the connector.
 | daily | `gateway__problems` over MCP | a child server stopped importing |
 | daily | `systemctl is-active svatantrya-mcp{,-tunnel}` | restart loop |
 | weekly | `journalctl -u svatantrya-mcp -p warning` | repeated child crashes |
-| weekly | compare `tools/list` count to `TOOLS.md` | a tool vanished |
+| weekly | compare `tools/list` count to `TOOLS.md` after deployment | a tool vanished or a remote source is unavailable |
 
 ## Honest caveats
 

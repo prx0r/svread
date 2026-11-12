@@ -197,4 +197,33 @@ workspace__ws_patch                                      Replace an exact unique
 workspace__ws_grep                                       Search file contents; bounded to 200 hits.
 workspace__ws_git                                        Repository git: status|log|diff|add|commit|branch|checkout|s
 
-198 tools across 7 servers
+satsang__search                                           Search teachers, traditions, topics, practices, resources and places.
+satsang__get_topic                                        Read a topic hub and its related resources, teachers and practices.
+satsang__get_teacher                                      Read a teacher, scholar or figure profile with provenance.
+satsang__get_lineage                                      Read lineage connections for a person or tradition.
+satsang__list_practices                                   Find practices by tradition, kind or topic, with sources and cautions.
+satsang__get_collection                                   Read an ordered collection, journey or syllabus.
+satsang__list_courses                                     List editorial study series.
+satsang__get_course                                       Read one study series and its sessions.
+satsang__list_series                                      List available study series.
+satsang__get_series                                       Read one series and its ordered resources.
+satsang__recommend                                        Return stateless recommendations from supplied liked IDs.
+satsang__fetch                                            Fetch one canonical Satsang record by ID or URL.
+satsang__find_places                                      Find practice, study, retreat and sacred places.
+satsang__get_place                                        Read a place profile with sourced contacts and programmes.
+satsang__search_places                                    Search places by tradition, location, format and events.
+satsang__list_events                                      List dated public events from place calendars.
+satsang__find_teachers                                    Find teachers by tradition, school, location and status.
+satsang__get_resources                                    Find texts, books and libraries by tradition, person or topic.
+satsang__get_lineage_path                                 Return a sourced shortest lineage path.
+satsang__what_to_study                                    Build a staged study path for a tradition or school.
+satsang__guide_me                                         Build a sourced starting path for a tradition or teacher.
+satsang__find_retreats                                    Find retreats and courses by place, tradition and format.
+satsang__get_schedule                                     Read a place's recurring programmes and yearly events.
+satsang__plan_retreat                                     Draft a personal retreat plan from the supplied intent.
+satsang__compose_booking                                  Draft an enquiry email without sending it.
+satsang__site_health                                      Read Satsang's published service health summary.
+satsang__list_findings                                    Read public maintenance findings.
+satsang__next_maintenance_task                            Read the next public maintenance task.
+
+226 tools when all 8 servers are available (198 local + 28 allowlisted Satsang tools; diagnostic tools may change this count).
