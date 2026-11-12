@@ -117,6 +117,38 @@ def _ring_diff(target: dict, other: dict) -> list:
     return out
 
 
+MEMORY_BASE = os.environ.get("SVAT_TUTOR_BASE", "http://127.0.0.1:8931")
+
+
+def _memory_record(session_id: str, user_id: str, item_ref: str, level: str,
+                   ok: bool) -> None:
+    """Best-effort: mirror a server-scored result into tutor memory with
+    exact_match evidence. The assessor token proves the grade came from the
+    key-holder, never from the model. Failures never break submit."""
+    try:
+        import urllib.request as _u
+        tok = os.environ.get("SVAT_TUTOR_INTERNAL_TOKEN", "")
+        assess = os.environ.get("SVAT_TUTOR_ASSESSOR_TOKEN", "")
+        learner = os.environ.get("SVAT_TUTOR_LEARNER", user_id)
+        if not tok or not assess:
+            return
+        payload = {"client_event_id": f"{session_id}:{item_ref}",
+                   "skill_id": level, "wheel_id": level.split(".")[0],
+                   "level_id": level, "pack_id": "compose",
+                   "combination_id": item_ref,
+                   "rating": "good" if ok else "again",
+                   "evidence": "exact_match", "error_tags": []}
+        req = _u.Request(MEMORY_BASE + "/v1/attempts",
+                         data=json.dumps(payload).encode(), method="POST",
+                         headers={"Content-Type": "application/json",
+                                  "X-Internal-Service-Token": tok,
+                                  "X-Authenticated-User-Id": learner,
+                                  "X-Internal-Assessor-Token": assess})
+        _u.urlopen(req, timeout=10).read()
+    except Exception:
+        pass
+
+
 def _seed_for(user_id: str, level: str, seed: int | None) -> int:
     if seed is not None:
         return int(seed)
@@ -461,6 +493,7 @@ def submit(session_id: str = "", answers: list | None = None,
                       "ON CONFLICT(user_id,item_id) DO UPDATE SET seen=seen+1, "
                       "right=right+?, updated_at=datetime('now')",
                       (user_id, d_['item_ref'], 1 if d_['ok'] else 0, 1 if d_['ok'] else 0))
+            _memory_record(session_id, user_id, d_['item_ref'], level, d_['ok'])
         result = {'receipt': receipt, 'score': correct, 'total': len(item_ids),
                   'passed': passed, 'detail': detail,
                   'next': 'review() replays weak items; drill() deals fresh ones',
