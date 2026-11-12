@@ -139,6 +139,7 @@ def build_llms(pushing: dict, biblio: dict, sanskrit: dict) -> str:
         f"- Curated-vs-machine cross-check (per-form agreement, specials, gaps): {ORIGIN}/data/grammar/crosscheck.json",
         f"- Learning harness (ONE fetch: all wheels + decision tree + verify index + links): {ORIGIN}/data/wheels/harness.json",
         f"- About / mission (verbatim owner statement, structured): {ORIGIN}/about/ · {ORIGIN}/about/about.json",
+        f"- ChatGPT plugins + agent CLI (10 MCP hosts, install recipes, machine spec): {ORIGIN}/plugins/ · {ORIGIN}/plugins/plugins.json",
         f"- One-URL answers (no registration, no JS: fetch a form, get verdict + derivation + scripture): {ORIGIN}/a/<form>/ — index {ORIGIN}/a/index.json",
         f"- Harness master prompt (how a tutor model uses the site): {ORIGIN}/data/wheels/HARNESS.md",
         f"- Wheel datasets (word/sentence/trika/karaka constructors): {ORIGIN}/data/wheels/word.json, sentence.json, trika.json, karaka.json",
@@ -204,6 +205,8 @@ def build_llms_full(biblio: dict) -> str:
              "",
              f"- About: {ORIGIN}/about/ — what is claimed, rights, contact",
              f"- Cite: {ORIGIN}/cite/ — stable-URL policy, status words",
+             f"- Plugins: {ORIGIN}/plugins/ — every ChatGPT plugin + agent CLI (spec: plugins/plugins.json). Satsang MCP: https://mcp.tantrafiles.xyz/mcp",
+
              ""]
     for w in sorted(works):
         lines.append(f"## {w} ({len(works[w])} claims): {ORIGIN}/work/{w}/")
@@ -258,7 +261,7 @@ def build_sitemap() -> str:
     # editorial hold are excluded from discovery (noindex + withheld English);
     # chain/work pages stay (evidence + navigation, not promotion).
     held = load_holds()
-    urls = ["", "pushing.html", "wheels.html", "about/", "cite/"]
+    urls = ["", "pushing.html", "wheels.html", "about/", "cite/", "plugins/"]
     try:
         ans = json.loads((ROOT / "a" / "index.json").read_text())
         for e in ans.get("entries", []):
