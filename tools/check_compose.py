@@ -34,16 +34,20 @@ ROOTS = {
     'paW': 'paṭh (read)', 'gam': 'gam (go)', 'as': 'as (be)', 'liK': 'likh (write)',
     'vas': 'vas (dwell)', 'man': 'man (think)', 'jYA': 'jñā (know)', 'vad': 'vad (speak)',
     'ruc': 'ruc (please)', 'has': 'has (laugh)', 'kf': 'kṛ (make)', 'av': 'av (protect)',
+    'dA': 'dā (give)', 'gfh': 'gṛh (grasp)', 'dfS': 'dṛś (see)', 'sTA': 'sthā (stand)',
+    'DyE': 'dhyai (meditate)', 'vft': 'vṛt (turn)',
 }
 # extra roots referenced by compose but possibly absent from the kosha
-WANT_EXTRA = {'nAS': 'nāś (destroy)', 'icC': 'icch (wish)', 'viSrAm': 'viśram (rest)'}
+WANT_EXTRA = {'nAS': 'nāś (destroy)', 'icC': 'icch (wish)', 'viSrAm': 'viśram (rest)',
+             'praC': 'prach (ask)'}
 
 # pin the correct homonym per root (same clean_text, different gana)
 GANA_PIN = {
     'paW': 'Bhvadi', 'gam': 'Bhvadi', 'as': 'Adadi', 'liK': 'Tudadi',
     'vas': 'Bhvadi', 'man': 'Divadi', 'jYA': 'Ghatadi', 'vad': 'Bhvadi',
     'ruc': 'Bhvadi', 'has': 'Bhvadi', 'kf': 'Svadi', 'av': 'Bhvadi',
-    'Sak': 'Svadi',
+    'Sak': 'Svadi', 'dA': 'Juhotyadi', 'gfh': 'Bhvadi', 'dfS': 'Bhvadi',
+    'sTA': 'Bhvadi', 'DyE': 'Bhvadi', 'vft': 'Bhvadi',
 }
 
 

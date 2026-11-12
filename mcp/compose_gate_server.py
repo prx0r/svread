@@ -125,6 +125,54 @@ def levels() -> dict:
 
 
 @mcp.tool()
+def curriculum() -> dict:
+    """The recommended 1-60 study order (family IDs are not the study order),
+    with prerequisites and neighbour wheels. Read-only; drives daily focus."""
+    d = _load()
+    return {'format': 'svatantrya.study-order/1',
+            'counts': d['counts'],
+            'study_order': d['curriculum']['study_order'],
+            'note': 'family number is a stable content ID, not the study order'}
+
+
+@mcp.tool()
+def next_level(level: str = "", done: list | None = None) -> dict:
+    """Recommend the next study-order level. Pass the level you just finished
+    (its next-in-family if ready) or omit to get the first not in `done`.
+    Read-only; never hard-locks exploration."""
+    d = _load()
+    order = d['curriculum']['study_order']
+    done = set(done or [])
+    if level:
+        fam = level.split('.')[0]
+        sibs = [o for o in order if o['id'].split('.')[0] == fam]
+        sibs.sort(key=lambda o: int(o['id'].split('.')[1]))
+        for i, o in enumerate(sibs):
+            if o['id'] == level and i + 1 < len(sibs):
+                nxt = sibs[i + 1]
+                return {'from': level, 'next': nxt['id'], 'title': nxt['title'],
+                        'focus': nxt['focus'], 'prerequisites': nxt['prerequisites'],
+                        'neighbors': nxt['neighbor_wheels'], 'why': 'next in family'}
+    for o in order:
+        if o['id'] not in done:
+            return {'next': o['id'], 'title': o['title'], 'focus': o['focus'],
+                    'rank': o['rank'], 'prerequisites': o['prerequisites'],
+                    'neighbors': o['neighbor_wheels'], 'why': 'earliest not done'}
+    return {'status': 'COMPLETE', 'message': 'all 60 levels seen — review due'}
+
+
+@mcp.tool()
+def neighbors(level: str = "") -> dict:
+    """Related wheels to detour to when a construction is hard. Does not
+    change the day's focus."""
+    d = _load()
+    for o in d['curriculum']['study_order']:
+        if o['id'] == level:
+            return {'level': level, 'neighbors': o['neighbor_wheels']}
+    return {'error': f'unknown level {level}'}
+
+
+@mcp.tool()
 def show(level: str = "1.1", index: int = 0) -> dict:
     """Show one fully-rendered example state of a level (Devanagari + IAST +
     English). A teaching example, not a gate item. Read-only."""
