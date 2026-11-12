@@ -1,0 +1,27 @@
+{
+  "format": "svatantrya.mcp-gateway/1",
+  "note": "factory.svatantrya.net — book + video production bundle. 40 tools, bearer. Split if ChatGPT confuses the two lanes.",
+  "port": 8783,
+  "path": "/mcp",
+  "public_base": "https://factory.svatantrya.net/mcp",
+  "instructions": "Svatantrya Factory (owner tools). bookfactory__* stages gated book products; videofactory__vf_* manages video projects and render gates. Staging returns job ids; rendering and publishing stay human-gated, always.",
+  "servers": {
+    "bookfactory": {
+      "path": "/root/bookfactory/bf_mcp/server.py",
+      "cwd": "/root/bookfactory",
+      "role": "book production pipeline",
+      "env": {
+        "BOOKFACTORY_ROOT": "/root/bookfactory",
+        "BOOKFACTORY_TRANSLATIONS": "/root/translation-work"
+      }
+    },
+    "videofactory": {
+      "path": "/root/videofactory/vf_mcp_server.py",
+      "cwd": "/root/videofactory",
+      "role": "video production pipeline",
+      "env": {
+        "VIDEOFACTORY_ROOT": "/root/videofactory"
+      }
+    }
+  }
+}

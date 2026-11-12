@@ -12,6 +12,9 @@ name + URL → auth per row → Create as a plugin → Install → `@name` in ch
 
 | Plugin | URL | Auth in ChatGPT | Tools |
 |---|---|---|---|
+| **Svatantrya (start here)** | `https://mcp.svatantrya.net/mcp` | No authentication | 35 public reads, everything |
+| **Svatantrya Studio** | `https://studio.svatantrya.net/mcp` | static bearer (owner token) | 32 tutor + essay + scoring |
+| **Svatantrya Factory** | `https://factory.svatantrya.net/mcp` | static bearer (owner token) | 40 books + video |
 | index | `https://index.svatantrya.net/mcp` | No authentication | 5 openpatala reads |
 | sanskrit | `https://sanskrit.svatantrya.net/mcp` | No authentication | 9 scholar reads |
 | practice | `https://practice.svatantrya.net/mcp` | No authentication (reads); `progress__*` 401 without bearer | 5 wheel reads + 3 scored (bearer) |

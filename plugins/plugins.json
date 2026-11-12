@@ -6,9 +6,55 @@
     "inspector": "npx @modelcontextprotocol/inspector@latest  # Transport: Streamable HTTP; URL https://<host>.svatantrya.net/mcp",
     "opencode": "{\"mcp\": {\"<name>\": {\"type\": \"remote\", \"url\": \"https://<host>.svatantrya.net/mcp\", \"headers\": {\"Authorization\": \"Bearer $MCP_TOKEN\"}}}}  # drop headers for the five public hosts"
   },
+  "bundles": [
+    {
+      "access": "public — start here",
+      "auth": "none",
+      "description": "All 35 public reads: bibliography, passages, wheels, translation briefs, formal layer, treeka chains.",
+      "id": "mcp",
+      "name": "Svatantrya",
+      "tagline": "Everything public in one install.",
+      "test_prompts": [
+        "What does Tantrasara chapter 20 verse 1 say, in Sanskrit and English?",
+        "Teach me wheel level 1",
+        "Show the formal coverage gaps"
+      ],
+      "tools": 35,
+      "url": "https://mcp.svatantrya.net/mcp"
+    },
+    {
+      "access": "owner",
+      "auth": "bearer",
+      "description": "Tutor sessions, sourced essay workflow, server-scored gates. Owner token.",
+      "id": "studio",
+      "name": "Svatantrya Studio",
+      "tagline": "Your writing + learning room.",
+      "test_prompts": [
+        "What is today's plan?",
+        "List my documents",
+        "Show my scored progress"
+      ],
+      "tools": 32,
+      "url": "https://studio.svatantrya.net/mcp"
+    },
+    {
+      "access": "owner",
+      "auth": "bearer",
+      "description": "Book staging and video render gates. Human-gated publishing. Owner token.",
+      "id": "factory",
+      "name": "Svatantrya Factory",
+      "tagline": "Books + video, gated.",
+      "test_prompts": [
+        "What lanes are open?",
+        "What is the render-gate status?"
+      ],
+      "tools": 40,
+      "url": "https://factory.svatantrya.net/mcp"
+    }
+  ],
   "directory_status": "Not yet submitted. Public five are submission-ready pending domain verification + reviewer test runs; owner four stay unlisted; nibbana is never submitted.",
   "format": "svatantrya.plugins/1",
-  "install": "chatgpt.com/plugins → + → Add custom MCP server → paste URL → auth per plugin → Create as a plugin → Install. Five public hosts use No authentication; practice scoring and the four owner hosts need the bearer token; nibbana is private and never listed.",
+  "install": "Start with the bundles: Svatantrya (everything public, no auth), Studio + Factory (owner token). Per-function hosts below for agents and power users; nibbana is private and never listed.",
   "origin": "https://svatantrya.net",
   "pages": {
     "human": "https://svatantrya.net/plugins/",
