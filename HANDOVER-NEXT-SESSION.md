@@ -147,3 +147,37 @@ python3 scripts/release_manifest.py && node --test tests/*.test.cjs
   untracked and should be quarantined or deleted
 - `bruno` — untracked data drops (`sanskrit/r2-packs`, `sources/panini`),
   deliberate
+
+## 8. ChatGPT plugin and MCP consolidation (2026-11-12)
+
+- The live Svatantrya connector is `https://mcp.sanskrit.help/mcp`, bearer
+  authenticated. The last recorded live catalogue has 198 tools across 7
+  configured local servers. The agent-facing roles and setup remain in
+  `CHATGPT-PLUGIN.md` and `mcp/gateway/README.md`.
+- Satsang already exposes a public read-only Streamable HTTP MCP at
+  `https://mcp.tantrafiles.xyz/mcp`; its server card documents 28 directory
+  tools. It is now configured as a remote gateway source with an explicit
+  allowlist, exposed as `satsang__*`. The allowlist is deliberate: upstream
+  additions do not become tools until reviewed here.
+- The Satsang gateway change is on branch
+  `feature/satsang-remote-mcp-2026-11-12`. The live connector remains at 198
+  tools until the branch is merged and `svatantrya-mcp` is restarted; with all
+  28 Satsang tools available, the catalogue should be about 226. Confirm the
+  actual count using `tools/list` because the gateway discovers tools at
+  runtime and reports unavailable children separately.
+- The focused config/catalogue suite passed 3/3 in the development checkout;
+  Python syntax, JSON parsing and `git diff --check` passed. A live remote
+  handshake was not available in that checkout. Verify the remote call and
+  `gateway__problems` on the host before treating Satsang as live.
+- The `prx0r/nibbanahelp` repository lookup returned 404 through the GitHub
+  connector. Resolve the correct repo name/access before adding it to the
+  gateway; do not invent a local path.
+- Other ChatGPT roles remain: Scholar for passage evidence, essays and
+  revision-bound review; OpenPatala for canonical work identity and dossiers;
+  translation-work for L0–L4 and Beam/Iceman; BookFactory and VideoFactory for
+  derived media. Keep generation, review, author sign-off, publication and
+  deployment as separate recorded gates.
+- Next: open the Satsang gateway PR, merge it after review, restart
+  `svatantrya-mcp`, then confirm `satsang__search_places`, sourced place
+  records, and the updated dynamic tool list. Do not deploy the Svread site as
+  a substitute for restarting the MCP service.
