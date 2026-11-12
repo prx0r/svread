@@ -1,0 +1,52 @@
+{
+  "format": "svatantrya.mcp-gateway/1",
+  "note": "studio.svatantrya.net — owner writing bundle: tutor + essay + scored gates. 32 tools, bearer.",
+  "port": 8782,
+  "path": "/mcp",
+  "public_base": "https://studio.svatantrya.net/mcp",
+  "instructions": "Svatantrya Studio (owner tools). Tutor sessions and scored gates for the learner; essay drafts, sources, citations, claim audits and review packets for writing. Nothing auto-publishes or auto-signs; machine traces are DERIVED, never truth; scores are server-side only.",
+  "servers": {
+    "tutor": {
+      "path": "/root/svread/mcp/tutor_server.py",
+      "cwd": "/root/sanskrithelp",
+      "role": "sessions, brief, arc, profile"
+    },
+    "essay": {
+      "path": "/root/svread/mcp/scholar_server.py",
+      "cwd": "/root/svread/mcp",
+      "role": "essay workflow (write sheaf)",
+      "tools_allow": [
+        "scholar__list_documents",
+        "scholar__document_history",
+        "scholar__list_reviews",
+        "scholar__list_review_annotations",
+        "scholar__add_review_annotation",
+        "scholar__list_style_examples",
+        "scholar__list_source_links",
+        "scholar__save_source_link",
+        "scholar__delete_source_link",
+        "scholar__list_published_essays",
+        "scholar__list_sources",
+        "scholar__save_source",
+        "scholar__prepare_citations",
+        "scholar__delete_source",
+        "scholar__list_decisions",
+        "scholar__save_decision",
+        "scholar__delete_decision",
+        "scholar__save_document",
+        "scholar__request_review",
+        "scholar__draft_with_qwen",
+        "scholar__audit_draft",
+        "scholar__link_claims",
+        "scholar__check_claim_staleness",
+        "scholar__pushback"
+      ],
+      "tool_prefix": "scholar__"
+    },
+    "progress": {
+      "path": "/root/svread/mcp/progress_server.py",
+      "cwd": "/root/svread/mcp",
+      "role": "server-scored gates via ipvv worker"
+    }
+  }
+}

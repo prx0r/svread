@@ -1,6 +1,48 @@
 # Svatantrya plugins
 
-One box = one ChatGPT plugin. Install: chatgpt.com/plugins → + → Add custom MCP server → paste URL → auth per row → Create as a plugin → Install.
+Start with the three bundles, then go granular if you want. Install: chatgpt.com/plugins → + → Add custom MCP server → paste URL → auth per row → Create as a plugin → Install.
+
+## Start here (bundles)
+
+## Svatantrya
+
+`https://mcp.svatantrya.net/mcp`
+
+Everything public in one install. All 35 public reads: bibliography, passages, wheels, translation briefs, formal layer, treeka chains.
+
+Auth: none · Access: public — start here · Tools: 35
+
+Try:
+- What does Tantrasara chapter 20 verse 1 say, in Sanskrit and English?
+- Teach me wheel level 1
+- Show the formal coverage gaps
+
+## Svatantrya Studio
+
+`https://studio.svatantrya.net/mcp`
+
+Your writing + learning room. Tutor sessions, sourced essay workflow, server-scored gates. Owner token.
+
+Auth: bearer · Access: owner · Tools: 32
+
+Try:
+- What is today's plan?
+- List my documents
+- Show my scored progress
+
+## Svatantrya Factory
+
+`https://factory.svatantrya.net/mcp`
+
+Books + video, gated. Book staging and video render gates. Human-gated publishing. Owner token.
+
+Auth: bearer · Access: owner · Tools: 40
+
+Try:
+- What lanes are open?
+- What is the render-gate status?
+
+## Per-function hosts (granular; same tools, split up)
 
 ## Svatantrya Index
 

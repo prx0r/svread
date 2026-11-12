@@ -97,6 +97,29 @@ PLUGINS = [
                "Show day 1 decode rows"]},
 ]
 
+BUNDLES = [
+    {"id": "mcp", "name": "Svatantrya",
+     "tagline": "Everything public in one install.",
+     "desc": "All 35 public reads: bibliography, passages, wheels, translation briefs, formal layer, treeka chains.",
+     "auth": "none", "access": "public — start here", "tools": 35,
+     "tests": ["What does Tantrasara chapter 20 verse 1 say, in Sanskrit and English?",
+               "Teach me wheel level 1",
+               "Show the formal coverage gaps"]},
+    {"id": "studio", "name": "Svatantrya Studio",
+     "tagline": "Your writing + learning room.",
+     "desc": "Tutor sessions, sourced essay workflow, server-scored gates. Owner token.",
+     "auth": "bearer", "access": "owner", "tools": 32,
+     "tests": ["What is today's plan?",
+               "List my documents",
+               "Show my scored progress"]},
+    {"id": "factory", "name": "Svatantrya Factory",
+     "tagline": "Books + video, gated.",
+     "desc": "Book staging and video render gates. Human-gated publishing. Owner token.",
+     "auth": "bearer", "access": "owner", "tools": 40,
+     "tests": ["What lanes are open?",
+               "What is the render-gate status?"]},
+]
+
 CLI = {
     "inspector": "npx @modelcontextprotocol/inspector@latest  # Transport: Streamable HTTP; URL https://<host>.svatantrya.net/mcp",
     "claude_code": "claude mcp add --transport http <name> https://<host>.svatantrya.net/mcp  # authed: add --header \"Authorization: Bearer $MCP_TOKEN\"",
@@ -127,6 +150,17 @@ def build_html() -> str:
             f'{"No authentication" if p["auth"] == "none" else ("paste the owner token" if p["auth"] == "bearer" else "No authentication for reads; owner token unlocks scoring")} → '
             f'Create as a plugin → Install.</p>'
             f'<p>Try:</p><ol>{tests}</ol></section>')
+    bcards = []
+    for p in BUNDLES:
+        tests = ''.join(f'<li>{esc(t)}</li>' for t in p['tests'])
+        bcards.append(
+            f'<section><h2>{esc(p["name"])} <code>{esc(url(p["id"]))}</code></h2>'
+            f'<p><strong>{esc(p["tagline"])}</strong> {esc(p["desc"])}</p>'
+            f'<p>Auth: {esc(p["auth"])} · Access: {esc(p["access"])} · Tools: {esc(str(p["tools"]))}</p>'
+            f'<p>Install: chatgpt.com/plugins → + → Add custom MCP server → paste the URL → '
+            f'{"No authentication" if p["auth"] == "none" else "paste the owner token"} → '
+            f'Create as a plugin → Install.</p>'
+            f'<p>Try:</p><ol>{tests}</ol></section>')
     cli = ''.join(f'<li><code>{esc(v)}</code></li>' for v in CLI.values())
     jsonld = json.dumps({
         '@context': 'https://schema.org',
@@ -146,10 +180,13 @@ def build_html() -> str:
         f'<script type="application/ld+json">{jsonld}</script>'
         '</head><body><main>'
         '<h1>Svatantrya plugins</h1>'
-        '<p>Each box below is one ChatGPT plugin (an MCP endpoint). '
-        'Five are public and install in about a minute; four need the owner token; '
-        'one (Nibbana Relay) is private and never listed. '
+        '<p>Start with the three bundles: <strong>Svatantrya</strong> is everything '
+        'public in one install; <strong>Studio</strong> and <strong>Factory</strong> '
+        'are the owner rooms. Below them, the same tools split per function for '
+        'agents and power users (Nibbana Relay is private and never listed). '
         'Machine-readable spec: <a href="plugins.json">plugins.json</a>.</p>'
+        + ''.join(bcards) +
+        '<h2>Per-function hosts (granular; same tools, split up)</h2>'
         + ''.join(cards) +
         '<h2>For agents (CLI)</h2><ol>' + cli + '</ol>'
         '<h2>Related</h2><p>Satsang runs its own open MCP at '
@@ -161,8 +198,16 @@ def build_html() -> str:
 
 def build_md() -> str:
     lines = ['# Svatantrya plugins', '',
-             'One box = one ChatGPT plugin. Install: chatgpt.com/plugins → + → '
-             'Add custom MCP server → paste URL → auth per row → Create as a plugin → Install.', '']
+             'Start with the three bundles, then go granular if you want. Install: chatgpt.com/plugins → + → '
+             'Add custom MCP server → paste URL → auth per row → Create as a plugin → Install.', '',
+             '## Start here (bundles)', '']
+    for p in BUNDLES:
+        lines += [f'## {p["name"]}', '', f'`{url(p["id"])}`', '',
+                  f'{p["tagline"]} {p["desc"]}', '',
+                  f'Auth: {p["auth"]} · Access: {p["access"]} · Tools: {p["tools"]}', '',
+                  'Try:']
+        lines += [f'- {t}' for t in p['tests']] + ['']
+    lines += ['## Per-function hosts (granular; same tools, split up)', '']
     for p in PLUGINS:
         lines += [f'## {p["name"]}', '', f'`{url(p["id"])}`', '',
                   f'{p["tagline"]} {p["desc"]}', '',
@@ -179,10 +224,14 @@ def build_json() -> dict:
     return {
         'format': 'svatantrya.plugins/1',
         'origin': ORIGIN,
-        'install': ('chatgpt.com/plugins → + → Add custom MCP server → paste URL → '
-                    'auth per plugin → Create as a plugin → Install. Five public hosts '
-                    'use No authentication; practice scoring and the four owner hosts '
-                    'need the bearer token; nibbana is private and never listed.'),
+        'install': ('Start with the bundles: Svatantrya (everything public, no auth), '
+                    'Studio + Factory (owner token). Per-function hosts below for '
+                    'agents and power users; nibbana is private and never listed.'),
+        'bundles': [
+            {'id': p['id'], 'name': p['name'], 'url': url(p['id']),
+             'tagline': p['tagline'], 'description': p['desc'],
+             'auth': p['auth'], 'access': p['access'], 'tools': p['tools'],
+             'test_prompts': p['tests']} for p in BUNDLES],
         'plugins': [
             {'id': p['id'], 'name': p['name'], 'url': url(p['id']),
              'tagline': p['tagline'], 'description': p['desc'],

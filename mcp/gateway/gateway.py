@@ -74,6 +74,35 @@ async def probe(name: str):
 _cache = {'at': 0.0, 'tools': [], 'problems': {}}
 
 
+def _prefix(name: str) -> str | None:
+    """Advertised prefix for a server: None means bare passthrough."""
+    cfg = SERVERS[name]
+    if cfg.get('namespace_tools') is False:
+        return None
+    return cfg.get('tool_prefix', f'{name}__')
+
+
+def _route(advertised: str) -> tuple[str | None, str]:
+    """Map an advertised tool name back to (server key, child tool)."""
+    if advertised in _cache.get('by_name', {}):
+        return _cache['by_name'][advertised]
+    for key in SERVERS:
+        cfg = SERVERS[key]
+        if cfg.get('namespace_tools') is False:
+            allow = cfg.get('tools_allow')
+            if allow and advertised in allow:
+                return key, advertised
+            continue
+        p = cfg.get('tool_prefix', f'{key}__')
+        if advertised.startswith(p):
+            return key, advertised[len(p):]
+    if '__' in advertised:
+        key, _, child = advertised.partition('__')
+        if key in SERVERS:
+            return key, child
+    return None, advertised
+
+
 def _allowed(name: str, advertised: str, child: str) -> bool:
     allow = SERVERS[name].get('tools_allow')
     if not allow:
@@ -84,22 +113,25 @@ def _allowed(name: str, advertised: str, child: str) -> bool:
 async def on_list_tools(_ctx, _params):
     if time.time() - _cache['at'] > CACHE_TTL:
         tools, problems, seen = [], {}, set()
+        by_name: dict = {}
         for name in SERVERS:
             got, err = await probe(name)
             if err:
                 problems[name] = err
             for t in got:
                 # most children are unnamespaced; the federation gateway already
-                # ships <server>__<tool> names and must not be double-prefixed
-                nm = t.name if SERVERS[name].get('namespace_tools') is False \
-                    else f'{name}__{t.name}'
+                # ships <server>__<tool> names and must not be double-prefixed;
+                # tool_prefix lets two entries share one script under one prefix
+                pre = _prefix(name)
+                nm = t.name if pre is None else f'{pre}{t.name}'
                 if nm in seen:
                     nm = f'{name}__{t.name}'      # direct collisions get a prefix
                     if nm in seen:
                         continue
-                seen.add(nm)
                 if not _allowed(name, nm, t.name):
                     continue
+                seen.add(nm)
+                by_name[nm] = (name, t.name)
                 # children sometimes declare an output schema but return only
                 # text content; the client then refuses the result. Rebuild the
                 # Tool without outputSchema so every tool stays callable.
@@ -111,16 +143,18 @@ async def on_list_tools(_ctx, _params):
                 description='Servers that failed to start: ' +
                             json.dumps(problems, ensure_ascii=False),
                 inputSchema={'type': 'object', 'properties': {}}))
-        _cache.update({'at': time.time(), 'tools': tools, 'problems': problems})
+            by_name['gateway__problems'] = ('gateway', 'problems')
+        _cache.update({'at': time.time(), 'tools': tools, 'problems': problems,
+                       'by_name': by_name})
     return types.ListToolsResult(tools=_cache['tools'])
 
 
 async def on_call_tool(_ctx, p):
-    name, _, tool = (p.name or '').partition('__')
+    name, tool = _route(p.name or '')
     if name == 'gateway' and tool == 'problems':
         return types.CallToolResult(
             content=[types.TextContent(type='text',
-                                       text=json.dumps(_cache['problems'], ensure_ascii=False))])
+                                        text=json.dumps(_cache['problems'], ensure_ascii=False))])
     if name not in SERVERS or not tool:
         return types.CallToolResult(
             content=[types.TextContent(type='text',

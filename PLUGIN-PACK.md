@@ -13,7 +13,17 @@ Goal: anyone installs any plugin in ~1 minute with copy-paste. Human page:
    Practice: no-auth install gives reads; reinstall/paste token for scoring.
 4. **Create as a plugin → Install.** In chat: `@Name` + prompt.
 
-## Paste-ready rows
+## Start here (3 installs cover everything)
+
+| # | Name (paste) | URL (paste) | Auth | Tools |
+|---|---|---|---|---|
+| A | Svatantrya | `https://mcp.svatantrya.net/mcp` | No auth | 35 |
+| B | Svatantrya Studio | `https://studio.svatantrya.net/mcp` | bearer (owner) | 32 |
+| C | Svatantrya Factory | `https://factory.svatantrya.net/mcp` | bearer (owner) | 40 |
+
+Most people stop here. Below: the same tools split per function.
+
+## Granular rows (same tools, split up)
 
 | # | Name (paste) | URL (paste) | Auth | Tools |
 |---|---|---|---|---|

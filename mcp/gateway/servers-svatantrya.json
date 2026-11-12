@@ -1,0 +1,85 @@
+{
+  "format": "svatantrya.mcp-gateway/1",
+  "note": "mcp.svatantrya.net — THE public bundle: every public read, one plugin install. 35 tools, no auth.",
+  "port": 8781,
+  "path": "/mcp",
+  "public_base": "https://mcp.svatantrya.net/mcp",
+  "instructions": "Svatantrya: Sanskrit library, study and formal layer. openpatala__* finds works and dossiers; scholar__passage_evidence reads hash-checked Sanskrit+English (cite work chunk file lines); scholar__wheel_* teaches levels and proves forms; translate__* gives translation state, briefs and concept grounds; formal__* and treeka__* cover theorems, bridges, gaps and work chains. Read-only: never invent Sanskrit; machine-proposed is labeled, never shipped as established; live forks are presented as forks.",
+  "servers": {
+    "openpatala": {
+      "path": "/root/openpatala/patala/mcp_server.py",
+      "cwd": "/root/openpatala",
+      "role": "bibliography"
+    },
+    "scholar_reads": {
+      "path": "/root/svread/mcp/scholar_server.py",
+      "cwd": "/root/svread/mcp",
+      "role": "passages, evidence, search (read sheaf)",
+      "tools_allow": [
+        "scholar__list_works",
+        "scholar__passage_evidence",
+        "scholar__list_versions",
+        "scholar__compare_versions",
+        "scholar__search_texts",
+        "scholar__text_themes",
+        "scholar__resolve_ref",
+        "scholar__ref_links",
+        "scholar__vidyut_candidates"
+      ],
+      "tool_prefix": "scholar__"
+    },
+    "scholar_wheels": {
+      "path": "/root/svread/mcp/scholar_server.py",
+      "cwd": "/root/svread/mcp",
+      "role": "wheels and certificates (read sheaf)",
+      "tools_allow": [
+        "scholar__wheel_harness",
+        "scholar__wheel_lookup",
+        "scholar__wheel_verify",
+        "scholar__wheel_level",
+        "scholar__wheel_certificate"
+      ],
+      "tool_prefix": "scholar__"
+    },
+    "federation": {
+      "path": "/root/trika-x/formal-trika/tools/federation_gateway.py",
+      "cwd": "/root/trika-x",
+      "role": "formal slim sheaf",
+      "namespace_tools": false,
+      "tools_allow": [
+        "federation__guide",
+        "formal__evidence",
+        "formal__bridge",
+        "formal__gaps",
+        "formal__table",
+        "formal__trace",
+        "formal__runs",
+        "formal__axioms"
+      ]
+    },
+    "treeka": {
+      "path": "/root/svread/mcp/treeka_server.py",
+      "cwd": "/root/svread/mcp",
+      "role": "treeka assembly reads"
+    },
+    "translate": {
+      "path": "/root/translation-work/mcp_server.py",
+      "args": [
+        "--serve"
+      ],
+      "cwd": "/root/translation-work",
+      "role": "shastra teaching reads",
+      "env": {
+        "PYTHONPATH": "/root/translation-work"
+      },
+      "tools_allow": [
+        "translate__status",
+        "translate__lore",
+        "translate__concepts",
+        "translate__skill",
+        "translate__gates",
+        "translate__recon"
+      ]
+    }
+  }
+}
