@@ -25,7 +25,7 @@
   "l2_files": 325,
   "certificates": 44,
   "licence_entries": 10,
-  "mcp_servers": 7,
+  "mcp_servers": 8,
   "mcp_tools": 198,
   "blind_passages": 50,
   "our_candidates": 40
@@ -60,6 +60,12 @@
    "path": "/root/openpatala",
    "what": "bibliography DB + MCP (resolve/search/get_bundle)",
    "start": "patala/mcp_server.py"
+  },
+  {
+   "name": "satsang",
+   "path": "https://github.com/prx0r/satsang",
+   "what": "public directory: traditions, teachers, practices, events and places; read-only MCP",
+   "start": "mcp/README.md"
   },
   {
    "name": "bookfactory",
@@ -456,6 +462,41 @@
    "path": "/root/openpatala/patala/mcp_server.py",
    "role": "bibliography: resolve/search/get_bundle over the work DB"
   },
+  "satsang": {
+   "url": "https://mcp.tantrafiles.xyz/mcp",
+   "transport": "streamable-http",
+   "allow_tools": [
+    "search",
+    "get_topic",
+    "get_teacher",
+    "get_lineage",
+    "list_practices",
+    "get_collection",
+    "list_courses",
+    "get_course",
+    "list_series",
+    "get_series",
+    "recommend",
+    "fetch",
+    "find_places",
+    "get_place",
+    "search_places",
+    "list_events",
+    "find_teachers",
+    "get_resources",
+    "get_lineage_path",
+    "what_to_study",
+    "guide_me",
+    "find_retreats",
+    "get_schedule",
+    "plan_retreat",
+    "compose_booking",
+    "site_health",
+    "list_findings",
+    "next_maintenance_task"
+   ],
+   "role": "public read-only directory: traditions, teachers, practices, retreats and places"
+  },
   "federation": {
    "path": "/root/trika-x/formal-trika/tools/federation_gateway.py",
    "role": "109-tool federation gateway (formal, treeka, bridge)"
@@ -552,6 +593,17 @@
     "formal__gaps"
    ],
    "build": "navigate formal artifacts and gaps across the estate"
+  },
+  {
+   "name": "Satsang practice and place finder",
+   "uses": [
+    "satsang__search",
+    "satsang__search_places",
+    "satsang__get_place",
+    "satsang__what_to_study",
+    "satsang__guide_me"
+   ],
+   "build": "find sourced teachers, practice centres, events, texts and study paths"
   }
  ]
 }

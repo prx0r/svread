@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""gateway.py — one HTTP MCP endpoint over every stdio MCP server in the estate.
+"""gateway.py — one HTTP MCP endpoint over estate-local and remote MCP servers.
 
-All our servers are stdio scripts; ChatGPT and other remote clients speak
-Streamable HTTP. This gateway spawns each child on demand, prefixes its tools
-`<server>__<tool>`, and routes calls back to the right child. A child that
-fails to start is reported as a `gateway__problems` tool instead of vanishing.
+ChatGPT and other remote clients speak Streamable HTTP. This gateway connects
+to local stdio children and configured remote Streamable HTTP servers, prefixes
+their tools `<server>__<tool>`, and routes calls to the right child. A server
+that fails to connect is reported as a `gateway__problems` tool instead of
+vanishing. Remote servers may use `allow_tools` to expose a closed tool set.
 
 Auth: set MCP_TOKEN to require `Authorization: Bearer <token>`.
 
@@ -54,6 +55,13 @@ def transport(cfg: dict) -> StdioTransport:
                           cwd=cfg['cwd'], env=env)
 
 
+def client_for(cfg: dict) -> FClient:
+    """Build a client for either a local stdio server or a remote MCP URL."""
+    if cfg.get('url'):
+        return FClient(cfg['url'])
+    return FClient(transport(cfg))
+
+
 def _as_tool(t) -> types.Tool:
     if isinstance(t, types.Tool):
         return t
@@ -63,10 +71,16 @@ def _as_tool(t) -> types.Tool:
 
 
 async def probe(name: str):
-    """Return (tools, error) for one child, opening a fresh stdio session."""
+    """Return (tools, error) for one server, opening a fresh MCP session."""
     try:
-        async with FClient(transport(SERVERS[name])) as c:
-            return [_as_tool(t) for t in await c.list_tools()], None
+        cfg = SERVERS[name]
+        async with client_for(cfg) as c:
+            tools = [_as_tool(t) for t in await c.list_tools()]
+            allow = cfg.get('allow_tools')
+            if allow is not None:
+                allowed = set(allow)
+                tools = [t for t in tools if t.name in allowed]
+            return tools, None
     except Exception as exc:
         return [], f'{type(exc).__name__}: {exc}'[:300]
 
@@ -131,8 +145,14 @@ async def on_call_tool(_ctx, p):
             content=[types.TextContent(type='text',
                                         text=f'tool {p.name!r} is not exposed on this host')],
             is_error=True)
+    allow = SERVERS[name].get('allow_tools')
+    if allow is not None and tool not in allow:
+        return types.CallToolResult(
+            content=[types.TextContent(type='text',
+                                       text=f'tool {p.name!r} is not exposed by server {name!r}')],
+            is_error=True)
     try:
-        async with FClient(transport(SERVERS[name])) as c:
+        async with client_for(SERVERS[name]) as c:
             target = tool
             if SERVERS[name].get('namespace_tools') is False:
                 names = {t.name for t in await c.list_tools()}

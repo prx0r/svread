@@ -3,7 +3,7 @@
 ## Live now
 
 `https://mcp.sanskrit.help/mcp` — Streamable HTTP, protocol `2025-06-18`,
-**197 tools**, bearer auth (401 without it). Verified 2026-11-11 from outside:
+**198 tools**, bearer auth (401 without it). Verified 2026-11-11 from outside:
 `initialize`, `tools/list`, and `scholar__wheel_level` all answer.
 
 Named Cloudflare tunnel `svatantrya-mcp` (`281e3446-5a8d-4849-b37e-ee682a78c734`)
@@ -30,14 +30,24 @@ commits, the owner pushes.
 
 ## What this endpoint is
 
-One Streamable HTTP MCP endpoint over every stdio server in the estate:
+One Streamable HTTP MCP endpoint over local stdio servers and configured remote
+MCP servers. The checked-in configuration adds Satsang's public, read-only MCP
+at `https://mcp.tantrafiles.xyz/mcp`, exposing its 28 documented tools under
+the `satsang__` prefix. Its explicit allowlist prevents new upstream tools from
+appearing automatically. The production endpoint gains these tools after this
+gateway change is deployed; the active count is discovered dynamically and can
+fall when a child or remote server is unavailable.
 
-- 197 tools from 7 servers: `scholar` (38), `openpatala` (5), `federation` (109,
+- 198 tools from the 7 local servers: `scholar` (38), `openpatala` (5), `federation` (109,
   already namespaced; 22 of its names duplicate a direct server and the direct
-  one wins), `bookfactory` (22), `videofactory` (18), `aoc` (20), `workspace` (7)
+  one wins), `bookfactory` (22), `videofactory` (18), `aoc` (20), `workspace` (8).
+- Up to 28 allowlisted `satsang__*` tools (up to 226 total), discovered from the remote server at
+  runtime. They cover place and teacher search, traditions, practices, resources,
+  events, lineage paths, study guides, retreat planning, and maintenance status.
 - tool names are `<server>__<tool>` (e.g. `scholar__wheel_level`)
-- each call spawns the child, forwards, and returns — no state is cached
-  between calls (child processes are short-lived)
+- each call opens a fresh client session: local stdio children are spawned and
+  remote MCP servers receive HTTP requests; the gateway keeps no cross-call
+  child session state
 - `gateway__problems` reports any child that failed to start
 
 Runtime is Python 3.13 with `mcp==2.3.0`. The gateway is `gateway.py`.
@@ -47,7 +57,7 @@ Runtime is Python 3.13 with `mcp==2.3.0`. The gateway is `gateway.py`.
 ```sh
 cd mcp/gateway
 MCP_TOKEN="$(openssl rand -hex 24)" ./start.sh
-curl -s localhost:8765/health          # -> ok 6 servers
+curl -s localhost:8765/health          # -> ok 8 servers
 ./smoke.py                              # list tools, call three, print verdict
 ./start-tunnel.sh                       # named tunnel -> mcp.sanskrit.help
 ```
@@ -118,6 +128,11 @@ issue none — that is fine).
 | `openpatala__search {"q":"tantrasara","limit":5}` | bibliography search (note: `q`) |
 | `federation__guide` | the 109-tool gateway's own map |
 | `scholar__search_texts {"query":"recognition","work":"tantrasara-a20"}` | corpus search |
+| `satsang__search_places {"tradition":"Advaita Vedanta","country":"India","limit":5}` | sourced practice and study places |
+
+The Satsang source is public and read-only. The gateway sends only arguments
+for the selected `satsang__*` call to `mcp.tantrafiles.xyz`; it sends no
+credentials. Its tool allowlist is pinned in `servers.json`.
 
 ## What is NOT available over MCP
 
