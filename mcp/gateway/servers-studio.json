@@ -51,12 +51,15 @@
     "compose": {
       "path": "/root/svread/mcp/compose_gate_server.py",
       "cwd": "/root/svread/mcp",
-      "role": "generative composition drills (deterministic, server-scored)",
+      "role": "composition drills + voice session loop (deterministic, server-scored)",
       "tools_allow": [
         "compose__drill",
         "compose__submit",
         "compose__review",
-        "compose__progress"
+        "compose__progress",
+        "compose__session_start",
+        "compose__session_check",
+        "compose__session_end"
       ]
     }
   }
