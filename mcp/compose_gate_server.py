@@ -175,6 +175,57 @@ def _packs() -> dict:
 
 
 @mcp.tool()
+def decompose(utterance: str = "", k: int = 3) -> dict:
+    """Break an utterance into its constituent wheel parts. Matches against the
+    enumerated pack lattice and returns the wheel, pack and ring values it
+    fits — the inverse of generation. A low score means 'not in the lattice',
+    never 'wrong Sanskrit'."""
+    ut = _tokens(utterance)
+    if not ut:
+        return {"error": "empty utterance"}
+    scored = []
+    for r in _packs()["rows"]:
+        rt = _tokens(" ".join(l["roman"] for l in r["lines"]))
+        jac = len(ut & rt) / max(1, len(ut | rt))
+        if jac > 0:
+            scored.append((jac, r))
+    scored.sort(key=lambda x: -x[0])
+    out = []
+    for jac, r in scored[:max(1, int(k))]:
+        out.append({"score": round(jac, 2), "wheel": r["wheel"], "pack": r["pack"],
+                    "level": r["level"], "parts": r["selection"],
+                    "line": r["lines"][0]})
+    return {"utterance": utterance, "matches": out,
+            "note": "constituent parts = the ring values; a high score is a fit, not proof"}
+
+
+@mcp.tool()
+def dialogue(pack: str = "about-me", seed: int = 1, turns: int = 4) -> dict:
+    """Compose a multi-wheel exchange: question (Conversation) -> answer
+    (Action) -> reason (Expression) -> elaboration (Description), then repeat.
+    Demonstrates speech built from combined wheels. Deterministic per seed."""
+    import random as _r
+    rng = _r.Random(seed)
+    rows = [r for r in _packs()["rows"] if r["pack"] == pack]
+    if not rows:
+        return {"error": f"unknown pack {pack}"}
+    by = {}
+    for r in rows:
+        by.setdefault(r["wheel"], []).append(r)
+    order = ["conversation", "action", "expression", "description"]
+    out = []
+    for i in range(max(1, int(turns))):
+        w = order[i % len(order)]
+        pool = by.get(w) or []
+        if not pool:
+            continue
+        r = pool[rng.randrange(len(pool))]
+        out.append({"wheel": w, "line": r["lines"][0]})
+    return {"pack": pack, "seed": seed, "turns": out,
+            "note": "each turn is a valid state; together they are one exchange"}
+
+
+@mcp.tool()
 def wheels() -> dict:
     """The four master wheels (Conversation, Expression, Action, Description)
     with their five rings, what each absorbs, and the 15->4 family mapping.

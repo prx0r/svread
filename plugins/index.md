@@ -8,9 +8,9 @@ Start with the three bundles, then go granular if you want. Install: chatgpt.com
 
 `https://mcp.svatantrya.net/mcp`
 
-Everything public in one install. All 43 public reads: bibliography, passages, wheels, translation briefs, formal layer, treeka chains, the 60-level compose curriculum, and the four-wheel map + packs.
+Everything public in one install. All 45 public reads: bibliography, passages, wheels, translation briefs, formal layer, treeka chains, the 60-level compose curriculum, and the four-wheel map, packs, plus decompose/dialogue.
 
-Auth: none · Access: public — start here · Tools: 43
+Auth: none · Access: public — start here · Tools: 45
 
 Try:
 - What are the four wheels?

@@ -19,16 +19,19 @@ test('wheelmap: four wheels, all 15 families mapped', () => {
   assert.equal(wm.families.transformation.wheel, null);
 });
 
-test('packs: six starter packs, Action wheel only, no generation errors', () => {
+test('packs: six starter packs, all four wheels, no generation errors', () => {
   assert.equal(pk.format, 'svatantrya.compose-packs/1');
   assert.equal(pk.packs.length, 6);
   assert.deepEqual([...pk.packs].sort(),
     ['about-me', 'classroom', 'family', 'travel', 'trika', 'vedanta'].sort());
   assert.equal(pk.counts.errors, 0);
-  assert.equal(pk.rows.length, 1350);
+  assert.equal(pk.rows.length, 2512);
+  const wheels = new Set(pk.rows.map((r) => r.wheel));
+  for (const w of ['conversation', 'expression', 'action', 'description']) {
+    assert.ok(wheels.has(w), 'wheel present: ' + w);
+  }
   for (const r of pk.rows) {
     assert.equal(r.status, 'MACHINE_PROPOSED_UNREVIEWED');
-    assert.equal(r.wheel, 'action');
     for (const l of r.lines) {
       for (const f of ['dev', 'roman', 'en']) assert.ok(l[f] && l[f].trim());
       assert.doesNotMatch(l.dev + l.roman + l.en, /undefined|NaN|\[object Object\]/);
@@ -53,8 +56,8 @@ test('same construction across packs (transfer test)', () => {
 });
 
 test('British/Indian spelling is not silently broken (golden wording)', () => {
-  const r = pk.rows.find((x) => x.pack === 'family' && x.selection.actor === 'brother');
-  const r2 = pk.rows.find((x) => x.selection.actor === 'sir');
+  const r = pk.rows.find((x) => x.pack === 'family' && x.level === 'action.3.1' && x.selection.actor === 'brother');
+  const r2 = pk.rows.find((x) => x.level === 'action.3.1' && x.selection.actor === 'sir');
   assert.match(r.lines[0].en, /the brother studies/);
   assert.match(r2.lines[0].en, /you .* study/); // polite 'you' takes base form in English
 });

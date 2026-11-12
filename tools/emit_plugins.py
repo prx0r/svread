@@ -100,8 +100,8 @@ PLUGINS = [
 BUNDLES = [
     {"id": "mcp", "name": "Svatantrya",
      "tagline": "Everything public in one install.",
-     "desc": "All 43 public reads: bibliography, passages, wheels, translation briefs, formal layer, treeka chains, the 60-level compose curriculum, and the four-wheel map + packs.",
-     "auth": "none", "access": "public — start here", "tools": 43,
+     "desc": "All 45 public reads: bibliography, passages, wheels, translation briefs, formal layer, treeka chains, the 60-level compose curriculum, and the four-wheel map, packs, plus decompose/dialogue.",
+     "auth": "none", "access": "public — start here", "tools": 45,
      "tests": ["What are the four wheels?",
                "Show me the Family pack",
                "Why does aham paṭhāmi become bhavān paṭhati?"]},
