@@ -47,6 +47,17 @@
       "path": "/root/svread/mcp/progress_server.py",
       "cwd": "/root/svread/mcp",
       "role": "server-scored gates via ipvv worker"
+    },
+    "compose": {
+      "path": "/root/svread/mcp/compose_gate_server.py",
+      "cwd": "/root/svread/mcp",
+      "role": "generative composition drills (deterministic, server-scored)",
+      "tools_allow": [
+        "compose__drill",
+        "compose__submit",
+        "compose__review",
+        "compose__progress"
+      ]
     }
   }
 }

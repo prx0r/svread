@@ -8,9 +8,9 @@ Start with the three bundles, then go granular if you want. Install: chatgpt.com
 
 `https://mcp.svatantrya.net/mcp`
 
-Everything public in one install. All 35 public reads: bibliography, passages, wheels, translation briefs, formal layer, treeka chains.
+Everything public in one install. All 37 public reads: bibliography, passages, wheels, translation briefs, formal layer, treeka chains, compose levels.
 
-Auth: none · Access: public — start here · Tools: 35
+Auth: none · Access: public — start here · Tools: 37
 
 Try:
 - What does Tantrasara chapter 20 verse 1 say, in Sanskrit and English?
@@ -21,13 +21,13 @@ Try:
 
 `https://studio.svatantrya.net/mcp`
 
-Your writing + learning room. Tutor sessions, sourced essay workflow, server-scored gates. Owner token.
+Your writing + learning room. Tutor sessions, sourced essays, deterministic compose drills, server-scored gates. Owner token.
 
-Auth: bearer · Access: owner · Tools: 32
+Auth: bearer · Access: owner · Tools: 36
 
 Try:
 - What is today's plan?
-- List my documents
+- Drill me on numbers level 7.3
 - Show my scored progress
 
 ## Svatantrya Factory
