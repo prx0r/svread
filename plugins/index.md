@@ -8,9 +8,9 @@ Start with the three bundles, then go granular if you want. Install: chatgpt.com
 
 `https://mcp.svatantrya.net/mcp`
 
-Everything public in one install. All 37 public reads: bibliography, passages, wheels, translation briefs, formal layer, treeka chains, compose levels.
+Everything public in one install. All 40 public reads: bibliography, passages, wheels, translation briefs, formal layer, treeka chains, and the 60-level compose curriculum (levels, examples, study order).
 
-Auth: none · Access: public — start here · Tools: 37
+Auth: none · Access: public — start here · Tools: 40
 
 Try:
 - What does Tantrasara chapter 20 verse 1 say, in Sanskrit and English?

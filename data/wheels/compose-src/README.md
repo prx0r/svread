@@ -1,58 +1,67 @@
-# Svatantrya · Generative Sanskrit Wheels
+# Svatantrya Sanskrit · Five-Ring Generative Wheels (v2)
 
-A standalone offline five-ring Sanskrit practice app, organised as **6 wheel families × 4 progressively more demanding levels** = 24 working lessons.
+**15 wheel families × 4 progressively harder levels = 60 playable levels.** Every level contains **exactly five interactive rings**. One family represents one grammatical machine, and its numbered `n.1`→`n.2`→`n.3`→`n.4` levels add depth to the same machine. The goal is combinatorial mastery, **not** a dozen disconnected apps.
 
-The underlying idea is deliberately simple: **one wheel family represents one reusable grammatical operation**. Its variants are levels (`2.1`, `2.2`, `2.3`, `2.4`), *not* separate apps. For example, Expression is the one `I think / like X because Y` wheel: level 2.1 makes simple judgements, 2.2 adds preferences, 2.3 adds explanations, and 2.4 adds interests and follow-ups.
+## Run
 
-## Start
+- Double-click **`standalone.html`**. The entire offline app is contained in this file.
+- Or open `index.html` inside this folder for the modular source version; no build server is required.
+- Use the 5 rings or dropdowns to change the generated Sanskrit. Hide/reveal IAST and English. In transformation `6.4` and compounds `15.4`, reveal the hidden target after answering.
+- Self-rate **Got it** / **Needs practice**, or mark a combination **Explored** without grading yourself.
+- **Today's focus** recommends one level. **Make today's focus** lets you pick any other. **Nearby wheels** provides easy detours. Nobody is hard-blocked from exploring.
+- Progress and daily focus are saved in this **browser only** (localStorage). Export uses a JSON download. **There is no account sync or automatic import.**
 
-- **Easiest:** open `standalone.html` in a browser. This is one self-contained file.
-- **Modular source:** open `index.html` from its folder. JS is split by families, but deliberately uses ordinary scripts, not ES modules, so no build step or server is necessary.
-- Tap any segment on any ring, or use the five selectors below the wheel.
-- `Spin all five` randomises all selections while preserving option constraints.
-- `Reveal IAST` and `Reveal English` show the translations separately. `6.4` additionally hides the transformation target.
-- `Mark practised` remembers a specific combination in **this browser only**, and `Export practice` saves it as JSON. There is no account sync or voice recognition yet.
+## The 15 families
 
-## Families and progression
+| Family | The grammatical machine it trains |
+|---|---|
+| **1. Conversation** | Question → answer → recursive follow-up |
+| **2. Expression** | Subject → thought/like/want → proposition → because → explanation |
+| **3. Action** | Who → verb → object → place → time |
+| **4. Description** | Demonstrative → noun → quality → degree → comparison/possession |
+| **5. Logic** | If/claim → condition → consequence → objection/reply |
+| **6. Transformation** | Same sentence → change person, polarity, number or tense |
+| **7. KA–TA–YA** | Question/demonstrative/relative → place/time/source/manner patterns |
+| **8. Case Relations** | Giver → receiver → object; instrument/locative/ablative |
+| **9. Number & Agreement** | Rotate numeral → noun gender → noun number → verb number |
+| **10. Commands** | Addressee → imperative verb → object → context → tone |
+| **11. Action Sequences** | Same agent → first action (-tvā) → second action → context |
+| **12. Relative–Correlative** | yadā/tadā, yatra/tatra, yathā/tathā matched clauses |
+| **13. Causatives** | X does Y → Z causes X to do Y |
+| **14. Quotation & iti** | Quote → speaker → says/thinks/asks → response |
+| **15. Compounds** | First member → second member → case → join/split → meaning |
 
-| Family | 1 | 2 | 3 | 4 |
-|---|---|---|---|---|
-| **1 Conversation** | 1.1 name, age, wellbeing | 1.2 home, study, destination | 1.3 contextual follow-ups | 1.4 interests + because |
-| **2 Expression** | 2.1 I think X is Y | 2.2 I like X | 2.3 I think X because Y | 2.4 interests + explanation + question |
-| **3 Action** | 3.1 who does what | 3.2 where | 3.3 want/can + infinitive | 3.4 past/present/future sequences |
-| **4 Description** | 4.1 neuter nouns | 4.2 gender agreement | 4.3 comparative forms | 4.4 possession + location |
-| **5 Logic** | 5.1 if/then | 5.2 cause/contrast | 5.3 claim/objection/reply | 5.4 Trika-themed discussion |
-| **6 Transformation** | 6.1 person/negative/question | 6.2 tense | 6.3 singular/plural | 6.4 transform base → target |
+These are **families**, not levels in mandatory family-number order. The recommended learning order deliberately **interleaves families** to teach prerequisites before advanced variations.
 
-**All 24 levels have exactly five active rings.** Later levels increase complexity *within* a family. They may introduce alternative ring functions while preserving the same five-ring interaction and progression.
+## Curriculum and agent handoff
 
-## Project map
+- **`docs/STUDY_ORDER.md`**: full **1–60 lesson sequence** with rationales, prerequisites and help-wheel links.
+- **`docs/CODING_AGENT_DIRECTIVE.md`**: exact handoff, integration rules, tests, and progress/migration contract.
+- **`docs/PROGRESS_AND_MASTERY.md`**: daily focus logic; ready-to-level-up vs spaced mastery; grading cautions.
+- **`docs/CURRICULUM_MAP.json`**: machine-readable ordered lesson IDs, dependencies and neighbor suggestions.
+- **`docs/EXTENDING.md`**: add `2.5`, `7.5`, or an entirely new family without touching existing lessons.
+- **`docs/REVIEW_NOTES.md`**: what passed and what still needs expert review.
+
+## File layout
 
 ```text
 sanskrit_wheels/
-├── index.html                  Modular browser entrypoint
-├── standalone.html             Generated single-file entrypoint
-├── styles.css                  Theme and responsive layout
+├── standalone.html
+├── index.html
+├── styles.css
 ├── src/
-│   ├── core.js                 Register, resolve, generate, enumerate states
-│   ├── shared.js               Curated paradigms and shared word banks
-│   ├── ui.js                   Clickable SVG rings, reveals, practice log
+│   ├── core.js                 # Five-ring rules; dependent choices
+│   ├── curriculum.js           # Pedagogical order, prerequisites, focus/mastery
+│   ├── shared.js               # Shared curated paradigm data
+│   ├── ui.js                   # One UI for all families and all levels
 │   └── families/
-│       ├── 01-conversation.js  Family 1, versions 1.1-1.4
-│       ├── 02-expression.js    Family 2, versions 2.1-2.4
-│       ├── 03-action.js        Family 3, versions 3.1-3.4
-│       ├── 04-description.js   Family 4, versions 4.1-4.4
-│       ├── 05-logic.js         Family 5, versions 5.1-5.4
-│       └── 06-transformation.js Family 6, versions 6.1-6.4
+│       ├── 01-conversation.js
+│       ├── 02-expression.js
+│       ├── ...
+│       └── 15-compounds.js
 ├── docs/
-│   ├── EXTENDING.md           Add 2.5 or a new family without touching core
-│   ├── INTEGRATION_PROMPT.md  Existing Svatantrya project integration brief
-│   └── REVIEW_NOTES.md       Tested scope and known limitations
 ├── tests/
-│   ├── exhaustive.test.js     All selectable combination paths
-│   └── browser_smoke.py       Optional Playwright smoke test
-└── tools/
-    └── build_standalone.py    Rebuild standalone.html from source files
+└── tools/build_standalone.py
 ```
 
 ## Tests
@@ -60,13 +69,7 @@ sanskrit_wheels/
 ```sh
 node tests/exhaustive.test.js
 python tools/build_standalone.py
-python tests/browser_smoke.py  # optional; needs Playwright + Chromium
+python tests/browser_smoke.py     # optional; requires Playwright + Chromium
 ```
 
-The exhaustive test enumerates **4,755 selection states** across 24 levels. It checks that all five ring choices resolve and produce complete Sanskrit, IAST and English fields, and verifies a set of specific agreement, numeral and tense cases. This is **not** a comprehensive Sanskrit grammar certification. See `docs/REVIEW_NOTES.md`.
-
-## Expansion principle
-
-Do not fork an entire UI for each drill. Add `2.5` as a new entry inside `src/families/02-expression.js` with exactly five ring definitions and one deterministic `build()` function. Different options can depend on earlier rings (e.g. `go` uses destinations while `read` uses direct objects). The engine resolves those dependencies and resets illegal old choices.
-
-For the existing Svatantrya site, port the engine and data to its component system instead of replacing its current design. No GitHub changes, remote deployment, MCP registration or ChatGPT plugin connection was performed here.
+Tested: **15 families, 60 levels, 9,507 selectable state combinations**, and a browser smoke pass on desktop + 390-pixel mobile. Generation coverage means the code outputs complete text for each valid selection, **not that all Sanskrit has been reviewed by a philologist**. This is an offline prototype, not a deployed site, ChatGPT plugin, or reliable automatic pronunciation assessment. See review notes.

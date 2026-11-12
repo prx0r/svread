@@ -100,8 +100,8 @@ PLUGINS = [
 BUNDLES = [
     {"id": "mcp", "name": "Svatantrya",
      "tagline": "Everything public in one install.",
-     "desc": "All 37 public reads: bibliography, passages, wheels, translation briefs, formal layer, treeka chains, compose levels.",
-     "auth": "none", "access": "public — start here", "tools": 37,
+     "desc": "All 40 public reads: bibliography, passages, wheels, translation briefs, formal layer, treeka chains, and the 60-level compose curriculum (levels, examples, study order).",
+     "auth": "none", "access": "public — start here", "tools": 40,
      "tests": ["What does Tantrasara chapter 20 verse 1 say, in Sanskrit and English?",
                "Teach me wheel level 1",
                "Show the formal coverage gaps"]},

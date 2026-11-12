@@ -1,27 +1,32 @@
-# Verification and limitations
+# Testing scope, linguistic review and limitations (v2)
 
-## Verified mechanically
+## Mechanical verification (executed)
 
-- 6 registered families, 24 levels, 5 rings per level.
-- 4,755 resolvable selection combinations generate complete `dev`, `roman`, `en` output objects.
-- Branch-specific answer lists and verb objects change when the question/verb changes.
-- Specific tests cover: respectful vs familiar second-person verb agreement; age 27; present, imperfect and future model forms; singular vs plural; rejection/normalisation of incompatible dependent options.
-- UI smoke pass in browser rendering: SVG interactions, family switching, version switching, answer reveals, hidden transformation targets, marking practise and phone-size no horizontal overflow.
+- 15 families registered, each with 4 levels and exactly 5 rings: **60 lessons**.
+- Exhaustive generation and nonempty Devanāgarī/IAST/English shape assertions over **9,507 legal selectable combinations**.
+- Cross-variable regression fixtures: bhavān vs tvaṃ, age 27, singular/dual/plural, past/future, KA/TA/YA correlative pairs, restricted case objects/recipients, commands, -tvā sequences, causative paired sentences, iti reporting and compound vigrahas.
+- Curriculum graph validates all 60 IDs, dependencies and recommended order. Self-rated readiness and separated-day mastery thresholds have unit tests.
+- Desktop/mobile Chromium smoke passes: 15 families, daily focus, graded attempt, neighbor detour, target reveal for compound analysis, no JavaScript errors or horizontal overflow at 390px.
 
-## Not yet verified
+## Not yet independently established
 
-- This is a curated grammar-teaching prototype, **not an audited philological corpus**. Exhaustive generation tests catch broken paths and missing fields, not nuanced errors in inflection, sandhi or semantics.
-- All examples require expert review before public publishing or use as a strict correction oracle, especially 3.4 (narrative tenses), 4.3 (comparatives), 5.3–5.4 (constructed reasoning) and tense-dependent verb forms.
-- 5.x statements about Trika are original educational sentences; they are not verified quotations or doctrinal proof.
-- Some cross-ring combinations are linguistically grammatical but argumentative or semantically odd on purpose. Semantic plausibility could be further constrained.
-- The learner answering 1.x is assumed masculine for gendered wellbeing adjectives. The addressee gender switch does not set respondent gender, which should be a separate future preference.
-- English glosses paraphrase the exercise and may simplify aspect or social registers.
-- Local progress lives in browser `localStorage` and is NOT account-linked. Export is a local JSON download; no upload or automatic import.
-- Voice input/output, microphone, pronunciation assessment, user profiles, server integration, GitHub publishing and MCP plugin wiring are **not** included.
+**These passes do not amount to Sanskrit philological certification.** Mechanical enumeration checks code paths, state constraints, missing text and a subset of morphology; it does not prove every semantic choice or sandhi output is correct.
 
-## Targeted next QA
+Before public use as a strict correctness oracle, commission expert review especially of:
 
-1. Have a qualified Sanskrit reader vet each family, especially 3.x and 5.x.
-2. Add independently reviewed test fixtures for person/gender/case/sandhi and all generated learner-facing lines.
-3. Add task-aware ring interactions that can be exposed by a ChatGPT tutor via stateful plugin calls.
-4. Keep new content behind review gates and trace source editions for sourced expressions.
+- Original families `3.x` (tenses), `4.3` (comparatives), and `5.3–5.4` (argument forms) inherited from the first prototype.
+- `7.3` source correlations (`yataḥ/tataḥ`) and the difference between spatial source and causal sense; `7.4` manner adverbs must NOT be derived by blind suffix joining.
+- `8.x` agency, dative objects, instrumental, ablative motion constructions, and euphonic combinations. English paraphrases are simplified.
+- `9.x` numeral agreement, nominal forms of one through four, and singular/dual/plural predicate grammar.
+- `10.x` imperative politeness and whether contexts are idiomatic in spoken Sanskrit.
+- `11.x` -tvā same-agent requirement and tense-aspect interpretation.
+- `12.x` relative/correlative clause semantics and permissible particle placement.
+- `13.x` causative roots and the number/case of their affected participant and second object, including possible alternative constructions.
+- `14.x` iti with reported questions/thoughts and punctuation in Sanskrit teaching orthography.
+- `15.x` compound membership, genitive vigraha alternatives, gender/case declensions and exact semantic relationships.
+
+The educational sentences are **newly constructed**; none should be presented as sourced Abhinavagupta verses. Stronger editorial auditing, audio pronunciation checking and sourced grammar citations remain future work.
+
+## Local-only scope
+
+This is an **offline browser prototype**. No GitHub push, cloud deployment, ChatGPT plugin installation, remote course progress synchronisation, authenticated assessment, microphone/voice-recognition tests, or site integration was performed. The local progress mechanism is a self-reported heuristic and should not be represented as verified ability.
