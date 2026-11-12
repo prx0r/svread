@@ -1,0 +1,19 @@
+{
+  "format": "svatantrya.mcp-gateway/1",
+  "note": "books.svatantrya.net — book production pipeline. Bearer until OAuth lands.",
+  "port": 8775,
+  "path": "/mcp",
+  "public_base": "https://books.svatantrya.net/mcp",
+  "instructions": "Svatantrya book factory. Read lanes, theses, templates, entries and decisions; stage books into gated print products. Staging returns job ids; rendering and publishing stay human-gated, always.",
+  "servers": {
+    "bookfactory": {
+      "path": "/root/bookfactory/bf_mcp/server.py",
+      "cwd": "/root/bookfactory",
+      "role": "book production pipeline",
+      "env": {
+        "BOOKFACTORY_ROOT": "/root/bookfactory",
+        "BOOKFACTORY_TRANSLATIONS": "/root/translation-work"
+      }
+    }
+  }
+}

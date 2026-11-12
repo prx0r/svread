@@ -6,7 +6,10 @@ const path = require('node:path');
 const ROOT = process.cwd();
 const dir = path.join(ROOT, 'mcp/gateway');
 
-test('MCP gateway config is complete and self-consistent', () => {
+const ON_BOX = process.cwd() === '/root/svread';
+
+test('MCP gateway config is complete and self-consistent',
+  {skip: ON_BOX ? false : 'child paths are box-absolute (/root/...); runs on the box'}, () => {
   const conf = JSON.parse(fs.readFileSync(path.join(dir, 'servers.json'), 'utf8'));
   assert.equal(conf.format, 'svatantrya.mcp-gateway/1');
   const names = Object.keys(conf.servers);

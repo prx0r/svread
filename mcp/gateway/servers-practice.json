@@ -1,0 +1,35 @@
+{
+  "format": "svatantrya.mcp-gateway/1",
+  "note": "practice.svatantrya.net — wheels and certificates. Public reads; score recording comes with OAuth later.",
+  "port": 8773,
+  "path": "/mcp",
+  "public_base": "https://practice.svatantrya.net/mcp",
+  "auth_mode": "mixed",
+  "open_tools": [
+    "scholar__wheel_harness",
+    "scholar__wheel_lookup",
+    "scholar__wheel_verify",
+    "scholar__wheel_level",
+    "scholar__wheel_certificate"
+  ],
+  "instructions": "Svatantrya Sanskrit practice. Use scholar__wheel_harness for the level map, scholar__wheel_level for one level prompt, scholar__wheel_verify per form to prove it, scholar__wheel_certificate for the derivation certificate. Teach one level at a time; deep-link to wheels.html#level-N. progress__gate_start/submit/record need sign-in (401 without); scores are server-side only, the model never self-reports.",
+  "servers": {
+    "scholar": {
+      "path": "/root/svread/mcp/scholar_server.py",
+      "cwd": "/root/svread/mcp",
+      "role": "svread: passages, evidence, wheels, certificates, essays, reviews",
+      "tools_allow": [
+        "scholar__wheel_harness",
+        "scholar__wheel_lookup",
+        "scholar__wheel_verify",
+        "scholar__wheel_level",
+        "scholar__wheel_certificate"
+      ]
+    },
+    "progress": {
+      "path": "/root/svread/mcp/progress_server.py",
+      "cwd": "/root/svread/mcp",
+      "role": "server-scored gates via ipvv worker (needs owner session)"
+    }
+  }
+}

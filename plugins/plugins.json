@@ -1,0 +1,170 @@
+{
+  "agent_cli": {
+    "claude_code": "claude mcp add --transport http <name> https://<host>.svatantrya.net/mcp  # authed: add --header \"Authorization: Bearer $MCP_TOKEN\"",
+    "curl_list": "curl -s -X POST https://<host>.svatantrya.net/mcp -H 'content-type: application/json' -H 'accept: application/json, text/event-stream' -d '{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"tools/list\",\"params\":{}}'  # SSE framing: read data: lines",
+    "fastmcp": "from fastmcp import Client\nasync with Client('https://<host>.svatantrya.net/mcp') as c:\n    tools = await c.list_tools()  # bearer hosts: Client(url, auth=BearerAuth(token))",
+    "inspector": "npx @modelcontextprotocol/inspector@latest  # Transport: Streamable HTTP; URL https://<host>.svatantrya.net/mcp",
+    "opencode": "{\"mcp\": {\"<name>\": {\"type\": \"remote\", \"url\": \"https://<host>.svatantrya.net/mcp\", \"headers\": {\"Authorization\": \"Bearer $MCP_TOKEN\"}}}}  # drop headers for the five public hosts"
+  },
+  "directory_status": "Not yet submitted. Public five are submission-ready pending domain verification + reviewer test runs; owner four stay unlisted; nibbana is never submitted.",
+  "format": "svatantrya.plugins/1",
+  "install": "chatgpt.com/plugins → + → Add custom MCP server → paste URL → auth per plugin → Create as a plugin → Install. Five public hosts use No authentication; practice scoring and the four owner hosts need the bearer token; nibbana is private and never listed.",
+  "origin": "https://svatantrya.net",
+  "pages": {
+    "human": "https://svatantrya.net/plugins/",
+    "markdown": "https://svatantrya.net/plugins/index.md"
+  },
+  "plugins": [
+    {
+      "access": "public",
+      "auth": "none",
+      "description": "Resolve a work, search 2,051 titles, pull the full dossier.",
+      "id": "index",
+      "name": "Svatantrya Index",
+      "tagline": "Bibliography: which Sanskrit work is this?",
+      "test_prompts": [
+        "Find the work called Tantrasara",
+        "Give me the full dossier for tantrasara",
+        "Which works still need translations or sources?"
+      ],
+      "tools": 5,
+      "url": "https://index.svatantrya.net/mcp"
+    },
+    {
+      "access": "public",
+      "auth": "none",
+      "description": "Search the corpus; pull Sanskrit plus editorial layers with hashes.",
+      "id": "sanskrit",
+      "name": "Svatantrya Sanskrit",
+      "tagline": "Hash-checked passages and English, citable.",
+      "test_prompts": [
+        "What does Tantrasara chapter 20 verse 1 say, in Sanskrit and English?",
+        "List what has a reader bundle",
+        "Compare versions of tsa-a20-v01"
+      ],
+      "tools": 9,
+      "url": "https://sanskrit.svatantrya.net/mcp"
+    },
+    {
+      "access": "public reads; scoring needs sign-in",
+      "auth": "mixed",
+      "description": "Teach one level at a time; gates are scored server-side, the model never self-reports.",
+      "id": "practice",
+      "name": "Svatantrya Practice",
+      "tagline": "Wheels, levels, certificates; server-scored gates.",
+      "test_prompts": [
+        "Teach me wheel level 1",
+        "Prove the form gata",
+        "Show my scored progress (needs sign-in)"
+      ],
+      "tools": "5 open + 3 signed-in",
+      "url": "https://practice.svatantrya.net/mcp"
+    },
+    {
+      "access": "public",
+      "auth": "none",
+      "description": "Evidence rows, chunk resolution, coverage gaps, work-to-essay chains. Refs are hashes.",
+      "id": "formal",
+      "name": "Svatantrya Formal",
+      "tagline": "Theorems, bridges, gaps, treeka chains.",
+      "test_prompts": [
+        "What can you do? (navigates the layer)",
+        "Show the formal coverage gaps",
+        "Give me the treeka chain for tantrasara"
+      ],
+      "tools": 10,
+      "url": "https://formal.svatantrya.net/mcp"
+    },
+    {
+      "access": "public",
+      "auth": "none",
+      "description": "Work state, 1-page briefs, concept grounds, recon. Quotes PASS-gated English only.",
+      "id": "translate",
+      "name": "Svatantrya Translate",
+      "tagline": "Transmission briefs and translation state.",
+      "test_prompts": [
+        "What is the state of work tantrasara-a01?",
+        "Show me its transmission brief",
+        "What are the grounds for hand-glossing it?"
+      ],
+      "tools": 6,
+      "url": "https://translate.svatantrya.net/mcp"
+    },
+    {
+      "access": "owner",
+      "auth": "bearer",
+      "description": "Daily brief, weekly arc, 15-minute sessions with assessment. Single learner.",
+      "id": "tutor",
+      "name": "Svatantrya Tutor",
+      "tagline": "Objective-driven Sanskrit sessions.",
+      "test_prompts": [
+        "What is today's plan?",
+        "Start a compression level 1 session",
+        "Show my profile"
+      ],
+      "tools": 5,
+      "url": "https://tutor.svatantrya.net/mcp"
+    },
+    {
+      "access": "owner",
+      "auth": "bearer",
+      "description": "Drafts, sources, citations, claim audits, review packets. Nothing auto-publishes.",
+      "id": "essay",
+      "name": "Svatantrya Essay",
+      "tagline": "Sourced essay workshop, human-gated.",
+      "test_prompts": [
+        "List my documents",
+        "Audit this draft against its sources",
+        "What is waiting for human review?"
+      ],
+      "tools": 24,
+      "url": "https://essay.svatantrya.net/mcp"
+    },
+    {
+      "access": "owner",
+      "auth": "bearer",
+      "description": "Lanes, templates, staging into print products. Rendering stays human-gated.",
+      "id": "books",
+      "name": "Svatantrya Books",
+      "tagline": "Gated book production.",
+      "test_prompts": [
+        "What lanes are open?",
+        "Show the next actions for the current book"
+      ],
+      "tools": 22,
+      "url": "https://books.svatantrya.net/mcp"
+    },
+    {
+      "access": "owner",
+      "auth": "bearer",
+      "description": "Projects, units, render-gate status, finals. Publishing stays human-gated.",
+      "id": "video",
+      "name": "Svatantrya Video",
+      "tagline": "Gated video production.",
+      "test_prompts": [
+        "What video projects exist?",
+        "What is the render-gate status?"
+      ],
+      "tools": 18,
+      "url": "https://video.svatantrya.net/mcp"
+    },
+    {
+      "access": "private — owner only, never in any directory",
+      "auth": "bearer",
+      "description": "Relay lived experience with provenance (never advice); review decode proposals. Owner journal only.",
+      "id": "nibbana",
+      "name": "Nibbana Relay (private)",
+      "tagline": "Diary relay + decode review. Never listed.",
+      "test_prompts": [
+        "Relay what the diary says about restlessness",
+        "Show day 1 decode rows"
+      ],
+      "tools": 4,
+      "url": "https://nibbana.svatantrya.net/mcp"
+    }
+  ],
+  "related": {
+    "owner_console": "https://mcp.sanskrit.help/mcp",
+    "satsang_mcp": "https://mcp.tantrafiles.xyz/mcp"
+  }
+}

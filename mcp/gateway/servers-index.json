@@ -1,0 +1,15 @@
+{
+  "format": "svatantrya.mcp-gateway/1",
+  "note": "index.svatantrya.net — bibliography only. Public reads, no auth. ChatGPT plugin: No authentication.",
+  "port": 8771,
+  "path": "/mcp",
+  "public_base": "https://index.svatantrya.net/mcp",
+  "instructions": "Svatantrya bibliography index. Use openpatala__search to find a work (arg is q), openpatala__resolve to identify it, openpatala__get_bundle for the full dossier. Read-only. For passages and translations use the sanskrit host; for courses use practice.",
+  "servers": {
+    "openpatala": {
+      "path": "/root/openpatala/patala/mcp_server.py",
+      "cwd": "/root/openpatala",
+      "role": "bibliography: resolve/search/get_bundle over the work DB"
+    }
+  }
+}

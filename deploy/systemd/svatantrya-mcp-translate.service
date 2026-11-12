@@ -1,0 +1,15 @@
+[Unit]
+Description=svatantrya MCP translate (shastra teaching reads, public)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/root/svread/mcp/gateway
+ExecStart=/usr/bin/python3 /root/svread/mcp/gateway/gateway.py --host 127.0.0.1 --config /root/svread/mcp/gateway/servers-translate.json
+Restart=always
+RestartSec=3
+NoNewPrivileges=yes
+
+[Install]
+WantedBy=multi-user.target

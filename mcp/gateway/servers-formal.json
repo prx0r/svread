@@ -1,0 +1,31 @@
+{
+  "format": "svatantrya.mcp-gateway/1",
+  "note": "formal.svatantrya.net — formal layer slim sheaf. Public reads, no auth. ChatGPT plugin: No authentication.",
+  "port": 8777,
+  "path": "/mcp",
+  "public_base": "https://formal.svatantrya.net/mcp",
+  "instructions": "Svatantrya formal layer. Use federation__guide to navigate, formal__evidence for theorem evidence rows, formal__bridge to resolve a chunk locator, formal__gaps for coverage. Refs are content hashes, never bare claims.",
+  "servers": {
+    "federation": {
+      "path": "/root/trika-x/formal-trika/tools/federation_gateway.py",
+      "cwd": "/root/trika-x",
+      "role": "109-tool federation gateway (formal, treeka, bridge), slimmed to the read sheaf",
+      "namespace_tools": false,
+      "tools_allow": [
+        "federation__guide",
+        "formal__evidence",
+        "formal__bridge",
+        "formal__gaps",
+        "formal__table",
+        "formal__trace",
+        "formal__runs",
+        "formal__axioms"
+      ]
+    },
+    "treeka": {
+      "path": "/root/svread/mcp/treeka_server.py",
+      "cwd": "/root/svread/mcp",
+      "role": "treeka assembly reads (chain, frontier)"
+    }
+  }
+}

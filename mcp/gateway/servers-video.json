@@ -1,0 +1,18 @@
+{
+  "format": "svatantrya.mcp-gateway/1",
+  "note": "video.svatantrya.net — video production pipeline. Bearer until OAuth lands.",
+  "port": 8776,
+  "path": "/mcp",
+  "public_base": "https://video.svatantrya.net/mcp",
+  "instructions": "Svatantrya video factory. Read projects, units, render-gate status and finals. Rendering and publishing stay human-gated, always.",
+  "servers": {
+    "videofactory": {
+      "path": "/root/videofactory/vf_mcp_server.py",
+      "cwd": "/root/videofactory",
+      "role": "video production pipeline",
+      "env": {
+        "VIDEOFACTORY_ROOT": "/root/videofactory"
+      }
+    }
+  }
+}
