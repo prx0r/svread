@@ -1,0 +1,19 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "title":"SvatantryaPersonalPackProposalV1",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["kind","payload","rationale"],
+  "properties":{
+    "kind":{"const":"pack_fact"},
+    "payload":{
+      "type":"object","additionalProperties":false,
+      "required":["pack_id","fact"],
+      "properties":{
+        "pack_id":{"type":"string","maxLength":64},
+        "fact":{"type":"string","maxLength":240}
+      }
+    },
+    "rationale":{"type":"string","maxLength":300}
+  }
+}

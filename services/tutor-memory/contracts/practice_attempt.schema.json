@@ -1,0 +1,19 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "title":"SvatantryaTutorPracticeAttemptV1",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["client_event_id","skill_id","wheel_id","level_id","pack_id","combination_id","rating","evidence"],
+  "properties":{
+    "client_event_id":{"type":"string","minLength":1,"maxLength":128},
+    "skill_id":{"type":"string","minLength":1,"maxLength":128},
+    "wheel_id":{"enum":["conversation","expression","action","description"]},
+    "level_id":{"type":"string","minLength":1,"maxLength":128},
+    "pack_id":{"type":"string","minLength":1,"maxLength":128},
+    "combination_id":{"type":"string","minLength":1,"maxLength":128},
+    "content_version":{"type":"string","description":"Required by final production contract; add to implementation after migration."},
+    "rating":{"enum":["again","hard","good","easy"]},
+    "evidence":{"enum":["self_report","model_feedback","exact_match","human_review","voice_unverified"]},
+    "error_tags":{"type":"array","maxItems":8,"items":{"type":"string","maxLength":64}}
+  }
+}

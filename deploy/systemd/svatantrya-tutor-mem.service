@@ -1,0 +1,17 @@
+[Unit]
+Description=svatantrya tutor memory backend (127.0.0.1:8931, internal only)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/svatantrya-tutor.env
+Environment=SVAT_TUTOR_DB=/root/.local/share/svatantrya/tutor-memory.sqlite3
+WorkingDirectory=/root/svread/services/tutor-memory
+ExecStart=/usr/bin/python3 -m uvicorn backend.api:app --host 127.0.0.1 --port 8931
+Restart=always
+RestartSec=3
+NoNewPrivileges=yes
+
+[Install]
+WantedBy=multi-user.target

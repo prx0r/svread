@@ -23,12 +23,13 @@ Try:
 
 Your writing + learning room. Tutor sessions, sourced essays, deterministic compose drills and the voice session loop (start/check/end), server-scored gates. Owner token.
 
-Auth: bearer · Access: owner · Tools: 39
+Auth: bearer · Access: owner · Tools: 47
 
 Try:
 - Start a warm-up session
 - Check my Sanskrit: bhavān katham asti
-- Show my scored progress
+- What should I study next?
+- Remember that I prefer quick-fire drills
 
 ## Svatantrya Factory
 

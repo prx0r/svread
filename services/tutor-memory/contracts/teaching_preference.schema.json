@@ -1,0 +1,11 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "title":"SvatantryaTeachingPreferenceV1",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["key","value"],
+  "properties":{
+    "key":{"enum":["explanation_style","correction_style","script_reveal","pacing","preferred_examples","practice_mode","feedback_tone","session_minutes","pronunciation_help","review_preference"]},
+    "value":{"type":"string","minLength":1,"maxLength":280}
+  }
+}
