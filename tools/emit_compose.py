@@ -75,6 +75,7 @@ def build_provenance(n_rows: int) -> dict:
         'r2_uploaded': '2026-11-12T03:48:14Z',
         'vendored': ['core.js', 'shared.js', 'families/01..06', 'docs/*',
                      'tests/exhaustive.test.js', 'README.md'],
+        'local_extension': ['families/07-numbers.js (ours: counting, tens, age, relations)'],
         'vendored_excluded': ['preview_*.png (4 screenshots)', 'index.html',
                               'standalone.html', 'styles.css', 'src/ui.js',
                               'tools/build_standalone.py', 'tests/browser_smoke.py'],

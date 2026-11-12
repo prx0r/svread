@@ -109,6 +109,7 @@ python3 tools/emit_harness.py             # one-fetch harness for tutor models (
 python3 tools/emit_answers.py             # /a/<slug>/ one-URL answers (needs grammar pack + links)
 python3 tools/emit_about.py               # about page + about.json (verbatim owner text)
 python3 tools/emit_compose.py             # compose dataset from vendored wheel engine (deterministic)
+python3 tools/check_compose.py            # Vidyut mechanical check of compose verb forms
 python3 tools/emit_plugins.py             # plugins page + plugins.json (ChatGPT install + agent CLI)
 python3 tools/emit_practice.py           # deitybody curriculum vendored (fallback: vendored copy)
 python3 tools/emit_eval_set.py           # held-out blind set (needs traces + bundles)

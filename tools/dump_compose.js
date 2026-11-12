@@ -6,7 +6,7 @@ const path = require('node:path');
 const SRC = path.resolve(__dirname, '..', 'data', 'wheels', 'compose-src');
 require(path.join(SRC, 'core.js'));
 require(path.join(SRC, 'shared.js'));
-for (const f of ['01-conversation', '02-expression', '03-action', '04-description', '05-logic', '06-transformation']) {
+for (const f of ['01-conversation', '02-expression', '03-action', '04-description', '05-logic', '06-transformation', '07-numbers']) {
   require(path.join(SRC, 'families', f + '.js'));
 }
 const { allLevels, runCombinations } = globalThis.SW;

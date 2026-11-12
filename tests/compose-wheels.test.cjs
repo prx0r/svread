@@ -9,8 +9,8 @@ const prov = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/wheels/compose-pro
 
 test('compose dataset is complete and well-formed', () => {
   assert.equal(ds.format, 'svatantrya.compose/1');
-  assert.equal(ds.rows.length, 4755);
-  assert.equal(ds.levels.length, 24);
+  assert.equal(ds.rows.length, 5739);
+  assert.equal(ds.levels.length, 28);
   const byLevel = {};
   for (const r of ds.rows) {
     assert.equal(r.rings.length, 5, 'five rings per state');
