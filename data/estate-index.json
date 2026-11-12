@@ -4,11 +4,35 @@
  "purpose": "Read me first. Every Sanskrit asset, tool, doc and endpoint in one file, with the MCP tool that reaches it, and ready-made plugin recipes.",
  "live": {
   "site": "https://svatantrya.net",
-  "mcp": "https://mcp.sanskrit.help/mcp",
+  "mcp": "https://mcp.svatantrya.net/mcp",
   "transport": "streamable-http",
   "protocol": "2025-06-18",
-  "tools": 198,
-  "auth": "Bearer (token on the box at /etc/svatantrya-mcp.env; 401 without)"
+  "tools": 45,
+  "auth": "none (public bundle); bearer for Studio/Factory (owner), mixed on practice",
+  "bundles": {
+   "svatantrya": {
+    "url": "https://mcp.svatantrya.net/mcp",
+    "tools": 45,
+    "auth": "none",
+    "access": "public bundle — start here",
+    "status": "LIVE verified 2026-11-12 (four wheels x 6 packs, loops, decompose/dialogue)"
+   },
+   "studio": {
+    "url": "https://studio.svatantrya.net/mcp",
+    "tools": 47,
+    "auth": "bearer (owner)",
+    "access": "owner writing bundle",
+    "status": "LIVE verified 2026-11-12 (compose drills+session loop, tutor memory backend, 47 tools)"
+   },
+   "factory": {
+    "url": "https://factory.svatantrya.net/mcp",
+    "tools": 40,
+    "auth": "bearer (owner)",
+    "access": "owner production bundle",
+    "status": "LIVE verified 2026-11-13"
+   }
+  },
+  "console": "https://mcp.sanskrit.help/mcp"
  },
  "rules": [
   "BLOCKED != PASS. If a check cannot run, say BLOCKED and why.",
@@ -178,6 +202,60 @@
    "what": "per-level harness and prompts"
   },
   {
+   "name": "compose",
+   "path": "data/wheels/compose.json",
+   "tool": "compose__levels / compose__drill",
+   "what": "9,507 enumerated wheel states over 60 levels, HOLD-gated, server-scored"
+  },
+  {
+   "name": "compose-packs",
+   "path": "data/wheels/compose-packs.json",
+   "tool": "compose__decompose / compose__dialogue",
+   "what": "2,512 pack states: 6 content packs x 4 master wheels (conversation/expression/action/description)"
+  },
+  {
+   "name": "wheelmap",
+   "path": "data/wheels/wheelmap.json",
+   "tool": "compose__wheels",
+   "what": "15 families -> 4 wheels; transformation is the explain-mechanic, not a wheel"
+  },
+  {
+   "name": "compose-check",
+   "path": "data/wheels/compose-check.json",
+   "tool": "file read",
+   "what": "Vidyut mechanical validation of compose verbs: DERIVABLE vs review queue"
+  },
+  {
+   "name": "tutor-memory",
+   "path": "services/tutor-memory/",
+   "tool": "memory__recommend / memory__record_attempt",
+   "what": "persistent verified learner state (internal service, bearer-gated MCP)"
+  },
+  {
+   "name": "voice-loop",
+   "path": "docs/VOICE-LOOP-SPEC.md",
+   "tool": "compose__session_start / compose__session_check",
+   "what": "voice warm-up loop: determinism guarantees, build order, Apps SDK widget plan"
+  },
+  {
+   "name": "four-wheels-spec",
+   "path": "docs/SANSKRIT-WHEELS-SPEC-VERBATIM.md",
+   "tool": "file read",
+   "what": "owner four-wheel + pack spec, verbatim owner words"
+  },
+  {
+   "name": "four-wheels-factcheck",
+   "path": "docs/FOUR-WHEELS-FACTCHECK.md",
+   "tool": "file read",
+   "what": "what the four-wheel claim gets right and where it simplifies"
+  },
+  {
+   "name": "plugins-page",
+   "path": "plugins/",
+   "tool": "chatgpt.com/plugins -> Add custom MCP server",
+   "what": "human install page; machine spec at plugins/plugins.json"
+  },
+  {
    "name": "tutor",
    "path": "data/wheels/tutor/",
    "tool": "scholar__wheel_level",
@@ -262,6 +340,22 @@
   {
    "path": "CHATGPT-PLUGIN.md",
    "what": "connector setup, tool map, editing limits, monitoring"
+  },
+  {
+   "path": "PLUGIN-PACK.md",
+   "what": "press-create rows, test prompts, agent CLI, directory checklist"
+  },
+  {
+   "path": "VOICE-LOOP-SPEC.md",
+   "what": "voice companion loop + scenario engine + build order (see docs/)"
+  },
+  {
+   "path": "FOUR-WHEELS-FACTCHECK.md",
+   "what": "four-wheel claim: what holds, what simplifies (see docs/)"
+  },
+  {
+   "path": "SANSKRIT-WHEELS-SPEC-VERBATIM.md",
+   "what": "owner four-wheel spec verbatim (see docs/)"
   },
   {
    "path": "BENCHMARK-PLAN.md",
@@ -552,6 +646,43 @@
     "formal__gaps"
    ],
    "build": "navigate formal artifacts and gaps across the estate"
+  },
+  {
+   "name": "Compose voice loop",
+   "uses": [
+    "compose__levels",
+    "compose__curriculum",
+    "compose__session_start",
+    "compose__session_check",
+    "compose__session_end",
+    "compose__review",
+    "compose__progress"
+   ],
+   "build": "daily focus from study order, warm-up session, spoken attempts checked against the lattice, replays of weak items"
+  },
+  {
+   "name": "Four-wheel packs explorer",
+   "uses": [
+    "compose__wheels",
+    "compose__packs",
+    "compose__decompose",
+    "compose__dialogue",
+    "compose__why_change"
+   ],
+   "build": "same construction across packs; break an utterance into rings; multi-wheel exchange; explain what changed"
+  },
+  {
+   "name": "Tutor memory",
+   "uses": [
+    "memory__context",
+    "memory__recommend",
+    "memory__record_attempt",
+    "memory__set_preference",
+    "memory__propose",
+    "memory__decide_proposal",
+    "memory__set_focus"
+   ],
+   "build": "persistent verified learner state; deterministic next-lesson; preferences only by explicit request"
   }
  ]
 }

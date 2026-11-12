@@ -139,10 +139,15 @@ def build_llms(pushing: dict, biblio: dict, sanskrit: dict) -> str:
         f"- Curated-vs-machine cross-check (per-form agreement, specials, gaps): {ORIGIN}/data/grammar/crosscheck.json",
         f"- Learning harness (ONE fetch: all wheels + decision tree + verify index + links): {ORIGIN}/data/wheels/harness.json",
         f"- About / mission (verbatim owner statement, structured): {ORIGIN}/about/ · {ORIGIN}/about/about.json",
-        f"- ChatGPT plugins + agent CLI (10 MCP hosts, install recipes, machine spec): {ORIGIN}/plugins/ · {ORIGIN}/plugins/plugins.json",
+        f"- ChatGPT plugins + agent CLI (3 bundles + 10 granular hosts, install recipes, machine spec): {ORIGIN}/plugins/ · {ORIGIN}/plugins/plugins.json",
         f"- One-URL answers (no registration, no JS: fetch a form, get verdict + derivation + scripture): {ORIGIN}/a/<form>/ — index {ORIGIN}/a/index.json",
         f"- Harness master prompt (how a tutor model uses the site): {ORIGIN}/data/wheels/HARNESS.md",
         f"- Wheel datasets (word/sentence/trika/karaka constructors): {ORIGIN}/data/wheels/word.json, sentence.json, trika.json, karaka.json",
+        f"- Generative compose dataset (9,507 enumerated wheel states over 60 levels, HOLD-gated, server-scored; study order + prereqs): {ORIGIN}/data/wheels/compose.json · provenance {ORIGIN}/data/wheels/compose-provenance.json",
+        f"- Four-wheel pack dataset (2,512 pack states: 6 content packs x 4 master wheels; decompose + multi-wheel dialogue): {ORIGIN}/data/wheels/compose-packs.json · map {ORIGIN}/data/wheels/wheelmap.json",
+        f"- Vidyut mechanical check of compose verbs (DERIVABLE vs review queue): {ORIGIN}/data/wheels/compose-check.json",
+        f"- Voice companion loop spec (determinism guarantees, session tools, build order, Apps SDK widget plan): {ORIGIN}/docs/VOICE-LOOP-SPEC.md",
+        f"- Four-wheel spec (verbatim owner words) + fact-check: {ORIGIN}/docs/SANSKRIT-WHEELS-SPEC-VERBATIM.md · {ORIGIN}/docs/FOUR-WHEELS-FACTCHECK.md",
         f"- Tutor levels (one prompt file per level, machine-readable): {ORIGIN}/data/wheels/tutor/level-01-bases.md ... level-06-karaka.md",
         f"- Formal registry (every REGISTERED theorem, its scope, and the unformalised gap list): {ORIGIN}/data/formal.json",
         f"- Verification packs + no-code recipe (fetch + sha256sum, no install): {ORIGIN}/data/verify/index.json",
@@ -206,6 +211,7 @@ def build_llms_full(biblio: dict) -> str:
              f"- About: {ORIGIN}/about/ — what is claimed, rights, contact",
              f"- Cite: {ORIGIN}/cite/ — stable-URL policy, status words",
              f"- Plugins: {ORIGIN}/plugins/ — every ChatGPT plugin + agent CLI (spec: plugins/plugins.json). Satsang MCP: https://mcp.tantrafiles.xyz/mcp",
+             f"- Compose (generative wheels): study order, next level, drills are server-scored with receipts. Voice loop: session_start/check/end. Four wheels + packs explorer with decompose/dialogue/why_change. Spec: {ORIGIN}/docs/VOICE-LOOP-SPEC.md",
 
              ""]
     for w in sorted(works):
