@@ -1,10 +1,34 @@
-# ChatGPT plugin / connector — live MCP for the whole estate
+# ChatGPT plugins — per-function MCP hosts (2026-11-12)
 
-Status: **live**. One remote MCP endpoint, systemd-owned, survives reboots.
+Status: **live**. Ten small hosts replaced the one 198-tool firehose
+(ChatGPT degrades past ~50 tools and doesn't paginate `tools/list`).
+Each host is systemd-owned, survives reboots, served through the one
+`tunnel svatantrya-mcp` with per-host DNS + ingress.
+
+## Install matrix (one ChatGPT plugin per row)
+
+Flow per host: `chatgpt.com/plugins` → `+` → Add custom MCP server →
+name + URL → auth per row → Create as a plugin → Install → `@name` in chat.
+
+| Plugin | URL | Auth in ChatGPT | Tools |
+|---|---|---|---|
+| index | `https://index.svatantrya.net/mcp` | No authentication | 5 openpatala reads |
+| sanskrit | `https://sanskrit.svatantrya.net/mcp` | No authentication | 9 scholar reads |
+| practice | `https://practice.svatantrya.net/mcp` | No authentication (reads); `progress__*` 401 without bearer | 5 wheel reads + 3 scored (bearer) |
+| formal | `https://formal.svatantrya.net/mcp` | No authentication | guide + 7 formal reads + 2 treeka |
+| translate | `https://translate.svatantrya.net/mcp` | No authentication | 6 shastra teaching reads |
+| tutor | `https://tutor.svatantrya.net/mcp` | static bearer (owner token) | 5 session tools |
+| essay | `https://essay.svatantrya.net/mcp` | static bearer (owner token) | 24 essay workflow |
+| books | `https://books.svatantrya.net/mcp` | static bearer (owner token) | 22 book factory |
+| video | `https://video.svatantrya.net/mcp` | static bearer (owner token) | 18 video factory |
+| nibbana | `https://nibbana.svatantrya.net/mcp` | static bearer (owner token), **private — never list** | 4 relay/teacher |
+
+Bearer token (owner only, never in repo): `sudo grep MCP_TOKEN /etc/svatantrya-mcp.env`.
+`https://mcp.sanskrit.help/mcp` stays the owner console (full 198, bearer).
 
 ## Read this first (for the model)
 
-Call `workspace__estate_index` (or read
+Call `workspace__estate_index` on the console host (or read
 `https://svatantrya.net/data/estate-index.json`). One JSON with:
 
 - `counts` — 2,051 works, 268 translated songs, 44 certificates, 198 tools
@@ -13,17 +37,11 @@ Call `workspace__estate_index` (or read
 - `docs` — what to read for rules, Lean limits, deployment
 - `plugin_recipes` — eight buildable plugins with the exact tool chains
 
-## Connect it
+## Connect the owner console (firehose, bypasses the small hosts)
 
-1. In ChatGPT: **Settings → Connectors → Add custom connector** (a "plugin" in
-   the new Apps model is exactly an MCP connector).
+1. In ChatGPT: **Settings → Connectors → Add custom connector**.
 2. URL: `https://mcp.sanskrit.help/mcp`
-3. Authentication: **Bearer**. The token is not in this repo:
-
-   ```sh
-   sudo grep MCP_TOKEN /etc/svatantrya-mcp.env
-   ```
-
+3. Authentication: **Bearer** (token above).
 4. Save. The tool list appears as server tabs (`scholar`, `openpatala`,
    `federation`, `bookfactory`, `videofactory`, `aoc`, `workspace`).
 
@@ -132,13 +150,28 @@ svatantrya-mcp`, then update the connector.
 5. **Apps-SDK widgets are not built.** The connector works with plain tool
    results; rich UI would need a widget + `ui://` resources.
 
-## For a future "rebuild as a plugin" pass
+## Owner TODOs (needs a human)
 
-The MCP endpoint *is* the plugin. What would make it feel like a product:
+1. **Practice scoring needs your session.** `progress__*` answers BLOCKED until
+   `SVATANTRYA_SESSION` is set: sign in on svatantrya.net, copy the session
+   token, add `SVATANTRYA_SESSION=<token>` to `/etc/svatantrya-mcp.env`,
+   `systemctl restart svatantrya-mcp-practice`. Re-do when the session expires.
+2. **Per-user OAuth instead of the shared bearer.** Gateway already speaks mixed
+   auth + RFC 9728 discovery (`/.well-known/oauth-protected-resource`,
+   `WWW-Authenticate` challenges). Missing: a real authorization server
+   (Google upstream, `offline_access`, per-tool `securitySchemes`). Bearer hosts
+   stay owner-only until then — nibbana especially.
+3. **Directory submission (public plugins only: index/sanskrit/practice/formal/
+   translate).** Needs: domain verification, 5 positive + 3 negative test cases
+   per plugin, reviewer-usable demo (public hosts need no creds), and the
+   OAuth step above for anything with writes. Nibbana is never submitted.
+4. **Remaining builds:** `treeka` frontier polish, tutor voice/audio job ids,
+   `hxrmxs`/`rag` reference tools on the tutor host, edge Worker migration for
+   the 5 read hosts so the box isn't load-bearing.
+
+## For a future product-feel pass
 
 - a `ui://` widget for `scholar__passage_evidence` (Sanskrit + English + hashes)
 - a `chatgpt-app.json` manifest with name, description, icon, and the six
   read tools as the default surfaced set
-- OAuth (Google, reusing the site's `satsang-auth` flow) so each user gets
-  their own scopes instead of a shared token
 - rate limiting at the worker/tunnel edge before anything public is shared

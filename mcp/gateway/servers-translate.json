@@ -1,0 +1,27 @@
+{
+  "format": "svatantrya.mcp-gateway/1",
+  "note": "translate.svatantrya.net — shastra teaching reads. Public, no auth. ChatGPT plugin: No authentication.",
+  "port": 8778,
+  "path": "/mcp",
+  "public_base": "https://translate.svatantrya.net/mcp",
+  "instructions": "Svatantrya translation-teaching reads. Use translate__status for a work's state, translate__lore for its 1-page transmission brief, translate__concepts for hand-glossing grounds, translate__recon for the source recon report. Quote only PASS-gated English, cite work chunk file lines, present live forks as forks. Machine-proposed is labeled, never shipped as established.",
+  "servers": {
+    "translate": {
+      "path": "/root/translation-work/mcp_server.py",
+      "args": ["--serve"],
+      "cwd": "/root/translation-work",
+      "role": "shastra teaching reads (status/lore/concepts/skill/gates/recon)",
+      "env": {
+        "PYTHONPATH": "/root/translation-work"
+      },
+      "tools_allow": [
+        "translate__status",
+        "translate__lore",
+        "translate__concepts",
+        "translate__skill",
+        "translate__gates",
+        "translate__recon"
+      ]
+    }
+  }
+}

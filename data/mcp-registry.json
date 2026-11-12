@@ -24,7 +24,7 @@
       "progress_get",
       "progress_record"
     ],
-    "status": "LIVE — public endpoint above; OAuth/offline_access still not built, bearer for now"
+    "status": "SUPERSEDED 2026-11-12 by per-function hosts (this file, hosts key). Mixed auth live on practice; per-tool OAuth still not built."
   },
   "format": "svatantrya.mcp-registry/1",
   "note": "Every MCP server in the estate, probed live (initialize -> tools/list). The federation gateway is the single entry point; children are also directly runnable. ipvv worker /mcp is legacy (protocol 2024-11-05) and superseded by the bridge plan.",
@@ -364,6 +364,69 @@
     },
     "verified": "2026-11-11: initialize, tools/list (197), and a call on every server over the public URL",
     "editing": "workspace server: ws_roots/ws_list/ws_read/ws_write/ws_patch/ws_grep/ws_git (scoped to repo roots, secrets refused, no push)",
-    "read_first": "call workspace__estate_index, or read https://svatantrya.net/data/estate-index.json"
+    "read_first": "call workspace__estate_index, or read https://svatantrya.net/data/estate-index.json",
+    "note": "Single-host firehose era ended 2026-11-12. Per-function hosts below are the ChatGPT plugins; mcp.sanskrit.help stays the owner console."
+  },
+  "hosts": {
+    "index": {
+      "url": "https://index.svatantrya.net/mcp",
+      "tools": 5,
+      "auth": "none",
+      "status": "LIVE verified 2026-11-12"
+    },
+    "sanskrit": {
+      "url": "https://sanskrit.svatantrya.net/mcp",
+      "tools": 9,
+      "auth": "none",
+      "status": "LIVE verified 2026-11-12"
+    },
+    "practice": {
+      "url": "https://practice.svatantrya.net/mcp",
+      "tools": "5 open + 3 bearer (mixed)",
+      "auth": "mixed: reads none, progress__* bearer",
+      "status": "LIVE verified 2026-11-12; scoring BLOCKED until owner SVATANTRYA_SESSION set"
+    },
+    "formal": {
+      "url": "https://formal.svatantrya.net/mcp",
+      "tools": 10,
+      "auth": "none",
+      "status": "LIVE verified 2026-11-12"
+    },
+    "translate": {
+      "url": "https://translate.svatantrya.net/mcp",
+      "tools": 6,
+      "auth": "none",
+      "status": "LIVE verified 2026-11-12"
+    },
+    "tutor": {
+      "url": "https://tutor.svatantrya.net/mcp",
+      "tools": 5,
+      "auth": "bearer (owner)",
+      "status": "LIVE verified 2026-11-12"
+    },
+    "nibbana": {
+      "url": "https://nibbana.svatantrya.net/mcp",
+      "tools": 4,
+      "auth": "bearer (owner, private, never listed)",
+      "status": "LIVE verified 2026-11-12"
+    },
+    "essay": {
+      "url": "https://essay.svatantrya.net/mcp",
+      "tools": 24,
+      "auth": "bearer (owner)",
+      "status": "LIVE, bearer-gated"
+    },
+    "books": {
+      "url": "https://books.svatantrya.net/mcp",
+      "tools": 22,
+      "auth": "bearer (owner)",
+      "status": "LIVE, bearer-gated"
+    },
+    "video": {
+      "url": "https://video.svatantrya.net/mcp",
+      "tools": 18,
+      "auth": "bearer (owner)",
+      "status": "LIVE, bearer-gated"
+    }
   }
 }

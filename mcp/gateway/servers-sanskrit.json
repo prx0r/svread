@@ -1,0 +1,26 @@
+{
+  "format": "svatantrya.mcp-gateway/1",
+  "note": "sanskrit.svatantrya.net — passages and evidence reads. Public, no auth. ChatGPT plugin: No authentication.",
+  "port": 8772,
+  "path": "/mcp",
+  "public_base": "https://sanskrit.svatantrya.net/mcp",
+  "instructions": "Svatantrya Sanskrit reader. Use scholar__search_texts to find passages, scholar__passage_evidence with work and target for the hash-checked Sanskrit plus editorial layers. scholar__list_works lists what has a bundle. Read-only: never invent Sanskrit, a form not in the corpus does not render.",
+  "servers": {
+    "scholar": {
+      "path": "/root/svread/mcp/scholar_server.py",
+      "cwd": "/root/svread/mcp",
+      "role": "svread: passages, evidence, wheels, certificates, essays, reviews",
+      "tools_allow": [
+        "scholar__list_works",
+        "scholar__passage_evidence",
+        "scholar__list_versions",
+        "scholar__compare_versions",
+        "scholar__search_texts",
+        "scholar__text_themes",
+        "scholar__resolve_ref",
+        "scholar__ref_links",
+        "scholar__vidyut_candidates"
+      ]
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "format": "svatantrya.mcp-gateway/1",
+  "note": "tutor.svatantrya.net — objective-driven sessions. Bearer until per-user OAuth lands. Owner-only for now.",
+  "port": 8779,
+  "path": "/mcp",
+  "public_base": "https://tutor.svatantrya.net/mcp",
+  "instructions": "Svatantrya Sanskrit tutor. daily_brief starts the day, session_start opens a zone level (15 min max, 3 attempts then remedial), session_submit assesses and advances the profile. Conceptual zones use heuristics without a model key. Single learner v1.",
+  "servers": {
+    "tutor": {
+      "path": "/root/svread/mcp/tutor_server.py",
+      "cwd": "/root/sanskrithelp",
+      "role": "sanskrithelp tutor: brief, arc, sessions, profile"
+    }
+  }
+}

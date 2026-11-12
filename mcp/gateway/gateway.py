@@ -21,9 +21,23 @@ import time
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-CONF = json.loads((HERE / 'servers.json').read_text(encoding='utf-8'))
+
+
+def _config_path() -> Path:
+    for i, a in enumerate(sys.argv):
+        if a == '--config' and i + 1 < len(sys.argv):
+            return Path(sys.argv[i + 1])
+        if a.startswith('--config='):
+            return Path(a.split('=', 1)[1])
+    return Path(os.environ.get('MCP_SERVERS_JSON', HERE / 'servers.json'))
+
+
+CONF = json.loads(_config_path().read_text(encoding='utf-8'))
 SERVERS: dict = CONF['servers']
 CACHE_TTL = 60.0
+DEFAULT_INSTRUCTIONS = ('svatantrya.net estate: Sanskrit passages, translations, '
+                        'bibliography, wheels, certificates, book/video factories. '
+                        'Tool names are <server>__<tool>.')
 
 from fastmcp import Client as FClient
 from fastmcp.client.transports import StdioTransport
@@ -35,8 +49,8 @@ def transport(cfg: dict) -> StdioTransport:
     env = dict(os.environ)
     env.update({k: str(v) for k, v in (cfg.get('env') or {}).items()})
     env['PYTHONPATH'] = str(cfg['cwd'])
-    env.setdefault('PYTHONUNBUFFERED', '1')
-    return StdioTransport(command=sys.executable, args=[cfg['path']],
+    args = [cfg['path'], *(cfg.get('args') or [])]
+    return StdioTransport(command=sys.executable, args=args,
                           cwd=cfg['cwd'], env=env)
 
 
@@ -60,6 +74,13 @@ async def probe(name: str):
 _cache = {'at': 0.0, 'tools': [], 'problems': {}}
 
 
+def _allowed(name: str, advertised: str, child: str) -> bool:
+    allow = SERVERS[name].get('tools_allow')
+    if not allow:
+        return True
+    return advertised in allow or child in allow or f'{name}__{child}' in allow
+
+
 async def on_list_tools(_ctx, _params):
     if time.time() - _cache['at'] > CACHE_TTL:
         tools, problems, seen = [], {}, set()
@@ -77,6 +98,8 @@ async def on_list_tools(_ctx, _params):
                     if nm in seen:
                         continue
                 seen.add(nm)
+                if not _allowed(name, nm, t.name):
+                    continue
                 # children sometimes declare an output schema but return only
                 # text content; the client then refuses the result. Rebuild the
                 # Tool without outputSchema so every tool stays callable.
@@ -101,7 +124,12 @@ async def on_call_tool(_ctx, p):
     if name not in SERVERS or not tool:
         return types.CallToolResult(
             content=[types.TextContent(type='text',
-                                       text=f'unknown tool {p.name!r}; names are <server>__<tool>')],
+                                        text=f'unknown tool {p.name!r}; names are <server>__<tool>')],
+            is_error=True)
+    if not _allowed(name, p.name, tool):
+        return types.CallToolResult(
+            content=[types.TextContent(type='text',
+                                        text=f'tool {p.name!r} is not exposed on this host')],
             is_error=True)
     try:
         async with FClient(transport(SERVERS[name])) as c:
@@ -121,9 +149,7 @@ async def on_call_tool(_ctx, p):
 
 server = Server('svatantrya-gateway', version='1.0.0',
                 on_list_tools=on_list_tools, on_call_tool=on_call_tool,
-                instructions=('svatantrya.net estate: Sanskrit passages, translations, '
-                              'bibliography, wheels, certificates, book/video factories. '
-                              'Tool names are <server>__<tool>.'))
+                instructions=CONF.get('instructions', DEFAULT_INSTRUCTIONS))
 
 
 def main() -> int:
@@ -131,6 +157,7 @@ def main() -> int:
     ap.add_argument('--host', default=os.environ.get('MCP_HOST', '0.0.0.0'))
     ap.add_argument('--port', type=int, default=int(os.environ.get('MCP_PORT', CONF.get('port', 8765))))
     ap.add_argument('--path', default=CONF.get('path', '/mcp'))
+    ap.add_argument('--config', default=str(_config_path()))
     ap.add_argument('--list', action='store_true')
     a = ap.parse_args()
 
@@ -153,26 +180,89 @@ def main() -> int:
     from starlette.routing import Route
 
     token = os.environ.get('MCP_TOKEN', '')
+    public_base = CONF.get('public_base', '')
 
     async def health(_request):
         return PlainTextResponse(f'ok {len(SERVERS)} servers')
 
+    async def protected_resource(_request):
+        # RFC 9728 shape so OAuth-capable clients can discover auth config.
+        # authorization_servers is empty until the OAuth write sheaf lands
+        # (MCP-INTEGRATION.md §4); bearer hosts are owner-only until then.
+        return JSONResponse({
+            'resource': public_base or f'http://{a.host}:{a.port}{a.path}',
+            'authorization_servers': [],
+            'scopes_supported': [],
+            'resource_documentation': 'https://svatantrya.net/about',
+        })
+
     # a public tunnel presents its own Host header; the SDK's rebinding guard
     # would answer 404 to every request that is not localhost
     from mcp.server.transport_security import TransportSecuritySettings
+    routes = [Route('/health', health),
+                Route('/.well-known/oauth-protected-resource', protected_resource)]
     app = server.streamable_http_app(
         streamable_http_path=a.path, stateless_http=True, host=a.host,
         transport_security=TransportSecuritySettings(enable_dns_rebinding_protection=False),
-        custom_starlette_routes=[Route('/health', health)])
+        custom_starlette_routes=routes)
 
-    if token:
+    auth_mode = CONF.get('auth_mode', 'bearer' if token else 'open')
+    open_tools = set(CONF.get('open_tools', []))
+    # read-only discovery methods callable without auth in mixed mode
+    open_methods = {'initialize', 'tools/list', 'resources/list',
+                    'resources/templates/list', 'prompts/list',
+                    'resources/read', 'prompts/get', 'completion/complete',
+                    'ping', 'logging/setLevel'}
+
+    def _body_open(body: bytes) -> bool:
+        try:
+            msg = json.loads(body) if body else {}
+        except ValueError:
+            return False
+        msgs = msg if isinstance(msg, list) else [msg]
+        for m in msgs:
+            if not isinstance(m, dict):
+                return False
+            method = m.get('method', '')
+            if method.startswith('notifications/'):
+                continue
+            if method in open_methods:
+                continue
+            if method == 'tools/call':
+                name = ((m.get('params') or {}).get('name')) or ''
+                if name in open_tools:
+                    continue
+            return False
+        return True
+
+    if token and auth_mode in ('bearer', 'mixed'):
+        meta_base = (public_base or f'http://{a.host}:{a.port}')
+        if meta_base.endswith('/mcp'):
+            meta_base = meta_base[:-len('/mcp')]
+        www_auth = ('Bearer resource_metadata="'
+                    + meta_base +
+                    '/.well-known/oauth-protected-resource"')
+
+        def _denied():
+            return JSONResponse({'error': 'unauthorized'}, status_code=401,
+                                headers={'WWW-Authenticate': www_auth})
+
         class Bearer(BaseHTTPMiddleware):
             async def dispatch(self, request, call_next):
-                if request.url.path == '/health':
+                if request.url.path in ('/health', '/.well-known/oauth-protected-resource'):
                     return await call_next(request)
-                if request.headers.get('authorization') != f'Bearer {token}':
-                    return JSONResponse({'error': 'unauthorized'}, status_code=401)
-                return await call_next(request)
+                if request.headers.get('authorization') == f'Bearer {token}':
+                    return await call_next(request)
+                if auth_mode == 'mixed' and request.url.path == a.path:
+                    body = await request.body()
+
+                    async def _replay():
+                        return {'type': 'http.request', 'body': body,
+                                'more_body': False}
+                    if _body_open(body):
+                        from starlette.requests import Request as StarRequest
+                        return await call_next(StarRequest(request.scope, _replay))
+                return _denied()
         app.add_middleware(Bearer)
 
     print(f'gateway: http://{a.host}:{a.port}{a.path} '

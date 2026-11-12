@@ -1,0 +1,41 @@
+{
+  "format": "svatantrya.mcp-gateway/1",
+  "note": "essay.svatantrya.net — essay and review workflow. Bearer until OAuth lands. Owner-only for now.",
+  "port": 8774,
+  "path": "/mcp",
+  "public_base": "https://essay.svatantrya.net/mcp",
+  "instructions": "Svatantrya essay workshop. Drafts, sources, citations, claim audits and review packets. Nothing auto-publishes or auto-signs; humans hold those. Machine traces are DERIVED, never truth.",
+  "servers": {
+    "scholar": {
+      "path": "/root/svread/mcp/scholar_server.py",
+      "cwd": "/root/svread/mcp",
+      "role": "svread: passages, evidence, wheels, certificates, essays, reviews",
+      "tools_allow": [
+        "scholar__list_documents",
+        "scholar__document_history",
+        "scholar__list_reviews",
+        "scholar__list_review_annotations",
+        "scholar__add_review_annotation",
+        "scholar__list_style_examples",
+        "scholar__list_source_links",
+        "scholar__save_source_link",
+        "scholar__delete_source_link",
+        "scholar__list_published_essays",
+        "scholar__list_sources",
+        "scholar__save_source",
+        "scholar__prepare_citations",
+        "scholar__delete_source",
+        "scholar__list_decisions",
+        "scholar__save_decision",
+        "scholar__delete_decision",
+        "scholar__save_document",
+        "scholar__request_review",
+        "scholar__draft_with_qwen",
+        "scholar__audit_draft",
+        "scholar__link_claims",
+        "scholar__check_claim_staleness",
+        "scholar__pushback"
+      ]
+    }
+  }
+}
