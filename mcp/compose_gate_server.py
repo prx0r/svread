@@ -37,6 +37,8 @@ from fastmcp import FastMCP  # noqa: E402
 mcp = FastMCP("compose")
 
 COMPOSE = Path("/root/svread/data/wheels/compose.json")
+WHEELMAP = Path("/root/svread/data/wheels/wheelmap.json")
+PACKS = Path("/root/svread/data/wheels/compose-packs.json")
 DB = Path(os.environ.get("COMPOSE_GATE_DB",
                          str(Path.home() / ".local" / "share" / "svatantrya" / "compose-gate.db")))
 
@@ -152,6 +154,91 @@ def levels() -> dict:
     d = _load()
     return {'format': d['format'], 'levels': d['levels'], 'counts': d['counts'],
             'note': 'HOLD levels are excluded from drill() until expert review.'}
+
+
+_wm: dict | None = None
+_pk: dict | None = None
+
+
+def _wheelmap() -> dict:
+    global _wm
+    if _wm is None:
+        _wm = json.loads(WHEELMAP.read_text(encoding="utf-8"))
+    return _wm
+
+
+def _packs() -> dict:
+    global _pk
+    if _pk is None:
+        _pk = json.loads(PACKS.read_text(encoding="utf-8"))
+    return _pk
+
+
+@mcp.tool()
+def wheels() -> dict:
+    """The four master wheels (Conversation, Expression, Action, Description)
+    with their five rings, what each absorbs, and the 15->4 family mapping.
+    Read-only. Transformation is a mechanic, not a wheel."""
+    wm = _wheelmap()
+    return {"wheels": wm["wheels"], "families": wm["families"],
+            "level_roadmap": wm["level_roadmap"],
+            "mastery_axes": wm["mastery_axes"],
+            "note": "wheel = what skill; pack = what you talk about; level = how hard"}
+
+
+@mcp.tool()
+def packs() -> dict:
+    """Content packs available for the four wheels (currently the Action wheel
+    is pack-enabled). Read-only."""
+    pk = _packs()
+    return {"packs": pk["packs"], "counts": pk["counts"],
+            "note": "pack = vocabulary/theme; switching packs does not reset grammar mastery"}
+
+
+@mcp.tool()
+def why_change(level: str = "action.3.1", attr: str = "actor",
+               from_value: str = "", to_value: str = "") -> dict:
+    """Explain what changes when one ring is rotated, e.g. actor i -> brother.
+    Uses the enumerated states, so the explanation is about real forms."""
+    pk = _packs()
+    rows = [r for r in pk["rows"] if r["level"] == level]
+    if not rows:
+        return {"error": f"unknown pack level {level}; try action.3.1"}
+    def hold(r, val):
+        d = {k: v for k, v in r["selection"].items() if k != attr}
+        d["__pack"] = r["pack"]
+        return d
+    cands_a = [r for r in rows if r["selection"].get(attr) == from_value]
+    cands_b = [r for r in rows if r["selection"].get(attr) == to_value]
+    a = b = None
+    # prefer a pair that differs ONLY in this ring, so the diff is honest
+    for ra in cands_a:
+        ha = hold(ra, from_value)
+        for rb in cands_b:
+            if hold(rb, to_value) == ha:
+                a, b = ra, rb
+                break
+        if a:
+            break
+    if not a:
+        a = cands_a[0] if cands_a else None
+        b = cands_b[0] if cands_b else None
+        only = "(note: other rings also differ in this pair)"
+    else:
+        only = ""
+    if not a or not b:
+        return {"error": f"no state with {attr}={from_value} or {to_value}",
+                "try": sorted({r["selection"].get(attr) for r in rows})[:8]}
+    expl = {
+        "actor": "The actor changed, so the verb ending must change to agree with it.",
+        "verb": "The action changed, so the legal object set and the verb form changed.",
+        "target": "The object changed; it stays in the accusative.",
+        "place": "The place changed; it stays in the locative (where, not to where).",
+        "time": "The time word changed; the verb tense stays as the level allows.",
+        "polarity": "Polarity flipped; na is added before the verb.",
+    }.get(attr, "That ring changed, so that part was rebuilt.")
+    return {"from": a["lines"][0], "to": b["lines"][0], "why": expl,
+            "pair_note": only, "selection_from": a["selection"], "selection_to": b["selection"]}
 
 
 @mcp.tool()
