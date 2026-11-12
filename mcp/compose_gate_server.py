@@ -1,17 +1,24 @@
 #!/usr/bin/env python3
-"""compose_gate_server — server-scored generative composition drills.
+"""compose_gate_server — deterministic server-scored composition drills.
 
-ChatGPT (or any client) uses this under the hood for both jobs:
-  generation  drill() samples fresh enumerated states (never repeats
-              served items; HOLD levels excluded until expert-reviewed)
-  validation  submit() scores against the server-held key; the model
-              never sees answers, only correct/incorrect + feedback
+ChatGPT uses this under the hood for both jobs:
+  generation  drill() samples enumerated states from a SEEDED rng; the same
+              (user_id, level, seed) always deals the same items (replayable)
+  validation  submit() scores against the server-held key; the model never
+              sees answers, only ok/not + the expected roman on a miss
   tracking    per-item mastery per user persists (sqlite outside the repo);
-              review() replays weak items first (replay the hard ones)
+              review() replays weak items first
 
-Free-response scoring is normalized exact match (whitespace/punctuation/
-case folded; documented heuristic, server-side). MCQ gates stay stricter.
-Single-user v1: user_id defaults to owner; gateway bearer-gates these tools.
+Determinism at runtime:
+  - items are drawn only from the enumerated dataset (no model invention)
+  - seed defaults to hour-bucket hash(user_id+level) so retries in the same
+    hour replay identically; pass an explicit seed to pin a session forever
+  - every session carries a receipt = sha256(level, seed, items, key)
+  - submit is idempotent: an identical retry returns the same receipt
+  - HOLD levels never deal
+
+Read-only helpers (levels, show) are safe to expose publicly; drill/submit/
+review/progress are per-user and must be bearer-gated.
 """
 from __future__ import annotations
 import hashlib
@@ -32,7 +39,6 @@ mcp = FastMCP("compose")
 COMPOSE = Path("/root/svread/data/wheels/compose.json")
 DB = Path(os.environ.get("COMPOSE_GATE_DB",
                          str(Path.home() / ".local" / "share" / "svatantrya" / "compose-gate.db")))
-SESSION_TTL = 3600
 
 _data: dict | None = None
 
@@ -54,8 +60,17 @@ def _db() -> sqlite3.Connection:
         PRIMARY KEY (user_id, item_id))""")
     c.execute("""CREATE TABLE IF NOT EXISTS sessions (
         id TEXT PRIMARY KEY, user_id TEXT NOT NULL, level TEXT NOT NULL,
+        seed INTEGER NOT NULL, receipt TEXT NOT NULL,
         items_json TEXT NOT NULL, key_json TEXT NOT NULL,
+        result_json TEXT, answers_json TEXT,
         used INTEGER NOT NULL DEFAULT 0, created_at INTEGER NOT NULL)""")
+    # migrate pre-receipt sessions tables (added seed/receipt/result/answers)
+    have = {r[1] for r in c.execute("PRAGMA table_info(sessions)")}
+    for col, decl in (('seed', 'INTEGER NOT NULL DEFAULT 0'),
+                      ('receipt', 'TEXT NOT NULL DEFAULT \'\''),
+                      ('result_json', 'TEXT'), ('answers_json', 'TEXT')):
+        if col not in have:
+            c.execute(f'ALTER TABLE sessions ADD COLUMN {col} {decl}')
     return c
 
 
@@ -70,39 +85,75 @@ def norm(s: str) -> str:
     return s
 
 
+def _seed_for(user_id: str, level: str, seed: int | None) -> int:
+    if seed is not None:
+        return int(seed)
+    hour = int(time.time() // 3600)
+    h = hashlib.sha256(f"{user_id}:{level}:{hour}".encode()).hexdigest()[:12]
+    return int(h, 16)
+
+
+def _receipt(level: str, seed: int, item_ids: list, key: dict) -> str:
+    payload = json.dumps({'level': level, 'seed': seed, 'items': item_ids,
+                          'key': key}, sort_keys=True, ensure_ascii=False)
+    return hashlib.sha256(payload.encode()).hexdigest()
+
+
 def _prompt_for(row: dict) -> dict:
-    """What the learner sees: rings to fill + English meaning + first line role.
-    Never the dev/roman answer."""
     first = row['lines'][0]
-    return {
-        'item_ref': _item_id(row),
-        'level': row['level'], 'level_title': row['level_title'],
-        'rings': row['rings'],
-        'produce': first['en'],
-        'hint_role': first.get('role', 'Sanskrit'),
-        'note': row.get('note', ''),
-    }
+    return {'item_ref': _item_id(row), 'level': row['level'],
+            'level_title': row['level_title'], 'rings': row['rings'],
+            'produce': first['en'], 'hint_role': first.get('role', 'Sanskrit'),
+            'note': row.get('note', '')}
 
 
 def _weight(seen: int, right: int) -> float:
     if seen == 0:
-        return 3.0  # unseen first
-    acc = right / max(1, seen)
-    return 2.5 * (1.0 - acc) + 0.2  # weak items replay first
+        return 3.0
+    return 2.5 * (1.0 - right / max(1, seen)) + 0.2
+
+
+# ---------------------------------------------------------------- read-only
+
+@mcp.tool()
+def levels() -> dict:
+    """List every composition level with its size and review status. Safe to
+    call publicly. HOLD levels are not servable until expert review."""
+    d = _load()
+    return {'format': d['format'], 'levels': d['levels'], 'counts': d['counts'],
+            'note': 'HOLD levels are excluded from drill() until expert review.'}
 
 
 @mcp.tool()
-def drill(level: str = "1.1", user_id: str = "owner", n: int = 5) -> dict:
-    """Deal n fresh drill items for a level (default 1.1). Excludes HOLD
-    levels and already-mastered items; weights weak items first. Returns
-    prompts only — answers stay server-side. Use session_id to submit."""
+def show(level: str = "1.1", index: int = 0) -> dict:
+    """Show one fully-rendered example state of a level (Devanagari + IAST +
+    English). A teaching example, not a gate item. Read-only."""
+    d = _load()
+    rows = [r for r in d['rows'] if r['level'] == level]
+    if not rows:
+        return {'error': f'unknown level {level}'}
+    r = rows[max(0, min(int(index), len(rows) - 1))]
+    return {'level': level, 'level_title': r['level_title'],
+            'selection': r['selection'],
+            'lines': r['lines'], 'note': r.get('note', ''),
+            'status': r['status'], 'review': r['review']}
+
+
+# ---------------------------------------------------------------- per-user
+
+@mcp.tool()
+def drill(level: str = "1.1", user_id: str = "owner", n: int = 5,
+          seed: int | None = None) -> dict:
+    """Deal n fresh drill items for a level. Deterministic: the same
+    (user_id, level, seed) deals the same items; seed defaults to an hourly
+    bucket so retries replay. Excludes HOLD levels and mastered items; weights
+    weak items first. Returns prompts only — answers stay server-side."""
     d = _load()
     rows = [r for r in d['rows'] if r['level'] == level and r['review'] != 'HOLD']
     if not rows:
-        held = sorted({r['level'] for r in d['rows'] if r['level'] == level})
         return {"status": "BLOCKED",
-                "error": f"level {level} has no servable items (HOLD: expert review pending)"
-                if held else f"unknown level {level}"}
+                "error": f"level {level} has no servable items (HOLD: expert review pending)"}
+    sd = _seed_for(user_id, level, seed)
     c = _db()
     try:
         mast = {r[0]: (r[1], r[2]) for r in c.execute(
@@ -113,14 +164,15 @@ def drill(level: str = "1.1", user_id: str = "owner", n: int = 5) -> dict:
     for r in rows:
         seen, right = mast.get(_item_id(r), (0, 0))
         if seen > 0 and right >= 2:
-            continue  # mastered twice: retire
+            continue
         weighted.append((_weight(seen, right), r))
     if not weighted:
         return {"status": "COMPLETE", "level": level,
                 "message": "every item mastered twice — level complete"}
-    rng = random.Random(f"{user_id}:{level}:{int(time.time() // 3600)}")
-    picked, pool = [], [r for _, r in weighted]
+    rng = random.Random(sd)
+    pool = [r for _, r in weighted]
     weights = [w for w, _ in weighted]
+    picked = []
     for _ in range(min(max(1, int(n)), len(pool))):
         total = sum(weights)
         x = rng.random() * total
@@ -130,20 +182,21 @@ def drill(level: str = "1.1", user_id: str = "owner", n: int = 5) -> dict:
                 picked.append(pool.pop(i))
                 weights.pop(i)
                 break
-    key = {_item_id(r): {'dev': r['lines'][0]['dev'],
-                         'roman': r['lines'][0]['roman']} for r in picked}
+    item_ids = [_item_id(r) for r in picked]
+    key = {_item_id(r): {'dev': r['lines'][0]['dev'], 'roman': r['lines'][0]['roman']}
+           for r in picked}
+    receipt = _receipt(level, sd, item_ids, key)
     sid = uuid.uuid4().hex
     c = _db()
     try:
-        c.execute("INSERT INTO sessions (id, user_id, level, items_json, key_json, created_at)"
-                  " VALUES (?,?,?,?,?,?)",
-                  (sid, user_id, level,
-                   json.dumps([_item_id(r) for r in picked], ensure_ascii=False),
+        c.execute("INSERT INTO sessions (id,user_id,level,seed,receipt,items_json,"
+                  "key_json,created_at) VALUES (?,?,?,?,?,?,?,?)",
+                  (sid, user_id, level, sd, receipt, json.dumps(item_ids, ensure_ascii=False),
                    json.dumps(key, ensure_ascii=False), int(time.time())))
         c.commit()
     finally:
         c.close()
-    return {"session_id": sid, "level": level,
+    return {"session_id": sid, "level": level, "seed": sd, "receipt": receipt,
             "items": [_prompt_for(r) for r in picked],
             "rule": "produce the Sanskrit; submit with submit(); answers are server-held"}
 
@@ -152,63 +205,77 @@ def drill(level: str = "1.1", user_id: str = "owner", n: int = 5) -> dict:
 def submit(session_id: str = "", answers: list | None = None,
            user_id: str = "owner") -> dict:
     """Score a drill session. answers: [{item_ref, text}]. Normalized exact
-    match against dev or roman; identical retry returns the same receipt."""
+    match against dev or roman. Idempotent: an identical retry returns the
+    same receipt."""
     c = _db()
     try:
-        row = c.execute("SELECT user_id, level, items_json, key_json, used"
-                        " FROM sessions WHERE id = ?", (session_id,)).fetchone()
+        row = c.execute("SELECT user_id,level,receipt,items_json,key_json,used,"
+                        "result_json FROM sessions WHERE id = ?", (session_id,)).fetchone()
         if not row:
             return {"error": "unknown session — call drill() first"}
-        if row[0] != user_id:
+        uid, level, receipt, items_json, key_json, used, result_json = row
+        if uid != user_id:
             return {"error": "session belongs to another learner"}
-        if row[4]:
-            return {"error": "session already submitted — drill again for fresh items"}
-        key = json.loads(row[3])
+        item_ids = json.loads(items_json)
         given = {(a.get('item_ref') if isinstance(a, dict) else None):
                  (a.get('text', '') if isinstance(a, dict) else '')
                  for a in (answers or [])}
+        canon = json.dumps([{k: given.get(k, '')} for k in item_ids],
+                           sort_keys=True, ensure_ascii=False)
+        if used:
+            if result_json and json.loads(result_json).get('_answers') == canon:
+                out = json.loads(result_json)
+                out.pop('_answers', None)
+                out['replayed'] = True
+                return out
+            return {'error': 'session already submitted with different answers', 'receipt': receipt}
+        key = json.loads(key_json)
         detail, correct = [], 0
-        for ref in json.loads(row[2]):
+        for ref in item_ids:
             k = key.get(ref, {})
-            ok = norm(given.get(ref, '')) in {norm(k.get('dev', '')), norm(k.get('roman', ''))} \
-                and norm(given.get(ref, '')) != ''
+            g = norm(given.get(ref, ''))
+            ok = bool(g) and g in {norm(k.get('dev', '')), norm(k.get('roman', ''))}
             if ok:
                 correct += 1
-            detail.append({"item_ref": ref, "ok": ok,
-                           "expected_roman": k.get('roman', '') if not ok else None})
-        passed = correct == len(json.loads(row[2])) and len(json.loads(row[2])) > 0
+            detail.append({'item_ref': ref, 'ok': ok,
+                           'expected_roman': None if ok else k.get('roman', '')})
+        passed = correct == len(item_ids) and item_ids
         for d_ in detail:
-            c.execute("INSERT INTO mastery (user_id, item_id, seen, right)"
-                      " VALUES (?,?,1,?) ON CONFLICT(user_id, item_id) DO UPDATE SET"
-                      " seen = seen + 1, right = right + ?, updated_at = datetime('now')",
+            c.execute("INSERT INTO mastery (user_id,item_id,seen,right) VALUES (?,?,1,?) "
+                      "ON CONFLICT(user_id,item_id) DO UPDATE SET seen=seen+1, "
+                      "right=right+?, updated_at=datetime('now')",
                       (user_id, d_['item_ref'], 1 if d_['ok'] else 0, 1 if d_['ok'] else 0))
-        c.execute("UPDATE sessions SET used = 1 WHERE id = ?", (session_id,))
+        result = {'receipt': receipt, 'score': correct, 'total': len(item_ids),
+                  'passed': passed, 'detail': detail,
+                  'next': 'review() replays weak items; drill() deals fresh ones',
+                  '_answers': canon}
+        c.execute("UPDATE sessions SET used=1, result_json=?, answers_json=? WHERE id=?",
+                  (json.dumps(result, ensure_ascii=False), canon, session_id))
         c.commit()
     finally:
         c.close()
-    return {"score": correct, "total": len(detail), "passed": passed,
-            "detail": detail,
-            "next": "review() replays weak items; drill() deals fresh ones"}
+    result.pop('_answers', None)
+    return result
 
 
 @mcp.tool()
 def review(user_id: str = "owner", n: int = 5) -> dict:
     """Replay the hard ones: lowest-accuracy seen items first, HOLD excluded.
-    Returns prompts (no answers). Submit via a drill session."""
+    Returns prompts (no answers). Start a scored session with drill()."""
     d = _load()
     by_id = {_item_id(r): r for r in d['rows'] if r['review'] != 'HOLD'}
     c = _db()
     try:
-        rows = c.execute("SELECT item_id, seen, right FROM mastery WHERE user_id = ? AND seen > 0",
+        rows = c.execute("SELECT item_id,seen,right FROM mastery WHERE user_id=? AND seen>0",
                          (user_id,)).fetchall()
     finally:
         c.close()
-    scored = sorted(((r / max(1, s), s, i) for i, s, r in rows if i in by_id))
+    scored = sorted((r / max(1, s), s, i) for i, s, r in rows if i in by_id)
     picks = [by_id[i] for _, _, i in scored[:max(1, int(n))]]
     if not picks:
-        return {"status": "COMPLETE", "message": "nothing weak yet — drill() first"}
-    return {"items": [_prompt_for(r) for r in picks],
-            "rule": "weakest first; call drill() for a scored session on these"}
+        return {'status': 'COMPLETE', 'message': 'nothing weak yet — drill() first'}
+    return {'items': [_prompt_for(r) for r in picks],
+            'rule': 'weakest first; call drill() for a scored session on these'}
 
 
 @mcp.tool()
@@ -218,23 +285,22 @@ def progress(user_id: str = "owner") -> dict:
     lvl_of = {_item_id(r): r['level'] for r in d['rows']}
     c = _db()
     try:
-        rows = c.execute("SELECT item_id, seen, right FROM mastery WHERE user_id = ?",
+        rows = c.execute("SELECT item_id,seen,right FROM mastery WHERE user_id=?",
                          (user_id,)).fetchall()
     finally:
         c.close()
     agg: dict = {}
     for i, s, r in rows:
-        lv = lvl_of.get(i, '?')
-        a = agg.setdefault(lv, {'seen_items': 0, 'right_total': 0, 'seen_total': 0})
+        a = agg.setdefault(lvl_of.get(i, '?'), {'seen_items': 0, 'right_total': 0, 'seen_total': 0})
         a['seen_items'] += 1
         a['seen_total'] += s
         a['right_total'] += r
-    return {"user_id": user_id, "levels": agg,
-            "note": "an item retires after 2 correct; review() replays the rest"}
+    return {'user_id': user_id, 'levels': agg,
+            'note': 'an item retires after 2 correct; review() replays the rest'}
 
 
 if __name__ == "__main__":
     if "--list" in sys.argv or "--help" in sys.argv:
-        print("compose gate — drill, submit, review, progress (server-scored)")
+        print("compose gate — levels, show, drill, submit, review, progress")
     else:
         mcp.run(transport="stdio")
