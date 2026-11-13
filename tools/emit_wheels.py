@@ -485,15 +485,16 @@ body.script-en #word-disc .d-en{{display:block}}
 </style>
 </head>
 <body class="reader script-deva">
+<script>if(/[?&]embed=1/.test(location.search))document.body.classList.add('embed');</script>
 <header><nav>
   <div class="topbar-container">
     <a class="brand" href="./">स्वतन्त्र</a>
     <ul class="main-bar">
       <li><a href="./">Library</a></li>
-      <li><a href="?view=scholar">Scholar</a></li>
-      <li><a href="?view=sanskrit">Sanskrit</a></li>
-      <li><a href="?view=biblio">Index</a></li>
-      <li><a href="wheels.html">Wheels</a></li>
+      <li><a href="./?view=scholar">Scholar</a></li>
+      <li><a href="./?view=sanskrit">Sanskrit</a></li>
+      <li><a href="./?view=practice">Practice</a></li>
+      <li><a href="./?view=biblio">Index</a></li>
     </ul>
   </div>
 </nav></header>
