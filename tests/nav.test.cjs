@@ -62,7 +62,8 @@ test('ChatGPT prompt card: present on every view, names real tools', () => {
   const wheels = fs.readFileSync(path.join(ROOT, 'wheels.html'), 'utf8');
   const corpus = app + '\n' + wheels;
   for (const tool of ['scholar__wheel_harness','scholar__wheel_verify','compose__wheels',
-                      'openpatala__resolve','formal__trace','scholar__passage_evidence']) {
+                      'openpatala__resolve','formal__trace','scholar__passage_evidence',
+                      'scholar__layers_index','scholar__passage_layers','scholar__translation_forks']) {
     assert.ok(corpus.includes(tool), `prompt names ${tool}`);
   }
   assert.ok(wheels.includes('Run this with ChatGPT'), 'wheels page card');

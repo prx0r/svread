@@ -133,6 +133,7 @@ def build_llms(pushing: dict, biblio: dict, sanskrit: dict) -> str:
         "",
         f"- Bibliography (works, editions, translations+links, lost with basis, formal coverage): {ORIGIN}/data/biblio.json",
         f"- Bibliography mirror ({mirror_n} local-mirror works absent from the authority file, pending authority sync): {ORIGIN}/data/biblio-mirror.json — also merged into {ORIGIN}/?view=biblio with a mirror badge",
+        f"- Layer index (which of t1/l0/argmap/l2/l3/l4/c1/c2 exist per song, with file hashes, verse ids, registry status): {ORIGIN}/data/layers-index.json — ask ChatGPT to show the stack and the forks",
         f"- Sanskrit lessons index + rule boxes: {ORIGIN}/data/sanskrit/index.json",
         f"- Per-work reader bundle: {ORIGIN}/data/<work>.json (55+ works; originals, layers, hashes)",
         f"- Scholar projections: {ORIGIN}/data/scholar/<work>.json (versions, essays, reviews, signoffs, projection_sha256)",

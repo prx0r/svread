@@ -291,6 +291,187 @@ def wheel_level(a):
             'prompt': text, 'gate': stages[n - 1],
             'display': h['display']['anchors'].get(f'level-{n}')}
 
+TWROOT = Path(os.environ.get('TRANSLATION_WORK', '/root/translation-work'))
+LAYER8 = ('t1', 'l0', 'argmap', 'l2', 'l3', 'l4', 'c1', 'c2')
+
+def _tw():
+    if not TWROOT.is_dir() or not (TWROOT / 'REGISTRY.json').exists():
+        raise ValueError('Canonical layer corpus unavailable here (no translation-work checkout)')
+    return TWROOT
+
+def _layers_index_doc():
+    p = ROOT / 'data' / 'layers-index.json'
+    try:
+        d = json.loads(p.read_text(encoding='utf-8'))
+    except (OSError, ValueError):
+        raise ValueError('Layers index not emitted here')
+    if d.get('format') != 'svread-layers-index/1':
+        raise ValueError('Layers index format unsupported')
+    return d
+
+def layers_index(a):
+    w = a.get('work')
+    d = _layers_index_doc()
+    if w is not None:
+        if not isinstance(w, str) or not WORK.fullmatch(w):
+            raise ValueError('Invalid work ID')
+        hit = next((x for x in d['works'] if x['work'] == w), None)
+        if hit is None:
+            raise ValueError('Work has no canonical layer data')
+        return {'work': hit, 'provenance': d['provenance'],
+                'warning': 'Read-only map of another lane. Hashes identify bytes; gold means machine-proposed unless a human signed it.'}
+    rows = []
+    for x in d['works']:
+        have = sorted({L for s in x['songs'] for L in s['layers']})
+        rows.append({'work': x['work'], 'registry_status': x['registry_status'],
+                     'gold': x['gold'], 'site_bundle': x['site_bundle'],
+                     'songs': len(x['songs']), 'layers_present': have,
+                     'verse_ids': sum(len(s['verse_ids']) for s in x['songs'])})
+    return {'counts': d['counts'], 'works': rows, 'provenance': d['provenance'],
+            'warning': 'Read-only map of another lane. Hashes identify bytes; gold means machine-proposed unless a human signed it.'}
+
+def _song_hits(tw, work, target):
+    """Find canonical layer records for one target across work dirs.
+
+    Target is a verse id (e.g. tsa-a22-v01). If it names a song instead,
+    returns the song's layers as summaries, not full dumps."""
+    dirs = [tw / work] if (tw / work / 'data').is_dir() else sorted(
+        p for p in tw.iterdir() if p.is_dir() and (p / 'data').is_dir())
+    verse, songs = [], {}
+    for d in dirs:
+        for f in sorted((d / 'data').glob('*.json')):
+            parts = f.name.split('.')
+            if len(parts) < 3 or parts[-1] != 'json' or parts[-2] not in LAYER8:
+                continue
+            song, layer = '.'.join(parts[:-2]), parts[-2]
+            try:
+                doc = json.loads(f.read_text(encoding='utf-8'))
+            except (OSError, ValueError):
+                continue
+            recs = doc if isinstance(doc, list) else [doc]
+            match = [r for r in recs if isinstance(r, dict)
+                     and (r.get('verse_id') == target or r.get('song') == target)]
+            sha = hashlib.sha256(canonical(doc)).hexdigest()
+            meta = {'workdir': d.name, 'song': song, 'file': f'data/{f.name}',
+                    'sha256': sha, 'rows': len(recs)}
+            if match:
+                verse.append((meta, recs if song == target else match))
+            elif song == target:
+                songs.setdefault(song, {})[layer] = dict(meta, rows=len(recs))
+    return verse, songs
+
+def _registry_note(tw, workdir):
+    try:
+        reg = json.loads((tw / 'REGISTRY.json').read_text(encoding='utf-8'))
+        row = next((w for w in reg.get('works', []) if w.get('work') == workdir), {})
+    except (OSError, ValueError):
+        row = {}
+    status = None
+    try:
+        s = json.loads((tw / workdir / 'STATUS.json').read_text(encoding='utf-8'))
+        status = {'counts': s.get('counts'), 'needs': s.get('needs')}
+    except (OSError, ValueError):
+        pass
+    return {'status': row.get('status'), 'gold': bool(row.get('gold', False)),
+            'review': status}
+
+def passage_layers(a):
+    work, target = a.get('work'), a.get('target')
+    if not isinstance(work, str) or not WORK.fullmatch(work):
+        raise ValueError('Invalid work ID')
+    if not isinstance(target, str) or not IDENT.fullmatch(target):
+        raise ValueError('Invalid target ID')
+    layer = a.get('layer')
+    if layer is not None and layer not in LAYER8:
+        raise ValueError('Invalid layer')
+    tw = _tw()
+    verse, songs = _song_hits(tw, work, target)
+    if not verse and not songs:
+        raise ValueError('Passage unavailable in the canonical layer corpus')
+    layers = {}
+    for meta, recs in verse:
+        f = tw / meta['workdir'] / meta['file']
+        try:
+            doc = json.loads(f.read_text(encoding='utf-8'))
+        except (OSError, ValueError):
+            continue
+        L = f.name.split('.')[-2]
+        if layer is not None and L != layer:
+            continue
+        recs = doc if isinstance(doc, list) else [doc]
+        got = [r for r in recs if isinstance(r, dict)
+               and (r.get('verse_id') == target or r.get('song') == target)]
+        if not got:
+            continue
+        layers[L] = {'data': got, 'sha256': hashlib.sha256(canonical(doc)).hexdigest(),
+                     'file': meta['file'], 'workdir': meta['workdir']}
+    if not layers:
+        if songs:
+            s = songs.get(target, {})
+            return {'work': work, 'target': target, 'song_scope': True,
+                    'layers': {L: {'summary_only': True, **m} for L, m in s.items()},
+                    'note': 'Target names a whole song; verse-level data needs a verse id. verse_ids live in scholar__layers_index.'}
+        raise ValueError('Passage unavailable in the canonical layer corpus')
+    src = None
+    for L in ('t1', 'l2'):
+        for r in layers.get(L, {}).get('data', []):
+            if isinstance(r, dict) and (r.get('source_file') or r.get('source_lines') is not None or r.get('sanskrit_cite')):
+                src = {'source_file': r.get('source_file'),
+                       'source_lines': r.get('source_lines'),
+                       'sanskrit_cite': (r.get('sanskrit_cite') or '')[:400]}
+                break
+        if src:
+            break
+    dirs = sorted({layers[L]['workdir'] for L in layers})
+    return {'work': work, 'target': target,
+            'source': src, 'layers': layers,
+            'review': {d: _registry_note(tw, d) for d in dirs},
+            'warning': ('Canonical translation-work files, not the site projection. '
+                        'Machine-proposed unless a human signed it; hashes identify bytes.')}
+
+def translation_forks(a):
+    work, target = a.get('work'), a.get('target')
+    if not isinstance(work, str) or not WORK.fullmatch(work):
+        raise ValueError('Invalid work ID')
+    if not isinstance(target, str) or not IDENT.fullmatch(target):
+        raise ValueError('Invalid target ID')
+    tw = _tw()
+    verse, _ = _song_hits(tw, work, target)
+    l0_recs, am_recs, f_fork = [], [], None
+    for meta, recs in verse:
+        f = tw / meta['workdir'] / meta['file']
+        L = f.name.split('.')[-2]
+        if L == 'l0':
+            for r in recs:
+                if not isinstance(r, dict) or r.get('verse_id') != target:
+                    continue
+                opts = r.get('options') or []
+                l0_recs.append({'surface': r.get('surface'), 'status': r.get('status'),
+                                'fork': r.get('fork'), 'chosen_index': r.get('chosen_index'),
+                                'morph': r.get('morph'),
+                                'options': [{'gloss': o.get('gloss'), 'rank': o.get('rank'),
+                                             'source': o.get('source')} for o in opts
+                                            if isinstance(o, dict)]})
+            f_fork = meta['file']
+        elif L == 'argmap':
+            for r in recs:
+                if not isinstance(r, dict) or r.get('verse_id') != target:
+                    continue
+                am_recs.append({'question': r.get('question'),
+                                'option_choices': r.get('option_choices'),
+                                'uncertainties': r.get('uncertainties'),
+                                'inference': (r.get('inference') or '')[:600]})
+    if not l0_recs and not am_recs:
+        raise ValueError('No L0/ARGMAP fork data for this passage here')
+    forked = sum(1 for r in l0_recs if (r.get('fork') or 'none') != 'none'
+                 or (r.get('status') or '') in ('AMBIGUOUS', 'FAILED')
+                 or len(r.get('options') or []) > 1)
+    return {'work': work, 'target': target,
+            'tokens': len(l0_recs), 'forked_tokens': forked,
+            'l0': l0_recs, 'argmap': am_recs,
+            'warning': ('Ambiguity lives here by design; a fork is a question, '
+                        'not a verdict. Machine-proposed unless reviewed.')}
+
 def wheel_harness(a):
     h = _wheel_harness()
     return {'format': h['format'], 'origin': h['origin'], 'display': h['display'],
@@ -393,6 +574,9 @@ def call(name,a):
     if name=='wheel_verify': return wheel_verify(a)
     if name=='wheel_certificate': return wheel_certificate(a)
     if name=='wheel_level': return wheel_level(a)
+    if name=='layers_index': return layers_index(a)
+    if name=='passage_layers': return passage_layers(a)
+    if name=='translation_forks': return translation_forks(a)
     if name in ('resolve_ref','ref_links'):
         if lingua_resolver is None: raise ValueError('Shared-language resolver unavailable')
         ident(a.get('id'))
@@ -440,7 +624,10 @@ TOOLS=[
  ('wheel_harness','Learning-harness map: stages, gates, tutor files, verify summary, trika links (fetch harness.json for the full one-fetch program).',S({})),
  ('wheel_lookup','Look up one Sanskrit form in the vendored grammar pack: gloss layer, derivation trace, lessons, verses.',S({'form':T},['form'])),
  ('wheel_verify','Prove one form fast: AGREE / DISAGREE_STANDS / MACHINE_GAP / CURATED_ONLY with evidence.',S({'form':T},['form'])),
- ('wheel_level','Get one tutor level prompt (goal, rules, drills, gate) by number 1-6.',S({'level':{'type':'integer','minimum':1,'maximum':6}},['level'])),
+  ('wheel_level','Get one tutor level prompt (goal, rules, drills, gate) by number 1-6.',S({'level':{'type':'integer','minimum':1,'maximum':6}},['level'])),
+  ('layers_index','Map of the canonical translation-work layer corpus: per work, per song, which of t1/l0/argmap/l2/l3/l4/c1/c2 exist, with file hashes, verse-id unions, registry status and review state.',S({'work':T})),
+  ('passage_layers','One passage full layer stack from the canonical translation-work files (not the site projection): source, per-layer data and hashes, registry status. Unavailable passages error explicitly, never empty success.',S({'work':T,'target':T,'layer':{'type':'string','enum':['t1','l0','argmap','l2','l3','l4','c1','c2']}},['work','target'])),
+  ('translation_forks','Where this passage translation forks: L0 token options/fork state and ARGMAP option choices/uncertainties. A fork is a question, not a verdict.',S({'work':T,'target':T},['work','target'])),
  ('wheel_certificate','Derivation certificate for one form: stored cert + live tier-2 recompute (never trusts stored bytes).',S({'form':T},['form'])),
  ('resolve_ref','Resolve any shared-language ID (work/chunk/tension/crux/essay/pack/aoc) to bytes, status and license. Fails closed.',S({'id':T},['id'])),
  ('ref_links','Every ID connected to the given one — tension is the hub, links are verified both directions.',S({'id':T},['id']))]

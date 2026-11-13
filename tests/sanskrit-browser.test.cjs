@@ -98,6 +98,18 @@ test('browser bibliography view filters works and shows lost with basis',
       assert.ok(lostRows >= 1 && lostRows < 100, `lost rows: ${lostRows}`);
       const body = await page.textContent('.reader-main');
       assert.ok(/Kramakeli|Pūrvapa|STATUS|lost/i.test(body), 'lost works named');
+      // layer coverage: the Layers column and its filter come from
+      // data/layers-index.json; both must agree (regression: kind-string split).
+      const heads = await page.$$eval('.biblio-table thead th', els => els.map(e => e.textContent.trim()));
+      assert.ok(heads.includes('Layers'), `columns: ${heads.join(',')}`);
+      await page.fill('#bibq', '');
+      await page.selectOption('#bibf', 'layers');
+      await page.waitForFunction(() => document.querySelector('#bibcount').textContent.includes('of'), { timeout: 5000 });
+      const lyrCount = await page.textContent('#bibcount');
+      const lyrRows = await page.$$eval('#bibbody tr', els => els.length);
+      assert.ok(lyrRows >= 50, `layer rows: ${lyrRows} (${lyrCount})`);
+      const kinds = await page.$$eval('#bibbody tr', els => els.map(e => e.getAttribute('data-kind')));
+      assert.ok(kinds.every(k => (k || '').includes('layers')), 'every shown row carries the layers kind');
       assert.equal(errors.filter(e => !/favicon|manifest/i.test(e)).length, 0, `no page errors: ${errors.join(' | ').slice(0, 200)}`);
     } finally {
       if (browser) await browser.close();

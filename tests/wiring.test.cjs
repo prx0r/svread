@@ -63,6 +63,7 @@ const EMITTERS = [
   // skip can never mask a later failure (a t.skip() ends its own test only).
   { tool: 'emit_biblio.py', need: 'db' },
   { tool: 'emit_biblio_mirror.py', need: 'db' },
+  { tool: 'emit_layers_index.py', need: 'tw' },
   { tool: 'emit_traces.py', need: 'trika' },
   { tool: 'emit_verify.py', need: 'trika+tw' },
   { tool: 'emit_formal.py', need: 'trika' },

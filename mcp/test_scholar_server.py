@@ -114,6 +114,31 @@ class TestMcp(unittest.TestCase):
         self.assertEqual(pb['format'],'scholar-pushback/1')
         cats={i['category'] for i in pb['issues']}
         self.assertIn('uncited-claim',cats)
+    def test_layer_tools_index_passage_and_forks(self):
+        if not os.path.exists('/root/translation-work/REGISTRY.json'):
+            self.skipTest('no translation-work checkout here')
+        rs = run([req(0, 'tools/list'),
+                  tool(1, 'layers_index', {'work': 'tantrasara-a22'}),
+                  tool(2, 'passage_layers', {'work': 'tantrasara-a22', 'target': 'tsa-a22-v01', 'layer': 'l2'}),
+                  tool(3, 'translation_forks', {'work': 'tantrasara-a22', 'target': 'tsa-a22-v01'}),
+                  tool(4, 'passage_layers', {'work': 'tantrasara-a22', 'target': 'no-such-verse'}),
+                  tool(5, 'passage_layers', {'work': 'tantrasara-a22', 'target': 'tsa-a22-v01', 'layer': 'l9'})])
+        names = [x['name'] for x in rs[0]['result']['tools']]
+        for n in ('layers_index', 'passage_layers', 'translation_forks'):
+            self.assertIn(n, names)
+        li = content(rs[1])
+        self.assertEqual(li['work']['work'], 'tantrasara-a22')
+        self.assertIn('l2', li['work']['songs'][0]['layers'])
+        pl = content(rs[2])
+        self.assertIn('l2', pl['layers'])
+        self.assertIn('plain_english', json.dumps(pl['layers']['l2']))
+        self.assertIn('review', pl)
+        tf = content(rs[3])
+        self.assertIn('l0', tf)
+        self.assertGreaterEqual(tf['tokens'], 1)
+        self.assertTrue(rs[4]['result']['isError'])
+        self.assertIn('unavailable', rs[4]['result']['content'][0]['text'])
+        self.assertTrue(rs[5]['result']['isError'])
     def test_account_api_conflict_and_redirect(self):
         server=ThreadingHTTPServer(('127.0.0.1',0),Mock);t=threading.Thread(target=server.serve_forever,daemon=True);t.start()
         try:
