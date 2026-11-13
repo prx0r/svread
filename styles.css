@@ -385,3 +385,14 @@ body.scholar #cols .col{min-width:min(340px,100%)}
 body.embed header{display:none}
 body.embed .wheel-page{padding-top:.4rem}
 .bibctrl{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+/* phone lane toggle: both lanes on a phone are cramped; let the reader pick */
+.lanetog{display:none}
+@media (max-width:640px){
+  body.split .lanetog{display:inline-flex;gap:.3rem;align-items:center}
+  .lanetog button{border:1px solid var(--g300);background:#fff;color:var(--g600);
+    border-radius:6px;padding:.08rem .45rem;font-size:.78rem;cursor:pointer;line-height:1.4}
+  .lanetog button.on{background:var(--g900);color:#fff;border-color:var(--g900)}
+  #cols.mob-sa-only,#cols.mob-en-only{grid-template-columns:1fr!important}
+  #cols.mob-sa-only .col.right{display:none!important}
+  #cols.mob-en-only .col.left{display:none!important}
+}

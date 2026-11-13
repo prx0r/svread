@@ -1460,6 +1460,8 @@ async function main(){
     const t = $('#textR'); if(t) t.style.display = split ? '' : 'none';
     const del = $('#colRdel'); if(del) del.style.display = split ? '' : 'none';
     if(add) add.style.display = split ? 'none' : '';
+    document.body.classList.toggle('split', split);
+    if(!split && typeof applyMobLane === 'function') applyMobLane();
   };
   syncCols();
   const addBtn = $('#addcol');
@@ -2136,6 +2138,17 @@ function repaintSplay(){
   if(PS && PS.paused) document.querySelectorAll(`.verse[data-i="${PS.i}"]`).forEach(v=>v.classList.add('paused'));
 }
 let SEL_LANG = 'en';   // headbar language selector: 'sa' | 'en' (EN default)
+/* phone lane view: on narrow screens the paired twin is cramped; let the
+   reader show both lanes, or one at a time. No effect above 640px. */
+let MOBLANE = 'both';
+function applyMobLane(){
+  const cols = document.getElementById('cols'); if(!cols) return;
+  cols.classList.remove('mob-sa-only','mob-en-only');
+  if(document.body.classList.contains('split') && MOBLANE==='sa') cols.classList.add('mob-sa-only');
+  if(document.body.classList.contains('split') && MOBLANE==='en') cols.classList.add('mob-en-only');
+  const t = document.getElementById('lanetog');
+  if(t) t.querySelectorAll('button').forEach(b=>b.classList.toggle('on', b.dataset.l===MOBLANE));
+}
 function enSilent(){
   if(EN_READ_OFF){ const m=$('#readMsg'); if(m) m.textContent='english readout is off for now'; return true; }
   return false;
@@ -2225,6 +2238,11 @@ function buildRightRail(verses){
       <span class="hbsep"></span>
       <button id="readSa" class="hbbtn" title="language: Sanskrit">स</button>
       <button id="readEn" class="hbbtn hbsel" title="language: English (selected)">EN</button>
+      <span class="lanetog" id="lanetog" role="group" aria-label="phone lanes">
+        <button data-l="both" class="on" title="both lanes">Both</button>
+        <button data-l="sa" title="Sanskrit only">स</button>
+        <button data-l="en" title="English only">EN</button>
+      </span>
       <button id="readEdit" class="hbbtn" title="edit this passage in Scholar">✎</button>
       <button id="rcAll" class="hbbtn" title="play English">▶</button>
     </div>
@@ -2237,6 +2255,14 @@ function buildRightRail(verses){
   document.querySelectorAll('#headbar .widget h2, #rail .widget h2').forEach(h=>{
     h.onclick = ()=>h.parentElement.classList.toggle('closed');
   });
+  // phone lane toggle (Both / स / EN) — only active on narrow screens
+  const laneTog = $('#lanetog');
+  if(laneTog){
+    laneTog.querySelectorAll('button').forEach(b=>{
+      b.onclick = e=>{ e.preventDefault(); MOBLANE = b.dataset.l || 'both'; applyMobLane(); };
+    });
+  }
+  try{ applyMobLane(); }catch(e){}
   // recitation
   const rcA = $('#rcAll');
   /* headbar: स/EN = language SELECTOR (EN default), one ▶/⏸ toggle after them —
