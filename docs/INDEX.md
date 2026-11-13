@@ -35,6 +35,7 @@ Read in this order if you are new:
 | `README.md` | entry point + START HERE | keep short; history below the fold |
 | `PRODUCTION.md` | ops manual: state, build order, gates, defects, go-live | numbers dated; §0 carries the delta |
 | `MASTERPLAN3.md` | operative plan: W1–W7, sequencing, risks | external agent co-edits |
+| `docs/ENDGAME-PLAN-2026-11-13.md` | layer exposure map, use cases, ordered build (P0–P6) | plan of record for exposing translation-work |
 | `PROGRESS-REPORT-2026-11-11.md` | status vs MASTERPLAN3 | supersede by a new dated report, don't edit |
 | `PROGRESS.md` | wave-by-wave build reports | append-only |
 | `SPEC.md` | reader UX spec (lanes, rails, chat) | source of truth for the reader |
