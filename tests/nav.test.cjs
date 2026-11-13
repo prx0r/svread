@@ -50,3 +50,23 @@ test('phone lane toggle: wired, hidden on desktop, single-lane classes', () => {
     'toggle only shows on phone when split');
   assert.ok(/\.lanetog\{display:none\}/.test(css), 'hidden by default (desktop)');
 });
+
+test('ChatGPT prompt card: present on every view, names real tools', () => {
+  const app = fs.readFileSync(path.join(ROOT, 'app.js'), 'utf8');
+  assert.ok(app.includes('mountChatGPT'), 'mount helper');
+  assert.ok(app.includes("https://mcp.svatantrya.net/mcp"), 'public MCP url');
+  assert.ok(app.includes("https://svatantrya.net/plugins/"), 'install url');
+  for (const kind of ['sanskrit','practice','verify','biblio','scholar','reader']) {
+    assert.ok(app.includes(`mountChatGPT('${kind}')`), `card mounted on ${kind}`);
+  }
+  const wheels = fs.readFileSync(path.join(ROOT, 'wheels.html'), 'utf8');
+  const corpus = app + '\n' + wheels;
+  for (const tool of ['scholar__wheel_harness','scholar__wheel_verify','compose__wheels',
+                      'openpatala__resolve','formal__trace','scholar__passage_evidence']) {
+    assert.ok(corpus.includes(tool), `prompt names ${tool}`);
+  }
+  assert.ok(wheels.includes('Run this with ChatGPT'), 'wheels page card');
+  assert.ok(wheels.includes('mcp.svatantrya.net/mcp'), 'wheels prompt has endpoint');
+  const css = fs.readFileSync(path.join(ROOT, 'styles.css'), 'utf8');
+  assert.ok(css.includes('body.embed .cg{display:none}'), 'no duplicate card in embedded wheels');
+});

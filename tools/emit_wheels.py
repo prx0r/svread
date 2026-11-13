@@ -500,6 +500,13 @@ body.script-en #word-disc .d-en{{display:block}}
 </nav></header>
 <main class="wheel-page">
 <h1>Sanskrit memory wheels</h1>
+<details class="cg"><summary>▶ Run this with ChatGPT (copy prompt)</summary>
+<p class="mut">Install the connector once at <a href="https://svatantrya.net/plugins/">svatantrya.net/plugins</a> (public bundle, no key), then paste this. ChatGPT calls the public MCP tools and can run the lessons by voice.</p>
+<textarea readonly class="cgtext" rows="7">Work with the Svatantrya MCP connector at https://mcp.svatantrya.net/mcp (install once at https://svatantrya.net/plugins/, no key for the public bundle).
+
+Be my Sanskrit wheel tutor, by voice. First fetch https://svatantrya.net/data/wheels/harness.json and call scholar__wheel_harness, then compose__wheels and compose__packs. Show the four master wheels and the packs as a compact table. Then teach one level at a time with scholar__wheel_level: state the goal, give me three spoken drills, listen to my answers, and check every form I produce with scholar__wheel_verify. Report AGREE / DISAGREE_STANDS / MACHINE_GAP / CURATED_ONLY exactly; never call a gap a pass. Use compose__show for one fully rendered example (Devanagari + IAST + English) per level, and compose__next_level only after I pass. Tell me the deep link to the matching level on the page so I can see the discs myself.</textarea>
+<button class="c2btn" type="button" onclick="var t=this.previousElementSibling;t.select();navigator.clipboard&&navigator.clipboard.writeText(t.value);this.textContent='Copied'">Copy prompt</button>
+</details>
 <p class="mut">Bruno meets Pāṇini: you turn the meaning rings; Paninian grammar handles the transformations. Two tiers side by side — <b>curated teaching forms</b> (hand-entered, beginner-safe) and <b>machine traces</b> (Vidyut derivations, unreviewed). Full thesis: <a href="SANSKRIT-MEMORY-ENGINE-THESIS.md">SANSKRIT-MEMORY-ENGINE-THESIS.md</a>; upstream curated package (MIT): <a href="vendor/sanskrit-bruno-wheels/">vendor/sanskrit-bruno-wheels/</a>.</p>
 <div id="journey"><span class="mut">Journey lives here once JavaScript loads.</span></div>
 <div id="script-toggle" role="group" aria-label="scripts (tick any combination)"><label><input type="checkbox" data-script="deva" checked> देवनागरी</label> <label><input type="checkbox" data-script="iast"> roman (IAST)</label> <label><input type="checkbox" data-script="en"> English</label></div>

@@ -1159,6 +1159,47 @@ async function practiceView(){
   SK_LESSON = null;
 }
 
+/* "Run this with ChatGPT": every relevant view hands the reader a copy-paste
+   prompt that points ChatGPT at the public MCP bundle, names the exact tools,
+   and says what to render. The page is the display; the model narrates. */
+const MCP_PUBLIC = 'https://mcp.svatantrya.net/mcp';
+const PLUGINS_URL = 'https://svatantrya.net/plugins/';
+function chatgptPrompt(kind){
+  const base = `Work with the Svatantrya MCP connector at ${MCP_PUBLIC} (install once at ${PLUGINS_URL}, no key for the public bundle).`;
+  const P = {
+    reader: () => `${base}\n\nShow this work (${WORK}) and read it with me. Call openpatala__resolve, then scholar__passage_evidence for each passage. Render a table: verse number, Sanskrit (Devanagari + IAST), English, source. Then read it aloud like a teacher, verse by verse, pausing so I can repeat; ask one comprehension question per verse. Use scholar__wheel_lookup and scholar__wheel_verify for any form I ask about. Never invent Sanskrit or a translation; if a layer is withheld, say so. Fallback data: https://svatantrya.net/data/${WORK}.json`,
+    sanskrit: () => `${base}\n\nBe my Sanskrit tutor, by voice. Fetch https://svatantrya.net/data/wheels/harness.json, then call scholar__wheel_harness and scholar__wheel_level for levels 1 to 6. For each level: state the goal, give three spoken drills, listen to my answers, and check each form with scholar__wheel_verify (AGREE / DISAGREE_STANDS / MACHINE_GAP / CURATED_ONLY). Only advance when I pass. Say plainly if progress cannot be saved (saving needs the owner Practice/Studio plugin, bearer).`,
+    practice: () => `${base}\n\nGuide me through the 10 Matrka stages as a voice practice session. Call scholar__wheel_harness and fetch https://svatantrya.net/data/practice/curriculum.json. For each stage read its DO / IN THE MIND / NOT / SOURCE aloud, run the practice, then move on. Do not claim my progress was saved unless the Practice plugin (bearer) actually recorded it.`,
+    biblio: () => `${base}\n\nAct as a bibliographic research desk. Call openpatala__search for a topic, openpatala__get_bundle for a work, scholar__passage_evidence for a passage. Show a table: title, id, editions, translations with links, coverage. Mark works that are mirror-only / pending authority sync, and rows with no translation and no witness. Never invent a translation. Data: https://svatantrya.net/data/biblio.json and https://svatantrya.net/data/biblio-mirror.json`,
+    scholar: () => `${base}\n\nShow the evidence for this passage (${WORK}). Call scholar__passage_evidence for the source and editorial layers, scholar__list_versions and scholar__compare_versions to diff stored versions, scholar__wheel_verify for any form. Render the comparison as a table and keep three evidence kinds separate: bytes, machine-checked, human-reviewed. Never sign, publish or promote; those are human actions.`,
+    verify: () => `${base}\n\nLet me re-check the published chain without trusting the site. Call formal__trace for a chunk, formal__bridge to resolve its ids, scholar__wheel_certificate for a wheel form. Show the source hash, each layer hash, the checker command and result if present, and what a match does NOT prove. Render as a table. Data: https://svatantrya.net/data/traces/index.json`,
+  };
+  return (P[kind] || P.reader)();
+}
+function chatgptCard(kind){
+  const text = chatgptPrompt(kind);
+  return `<details class="cg"><summary>▶ Run this with ChatGPT (copy prompt)</summary>`
+    + `<p class="mut">Install the connector once at <a href="${PLUGINS_URL}" target="_blank" rel="noopener">svatantrya.net/plugins</a> (public bundle, no key), then paste this. ChatGPT calls the public MCP tools and can run the lesson by voice.</p>`
+    + `<textarea readonly class="cgtext" rows="7">${esc(text)}</textarea>`
+    + `<button class="c2btn cgcopy" type="button">Copy prompt</button></details>`;
+}
+function mountChatGPT(kind){
+  const main = document.querySelector('.reader-main');
+  if(!main || main.querySelector('.cg')) return;
+  const holder = document.createElement('div');
+  holder.innerHTML = chatgptCard(kind);
+  const el = holder.firstElementChild;
+  if(!el) return;
+  main.insertBefore(el, main.firstChild);
+  const btn = el.querySelector('.cgcopy');
+  if(btn) btn.onclick = async ()=>{
+    const t = el.querySelector('.cgtext');
+    try { await navigator.clipboard.writeText(t.value); btn.textContent = 'Copied ✓'; }
+    catch(e){ try{ t.select(); document.execCommand('copy'); btn.textContent = 'Copied ✓'; }catch(_){ } }
+    setTimeout(()=>{ btn.textContent = 'Copy prompt'; }, 1800);
+  };
+}
+
 async function main(){
   initGoogleAuth();
   const ns = $('#navscholar');
@@ -1166,22 +1207,22 @@ async function main(){
   const nsk = $('#navsanskrit');
   if(nsk) nsk.onclick = e=>{ e.preventDefault(); location.href = `?work=${encodeURIComponent(WORK)}&view=sanskrit`; };
   if(qs.get('view')==='sanskrit'){
-    try{ await sanskritView(); }
+    try{ await sanskritView(); mountChatGPT('sanskrit'); }
     catch(err){ $('.reader-main').innerHTML = `<p id="err">Sanskrit view: ${esc(String(err&&err.message||err))}</p>`; }
     return;
   }
   if(qs.get('view')==='practice'){
-    try{ await practiceView(); }
+    try{ await practiceView(); mountChatGPT('practice'); }
     catch(err){ $('.reader-main').innerHTML = `<p id="err">Practice view: ${esc(String(err&&err.message||err))}</p>`; }
     return;
   }
   if(qs.get('view')==='verify'){
-    try{ await verifyView(); }
+    try{ await verifyView(); mountChatGPT('verify'); }
     catch(err){ $('.reader-main').innerHTML = `<p id="err">Verify view: ${esc(String(err&&err.message||err))}</p>`; }
     return;
   }
   if(qs.get('view')==='biblio'){
-    try{ await biblioView(); }
+    try{ await biblioView(); mountChatGPT('biblio'); }
     catch(err){ $('.reader-main').innerHTML = `<p id="err">Bibliography view: ${esc(String(err&&err.message||err))}</p>`; }
     return;
   }
@@ -1190,7 +1231,7 @@ async function main(){
       $('.reader-main').innerHTML = `<p id="err">Ghaṭakarpara Scholar data is withheld while incomplete source passages and their dependent translations are rechecked. <a href="${GHATA_SOURCE}" target="_blank" rel="noopener">Open the source edition</a>.</p>`;
       return;
     }
-    try{ await scholarView(); }
+    try{ await scholarView(); mountChatGPT('scholar'); }
     catch(err){ $('.reader-main').innerHTML = `<p id="err">Scholar view: ${esc(String(err&&err.message||err))}</p>`; }
     return;
   }
@@ -1589,6 +1630,7 @@ async function main(){
   const lay = document.querySelector('.layout');
   installResize(lay);
 
+  try{ mountChatGPT('reader'); }catch(e){}
   window.scrollTo(0,0);
 }
 async function buildLeftRail(verses, LIBDATA){
