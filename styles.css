@@ -396,3 +396,12 @@ body.embed .wheel-page{padding-top:.4rem}
   #cols.mob-sa-only .col.right{display:none!important}
   #cols.mob-en-only .col.left{display:none!important}
 }
+/* "Run this with ChatGPT" card — collapsed by default, one per view */
+.cg{margin:.2rem 0 1rem;border:1px solid var(--g300);border-radius:8px;background:#fbfaf7;padding:.45rem .7rem}
+.cg>summary{cursor:pointer;font-weight:600;color:var(--g700);font-size:.92rem}
+.cg[open]>summary{margin-bottom:.4rem}
+.cg .cgtext{width:100%;font-family:ui-monospace,Menlo,monospace;font-size:12px;line-height:1.45;
+  border:1px solid var(--g300);border-radius:6px;padding:.5rem;background:#fff;color:var(--g800);resize:vertical}
+.cg .cgcopy{margin-top:.45rem}
+/* embedded wheels: the parent page already offers the ChatGPT card */
+body.embed .cg{display:none}
