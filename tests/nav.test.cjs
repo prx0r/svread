@@ -39,3 +39,14 @@ test('dark nav css: topbar rule intact, brand white without underline', () => {
   assert.ok(/\.brand\{[^}]*color:#fff !important/.test(css), 'brand stays white');
   assert.ok(/\.brand\{[^}]*text-decoration:none/.test(css), 'brand has no underline');
 });
+
+test('phone lane toggle: wired, hidden on desktop, single-lane classes', () => {
+  const app = fs.readFileSync(path.join(ROOT, 'app.js'), 'utf8');
+  const css = fs.readFileSync(path.join(ROOT, 'styles.css'), 'utf8');
+  assert.ok(app.includes('id="lanetog"'), 'lane toggle markup');
+  assert.ok(app.includes('applyMobLane'), 'lane apply fn');
+  assert.ok(app.includes("mob-sa-only") && app.includes("mob-en-only"), 'single-lane classes');
+  assert.ok(/@media \(max-width:640px\)[\s\S]*body\.split \.lanetog\{display:inline-flex/.test(css),
+    'toggle only shows on phone when split');
+  assert.ok(/\.lanetog\{display:none\}/.test(css), 'hidden by default (desktop)');
+});
