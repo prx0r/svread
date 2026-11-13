@@ -27,6 +27,7 @@ test('emit_discovery --check is green and outputs are well-formed', (t) => {
   assert.ok(llms.includes('?view=sanskrit'), 'sanskrit view linked');
   assert.ok(llms.includes('?view=biblio'), 'biblio view linked');
   assert.ok(llms.includes('/data/biblio.json'), 'biblio data linked');
+  assert.ok(llms.includes('/data/biblio-mirror.json'), 'mirror data linked');
   assert.ok(llms.includes('/data/pushing.json'), 'pushing digest linked');
   assert.ok(!llms.includes('{ORIGIN}'), 'no unexpanded template vars');
   assert.ok(llms.includes('How to cite'), 'citation section present');

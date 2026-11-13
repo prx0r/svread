@@ -40,6 +40,8 @@ REPOS = [
 DATASETS = [
     ('bibliography', 'data/biblio.json', 'scholar__list_works / openpatala__search',
      '2,051 works (authority digest pinned), 125 people; local mirror 1,034 works'),
+    ('bibliography-mirror', 'data/biblio-mirror.json', 'site ?view=biblio (mirror filter) / file read',
+     'local-mirror works absent from the authority file (pending authority sync; never authority records)'),
     ('wheel-pack', 'data/grammar/wheel-pack.json', 'scholar__wheel_harness',
      'Vidyut derivations for the wheel forms, reviewed/unreviewed per entry'),
     ('wheel-crosscheck', 'data/grammar/crosscheck.json', 'scholar__wheel_verify',
@@ -173,6 +175,11 @@ def build() -> dict:
     cert_n = certs.get('count') if isinstance(certs, dict) else len(certs)
     mcp = json.loads((SVREAD / 'data' / 'mcp-registry.json').read_text(encoding='utf-8'))
     endgame = json.loads((SVREAD / 'data' / 'endgame-docs.json').read_text(encoding='utf-8'))
+    try:
+        mirror = json.loads((SVREAD / 'data' / 'biblio-mirror.json').read_text(encoding='utf-8'))
+        mirror_n = len(mirror.get('works', []))
+    except (OSError, ValueError):
+        mirror_n = 0
 
     return {
         'format': 'svatantrya.estate-index/1',
@@ -200,6 +207,7 @@ def build() -> dict:
         ],
         'counts': {
             'works': len(biblio.get('works', [])),
+            'mirror_works': mirror_n,
             'people': len(biblio.get('people', [])),
             'translations_songs': len(glob.glob('/root/translation-work/*/data/*.l3.json')),
             'l2_files': len(glob.glob('/root/translation-work/*/data/*.l2.json')),
@@ -239,11 +247,11 @@ def main() -> int:
             print('emit_estate_index --check: RED (index differs)', file=sys.stderr)
             return 1
         print(f"emit_estate_index --check: GREEN ({doc['counts']['mcp_tools']} tools, "
-              f"{doc['counts']['works']} works)")
+              f"{doc['counts']['works']} works + {doc['counts']['mirror_works']} mirror)")
         return 0
     OUT.write_text(text, encoding='utf-8')
     print(f'estate index -> {OUT.relative_to(SVREAD)} '
-          f"({doc['counts']['works']} works, {doc['counts']['translations_songs']} songs, "
+          f"({doc['counts']['works']} works + {doc['counts']['mirror_works']} mirror, {doc['counts']['translations_songs']} songs, "
           f"{doc['counts']['mcp_tools']} tools)")
     return 0
 
