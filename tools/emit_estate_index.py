@@ -42,6 +42,8 @@ DATASETS = [
      '2,051 works (authority digest pinned), 125 people; local mirror 1,034 works'),
     ('bibliography-mirror', 'data/biblio-mirror.json', 'site ?view=biblio (mirror filter) / file read',
      'local-mirror works absent from the authority file (pending authority sync; never authority records)'),
+    ('layers-index', 'data/layers-index.json', 'scholar__layers_index / scholar__passage_layers / scholar__translation_forks',
+     'canonical translation-work layer map: per work/song which of t1/l0/argmap/l2/l3/l4/c1/c2 exist, hashes, verse ids, review state'),
     ('wheel-pack', 'data/grammar/wheel-pack.json', 'scholar__wheel_harness',
      'Vidyut derivations for the wheel forms, reviewed/unreviewed per entry'),
     ('wheel-crosscheck', 'data/grammar/crosscheck.json', 'scholar__wheel_verify',

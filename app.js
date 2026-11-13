@@ -1008,6 +1008,27 @@ async function biblioView(){
   const mirrorIds = new Set(((M && M.works) || []).map(w=>w.id));
   const works = (B.works||[]).concat((M && M.works) || []);
   const TR = await get('data/traces/index.json').catch(()=>({entries:[],count:0}));
+  const LI = await get('data/layers-index.json').catch(()=>null);
+  const lyrByBundle = (()=>{
+    if(!LI || !LI.bundles) return null;
+    const byWork = {}; (LI.works||[]).forEach(w=>{ byWork[w.work] = w; });
+    const m = {};
+    for (const [b, dirs] of Object.entries(LI.bundles)){
+      const have = new Set(); let v = 0, mp = false, songs = 0;
+      for (const d of (dirs||[])){
+        const w = byWork[d]; if(!w) continue;
+        songs += (w.songs||[]).length;
+        if(/machine-proposed/i.test(w.registry_status||'')) mp = true;
+        for (const s of (w.songs||[])){
+          for (const L of Object.keys(s.layers||{})) have.add(L);
+          v += (s.verse_ids||[]).length;
+        }
+      }
+      const miss = ['t1','l0','argmap','l2','l3','l4','c1','c2'].filter(L=>!have.has(L));
+      m[b] = {n:have.size, v, songs, mp, miss:miss.join(',')||'none'};
+    }
+    return m;
+  })();
   const traceByWork = {};
   for (const e of (TR.entries||[])) {
     (traceByWork[e.work] = traceByWork[e.work] || []).push(e);
@@ -1029,13 +1050,15 @@ async function biblioView(){
       : '<span class="mut">—</span>';
     const sch = w.has_projection ? `<a href="?work=${encodeURIComponent(w.id)}&view=scholar">${w.essays} essays</a>` : '—';
     const reader = w.has_reader ? `<a href="?work=${encodeURIComponent(w.id)}">reader</a>` : (w.passages>0 ? `<span class="mut">${w.passages} passages · reader pending</span>` : '<span class="mut">no passages</span>');
-    const html = `<tr data-id="${esc(w.id)}" data-title="${esc((w.title||'')+' '+w.id+' '+(w.author||''))}" data-kind="${w.status?'lost':(w.translations&&w.translations.length?'trans':'none')}${w.essays?' essays':''}${w.formalized!=null?' formal':''}${isMirror?' mirror':''}">`
+    const ly = (lyrByBundle && lyrByBundle[w.id]) || null;
+    const lyr = ly ? `<span title="canonical layers: ${ly.n}/8 present across ${ly.songs} song(s); ${ly.v} verses; missing: ${esc(ly.miss)}${ly.mp?' · machine-proposed, not reviewed':''}">${ly.n}/8 · ${ly.v}v</span>` : '<span class="mut">—</span>';
+    const html = `<tr data-id="${esc(w.id)}" data-title="${esc((w.title||'')+' '+w.id+' '+(w.author||''))}" data-kind="${w.status?'lost':(w.translations&&w.translations.length?'trans':'none')}${w.essays?' essays':''}${w.formalized!=null?' formal':''}${isMirror?' mirror':''}${ly?' layers':''}">`
       + `<td><b>${esc(w.title||w.id)}</b><div class="mut">${esc(w.id)}${w.author?` · ${esc(w.author)}`:''}</div></td>`
       + `<td>${w.status?`<span class="sk-badge">${esc(w.status.split(':')[0])}</span>`:(isMirror?'<span class="sk-badge">mirror</span>':'—')}<div class="mut">${w.status?esc(w.status.slice(0,120)):(isMirror?'pending authority sync':'')}</div></td>`
-      + `<td>${w.passages} · ${reader}</td><td>${esc(eds.slice(0,160))}</td><td>${trs}</td>`
+      + `<td>${w.passages} · ${reader}</td><td>${lyr}</td><td>${esc(eds.slice(0,160))}</td><td>${trs}</td>`
       + `<td>${formal}</td><td>${traces}</td><td>${sch}</td></tr>`;
     return {html, title:((w.title||'')+' '+w.id+' '+(w.author||'')).toLowerCase(),
-            kind:`${w.status?'lost':(w.translations&&w.translations.length?'trans':'none')}${w.essays?' essays':''}${w.formalized!=null?' formal':''}${isMirror?' mirror':''}`};
+            kind:`${w.status?'lost':(w.translations&&w.translations.length?'trans':'none')}${w.essays?' essays':''}${w.formalized!=null?' formal':''}${isMirror?' mirror':''}${ly?' layers':''}`};
   };
   const rows = works.map(tRow);
   const lost = B.works.filter(w=>w.status);
@@ -1048,9 +1071,9 @@ async function biblioView(){
     + `<p><a href="?view=verify"><b>Verify any claim yourself</b></a> — trace bundles, exact bytes, hashes you can re-compute with curl + sha256sum. No install, no account.</p>`
     + `<p class="bibctrl"><input id="bibq" placeholder="filter: title, work id, author…" style="width:min(32rem,90%)"> `
     + `<select id="bibf"><option value="">all</option><option value="lost">lost / unverified</option>`
-    + `<option value="trans">has translations</option><option value="essays">has essays</option><option value="formal">formalized</option><option value="mirror">mirror · pending authority sync</option></select>`
+    + `<option value="trans">has translations</option><option value="layers">has layer stack</option><option value="essays">has essays</option><option value="formal">formalized</option><option value="mirror">mirror · pending authority sync</option></select>`
     + ` <span id="bibcount" class="mut"></span></p>`
-    + `<div class="table-wrap"><table class="sk-table biblio-table"><thead><tr><th>Work</th><th>Status</th><th>Passages</th><th>Editions</th><th>Translations</th><th>Formal</th><th>Traces</th><th>Essays</th></tr></thead>`
+    + `<div class="table-wrap"><table class="sk-table biblio-table"><thead><tr><th>Work</th><th>Status</th><th>Passages</th><th>Layers</th><th>Editions</th><th>Translations</th><th>Formal</th><th>Traces</th><th>Essays</th></tr></thead>`
     + `<tbody id="bibbody"></tbody></table></div>`
     + `<p><button id="bibmore" class="c2btn" style="display:none">Show more</button></p>`
     + `<p class="mut">Lost &amp; unverified (${lost.length}): ${lost.map(w=>esc(w.title||w.id)).join(' · ')}</p>`;
@@ -1167,11 +1190,11 @@ const PLUGINS_URL = 'https://svatantrya.net/plugins/';
 function chatgptPrompt(kind){
   const base = `Work with the Svatantrya MCP connector at ${MCP_PUBLIC} (install once at ${PLUGINS_URL}, no key for the public bundle).`;
   const P = {
-    reader: () => `${base}\n\nShow this work (${WORK}) and read it with me. Call openpatala__resolve, then scholar__passage_evidence for each passage. Render a table: verse number, Sanskrit (Devanagari + IAST), English, source. Then read it aloud like a teacher, verse by verse, pausing so I can repeat; ask one comprehension question per verse. Use scholar__wheel_lookup and scholar__wheel_verify for any form I ask about. Never invent Sanskrit or a translation; if a layer is withheld, say so. Fallback data: https://svatantrya.net/data/${WORK}.json`,
+    reader: () => `${base}\n\nShow this work (${WORK}) and read it with me. Call openpatala__resolve, then scholar__passage_evidence for each passage. Render a table: verse number, Sanskrit (Devanagari + IAST), English, source. Where it matters, show the layer stack (T1 literal, L0 gloss, ARGMAP reasoning, L2 plain, L3 canonical, C1 essence) with each layer's hash, and use scholar__translation_forks to point out where the reading forks — never present a forked guess as settled. Start from scholar__layers_index for this work to see which layers exist for which passages, with file hashes and review state. Then read it aloud like a teacher, verse by verse, pausing so I can repeat; ask one comprehension question per verse. Use scholar__wheel_lookup and scholar__wheel_verify for any form I ask about. Never invent Sanskrit or a translation; if a layer is withheld, say so. Fallback data: https://svatantrya.net/data/${WORK}.json`,
     sanskrit: () => `${base}\n\nBe my Sanskrit tutor, by voice. Fetch https://svatantrya.net/data/wheels/harness.json, then call scholar__wheel_harness and scholar__wheel_level for levels 1 to 6. For each level: state the goal, give three spoken drills, listen to my answers, and check each form with scholar__wheel_verify (AGREE / DISAGREE_STANDS / MACHINE_GAP / CURATED_ONLY). Only advance when I pass. Say plainly if progress cannot be saved (saving needs the owner Practice/Studio plugin, bearer).`,
     practice: () => `${base}\n\nGuide me through the 10 Matrka stages as a voice practice session. Call scholar__wheel_harness and fetch https://svatantrya.net/data/practice/curriculum.json. For each stage read its DO / IN THE MIND / NOT / SOURCE aloud, run the practice, then move on. Do not claim my progress was saved unless the Practice plugin (bearer) actually recorded it.`,
     biblio: () => `${base}\n\nAct as a bibliographic research desk. Call openpatala__search for a topic, openpatala__get_bundle for a work, scholar__passage_evidence for a passage. Show a table: title, id, editions, translations with links, coverage. Mark works that are mirror-only / pending authority sync, and rows with no translation and no witness. Never invent a translation. Data: https://svatantrya.net/data/biblio.json and https://svatantrya.net/data/biblio-mirror.json`,
-    scholar: () => `${base}\n\nShow the evidence for this passage (${WORK}). Call scholar__passage_evidence for the source and editorial layers, scholar__list_versions and scholar__compare_versions to diff stored versions, scholar__wheel_verify for any form. Render the comparison as a table and keep three evidence kinds separate: bytes, machine-checked, human-reviewed. Never sign, publish or promote; those are human actions.`,
+    scholar: () => `${base}\n\nShow the evidence for this passage (${WORK}). Call scholar__passage_evidence for the source and editorial layers, scholar__list_versions and scholar__compare_versions to diff stored versions, scholar__wheel_verify for any form. When the reading forks, show the stack and the forks: scholar__passage_layers for the layer data with hashes, scholar__translation_forks for L0 options and ARGMAP choices. Render the comparison as a table and keep three evidence kinds separate: bytes, machine-checked, human-reviewed. Never sign, publish or promote; those are human actions.`,
     verify: () => `${base}\n\nLet me re-check the published chain without trusting the site. Call formal__trace for a chunk, formal__bridge to resolve its ids, scholar__wheel_certificate for a wheel form. Show the source hash, each layer hash, the checker command and result if present, and what a match does NOT prove. Render as a table. Data: https://svatantrya.net/data/traces/index.json`,
   };
   return (P[kind] || P.reader)();
