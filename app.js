@@ -913,7 +913,7 @@ async function sanskritView(){
     main.innerHTML = `<h1>${esc(idx.title||'Learn Sanskrit')}</h1>`
       + `<p class="mut">The wheel flow first — six cumulative levels, one ring at a time. Lessons follow below.</p>`
       + `<div style="margin:.4rem 0"><a href="wheels.html#level-1"><b>Level 1 \u00b7 Bases</b></a> <span class="mut">six question-words</span> \u00b7 <a href="wheels.html#level-2"><b>2 \u00b7 Endings</b></a> <span class="mut">20 cells + traces</span> \u00b7 <a href="wheels.html#level-3"><b>3 \u00b7 Who does what</b></a> <span class="mut">agreement</span> \u00b7 <a href="wheels.html#level-4"><b>4 \u00b7 When + where</b></a> \u00b7 <a href="wheels.html#level-5"><b>5 \u00b7 Asking</b></a> \u00b7 <a href="wheels.html#level-6"><b>6 \u00b7 K\u0101raka</b></a></div>`
-      + `<iframe id="sk-wheels" title="Sanskrit memory wheels" src="wheels.html" style="width:100%;border:1px solid var(--g200);border-radius:6px;min-height:80vh;background:#fff"></iframe>`
+      + `<iframe id="sk-wheels" title="Sanskrit memory wheels" src="wheels.html?embed=1" style="width:100%;border:1px solid var(--g200);border-radius:6px;min-height:80vh;background:#fff"></iframe>`
       + `<h2>Lessons</h2>`
       + Object.keys(byStage).map(s=>`<h2>${esc(STAGE_T(s))}</h2>`
         + byStage[s].map(l=>`<div style="margin:.4rem 0"><a href="?view=sanskrit&work=${encodeURIComponent(l.work)}&lesson=${encodeURIComponent(l.id)}"><b>${esc(l.title)}</b></a> <span class="mut">${esc(l.source_ref||'')}</span>${l.has_reader?'':' <span class="mut">(reader forthcoming)</span>'}</div>`).join('')).join('')
@@ -995,8 +995,8 @@ async function verifyView(){
     + (V.what_matching_does_not_prove||[]).map(s=>`<li>${esc(s)}</li>`).join('')
     + `</ul>`
     + `<h2>Chunks with a published chain</h2>`
-    + `<table class="sk-table"><thead><tr><th>Chunk</th><th>Verdict</th><th>Artifacts</th></tr></thead>`
-    + `<tbody>${rows}</tbody></table>`
+    + `<div class="table-wrap"><table class="sk-table"><thead><tr><th>Chunk</th><th>Verdict</th><th>Artifacts</th></tr></thead>`
+    + `<tbody>${rows}</tbody></table></div>`
     + `<p class="mut">PARTIAL is not failure — it names the missing hop (e.g. no morphology layer yet). `
     + `We publish gaps rather than hide them.</p>`;
   document.title = 'Verify · svread';
@@ -1029,12 +1029,15 @@ async function biblioView(){
       : '<span class="mut">—</span>';
     const sch = w.has_projection ? `<a href="?work=${encodeURIComponent(w.id)}&view=scholar">${w.essays} essays</a>` : '—';
     const reader = w.has_reader ? `<a href="?work=${encodeURIComponent(w.id)}">reader</a>` : (w.passages>0 ? `<span class="mut">${w.passages} passages · reader pending</span>` : '<span class="mut">no passages</span>');
-    return `<tr data-id="${esc(w.id)}" data-title="${esc((w.title||'')+' '+w.id+' '+(w.author||''))}" data-kind="${w.status?'lost':(w.translations&&w.translations.length?'trans':'none')}${w.essays?' essays':''}${w.formalized!=null?' formal':''}${isMirror?' mirror':''}">`
+    const html = `<tr data-id="${esc(w.id)}" data-title="${esc((w.title||'')+' '+w.id+' '+(w.author||''))}" data-kind="${w.status?'lost':(w.translations&&w.translations.length?'trans':'none')}${w.essays?' essays':''}${w.formalized!=null?' formal':''}${isMirror?' mirror':''}">`
       + `<td><b>${esc(w.title||w.id)}</b><div class="mut">${esc(w.id)}${w.author?` · ${esc(w.author)}`:''}</div></td>`
       + `<td>${w.status?`<span class="sk-badge">${esc(w.status.split(':')[0])}</span>`:(isMirror?'<span class="sk-badge">mirror</span>':'—')}<div class="mut">${w.status?esc(w.status.slice(0,120)):(isMirror?'pending authority sync':'')}</div></td>`
       + `<td>${w.passages} · ${reader}</td><td>${esc(eds.slice(0,160))}</td><td>${trs}</td>`
       + `<td>${formal}</td><td>${traces}</td><td>${sch}</td></tr>`;
+    return {html, title:((w.title||'')+' '+w.id+' '+(w.author||'')).toLowerCase(),
+            kind:`${w.status?'lost':(w.translations&&w.translations.length?'trans':'none')}${w.essays?' essays':''}${w.formalized!=null?' formal':''}${isMirror?' mirror':''}`};
   };
+  const rows = works.map(tRow);
   const lost = B.works.filter(w=>w.status);
   const main = $('.reader-main');
   main.innerHTML = `<h1>Bibliography</h1>`
@@ -1043,23 +1046,40 @@ async function biblioView(){
     + `${M?` · <b>${M.works.length} mirror</b> (local openpatala additions, <a href="data/biblio-mirror.json">data</a>, pending authority sync)`:''}. `
     + `Hash-pinned at release (see data/biblio.json provenance). STATUS=reported rows are scholar-reported, not witness claims.</p>`
     + `<p><a href="?view=verify"><b>Verify any claim yourself</b></a> — trace bundles, exact bytes, hashes you can re-compute with curl + sha256sum. No install, no account.</p>`
-    + `<p><input id="bibq" placeholder="filter: title, work id, author…" style="width:min(32rem,90%)"> `
+    + `<p class="bibctrl"><input id="bibq" placeholder="filter: title, work id, author…" style="width:min(32rem,90%)"> `
     + `<select id="bibf"><option value="">all</option><option value="lost">lost / unverified</option>`
-    + `<option value="trans">has translations</option><option value="essays">has essays</option><option value="formal">formalized</option><option value="mirror">mirror · pending authority sync</option></select></p>`
-    + `<table class="sk-table"><thead><tr><th>Work</th><th>Status</th><th>Passages</th><th>Editions</th><th>Translations</th><th>Formal</th><th>Traces</th><th>Essays</th></tr></thead>`
-    + `<tbody id="bibbody">${works.map(tRow).join('')}</tbody></table>`
+    + `<option value="trans">has translations</option><option value="essays">has essays</option><option value="formal">formalized</option><option value="mirror">mirror · pending authority sync</option></select>`
+    + ` <span id="bibcount" class="mut"></span></p>`
+    + `<div class="table-wrap"><table class="sk-table biblio-table"><thead><tr><th>Work</th><th>Status</th><th>Passages</th><th>Editions</th><th>Translations</th><th>Formal</th><th>Traces</th><th>Essays</th></tr></thead>`
+    + `<tbody id="bibbody"></tbody></table></div>`
+    + `<p><button id="bibmore" class="c2btn" style="display:none">Show more</button></p>`
     + `<p class="mut">Lost &amp; unverified (${lost.length}): ${lost.map(w=>esc(w.title||w.id)).join(' · ')}</p>`;
   document.title = 'Bibliography · svread';
-  const filt = ()=>{
+  const PAGE = 150;
+  let shown = PAGE;
+  const tbody = $('#bibbody'), moreBtn = $('#bibmore'), countEl = $('#bibcount');
+  const matched = ()=>{
     const q = ($('#bibq').value||'').toLowerCase(), f = $('#bibf').value;
-    main.querySelectorAll('#bibbody tr').forEach(tr=>{
-      const okQ = !q || (tr.getAttribute('data-title')||'').toLowerCase().includes(q);
-      const okF = !f || (tr.getAttribute('data-kind')||'').includes(f);
-      tr.style.display = (okQ&&okF) ? '' : 'none';
-    });
+    const out = [];
+    for (const r of rows) {
+      if (q && !r.title.includes(q)) continue;
+      if (f && !r.kind.includes(f)) continue;
+      out.push(r);
+    }
+    return out;
   };
-  $('#bibq').addEventListener('input', filt);
-  $('#bibf').addEventListener('change', filt);
+  const draw = ()=>{
+    const m = matched();
+    const slice = m.slice(0, shown);
+    tbody.innerHTML = slice.map(r=>r.html).join('');
+    if (countEl) countEl.textContent = m.length ? `${slice.length} of ${m.length}` : 'no matches';
+    if (moreBtn) moreBtn.style.display = (m.length > shown) ? '' : 'none';
+  };
+  const refilter = ()=>{ shown = PAGE; draw(); };
+  draw();
+  $('#bibq').addEventListener('input', refilter);
+  $('#bibf').addEventListener('change', refilter);
+  if (moreBtn) moreBtn.addEventListener('click', ()=>{ shown += PAGE * 2; draw(); });
 }
 
 /* Google sign-in via the shared satsang-auth service.

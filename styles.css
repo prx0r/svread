@@ -359,3 +359,29 @@ body.scholar #cols .col{min-width:min(340px,100%)}
 .pr-stage h2{font-size:1.05rem;margin:.2rem 0 .3rem}
 .pr-field{margin:.35rem 0;line-height:1.6}
 .pr-field b{color:#6b5d2a}
+
+/* ===== responsive + table fixes (2026-11-13) =====
+   The ≤1000px rule earlier in this file is overridden by .layout .rail
+   {display:flex} declared later at equal specificity, so the 360px chat rail
+   stayed on phones and crushed the reader. These rules come last on purpose. */
+.table-wrap{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.biblio-table{min-width:46rem}
+@media (max-width:1000px){
+  .layout .lib,.layout .rail{display:none}
+  .pgutter,.railtab{display:none}
+  .layout{max-width:100%}
+  .reader-main{max-width:100%;padding:0 1rem}
+}
+@media (max-width:640px){
+  .topbar-container{padding:.35rem .6rem;gap:.35rem .9rem}
+  .main-bar{gap:.75rem;flex-wrap:wrap}
+  .main-bar a{font-size:.9rem}
+  .brand{font-size:1.1rem}
+  .reader-main{padding:0 .75rem}
+  h1{font-size:1.35rem}
+  .biblio-table{min-width:40rem}
+}
+/* embedded wheels iframe (Sanskrit view): no second navbar inside the frame */
+body.embed header{display:none}
+body.embed .wheel-page{padding-top:.4rem}
+.bibctrl{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
