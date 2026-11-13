@@ -98,6 +98,8 @@ def build_llms(pushing: dict, biblio: dict, sanskrit: dict) -> str:
     lost = biblio.get("counts", {}).get("lost_or_unverified", 0)
     rows = biblio.get("works") or []
     ours = biblio.get("counts", {}).get("ours_translations", 0)
+    mirror = load_json(OUT / "biblio-mirror.json")
+    mirror_n = len(mirror.get("works", []))
     readable = sum(1 for w in rows if w.get("has_reader"))
     with_pass = sum(1 for w in rows if w.get("passages"))
     projected = sum(1 for w in rows if w.get("has_projection"))
@@ -121,7 +123,7 @@ def build_llms(pushing: dict, biblio: dict, sanskrit: dict) -> str:
         "",
         f"- Reader (browse; {readable} works currently have a reader bundle): {ORIGIN}/",
         f"- Sanskrit lessons (10, Learn/Decode/Recognise tabs): {ORIGIN}/?view=sanskrit",
-        f"- Bibliography index ({works} works, {lost} lost/unverified): {ORIGIN}/?view=biblio",
+        f"- Bibliography index ({works} works + {mirror_n} mirror, {lost} lost/unverified): {ORIGIN}/?view=biblio",
         "- Scholar hub (per work, ?work=<id>&view=scholar): drafts, review, signoff, DOI",
         f"- Pushing Lab (live enquiries): {ORIGIN}/pushing.html",
         f"- Memory wheels (word/sentence/Trika constructors, machine-derived forms): {ORIGIN}/wheels.html",
@@ -130,6 +132,7 @@ def build_llms(pushing: dict, biblio: dict, sanskrit: dict) -> str:
         "## Data (fetchable JSON, hash-pinned in data/release-manifest.json)",
         "",
         f"- Bibliography (works, editions, translations+links, lost with basis, formal coverage): {ORIGIN}/data/biblio.json",
+        f"- Bibliography mirror ({mirror_n} local-mirror works absent from the authority file, pending authority sync): {ORIGIN}/data/biblio-mirror.json — also merged into {ORIGIN}/?view=biblio with a mirror badge",
         f"- Sanskrit lessons index + rule boxes: {ORIGIN}/data/sanskrit/index.json",
         f"- Per-work reader bundle: {ORIGIN}/data/<work>.json (55+ works; originals, layers, hashes)",
         f"- Scholar projections: {ORIGIN}/data/scholar/<work>.json (versions, essays, reviews, signoffs, projection_sha256)",

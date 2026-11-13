@@ -1004,6 +1004,9 @@ async function verifyView(){
 
 async function biblioView(){
   const B = await get('data/biblio.json');
+  const M = await get('data/biblio-mirror.json').catch(()=>null);
+  const mirrorIds = new Set(((M && M.works) || []).map(w=>w.id));
+  const works = (B.works||[]).concat((M && M.works) || []);
   const TR = await get('data/traces/index.json').catch(()=>({entries:[],count:0}));
   const traceByWork = {};
   for (const e of (TR.entries||[])) {
@@ -1013,6 +1016,7 @@ async function biblioView(){
   const nameOf = id => people[id] || id.replace(/^person:/,'').replace(/-/g,' ');
   const byName = t => (t.by||[]).map(nameOf).join(', ');
   const tRow = w => {
+    const isMirror = mirrorIds.has(w.id);
     const trs = (w.translations||[]).map(t=>{
       const links = (t.links||[]).map(u=>` <a href="${esc(u)}" target="_blank" rel="noopener">[source]</a>`).join('');
       return `<div>${esc(t.lang||'')} · ${esc(byName(t))} · ${esc(t.completeness||'')}${links}</div>`;
@@ -1025,9 +1029,9 @@ async function biblioView(){
       : '<span class="mut">—</span>';
     const sch = w.has_projection ? `<a href="?work=${encodeURIComponent(w.id)}&view=scholar">${w.essays} essays</a>` : '—';
     const reader = w.has_reader ? `<a href="?work=${encodeURIComponent(w.id)}">reader</a>` : (w.passages>0 ? `<span class="mut">${w.passages} passages · reader pending</span>` : '<span class="mut">no passages</span>');
-    return `<tr data-id="${esc(w.id)}" data-title="${esc((w.title||'')+' '+w.id+' '+(w.author||''))}" data-kind="${w.status?'lost':(w.translations&&w.translations.length?'trans':'none')}${w.essays?' essays':''}${w.formalized!=null?' formal':''}">`
+    return `<tr data-id="${esc(w.id)}" data-title="${esc((w.title||'')+' '+w.id+' '+(w.author||''))}" data-kind="${w.status?'lost':(w.translations&&w.translations.length?'trans':'none')}${w.essays?' essays':''}${w.formalized!=null?' formal':''}${isMirror?' mirror':''}">`
       + `<td><b>${esc(w.title||w.id)}</b><div class="mut">${esc(w.id)}${w.author?` · ${esc(w.author)}`:''}</div></td>`
-      + `<td>${w.status?`<span class="sk-badge">${esc(w.status.split(':')[0])}</span>`:'—'}<div class="mut">${w.status?esc(w.status.slice(0,120)):''}</div></td>`
+      + `<td>${w.status?`<span class="sk-badge">${esc(w.status.split(':')[0])}</span>`:(isMirror?'<span class="sk-badge">mirror</span>':'—')}<div class="mut">${w.status?esc(w.status.slice(0,120)):(isMirror?'pending authority sync':'')}</div></td>`
       + `<td>${w.passages} · ${reader}</td><td>${esc(eds.slice(0,160))}</td><td>${trs}</td>`
       + `<td>${formal}</td><td>${traces}</td><td>${sch}</td></tr>`;
   };
@@ -1035,14 +1039,15 @@ async function biblioView(){
   const main = $('.reader-main');
   main.innerHTML = `<h1>Bibliography</h1>`
     + `<p class="mut">A view on the openpatala box DB (ground layer): ${B.counts.works} works · `
-    + `${B.counts.lost_or_unverified} lost or unverified · ${B.counts.ours_translations} ours translations. `
+    + `${B.counts.lost_or_unverified} lost or unverified · ${B.counts.ours_translations} ours translations`
+    + `${M?` · <b>${M.works.length} mirror</b> (local openpatala additions, <a href="data/biblio-mirror.json">data</a>, pending authority sync)`:''}. `
     + `Hash-pinned at release (see data/biblio.json provenance). STATUS=reported rows are scholar-reported, not witness claims.</p>`
     + `<p><a href="?view=verify"><b>Verify any claim yourself</b></a> — trace bundles, exact bytes, hashes you can re-compute with curl + sha256sum. No install, no account.</p>`
     + `<p><input id="bibq" placeholder="filter: title, work id, author…" style="width:min(32rem,90%)"> `
     + `<select id="bibf"><option value="">all</option><option value="lost">lost / unverified</option>`
-    + `<option value="trans">has translations</option><option value="essays">has essays</option><option value="formal">formalized</option></select></p>`
+    + `<option value="trans">has translations</option><option value="essays">has essays</option><option value="formal">formalized</option><option value="mirror">mirror · pending authority sync</option></select></p>`
     + `<table class="sk-table"><thead><tr><th>Work</th><th>Status</th><th>Passages</th><th>Editions</th><th>Translations</th><th>Formal</th><th>Traces</th><th>Essays</th></tr></thead>`
-    + `<tbody id="bibbody">${B.works.map(tRow).join('')}</tbody></table>`
+    + `<tbody id="bibbody">${works.map(tRow).join('')}</tbody></table>`
     + `<p class="mut">Lost &amp; unverified (${lost.length}): ${lost.map(w=>esc(w.title||w.id)).join(' · ')}</p>`;
   document.title = 'Bibliography · svread';
   const filt = ()=>{

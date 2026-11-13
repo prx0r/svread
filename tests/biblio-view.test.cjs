@@ -65,3 +65,29 @@ test('biblio view wired without a header tab', () => {
   assert.ok(css.includes('.sk-table'), 'table styles present');
   assert.ok(css.includes('.sk-badge'), 'badge styles present');
 });
+
+test('emit_biblio_mirror --check is green and mirror rows are honest', (t) => {
+  let out;
+  try {
+    out = execFileSync('python3', ['tools/emit_biblio_mirror.py', '--check'], { cwd: ROOT, encoding: 'utf8' });
+  } catch (e) {
+    // Exit 2 = infrastructure missing (no DB/driver/EVIDENCE): skip, never fail.
+    if (e.status === 2) { t.skip('no database/DB driver in this environment'); return; }
+    throw e;
+  }
+  assert.ok(out.includes('GREEN'), out);
+  const m = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'biblio-mirror.json'), 'utf8'));
+  assert.equal(m.format, 'svread-biblio-mirror/1', 'mirror format');
+  assert.ok(m.works.length > 0, `mirror works: ${m.works.length}`);
+  assert.ok(m.provenance && m.provenance.authority_works > 0, 'authority pin recorded');
+  assert.ok(/pending authority sync/i.test(m.provenance.note || ''), 'mirror labelled, never authority');
+  const b = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'biblio.json'), 'utf8'));
+  assert.equal(m.provenance.authority_works, b.works.length, 'authority pin matches committed biblio');
+  const bids = new Set(b.works.map(w => w.id));
+  for (const w of m.works) {
+    assert.ok(w.id && typeof w.title === 'string', `mirror row shape: ${w.id}`);
+    assert.ok(!bids.has(w.id), `mirror row ${w.id} must not duplicate the authority file`);
+  }
+  const app = fs.readFileSync(path.join(ROOT, 'app.js'), 'utf8');
+  assert.ok(app.includes('biblio-mirror.json'), 'reader merges the mirror file');
+});
