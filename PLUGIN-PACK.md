@@ -4,7 +4,7 @@ Goal: anyone installs any plugin in ~1 minute with copy-paste. Human page:
 `https://svatantrya.net/plugins/` · machine spec: `plugins/plugins.json`
 (single source of truth for URLs/counts; this file is the paste-ready companion).
 
-## The one flow (all ten)
+## The one flow
 
 1. `chatgpt.com/plugins` → `+` → **Add custom MCP server**
 2. Name: the row's name. Server URL: the row's URL (include `/mcp`).
@@ -36,7 +36,6 @@ Most people stop here. Below: the same tools split per function.
 | 7 | Svatantrya Essay | `https://essay.svatantrya.net/mcp` | bearer (owner) | 24 |
 | 8 | Svatantrya Books | `https://books.svatantrya.net/mcp` | bearer (owner) | 22 |
 | 9 | Svatantrya Video | `https://video.svatantrya.net/mcp` | bearer (owner) | 18 |
-| 10 | Nibbana Relay (private) | `https://nibbana.svatantrya.net/mcp` | bearer (owner, never listed) | 4 |
 
 Description paste (append to any row's name): the tagline + desc from
 `plugins/plugins.json`. First prompts per plugin: same file, `test_prompts`.
@@ -75,7 +74,7 @@ every child behind the gateway is a stdio script (see `mcp/gateway/servers-*.jso
 - [ ] 5 positive + 3 negative test runs per plugin, recorded
 - [ ] Reviewer demo needs no credentials (true for all five)
 - [ ] Descriptions state read-only + provenance rules (done in plugins.json)
-- [ ] Owner four stay unlisted; nibbana is never submitted
+- [ ] Owner-only plugins stay unlisted
 
 ## What the masterplan review said (2026-11-13, two passes)
 
@@ -91,6 +90,5 @@ as: *every tool has a plugin home; writes stay gated.* Translation-work has
 no auth story of its own — hence it sits behind our gateway, never directly.
 Satsang is the most plugin-ready neighbour (live MCP at
 `mcp.tantrafiles.xyz/mcp`); federation with it is phase 2.
-Privacy absolutes honored: nibbana relay-only/day-gated/rate-limited,
-VOICE RULE, diary bodies + keys + vectors never exposed; satsang
-transcripts/portraits likewise stay out.
+Private journals, credentials, vectors, and unlicensed transcripts or portraits
+must stay out of published assets.

@@ -160,18 +160,6 @@ Try:
 - What video projects exist?
 - What is the render-gate status?
 
-## Nibbana Relay (private)
-
-`https://nibbana.svatantrya.net/mcp`
-
-Diary relay + decode review. Never listed. Relay lived experience with provenance (never advice); review decode proposals. Owner journal only.
-
-Auth: bearer · Access: private — owner only, never in any directory · Tools: 4
-
-Try:
-- Relay what the diary says about restlessness
-- Show day 1 decode rows
-
 ## For agents (CLI)
 
 - `curl -s -X POST https://mcp.svatantrya.net/mcp -H 'content-type: application/json' -H 'accept: application/json, text/event-stream' -d '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}'  # 40 public tools, no auth. Parse the data: lines as JSON.`

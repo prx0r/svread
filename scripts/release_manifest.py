@@ -13,6 +13,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 MANIFEST = ROOT / 'data' / 'release-manifest.json'
+sys.path.insert(0, str(ROOT / 'tools'))
+from site_assets import is_public_asset
 
 
 def sha(data: bytes) -> str:
@@ -44,7 +46,8 @@ def build() -> tuple[dict, list[str]]:
     assets += [ROOT / name for name in ('llms.txt', 'llms-full.txt',
                                         'ai-catalog.json', 'sitemap.xml',
                                         'robots.txt') if (ROOT / name).is_file()]
-    files = {p.relative_to(ROOT).as_posix(): sha(p.read_bytes()) for p in sorted(assets)}
+    files = {p.relative_to(ROOT).as_posix(): sha(p.read_bytes()) for p in sorted(assets)
+             if is_public_asset(p.relative_to(ROOT).as_posix())}
     works, missing_editions = 0, []
     for path in sorted((ROOT / 'data').glob('*.json')):
         if path == MANIFEST:

@@ -14,7 +14,8 @@ test('release check detects changed assets and refuses an invalid Scholar projec
       'llms.txt','llms-full.txt','ai-catalog.json','sitemap.xml','robots.txt'])
       fs.cpSync(path.join(root,name),path.join(tmp,name),{recursive:true});
     fs.mkdirSync(path.join(tmp,'tools'));
-    fs.copyFileSync(path.join(root,'tools/lingua.py'),path.join(tmp,'tools/lingua.py'));
+    for(const file of ['lingua.py','site_assets.py'])
+      fs.copyFileSync(path.join(root,'tools',file),path.join(tmp,'tools',file));
     if(fs.existsSync(path.join(root,'.github')))fs.cpSync(path.join(root,'.github'),path.join(tmp,'.github'),{recursive:true});
     const check=(...args)=>spawnSync('python3',[path.join(tmp,'scripts/release_manifest.py'),...args],{cwd:tmp,encoding:'utf8'});
     let result=check();assert.equal(result.status,0,result.stderr);
