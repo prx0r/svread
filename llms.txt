@@ -44,6 +44,14 @@
 - This llms.txt is for agents; Google ignores it (measured, 2026). For citation, use a claim page URL.
 - Or ask an MCP client with the openpatala-federation gateway for formal__trace {work, target} (plus formal__bridge, formal__gaps, formal__evidence, formal__table, formal__runs, formal__axioms)
 
+## MCP endpoints (Streamable HTTP; call these directly)
+
+- Public read bundle (no auth, ~51 tools incl. scholar__passage_evidence, openpatala__resolve, formal__trace): https://mcp.svatantrya.net/mcp
+- Formal only (no auth, 10 tools): https://formal.svatantrya.net/mcp
+- Sanskrit reads (no auth): https://sanskrit.svatantrya.net/mcp · index: https://index.svatantrya.net/mcp · translate: https://translate.svatantrya.net/mcp
+- Owner console (bearer, all ~210 tools): https://mcp.sanskrit.help/mcp
+- Protocol 2025-06-18 (2024-11-05 fallback). Handshake: POST initialize, then tools/list, then tools/call. Writes answer -32001 (OAuth not issued); reads need no key.
+
 ## Layers (internal codes -> public names; codes are load-bearing)
 
 T1 draft-translation · L0 literal-gloss · ARGMAP argument-map · L2 reading-translation · C1 essence · C2 register-render · L3 final-translation · L4 song. See trika-x layer-names map.

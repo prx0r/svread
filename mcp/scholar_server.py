@@ -34,6 +34,40 @@ def projection(work):
         raise ValueError('Projection hash or work ID mismatch')
     return d
 
+def _review_summary(d, work, target, song):
+    """Per-target review state, from recorded reviews/signoffs only.
+
+    Default is UNREVIEWED. A review is reported only where a ReviewEvent names
+    this exact object_ref; SELF_ATTESTED is passed through verbatim, never
+    upgraded. Signoff is reported only where one names this song.
+    """
+    per_layer = {}
+    refs = {f"original:{work}:{target}", f"original:{work}:{song}"}
+    for r in d.get('reviews', []) or []:
+        if not isinstance(r, dict):
+            continue
+        t = r.get('review_target') or {}
+        if t.get('object_ref') not in refs:
+            continue
+        layer = t.get('layer')
+        rev = r.get('reviewer') or {}
+        per_layer[layer] = {
+            'identity_state': rev.get('identity_state', 'UNREVIEWED'),
+            'reviewer': rev.get('person_ref'),
+            'review_id': r.get('review_id'),
+            'scope_ref': t.get('object_ref'),
+        }
+    signoff = None
+    for s in d.get('signoffs', []) or []:
+        if isinstance(s, dict) and s.get('song') == song:
+            signoff = {'accepted_by': s.get('accepted_by'),
+                       'review_current': s.get('review_current'),
+                       'review_id': s.get('review_id')}
+            break
+    return {'per_layer': per_layer, 'signoff': signoff,
+            'default': 'UNREVIEWED'}
+
+
 def evidence(a, data=None):
     work, target = a.get('work'), a.get('target')
     if not isinstance(target, str) or not IDENT.fullmatch(target): raise ValueError('Invalid target ID')
@@ -41,14 +75,21 @@ def evidence(a, data=None):
     if song in d.get('withheld_songs', []) or not d.get('source_verses', {}).get(target) or not d.get('originals', {}).get('t1', {}).get(target):
         raise ValueError('Passage unavailable or withheld')
     layers = {}
+    layer_hashes = {}
     for layer in ('t1','l0','argmap','l2','c1','l3','l4','c2'):
         key = song if layer in ('c1','c2') else target
         value = d.get('originals', {}).get(layer, {}).get(key)
         if value is not None:
             expected = d.get('original_hashes', {}).get(layer, {}).get(key)
-            if expected != hashlib.sha256(canonical(value)).hexdigest(): raise ValueError('Layer hash mismatch')
+            actual = hashlib.sha256(canonical(value)).hexdigest()
+            if expected != actual: raise ValueError('Layer hash mismatch')
             layers[layer] = value
-    return {'work':work, 'target':target, 'source':d['source_verses'][target], 'layers':layers,
+            layer_hashes[layer] = actual
+    return {'work':work, 'target':target, 'song':song,
+            'source':d['source_verses'][target], 'layers':layers,
+            'layer_sha256':layer_hashes,
+            'stack_sha256':d.get('stack_hashes', {}).get(song),
+            'review_state':_review_summary(d, work, target, song),
             'l4_craft':d.get('l4_craft', {}).get(target, []), 'projection_sha256':d['projection_sha256'],
             'warning':'Bundled snapshot; hashes establish integrity, not philological correctness or human review.'}
 

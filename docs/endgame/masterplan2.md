@@ -1,7 +1,8 @@
-<!-- vendored: source=/root/trika-x/MASTERPLAN2.md sha256=1cd2618973629ca09317e8f1ec4064ec8b937b77b066c2e1224ae05ea167da80 fetched=2026-11-11
+<!-- vendored: source=/root/trika-x/MASTERPLAN2.md sha256=7ba167fc31554eacd962d0bd7fc0c99eaa86d3ef53ed949ebd9c2f93dc11a92c fetched=2026-11-11
      edit the source, not this copy; regenerate with tools/emit_endgame_docs.py -->
 
 # MASTERPLAN2 — execution plan for the measured machine (2026-11-08)
+*Status: CANONICAL. Execution plan; §2 baseline is an explicitly dated 2026-11-08 snapshot.
 
 *Status: canonical execution plan from 2026-11-08. Supersedes the ordering in
 `NEXT-STEPS.md` (kept as reference). `MASTER-PLAN.md` remains the architecture
