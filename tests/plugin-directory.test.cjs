@@ -20,6 +20,8 @@ test('the public plugin directory excludes private services', () => {
       `${file} must not list a private service`);
     assert.doesNotMatch(content, /nibbana\.svatantrya\.net/i,
       `${file} must not disclose the private relay URL`);
+    assert.doesNotMatch(content, /nibbana/i,
+      `${file} must not even name the private relay (metadata leak)`);
   }
 });
 

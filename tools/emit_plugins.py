@@ -122,7 +122,7 @@ CLI = {
     "opencode_public": "{\"mcp\": {\"svatantrya\": {\"type\": \"remote\", \"url\": \"https://mcp.svatantrya.net/mcp\"}}}  # paste into ~/.config/opencode/opencode.jsonc",
     "opencode_owner": "{\"mcp\": {\"studio\": {\"type\": \"remote\", \"url\": \"https://studio.svatantrya.net/mcp\", \"headers\": {\"Authorization\": \"Bearer $MCP_TOKEN\"}}}}",
     "python_agent": "from fastmcp import Client\nasync with Client('https://mcp.svatantrya.net/mcp') as c:\n    tools = await c.list_tools()  # 40 tools, no auth\n    r = await c.call_tool('compose__next_level', {})  # study-order next",
-    "bearer_hosts": "studio svatantrya.net (47 tools) · factory (40) · essay (24) · books (22) · video (18) · tutor (5) · nibbana (4, private) · practice writes · all need Authorization: Bearer $MCP_TOKEN; reads on practice stay open.",
+    "bearer_hosts": "studio svatantrya.net (47 tools) · factory (40) · essay (24) · books (22) · video (18) · tutor (5) · practice writes · all need Authorization: Bearer $MCP_TOKEN; reads on practice stay open.",
 }
 
 def esc(s: str) -> str:

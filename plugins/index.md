@@ -172,6 +172,6 @@ Try:
 async with Client('https://mcp.svatantrya.net/mcp') as c:
     tools = await c.list_tools()  # 40 tools, no auth
     r = await c.call_tool('compose__next_level', {})  # study-order next`
-- `studio svatantrya.net (47 tools) · factory (40) · essay (24) · books (22) · video (18) · tutor (5) · nibbana (4, private) · practice writes · all need Authorization: Bearer $MCP_TOKEN; reads on practice stay open.`
+- `studio svatantrya.net (47 tools) · factory (40) · essay (24) · books (22) · video (18) · tutor (5) · practice writes · all need Authorization: Bearer $MCP_TOKEN; reads on practice stay open.`
 
 <!-- machine-readable: https://svatantrya.net/plugins/plugins.json -->
