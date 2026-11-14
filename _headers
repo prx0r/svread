@@ -19,3 +19,14 @@
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   X-Frame-Options: DENY
+
+# Same-origin embeds: the reader frames wheels.html (design/tabs/tables) and
+# data/sanskrit/*.html lessons. Cloudflare accumulates overlapping rules, so a
+# narrow rule must detach the site-wide DENY before setting SAMEORIGIN.
+# Regression: tests/headers-frame-policy.test.cjs.
+/wheels.html
+  ! X-Frame-Options
+  X-Frame-Options: SAMEORIGIN
+/data/sanskrit/*
+  ! X-Frame-Options
+  X-Frame-Options: SAMEORIGIN
