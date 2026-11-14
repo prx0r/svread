@@ -1,0 +1,6284 @@
+{
+ "work": "mukta-m00065",
+ "generated": null,
+ "source": "translation-work canonical data + scholar/ ledgers (emit_scholar.py)",
+ "source_edition": "Muktabodha M00065 (IAST, CC BY-NC 4.0) [concat of non-contiguous segment slices]",
+ "contract": {
+  "contract_version": "svatantrya-agent-contract/1",
+  "contract_sha256": "575232010d119225d9b3f12121fa59ad744765a875914708396c51a3129d7301",
+  "schema_version": "1.4.0",
+  "structural_schema_version": "2.1.0",
+  "structural_schema_snapshot_sha256": "3ce4085b2cbcebfec8471eee4b24a6974f9a19c77f0d125c7cad46bbb1ae8b0a",
+  "order": [
+   "source",
+   "t1",
+   "l0",
+   "argmap",
+   "l2",
+   "c1",
+   "l3",
+   "l4",
+   "c2"
+  ],
+  "schemas": {
+   "t1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:t1",
+    "title": "Svatantrya T1 structural schema",
+    "x-validator": "schemas.t1.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "quick_english",
+     "tokens",
+     "source_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "quick_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "source_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "tokens": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "surface",
+        "quick_gloss"
+       ],
+       "properties": {
+        "surface": {
+         "type": "string",
+         "minLength": 1
+        },
+        "quick_gloss": {
+         "type": "string",
+         "minLength": 1
+        }
+       }
+      }
+     }
+    }
+   },
+   "l0": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l0:verse",
+    "title": "Svatantrya L0 verse token list structural schema",
+    "x-validator": "schemas.l0.validate (per token)",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+     "$schema": "https://json-schema.org/draft/2020-12/schema",
+     "$id": "urn:svatantrya:schema:2.1.0:l0",
+     "title": "Svatantrya L0 structural schema",
+     "x-validator": "schemas.l0.validate",
+     "x-schema-version": "1.4.0",
+     "x-structural-schema-version": "2.1.0",
+     "type": "object",
+     "required": [
+      "id",
+      "verse_id",
+      "pada_index",
+      "surface",
+      "citation",
+      "options",
+      "chosen_index",
+      "status"
+     ],
+     "properties": {
+      "id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "verse_id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "pada_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "surface": {
+       "type": "string",
+       "minLength": 1
+      },
+      "citation": {
+       "type": "string",
+       "minLength": 1
+      },
+      "morph": {
+       "type": "string"
+      },
+      "morph_unknown": {
+       "type": "boolean"
+      },
+      "options": {
+       "type": "array",
+       "maxItems": 5,
+       "items": {
+        "type": "object",
+        "required": [
+         "gloss",
+         "rank",
+         "source",
+         "grounds"
+        ],
+        "properties": {
+         "gloss": {
+          "type": "string",
+          "minLength": 1
+         },
+         "rank": {
+          "type": "integer",
+          "minimum": 1
+         },
+         "source": {
+          "type": "string",
+          "minLength": 1
+         },
+         "grounds": {
+          "type": "string",
+          "minLength": 1
+         }
+        }
+       }
+      },
+      "chosen_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "status": {
+       "type": "string",
+       "enum": [
+        "PARSED",
+        "AMBIGUOUS",
+        "FAILED"
+       ]
+      },
+      "revised": {
+       "type": "boolean"
+      },
+      "revise_reason": {
+       "type": "string"
+      },
+      "fork": {
+       "type": "string",
+       "enum": [
+        "none",
+        "live",
+        "resolved"
+       ]
+      }
+     }
+    }
+   },
+   "argmap": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:argmap",
+    "title": "Svatantrya ARGMAP structural schema",
+    "x-validator": "schemas.argmap.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "traces",
+     "sanskrit_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "traces": {
+      "type": "object",
+      "required": [
+       "t1_verse",
+       "l0_ids"
+      ],
+      "properties": {
+       "t1_verse": {
+        "type": "string",
+        "minLength": 1
+       },
+       "l0_ids": {
+        "type": "array",
+        "items": {
+         "type": "string",
+         "minLength": 1
+        },
+        "minItems": 1
+       }
+      }
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "sanskrit_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "speaker": {
+      "type": "string",
+      "minLength": 1
+     },
+     "question": {
+      "type": "string",
+      "minLength": 1
+     },
+     "inference": {
+      "type": "string",
+      "minLength": 1
+     },
+     "reconstruction": {
+      "type": "string",
+      "minLength": 1
+     },
+     "premises": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     },
+     "uncertainties": {
+      "type": "array"
+     },
+     "structured": {
+      "type": "boolean"
+     }
+    }
+   },
+   "l2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l2",
+    "title": "Svatantrya L2 structural schema",
+    "x-validator": "schemas.l2.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "plain_english",
+     "sanskrit_cite",
+     "l0_ids"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "plain_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "supplied": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     }
+    }
+   },
+   "c1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:c1",
+    "title": "Svatantrya C1 structural schema",
+    "x-validator": "schemas.c1.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "song",
+     "essence",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "essence": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "renders": {
+      "type": "object",
+      "required": [
+       "standard"
+      ]
+     }
+    }
+   },
+   "l3": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l3",
+    "title": "Svatantrya L3 structural schema",
+    "x-validator": "schemas.l3.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "l4": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l4",
+    "title": "Svatantrya L4 structural schema",
+    "x-validator": "schemas.l4.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "c2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:c2",
+    "title": "Svatantrya C2 structural schema",
+    "x-validator": "schemas.c2.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "song",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "renders": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "style",
+        "prompt",
+        "paragraphs"
+       ],
+       "properties": {
+        "style": {
+         "type": "string",
+         "minLength": 1
+        },
+        "prompt": {
+         "type": "string",
+         "minLength": 1
+        },
+        "paragraphs": {
+         "type": "array",
+         "minItems": 1,
+         "items": {
+          "type": "object",
+          "required": [
+           "text",
+           "maps_to"
+          ],
+          "properties": {
+           "text": {
+            "type": "string",
+            "minLength": 1
+           },
+           "maps_to": {
+            "type": "array",
+            "items": {
+             "type": "integer",
+             "minimum": 0
+            },
+            "minItems": 1
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "layers": [
+   {
+    "id": "t1",
+    "scope": "verse",
+    "depends_on": [
+     "source"
+    ],
+    "validator": "schemas/t1.py",
+    "validator_sha256": "ac792ba1f0cbc06ab52dfbc41a31d3e39460f0e8a7de2977ed02e4ce63a20f27",
+    "example": {
+     "file": "sivastotravali/data/s01.t1.json",
+     "file_sha256": "a5c4cfae67571d05866d97ad6eb29b1c2956140a69c2fae554c29577330beb8e",
+     "target": "s01-v01",
+     "content_sha256": "26f027dafbe67347efd901cb2b94630cdb0e372957edeb4a3e1305e83745ba5b",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l0",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1"
+    ],
+    "validator": "schemas/l0.py",
+    "validator_sha256": "0651bc77f519897f8a4f8b41f4ea0cc6a88f3441910af99b18d55854a7e9030e",
+    "example": {
+     "file": "sivastotravali/data/s06.l0.json",
+     "file_sha256": "c2bb0ce1010315d72bdce75ee3c8901b17499202abe7adc5bd1977a26f4fea2f",
+     "target": "s06-v01",
+     "content_sha256": "91e3b04d47482757bcaf1e9705992edd0815ff7907ed2cb33c7c9586f3a9e5aa",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "argmap",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0"
+    ],
+    "validator": "schemas/argmap.py",
+    "validator_sha256": "335c1bbe809c5ae942ecef4a30ee7fd8fcb82645a43019312fa74397fe5758b0",
+    "example": {
+     "file": "sivastotravali/data/s01.argmap.json",
+     "file_sha256": "a44c8ec09a30c577f2a792c1255d4290f49a6138c456bb687bc00e78a3902949",
+     "target": "s01-v21",
+     "content_sha256": "80b69a54761b8b0b7c193058f6c88eef60323a3611008c41ba9879bcfc3cdc21",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l2",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap"
+    ],
+    "validator": "schemas/l2.py",
+    "validator_sha256": "95556834767ef61cf824b501ad7184b4223b6a7f479cd9644fbaae4372725ae3",
+    "example": {
+     "file": "sivastotravali/data/s01.l2.json",
+     "file_sha256": "f5a1cec55bb466c328380a0bf527e6d8906428b3436f85a79bd01df98ceb1040",
+     "target": "s01-v01",
+     "content_sha256": "f3c47f6a631f7551d4f9c8ad1117bdf65463cb8cdc92e9b42bb3bf517ae80055",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c1",
+    "scope": "song",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2"
+    ],
+    "validator": "schemas/c1.py",
+    "validator_sha256": "291c7eba42e68952b685becb6b596df7e2d9ca859d264152707d89efa5361c90",
+    "example": {
+     "file": "sivastotravali/data/s01.c1.json",
+     "file_sha256": "99f4d2bbf7a8086176ee585b6e459076e2abd72b9675435267f7546beb1515f8",
+     "target": "s01",
+     "content_sha256": "5be1f3c0c3f64fafe5395b42cf5502a139a5e208be419d5804fe1a5bdd33712a",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l3",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2",
+     "c1"
+    ],
+    "validator": "schemas/l3.py",
+    "validator_sha256": "6c3df228f886207782d5250699e9e459f236f6e7d6b25ac29b00a38541956917",
+    "example": {
+     "file": "sivastotravali/data/s01.l3.json",
+     "file_sha256": "cdb4af6a4c2a851231195f4e5c940346f65199d5d5d69ea1c41d8095f98409f9",
+     "target": "s01-v01",
+     "content_sha256": "6aa20635387174b68fe4ea3baf970c06aff9838acb2c745e7afca0ed7c6751de",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l4",
+    "scope": "verse",
+    "depends_on": [
+     "l3",
+     "c1"
+    ],
+    "validator": "schemas/l4.py",
+    "validator_sha256": "3c1f7b0dfe3d83d425ed0fd84fba7b74aa3ed9e9758402369d779eedda1a8c03",
+    "example": {
+     "file": "paramarthasara/data/param-p01.l4.json",
+     "file_sha256": "db346e51e71f2f835ddfda004d4432934611817c2c73318d335f6ca2362ad4fb",
+     "target": "param-p01-v01",
+     "content_sha256": "91e9d424cf310d4e5b45c173b02f5286d837269ef9447533c153a48cb5122c14",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c2",
+    "scope": "song",
+    "depends_on": [
+     "c1",
+     "l3"
+    ],
+    "validator": "schemas/c2.py",
+    "validator_sha256": "fb8743f206e036002c780d082c7d32cf011dcdab4c21df742a5f5e59a9d851b8",
+    "example": {
+     "file": "sivastotravali/data/s01.c2.json",
+     "file_sha256": "09660a3c09679fce8c95968934e5851a22d89cdf154d2b0635d358e1ef9e8aeb",
+     "target": "s01",
+     "content_sha256": "2faa5fa86e38faca7ef5a1a967a4e261e2df294648a31ed5bad5f731001aa41c",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   }
+  ]
+ },
+ "rights": {
+  "translation": "FREE — our English (L1–L4, commentary) is free use",
+  "scholar": "Contributors declare rights; authorship and copyright depend on the work and law."
+ },
+ "originals": {
+  "t1": {
+   "mukta-m0-p62-v1526": {
+    "verse_id": "mukta-m0-p62-v1526",
+    "song": "mukta-m0-p62",
+    "verse": 1526,
+    "tokens": [
+     {
+      "sanskrit": "sānusvaro",
+      "surface": "sānusvaro",
+      "iast": "sānusvaro",
+      "gloss": "with-nasal-mark",
+      "quick_gloss": "with-nasal-mark",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "bhavet",
+      "surface": "bhavet",
+      "iast": "bhavet",
+      "gloss": "should-be",
+      "quick_gloss": "should-be",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "netram",
+      "surface": "netram",
+      "iast": "netram",
+      "gloss": "eye-mantra",
+      "quick_gloss": "eye-mantra",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "astraṃ",
+      "surface": "astraṃ",
+      "iast": "astraṃ",
+      "gloss": "weapon-mantra",
+      "quick_gloss": "weapon-mantra",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kh:",
+      "surface": "kh:",
+      "iast": "kh:",
+      "gloss": "variant-reading",
+      "quick_gloss": "variant-reading",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "mantraṃ",
+      "surface": "mantraṃ",
+      "iast": "mantraṃ",
+      "gloss": "mantra",
+      "quick_gloss": "mantra",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "visargabheditam",
+      "surface": "visargabheditam",
+      "iast": "visargabheditam",
+      "gloss": "distinguished-by-visarga",
+      "quick_gloss": "distinguished-by-visarga",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "The eye mantra should have an anusvāra, and the weapon mantra—or, in another reading, the mantra—should be distinguished by a visarga.",
+    "source_sha": ""
+   },
+   "mukta-m0-p62-v1527": {
+    "verse_id": "mukta-m0-p62-v1527",
+    "song": "mukta-m0-p62",
+    "verse": 1527,
+    "tokens": [
+     {
+      "sanskrit": "ante",
+      "surface": "ante",
+      "iast": "ante",
+      "gloss": "at-end",
+      "quick_gloss": "at-end",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kh:",
+      "surface": "kh:",
+      "iast": "kh:",
+      "gloss": "variant-reading",
+      "quick_gloss": "variant-reading",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "anya",
+      "surface": "anya",
+      "iast": "anya",
+      "gloss": "other",
+      "quick_gloss": "other",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "jāti",
+      "surface": "jāti",
+      "iast": "jāti",
+      "gloss": "birth-class",
+      "quick_gloss": "birth-class",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "samāyuktāḥ",
+      "surface": "samāyuktāḥ",
+      "iast": "samāyuktāḥ",
+      "gloss": "joined-with",
+      "quick_gloss": "joined-with",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "prayoktavyāḥ",
+      "surface": "prayoktavyāḥ",
+      "iast": "prayoktavyāḥ",
+      "gloss": "should-be-employed",
+      "quick_gloss": "should-be-employed",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ca",
+      "surface": "ca",
+      "iast": "ca",
+      "gloss": "and",
+      "quick_gloss": "and",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "mantriṇā",
+      "surface": "mantriṇā",
+      "iast": "mantriṇā",
+      "gloss": "by-priest",
+      "quick_gloss": "by-priest",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "At the end, the priest should employ the forms joined with the appropriate class markers.",
+    "source_sha": ""
+   },
+   "mukta-m0-p62-v1528": {
+    "verse_id": "mukta-m0-p62-v1528",
+    "song": "mukta-m0-p62",
+    "verse": 1528,
+    "tokens": [
+     {
+      "sanskrit": "ghṛtaṃ",
+      "surface": "ghṛtaṃ",
+      "iast": "ghṛtaṃ",
+      "gloss": "ghee",
+      "quick_gloss": "ghee",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tilān",
+      "surface": "tilān",
+      "iast": "tilān",
+      "gloss": "sesame-seeds",
+      "quick_gloss": "sesame-seeds",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "yavān",
+      "surface": "yavān",
+      "iast": "yavān",
+      "gloss": "barley",
+      "quick_gloss": "barley",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kṣīraṃ",
+      "surface": "kṣīraṃ",
+      "iast": "kṣīraṃ",
+      "gloss": "milk",
+      "quick_gloss": "milk",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vrīhīn",
+      "surface": "vrīhīn",
+      "iast": "vrīhīn",
+      "gloss": "rice-grains",
+      "quick_gloss": "rice-grains",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "bhakṣyāṇi",
+      "surface": "bhakṣyāṇi",
+      "iast": "bhakṣyāṇi",
+      "gloss": "food-offerings",
+      "quick_gloss": "food-offerings",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "dadhi",
+      "surface": "dadhi",
+      "iast": "dadhi",
+      "gloss": "curd",
+      "quick_gloss": "curd",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "api",
+      "surface": "api",
+      "iast": "api",
+      "gloss": "also",
+      "quick_gloss": "also",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Ghee, sesame seeds, barley, milk, rice grains, food offerings, and also curd are to be used.",
+    "source_sha": ""
+   },
+   "mukta-m0-p62-v1529": {
+    "verse_id": "mukta-m0-p62-v1529",
+    "song": "mukta-m0-p62",
+    "verse": 1529,
+    "tokens": [
+     {
+      "sanskrit": "saktu",
+      "surface": "saktu",
+      "iast": "saktu",
+      "gloss": "groats",
+      "quick_gloss": "groats",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "piṣyāka",
+      "surface": "piṣyāka",
+      "iast": "piṣyāka",
+      "gloss": "flour-cake",
+      "quick_gloss": "flour-cake",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "takra",
+      "surface": "takra",
+      "iast": "takra",
+      "gloss": "buttermilk",
+      "quick_gloss": "buttermilk",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "annaṃ",
+      "surface": "annaṃ",
+      "iast": "annaṃ",
+      "gloss": "cooked-rice",
+      "quick_gloss": "cooked-rice",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "juhuyāt",
+      "surface": "juhuyāt",
+      "iast": "juhuyāt",
+      "gloss": "one-should-offer",
+      "quick_gloss": "one-should-offer",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "nityakarmaṇi",
+      "surface": "nityakarmaṇi",
+      "iast": "nityakarmaṇi",
+      "gloss": "in-daily-rite",
+      "quick_gloss": "in-daily-rite",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "One should offer groats, flour-cake, buttermilk, and cooked rice in the daily rite.",
+    "source_sha": ""
+   },
+   "mukta-m0-p62-v1530": {
+    "verse_id": "mukta-m0-p62-v1530",
+    "song": "mukta-m0-p62",
+    "verse": 1530,
+    "tokens": [
+     {
+      "sanskrit": "mālūraṃ",
+      "surface": "mālūraṃ",
+      "iast": "mālūraṃ",
+      "gloss": "bilva-fruit",
+      "quick_gloss": "bilva-fruit",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "roganāśāya",
+      "surface": "roganāśāya",
+      "iast": "roganāśāya",
+      "gloss": "for-disease-destruction",
+      "quick_gloss": "for-disease-destruction",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "lakṣmyarthaṃ",
+      "surface": "lakṣmyarthaṃ",
+      "iast": "lakṣmyarthaṃ",
+      "gloss": "for-prosperity",
+      "quick_gloss": "for-prosperity",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ca",
+      "surface": "ca",
+      "iast": "ca",
+      "gloss": "and",
+      "quick_gloss": "and",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kuśeśayam",
+      "surface": "kuśeśayam",
+      "iast": "kuśeśayam",
+      "gloss": "lotus",
+      "quick_gloss": "lotus",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Use bilva fruit for the destruction of disease and lotus for prosperity.",
+    "source_sha": ""
+   },
+   "mukta-m0-p62-v1531": {
+    "verse_id": "mukta-m0-p62-v1531",
+    "song": "mukta-m0-p62",
+    "verse": 1531,
+    "tokens": [
+     {
+      "sanskrit": "paṃcaphalāni",
+      "surface": "paṃcaphalāni",
+      "iast": "paṃcaphalāni",
+      "gloss": "five-fruits",
+      "quick_gloss": "five-fruits",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "mū:",
+      "surface": "mū:",
+      "iast": "mū:",
+      "gloss": "variant-reading",
+      "quick_gloss": "variant-reading",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "palāni",
+      "surface": "palāni",
+      "iast": "palāni",
+      "gloss": "fruits",
+      "quick_gloss": "fruits",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "sūkṣmāṇi",
+      "surface": "sūkṣmāṇi",
+      "iast": "sūkṣmāṇi",
+      "gloss": "small",
+      "quick_gloss": "small",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "annānāṃ",
+      "surface": "annānāṃ",
+      "iast": "annānāṃ",
+      "gloss": "of-foods",
+      "quick_gloss": "of-foods",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "grāsakhaṇḍataḥ",
+      "surface": "grāsakhaṇḍataḥ",
+      "iast": "grāsakhaṇḍataḥ",
+      "gloss": "by-morsel-pieces",
+      "quick_gloss": "by-morsel-pieces",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "The five small fruits—or, in another reading, fruits—should be prepared as morsel-sized pieces of food.",
+    "source_sha": ""
+   },
+   "mukta-m0-p62-v1532": {
+    "verse_id": "mukta-m0-p62-v1532",
+    "song": "mukta-m0-p62",
+    "verse": 1532,
+    "tokens": [
+     {
+      "sanskrit": "agranthi",
+      "surface": "agranthi",
+      "iast": "agranthi",
+      "gloss": "without-knots",
+      "quick_gloss": "without-knots",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "asphuṭita",
+      "surface": "asphuṭita",
+      "iast": "asphuṭita",
+      "gloss": "uncracked",
+      "quick_gloss": "uncracked",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "avakrāḥ",
+      "surface": "avakrāḥ",
+      "iast": "avakrāḥ",
+      "gloss": "not-crooked",
+      "quick_gloss": "not-crooked",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "plakṣavṛkṣasamudbhavāḥ",
+      "surface": "plakṣavṛkṣasamudbhavāḥ",
+      "iast": "plakṣavṛkṣasamudbhavāḥ",
+      "gloss": "from-plakṣa-tree",
+      "quick_gloss": "from-plakṣa-tree",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "They should be without knots, uncracked, not crooked, and taken from the plakṣa tree.",
+    "source_sha": ""
+   },
+   "mukta-m0-p62-v1533": {
+    "verse_id": "mukta-m0-p62-v1533",
+    "song": "mukta-m0-p62",
+    "verse": 1533,
+    "tokens": [
+     {
+      "sanskrit": "vaikaṅkato",
+      "surface": "vaikaṅkato",
+      "iast": "vaikaṅkato",
+      "gloss": "of-vikaṅkata",
+      "quick_gloss": "of-vikaṅkata",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "hi",
+      "surface": "hi",
+      "iast": "hi",
+      "gloss": "indeed",
+      "quick_gloss": "indeed",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "apāmārgaḥ",
+      "surface": "apāmārgaḥ",
+      "iast": "apāmārgaḥ",
+      "gloss": "apāmārga",
+      "quick_gloss": "apāmārga",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "pippalaḥ",
+      "surface": "pippalaḥ",
+      "iast": "pippalaḥ",
+      "gloss": "pippala",
+      "quick_gloss": "pippala",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "śāntipuṣṭidaḥ",
+      "surface": "śāntipuṣṭidaḥ",
+      "iast": "śāntipuṣṭidaḥ",
+      "gloss": "giving-peace-prosperity",
+      "quick_gloss": "giving-peace-prosperity",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Vikaṅkata, apāmārga, and pippala indeed give peace and prosperity.",
+    "source_sha": ""
+   },
+   "mukta-m0-p62-v1534": {
+    "verse_id": "mukta-m0-p62-v1534",
+    "song": "mukta-m0-p62",
+    "verse": 1534,
+    "tokens": [
+     {
+      "sanskrit": "aniṣṭe",
+      "surface": "aniṣṭe",
+      "iast": "aniṣṭe",
+      "gloss": "in-unfavorable-rite",
+      "quick_gloss": "in-unfavorable-rite",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "janturomāṇi",
+      "surface": "janturomāṇi",
+      "iast": "janturomāṇi",
+      "gloss": "creature-hairs",
+      "quick_gloss": "creature-hairs",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "dveṣe",
+      "surface": "dveṣe",
+      "iast": "dveṣe",
+      "gloss": "in-hatred-rite",
+      "quick_gloss": "in-hatred-rite",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "śleṣmānta",
+      "surface": "śleṣmānta",
+      "iast": "śleṣmānta",
+      "gloss": "phlegm-ending",
+      "quick_gloss": "phlegm-ending",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "śigrukau",
+      "surface": "śigrukau",
+      "iast": "śigrukau",
+      "gloss": "two-śigru-plants",
+      "quick_gloss": "two-śigru-plants",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "In an unfavorable rite use creature hairs, and in a hatred rite use the two śigru plants described as phlegm-ending.",
+    "source_sha": ""
+   },
+   "mukta-m0-p62-v1535": {
+    "verse_id": "mukta-m0-p62-v1535",
+    "song": "mukta-m0-p62",
+    "verse": 1535,
+    "tokens": [
+     {
+      "sanskrit": "taddhūlyā",
+      "surface": "taddhūlyā",
+      "iast": "taddhūlyā",
+      "gloss": "with-their-dust",
+      "quick_gloss": "with-their-dust",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kākapakṣaṃ",
+      "surface": "kākapakṣaṃ",
+      "iast": "kākapakṣaṃ",
+      "gloss": "crow-feather",
+      "quick_gloss": "crow-feather",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ca",
+      "surface": "ca",
+      "iast": "ca",
+      "gloss": "and",
+      "quick_gloss": "and",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "nidhane",
+      "surface": "nidhane",
+      "iast": "nidhane",
+      "gloss": "in-killing-rite",
+      "quick_gloss": "in-killing-rite",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "nimbaśoṇitam",
+      "surface": "nimbaśoṇitam",
+      "iast": "nimbaśoṇitam",
+      "gloss": "nimba-blood",
+      "quick_gloss": "nimba-blood",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "In a killing rite, use their dust, a crow feather, and nimba blood.",
+    "source_sha": ""
+   },
+   "mukta-m0-p62-v1536": {
+    "verse_id": "mukta-m0-p62-v1536",
+    "song": "mukta-m0-p62",
+    "verse": 1536,
+    "tokens": [
+     {
+      "sanskrit": "śamī",
+      "surface": "śamī",
+      "iast": "śamī",
+      "gloss": "śamī",
+      "quick_gloss": "śamī",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "dūrvā",
+      "surface": "dūrvā",
+      "iast": "dūrvā",
+      "gloss": "dūrvā-grass",
+      "quick_gloss": "dūrvā-grass",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kuśā",
+      "surface": "kuśā",
+      "iast": "kuśā",
+      "gloss": "kuśa-grass",
+      "quick_gloss": "kuśa-grass",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "havyā",
+      "surface": "havyā",
+      "iast": "havyā",
+      "gloss": "oblation-materials",
+      "quick_gloss": "oblation-materials",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "arkādigrahaśāntaye",
+      "surface": "arkādigrahaśāntaye",
+      "iast": "arkādigrahaśāntaye",
+      "gloss": "for-sun-etc-planet-pacification",
+      "quick_gloss": "for-sun-etc-planet-pacification",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Śamī, dūrvā grass, and kuśa grass are oblation materials for pacifying the sun and other planets.",
+    "source_sha": ""
+   },
+   "mukta-m0-p62-v1537": {
+    "verse_id": "mukta-m0-p62-v1537",
+    "song": "mukta-m0-p62",
+    "verse": 1537,
+    "tokens": [
+     {
+      "sanskrit": "padmarāga",
+      "surface": "padmarāga",
+      "iast": "padmarāga",
+      "gloss": "like-ruby",
+      "quick_gloss": "like-ruby",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "indranīla",
+      "surface": "indranīla",
+      "iast": "indranīla",
+      "gloss": "like-sapphire",
+      "quick_gloss": "like-sapphire",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "arka",
+      "surface": "arka",
+      "iast": "arka",
+      "gloss": "like-sunstone",
+      "quick_gloss": "like-sunstone",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "śuddhasphaṭika",
+      "surface": "śuddhasphaṭika",
+      "iast": "śuddhasphaṭika",
+      "gloss": "like-pure-crystal",
+      "quick_gloss": "like-pure-crystal",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "hemavat",
+      "surface": "hemavat",
+      "iast": "hemavat",
+      "gloss": "like-gold",
+      "quick_gloss": "like-gold",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "It may be like ruby, sapphire, sunstone, pure crystal, or gold.",
+    "source_sha": ""
+   },
+   "mukta-m0-p62-v1538": {
+    "verse_id": "mukta-m0-p62-v1538",
+    "song": "mukta-m0-p62",
+    "verse": 1538,
+    "tokens": [
+     {
+      "sanskrit": "śubhaḥ",
+      "surface": "śubhaḥ",
+      "iast": "śubhaḥ",
+      "gloss": "auspicious",
+      "quick_gloss": "auspicious",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Such a one is auspicious.",
+    "source_sha": ""
+   },
+   "mukta-m0-p62-v1539": {
+    "verse_id": "mukta-m0-p62-v1539",
+    "song": "mukta-m0-p62",
+    "verse": 1539,
+    "tokens": [
+     {
+      "sanskrit": "nirgandhaḥ",
+      "surface": "nirgandhaḥ",
+      "iast": "nirgandhaḥ",
+      "gloss": "without-smell",
+      "quick_gloss": "without-smell",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "pāṇḍaro",
+      "surface": "pāṇḍaro",
+      "iast": "pāṇḍaro",
+      "gloss": "pale",
+      "quick_gloss": "pale",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "rūkṣaḥ",
+      "surface": "rūkṣaḥ",
+      "iast": "rūkṣaḥ",
+      "gloss": "dry",
+      "quick_gloss": "dry",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kṛṣṇāṅgāranibhaḥ",
+      "surface": "kṛṣṇāṅgāranibhaḥ",
+      "iast": "kṛṣṇāṅgāranibhaḥ",
+      "gloss": "resembling-black-charcoal",
+      "quick_gloss": "resembling-black-charcoal",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ca",
+      "surface": "ca",
+      "iast": "ca",
+      "gloss": "and",
+      "quick_gloss": "and",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "yaḥ",
+      "surface": "yaḥ",
+      "iast": "yaḥ",
+      "gloss": "which",
+      "quick_gloss": "which",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "That which is without smell, pale, dry, and resembling black charcoal is not suitable.",
+    "source_sha": ""
+   },
+   "mukta-m0-p62-v1540": {
+    "verse_id": "mukta-m0-p62-v1540",
+    "song": "mukta-m0-p62",
+    "verse": 1540,
+    "tokens": [
+     {
+      "sanskrit": "evaṃ",
+      "surface": "evaṃ",
+      "iast": "evaṃ",
+      "gloss": "thus",
+      "quick_gloss": "thus",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "jñātvā",
+      "surface": "jñātvā",
+      "iast": "jñātvā",
+      "gloss": "having-known",
+      "quick_gloss": "having-known",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "prakartavyo",
+      "surface": "prakartavyo",
+      "iast": "prakartavyo",
+      "gloss": "to-be-performed",
+      "quick_gloss": "to-be-performed",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "gh:",
+      "surface": "gh:",
+      "iast": "gh:",
+      "gloss": "variant-reading",
+      "quick_gloss": "variant-reading",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "yāge-",
+      "surface": "yāge-",
+      "iast": "yāge-",
+      "gloss": "in-sacrifice",
+      "quick_gloss": "in-sacrifice",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "homaḥ",
+      "surface": "homaḥ",
+      "iast": "homaḥ",
+      "gloss": "oblation",
+      "quick_gloss": "oblation",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tena",
+      "surface": "tena",
+      "iast": "tena",
+      "gloss": "by-that",
+      "quick_gloss": "by-that",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "atha",
+      "surface": "atha",
+      "iast": "atha",
+      "gloss": "or-else",
+      "quick_gloss": "or-else",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vā",
+      "surface": "vā",
+      "iast": "vā",
+      "gloss": "or",
+      "quick_gloss": "or",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "na",
+      "surface": "na",
+      "iast": "na",
+      "gloss": "not",
+      "quick_gloss": "not",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vā",
+      "surface": "vā",
+      "iast": "vā",
+      "gloss": "or",
+      "quick_gloss": "or",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Knowing this, the oblation in the sacrifice should be performed—or, depending on that, not performed.",
+    "source_sha": ""
+   },
+   "mukta-m0-p62-v1541": {
+    "verse_id": "mukta-m0-p62-v1541",
+    "song": "mukta-m0-p62",
+    "verse": 1541,
+    "tokens": [
+     {
+      "sanskrit": "adhivāsanadīkṣāyām",
+      "surface": "adhivāsanadīkṣāyām",
+      "iast": "adhivāsanadīkṣāyām",
+      "gloss": "in-consecration-initiation",
+      "quick_gloss": "in-consecration-initiation",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "abhiṣeke",
+      "surface": "abhiṣeke",
+      "iast": "abhiṣeke",
+      "gloss": "in-ablution",
+      "quick_gloss": "in-ablution",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tathaiva",
+      "surface": "tathaiva",
+      "iast": "tathaiva",
+      "gloss": "likewise",
+      "quick_gloss": "likewise",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ca",
+      "surface": "ca",
+      "iast": "ca",
+      "gloss": "and",
+      "quick_gloss": "and",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Likewise in the consecration-initiation and in the ablution.",
+    "source_sha": ""
+   },
+   "mukta-m0-p62-v1542": {
+    "verse_id": "mukta-m0-p62-v1542",
+    "song": "mukta-m0-p62",
+    "verse": 1542,
+    "tokens": [
+     {
+      "sanskrit": "gopucchasadṛśaṃ",
+      "surface": "gopucchasadṛśaṃ",
+      "iast": "gopucchasadṛśaṃ",
+      "gloss": "resembling-cow-tail",
+      "quick_gloss": "resembling-cow-tail",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "cāru",
+      "surface": "cāru",
+      "iast": "cāru",
+      "gloss": "beautiful",
+      "quick_gloss": "beautiful",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "hastadaghnā",
+      "surface": "hastadaghnā",
+      "iast": "hastadaghnā",
+      "gloss": "reaching-hand-length",
+      "quick_gloss": "reaching-hand-length",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "avraṇaṃ",
+      "surface": "avraṇaṃ",
+      "iast": "avraṇaṃ",
+      "gloss": "without-wound",
+      "quick_gloss": "without-wound",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "dṛḍham",
+      "surface": "dṛḍham",
+      "iast": "dṛḍham",
+      "gloss": "firm",
+      "quick_gloss": "firm",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "It should resemble a cow’s tail, be beautiful, reach a hand’s length, be without blemish, and firm.",
+    "source_sha": ""
+   },
+   "mukta-m0-p62-v1543": {
+    "verse_id": "mukta-m0-p62-v1543",
+    "song": "mukta-m0-p62",
+    "verse": 1543,
+    "tokens": [
+     {
+      "sanskrit": "tatkhātaṃ",
+      "surface": "tatkhātaṃ",
+      "iast": "tatkhātaṃ",
+      "gloss": "its-pit",
+      "quick_gloss": "its-pit",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tryaṅgulaṃ",
+      "surface": "tryaṅgulaṃ",
+      "iast": "tryaṅgulaṃ",
+      "gloss": "three-fingers-deep",
+      "quick_gloss": "three-fingers-deep",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "k:",
+      "surface": "k:",
+      "iast": "k:",
+      "gloss": "variant-reading",
+      "quick_gloss": "variant-reading",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "dvyaṅgulaṃ",
+      "surface": "dvyaṅgulaṃ",
+      "iast": "dvyaṅgulaṃ",
+      "gloss": "two-fingers-deep",
+      "quick_gloss": "two-fingers-deep",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "madhye",
+      "surface": "madhye",
+      "iast": "madhye",
+      "gloss": "in-middle",
+      "quick_gloss": "in-middle",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "setuḥ",
+      "surface": "setuḥ",
+      "iast": "setuḥ",
+      "gloss": "ridge",
+      "quick_gloss": "ridge",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "dviyavavistaraḥ",
+      "surface": "dviyavavistaraḥ",
+      "iast": "dviyavavistaraḥ",
+      "gloss": "two-barleycorns-wide",
+      "quick_gloss": "two-barleycorns-wide",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Its pit should be three fingers deep—or, in another reading, two fingers deep—with a ridge in the middle two barleycorns wide.",
+    "source_sha": ""
+   },
+   "mukta-m0-p62-v1544": {
+    "verse_id": "mukta-m0-p62-v1544",
+    "song": "mukta-m0-p62",
+    "verse": 1544,
+    "tokens": [
+     {
+      "sanskrit": "āmrī",
+      "surface": "āmrī",
+      "iast": "āmrī",
+      "gloss": "of-mango-wood",
+      "quick_gloss": "of-mango-wood",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vaikaṅkatī",
+      "surface": "vaikaṅkatī",
+      "iast": "vaikaṅkatī",
+      "gloss": "of-vikaṅkata-wood",
+      "quick_gloss": "of-vikaṅkata-wood",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "baijī",
+      "surface": "baijī",
+      "iast": "baijī",
+      "gloss": "of-bilva-wood",
+      "quick_gloss": "of-bilva-wood",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "sruk",
+      "surface": "sruk",
+      "iast": "sruk",
+      "gloss": "ladle",
+      "quick_gloss": "ladle",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "pālāśī",
+      "surface": "pālāśī",
+      "iast": "pālāśī",
+      "gloss": "of-palāśa-wood",
+      "quick_gloss": "of-palāśa-wood",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "atha",
+      "surface": "atha",
+      "iast": "atha",
+      "gloss": "then",
+      "quick_gloss": "then",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "śaiṃśapī",
+      "surface": "śaiṃśapī",
+      "iast": "śaiṃśapī",
+      "gloss": "of-śiṃśapa-wood",
+      "quick_gloss": "of-śiṃśapa-wood",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "The ladle may be made of mango, vikaṅkata, bilva, palāśa, or śiṃśapa wood.",
+    "source_sha": ""
+   },
+   "mukta-m0-p62-v1545": {
+    "verse_id": "mukta-m0-p62-v1545",
+    "song": "mukta-m0-p62",
+    "verse": 1545,
+    "tokens": [
+     {
+      "sanskrit": "ṣaḍaṅgulaparīṇāho",
+      "surface": "ṣaḍaṅgulaparīṇāho",
+      "iast": "ṣaḍaṅgulaparīṇāho",
+      "gloss": "six-fingers-in-circumference",
+      "quick_gloss": "six-fingers-in-circumference",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vedyaṣṭonnativistarā",
+      "surface": "vedyaṣṭonnativistarā",
+      "iast": "vedyaṣṭonnativistarā",
+      "gloss": "with-altar-eight-in-height-width",
+      "quick_gloss": "with-altar-eight-in-height-width",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "k,",
+      "surface": "k,",
+      "iast": "k,",
+      "gloss": "variant-reading",
+      "quick_gloss": "variant-reading",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "g:",
+      "surface": "g:",
+      "iast": "g:",
+      "gloss": "variant-reading",
+      "quick_gloss": "variant-reading",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "dvedvyaṣṭo-",
+      "surface": "dvedvyaṣṭo-",
+      "iast": "dvedvyaṣṭo-",
+      "gloss": "two-and-eight",
+      "quick_gloss": "two-and-eight",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "It should be six fingers in circumference, with altar height and width of eight—or, in other readings, two and eight.",
+    "source_sha": ""
+   },
+   "mukta-m0-p62-v1546": {
+    "verse_id": "mukta-m0-p62-v1546",
+    "song": "mukta-m0-p62",
+    "verse": 1546,
+    "tokens": [
+     {
+      "sanskrit": "mekhalābjāṣṭapatrāḍhyaṃ",
+      "surface": "mekhalābjāṣṭapatrāḍhyaṃ",
+      "iast": "mekhalābjāṣṭapatrāḍhyaṃ",
+      "gloss": "endowed-with-rim-lotus-eight-petals",
+      "quick_gloss": "endowed-with-rim-lotus-eight-petals",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "sarpiḥ",
+      "surface": "sarpiḥ",
+      "iast": "sarpiḥ",
+      "gloss": "ghee-capacity",
+      "quick_gloss": "ghee-capacity",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "k:",
+      "surface": "k:",
+      "iast": "k:",
+      "gloss": "variant-reading",
+      "quick_gloss": "variant-reading",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "sandhiḥ",
+      "surface": "sandhiḥ",
+      "iast": "sandhiḥ",
+      "gloss": "junction",
+      "quick_gloss": "junction",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kuḍavasammitam",
+      "surface": "kuḍavasammitam",
+      "iast": "kuḍavasammitam",
+      "gloss": "measuring-one-kuḍava",
+      "quick_gloss": "measuring-one-kuḍava",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "It should be endowed with a rim and an eight-petaled lotus, and have a capacity measuring one kuḍava.",
+    "source_sha": ""
+   },
+   "mukta-m0-p62-v1547": {
+    "verse_id": "mukta-m0-p62-v1547",
+    "song": "mukta-m0-p62",
+    "verse": 1547,
+    "tokens": [
+     {
+      "sanskrit": "dvyaṅgulāgrapramāṇaṃ",
+      "surface": "dvyaṅgulāgrapramāṇaṃ",
+      "iast": "dvyaṅgulāgrapramāṇaṃ",
+      "gloss": "two-fingers-tip-measure",
+      "quick_gloss": "two-fingers-tip-measure",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ca",
+      "surface": "ca",
+      "iast": "ca",
+      "gloss": "and",
+      "quick_gloss": "and",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "gajoṣṭhasadṛśaṃ",
+      "surface": "gajoṣṭhasadṛśaṃ",
+      "iast": "gajoṣṭhasadṛśaṃ",
+      "gloss": "resembling-elephant-lip",
+      "quick_gloss": "resembling-elephant-lip",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "bhavet",
+      "surface": "bhavet",
+      "iast": "bhavet",
+      "gloss": "should-be",
+      "quick_gloss": "should-be",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "It should measure two fingers at the tip and resemble an elephant’s lip.",
+    "source_sha": ""
+   },
+   "mukta-m0-p62-v1548": {
+    "verse_id": "mukta-m0-p62-v1548",
+    "song": "mukta-m0-p62",
+    "verse": 1548,
+    "tokens": [
+     {
+      "sanskrit": "kaniṣṭhāṅgulivat",
+      "surface": "kaniṣṭhāṅgulivat",
+      "iast": "kaniṣṭhāṅgulivat",
+      "gloss": "like-little-finger",
+      "quick_gloss": "like-little-finger",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "sthūlaṃ",
+      "surface": "sthūlaṃ",
+      "iast": "sthūlaṃ",
+      "gloss": "thick",
+      "quick_gloss": "thick",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "sarpinirgamanāya",
+      "surface": "sarpinirgamanāya",
+      "iast": "sarpinirgamanāya",
+      "gloss": "for-ghee-flowing",
+      "quick_gloss": "for-ghee-flowing",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ca",
+      "surface": "ca",
+      "iast": "ca",
+      "gloss": "and",
+      "quick_gloss": "and",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "It should be thick like the little finger, so that the ghee can flow out.",
+    "source_sha": ""
+   },
+   "mukta-m0-p62-v1549": {
+    "verse_id": "mukta-m0-p62-v1549",
+    "song": "mukta-m0-p62",
+    "verse": 1549,
+    "tokens": [
+     {
+      "sanskrit": "aṅgulaiḥ",
+      "surface": "aṅgulaiḥ",
+      "iast": "aṅgulaiḥ",
+      "gloss": "with-fingers",
+      "quick_gloss": "with-fingers",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ca",
+      "surface": "ca",
+      "iast": "ca",
+      "gloss": "and",
+      "quick_gloss": "and",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "caturbhiḥ",
+      "surface": "caturbhiḥ",
+      "iast": "caturbhiḥ",
+      "gloss": "with-four",
+      "quick_gloss": "with-four",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ca",
+      "surface": "ca",
+      "iast": "ca",
+      "gloss": "and",
+      "quick_gloss": "and",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "daṇḍāgre",
+      "surface": "daṇḍāgre",
+      "iast": "daṇḍāgre",
+      "gloss": "at-handle-tip",
+      "quick_gloss": "at-handle-tip",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ca",
+      "surface": "ca",
+      "iast": "ca",
+      "gloss": "and",
+      "quick_gloss": "and",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "upavedikā",
+      "surface": "upavedikā",
+      "iast": "upavedikā",
+      "gloss": "small-platform",
+      "quick_gloss": "small-platform",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "At the tip of the handle, four fingers away, there should be a small platform.",
+    "source_sha": ""
+   },
+   "mukta-m0-p62-v1550": {
+    "verse_id": "mukta-m0-p62-v1550",
+    "song": "mukta-m0-p62",
+    "verse": 1550,
+    "tokens": [
+     {
+      "sanskrit": "tau",
+      "surface": "tau",
+      "iast": "tau",
+      "gloss": "those-two",
+      "quick_gloss": "those-two",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "santāpya",
+      "surface": "santāpya",
+      "iast": "santāpya",
+      "gloss": "having-heated",
+      "quick_gloss": "having-heated",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kuśaiḥ",
+      "surface": "kuśaiḥ",
+      "iast": "kuśaiḥ",
+      "gloss": "with-kuśa-grass",
+      "quick_gloss": "with-kuśa-grass",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "spṛṣdavā",
+      "surface": "spṛṣdavā",
+      "iast": "spṛṣdavā",
+      "gloss": "having-touched",
+      "quick_gloss": "having-touched",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "mūlamadhyāgrataḥ",
+      "surface": "mūlamadhyāgrataḥ",
+      "iast": "mūlamadhyāgrataḥ",
+      "gloss": "from-root-middle-tip",
+      "quick_gloss": "from-root-middle-tip",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kramāt",
+      "surface": "kramāt",
+      "iast": "kramāt",
+      "gloss": "in-order",
+      "quick_gloss": "in-order",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Having heated those two with kuśa grass, one should touch them in order from the root to the middle to the tip.",
+    "source_sha": ""
+   }
+  },
+  "l0": {
+   "mukta-m0-p62-v1526": [
+    {
+     "id": "mukta-m0-p62-v1526-p000",
+     "verse_id": "mukta-m0-p62-v1526",
+     "pada_index": 0,
+     "surface": "sānusvaro",
+     "citation": "sānusvaro",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "with-nasal-mark",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "describes mantra form with anusvāra"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1526-p001",
+     "verse_id": "mukta-m0-p62-v1526",
+     "pada_index": 1,
+     "surface": "bhavet",
+     "citation": "bhavet",
+     "morph": "3.sg.act-optative √bhū",
+     "options": [
+      {
+       "gloss": "should-be",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "prescriptive optative"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1526-p002",
+     "verse_id": "mukta-m0-p62-v1526",
+     "pada_index": 2,
+     "surface": "netram",
+     "citation": "netram",
+     "morph": "n.nom.sg",
+     "options": [
+      {
+       "gloss": "eye-mantra",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "name of ritual mantra"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1526-p003",
+     "verse_id": "mukta-m0-p62-v1526",
+     "pada_index": 3,
+     "surface": "astraṃ",
+     "citation": "astraṃ",
+     "morph": "n.nom.sg",
+     "options": [
+      {
+       "gloss": "weapon-mantra",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "name of ritual mantra"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1526-p004",
+     "verse_id": "mukta-m0-p62-v1526",
+     "pada_index": 4,
+     "surface": "kh:",
+     "citation": "kh:",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "variant-reading",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "textual witness marker"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1526-p005",
+     "verse_id": "mukta-m0-p62-v1526",
+     "pada_index": 5,
+     "surface": "mantraṃ",
+     "citation": "mantraṃ",
+     "morph": "m.acc.sg",
+     "options": [
+      {
+       "gloss": "mantra",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "alternative reading for astraṃ"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1526-p006",
+     "verse_id": "mukta-m0-p62-v1526",
+     "pada_index": 6,
+     "surface": "visargabheditam",
+     "citation": "visargabheditam",
+     "morph": "n.nom.sg visarga+bhedita",
+     "options": [
+      {
+       "gloss": "distinguished-by-visarga",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound describing mantra ending"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p62-v1527": [
+    {
+     "id": "mukta-m0-p62-v1527-p000",
+     "verse_id": "mukta-m0-p62-v1527",
+     "pada_index": 0,
+     "surface": "ante",
+     "citation": "ante",
+     "morph": "m.loc.sg",
+     "options": [
+      {
+       "gloss": "at-end",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "locative indicating position"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1527-p001",
+     "verse_id": "mukta-m0-p62-v1527",
+     "pada_index": 1,
+     "surface": "kh:",
+     "citation": "kh:",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "variant-reading",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "textual witness marker"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1527-p002",
+     "verse_id": "mukta-m0-p62-v1527",
+     "pada_index": 2,
+     "surface": "anya",
+     "citation": "anya",
+     "morph": "compound-member anya",
+     "options": [
+      {
+       "gloss": "other",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "alternative qualifier in variant"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1527-p003",
+     "verse_id": "mukta-m0-p62-v1527",
+     "pada_index": 3,
+     "surface": "jāti",
+     "citation": "jāti",
+     "morph": "compound-member jāti",
+     "options": [
+      {
+       "gloss": "birth-class",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "class or category marker"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1527-p004",
+     "verse_id": "mukta-m0-p62-v1527",
+     "pada_index": 4,
+     "surface": "samāyuktāḥ",
+     "citation": "samāyuktāḥ",
+     "morph": "m.nom.pl sam+ā+yukta",
+     "options": [
+      {
+       "gloss": "joined-with",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "describes mantras combined with class markers"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1527-p005",
+     "verse_id": "mukta-m0-p62-v1527",
+     "pada_index": 5,
+     "surface": "prayoktavyāḥ",
+     "citation": "prayoktavyāḥ",
+     "morph": "m.nom.pl pra+√yuj",
+     "options": [
+      {
+       "gloss": "should-be-employed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "prescriptive gerundive"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1527-p006",
+     "verse_id": "mukta-m0-p62-v1527",
+     "pada_index": 6,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "connective particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1527-p007",
+     "verse_id": "mukta-m0-p62-v1527",
+     "pada_index": 7,
+     "surface": "mantriṇā",
+     "citation": "mantriṇā",
+     "morph": "m.inst.sg",
+     "options": [
+      {
+       "gloss": "by-priest",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "ritual actor performing the application"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p62-v1528": [
+    {
+     "id": "mukta-m0-p62-v1528-p000",
+     "verse_id": "mukta-m0-p62-v1528",
+     "pada_index": 0,
+     "surface": "ghṛtaṃ",
+     "citation": "ghṛtaṃ",
+     "morph": "n.acc.sg",
+     "options": [
+      {
+       "gloss": "ghee",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "oblation substance"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1528-p001",
+     "verse_id": "mukta-m0-p62-v1528",
+     "pada_index": 1,
+     "surface": "tilān",
+     "citation": "tilān",
+     "morph": "m.acc.pl",
+     "options": [
+      {
+       "gloss": "sesame-seeds",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "oblation substance"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1528-p002",
+     "verse_id": "mukta-m0-p62-v1528",
+     "pada_index": 2,
+     "surface": "yavān",
+     "citation": "yavān",
+     "morph": "m.acc.pl",
+     "options": [
+      {
+       "gloss": "barley",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "oblation substance"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1528-p003",
+     "verse_id": "mukta-m0-p62-v1528",
+     "pada_index": 3,
+     "surface": "kṣīraṃ",
+     "citation": "kṣīraṃ",
+     "morph": "n.acc.sg",
+     "options": [
+      {
+       "gloss": "milk",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "oblation substance"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1528-p004",
+     "verse_id": "mukta-m0-p62-v1528",
+     "pada_index": 4,
+     "surface": "vrīhīn",
+     "citation": "vrīhīn",
+     "morph": "m.acc.pl",
+     "options": [
+      {
+       "gloss": "rice-grains",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "oblation substance"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1528-p005",
+     "verse_id": "mukta-m0-p62-v1528",
+     "pada_index": 5,
+     "surface": "bhakṣyāṇi",
+     "citation": "bhakṣyāṇi",
+     "morph": "n.acc.pl",
+     "options": [
+      {
+       "gloss": "food-offerings",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "oblation substance"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1528-p006",
+     "verse_id": "mukta-m0-p62-v1528",
+     "pada_index": 6,
+     "surface": "dadhi",
+     "citation": "dadhi",
+     "morph": "n.acc.sg",
+     "options": [
+      {
+       "gloss": "curd",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "oblation substance"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1528-p007",
+     "verse_id": "mukta-m0-p62-v1528",
+     "pada_index": 7,
+     "surface": "api",
+     "citation": "api",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "also",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "inclusive particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p62-v1529": [
+    {
+     "id": "mukta-m0-p62-v1529-p000",
+     "verse_id": "mukta-m0-p62-v1529",
+     "pada_index": 0,
+     "surface": "saktu",
+     "citation": "saktu",
+     "morph": "n.acc.sg",
+     "options": [
+      {
+       "gloss": "groats",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "oblation substance"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1529-p001",
+     "verse_id": "mukta-m0-p62-v1529",
+     "pada_index": 1,
+     "surface": "piṣyāka",
+     "citation": "piṣyāka",
+     "morph": "compound-member piṣyāka",
+     "options": [
+      {
+       "gloss": "flour-cake",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "oblation substance"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1529-p002",
+     "verse_id": "mukta-m0-p62-v1529",
+     "pada_index": 2,
+     "surface": "takra",
+     "citation": "takra",
+     "morph": "compound-member takra",
+     "options": [
+      {
+       "gloss": "buttermilk",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "oblation substance"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1529-p003",
+     "verse_id": "mukta-m0-p62-v1529",
+     "pada_index": 3,
+     "surface": "annaṃ",
+     "citation": "annaṃ",
+     "morph": "n.acc.sg",
+     "options": [
+      {
+       "gloss": "cooked-rice",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "oblation substance"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1529-p004",
+     "verse_id": "mukta-m0-p62-v1529",
+     "pada_index": 4,
+     "surface": "juhuyāt",
+     "citation": "juhuyāt",
+     "morph": "3.sg.act-optative √hu",
+     "options": [
+      {
+       "gloss": "one-should-offer",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "prescriptive optative for oblation"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1529-p005",
+     "verse_id": "mukta-m0-p62-v1529",
+     "pada_index": 5,
+     "surface": "nityakarmaṇi",
+     "citation": "nityakarmaṇi",
+     "morph": "n.loc.sg nitya+karman",
+     "options": [
+      {
+       "gloss": "in-daily-rite",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "ritual context for offerings"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p62-v1530": [
+    {
+     "id": "mukta-m0-p62-v1530-p000",
+     "verse_id": "mukta-m0-p62-v1530",
+     "pada_index": 0,
+     "surface": "mālūraṃ",
+     "citation": "mālūraṃ",
+     "morph": "n.acc.sg",
+     "options": [
+      {
+       "gloss": "bilva-fruit",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "offering for specific purpose"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1530-p001",
+     "verse_id": "mukta-m0-p62-v1530",
+     "pada_index": 1,
+     "surface": "roganāśāya",
+     "citation": "roganāśāya",
+     "morph": "m.dat.sg roga+nāśa",
+     "options": [
+      {
+       "gloss": "for-disease-destruction",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "purpose of offering"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1530-p002",
+     "verse_id": "mukta-m0-p62-v1530",
+     "pada_index": 2,
+     "surface": "lakṣmyarthaṃ",
+     "citation": "lakṣmyarthaṃ",
+     "morph": "n.acc.sg lakṣmī+artha",
+     "options": [
+      {
+       "gloss": "for-prosperity",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "purpose of offering"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1530-p003",
+     "verse_id": "mukta-m0-p62-v1530",
+     "pada_index": 3,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "connective particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1530-p004",
+     "verse_id": "mukta-m0-p62-v1530",
+     "pada_index": 4,
+     "surface": "kuśeśayam",
+     "citation": "kuśeśayam",
+     "morph": "n.acc.sg",
+     "options": [
+      {
+       "gloss": "lotus",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "offering for prosperity"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p62-v1531": [
+    {
+     "id": "mukta-m0-p62-v1531-p000",
+     "verse_id": "mukta-m0-p62-v1531",
+     "pada_index": 0,
+     "surface": "paṃcaphalāni",
+     "citation": "paṃcaphalāni",
+     "morph": "n.nom.pl pañcan+phala",
+     "options": [
+      {
+       "gloss": "five-fruits",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "group of offering items"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1531-p001",
+     "verse_id": "mukta-m0-p62-v1531",
+     "pada_index": 1,
+     "surface": "mū:",
+     "citation": "mū:",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "variant-reading",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "textual witness marker"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1531-p002",
+     "verse_id": "mukta-m0-p62-v1531",
+     "pada_index": 2,
+     "surface": "palāni",
+     "citation": "palāni",
+     "morph": "n.nom.pl",
+     "options": [
+      {
+       "gloss": "fruits",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "alternative reading for phalāni"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1531-p003",
+     "verse_id": "mukta-m0-p62-v1531",
+     "pada_index": 3,
+     "surface": "sūkṣmāṇi",
+     "citation": "sūkṣmāṇi",
+     "morph": "n.nom.pl",
+     "options": [
+      {
+       "gloss": "small",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "describes size of items"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1531-p004",
+     "verse_id": "mukta-m0-p62-v1531",
+     "pada_index": 4,
+     "surface": "annānāṃ",
+     "citation": "annānāṃ",
+     "morph": "n.gen.pl",
+     "options": [
+      {
+       "gloss": "of-foods",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "source or type of portions"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1531-p005",
+     "verse_id": "mukta-m0-p62-v1531",
+     "pada_index": 5,
+     "surface": "grāsakhaṇḍataḥ",
+     "citation": "grāsakhaṇḍataḥ",
+     "morph": "(indecl.) grāsa+khaṇḍa+tas",
+     "options": [
+      {
+       "gloss": "by-morsel-pieces",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "manner of division"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p62-v1532": [
+    {
+     "id": "mukta-m0-p62-v1532-p000",
+     "verse_id": "mukta-m0-p62-v1532",
+     "pada_index": 0,
+     "surface": "agranthi",
+     "citation": "agranthi",
+     "morph": "compound-member a+granthi",
+     "options": [
+      {
+       "gloss": "without-knots",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "quality of ritual wood"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1532-p001",
+     "verse_id": "mukta-m0-p62-v1532",
+     "pada_index": 1,
+     "surface": "asphuṭita",
+     "citation": "asphuṭita",
+     "morph": "compound-member a+sphuṭita",
+     "options": [
+      {
+       "gloss": "uncracked",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "quality of ritual wood"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1532-p002",
+     "verse_id": "mukta-m0-p62-v1532",
+     "pada_index": 2,
+     "surface": "avakrāḥ",
+     "citation": "avakrāḥ",
+     "morph": "m.nom.pl",
+     "options": [
+      {
+       "gloss": "not-crooked",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "quality of ritual wood"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1532-p003",
+     "verse_id": "mukta-m0-p62-v1532",
+     "pada_index": 3,
+     "surface": "plakṣavṛkṣasamudbhavāḥ",
+     "citation": "plakṣavṛkṣasamudbhavāḥ",
+     "morph": "m.nom.pl plakṣa+vṛkṣa+samudbhava",
+     "options": [
+      {
+       "gloss": "from-plakṣa-tree",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "source of the wood"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p62-v1533": [
+    {
+     "id": "mukta-m0-p62-v1533-p000",
+     "verse_id": "mukta-m0-p62-v1533",
+     "pada_index": 0,
+     "surface": "vaikaṅkato",
+     "citation": "vaikaṅkato",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "of-vikaṅkata",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "type of wood"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1533-p001",
+     "verse_id": "mukta-m0-p62-v1533",
+     "pada_index": 1,
+     "surface": "hi",
+     "citation": "hi",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "indeed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "emphatic particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1533-p002",
+     "verse_id": "mukta-m0-p62-v1533",
+     "pada_index": 2,
+     "surface": "apāmārgaḥ",
+     "citation": "apāmārgaḥ",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "apāmārga",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "plant used in ritual"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1533-p003",
+     "verse_id": "mukta-m0-p62-v1533",
+     "pada_index": 3,
+     "surface": "pippalaḥ",
+     "citation": "pippalaḥ",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "pippala",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "tree used in ritual"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1533-p004",
+     "verse_id": "mukta-m0-p62-v1533",
+     "pada_index": 4,
+     "surface": "śāntipuṣṭidaḥ",
+     "citation": "śāntipuṣṭidaḥ",
+     "morph": "m.nom.sg śānti+puṣṭi+da",
+     "options": [
+      {
+       "gloss": "giving-peace-prosperity",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "effect of these materials"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p62-v1534": [
+    {
+     "id": "mukta-m0-p62-v1534-p000",
+     "verse_id": "mukta-m0-p62-v1534",
+     "pada_index": 0,
+     "surface": "aniṣṭe",
+     "citation": "aniṣṭe",
+     "morph": "n.loc.sg",
+     "options": [
+      {
+       "gloss": "in-unfavorable-rite",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "ritual context"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1534-p001",
+     "verse_id": "mukta-m0-p62-v1534",
+     "pada_index": 1,
+     "surface": "janturomāṇi",
+     "citation": "janturomāṇi",
+     "morph": "n.nom.pl jantu+roman",
+     "options": [
+      {
+       "gloss": "creature-hairs",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "material for hostile rite"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1534-p002",
+     "verse_id": "mukta-m0-p62-v1534",
+     "pada_index": 2,
+     "surface": "dveṣe",
+     "citation": "dveṣe",
+     "morph": "m.loc.sg",
+     "options": [
+      {
+       "gloss": "in-hatred-rite",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "ritual context"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1534-p003",
+     "verse_id": "mukta-m0-p62-v1534",
+     "pada_index": 3,
+     "surface": "śleṣmānta",
+     "citation": "śleṣmānta",
+     "morph": "compound-member śleṣman+anta",
+     "options": [
+      {
+       "gloss": "phlegm-ending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "descriptive qualifier of plants"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1534-p004",
+     "verse_id": "mukta-m0-p62-v1534",
+     "pada_index": 4,
+     "surface": "śigrukau",
+     "citation": "śigrukau",
+     "morph": "m.nom.du",
+     "options": [
+      {
+       "gloss": "two-śigru-plants",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "materials for hatred rite"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p62-v1535": [
+    {
+     "id": "mukta-m0-p62-v1535-p000",
+     "verse_id": "mukta-m0-p62-v1535",
+     "pada_index": 0,
+     "surface": "taddhūlyā",
+     "citation": "taddhūlyā",
+     "morph": "f.inst.sg tad+dhūli",
+     "options": [
+      {
+       "gloss": "with-their-dust",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "material derived from previous items"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1535-p001",
+     "verse_id": "mukta-m0-p62-v1535",
+     "pada_index": 1,
+     "surface": "kākapakṣaṃ",
+     "citation": "kākapakṣaṃ",
+     "morph": "n.acc.sg kāka+pakṣa",
+     "options": [
+      {
+       "gloss": "crow-feather",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "material for hostile rite"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1535-p002",
+     "verse_id": "mukta-m0-p62-v1535",
+     "pada_index": 2,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "connective particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1535-p003",
+     "verse_id": "mukta-m0-p62-v1535",
+     "pada_index": 3,
+     "surface": "nidhane",
+     "citation": "nidhane",
+     "morph": "n.loc.sg",
+     "options": [
+      {
+       "gloss": "in-killing-rite",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "ritual context"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1535-p004",
+     "verse_id": "mukta-m0-p62-v1535",
+     "pada_index": 4,
+     "surface": "nimbaśoṇitam",
+     "citation": "nimbaśoṇitam",
+     "morph": "n.acc.sg nimba+śoṇita",
+     "options": [
+      {
+       "gloss": "nimba-blood",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "material for killing rite"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p62-v1536": [
+    {
+     "id": "mukta-m0-p62-v1536-p000",
+     "verse_id": "mukta-m0-p62-v1536",
+     "pada_index": 0,
+     "surface": "śamī",
+     "citation": "śamī",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "śamī",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "ritual plant"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1536-p001",
+     "verse_id": "mukta-m0-p62-v1536",
+     "pada_index": 1,
+     "surface": "dūrvā",
+     "citation": "dūrvā",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "dūrvā-grass",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "ritual plant"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1536-p002",
+     "verse_id": "mukta-m0-p62-v1536",
+     "pada_index": 2,
+     "surface": "kuśā",
+     "citation": "kuśā",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "kuśa-grass",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "ritual plant"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1536-p003",
+     "verse_id": "mukta-m0-p62-v1536",
+     "pada_index": 3,
+     "surface": "havyā",
+     "citation": "havyā",
+     "morph": "n.nom.pl",
+     "options": [
+      {
+       "gloss": "oblation-materials",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "items fit for offering"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1536-p004",
+     "verse_id": "mukta-m0-p62-v1536",
+     "pada_index": 4,
+     "surface": "arkādigrahaśāntaye",
+     "citation": "arkādigrahaśāntaye",
+     "morph": "f.dat.sg arka+ādi+graha+śānti",
+     "options": [
+      {
+       "gloss": "for-sun-etc-planet-pacification",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "purpose of offerings"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p62-v1537": [
+    {
+     "id": "mukta-m0-p62-v1537-p000",
+     "verse_id": "mukta-m0-p62-v1537",
+     "pada_index": 0,
+     "surface": "padmarāga",
+     "citation": "padmarāga",
+     "morph": "compound-member padma+rāga",
+     "options": [
+      {
+       "gloss": "like-ruby",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "comparison for auspicious appearance"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1537-p001",
+     "verse_id": "mukta-m0-p62-v1537",
+     "pada_index": 1,
+     "surface": "indranīla",
+     "citation": "indranīla",
+     "morph": "compound-member indra+nīla",
+     "options": [
+      {
+       "gloss": "like-sapphire",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "comparison for auspicious appearance"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1537-p002",
+     "verse_id": "mukta-m0-p62-v1537",
+     "pada_index": 2,
+     "surface": "arka",
+     "citation": "arka",
+     "morph": "compound-member arka",
+     "options": [
+      {
+       "gloss": "like-sunstone",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "comparison for auspicious appearance"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1537-p003",
+     "verse_id": "mukta-m0-p62-v1537",
+     "pada_index": 3,
+     "surface": "śuddhasphaṭika",
+     "citation": "śuddhasphaṭika",
+     "morph": "compound-member śuddha+sphaṭika",
+     "options": [
+      {
+       "gloss": "like-pure-crystal",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "comparison for auspicious appearance"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1537-p004",
+     "verse_id": "mukta-m0-p62-v1537",
+     "pada_index": 4,
+     "surface": "hemavat",
+     "citation": "hemavat",
+     "morph": "n.nom.sg",
+     "options": [
+      {
+       "gloss": "like-gold",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "comparison for auspicious appearance"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p62-v1538": [
+    {
+     "id": "mukta-m0-p62-v1538-p000",
+     "verse_id": "mukta-m0-p62-v1538",
+     "pada_index": 0,
+     "surface": "śubhaḥ",
+     "citation": "śubhaḥ",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "auspicious",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "evaluative quality of the described item"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p62-v1539": [
+    {
+     "id": "mukta-m0-p62-v1539-p000",
+     "verse_id": "mukta-m0-p62-v1539",
+     "pada_index": 0,
+     "surface": "nirgandhaḥ",
+     "citation": "nirgandhaḥ",
+     "morph": "m.nom.sg nis+gandha",
+     "options": [
+      {
+       "gloss": "without-smell",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "inauspicious quality"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1539-p001",
+     "verse_id": "mukta-m0-p62-v1539",
+     "pada_index": 1,
+     "surface": "pāṇḍaro",
+     "citation": "pāṇḍaro",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "pale",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "inauspicious quality"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1539-p002",
+     "verse_id": "mukta-m0-p62-v1539",
+     "pada_index": 2,
+     "surface": "rūkṣaḥ",
+     "citation": "rūkṣaḥ",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "dry",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "inauspicious quality"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1539-p003",
+     "verse_id": "mukta-m0-p62-v1539",
+     "pada_index": 3,
+     "surface": "kṛṣṇāṅgāranibhaḥ",
+     "citation": "kṛṣṇāṅgāranibhaḥ",
+     "morph": "m.nom.sg kṛṣṇa+aṅgāra+nibha",
+     "options": [
+      {
+       "gloss": "resembling-black-charcoal",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "inauspicious appearance"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1539-p004",
+     "verse_id": "mukta-m0-p62-v1539",
+     "pada_index": 4,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "connective particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1539-p005",
+     "verse_id": "mukta-m0-p62-v1539",
+     "pada_index": 5,
+     "surface": "yaḥ",
+     "citation": "yaḥ",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "which",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "introduces the described item"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p62-v1540": [
+    {
+     "id": "mukta-m0-p62-v1540-p000",
+     "verse_id": "mukta-m0-p62-v1540",
+     "pada_index": 0,
+     "surface": "evaṃ",
+     "citation": "evaṃ",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "thus",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "refers to prior criteria"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1540-p001",
+     "verse_id": "mukta-m0-p62-v1540",
+     "pada_index": 1,
+     "surface": "jñātvā",
+     "citation": "jñātvā",
+     "morph": "(indecl.) √jñā",
+     "options": [
+      {
+       "gloss": "having-known",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "prior assessment before action"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1540-p002",
+     "verse_id": "mukta-m0-p62-v1540",
+     "pada_index": 2,
+     "surface": "prakartavyo",
+     "citation": "prakartavyo",
+     "morph": "m.nom.sg pra+√kṛ",
+     "options": [
+      {
+       "gloss": "to-be-performed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "prescriptive gerundive"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1540-p003",
+     "verse_id": "mukta-m0-p62-v1540",
+     "pada_index": 3,
+     "surface": "gh:",
+     "citation": "gh:",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "variant-reading",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "textual witness marker"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1540-p004",
+     "verse_id": "mukta-m0-p62-v1540",
+     "pada_index": 4,
+     "surface": "yāge-",
+     "citation": "yāge-",
+     "morph": "compound-member yāga",
+     "options": [
+      {
+       "gloss": "in-sacrifice",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "ritual context in variant"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1540-p005",
+     "verse_id": "mukta-m0-p62-v1540",
+     "pada_index": 5,
+     "surface": "homaḥ",
+     "citation": "homaḥ",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "oblation",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "ritual act under consideration"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1540-p006",
+     "verse_id": "mukta-m0-p62-v1540",
+     "pada_index": 6,
+     "surface": "tena",
+     "citation": "tena",
+     "morph": "m.inst.sg",
+     "options": [
+      {
+       "gloss": "by-that",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "instrumental or causal reference"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1540-p007",
+     "verse_id": "mukta-m0-p62-v1540",
+     "pada_index": 7,
+     "surface": "atha",
+     "citation": "atha",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "or-else",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "alternative marker"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1540-p008",
+     "verse_id": "mukta-m0-p62-v1540",
+     "pada_index": 8,
+     "surface": "vā",
+     "citation": "vā",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "or",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "alternative particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1540-p009",
+     "verse_id": "mukta-m0-p62-v1540",
+     "pada_index": 9,
+     "surface": "na",
+     "citation": "na",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "not",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "negation"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1540-p010",
+     "verse_id": "mukta-m0-p62-v1540",
+     "pada_index": 10,
+     "surface": "vā",
+     "citation": "vā",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "or",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "alternative particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p62-v1541": [
+    {
+     "id": "mukta-m0-p62-v1541-p000",
+     "verse_id": "mukta-m0-p62-v1541",
+     "pada_index": 0,
+     "surface": "adhivāsanadīkṣāyām",
+     "citation": "adhivāsanadīkṣāyām",
+     "morph": "f.loc.sg adhivāsana+dīkṣā",
+     "options": [
+      {
+       "gloss": "in-consecration-initiation",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "ritual context"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1541-p001",
+     "verse_id": "mukta-m0-p62-v1541",
+     "pada_index": 1,
+     "surface": "abhiṣeke",
+     "citation": "abhiṣeke",
+     "morph": "m.loc.sg",
+     "options": [
+      {
+       "gloss": "in-ablution",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "ritual context"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1541-p002",
+     "verse_id": "mukta-m0-p62-v1541",
+     "pada_index": 2,
+     "surface": "tathaiva",
+     "citation": "tathaiva",
+     "morph": "(indecl.) tathā+eva",
+     "options": [
+      {
+       "gloss": "likewise",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "extends previous rule"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1541-p003",
+     "verse_id": "mukta-m0-p62-v1541",
+     "pada_index": 3,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "connective particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p62-v1542": [
+    {
+     "id": "mukta-m0-p62-v1542-p000",
+     "verse_id": "mukta-m0-p62-v1542",
+     "pada_index": 0,
+     "surface": "gopucchasadṛśaṃ",
+     "citation": "gopucchasadṛśaṃ",
+     "morph": "n.acc.sg go+puccha+sadṛśa",
+     "options": [
+      {
+       "gloss": "resembling-cow-tail",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "shape description of implement"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1542-p001",
+     "verse_id": "mukta-m0-p62-v1542",
+     "pada_index": 1,
+     "surface": "cāru",
+     "citation": "cāru",
+     "morph": "n.acc.sg",
+     "options": [
+      {
+       "gloss": "beautiful",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "desirable quality"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1542-p002",
+     "verse_id": "mukta-m0-p62-v1542",
+     "pada_index": 2,
+     "surface": "hastadaghnā",
+     "citation": "hastadaghnā",
+     "morph": "compound-member hasta+daghna",
+     "options": [
+      {
+       "gloss": "reaching-hand-length",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "size description"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1542-p003",
+     "verse_id": "mukta-m0-p62-v1542",
+     "pada_index": 3,
+     "surface": "avraṇaṃ",
+     "citation": "avraṇaṃ",
+     "morph": "n.acc.sg a+vraṇa",
+     "options": [
+      {
+       "gloss": "without-wound",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "condition of implement"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1542-p004",
+     "verse_id": "mukta-m0-p62-v1542",
+     "pada_index": 4,
+     "surface": "dṛḍham",
+     "citation": "dṛḍham",
+     "morph": "n.acc.sg",
+     "options": [
+      {
+       "gloss": "firm",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "condition of implement"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p62-v1543": [
+    {
+     "id": "mukta-m0-p62-v1543-p000",
+     "verse_id": "mukta-m0-p62-v1543",
+     "pada_index": 0,
+     "surface": "tatkhātaṃ",
+     "citation": "tatkhātaṃ",
+     "morph": "n.nom.sg tad+khāta",
+     "options": [
+      {
+       "gloss": "its-pit",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "excavated part of the implement or altar"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1543-p001",
+     "verse_id": "mukta-m0-p62-v1543",
+     "pada_index": 1,
+     "surface": "tryaṅgulaṃ",
+     "citation": "tryaṅgulaṃ",
+     "morph": "n.nom.sg tri+aṅgula",
+     "options": [
+      {
+       "gloss": "three-fingers-deep",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "measurement of pit"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1543-p002",
+     "verse_id": "mukta-m0-p62-v1543",
+     "pada_index": 2,
+     "surface": "k:",
+     "citation": "k:",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "variant-reading",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "textual witness marker"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1543-p003",
+     "verse_id": "mukta-m0-p62-v1543",
+     "pada_index": 3,
+     "surface": "dvyaṅgulaṃ",
+     "citation": "dvyaṅgulaṃ",
+     "morph": "n.nom.sg dvi+aṅgula",
+     "options": [
+      {
+       "gloss": "two-fingers-deep",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "alternative measurement"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1543-p004",
+     "verse_id": "mukta-m0-p62-v1543",
+     "pada_index": 4,
+     "surface": "madhye",
+     "citation": "madhye",
+     "morph": "n.loc.sg",
+     "options": [
+      {
+       "gloss": "in-middle",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "location of ridge"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1543-p005",
+     "verse_id": "mukta-m0-p62-v1543",
+     "pada_index": 5,
+     "surface": "setuḥ",
+     "citation": "setuḥ",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "ridge",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "structural feature"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1543-p006",
+     "verse_id": "mukta-m0-p62-v1543",
+     "pada_index": 6,
+     "surface": "dviyavavistaraḥ",
+     "citation": "dviyavavistaraḥ",
+     "morph": "m.nom.sg dvi+yava+vistara",
+     "options": [
+      {
+       "gloss": "two-barleycorns-wide",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "measurement of ridge"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p62-v1544": [
+    {
+     "id": "mukta-m0-p62-v1544-p000",
+     "verse_id": "mukta-m0-p62-v1544",
+     "pada_index": 0,
+     "surface": "āmrī",
+     "citation": "āmrī",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "of-mango-wood",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "material for ladle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1544-p001",
+     "verse_id": "mukta-m0-p62-v1544",
+     "pada_index": 1,
+     "surface": "vaikaṅkatī",
+     "citation": "vaikaṅkatī",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "of-vikaṅkata-wood",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "material for ladle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1544-p002",
+     "verse_id": "mukta-m0-p62-v1544",
+     "pada_index": 2,
+     "surface": "baijī",
+     "citation": "baijī",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "of-bilva-wood",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "material for ladle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1544-p003",
+     "verse_id": "mukta-m0-p62-v1544",
+     "pada_index": 3,
+     "surface": "sruk",
+     "citation": "sruk",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "ladle",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "ritual implement"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1544-p004",
+     "verse_id": "mukta-m0-p62-v1544",
+     "pada_index": 4,
+     "surface": "pālāśī",
+     "citation": "pālāśī",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "of-palāśa-wood",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "material for ladle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1544-p005",
+     "verse_id": "mukta-m0-p62-v1544",
+     "pada_index": 5,
+     "surface": "atha",
+     "citation": "atha",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "then",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "connective particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1544-p006",
+     "verse_id": "mukta-m0-p62-v1544",
+     "pada_index": 6,
+     "surface": "śaiṃśapī",
+     "citation": "śaiṃśapī",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "of-śiṃśapa-wood",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "material for ladle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p62-v1545": [
+    {
+     "id": "mukta-m0-p62-v1545-p000",
+     "verse_id": "mukta-m0-p62-v1545",
+     "pada_index": 0,
+     "surface": "ṣaḍaṅgulaparīṇāho",
+     "citation": "ṣaḍaṅgulaparīṇāho",
+     "morph": "m.nom.sg ṣaṣ+aṅgula+parīṇāha",
+     "options": [
+      {
+       "gloss": "six-fingers-in-circumference",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "measurement of implement"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1545-p001",
+     "verse_id": "mukta-m0-p62-v1545",
+     "pada_index": 1,
+     "surface": "vedyaṣṭonnativistarā",
+     "citation": "vedyaṣṭonnativistarā",
+     "morph": "f.nom.sg vedi+aṣṭa+unnati+vistara",
+     "options": [
+      {
+       "gloss": "with-altar-eight-in-height-width",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "measurement description"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1545-p002",
+     "verse_id": "mukta-m0-p62-v1545",
+     "pada_index": 2,
+     "surface": "k,",
+     "citation": "k,",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "variant-reading",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "textual witness marker"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1545-p003",
+     "verse_id": "mukta-m0-p62-v1545",
+     "pada_index": 3,
+     "surface": "g:",
+     "citation": "g:",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "variant-reading",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "textual witness marker"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1545-p004",
+     "verse_id": "mukta-m0-p62-v1545",
+     "pada_index": 4,
+     "surface": "dvedvyaṣṭo-",
+     "citation": "dvedvyaṣṭo-",
+     "morph": "compound-member dvi+dvi+aṣṭa",
+     "options": [
+      {
+       "gloss": "two-and-eight",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "alternative measurement element"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p62-v1546": [
+    {
+     "id": "mukta-m0-p62-v1546-p000",
+     "verse_id": "mukta-m0-p62-v1546",
+     "pada_index": 0,
+     "surface": "mekhalābjāṣṭapatrāḍhyaṃ",
+     "citation": "mekhalābjāṣṭapatrāḍhyaṃ",
+     "morph": "n.nom.sg mekhalā+abja+aṣṭa+patra+āḍhya",
+     "options": [
+      {
+       "gloss": "endowed-with-rim-lotus-eight-petals",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "decorative structural description"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1546-p001",
+     "verse_id": "mukta-m0-p62-v1546",
+     "pada_index": 1,
+     "surface": "sarpiḥ",
+     "citation": "sarpiḥ",
+     "morph": "compound-member sarpis",
+     "options": [
+      {
+       "gloss": "ghee-capacity",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "capacity related to ghee"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1546-p002",
+     "verse_id": "mukta-m0-p62-v1546",
+     "pada_index": 2,
+     "surface": "k:",
+     "citation": "k:",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "variant-reading",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "textual witness marker"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1546-p003",
+     "verse_id": "mukta-m0-p62-v1546",
+     "pada_index": 3,
+     "surface": "sandhiḥ",
+     "citation": "sandhiḥ",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "junction",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "alternative reading element"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1546-p004",
+     "verse_id": "mukta-m0-p62-v1546",
+     "pada_index": 4,
+     "surface": "kuḍavasammitam",
+     "citation": "kuḍavasammitam",
+     "morph": "n.nom.sg kuḍava+sammitam",
+     "options": [
+      {
+       "gloss": "measuring-one-kuḍava",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "capacity measurement"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p62-v1547": [
+    {
+     "id": "mukta-m0-p62-v1547-p000",
+     "verse_id": "mukta-m0-p62-v1547",
+     "pada_index": 0,
+     "surface": "dvyaṅgulāgrapramāṇaṃ",
+     "citation": "dvyaṅgulāgrapramāṇaṃ",
+     "morph": "n.nom.sg dvi+aṅgula+agra+pramāṇa",
+     "options": [
+      {
+       "gloss": "two-fingers-tip-measure",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "measurement of tip"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1547-p001",
+     "verse_id": "mukta-m0-p62-v1547",
+     "pada_index": 1,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "connective particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1547-p002",
+     "verse_id": "mukta-m0-p62-v1547",
+     "pada_index": 2,
+     "surface": "gajoṣṭhasadṛśaṃ",
+     "citation": "gajoṣṭhasadṛśaṃ",
+     "morph": "n.nom.sg gaja+oṣṭha+sadṛśa",
+     "options": [
+      {
+       "gloss": "resembling-elephant-lip",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "shape of tip"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1547-p003",
+     "verse_id": "mukta-m0-p62-v1547",
+     "pada_index": 3,
+     "surface": "bhavet",
+     "citation": "bhavet",
+     "morph": "3.sg.act-optative √bhū",
+     "options": [
+      {
+       "gloss": "should-be",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "prescriptive optative"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p62-v1548": [
+    {
+     "id": "mukta-m0-p62-v1548-p000",
+     "verse_id": "mukta-m0-p62-v1548",
+     "pada_index": 0,
+     "surface": "kaniṣṭhāṅgulivat",
+     "citation": "kaniṣṭhāṅgulivat",
+     "morph": "(indecl.) kaniṣṭhā+aṅguli+vat",
+     "options": [
+      {
+       "gloss": "like-little-finger",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "comparison for thickness"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1548-p001",
+     "verse_id": "mukta-m0-p62-v1548",
+     "pada_index": 1,
+     "surface": "sthūlaṃ",
+     "citation": "sthūlaṃ",
+     "morph": "n.nom.sg",
+     "options": [
+      {
+       "gloss": "thick",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "dimension of implement"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1548-p002",
+     "verse_id": "mukta-m0-p62-v1548",
+     "pada_index": 2,
+     "surface": "sarpinirgamanāya",
+     "citation": "sarpinirgamanāya",
+     "morph": "n.dat.sg sarpis+nirgamana",
+     "options": [
+      {
+       "gloss": "for-ghee-flowing",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "purpose of the form"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1548-p003",
+     "verse_id": "mukta-m0-p62-v1548",
+     "pada_index": 3,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "connective particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p62-v1549": [
+    {
+     "id": "mukta-m0-p62-v1549-p000",
+     "verse_id": "mukta-m0-p62-v1549",
+     "pada_index": 0,
+     "surface": "aṅgulaiḥ",
+     "citation": "aṅgulaiḥ",
+     "morph": "m.inst.pl",
+     "options": [
+      {
+       "gloss": "with-fingers",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "unit of measurement"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1549-p001",
+     "verse_id": "mukta-m0-p62-v1549",
+     "pada_index": 1,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "connective particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1549-p002",
+     "verse_id": "mukta-m0-p62-v1549",
+     "pada_index": 2,
+     "surface": "caturbhiḥ",
+     "citation": "caturbhiḥ",
+     "morph": "m.inst.pl",
+     "options": [
+      {
+       "gloss": "with-four",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "number of finger units"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1549-p003",
+     "verse_id": "mukta-m0-p62-v1549",
+     "pada_index": 3,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "connective particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1549-p004",
+     "verse_id": "mukta-m0-p62-v1549",
+     "pada_index": 4,
+     "surface": "daṇḍāgre",
+     "citation": "daṇḍāgre",
+     "morph": "n.loc.sg daṇḍa+agra",
+     "options": [
+      {
+       "gloss": "at-handle-tip",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "location on implement"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1549-p005",
+     "verse_id": "mukta-m0-p62-v1549",
+     "pada_index": 5,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "connective particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1549-p006",
+     "verse_id": "mukta-m0-p62-v1549",
+     "pada_index": 6,
+     "surface": "upavedikā",
+     "citation": "upavedikā",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "small-platform",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "structural feature at handle tip"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p62-v1550": [
+    {
+     "id": "mukta-m0-p62-v1550-p000",
+     "verse_id": "mukta-m0-p62-v1550",
+     "pada_index": 0,
+     "surface": "tau",
+     "citation": "tau",
+     "morph": "m.acc.du",
+     "options": [
+      {
+       "gloss": "those-two",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "refers to the two objects previously mentioned"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1550-p001",
+     "verse_id": "mukta-m0-p62-v1550",
+     "pada_index": 1,
+     "surface": "santāpya",
+     "citation": "santāpya",
+     "morph": "gerund; sam-√tap",
+     "options": [
+      {
+       "gloss": "having-heated",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "absolutive expressing prior action"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1550-p002",
+     "verse_id": "mukta-m0-p62-v1550",
+     "pada_index": 2,
+     "surface": "kuśaiḥ",
+     "citation": "kuśaiḥ",
+     "morph": "m.inst.pl",
+     "options": [
+      {
+       "gloss": "with-kuśa-grass",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "instrument used for heating"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1550-p003",
+     "verse_id": "mukta-m0-p62-v1550",
+     "pada_index": 3,
+     "surface": "spṛṣdavā",
+     "citation": "spṛṣdavā",
+     "morph": "gerund; √spṛś",
+     "options": [
+      {
+       "gloss": "having-touched",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "absolutive expressing subsequent action; surface form as given"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1550-p004",
+     "verse_id": "mukta-m0-p62-v1550",
+     "pada_index": 4,
+     "surface": "mūlamadhyāgrataḥ",
+     "citation": "mūlamadhyāgrataḥ",
+     "morph": "indecl.; mūla-madhya-agra-tas",
+     "options": [
+      {
+       "gloss": "from-root-middle-tip",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "specifies the spatial sequence of contact"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p62-v1550-p005",
+     "verse_id": "mukta-m0-p62-v1550",
+     "pada_index": 5,
+     "surface": "kramāt",
+     "citation": "kramāt",
+     "morph": "m.abl.sg",
+     "options": [
+      {
+       "gloss": "in-order",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indicates sequential progression"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ]
+  },
+  "argmap": {
+   "mukta-m0-p62-v1526": {
+    "verse_id": "mukta-m0-p62-v1526",
+    "song": "mukta-m0-p62",
+    "verse": 1526,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "How should the eye and weapon mantras be marked by nasal or visarga?",
+    "premises": [
+     "The eye mantra should have an anusvāra.",
+     "A variant reading gives mantra instead of weapon mantra.",
+     "The form may be distinguished by a visarga."
+    ],
+    "inference": "The prescribed mantra form varies by nasalization or visarga according to the reading.",
+    "uncertainties": [
+     "Exact syntactic relation of the variant reading kh: mantraṃ is compressed."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p62-v1526",
+     "l0_ids": [
+      "mukta-m0-p62-v1526-p000",
+      "mukta-m0-p62-v1526-p001",
+      "mukta-m0-p62-v1526-p002",
+      "mukta-m0-p62-v1526-p003",
+      "mukta-m0-p62-v1526-p004",
+      "mukta-m0-p62-v1526-p005",
+      "mukta-m0-p62-v1526-p006"
+     ],
+     "sanskrit_sha": "4c53e5675de1d96c"
+    },
+    "sanskrit_sha": "4c53e5675de1d96c"
+   },
+   "mukta-m0-p62-v1527": {
+    "verse_id": "mukta-m0-p62-v1527",
+    "song": "mukta-m0-p62",
+    "verse": 1527,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "Who must employ the class-marked forms at the end of the mantras?",
+    "premises": [
+     "Forms joined with a birth-class are specified.",
+     "These forms are to be applied at the end.",
+     "The ritual actor responsible is the priest."
+    ],
+    "inference": "The priest must employ the class-marked forms at the end of the mantras.",
+    "uncertainties": [
+     "The precise referent of jāti in this ritual context is not fully specified."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p62-v1527",
+     "l0_ids": [
+      "mukta-m0-p62-v1527-p000",
+      "mukta-m0-p62-v1527-p001",
+      "mukta-m0-p62-v1527-p002",
+      "mukta-m0-p62-v1527-p003",
+      "mukta-m0-p62-v1527-p004",
+      "mukta-m0-p62-v1527-p005",
+      "mukta-m0-p62-v1527-p006",
+      "mukta-m0-p62-v1527-p007"
+     ],
+     "sanskrit_sha": "4c53e5675de1d96c"
+    },
+    "sanskrit_sha": "4c53e5675de1d96c"
+   },
+   "mukta-m0-p62-v1528": {
+    "verse_id": "mukta-m0-p62-v1528",
+    "song": "mukta-m0-p62",
+    "verse": 1528,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "Which substances are included among the offerings listed for ritual use?",
+    "premises": [
+     "Ghee, sesame seeds, barley, milk, and rice grains are listed.",
+     "Food offerings are included in the list.",
+     "Curd is also included."
+    ],
+    "inference": "A range of food and dairy substances are prescribed as offerings.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p62-v1528",
+     "l0_ids": [
+      "mukta-m0-p62-v1528-p000",
+      "mukta-m0-p62-v1528-p001",
+      "mukta-m0-p62-v1528-p002",
+      "mukta-m0-p62-v1528-p003",
+      "mukta-m0-p62-v1528-p004",
+      "mukta-m0-p62-v1528-p005",
+      "mukta-m0-p62-v1528-p006",
+      "mukta-m0-p62-v1528-p007"
+     ],
+     "sanskrit_sha": "4c53e5675de1d96c"
+    },
+    "sanskrit_sha": "4c53e5675de1d96c"
+   },
+   "mukta-m0-p62-v1529": {
+    "verse_id": "mukta-m0-p62-v1529",
+    "song": "mukta-m0-p62",
+    "verse": 1529,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What additional substances should be offered in the daily ritual?",
+    "premises": [
+     "Groats, flour-cake, buttermilk, and cooked rice are named.",
+     "These are to be offered as oblations.",
+     "The context is the daily rite."
+    ],
+    "inference": "These substances should be offered in the daily ritual.",
+    "uncertainties": [
+     "The compound piṣyāka-takra-annaṃ is treated as a sequence of items in context."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p62-v1529",
+     "l0_ids": [
+      "mukta-m0-p62-v1529-p000",
+      "mukta-m0-p62-v1529-p001",
+      "mukta-m0-p62-v1529-p002",
+      "mukta-m0-p62-v1529-p003",
+      "mukta-m0-p62-v1529-p004",
+      "mukta-m0-p62-v1529-p005"
+     ],
+     "sanskrit_sha": "4c53e5675de1d96c"
+    },
+    "sanskrit_sha": "4c53e5675de1d96c"
+   },
+   "mukta-m0-p62-v1530": {
+    "verse_id": "mukta-m0-p62-v1530",
+    "song": "mukta-m0-p62",
+    "verse": 1530,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "Which offerings are prescribed for destroying disease and gaining prosperity?",
+    "premises": [
+     "Bilva fruit is linked to the destruction of disease.",
+     "Lotus is linked to prosperity.",
+     "Both purposes are stated together."
+    ],
+    "inference": "Bilva fruit should be used for removing disease and lotus for prosperity.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p62-v1530",
+     "l0_ids": [
+      "mukta-m0-p62-v1530-p000",
+      "mukta-m0-p62-v1530-p001",
+      "mukta-m0-p62-v1530-p002",
+      "mukta-m0-p62-v1530-p003",
+      "mukta-m0-p62-v1530-p004"
+     ],
+     "sanskrit_sha": "4c53e5675de1d96c"
+    },
+    "sanskrit_sha": "4c53e5675de1d96c"
+   },
+   "mukta-m0-p62-v1531": {
+    "verse_id": "mukta-m0-p62-v1531",
+    "song": "mukta-m0-p62",
+    "verse": 1531,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "How should the five small fruits or food portions be prepared for offering?",
+    "premises": [
+     "Five fruits or, in a variant, fruits are specified.",
+     "They are described as small.",
+     "They are to be taken as morsel-sized pieces of food."
+    ],
+    "inference": "The small fruits or food items should be prepared in morsel-sized pieces.",
+    "uncertainties": [
+     "The relation between paṃcaphalāni and annānāṃ is somewhat compressed."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p62-v1531",
+     "l0_ids": [
+      "mukta-m0-p62-v1531-p000",
+      "mukta-m0-p62-v1531-p001",
+      "mukta-m0-p62-v1531-p002",
+      "mukta-m0-p62-v1531-p003",
+      "mukta-m0-p62-v1531-p004",
+      "mukta-m0-p62-v1531-p005"
+     ],
+     "sanskrit_sha": "4c53e5675de1d96c"
+    },
+    "sanskrit_sha": "4c53e5675de1d96c"
+   },
+   "mukta-m0-p62-v1532": {
+    "verse_id": "mukta-m0-p62-v1532",
+    "song": "mukta-m0-p62",
+    "verse": 1532,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What qualities must the sticks from the plakṣa tree possess for ritual use?",
+    "premises": [
+     "The sticks must be without knots.",
+     "The sticks must be uncracked.",
+     "The sticks must be straight and come from the plakṣa tree."
+    ],
+    "inference": "Only straight, uncracked, knotless sticks from the plakṣa tree are suitable.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p62-v1532",
+     "l0_ids": [
+      "mukta-m0-p62-v1532-p000",
+      "mukta-m0-p62-v1532-p001",
+      "mukta-m0-p62-v1532-p002",
+      "mukta-m0-p62-v1532-p003"
+     ],
+     "sanskrit_sha": "4c53e5675de1d96c"
+    },
+    "sanskrit_sha": "4c53e5675de1d96c"
+   },
+   "mukta-m0-p62-v1533": {
+    "verse_id": "mukta-m0-p62-v1533",
+    "song": "mukta-m0-p62",
+    "verse": 1533,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "Which woods or plants are said to bring peace and prosperity?",
+    "premises": [
+     "Vikaṅkata, apāmārga, and pippala are named.",
+     "These are presented as suitable materials.",
+     "They are said to give peace and prosperity."
+    ],
+    "inference": "Vikaṅkata, apāmārga, and pippala are prescribed for peace and prosperity.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p62-v1533",
+     "l0_ids": [
+      "mukta-m0-p62-v1533-p000",
+      "mukta-m0-p62-v1533-p001",
+      "mukta-m0-p62-v1533-p002",
+      "mukta-m0-p62-v1533-p003",
+      "mukta-m0-p62-v1533-p004"
+     ],
+     "sanskrit_sha": "4c53e5675de1d96c"
+    },
+    "sanskrit_sha": "4c53e5675de1d96c"
+   },
+   "mukta-m0-p62-v1534": {
+    "verse_id": "mukta-m0-p62-v1534",
+    "song": "mukta-m0-p62",
+    "verse": 1534,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What materials are prescribed for unfavorable and hatred rituals?",
+    "premises": [
+     "Creature hairs are specified for an unfavorable rite.",
+     "Two śigru plants are specified for a hatred rite.",
+     "The śigru plants are qualified as phlegm-ending."
+    ],
+    "inference": "Different materials are assigned to unfavorable and hatred rituals.",
+    "uncertainties": [
+     "The exact meaning of śleṣmānta as a plant qualifier is unclear."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p62-v1534",
+     "l0_ids": [
+      "mukta-m0-p62-v1534-p000",
+      "mukta-m0-p62-v1534-p001",
+      "mukta-m0-p62-v1534-p002",
+      "mukta-m0-p62-v1534-p003",
+      "mukta-m0-p62-v1534-p004"
+     ],
+     "sanskrit_sha": "4c53e5675de1d96c"
+    },
+    "sanskrit_sha": "4c53e5675de1d96c"
+   },
+   "mukta-m0-p62-v1535": {
+    "verse_id": "mukta-m0-p62-v1535",
+    "song": "mukta-m0-p62",
+    "verse": 1535,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What substances are used together in a killing ritual?",
+    "premises": [
+     "Dust from the previously mentioned items is used.",
+     "A crow feather is included.",
+     "Nimba blood is prescribed in a killing rite."
+    ],
+    "inference": "The killing rite employs their dust, a crow feather, and nimba blood.",
+    "uncertainties": [
+     "The term nimbaśoṇitam may be a technical or symbolic substance name."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p62-v1535",
+     "l0_ids": [
+      "mukta-m0-p62-v1535-p000",
+      "mukta-m0-p62-v1535-p001",
+      "mukta-m0-p62-v1535-p002",
+      "mukta-m0-p62-v1535-p003",
+      "mukta-m0-p62-v1535-p004"
+     ],
+     "sanskrit_sha": "4c53e5675de1d96c"
+    },
+    "sanskrit_sha": "4c53e5675de1d96c"
+   },
+   "mukta-m0-p62-v1536": {
+    "verse_id": "mukta-m0-p62-v1536",
+    "song": "mukta-m0-p62",
+    "verse": 1536,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "Which oblation materials are prescribed for pacifying the sun and other planets?",
+    "premises": [
+     "Śamī, dūrvā grass, and kuśa grass are named.",
+     "These are described as oblation materials.",
+     "Their purpose is pacification of the sun and other planets."
+    ],
+    "inference": "Śamī, dūrvā, and kuśa are oblation materials for planetary pacification.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p62-v1536",
+     "l0_ids": [
+      "mukta-m0-p62-v1536-p000",
+      "mukta-m0-p62-v1536-p001",
+      "mukta-m0-p62-v1536-p002",
+      "mukta-m0-p62-v1536-p003",
+      "mukta-m0-p62-v1536-p004"
+     ],
+     "sanskrit_sha": "4c53e5675de1d96c"
+    },
+    "sanskrit_sha": "4c53e5675de1d96c"
+   },
+   "mukta-m0-p62-v1537": {
+    "verse_id": "mukta-m0-p62-v1537",
+    "song": "mukta-m0-p62",
+    "verse": 1537,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What gem-like appearances are associated with an auspicious quality?",
+    "premises": [
+     "Appearances like ruby, sapphire, sunstone, and pure crystal are listed.",
+     "An appearance like gold is also listed.",
+     "These comparisons describe a desirable quality."
+    ],
+    "inference": "Auspicious material may resemble ruby, sapphire, sunstone, pure crystal, or gold.",
+    "uncertainties": [
+     "The subject described by these comparisons is supplied by the following verse."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p62-v1537",
+     "l0_ids": [
+      "mukta-m0-p62-v1537-p000",
+      "mukta-m0-p62-v1537-p001",
+      "mukta-m0-p62-v1537-p002",
+      "mukta-m0-p62-v1537-p003",
+      "mukta-m0-p62-v1537-p004"
+     ],
+     "sanskrit_sha": "4c53e5675de1d96c"
+    },
+    "sanskrit_sha": "4c53e5675de1d96c"
+   },
+   "mukta-m0-p62-v1538": {
+    "verse_id": "mukta-m0-p62-v1538",
+    "song": "mukta-m0-p62",
+    "verse": 1538,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What evaluative quality applies to the previously described appearances?",
+    "premises": [
+     "The previous verse listed desirable appearances.",
+     "This verse gives a single evaluative term.",
+     "The term indicates a favorable quality."
+    ],
+    "inference": "Such an appearance is auspicious.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p62-v1538",
+     "l0_ids": [
+      "mukta-m0-p62-v1538-p000"
+     ],
+     "sanskrit_sha": "4c53e5675de1d96c"
+    },
+    "sanskrit_sha": "4c53e5675de1d96c"
+   },
+   "mukta-m0-p62-v1539": {
+    "verse_id": "mukta-m0-p62-v1539",
+    "song": "mukta-m0-p62",
+    "verse": 1539,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What characteristics mark an item as unsuitable in contrast to the auspicious type?",
+    "premises": [
+     "Being without smell, pale, and dry are listed.",
+     "Resembling black charcoal is listed.",
+     "These characteristics describe a particular item."
+    ],
+    "inference": "An item with these characteristics is unsuitable.",
+    "uncertainties": [
+     "The concluding predicate is implied by contrast with the previous verse."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p62-v1539",
+     "l0_ids": [
+      "mukta-m0-p62-v1539-p000",
+      "mukta-m0-p62-v1539-p001",
+      "mukta-m0-p62-v1539-p002",
+      "mukta-m0-p62-v1539-p003",
+      "mukta-m0-p62-v1539-p004",
+      "mukta-m0-p62-v1539-p005"
+     ],
+     "sanskrit_sha": "4c53e5675de1d96c"
+    },
+    "sanskrit_sha": "4c53e5675de1d96c"
+   },
+   "mukta-m0-p62-v1540": {
+    "verse_id": "mukta-m0-p62-v1540",
+    "song": "mukta-m0-p62",
+    "verse": 1540,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "After knowing these criteria, should the oblation in sacrifice be performed or not?",
+    "premises": [
+     "The criteria must be known beforehand.",
+     "The oblation is the act in question.",
+     "The text presents performing it or not as alternatives."
+    ],
+    "inference": "The oblation should be performed or omitted based on those criteria.",
+    "uncertainties": [
+     "The exact force of tena atha vā na vā is compressed and ambiguous."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p62-v1540",
+     "l0_ids": [
+      "mukta-m0-p62-v1540-p000",
+      "mukta-m0-p62-v1540-p001",
+      "mukta-m0-p62-v1540-p002",
+      "mukta-m0-p62-v1540-p003",
+      "mukta-m0-p62-v1540-p004",
+      "mukta-m0-p62-v1540-p005",
+      "mukta-m0-p62-v1540-p006",
+      "mukta-m0-p62-v1540-p007",
+      "mukta-m0-p62-v1540-p008",
+      "mukta-m0-p62-v1540-p009",
+      "mukta-m0-p62-v1540-p010"
+     ],
+     "sanskrit_sha": "4c53e5675de1d96c"
+    },
+    "sanskrit_sha": "4c53e5675de1d96c"
+   },
+   "mukta-m0-p62-v1541": {
+    "verse_id": "mukta-m0-p62-v1541",
+    "song": "mukta-m0-p62",
+    "verse": 1541,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "In which additional ritual contexts does the same rule likewise apply?",
+    "premises": [
+     "Consecration-initiation is named as a context.",
+     "Ablution is named as another context.",
+     "The rule applies likewise in these contexts."
+    ],
+    "inference": "The same rule applies in consecration-initiation and in ablution.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p62-v1541",
+     "l0_ids": [
+      "mukta-m0-p62-v1541-p000",
+      "mukta-m0-p62-v1541-p001",
+      "mukta-m0-p62-v1541-p002",
+      "mukta-m0-p62-v1541-p003"
+     ],
+     "sanskrit_sha": "4c53e5675de1d96c"
+    },
+    "sanskrit_sha": "4c53e5675de1d96c"
+   },
+   "mukta-m0-p62-v1542": {
+    "verse_id": "mukta-m0-p62-v1542",
+    "song": "mukta-m0-p62",
+    "verse": 1542,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What physical characteristics should the ritual implement possess?",
+    "premises": [
+     "It should resemble a cow’s tail and be beautiful.",
+     "It should reach a hand’s length.",
+     "It should be unblemished and firm."
+    ],
+    "inference": "The implement must be cow-tail-shaped, attractive, hand-length, unblemished, and firm.",
+    "uncertainties": [
+     "The exact implement is implied by surrounding context."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p62-v1542",
+     "l0_ids": [
+      "mukta-m0-p62-v1542-p000",
+      "mukta-m0-p62-v1542-p001",
+      "mukta-m0-p62-v1542-p002",
+      "mukta-m0-p62-v1542-p003",
+      "mukta-m0-p62-v1542-p004"
+     ],
+     "sanskrit_sha": "4c53e5675de1d96c"
+    },
+    "sanskrit_sha": "4c53e5675de1d96c"
+   },
+   "mukta-m0-p62-v1543": {
+    "verse_id": "mukta-m0-p62-v1543",
+    "song": "mukta-m0-p62",
+    "verse": 1543,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What measurements are specified for the pit and its central ridge?",
+    "premises": [
+     "The pit is three fingers deep, or two in a variant.",
+     "A ridge is located in the middle.",
+     "The ridge is two barleycorns wide."
+    ],
+    "inference": "The pit should be two or three fingers deep with a central ridge two barleycorns wide.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p62-v1543",
+     "l0_ids": [
+      "mukta-m0-p62-v1543-p000",
+      "mukta-m0-p62-v1543-p001",
+      "mukta-m0-p62-v1543-p002",
+      "mukta-m0-p62-v1543-p003",
+      "mukta-m0-p62-v1543-p004",
+      "mukta-m0-p62-v1543-p005",
+      "mukta-m0-p62-v1543-p006"
+     ],
+     "sanskrit_sha": "4c53e5675de1d96c"
+    },
+    "sanskrit_sha": "4c53e5675de1d96c"
+   },
+   "mukta-m0-p62-v1544": {
+    "verse_id": "mukta-m0-p62-v1544",
+    "song": "mukta-m0-p62",
+    "verse": 1544,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "From which kinds of wood may the ritual ladle be made?",
+    "premises": [
+     "Mango, vikaṅkata, and bilva woods are named.",
+     "Palāśa and śiṃśapa woods are also named.",
+     "All are given as materials for the ladle."
+    ],
+    "inference": "The ladle may be made from mango, vikaṅkata, bilva, palāśa, or śiṃśapa wood.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p62-v1544",
+     "l0_ids": [
+      "mukta-m0-p62-v1544-p000",
+      "mukta-m0-p62-v1544-p001",
+      "mukta-m0-p62-v1544-p002",
+      "mukta-m0-p62-v1544-p003",
+      "mukta-m0-p62-v1544-p004",
+      "mukta-m0-p62-v1544-p005",
+      "mukta-m0-p62-v1544-p006"
+     ],
+     "sanskrit_sha": "4c53e5675de1d96c"
+    },
+    "sanskrit_sha": "4c53e5675de1d96c"
+   },
+   "mukta-m0-p62-v1545": {
+    "verse_id": "mukta-m0-p62-v1545",
+    "song": "mukta-m0-p62",
+    "verse": 1545,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What measurements are given for the circumference and the altar-related dimensions?",
+    "premises": [
+     "A circumference of six fingers is specified.",
+     "Height and width of eight are specified in relation to the altar.",
+     "A variant reading gives two and eight."
+    ],
+    "inference": "The implement has a six-finger circumference and altar dimensions of eight, with a variant reading.",
+    "uncertainties": [
+     "The exact parsing of vedyaṣṭonnativistarā and dvedvyaṣṭo- is uncertain."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p62-v1545",
+     "l0_ids": [
+      "mukta-m0-p62-v1545-p000",
+      "mukta-m0-p62-v1545-p001",
+      "mukta-m0-p62-v1545-p002",
+      "mukta-m0-p62-v1545-p003",
+      "mukta-m0-p62-v1545-p004"
+     ],
+     "sanskrit_sha": "4c53e5675de1d96c"
+    },
+    "sanskrit_sha": "4c53e5675de1d96c"
+   },
+   "mukta-m0-p62-v1546": {
+    "verse_id": "mukta-m0-p62-v1546",
+    "song": "mukta-m0-p62",
+    "verse": 1546,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What decorative features and capacity are prescribed for the vessel or ladle?",
+    "premises": [
+     "It is endowed with a rim and an eight-petaled lotus.",
+     "Its capacity is measured as one kuḍava.",
+     "A variant reading affects the middle term."
+    ],
+    "inference": "The implement should have a rim with an eight-petaled lotus and hold one kuḍava.",
+    "uncertainties": [
+     "The relation of sarpiḥ and the variant sandhiḥ to the compound is unclear."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p62-v1546",
+     "l0_ids": [
+      "mukta-m0-p62-v1546-p000",
+      "mukta-m0-p62-v1546-p001",
+      "mukta-m0-p62-v1546-p002",
+      "mukta-m0-p62-v1546-p003",
+      "mukta-m0-p62-v1546-p004"
+     ],
+     "sanskrit_sha": "4c53e5675de1d96c"
+    },
+    "sanskrit_sha": "4c53e5675de1d96c"
+   },
+   "mukta-m0-p62-v1547": {
+    "verse_id": "mukta-m0-p62-v1547",
+    "song": "mukta-m0-p62",
+    "verse": 1547,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What size and shape should the tip of the implement have?",
+    "premises": [
+     "The tip should measure two fingers.",
+     "The tip should resemble an elephant’s lip.",
+     "These are prescribed characteristics."
+    ],
+    "inference": "The tip should be two fingers in measure and shaped like an elephant’s lip.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p62-v1547",
+     "l0_ids": [
+      "mukta-m0-p62-v1547-p000",
+      "mukta-m0-p62-v1547-p001",
+      "mukta-m0-p62-v1547-p002",
+      "mukta-m0-p62-v1547-p003"
+     ],
+     "sanskrit_sha": "4c53e5675de1d96c"
+    },
+    "sanskrit_sha": "4c53e5675de1d96c"
+   },
+   "mukta-m0-p62-v1548": {
+    "verse_id": "mukta-m0-p62-v1548",
+    "song": "mukta-m0-p62",
+    "verse": 1548,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "How thick should the implement be to allow ghee to flow properly?",
+    "premises": [
+     "The thickness is compared to the little finger.",
+     "The implement must be thick in that measure.",
+     "The purpose is to allow ghee to flow out."
+    ],
+    "inference": "It should be as thick as the little finger to allow ghee to flow.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p62-v1548",
+     "l0_ids": [
+      "mukta-m0-p62-v1548-p000",
+      "mukta-m0-p62-v1548-p001",
+      "mukta-m0-p62-v1548-p002",
+      "mukta-m0-p62-v1548-p003"
+     ],
+     "sanskrit_sha": "4c53e5675de1d96c"
+    },
+    "sanskrit_sha": "4c53e5675de1d96c"
+   },
+   "mukta-m0-p62-v1549": {
+    "verse_id": "mukta-m0-p62-v1549",
+    "song": "mukta-m0-p62",
+    "verse": 1549,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What feature is placed at the handle tip at a distance of four fingers?",
+    "premises": [
+     "A measure of four fingers is specified.",
+     "The location is the tip of the handle.",
+     "A small platform is named there."
+    ],
+    "inference": "A small platform should be placed at the handle tip four fingers away.",
+    "uncertainties": [
+     "The exact spatial relation indicated by the repeated ca particles is compressed."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p62-v1549",
+     "l0_ids": [
+      "mukta-m0-p62-v1549-p000",
+      "mukta-m0-p62-v1549-p001",
+      "mukta-m0-p62-v1549-p002",
+      "mukta-m0-p62-v1549-p003",
+      "mukta-m0-p62-v1549-p004",
+      "mukta-m0-p62-v1549-p005",
+      "mukta-m0-p62-v1549-p006"
+     ],
+     "sanskrit_sha": "4c53e5675de1d96c"
+    },
+    "sanskrit_sha": "4c53e5675de1d96c"
+   },
+   "mukta-m0-p62-v1550": {
+    "verse_id": "mukta-m0-p62-v1550",
+    "song": "mukta-m0-p62",
+    "verse": 1550,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "By what ordered procedure must the two objects be heated and touched with kuśa grass?",
+    "premises": [
+     "The two objects are heated using kuśa grass.",
+     "The same two objects are then touched.",
+     "The touching proceeds from root through middle to tip in sequence."
+    ],
+    "inference": "The ritual procedure requires heating the two objects with kuśa grass and then touching them sequentially from base to tip.",
+    "uncertainties": [
+     "The exact identity of the two objects depends on the preceding verses."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p62-v1550",
+     "l0_ids": [
+      "mukta-m0-p62-v1550-p000",
+      "mukta-m0-p62-v1550-p001",
+      "mukta-m0-p62-v1550-p002",
+      "mukta-m0-p62-v1550-p003",
+      "mukta-m0-p62-v1550-p004",
+      "mukta-m0-p62-v1550-p005"
+     ],
+     "sanskrit_sha": "4c53e5675de1d96c"
+    },
+    "sanskrit_sha": "4c53e5675de1d96c"
+   }
+  },
+  "l2": {
+   "mukta-m0-p62-v1526": {
+    "verse_id": "mukta-m0-p62-v1526",
+    "song": "mukta-m0-p62",
+    "verse": 1526,
+    "plain_english": "The eye mantra should have an anusvāra, and the weapon mantra—or, in another reading, the mantra—should be distinguished by a visarga.",
+    "sanskrit_cite": "sānusvaro bhavennetramastraṃ[kh: mantraṃ]visargabheditam",
+    "l0_ids": [
+     "mukta-m0-p62-v1526-p000",
+     "mukta-m0-p62-v1526-p001",
+     "mukta-m0-p62-v1526-p002",
+     "mukta-m0-p62-v1526-p003",
+     "mukta-m0-p62-v1526-p004",
+     "mukta-m0-p62-v1526-p005",
+     "mukta-m0-p62-v1526-p006"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p62-v1527": {
+    "verse_id": "mukta-m0-p62-v1527",
+    "song": "mukta-m0-p62",
+    "verse": 1527,
+    "plain_english": "At the end, the priest should employ the forms joined with the appropriate class markers.",
+    "sanskrit_cite": "ante[kh: anya]jātisamāyuktāḥ prayoktavyāśca mantriṇā",
+    "l0_ids": [
+     "mukta-m0-p62-v1527-p000",
+     "mukta-m0-p62-v1527-p001",
+     "mukta-m0-p62-v1527-p002",
+     "mukta-m0-p62-v1527-p003",
+     "mukta-m0-p62-v1527-p004",
+     "mukta-m0-p62-v1527-p005",
+     "mukta-m0-p62-v1527-p006",
+     "mukta-m0-p62-v1527-p007"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p62-v1528": {
+    "verse_id": "mukta-m0-p62-v1528",
+    "song": "mukta-m0-p62",
+    "verse": 1528,
+    "plain_english": "Ghee, sesame seeds, barley, milk, rice grains, food offerings, and also curd are to be used.",
+    "sanskrit_cite": "ghṛtaṃ tilān yavān kṣīraṃ vrīhīn bhakṣyāṇi dadhyapi",
+    "l0_ids": [
+     "mukta-m0-p62-v1528-p000",
+     "mukta-m0-p62-v1528-p001",
+     "mukta-m0-p62-v1528-p002",
+     "mukta-m0-p62-v1528-p003",
+     "mukta-m0-p62-v1528-p004",
+     "mukta-m0-p62-v1528-p005",
+     "mukta-m0-p62-v1528-p006",
+     "mukta-m0-p62-v1528-p007"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p62-v1529": {
+    "verse_id": "mukta-m0-p62-v1529",
+    "song": "mukta-m0-p62",
+    "verse": 1529,
+    "plain_english": "One should offer groats, flour-cake, buttermilk, and cooked rice in the daily rite.",
+    "sanskrit_cite": "saktupiṣyākatakrānnaṃ juhuyānnityakarmaṇi",
+    "l0_ids": [
+     "mukta-m0-p62-v1529-p000",
+     "mukta-m0-p62-v1529-p001",
+     "mukta-m0-p62-v1529-p002",
+     "mukta-m0-p62-v1529-p003",
+     "mukta-m0-p62-v1529-p004",
+     "mukta-m0-p62-v1529-p005"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p62-v1530": {
+    "verse_id": "mukta-m0-p62-v1530",
+    "song": "mukta-m0-p62",
+    "verse": 1530,
+    "plain_english": "Use bilva fruit for the destruction of disease and lotus for prosperity.",
+    "sanskrit_cite": "mālūraṃ roganāśāya lakṣmyarthaṃ ca kuśeśayam",
+    "l0_ids": [
+     "mukta-m0-p62-v1530-p000",
+     "mukta-m0-p62-v1530-p001",
+     "mukta-m0-p62-v1530-p002",
+     "mukta-m0-p62-v1530-p003",
+     "mukta-m0-p62-v1530-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p62-v1531": {
+    "verse_id": "mukta-m0-p62-v1531",
+    "song": "mukta-m0-p62",
+    "verse": 1531,
+    "plain_english": "The five small fruits—or, in another reading, fruits—should be prepared as morsel-sized pieces of food.",
+    "sanskrit_cite": "paṃcaphalāni[mū: palāni]sūkṣmāṇi annānāṃ grāsakhaṇḍataḥ",
+    "l0_ids": [
+     "mukta-m0-p62-v1531-p000",
+     "mukta-m0-p62-v1531-p001",
+     "mukta-m0-p62-v1531-p002",
+     "mukta-m0-p62-v1531-p003",
+     "mukta-m0-p62-v1531-p004",
+     "mukta-m0-p62-v1531-p005"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p62-v1532": {
+    "verse_id": "mukta-m0-p62-v1532",
+    "song": "mukta-m0-p62",
+    "verse": 1532,
+    "plain_english": "They should be without knots, uncracked, not crooked, and taken from the plakṣa tree.",
+    "sanskrit_cite": "agranthyasphuṭitāvakrāḥ plakṣavṛkṣasamudbhavāḥ",
+    "l0_ids": [
+     "mukta-m0-p62-v1532-p000",
+     "mukta-m0-p62-v1532-p001",
+     "mukta-m0-p62-v1532-p002",
+     "mukta-m0-p62-v1532-p003"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p62-v1533": {
+    "verse_id": "mukta-m0-p62-v1533",
+    "song": "mukta-m0-p62",
+    "verse": 1533,
+    "plain_english": "Vikaṅkata, apāmārga, and pippala indeed give peace and prosperity.",
+    "sanskrit_cite": "vaikaṅkato hyapāmārgaḥ pippalaḥ śāntipuṣṭidaḥ",
+    "l0_ids": [
+     "mukta-m0-p62-v1533-p000",
+     "mukta-m0-p62-v1533-p001",
+     "mukta-m0-p62-v1533-p002",
+     "mukta-m0-p62-v1533-p003",
+     "mukta-m0-p62-v1533-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p62-v1534": {
+    "verse_id": "mukta-m0-p62-v1534",
+    "song": "mukta-m0-p62",
+    "verse": 1534,
+    "plain_english": "In an unfavorable rite use creature hairs, and in a hatred rite use the two śigru plants described as phlegm-ending.",
+    "sanskrit_cite": "aniṣṭe janturomāṇi dveṣe śleṣmāntaśigrukau",
+    "l0_ids": [
+     "mukta-m0-p62-v1534-p000",
+     "mukta-m0-p62-v1534-p001",
+     "mukta-m0-p62-v1534-p002",
+     "mukta-m0-p62-v1534-p003",
+     "mukta-m0-p62-v1534-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p62-v1535": {
+    "verse_id": "mukta-m0-p62-v1535",
+    "song": "mukta-m0-p62",
+    "verse": 1535,
+    "plain_english": "In a killing rite, use their dust, a crow feather, and nimba blood.",
+    "sanskrit_cite": "taddhūlyā kākapakṣaṃ ca nidhane nimbaśoṇitam",
+    "l0_ids": [
+     "mukta-m0-p62-v1535-p000",
+     "mukta-m0-p62-v1535-p001",
+     "mukta-m0-p62-v1535-p002",
+     "mukta-m0-p62-v1535-p003",
+     "mukta-m0-p62-v1535-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p62-v1536": {
+    "verse_id": "mukta-m0-p62-v1536",
+    "song": "mukta-m0-p62",
+    "verse": 1536,
+    "plain_english": "Śamī, dūrvā grass, and kuśa grass are oblation materials for pacifying the sun and other planets.",
+    "sanskrit_cite": "śamī dūrvā kuśā havyā arkādigrahaśāntaye",
+    "l0_ids": [
+     "mukta-m0-p62-v1536-p000",
+     "mukta-m0-p62-v1536-p001",
+     "mukta-m0-p62-v1536-p002",
+     "mukta-m0-p62-v1536-p003",
+     "mukta-m0-p62-v1536-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p62-v1537": {
+    "verse_id": "mukta-m0-p62-v1537",
+    "song": "mukta-m0-p62",
+    "verse": 1537,
+    "plain_english": "It may be like ruby, sapphire, sunstone, pure crystal, or gold.",
+    "sanskrit_cite": "padmarāgendranīlārkaśuddhasphaṭikahemavat",
+    "l0_ids": [
+     "mukta-m0-p62-v1537-p000",
+     "mukta-m0-p62-v1537-p001",
+     "mukta-m0-p62-v1537-p002",
+     "mukta-m0-p62-v1537-p003",
+     "mukta-m0-p62-v1537-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p62-v1538": {
+    "verse_id": "mukta-m0-p62-v1538",
+    "song": "mukta-m0-p62",
+    "verse": 1538,
+    "plain_english": "Such a one is auspicious.",
+    "sanskrit_cite": "śubhaḥ",
+    "l0_ids": [
+     "mukta-m0-p62-v1538-p000"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p62-v1539": {
+    "verse_id": "mukta-m0-p62-v1539",
+    "song": "mukta-m0-p62",
+    "verse": 1539,
+    "plain_english": "That which is without smell, pale, dry, and resembling black charcoal is not suitable.",
+    "sanskrit_cite": "nirgandhaḥ pāṇḍaro rūkṣaḥkṛṣṇāṅgāranibhaśca yaḥ",
+    "l0_ids": [
+     "mukta-m0-p62-v1539-p000",
+     "mukta-m0-p62-v1539-p001",
+     "mukta-m0-p62-v1539-p002",
+     "mukta-m0-p62-v1539-p003",
+     "mukta-m0-p62-v1539-p004",
+     "mukta-m0-p62-v1539-p005"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p62-v1540": {
+    "verse_id": "mukta-m0-p62-v1540",
+    "song": "mukta-m0-p62",
+    "verse": 1540,
+    "plain_english": "Knowing this, the oblation in the sacrifice should be performed—or, depending on that, not performed.",
+    "sanskrit_cite": "evaṃ jñātvāprakartavyo [gh: yāge-] homastenāthavā na vā",
+    "l0_ids": [
+     "mukta-m0-p62-v1540-p000",
+     "mukta-m0-p62-v1540-p001",
+     "mukta-m0-p62-v1540-p002",
+     "mukta-m0-p62-v1540-p003",
+     "mukta-m0-p62-v1540-p004",
+     "mukta-m0-p62-v1540-p005",
+     "mukta-m0-p62-v1540-p006",
+     "mukta-m0-p62-v1540-p007",
+     "mukta-m0-p62-v1540-p008",
+     "mukta-m0-p62-v1540-p009",
+     "mukta-m0-p62-v1540-p010"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p62-v1541": {
+    "verse_id": "mukta-m0-p62-v1541",
+    "song": "mukta-m0-p62",
+    "verse": 1541,
+    "plain_english": "Likewise in the consecration-initiation and in the ablution.",
+    "sanskrit_cite": "p. 6) adhivāsanadīkṣāyāmabhiṣeke tathaiva ca",
+    "l0_ids": [
+     "mukta-m0-p62-v1541-p000",
+     "mukta-m0-p62-v1541-p001",
+     "mukta-m0-p62-v1541-p002",
+     "mukta-m0-p62-v1541-p003"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p62-v1542": {
+    "verse_id": "mukta-m0-p62-v1542",
+    "song": "mukta-m0-p62",
+    "verse": 1542,
+    "plain_english": "It should resemble a cow’s tail, be beautiful, reach a hand’s length, be without blemish, and firm.",
+    "sanskrit_cite": "gopucchasadṛśaṃ cāru hastadaghnāvraṇaṃ dṛḍham",
+    "l0_ids": [
+     "mukta-m0-p62-v1542-p000",
+     "mukta-m0-p62-v1542-p001",
+     "mukta-m0-p62-v1542-p002",
+     "mukta-m0-p62-v1542-p003",
+     "mukta-m0-p62-v1542-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p62-v1543": {
+    "verse_id": "mukta-m0-p62-v1543",
+    "song": "mukta-m0-p62",
+    "verse": 1543,
+    "plain_english": "Its pit should be three fingers deep—or, in another reading, two fingers deep—with a ridge in the middle two barleycorns wide.",
+    "sanskrit_cite": "tatkhātaṃ tryaṅgulaṃ [k: dvyaṅgulaṃ] madhye seturdviyavavistaraḥ",
+    "l0_ids": [
+     "mukta-m0-p62-v1543-p000",
+     "mukta-m0-p62-v1543-p001",
+     "mukta-m0-p62-v1543-p002",
+     "mukta-m0-p62-v1543-p003",
+     "mukta-m0-p62-v1543-p004",
+     "mukta-m0-p62-v1543-p005",
+     "mukta-m0-p62-v1543-p006"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p62-v1544": {
+    "verse_id": "mukta-m0-p62-v1544",
+    "song": "mukta-m0-p62",
+    "verse": 1544,
+    "plain_english": "The ladle may be made of mango, vikaṅkata, bilva, palāśa, or śiṃśapa wood.",
+    "sanskrit_cite": "āmrīvaikaṅkatī baijī srukpālāśyatha śaiṃśapī",
+    "l0_ids": [
+     "mukta-m0-p62-v1544-p000",
+     "mukta-m0-p62-v1544-p001",
+     "mukta-m0-p62-v1544-p002",
+     "mukta-m0-p62-v1544-p003",
+     "mukta-m0-p62-v1544-p004",
+     "mukta-m0-p62-v1544-p005",
+     "mukta-m0-p62-v1544-p006"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p62-v1545": {
+    "verse_id": "mukta-m0-p62-v1545",
+    "song": "mukta-m0-p62",
+    "verse": 1545,
+    "plain_english": "It should be six fingers in circumference, with altar height and width of eight—or, in other readings, two and eight.",
+    "sanskrit_cite": "ṣaḍaṅgulaparīṇāho vedyaṣṭonnativistarā [k, g: dvedvyaṣṭo-]",
+    "l0_ids": [
+     "mukta-m0-p62-v1545-p000",
+     "mukta-m0-p62-v1545-p001",
+     "mukta-m0-p62-v1545-p002",
+     "mukta-m0-p62-v1545-p003",
+     "mukta-m0-p62-v1545-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p62-v1546": {
+    "verse_id": "mukta-m0-p62-v1546",
+    "song": "mukta-m0-p62",
+    "verse": 1546,
+    "plain_english": "It should be endowed with a rim and an eight-petaled lotus, and have a capacity measuring one kuḍava.",
+    "sanskrit_cite": "mekhalābjāṣṭapatrāḍhyaṃ sarpiḥ [k: sandhiḥ] kuḍavasammitam",
+    "l0_ids": [
+     "mukta-m0-p62-v1546-p000",
+     "mukta-m0-p62-v1546-p001",
+     "mukta-m0-p62-v1546-p002",
+     "mukta-m0-p62-v1546-p003",
+     "mukta-m0-p62-v1546-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p62-v1547": {
+    "verse_id": "mukta-m0-p62-v1547",
+    "song": "mukta-m0-p62",
+    "verse": 1547,
+    "plain_english": "It should measure two fingers at the tip and resemble an elephant’s lip.",
+    "sanskrit_cite": "dvyaṅgulāgrapramāṇaṃ ca gajoṣṭhasadṛśaṃ bhavet",
+    "l0_ids": [
+     "mukta-m0-p62-v1547-p000",
+     "mukta-m0-p62-v1547-p001",
+     "mukta-m0-p62-v1547-p002",
+     "mukta-m0-p62-v1547-p003"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p62-v1548": {
+    "verse_id": "mukta-m0-p62-v1548",
+    "song": "mukta-m0-p62",
+    "verse": 1548,
+    "plain_english": "It should be thick like the little finger, so that the ghee can flow out.",
+    "sanskrit_cite": "kaniṣṭhāṅgulivatsthūlaṃ sarpinirgamanāya ca",
+    "l0_ids": [
+     "mukta-m0-p62-v1548-p000",
+     "mukta-m0-p62-v1548-p001",
+     "mukta-m0-p62-v1548-p002",
+     "mukta-m0-p62-v1548-p003"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p62-v1549": {
+    "verse_id": "mukta-m0-p62-v1549",
+    "song": "mukta-m0-p62",
+    "verse": 1549,
+    "plain_english": "At the tip of the handle, four fingers away, there should be a small platform.",
+    "sanskrit_cite": "p. 7) aṅgulaiśca caturbhiśca daṇḍāgre copavedikā",
+    "l0_ids": [
+     "mukta-m0-p62-v1549-p000",
+     "mukta-m0-p62-v1549-p001",
+     "mukta-m0-p62-v1549-p002",
+     "mukta-m0-p62-v1549-p003",
+     "mukta-m0-p62-v1549-p004",
+     "mukta-m0-p62-v1549-p005",
+     "mukta-m0-p62-v1549-p006"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p62-v1550": {
+    "verse_id": "mukta-m0-p62-v1550",
+    "song": "mukta-m0-p62",
+    "verse": 1550,
+    "plain_english": "Having heated those two with kuśa grass, one should touch them in order from the root to the middle to the tip.",
+    "sanskrit_cite": "tau santāpya kuśaiḥ spṛṣdavā mūlamadhyāgrataḥ kramāt",
+    "l0_ids": [
+     "mukta-m0-p62-v1550-p000",
+     "mukta-m0-p62-v1550-p001",
+     "mukta-m0-p62-v1550-p002",
+     "mukta-m0-p62-v1550-p003",
+     "mukta-m0-p62-v1550-p004",
+     "mukta-m0-p62-v1550-p005"
+    ],
+    "supplied": []
+   }
+  },
+  "c1": {
+   "mukta-m0-p62": {
+    "song": "mukta-m0-p62",
+    "essence": [
+     "The prescribed mantra form varies by nasalization or visarga according to the reading.",
+     "The priest must employ the class-marked forms at the end of the mantras.",
+     "A range of food and dairy substances are prescribed as offerings.",
+     "These substances should be offered in the daily ritual.",
+     "Bilva fruit should be used for removing disease and lotus for prosperity."
+    ],
+    "essence_source": "derived from argmap inferences (machine-proposed; assessor review outstanding)",
+    "rasa": {},
+    "essence_only": true,
+    "renders": {}
+   }
+  },
+  "l3": {},
+  "l4": {},
+  "c2": {}
+ },
+ "source_verses": {
+  "mukta-m0-p62-v1526": {
+   "text": "sānusvaro bhavennetramastraṃ[kh: mantraṃ]visargabheditam",
+   "source_file": "translation-work/mukta-m00065/source/edition.txt",
+   "source_sha256": "516bd6757d1a4b247cd6e0152b18704ad4e2c6a4c9b66a4ae64e34224d0d1fb0",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p62-v1527": {
+   "text": "ante[kh: anya]jātisamāyuktāḥ prayoktavyāśca mantriṇā",
+   "source_file": "translation-work/mukta-m00065/source/edition.txt",
+   "source_sha256": "516bd6757d1a4b247cd6e0152b18704ad4e2c6a4c9b66a4ae64e34224d0d1fb0",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p62-v1528": {
+   "text": "ghṛtaṃ tilān yavān kṣīraṃ vrīhīn bhakṣyāṇi dadhyapi",
+   "source_file": "translation-work/mukta-m00065/source/edition.txt",
+   "source_sha256": "516bd6757d1a4b247cd6e0152b18704ad4e2c6a4c9b66a4ae64e34224d0d1fb0",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p62-v1529": {
+   "text": "saktupiṣyākatakrānnaṃ juhuyānnityakarmaṇi",
+   "source_file": "translation-work/mukta-m00065/source/edition.txt",
+   "source_sha256": "516bd6757d1a4b247cd6e0152b18704ad4e2c6a4c9b66a4ae64e34224d0d1fb0",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p62-v1530": {
+   "text": "mālūraṃ roganāśāya lakṣmyarthaṃ ca kuśeśayam",
+   "source_file": "translation-work/mukta-m00065/source/edition.txt",
+   "source_sha256": "516bd6757d1a4b247cd6e0152b18704ad4e2c6a4c9b66a4ae64e34224d0d1fb0",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p62-v1531": {
+   "text": "paṃcaphalāni[mū: palāni]sūkṣmāṇi annānāṃ grāsakhaṇḍataḥ",
+   "source_file": "translation-work/mukta-m00065/source/edition.txt",
+   "source_sha256": "516bd6757d1a4b247cd6e0152b18704ad4e2c6a4c9b66a4ae64e34224d0d1fb0",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p62-v1532": {
+   "text": "agranthyasphuṭitāvakrāḥ plakṣavṛkṣasamudbhavāḥ",
+   "source_file": "translation-work/mukta-m00065/source/edition.txt",
+   "source_sha256": "516bd6757d1a4b247cd6e0152b18704ad4e2c6a4c9b66a4ae64e34224d0d1fb0",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p62-v1533": {
+   "text": "vaikaṅkato hyapāmārgaḥ pippalaḥ śāntipuṣṭidaḥ",
+   "source_file": "translation-work/mukta-m00065/source/edition.txt",
+   "source_sha256": "516bd6757d1a4b247cd6e0152b18704ad4e2c6a4c9b66a4ae64e34224d0d1fb0",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p62-v1534": {
+   "text": "aniṣṭe janturomāṇi dveṣe śleṣmāntaśigrukau",
+   "source_file": "translation-work/mukta-m00065/source/edition.txt",
+   "source_sha256": "516bd6757d1a4b247cd6e0152b18704ad4e2c6a4c9b66a4ae64e34224d0d1fb0",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p62-v1535": {
+   "text": "taddhūlyā kākapakṣaṃ ca nidhane nimbaśoṇitam",
+   "source_file": "translation-work/mukta-m00065/source/edition.txt",
+   "source_sha256": "516bd6757d1a4b247cd6e0152b18704ad4e2c6a4c9b66a4ae64e34224d0d1fb0",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p62-v1536": {
+   "text": "śamī dūrvā kuśā havyā arkādigrahaśāntaye",
+   "source_file": "translation-work/mukta-m00065/source/edition.txt",
+   "source_sha256": "516bd6757d1a4b247cd6e0152b18704ad4e2c6a4c9b66a4ae64e34224d0d1fb0",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p62-v1537": {
+   "text": "padmarāgendranīlārkaśuddhasphaṭikahemavat",
+   "source_file": "translation-work/mukta-m00065/source/edition.txt",
+   "source_sha256": "516bd6757d1a4b247cd6e0152b18704ad4e2c6a4c9b66a4ae64e34224d0d1fb0",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p62-v1538": {
+   "text": "śubhaḥ",
+   "source_file": "translation-work/mukta-m00065/source/edition.txt",
+   "source_sha256": "516bd6757d1a4b247cd6e0152b18704ad4e2c6a4c9b66a4ae64e34224d0d1fb0",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p62-v1539": {
+   "text": "nirgandhaḥ pāṇḍaro rūkṣaḥkṛṣṇāṅgāranibhaśca yaḥ",
+   "source_file": "translation-work/mukta-m00065/source/edition.txt",
+   "source_sha256": "516bd6757d1a4b247cd6e0152b18704ad4e2c6a4c9b66a4ae64e34224d0d1fb0",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p62-v1540": {
+   "text": "evaṃ jñātvāprakartavyo [gh: yāge-] homastenāthavā na vā",
+   "source_file": "translation-work/mukta-m00065/source/edition.txt",
+   "source_sha256": "516bd6757d1a4b247cd6e0152b18704ad4e2c6a4c9b66a4ae64e34224d0d1fb0",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p62-v1541": {
+   "text": "p. 6) adhivāsanadīkṣāyāmabhiṣeke tathaiva ca",
+   "source_file": "translation-work/mukta-m00065/source/edition.txt",
+   "source_sha256": "516bd6757d1a4b247cd6e0152b18704ad4e2c6a4c9b66a4ae64e34224d0d1fb0",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p62-v1542": {
+   "text": "gopucchasadṛśaṃ cāru hastadaghnāvraṇaṃ dṛḍham",
+   "source_file": "translation-work/mukta-m00065/source/edition.txt",
+   "source_sha256": "516bd6757d1a4b247cd6e0152b18704ad4e2c6a4c9b66a4ae64e34224d0d1fb0",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p62-v1543": {
+   "text": "tatkhātaṃ tryaṅgulaṃ [k: dvyaṅgulaṃ] madhye seturdviyavavistaraḥ",
+   "source_file": "translation-work/mukta-m00065/source/edition.txt",
+   "source_sha256": "516bd6757d1a4b247cd6e0152b18704ad4e2c6a4c9b66a4ae64e34224d0d1fb0",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p62-v1544": {
+   "text": "āmrīvaikaṅkatī baijī srukpālāśyatha śaiṃśapī",
+   "source_file": "translation-work/mukta-m00065/source/edition.txt",
+   "source_sha256": "516bd6757d1a4b247cd6e0152b18704ad4e2c6a4c9b66a4ae64e34224d0d1fb0",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p62-v1545": {
+   "text": "ṣaḍaṅgulaparīṇāho vedyaṣṭonnativistarā [k, g: dvedvyaṣṭo-]",
+   "source_file": "translation-work/mukta-m00065/source/edition.txt",
+   "source_sha256": "516bd6757d1a4b247cd6e0152b18704ad4e2c6a4c9b66a4ae64e34224d0d1fb0",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p62-v1546": {
+   "text": "mekhalābjāṣṭapatrāḍhyaṃ sarpiḥ [k: sandhiḥ] kuḍavasammitam",
+   "source_file": "translation-work/mukta-m00065/source/edition.txt",
+   "source_sha256": "516bd6757d1a4b247cd6e0152b18704ad4e2c6a4c9b66a4ae64e34224d0d1fb0",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p62-v1547": {
+   "text": "dvyaṅgulāgrapramāṇaṃ ca gajoṣṭhasadṛśaṃ bhavet",
+   "source_file": "translation-work/mukta-m00065/source/edition.txt",
+   "source_sha256": "516bd6757d1a4b247cd6e0152b18704ad4e2c6a4c9b66a4ae64e34224d0d1fb0",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p62-v1548": {
+   "text": "kaniṣṭhāṅgulivatsthūlaṃ sarpinirgamanāya ca",
+   "source_file": "translation-work/mukta-m00065/source/edition.txt",
+   "source_sha256": "516bd6757d1a4b247cd6e0152b18704ad4e2c6a4c9b66a4ae64e34224d0d1fb0",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p62-v1549": {
+   "text": "p. 7) aṅgulaiśca caturbhiśca daṇḍāgre copavedikā",
+   "source_file": "translation-work/mukta-m00065/source/edition.txt",
+   "source_sha256": "516bd6757d1a4b247cd6e0152b18704ad4e2c6a4c9b66a4ae64e34224d0d1fb0",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p62-v1550": {
+   "text": "tau santāpya kuśaiḥ spṛṣdavā mūlamadhyāgrataḥ kramāt",
+   "source_file": "translation-work/mukta-m00065/source/edition.txt",
+   "source_sha256": "516bd6757d1a4b247cd6e0152b18704ad4e2c6a4c9b66a4ae64e34224d0d1fb0",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  }
+ },
+ "l4_craft": {},
+ "withheld_songs": [],
+ "original_hashes": {
+  "t1": {
+   "mukta-m0-p62-v1526": "e21d9f45bc8c91612e58e96b7afe7260899de1e4005e9f866548e9d4c05cc5ed",
+   "mukta-m0-p62-v1527": "9707efa1dced5242d67579ec49621c450e251b9d2d24f585591f9bc46a29da18",
+   "mukta-m0-p62-v1528": "ac6b31ffc7d60a8957d2936c4464cf137b291dd83a88addb9e6bf64fc5a50633",
+   "mukta-m0-p62-v1529": "f713de1fb1b6a03fd778685311fc9e14cca32eddbfc06ae1abd1e76ba21581c5",
+   "mukta-m0-p62-v1530": "1ee1b388516f68884454c9f70ab135089f209c06ee69780cee8cfe9daab8c84b",
+   "mukta-m0-p62-v1531": "a4219548aa7262b08032f3bf84e88ae43a61bab830c5adafc4f31e9bed7d6b2c",
+   "mukta-m0-p62-v1532": "d87323dafa6e6cb3f225bd3883e676111340a93143e38855c243dea823e98e48",
+   "mukta-m0-p62-v1533": "edde73ae8e202fe29633a09d83e8738ec1053540cc7dc435b0102e2fa670f4dc",
+   "mukta-m0-p62-v1534": "27eb799513c5efa4d3f6d7b5ba321ab06b0cbd2c35f86b3baac524085acc5564",
+   "mukta-m0-p62-v1535": "98672f650c920aa694008eb20b4346669701c633c47a1f2060dd40cbc783661f",
+   "mukta-m0-p62-v1536": "11964d3aa1e827c362053ac6aa362f06801014f17d998dd648681a2600dbbce9",
+   "mukta-m0-p62-v1537": "81056e6fee6e30a7b6383673005ec99376d689be69efd93b2109fb4903373be4",
+   "mukta-m0-p62-v1538": "6ac0504eec7fc964017fd9f3ade4cdccbc610e3a0dae72060c4133bb34914252",
+   "mukta-m0-p62-v1539": "f3e521a1d2c62a2aa4d3d375590b25b8ebec1d20f169dfb91e1a3e6b6456c542",
+   "mukta-m0-p62-v1540": "e3a97ff695bb1f13959a4cb7f0ff4e971bf8dfd0fde7a5eb36c87aed3aa26a83",
+   "mukta-m0-p62-v1541": "3f37f60f86b6cf3292bf0dd59b4344328a82d43e08d2a271ce06dd1739fbd21b",
+   "mukta-m0-p62-v1542": "db978ab5eea04424a0287e3d759a83ba387262fa08e1bce2b22c3f66a8a0e85c",
+   "mukta-m0-p62-v1543": "5494bb9283a9d59e4b1aed0f7c41a2ac1c11ef2a6bbcef071c2afb7b9199c329",
+   "mukta-m0-p62-v1544": "b22a84ab7642279595d56b61b868f9aa3c1e63b96f15a7105aabc0f499ecd0e8",
+   "mukta-m0-p62-v1545": "e9067b0913c97ee90d18dd5a98406faa676cea7825f75b8cdcd74138e4edc1cb",
+   "mukta-m0-p62-v1546": "9bf13a89de3049684f07158ea3293f4b689bf222cb39126d8fc64a0319b718ae",
+   "mukta-m0-p62-v1547": "5d1ff9d27967a50442e4e4c0a57fefb9e9b6fbf24e4ab12861ba0594bf0caf89",
+   "mukta-m0-p62-v1548": "e2d1ba077c0d5e810823a3c55e85adcac0ba7b0e889f595505dd4fa58fc8d9a2",
+   "mukta-m0-p62-v1549": "e6f7d027a927a432c02020c7705ba8480fb58a53590d6235921fa7d2ec1c2fe8",
+   "mukta-m0-p62-v1550": "8efa323076ad47e019c47cc7c6b4031fe837b7dc219da2834b800196fb742d47"
+  },
+  "l0": {
+   "mukta-m0-p62-v1526": "12691ad34d24f332eed88100107bd9613ad7172ec9e7501635b835400832c8ae",
+   "mukta-m0-p62-v1527": "7c7ab8518e930fb5dc7fe1f01fa393773c481551ad152c6cc04d545c9d0b2394",
+   "mukta-m0-p62-v1528": "234c9ef1e5cc7505d8147bcd9add7f7038716caa1afd12d6ba345e80ff741bf8",
+   "mukta-m0-p62-v1529": "8c1b64ebfdce256255498f16dfe110dbd10c2eacf201f057dffac4a7e91b98b3",
+   "mukta-m0-p62-v1530": "3edd58dd94f3db3b7d875ef8df46016d807d277a37310d1478ea250c168296c4",
+   "mukta-m0-p62-v1531": "8ba6e4419a48bc8318c13e702ea0bd2f90722edd74bd6f28d8dc0ffd48b53205",
+   "mukta-m0-p62-v1532": "0cb2f858efb4e69beebdc34353d5732978c431ef5813e79ca8c0e9f9de22d37d",
+   "mukta-m0-p62-v1533": "9fa85dbd0ea7c62a8c1e3ef2a5bf85ddb2b5c4e659dd25e568b51a1db0fb5804",
+   "mukta-m0-p62-v1534": "e3c61038ef766a7e221d85f63683c37d92e730ca3c57e123ed5ac18ff6884b22",
+   "mukta-m0-p62-v1535": "aac94c1cfdc815cdfce597e96697cc381dff4ba5426c31231add2c47b92c798e",
+   "mukta-m0-p62-v1536": "91a060e3b0890f3823e66ebc1c0f715533774afebc50ac41d168973c5fb4159b",
+   "mukta-m0-p62-v1537": "bb6b5ea010a32a7ca1f97610cb3f5488841142168a6af8e0c0d5d1793a3783ec",
+   "mukta-m0-p62-v1538": "e7edf7243aa52644d8d30e878ad434d41dd485d48ef1ca6125bfb244f05c986d",
+   "mukta-m0-p62-v1539": "28176510bf1bb8acb70b5005af0d8cb3f2c8fa5ca99deed7e3ca3a9f25e6c329",
+   "mukta-m0-p62-v1540": "8666a92cb9cc8353509ae786bbf30d92a44399348dc921c93300e2fd77bfe043",
+   "mukta-m0-p62-v1541": "0ae881cf692dc81362be9a8434762fefbe27edc5bc39f26f0216716ab639d989",
+   "mukta-m0-p62-v1542": "2f26268d0c22ef60ebf4248aa0f6ac2f25ec1abe7a5ed12d7b09761dff60f834",
+   "mukta-m0-p62-v1543": "9a9bfbca7a375362ae3eb645b169bcfda33b97eb91abbe59037e010cb8842044",
+   "mukta-m0-p62-v1544": "aacf8ad544e31e2395f5ce3407f622dd40f2290584ffa1ef6bd97cc03645c0b6",
+   "mukta-m0-p62-v1545": "39a271c97a06d2452396bd430d0e8bdf3d65e43b45e6b9ce961e565d7923db34",
+   "mukta-m0-p62-v1546": "fa76e4de5357a7eab819367ec48a4e947cc9513a4484210cb5314d1a29fb5f77",
+   "mukta-m0-p62-v1547": "47a151e7f6292d116fba49e91ef478169715832aa0886cc78160e019e33cf9e6",
+   "mukta-m0-p62-v1548": "af6193ae3b452af8ee03e4bd1033a86ecd5d88e3e29db8906590feec475ef6ce",
+   "mukta-m0-p62-v1549": "e1689e3c53bcd01d52e7b4125872a7069882255af6b485d78704971044b47feb",
+   "mukta-m0-p62-v1550": "62b962a83f3d9e264db85c9b26f9f53eb139cc4ff9fd74b67d5607affd4cc5cb"
+  },
+  "argmap": {
+   "mukta-m0-p62-v1526": "960c2fa20bb582de6eae96977b10fde848fd606a6dfc000b21412d092c80622c",
+   "mukta-m0-p62-v1527": "00e5cea381a98835db36f15102c057fb00badb6c95bc8f551c3cd5c306b4573f",
+   "mukta-m0-p62-v1528": "08edcf5207c39c081d95f65ab0e8747bebf7702a8d47f1acb4f298432bba2f68",
+   "mukta-m0-p62-v1529": "9afc57ea16c25f08fcaf971bc705bb7039affb7673d8fce3fb018e5756b0f5b5",
+   "mukta-m0-p62-v1530": "88bfe63eaf0ae48a4f58c76a389c6c490c96b620eceb5b58495d1cf146d8c2b0",
+   "mukta-m0-p62-v1531": "e335ec489d94d8d58afde88bac3276bdee5f4d0d9ff545b229c2821f83b4952c",
+   "mukta-m0-p62-v1532": "8d93eea1c8f6f8755b039795d1e9d7e45e57cb9562dd89253daa27ddfeaa26dc",
+   "mukta-m0-p62-v1533": "2296bd4e15fb86eeb944777cb290aada6093e0ab5714a6088b8666baa784cea8",
+   "mukta-m0-p62-v1534": "dc7d6236b9c58f765f35dc97be1bcd991ad38292f09cf0bea3f87bc2810865cb",
+   "mukta-m0-p62-v1535": "87d5de21fc076d817191ceb1b87f64c821a5961cf5ec17412bb3a86aeca9e70f",
+   "mukta-m0-p62-v1536": "1edc5cee58eeb8c4df8ab441964d1284f7de0e95091ec1cd3dbd9e55534114ae",
+   "mukta-m0-p62-v1537": "ad766b4bc2a8c1755b7e22d8746f46cb7a4801196b57928ca53c73f3706444a3",
+   "mukta-m0-p62-v1538": "670e62d2ee031d0b360ada19d2dbc46753aa837828f7001b08fde9f833d63407",
+   "mukta-m0-p62-v1539": "d5cbfe31cf9f720856f2cc4cb6f05da117e49b6591dce22c9be6d050398d1816",
+   "mukta-m0-p62-v1540": "807cd05afdbd59ca3275641577faa5ede38ff4498a4d16e33c9b41711a477d02",
+   "mukta-m0-p62-v1541": "01a406279d5985d08d078ed7e07dab279099ab5758f1e7b2fe4e6cbadb6cb3f2",
+   "mukta-m0-p62-v1542": "0e3bfa05f7db74ebcf9cf6410c69834c7bda970f45bed2e5554faba4c9636f8b",
+   "mukta-m0-p62-v1543": "a626cfbd9214ad5211613dfd8a678bfd3820e8aebabfcebc9728dc4505e97f3f",
+   "mukta-m0-p62-v1544": "f6643994d1820cd9d5a15d5bc75f3b360cf0e2f8b46f2b981f3eb247172d814c",
+   "mukta-m0-p62-v1545": "f7c5d868011ae06d86c77ddd905c250cda87cbdce6d1fe36111721103a3b337d",
+   "mukta-m0-p62-v1546": "96014234242f72c7e627d84433fda773798ac51386ae3e397ef40114b88a4bbd",
+   "mukta-m0-p62-v1547": "381796aac2f82894cbc50516409dbffa19c885a58784ee703ab9f8ad4ec37f60",
+   "mukta-m0-p62-v1548": "219e6af9668c92f025af02e3481d14cc7f1679b239b9b9a1ed8e04784210cdd6",
+   "mukta-m0-p62-v1549": "16f761ac62d42bca6829d28bb202b6882e51ddac334645e22d062f9b3b11c42f",
+   "mukta-m0-p62-v1550": "01dd02ce7faa20962a51433e0e9edbc74b1d93fc5a6fe30b4a94b566ca50beee"
+  },
+  "l2": {
+   "mukta-m0-p62-v1526": "e72b7569abe134109864fdc52680f0b6bebb755ff31159e5451326f478a5d72c",
+   "mukta-m0-p62-v1527": "bf41f69fced9a071b4749434e82d874a250675dbc7341f891a197e8abea6ddf7",
+   "mukta-m0-p62-v1528": "00cddbe0b87286958fa63667c121ee6115f404e18d481e704994af96dd8531e5",
+   "mukta-m0-p62-v1529": "f7f92861e0b181d62600501807af2b595caf10bcb60e1d3597d5f709853340f4",
+   "mukta-m0-p62-v1530": "fc71e8603c11795c56ecc206f14bd4d64eb298621e80eb88cdc9d895f8d6a4d3",
+   "mukta-m0-p62-v1531": "5ee00ca1433f14742688a5ad99fbc6f1ffd99ac82686330bb472dd2ea6fbeb87",
+   "mukta-m0-p62-v1532": "d780327cad8bdc07ce34a6f8cd7efeee0ff3360416fd2c00dc35943a6114e226",
+   "mukta-m0-p62-v1533": "0c689d1f4fa5d0fb0ff27361b95519e28e24a4897d841e152d134e7b6d2319e3",
+   "mukta-m0-p62-v1534": "395b9809d29fd4f532a8c51d0881d1322c1e62d270e34b9cbae1cb93e9f444ff",
+   "mukta-m0-p62-v1535": "4332445403422e1f4a19cbdaccbeb6a377e26cb187217c8eee16cb6ca79fae11",
+   "mukta-m0-p62-v1536": "25df4afb7e2a0249741b410795951d531b82361e8bd0f7d22d8fea1e49b4d7a8",
+   "mukta-m0-p62-v1537": "e43282a1984c85377dfc37b390b5a959ee3d1ad5aed3073a639aebc3de1095ec",
+   "mukta-m0-p62-v1538": "bca7e291d2e1cdbb1e25fb40659322f0c6b41abaa75f69cfa7af84416235dfea",
+   "mukta-m0-p62-v1539": "a4ff234e8f102c105a40b57b2426c4b1b2645f77c5c718d376a3d4fd5198daba",
+   "mukta-m0-p62-v1540": "fec5434afd3209de623db8ace64ec5c1bdb30b0c7ba13b71245088bfa8fca34b",
+   "mukta-m0-p62-v1541": "9c485487c29cba4757ccafbf4c1469a5cc881c53f6fe1a758906e754f599aefb",
+   "mukta-m0-p62-v1542": "e365389b57e57c4ce73358509e61b4d16e633bdedffaab61605df8211556dc57",
+   "mukta-m0-p62-v1543": "5f7889c28ed5d39deb98ae96981a3c84edfc4c7ff7355a997604efde374d0e26",
+   "mukta-m0-p62-v1544": "016f0c42688fe59582bf614d53df498899b4440daa29b2ce1eb4a135f9064fa4",
+   "mukta-m0-p62-v1545": "75ef6bc51f88981c20c49008ad7c196ae0b335cfd9ad8e886275b2a39f905fcc",
+   "mukta-m0-p62-v1546": "9735fabe166a640a901a807b296482290dc0c474484dc5ab58494a8fe09517c7",
+   "mukta-m0-p62-v1547": "c86a84da6ea25b6b67184853bec0e67ac80b5b3abed478547d0b020aface0e0a",
+   "mukta-m0-p62-v1548": "e9bae6cc9c66f9b41016089209200a759b181bef15d7944eaf75692dd2b8bfbb",
+   "mukta-m0-p62-v1549": "7e660d873688cd23d7fd07d474da351e3c9f618916ad1a8dca6e63cc368765df",
+   "mukta-m0-p62-v1550": "230221cd30fc99112f4d5b9302edfe946eec4d9df98869ef7b8cb07c6bcaa71f"
+  },
+  "c1": {
+   "mukta-m0-p62": "08c00cd160f5a3e741225efb57d4993a20de33bc8e80a805cdcd93399acdf930"
+  },
+  "l3": {},
+  "l4": {},
+  "c2": {}
+ },
+ "versions": [],
+ "essays": [],
+ "reviews": [],
+ "promotions": [],
+ "signoffs": [],
+ "stack_hashes": {
+  "mukta-m0-p62": "3cacf9a493cb7ee9892430da1ef45bc3f6281fd5faceb8fe32359bc53886f42f"
+ },
+ "projection_sha256": "c6ce275eb98ffd37a189593f4b6ff6a79a4d79f93ce0e4a975ca5efb5e0409e4"
+}

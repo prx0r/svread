@@ -1,0 +1,1984 @@
+{
+ "work": "mukta-m00009",
+ "generated": null,
+ "source": "translation-work canonical data + scholar/ ledgers (emit_scholar.py)",
+ "source_edition": "Muktabodha M00009 (IAST, CC BY-NC 4.0) [concat of non-contiguous segment slices]",
+ "contract": {
+  "contract_version": "svatantrya-agent-contract/1",
+  "contract_sha256": "575232010d119225d9b3f12121fa59ad744765a875914708396c51a3129d7301",
+  "schema_version": "1.4.0",
+  "structural_schema_version": "2.1.0",
+  "structural_schema_snapshot_sha256": "3ce4085b2cbcebfec8471eee4b24a6974f9a19c77f0d125c7cad46bbb1ae8b0a",
+  "order": [
+   "source",
+   "t1",
+   "l0",
+   "argmap",
+   "l2",
+   "c1",
+   "l3",
+   "l4",
+   "c2"
+  ],
+  "schemas": {
+   "t1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:t1",
+    "title": "Svatantrya T1 structural schema",
+    "x-validator": "schemas.t1.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "quick_english",
+     "tokens",
+     "source_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "quick_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "source_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "tokens": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "surface",
+        "quick_gloss"
+       ],
+       "properties": {
+        "surface": {
+         "type": "string",
+         "minLength": 1
+        },
+        "quick_gloss": {
+         "type": "string",
+         "minLength": 1
+        }
+       }
+      }
+     }
+    }
+   },
+   "l0": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l0:verse",
+    "title": "Svatantrya L0 verse token list structural schema",
+    "x-validator": "schemas.l0.validate (per token)",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+     "$schema": "https://json-schema.org/draft/2020-12/schema",
+     "$id": "urn:svatantrya:schema:2.1.0:l0",
+     "title": "Svatantrya L0 structural schema",
+     "x-validator": "schemas.l0.validate",
+     "x-schema-version": "1.4.0",
+     "x-structural-schema-version": "2.1.0",
+     "type": "object",
+     "required": [
+      "id",
+      "verse_id",
+      "pada_index",
+      "surface",
+      "citation",
+      "options",
+      "chosen_index",
+      "status"
+     ],
+     "properties": {
+      "id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "verse_id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "pada_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "surface": {
+       "type": "string",
+       "minLength": 1
+      },
+      "citation": {
+       "type": "string",
+       "minLength": 1
+      },
+      "morph": {
+       "type": "string"
+      },
+      "morph_unknown": {
+       "type": "boolean"
+      },
+      "options": {
+       "type": "array",
+       "maxItems": 5,
+       "items": {
+        "type": "object",
+        "required": [
+         "gloss",
+         "rank",
+         "source",
+         "grounds"
+        ],
+        "properties": {
+         "gloss": {
+          "type": "string",
+          "minLength": 1
+         },
+         "rank": {
+          "type": "integer",
+          "minimum": 1
+         },
+         "source": {
+          "type": "string",
+          "minLength": 1
+         },
+         "grounds": {
+          "type": "string",
+          "minLength": 1
+         }
+        }
+       }
+      },
+      "chosen_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "status": {
+       "type": "string",
+       "enum": [
+        "PARSED",
+        "AMBIGUOUS",
+        "FAILED"
+       ]
+      },
+      "revised": {
+       "type": "boolean"
+      },
+      "revise_reason": {
+       "type": "string"
+      },
+      "fork": {
+       "type": "string",
+       "enum": [
+        "none",
+        "live",
+        "resolved"
+       ]
+      }
+     }
+    }
+   },
+   "argmap": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:argmap",
+    "title": "Svatantrya ARGMAP structural schema",
+    "x-validator": "schemas.argmap.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "traces",
+     "sanskrit_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "traces": {
+      "type": "object",
+      "required": [
+       "t1_verse",
+       "l0_ids"
+      ],
+      "properties": {
+       "t1_verse": {
+        "type": "string",
+        "minLength": 1
+       },
+       "l0_ids": {
+        "type": "array",
+        "items": {
+         "type": "string",
+         "minLength": 1
+        },
+        "minItems": 1
+       }
+      }
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "sanskrit_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "speaker": {
+      "type": "string",
+      "minLength": 1
+     },
+     "question": {
+      "type": "string",
+      "minLength": 1
+     },
+     "inference": {
+      "type": "string",
+      "minLength": 1
+     },
+     "reconstruction": {
+      "type": "string",
+      "minLength": 1
+     },
+     "premises": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     },
+     "uncertainties": {
+      "type": "array"
+     },
+     "structured": {
+      "type": "boolean"
+     }
+    }
+   },
+   "l2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l2",
+    "title": "Svatantrya L2 structural schema",
+    "x-validator": "schemas.l2.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "plain_english",
+     "sanskrit_cite",
+     "l0_ids"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "plain_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "supplied": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     }
+    }
+   },
+   "c1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:c1",
+    "title": "Svatantrya C1 structural schema",
+    "x-validator": "schemas.c1.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "song",
+     "essence",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "essence": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "renders": {
+      "type": "object",
+      "required": [
+       "standard"
+      ]
+     }
+    }
+   },
+   "l3": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l3",
+    "title": "Svatantrya L3 structural schema",
+    "x-validator": "schemas.l3.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "l4": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l4",
+    "title": "Svatantrya L4 structural schema",
+    "x-validator": "schemas.l4.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "c2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:c2",
+    "title": "Svatantrya C2 structural schema",
+    "x-validator": "schemas.c2.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "song",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "renders": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "style",
+        "prompt",
+        "paragraphs"
+       ],
+       "properties": {
+        "style": {
+         "type": "string",
+         "minLength": 1
+        },
+        "prompt": {
+         "type": "string",
+         "minLength": 1
+        },
+        "paragraphs": {
+         "type": "array",
+         "minItems": 1,
+         "items": {
+          "type": "object",
+          "required": [
+           "text",
+           "maps_to"
+          ],
+          "properties": {
+           "text": {
+            "type": "string",
+            "minLength": 1
+           },
+           "maps_to": {
+            "type": "array",
+            "items": {
+             "type": "integer",
+             "minimum": 0
+            },
+            "minItems": 1
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "layers": [
+   {
+    "id": "t1",
+    "scope": "verse",
+    "depends_on": [
+     "source"
+    ],
+    "validator": "schemas/t1.py",
+    "validator_sha256": "ac792ba1f0cbc06ab52dfbc41a31d3e39460f0e8a7de2977ed02e4ce63a20f27",
+    "example": {
+     "file": "sivastotravali/data/s01.t1.json",
+     "file_sha256": "a5c4cfae67571d05866d97ad6eb29b1c2956140a69c2fae554c29577330beb8e",
+     "target": "s01-v01",
+     "content_sha256": "26f027dafbe67347efd901cb2b94630cdb0e372957edeb4a3e1305e83745ba5b",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l0",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1"
+    ],
+    "validator": "schemas/l0.py",
+    "validator_sha256": "0651bc77f519897f8a4f8b41f4ea0cc6a88f3441910af99b18d55854a7e9030e",
+    "example": {
+     "file": "sivastotravali/data/s06.l0.json",
+     "file_sha256": "c2bb0ce1010315d72bdce75ee3c8901b17499202abe7adc5bd1977a26f4fea2f",
+     "target": "s06-v01",
+     "content_sha256": "91e3b04d47482757bcaf1e9705992edd0815ff7907ed2cb33c7c9586f3a9e5aa",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "argmap",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0"
+    ],
+    "validator": "schemas/argmap.py",
+    "validator_sha256": "335c1bbe809c5ae942ecef4a30ee7fd8fcb82645a43019312fa74397fe5758b0",
+    "example": {
+     "file": "sivastotravali/data/s01.argmap.json",
+     "file_sha256": "a44c8ec09a30c577f2a792c1255d4290f49a6138c456bb687bc00e78a3902949",
+     "target": "s01-v21",
+     "content_sha256": "80b69a54761b8b0b7c193058f6c88eef60323a3611008c41ba9879bcfc3cdc21",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l2",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap"
+    ],
+    "validator": "schemas/l2.py",
+    "validator_sha256": "95556834767ef61cf824b501ad7184b4223b6a7f479cd9644fbaae4372725ae3",
+    "example": {
+     "file": "sivastotravali/data/s01.l2.json",
+     "file_sha256": "f5a1cec55bb466c328380a0bf527e6d8906428b3436f85a79bd01df98ceb1040",
+     "target": "s01-v01",
+     "content_sha256": "f3c47f6a631f7551d4f9c8ad1117bdf65463cb8cdc92e9b42bb3bf517ae80055",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c1",
+    "scope": "song",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2"
+    ],
+    "validator": "schemas/c1.py",
+    "validator_sha256": "291c7eba42e68952b685becb6b596df7e2d9ca859d264152707d89efa5361c90",
+    "example": {
+     "file": "sivastotravali/data/s01.c1.json",
+     "file_sha256": "99f4d2bbf7a8086176ee585b6e459076e2abd72b9675435267f7546beb1515f8",
+     "target": "s01",
+     "content_sha256": "5be1f3c0c3f64fafe5395b42cf5502a139a5e208be419d5804fe1a5bdd33712a",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l3",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2",
+     "c1"
+    ],
+    "validator": "schemas/l3.py",
+    "validator_sha256": "6c3df228f886207782d5250699e9e459f236f6e7d6b25ac29b00a38541956917",
+    "example": {
+     "file": "sivastotravali/data/s01.l3.json",
+     "file_sha256": "cdb4af6a4c2a851231195f4e5c940346f65199d5d5d69ea1c41d8095f98409f9",
+     "target": "s01-v01",
+     "content_sha256": "6aa20635387174b68fe4ea3baf970c06aff9838acb2c745e7afca0ed7c6751de",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l4",
+    "scope": "verse",
+    "depends_on": [
+     "l3",
+     "c1"
+    ],
+    "validator": "schemas/l4.py",
+    "validator_sha256": "3c1f7b0dfe3d83d425ed0fd84fba7b74aa3ed9e9758402369d779eedda1a8c03",
+    "example": {
+     "file": "paramarthasara/data/param-p01.l4.json",
+     "file_sha256": "db346e51e71f2f835ddfda004d4432934611817c2c73318d335f6ca2362ad4fb",
+     "target": "param-p01-v01",
+     "content_sha256": "91e9d424cf310d4e5b45c173b02f5286d837269ef9447533c153a48cb5122c14",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c2",
+    "scope": "song",
+    "depends_on": [
+     "c1",
+     "l3"
+    ],
+    "validator": "schemas/c2.py",
+    "validator_sha256": "fb8743f206e036002c780d082c7d32cf011dcdab4c21df742a5f5e59a9d851b8",
+    "example": {
+     "file": "sivastotravali/data/s01.c2.json",
+     "file_sha256": "09660a3c09679fce8c95968934e5851a22d89cdf154d2b0635d358e1ef9e8aeb",
+     "target": "s01",
+     "content_sha256": "2faa5fa86e38faca7ef5a1a967a4e261e2df294648a31ed5bad5f731001aa41c",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   }
+  ]
+ },
+ "rights": {
+  "translation": "FREE — our English (L1–L4, commentary) is free use",
+  "scholar": "Contributors declare rights; authorship and copyright depend on the work and law."
+ },
+ "originals": {
+  "t1": {
+   "mukta-m0-p19-v451": {
+    "verse_id": "mukta-m0-p19-v451",
+    "song": "mukta-m0-p19",
+    "verse": 451,
+    "tokens": [
+     {
+      "sanskrit": "yogābhyāsāt",
+      "surface": "yogābhyāsāt",
+      "iast": "yogābhyāsāt",
+      "gloss": "through-yoga-practice",
+      "quick_gloss": "through-yoga-practice",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "atra",
+      "surface": "atra",
+      "iast": "atra",
+      "gloss": "here",
+      "quick_gloss": "here",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "eva",
+      "surface": "eva",
+      "iast": "eva",
+      "gloss": "indeed",
+      "quick_gloss": "indeed",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "sarvajñatva",
+      "surface": "sarvajñatva",
+      "iast": "sarvajñatva",
+      "gloss": "omniscience",
+      "quick_gloss": "omniscience",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ādiḥ",
+      "surface": "ādiḥ",
+      "iast": "ādiḥ",
+      "gloss": "and-so-forth",
+      "quick_gloss": "and-so-forth",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "prakāśate",
+      "surface": "prakāśate",
+      "iast": "prakāśate",
+      "gloss": "manifests",
+      "quick_gloss": "manifests",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "iti",
+      "surface": "iti",
+      "iast": "iti",
+      "gloss": "thus",
+      "quick_gloss": "thus",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "arthaḥ",
+      "surface": "arthaḥ",
+      "iast": "arthaḥ",
+      "gloss": "meaning",
+      "quick_gloss": "meaning",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "The meaning is that through the practice of yoga, omniscience and other such powers manifest right here.",
+    "source_sha": ""
+   },
+   "mukta-m0-p19-v452": {
+    "verse_id": "mukta-m0-p19-v452",
+    "song": "mukta-m0-p19",
+    "verse": 452,
+    "tokens": [
+     {
+      "sanskrit": "nadī",
+      "surface": "nadī",
+      "iast": "nadī",
+      "gloss": "river",
+      "quick_gloss": "river",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "janapada",
+      "surface": "janapada",
+      "iast": "janapada",
+      "gloss": "country",
+      "quick_gloss": "country",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "udyāna",
+      "surface": "udyāna",
+      "iast": "udyāna",
+      "gloss": "garden",
+      "quick_gloss": "garden",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "pura",
+      "surface": "pura",
+      "iast": "pura",
+      "gloss": "city",
+      "quick_gloss": "city",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ādīni",
+      "surface": "ādīni",
+      "iast": "ādīni",
+      "gloss": "and-so-forth",
+      "quick_gloss": "and-so-forth",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "sva",
+      "surface": "sva",
+      "iast": "sva",
+      "gloss": "own",
+      "quick_gloss": "own",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "līlayā",
+      "surface": "līlayā",
+      "iast": "līlayā",
+      "gloss": "by-play",
+      "quick_gloss": "by-play",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Rivers, countries, gardens, cities, and so forth arise by one's own play.",
+    "source_sha": ""
+   },
+   "mukta-m0-p19-v453": {
+    "verse_id": "mukta-m0-p19-v453",
+    "song": "mukta-m0-p19",
+    "verse": 453,
+    "tokens": [
+     {
+      "sanskrit": "namaḥ",
+      "surface": "namaḥ",
+      "iast": "namaḥ",
+      "gloss": "obeisance",
+      "quick_gloss": "obeisance",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tathāvidhāya",
+      "surface": "tathāvidhāya",
+      "iast": "tathāvidhāya",
+      "gloss": "to-such-a-one",
+      "quick_gloss": "to-such-a-one",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "asmad",
+      "surface": "asmad",
+      "iast": "asmad",
+      "gloss": "our",
+      "quick_gloss": "our",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "gurave",
+      "surface": "gurave",
+      "iast": "gurave",
+      "gloss": "to-teacher",
+      "quick_gloss": "to-teacher",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "śiva",
+      "surface": "śiva",
+      "iast": "śiva",
+      "gloss": "śiva",
+      "quick_gloss": "śiva",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tejase",
+      "surface": "tejase",
+      "iast": "tejase",
+      "gloss": "to-splendor",
+      "quick_gloss": "to-splendor",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Obeisance to such a one, our teacher, whose splendor is Śiva.",
+    "source_sha": ""
+   },
+   "mukta-m0-p19-v454": {
+    "verse_id": "mukta-m0-p19-v454",
+    "song": "mukta-m0-p19",
+    "verse": 454,
+    "tokens": [
+     {
+      "sanskrit": "rāmakaṇṭha",
+      "surface": "rāmakaṇṭha",
+      "iast": "rāmakaṇṭha",
+      "gloss": "rāmakaṇṭha",
+      "quick_gloss": "rāmakaṇṭha",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kṛta",
+      "surface": "kṛta",
+      "iast": "kṛta",
+      "gloss": "composed",
+      "quick_gloss": "composed",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "āloka",
+      "surface": "āloka",
+      "iast": "āloka",
+      "gloss": "light",
+      "quick_gloss": "light",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "nirmalīkṛta",
+      "surface": "nirmalīkṛta",
+      "iast": "nirmalīkṛta",
+      "gloss": "purified",
+      "quick_gloss": "purified",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "cetasā",
+      "surface": "cetasā",
+      "iast": "cetasā",
+      "gloss": "by-mind",
+      "quick_gloss": "by-mind",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "By one whose mind has been purified by the light composed by Rāmakaṇṭha.",
+    "source_sha": ""
+   },
+   "mukta-m0-p19-v455": {
+    "verse_id": "mukta-m0-p19-v455",
+    "song": "mukta-m0-p19",
+    "verse": 455,
+    "tokens": [
+     {
+      "sanskrit": "ratna",
+      "surface": "ratna",
+      "iast": "ratna",
+      "gloss": "jewel",
+      "quick_gloss": "jewel",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "traya",
+      "surface": "traya",
+      "iast": "traya",
+      "gloss": "triad",
+      "quick_gloss": "triad",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "parīkṣā",
+      "surface": "parīkṣā",
+      "iast": "parīkṣā",
+      "gloss": "examination",
+      "quick_gloss": "examination",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "arthaḥ",
+      "surface": "arthaḥ",
+      "iast": "arthaḥ",
+      "gloss": "purpose",
+      "quick_gloss": "purpose",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "saṃkṣepeṇa",
+      "surface": "saṃkṣepeṇa",
+      "iast": "saṃkṣepeṇa",
+      "gloss": "in-brief",
+      "quick_gloss": "in-brief",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "prakāśitaḥ",
+      "surface": "prakāśitaḥ",
+      "iast": "prakāśitaḥ",
+      "gloss": "revealed",
+      "quick_gloss": "revealed",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "The purpose of the examination of the triad of jewels has been revealed in brief.",
+    "source_sha": ""
+   }
+  },
+  "l0": {
+   "mukta-m0-p19-v451": [
+    {
+     "id": "mukta-m0-p19-v451-p000",
+     "verse_id": "mukta-m0-p19-v451",
+     "pada_index": 0,
+     "surface": "yogābhyāsāt",
+     "citation": "yogābhyāsāt",
+     "morph": "m.abl.sg",
+     "options": [
+      {
+       "gloss": "through-yoga-practice",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "ablative of cause or means indicating source of manifestation"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p19-v451-p001",
+     "verse_id": "mukta-m0-p19-v451",
+     "pada_index": 1,
+     "surface": "atra",
+     "citation": "atra",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "here",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "locative adverb indicating present context or state"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p19-v451-p002",
+     "verse_id": "mukta-m0-p19-v451",
+     "pada_index": 2,
+     "surface": "eva",
+     "citation": "eva",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "indeed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "emphatic particle restricting scope"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p19-v451-p003",
+     "verse_id": "mukta-m0-p19-v451",
+     "pada_index": 3,
+     "surface": "sarvajñatva",
+     "citation": "sarvajñatva",
+     "morph": "n.nom.sg",
+     "options": [
+      {
+       "gloss": "omniscience",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "abstract quality denoting all-knowingness"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p19-v451-p004",
+     "verse_id": "mukta-m0-p19-v451",
+     "pada_index": 4,
+     "surface": "ādiḥ",
+     "citation": "ādiḥ",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "and-so-forth",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indicates inclusion of similar qualities or powers"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p19-v451-p005",
+     "verse_id": "mukta-m0-p19-v451",
+     "pada_index": 5,
+     "surface": "prakāśate",
+     "citation": "prakāśate",
+     "morph": "3.sg.pres.middle (pra-kāś)",
+     "options": [
+      {
+       "gloss": "manifests",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "denotes becoming evident or shining forth"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p19-v451-p006",
+     "verse_id": "mukta-m0-p19-v451",
+     "pada_index": 6,
+     "surface": "iti",
+     "citation": "iti",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "thus",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "quotation or conclusion marker"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p19-v451-p007",
+     "verse_id": "mukta-m0-p19-v451",
+     "pada_index": 7,
+     "surface": "arthaḥ",
+     "citation": "arthaḥ",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "meaning",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "states the intended sense or purport"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p19-v452": [
+    {
+     "id": "mukta-m0-p19-v452-p000",
+     "verse_id": "mukta-m0-p19-v452",
+     "pada_index": 0,
+     "surface": "nadī",
+     "citation": "nadī",
+     "morph": "f.nom.sg (compound-member)",
+     "options": [
+      {
+       "gloss": "river",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "first member of a series of created or envisioned forms"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p19-v452-p001",
+     "verse_id": "mukta-m0-p19-v452",
+     "pada_index": 1,
+     "surface": "janapada",
+     "citation": "janapada",
+     "morph": "m.nom.sg (compound-member)",
+     "options": [
+      {
+       "gloss": "country",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "member of enumerated series"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p19-v452-p002",
+     "verse_id": "mukta-m0-p19-v452",
+     "pada_index": 2,
+     "surface": "udyāna",
+     "citation": "udyāna",
+     "morph": "n.nom.sg (compound-member)",
+     "options": [
+      {
+       "gloss": "garden",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "member of enumerated series"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p19-v452-p003",
+     "verse_id": "mukta-m0-p19-v452",
+     "pada_index": 3,
+     "surface": "pura",
+     "citation": "pura",
+     "morph": "n.nom.sg (compound-member)",
+     "options": [
+      {
+       "gloss": "city",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "member of enumerated series"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p19-v452-p004",
+     "verse_id": "mukta-m0-p19-v452",
+     "pada_index": 4,
+     "surface": "ādīni",
+     "citation": "ādīni",
+     "morph": "n.nom.pl",
+     "options": [
+      {
+       "gloss": "and-so-forth",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indicates extension of the listed items"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p19-v452-p005",
+     "verse_id": "mukta-m0-p19-v452",
+     "pada_index": 5,
+     "surface": "sva",
+     "citation": "sva",
+     "morph": "(indecl., compound-member)",
+     "options": [
+      {
+       "gloss": "own",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "reflexive possessive qualifying the mode of activity"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p19-v452-p006",
+     "verse_id": "mukta-m0-p19-v452",
+     "pada_index": 6,
+     "surface": "līlayā",
+     "citation": "līlayā",
+     "morph": "f.inst.sg",
+     "options": [
+      {
+       "gloss": "by-play",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "instrumental indicating effortless creative activity"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p19-v453": [
+    {
+     "id": "mukta-m0-p19-v453-p000",
+     "verse_id": "mukta-m0-p19-v453",
+     "pada_index": 0,
+     "surface": "namaḥ",
+     "citation": "namaḥ",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "obeisance",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "expression of reverential salutation"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p19-v453-p001",
+     "verse_id": "mukta-m0-p19-v453",
+     "pada_index": 1,
+     "surface": "tathāvidhāya",
+     "citation": "tathāvidhāya",
+     "morph": "m.dat.sg",
+     "options": [
+      {
+       "gloss": "to-such-a-one",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "dative recipient described as being of that nature"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p19-v453-p002",
+     "verse_id": "mukta-m0-p19-v453",
+     "pada_index": 2,
+     "surface": "asmad",
+     "citation": "asmad",
+     "morph": "(indecl., compound-member)",
+     "options": [
+      {
+       "gloss": "our",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "first-person plural possessive element in compound"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p19-v453-p003",
+     "verse_id": "mukta-m0-p19-v453",
+     "pada_index": 3,
+     "surface": "gurave",
+     "citation": "gurave",
+     "morph": "m.dat.sg",
+     "options": [
+      {
+       "gloss": "to-teacher",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "dative recipient of salutation"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p19-v453-p004",
+     "verse_id": "mukta-m0-p19-v453",
+     "pada_index": 4,
+     "surface": "śiva",
+     "citation": "śiva",
+     "morph": "m.nom.sg (compound-member)",
+     "options": [
+      {
+       "gloss": "śiva",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "first member of compound describing the teacher's splendor"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p19-v453-p005",
+     "verse_id": "mukta-m0-p19-v453",
+     "pada_index": 5,
+     "surface": "tejase",
+     "citation": "tejase",
+     "morph": "n.dat.sg",
+     "options": [
+      {
+       "gloss": "to-splendor",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "dative apposition characterizing the teacher's luminous nature"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p19-v454": [
+    {
+     "id": "mukta-m0-p19-v454-p000",
+     "verse_id": "mukta-m0-p19-v454",
+     "pada_index": 0,
+     "surface": "rāmakaṇṭha",
+     "citation": "rāmakaṇṭha",
+     "morph": "m.nom.sg (compound-member)",
+     "options": [
+      {
+       "gloss": "rāmakaṇṭha",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "agent name forming first member of compound"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p19-v454-p001",
+     "verse_id": "mukta-m0-p19-v454",
+     "pada_index": 1,
+     "surface": "kṛta",
+     "citation": "kṛta",
+     "morph": "(past-participle, compound-member) (kṛ)",
+     "options": [
+      {
+       "gloss": "composed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "past participle indicating authorship, compound member"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p19-v454-p002",
+     "verse_id": "mukta-m0-p19-v454",
+     "pada_index": 2,
+     "surface": "āloka",
+     "citation": "āloka",
+     "morph": "m.nom.sg (compound-member)",
+     "options": [
+      {
+       "gloss": "light",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "illumination or commentary, compound member"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p19-v454-p003",
+     "verse_id": "mukta-m0-p19-v454",
+     "pada_index": 3,
+     "surface": "nirmalīkṛta",
+     "citation": "nirmalīkṛta",
+     "morph": "(past-participle, compound-member) (nirmalī-kṛ)",
+     "options": [
+      {
+       "gloss": "purified",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "past participle indicating cleansing, compound member"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p19-v454-p004",
+     "verse_id": "mukta-m0-p19-v454",
+     "pada_index": 4,
+     "surface": "cetasā",
+     "citation": "cetasā",
+     "morph": "n.inst.sg",
+     "options": [
+      {
+       "gloss": "by-mind",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "instrumental indicating the faculty made pure"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p19-v455": [
+    {
+     "id": "mukta-m0-p19-v455-p000",
+     "verse_id": "mukta-m0-p19-v455",
+     "pada_index": 0,
+     "surface": "ratna",
+     "citation": "ratna",
+     "morph": "n.nom.sg (compound-member)",
+     "options": [
+      {
+       "gloss": "jewel",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "first member of compound naming the subject"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p19-v455-p001",
+     "verse_id": "mukta-m0-p19-v455",
+     "pada_index": 1,
+     "surface": "traya",
+     "citation": "traya",
+     "morph": "n.nom.sg (compound-member)",
+     "options": [
+      {
+       "gloss": "triad",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "second member of compound indicating threefold set"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p19-v455-p002",
+     "verse_id": "mukta-m0-p19-v455",
+     "pada_index": 2,
+     "surface": "parīkṣā",
+     "citation": "parīkṣā",
+     "morph": "f.nom.sg (compound-member)",
+     "options": [
+      {
+       "gloss": "examination",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "third member of compound naming the work or topic"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p19-v455-p003",
+     "verse_id": "mukta-m0-p19-v455",
+     "pada_index": 3,
+     "surface": "arthaḥ",
+     "citation": "arthaḥ",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "purpose",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "object or meaning that is revealed"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p19-v455-p004",
+     "verse_id": "mukta-m0-p19-v455",
+     "pada_index": 4,
+     "surface": "saṃkṣepeṇa",
+     "citation": "saṃkṣepeṇa",
+     "morph": "m.inst.sg",
+     "options": [
+      {
+       "gloss": "in-brief",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "instrumental indicating concise manner"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p19-v455-p005",
+     "verse_id": "mukta-m0-p19-v455",
+     "pada_index": 5,
+     "surface": "prakāśitaḥ",
+     "citation": "prakāśitaḥ",
+     "morph": "m.nom.sg (past-participle) (pra-kāś)",
+     "options": [
+      {
+       "gloss": "revealed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "past participle indicating disclosure or illumination"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ]
+  },
+  "argmap": {
+   "mukta-m0-p19-v451": {
+    "verse_id": "mukta-m0-p19-v451",
+    "song": "mukta-m0-p19",
+    "verse": 451,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "How does yoga practice bring about the manifestation of omniscience and related powers in this very state?",
+    "premises": [
+     "Yoga practice serves as the cause of manifestation.",
+     "Omniscience and similar powers are the manifested qualities.",
+     "This manifestation occurs in the present context."
+    ],
+    "inference": "Therefore, through yoga practice, omniscience and related powers manifest here.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p19-v451",
+     "l0_ids": [
+      "mukta-m0-p19-v451-p000",
+      "mukta-m0-p19-v451-p001",
+      "mukta-m0-p19-v451-p002",
+      "mukta-m0-p19-v451-p003",
+      "mukta-m0-p19-v451-p004",
+      "mukta-m0-p19-v451-p005",
+      "mukta-m0-p19-v451-p006",
+      "mukta-m0-p19-v451-p007"
+     ],
+     "sanskrit_sha": "e1feb7ac2a94d76f"
+    },
+    "sanskrit_sha": "e1feb7ac2a94d76f"
+   },
+   "mukta-m0-p19-v452": {
+    "verse_id": "mukta-m0-p19-v452",
+    "song": "mukta-m0-p19",
+    "verse": 452,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "By what mode of activity are rivers, countries, gardens, cities, and similar forms brought forth?",
+    "premises": [
+     "Rivers, countries, gardens, cities, and other forms are enumerated.",
+     "These forms arise through an agent's activity.",
+     "The activity is characterized as one's own play."
+    ],
+    "inference": "Therefore, such forms are brought forth by one's own playful activity.",
+    "uncertainties": [
+     "The agent performing the play is implicit from context."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p19-v452",
+     "l0_ids": [
+      "mukta-m0-p19-v452-p000",
+      "mukta-m0-p19-v452-p001",
+      "mukta-m0-p19-v452-p002",
+      "mukta-m0-p19-v452-p003",
+      "mukta-m0-p19-v452-p004",
+      "mukta-m0-p19-v452-p005",
+      "mukta-m0-p19-v452-p006"
+     ],
+     "sanskrit_sha": "e1feb7ac2a94d76f"
+    },
+    "sanskrit_sha": "e1feb7ac2a94d76f"
+   },
+   "mukta-m0-p19-v453": {
+    "verse_id": "mukta-m0-p19-v453",
+    "song": "mukta-m0-p19",
+    "verse": 453,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "To whom is reverential obeisance offered as the teacher possessing the splendor of Śiva?",
+    "premises": [
+     "Obeisance is directed to a recipient.",
+     "The recipient is identified as our teacher.",
+     "The teacher is characterized as having the splendor of Śiva."
+    ],
+    "inference": "Therefore, obeisance is offered to our teacher who is of such nature and possesses Śiva's splendor.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p19-v453",
+     "l0_ids": [
+      "mukta-m0-p19-v453-p000",
+      "mukta-m0-p19-v453-p001",
+      "mukta-m0-p19-v453-p002",
+      "mukta-m0-p19-v453-p003",
+      "mukta-m0-p19-v453-p004",
+      "mukta-m0-p19-v453-p005"
+     ],
+     "sanskrit_sha": "e1feb7ac2a94d76f"
+    },
+    "sanskrit_sha": "e1feb7ac2a94d76f"
+   },
+   "mukta-m0-p19-v454": {
+    "verse_id": "mukta-m0-p19-v454",
+    "song": "mukta-m0-p19",
+    "verse": 454,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "By what means and by whom is the mind purified in relation to the composed illumination?",
+    "premises": [
+     "An illumination was composed by Rāmakaṇṭha.",
+     "The mind is described as purified.",
+     "The purification is associated with that illumination."
+    ],
+    "inference": "Therefore, the mind is purified by the illumination composed by Rāmakaṇṭha.",
+    "uncertainties": [
+     "The compound structure allows reading the mind as purified by the light composed by Rāmakaṇṭha."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p19-v454",
+     "l0_ids": [
+      "mukta-m0-p19-v454-p000",
+      "mukta-m0-p19-v454-p001",
+      "mukta-m0-p19-v454-p002",
+      "mukta-m0-p19-v454-p003",
+      "mukta-m0-p19-v454-p004"
+     ],
+     "sanskrit_sha": "e1feb7ac2a94d76f"
+    },
+    "sanskrit_sha": "e1feb7ac2a94d76f"
+   },
+   "mukta-m0-p19-v455": {
+    "verse_id": "mukta-m0-p19-v455",
+    "song": "mukta-m0-p19",
+    "verse": 455,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "In what manner has the purpose of the examination of the triad of jewels been revealed?",
+    "premises": [
+     "The subject is the examination of the triad of jewels.",
+     "Its purpose or meaning is the object of revelation.",
+     "The revelation is done in a concise manner."
+    ],
+    "inference": "Therefore, the purpose of the examination of the triad of jewels has been revealed briefly.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p19-v455",
+     "l0_ids": [
+      "mukta-m0-p19-v455-p000",
+      "mukta-m0-p19-v455-p001",
+      "mukta-m0-p19-v455-p002",
+      "mukta-m0-p19-v455-p003",
+      "mukta-m0-p19-v455-p004",
+      "mukta-m0-p19-v455-p005"
+     ],
+     "sanskrit_sha": "e1feb7ac2a94d76f"
+    },
+    "sanskrit_sha": "e1feb7ac2a94d76f"
+   }
+  },
+  "l2": {
+   "mukta-m0-p19-v451": {
+    "verse_id": "mukta-m0-p19-v451",
+    "song": "mukta-m0-p19",
+    "verse": 451,
+    "plain_english": "The meaning is that through the practice of yoga, omniscience and other such powers manifest right here.",
+    "sanskrit_cite": "yogābhyāsādatraiva sarvajñatvādiḥ prakāśata ityarthaḥ",
+    "l0_ids": [
+     "mukta-m0-p19-v451-p000",
+     "mukta-m0-p19-v451-p001",
+     "mukta-m0-p19-v451-p002",
+     "mukta-m0-p19-v451-p003",
+     "mukta-m0-p19-v451-p004",
+     "mukta-m0-p19-v451-p005",
+     "mukta-m0-p19-v451-p006",
+     "mukta-m0-p19-v451-p007"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p19-v452": {
+    "verse_id": "mukta-m0-p19-v452",
+    "song": "mukta-m0-p19",
+    "verse": 452,
+    "plain_english": "Rivers, countries, gardens, cities, and so forth arise by one's own play.",
+    "sanskrit_cite": "nadījanapadodyānapurādīni svalīlayā",
+    "l0_ids": [
+     "mukta-m0-p19-v452-p000",
+     "mukta-m0-p19-v452-p001",
+     "mukta-m0-p19-v452-p002",
+     "mukta-m0-p19-v452-p003",
+     "mukta-m0-p19-v452-p004",
+     "mukta-m0-p19-v452-p005",
+     "mukta-m0-p19-v452-p006"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p19-v453": {
+    "verse_id": "mukta-m0-p19-v453",
+    "song": "mukta-m0-p19",
+    "verse": 453,
+    "plain_english": "Obeisance to such a one, our teacher, whose splendor is Śiva.",
+    "sanskrit_cite": "namastathāvidhāyāsmadgurave śivatejase",
+    "l0_ids": [
+     "mukta-m0-p19-v453-p000",
+     "mukta-m0-p19-v453-p001",
+     "mukta-m0-p19-v453-p002",
+     "mukta-m0-p19-v453-p003",
+     "mukta-m0-p19-v453-p004",
+     "mukta-m0-p19-v453-p005"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p19-v454": {
+    "verse_id": "mukta-m0-p19-v454",
+    "song": "mukta-m0-p19",
+    "verse": 454,
+    "plain_english": "By one whose mind has been purified by the light composed by Rāmakaṇṭha.",
+    "sanskrit_cite": "rāmakaṇṭhakṛtālokanirmalīkṛtacetasā",
+    "l0_ids": [
+     "mukta-m0-p19-v454-p000",
+     "mukta-m0-p19-v454-p001",
+     "mukta-m0-p19-v454-p002",
+     "mukta-m0-p19-v454-p003",
+     "mukta-m0-p19-v454-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p19-v455": {
+    "verse_id": "mukta-m0-p19-v455",
+    "song": "mukta-m0-p19",
+    "verse": 455,
+    "plain_english": "The purpose of the examination of the triad of jewels has been revealed in brief.",
+    "sanskrit_cite": "ratnatrayaparīkṣārthaḥ saṃkṣepeṇa prakāśitaḥ",
+    "l0_ids": [
+     "mukta-m0-p19-v455-p000",
+     "mukta-m0-p19-v455-p001",
+     "mukta-m0-p19-v455-p002",
+     "mukta-m0-p19-v455-p003",
+     "mukta-m0-p19-v455-p004",
+     "mukta-m0-p19-v455-p005"
+    ],
+    "supplied": []
+   }
+  },
+  "c1": {
+   "mukta-m0-p19": {
+    "song": "mukta-m0-p19",
+    "essence": [
+     "Therefore, through yoga practice, omniscience and related powers manifest here.",
+     "Therefore, such forms are brought forth by one's own playful activity.",
+     "Therefore, obeisance is offered to our teacher who is of such nature and possesses Śiva's splendor.",
+     "Therefore, the mind is purified by the illumination composed by Rāmakaṇṭha.",
+     "Therefore, the purpose of the examination of the triad of jewels has been revealed briefly."
+    ],
+    "essence_source": "derived from argmap inferences (machine-proposed; assessor review outstanding)",
+    "rasa": {},
+    "essence_only": true,
+    "renders": {}
+   }
+  },
+  "l3": {},
+  "l4": {},
+  "c2": {}
+ },
+ "source_verses": {
+  "mukta-m0-p19-v451": {
+   "text": "yogābhyāsādatraiva sarvajñatvādiḥ prakāśata ityarthaḥ",
+   "source_file": "translation-work/mukta-m00009/source/edition.txt",
+   "source_sha256": "4c7b5917f5a5fdde83fdabad9c4b4b4c5764dd339ed70829248473750ef047c4",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p19-v452": {
+   "text": "nadījanapadodyānapurādīni svalīlayā",
+   "source_file": "translation-work/mukta-m00009/source/edition.txt",
+   "source_sha256": "4c7b5917f5a5fdde83fdabad9c4b4b4c5764dd339ed70829248473750ef047c4",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p19-v453": {
+   "text": "namastathāvidhāyāsmadgurave śivatejase",
+   "source_file": "translation-work/mukta-m00009/source/edition.txt",
+   "source_sha256": "4c7b5917f5a5fdde83fdabad9c4b4b4c5764dd339ed70829248473750ef047c4",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p19-v454": {
+   "text": "rāmakaṇṭhakṛtālokanirmalīkṛtacetasā",
+   "source_file": "translation-work/mukta-m00009/source/edition.txt",
+   "source_sha256": "4c7b5917f5a5fdde83fdabad9c4b4b4c5764dd339ed70829248473750ef047c4",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p19-v455": {
+   "text": "ratnatrayaparīkṣārthaḥ saṃkṣepeṇa prakāśitaḥ",
+   "source_file": "translation-work/mukta-m00009/source/edition.txt",
+   "source_sha256": "4c7b5917f5a5fdde83fdabad9c4b4b4c5764dd339ed70829248473750ef047c4",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  }
+ },
+ "l4_craft": {},
+ "withheld_songs": [
+  "mukta-m0-p09",
+  "mukta-m0-p14",
+  "mukta-m0-p16",
+  "mukta-m0-p18"
+ ],
+ "original_hashes": {
+  "t1": {
+   "mukta-m0-p19-v451": "31f59b633f49110e44545d11aba64821271c7046b8810c08eee39a76b07dd391",
+   "mukta-m0-p19-v452": "6f80645784dcb32c37ec1e18ddba32efa35fa6e21bd5415d027c41ba40529c15",
+   "mukta-m0-p19-v453": "41e5f06dd964484d28c5e19a3bb81a321d70f306372e5a3850c11d7abf54c4e3",
+   "mukta-m0-p19-v454": "987fb7b6ee67a1bb8945d2130d15290e138b425b782dc501d3eb33aedd6cab9e",
+   "mukta-m0-p19-v455": "e7148198aae707cdc9e6ea5be8efc2b4661f45b798e181ba3d6f6192de96d22e"
+  },
+  "l0": {
+   "mukta-m0-p19-v451": "9bca4f8fd2968d871d9e18ac92d7f3b7f8b3bd6ac8ee34e41bd1ca913dc9e838",
+   "mukta-m0-p19-v452": "125fda69413e9150fc9d3559b25a814517e1f859fd275917571a2ab2b8abb12c",
+   "mukta-m0-p19-v453": "dfd1cc7b0ecb7d4d4ce3ea2d4ac0f120ec2cbb9344bd90625e6c74161879bc43",
+   "mukta-m0-p19-v454": "e46cabcc0422e39e27420ed7c24eb2c8c9e935735a62e1d7240bec2672076459",
+   "mukta-m0-p19-v455": "15e931875ff211106eef5db0e28e17730953c002c3daede437f9b135eea67f51"
+  },
+  "argmap": {
+   "mukta-m0-p19-v451": "11d084c3f10cebc51e8dcac64a46e83999da87a00dfcd97f3a902c0e6d7e66cc",
+   "mukta-m0-p19-v452": "d8a65155ab28932026922fd87bd2047003f43800355554e6ad0af874a1486620",
+   "mukta-m0-p19-v453": "75ae21b06398e00c5224a86141aae42b9cb2e85e33f65c38e911f6e53d33e7a4",
+   "mukta-m0-p19-v454": "3e0df2c9e045e77e0368b18e6de35b7e51a311347038bd5cceb6a0a6786a90cb",
+   "mukta-m0-p19-v455": "8c7d510a06c122d7bf03daeb43238d371ce8f16028b57a0369d70787715cc2b3"
+  },
+  "l2": {
+   "mukta-m0-p19-v451": "5ac2cd6a4a7dffd09262684a8a6e1196a738193114760a2f543c17e46b52d1da",
+   "mukta-m0-p19-v452": "476dafc6512a707ca4bbbf7fd72967b7427454b8f4b48fe8a87a5ef45e9a524e",
+   "mukta-m0-p19-v453": "049982161dab43cc1976deb0dafa7c51998fb5072fe25301b78941f5958cdeb9",
+   "mukta-m0-p19-v454": "d53827aef8b0e0ab2828d8ff608dc4135e1a694b485f065f7ea6ee34364fd43a",
+   "mukta-m0-p19-v455": "14c35fd06e0447c072542ec108b2384b866a7b77b33ffecc6f021719f6b2c4bd"
+  },
+  "c1": {
+   "mukta-m0-p19": "5b4927f78baebde67d1103205f2dd0a00c76d70bd75d4111756b756925cf4b76"
+  },
+  "l3": {},
+  "l4": {},
+  "c2": {}
+ },
+ "versions": [],
+ "essays": [],
+ "reviews": [],
+ "promotions": [],
+ "signoffs": [],
+ "stack_hashes": {
+  "mukta-m0-p19": "d274db930eb18a68c8beb126339de31604a38a5e87516587e6232b914de95cdf"
+ },
+ "projection_sha256": "4fe88fc9edc94ccaca0d3d68efce2123df4c8fa3f451dec93b64b23c72042fce"
+}

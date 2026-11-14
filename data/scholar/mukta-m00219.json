@@ -1,0 +1,939 @@
+{
+ "work": "mukta-m00219",
+ "generated": null,
+ "source": "translation-work canonical data + scholar/ ledgers (emit_scholar.py)",
+ "source_edition": "Muktabodha M00219 (IAST, CC BY-NC 4.0)",
+ "contract": {
+  "contract_version": "svatantrya-agent-contract/1",
+  "contract_sha256": "575232010d119225d9b3f12121fa59ad744765a875914708396c51a3129d7301",
+  "schema_version": "1.4.0",
+  "structural_schema_version": "2.1.0",
+  "structural_schema_snapshot_sha256": "3ce4085b2cbcebfec8471eee4b24a6974f9a19c77f0d125c7cad46bbb1ae8b0a",
+  "order": [
+   "source",
+   "t1",
+   "l0",
+   "argmap",
+   "l2",
+   "c1",
+   "l3",
+   "l4",
+   "c2"
+  ],
+  "schemas": {
+   "t1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:t1",
+    "title": "Svatantrya T1 structural schema",
+    "x-validator": "schemas.t1.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "quick_english",
+     "tokens",
+     "source_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "quick_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "source_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "tokens": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "surface",
+        "quick_gloss"
+       ],
+       "properties": {
+        "surface": {
+         "type": "string",
+         "minLength": 1
+        },
+        "quick_gloss": {
+         "type": "string",
+         "minLength": 1
+        }
+       }
+      }
+     }
+    }
+   },
+   "l0": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l0:verse",
+    "title": "Svatantrya L0 verse token list structural schema",
+    "x-validator": "schemas.l0.validate (per token)",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+     "$schema": "https://json-schema.org/draft/2020-12/schema",
+     "$id": "urn:svatantrya:schema:2.1.0:l0",
+     "title": "Svatantrya L0 structural schema",
+     "x-validator": "schemas.l0.validate",
+     "x-schema-version": "1.4.0",
+     "x-structural-schema-version": "2.1.0",
+     "type": "object",
+     "required": [
+      "id",
+      "verse_id",
+      "pada_index",
+      "surface",
+      "citation",
+      "options",
+      "chosen_index",
+      "status"
+     ],
+     "properties": {
+      "id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "verse_id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "pada_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "surface": {
+       "type": "string",
+       "minLength": 1
+      },
+      "citation": {
+       "type": "string",
+       "minLength": 1
+      },
+      "morph": {
+       "type": "string"
+      },
+      "morph_unknown": {
+       "type": "boolean"
+      },
+      "options": {
+       "type": "array",
+       "maxItems": 5,
+       "items": {
+        "type": "object",
+        "required": [
+         "gloss",
+         "rank",
+         "source",
+         "grounds"
+        ],
+        "properties": {
+         "gloss": {
+          "type": "string",
+          "minLength": 1
+         },
+         "rank": {
+          "type": "integer",
+          "minimum": 1
+         },
+         "source": {
+          "type": "string",
+          "minLength": 1
+         },
+         "grounds": {
+          "type": "string",
+          "minLength": 1
+         }
+        }
+       }
+      },
+      "chosen_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "status": {
+       "type": "string",
+       "enum": [
+        "PARSED",
+        "AMBIGUOUS",
+        "FAILED"
+       ]
+      },
+      "revised": {
+       "type": "boolean"
+      },
+      "revise_reason": {
+       "type": "string"
+      },
+      "fork": {
+       "type": "string",
+       "enum": [
+        "none",
+        "live",
+        "resolved"
+       ]
+      }
+     }
+    }
+   },
+   "argmap": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:argmap",
+    "title": "Svatantrya ARGMAP structural schema",
+    "x-validator": "schemas.argmap.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "traces",
+     "sanskrit_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "traces": {
+      "type": "object",
+      "required": [
+       "t1_verse",
+       "l0_ids"
+      ],
+      "properties": {
+       "t1_verse": {
+        "type": "string",
+        "minLength": 1
+       },
+       "l0_ids": {
+        "type": "array",
+        "items": {
+         "type": "string",
+         "minLength": 1
+        },
+        "minItems": 1
+       }
+      }
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "sanskrit_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "speaker": {
+      "type": "string",
+      "minLength": 1
+     },
+     "question": {
+      "type": "string",
+      "minLength": 1
+     },
+     "inference": {
+      "type": "string",
+      "minLength": 1
+     },
+     "reconstruction": {
+      "type": "string",
+      "minLength": 1
+     },
+     "premises": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     },
+     "uncertainties": {
+      "type": "array"
+     },
+     "structured": {
+      "type": "boolean"
+     }
+    }
+   },
+   "l2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l2",
+    "title": "Svatantrya L2 structural schema",
+    "x-validator": "schemas.l2.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "plain_english",
+     "sanskrit_cite",
+     "l0_ids"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "plain_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "supplied": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     }
+    }
+   },
+   "c1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:c1",
+    "title": "Svatantrya C1 structural schema",
+    "x-validator": "schemas.c1.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "song",
+     "essence",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "essence": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "renders": {
+      "type": "object",
+      "required": [
+       "standard"
+      ]
+     }
+    }
+   },
+   "l3": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l3",
+    "title": "Svatantrya L3 structural schema",
+    "x-validator": "schemas.l3.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "l4": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l4",
+    "title": "Svatantrya L4 structural schema",
+    "x-validator": "schemas.l4.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "c2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:c2",
+    "title": "Svatantrya C2 structural schema",
+    "x-validator": "schemas.c2.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "song",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "renders": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "style",
+        "prompt",
+        "paragraphs"
+       ],
+       "properties": {
+        "style": {
+         "type": "string",
+         "minLength": 1
+        },
+        "prompt": {
+         "type": "string",
+         "minLength": 1
+        },
+        "paragraphs": {
+         "type": "array",
+         "minItems": 1,
+         "items": {
+          "type": "object",
+          "required": [
+           "text",
+           "maps_to"
+          ],
+          "properties": {
+           "text": {
+            "type": "string",
+            "minLength": 1
+           },
+           "maps_to": {
+            "type": "array",
+            "items": {
+             "type": "integer",
+             "minimum": 0
+            },
+            "minItems": 1
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "layers": [
+   {
+    "id": "t1",
+    "scope": "verse",
+    "depends_on": [
+     "source"
+    ],
+    "validator": "schemas/t1.py",
+    "validator_sha256": "ac792ba1f0cbc06ab52dfbc41a31d3e39460f0e8a7de2977ed02e4ce63a20f27",
+    "example": {
+     "file": "sivastotravali/data/s01.t1.json",
+     "file_sha256": "a5c4cfae67571d05866d97ad6eb29b1c2956140a69c2fae554c29577330beb8e",
+     "target": "s01-v01",
+     "content_sha256": "26f027dafbe67347efd901cb2b94630cdb0e372957edeb4a3e1305e83745ba5b",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l0",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1"
+    ],
+    "validator": "schemas/l0.py",
+    "validator_sha256": "0651bc77f519897f8a4f8b41f4ea0cc6a88f3441910af99b18d55854a7e9030e",
+    "example": {
+     "file": "sivastotravali/data/s06.l0.json",
+     "file_sha256": "c2bb0ce1010315d72bdce75ee3c8901b17499202abe7adc5bd1977a26f4fea2f",
+     "target": "s06-v01",
+     "content_sha256": "91e3b04d47482757bcaf1e9705992edd0815ff7907ed2cb33c7c9586f3a9e5aa",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "argmap",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0"
+    ],
+    "validator": "schemas/argmap.py",
+    "validator_sha256": "335c1bbe809c5ae942ecef4a30ee7fd8fcb82645a43019312fa74397fe5758b0",
+    "example": {
+     "file": "sivastotravali/data/s01.argmap.json",
+     "file_sha256": "a44c8ec09a30c577f2a792c1255d4290f49a6138c456bb687bc00e78a3902949",
+     "target": "s01-v21",
+     "content_sha256": "80b69a54761b8b0b7c193058f6c88eef60323a3611008c41ba9879bcfc3cdc21",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l2",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap"
+    ],
+    "validator": "schemas/l2.py",
+    "validator_sha256": "95556834767ef61cf824b501ad7184b4223b6a7f479cd9644fbaae4372725ae3",
+    "example": {
+     "file": "sivastotravali/data/s01.l2.json",
+     "file_sha256": "f5a1cec55bb466c328380a0bf527e6d8906428b3436f85a79bd01df98ceb1040",
+     "target": "s01-v01",
+     "content_sha256": "f3c47f6a631f7551d4f9c8ad1117bdf65463cb8cdc92e9b42bb3bf517ae80055",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c1",
+    "scope": "song",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2"
+    ],
+    "validator": "schemas/c1.py",
+    "validator_sha256": "291c7eba42e68952b685becb6b596df7e2d9ca859d264152707d89efa5361c90",
+    "example": {
+     "file": "sivastotravali/data/s01.c1.json",
+     "file_sha256": "99f4d2bbf7a8086176ee585b6e459076e2abd72b9675435267f7546beb1515f8",
+     "target": "s01",
+     "content_sha256": "5be1f3c0c3f64fafe5395b42cf5502a139a5e208be419d5804fe1a5bdd33712a",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l3",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2",
+     "c1"
+    ],
+    "validator": "schemas/l3.py",
+    "validator_sha256": "6c3df228f886207782d5250699e9e459f236f6e7d6b25ac29b00a38541956917",
+    "example": {
+     "file": "sivastotravali/data/s01.l3.json",
+     "file_sha256": "cdb4af6a4c2a851231195f4e5c940346f65199d5d5d69ea1c41d8095f98409f9",
+     "target": "s01-v01",
+     "content_sha256": "6aa20635387174b68fe4ea3baf970c06aff9838acb2c745e7afca0ed7c6751de",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l4",
+    "scope": "verse",
+    "depends_on": [
+     "l3",
+     "c1"
+    ],
+    "validator": "schemas/l4.py",
+    "validator_sha256": "3c1f7b0dfe3d83d425ed0fd84fba7b74aa3ed9e9758402369d779eedda1a8c03",
+    "example": {
+     "file": "paramarthasara/data/param-p01.l4.json",
+     "file_sha256": "db346e51e71f2f835ddfda004d4432934611817c2c73318d335f6ca2362ad4fb",
+     "target": "param-p01-v01",
+     "content_sha256": "91e9d424cf310d4e5b45c173b02f5286d837269ef9447533c153a48cb5122c14",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c2",
+    "scope": "song",
+    "depends_on": [
+     "c1",
+     "l3"
+    ],
+    "validator": "schemas/c2.py",
+    "validator_sha256": "fb8743f206e036002c780d082c7d32cf011dcdab4c21df742a5f5e59a9d851b8",
+    "example": {
+     "file": "sivastotravali/data/s01.c2.json",
+     "file_sha256": "09660a3c09679fce8c95968934e5851a22d89cdf154d2b0635d358e1ef9e8aeb",
+     "target": "s01",
+     "content_sha256": "2faa5fa86e38faca7ef5a1a967a4e261e2df294648a31ed5bad5f731001aa41c",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   }
+  ]
+ },
+ "rights": {
+  "translation": "FREE — our English (L1–L4, commentary) is free use",
+  "scholar": "Contributors declare rights; authorship and copyright depend on the work and law."
+ },
+ "originals": {
+  "t1": {
+   "mukta-m00219-p01-v1": {
+    "verse_id": "mukta-m00219-p01-v1",
+    "song": "mukta-m00219-p01",
+    "verse": 1,
+    "tokens": [
+     {
+      "sanskrit": "liṅgāṅga",
+      "surface": "liṅgāṅga",
+      "iast": "liṅgāṅga",
+      "gloss": "mark-limb",
+      "quick_gloss": "mark-limb",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kalpanaṃ",
+      "surface": "kalpanaṃ",
+      "iast": "kalpanaṃ",
+      "gloss": "fashioning",
+      "quick_gloss": "fashioning",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "samyaggeha",
+      "surface": "samyaggeha",
+      "iast": "samyaggeha",
+      "gloss": "proper-house",
+      "quick_gloss": "proper-house",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "bandhanalakṣaṇam",
+      "surface": "bandhanalakṣaṇam",
+      "iast": "bandhanalakṣaṇam",
+      "gloss": "bondage-characteristic",
+      "quick_gloss": "bondage-characteristic",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "The fashioning of mark and limb is characterized as bondage within the proper house.",
+    "source_sha": ""
+   }
+  },
+  "l0": {
+   "mukta-m00219-p01-v1": [
+    {
+     "id": "mukta-m00219-p01-v1-p000",
+     "verse_id": "mukta-m00219-p01-v1",
+     "pada_index": 0,
+     "surface": "liṅgāṅga",
+     "citation": "liṅgāṅga",
+     "morph": "compound",
+     "options": [
+      {
+       "gloss": "mark-limb",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound; liṅga (mark/sign) + aṅga (limb/part)"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00219-p01-v1-p001",
+     "verse_id": "mukta-m00219-p01-v1",
+     "pada_index": 1,
+     "surface": "kalpanaṃ",
+     "citation": "kalpanaṃ",
+     "morph": "n.acc.sg",
+     "options": [
+      {
+       "gloss": "fashioning",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "action noun from kḷp (to fashion, arrange, imagine)"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00219-p01-v1-p002",
+     "verse_id": "mukta-m00219-p01-v1",
+     "pada_index": 2,
+     "surface": "samyaggeha",
+     "citation": "samyaggeha",
+     "morph": "compound",
+     "options": [
+      {
+       "gloss": "proper-house",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound with internal sandhi; samyak (proper/correct) + geha (house)"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00219-p01-v1-p003",
+     "verse_id": "mukta-m00219-p01-v1",
+     "pada_index": 3,
+     "surface": "bandhanalakṣaṇam",
+     "citation": "bandhanalakṣaṇam",
+     "morph": "n.acc.sg",
+     "options": [
+      {
+       "gloss": "bondage-characteristic",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound; bandhana (bondage/binding) + lakṣaṇa (characteristic/mark)"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ]
+  },
+  "argmap": {
+   "mukta-m00219-p01-v1": {
+    "verse_id": "mukta-m00219-p01-v1",
+    "song": "mukta-m00219-p01",
+    "verse": 1,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What characterizes the conceptual fashioning of mark and limb as a form of bondage?",
+    "premises": [
+     "The fashioning of mark and limb is identified as a conceptual construction.",
+     "This construction is associated with a proper house.",
+     "The construction is characterized as bondage."
+    ],
+    "inference": "The conceptual fashioning of mark and limb, situated in the proper house, is defined by the characteristic of bondage.",
+    "uncertainties": [
+     "The precise referents of liṅga and aṅga are unclear without surrounding context.",
+     "The meaning of samyaggeha (proper house) is context-dependent and uncertain.",
+     "The syntactic role of the compound chain is inferred in the absence of a finite verb."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m00219-p01-v1",
+     "l0_ids": [
+      "mukta-m00219-p01-v1-p000",
+      "mukta-m00219-p01-v1-p001",
+      "mukta-m00219-p01-v1-p002",
+      "mukta-m00219-p01-v1-p003"
+     ],
+     "sanskrit_sha": "beee59dc57011aa4"
+    },
+    "sanskrit_sha": "beee59dc57011aa4"
+   }
+  },
+  "l2": {
+   "mukta-m00219-p01-v1": {
+    "verse_id": "mukta-m00219-p01-v1",
+    "song": "mukta-m00219-p01",
+    "verse": 1,
+    "plain_english": "The fashioning of mark and limb is characterized as bondage within the proper house.",
+    "sanskrit_cite": "liṅgāṅgakalpanaṃ samyaggehabandhanalakṣaṇam",
+    "l0_ids": [
+     "mukta-m00219-p01-v1-p000",
+     "mukta-m00219-p01-v1-p001",
+     "mukta-m00219-p01-v1-p002",
+     "mukta-m00219-p01-v1-p003"
+    ],
+    "supplied": []
+   }
+  },
+  "c1": {
+   "mukta-m00219-p01": {
+    "song": "mukta-m00219-p01",
+    "essence": [
+     "The conceptual fashioning of mark and limb, situated in the proper house, is defined by the characteristic of bondage."
+    ],
+    "essence_source": "derived from argmap inferences (machine-proposed; assessor review outstanding)",
+    "rasa": {},
+    "essence_only": true,
+    "renders": {}
+   }
+  },
+  "l3": {},
+  "l4": {},
+  "c2": {}
+ },
+ "source_verses": {
+  "mukta-m00219-p01-v1": {
+   "text": "liṅgāṅgakalpanaṃ samyaggehabandhanalakṣaṇam",
+   "source_file": "translation-work/mukta-m00219/source/edition.txt",
+   "source_sha256": "479c2d74050db936a2204bfb48c332a715d539adabc3146738e2888b1672bc70",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  }
+ },
+ "l4_craft": {},
+ "withheld_songs": [],
+ "original_hashes": {
+  "t1": {
+   "mukta-m00219-p01-v1": "e7765caddee03c286fe9655815a02cd389d5f17d47e4a767cfcc803c09c7b3a2"
+  },
+  "l0": {
+   "mukta-m00219-p01-v1": "67b0ef86995ee6199ccf9dce4f79091fc327bc24c58c9761eb47f4e2babac2a1"
+  },
+  "argmap": {
+   "mukta-m00219-p01-v1": "a1b0a508853434171edcbe24d3b8d4122d785bf17edfdd6e88ab9f10120ec5b1"
+  },
+  "l2": {
+   "mukta-m00219-p01-v1": "55ed46ef1ba0489247e3a153483c0d70d00de722dd6dc6af65cea5d2dc1b50a5"
+  },
+  "c1": {
+   "mukta-m00219-p01": "7c756fdf7cc24854660931737d29b16df9060aec7fef72be5ff8b3f6dfd463a7"
+  },
+  "l3": {},
+  "l4": {},
+  "c2": {}
+ },
+ "versions": [],
+ "essays": [],
+ "reviews": [],
+ "promotions": [],
+ "signoffs": [],
+ "stack_hashes": {
+  "mukta-m00219-p01": "168561e67177c75fc1b7cfd6353adc6bc9107f28178242fe47ee02114fb96b98"
+ },
+ "projection_sha256": "ca6ce09d0df53ae5d7317bcf8852a1879cf1e5167ced4588ad2b41fbdae7dd25"
+}

@@ -1,0 +1,5678 @@
+{
+ "work": "mukta-m00125",
+ "generated": null,
+ "source": "translation-work canonical data + scholar/ ledgers (emit_scholar.py)",
+ "source_edition": "Muktabodha M00125 (IAST, CC BY-NC 4.0) [concat of non-contiguous segment slices]",
+ "contract": {
+  "contract_version": "svatantrya-agent-contract/1",
+  "contract_sha256": "575232010d119225d9b3f12121fa59ad744765a875914708396c51a3129d7301",
+  "schema_version": "1.4.0",
+  "structural_schema_version": "2.1.0",
+  "structural_schema_snapshot_sha256": "3ce4085b2cbcebfec8471eee4b24a6974f9a19c77f0d125c7cad46bbb1ae8b0a",
+  "order": [
+   "source",
+   "t1",
+   "l0",
+   "argmap",
+   "l2",
+   "c1",
+   "l3",
+   "l4",
+   "c2"
+  ],
+  "schemas": {
+   "t1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:t1",
+    "title": "Svatantrya T1 structural schema",
+    "x-validator": "schemas.t1.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "quick_english",
+     "tokens",
+     "source_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "quick_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "source_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "tokens": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "surface",
+        "quick_gloss"
+       ],
+       "properties": {
+        "surface": {
+         "type": "string",
+         "minLength": 1
+        },
+        "quick_gloss": {
+         "type": "string",
+         "minLength": 1
+        }
+       }
+      }
+     }
+    }
+   },
+   "l0": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l0:verse",
+    "title": "Svatantrya L0 verse token list structural schema",
+    "x-validator": "schemas.l0.validate (per token)",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+     "$schema": "https://json-schema.org/draft/2020-12/schema",
+     "$id": "urn:svatantrya:schema:2.1.0:l0",
+     "title": "Svatantrya L0 structural schema",
+     "x-validator": "schemas.l0.validate",
+     "x-schema-version": "1.4.0",
+     "x-structural-schema-version": "2.1.0",
+     "type": "object",
+     "required": [
+      "id",
+      "verse_id",
+      "pada_index",
+      "surface",
+      "citation",
+      "options",
+      "chosen_index",
+      "status"
+     ],
+     "properties": {
+      "id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "verse_id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "pada_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "surface": {
+       "type": "string",
+       "minLength": 1
+      },
+      "citation": {
+       "type": "string",
+       "minLength": 1
+      },
+      "morph": {
+       "type": "string"
+      },
+      "morph_unknown": {
+       "type": "boolean"
+      },
+      "options": {
+       "type": "array",
+       "maxItems": 5,
+       "items": {
+        "type": "object",
+        "required": [
+         "gloss",
+         "rank",
+         "source",
+         "grounds"
+        ],
+        "properties": {
+         "gloss": {
+          "type": "string",
+          "minLength": 1
+         },
+         "rank": {
+          "type": "integer",
+          "minimum": 1
+         },
+         "source": {
+          "type": "string",
+          "minLength": 1
+         },
+         "grounds": {
+          "type": "string",
+          "minLength": 1
+         }
+        }
+       }
+      },
+      "chosen_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "status": {
+       "type": "string",
+       "enum": [
+        "PARSED",
+        "AMBIGUOUS",
+        "FAILED"
+       ]
+      },
+      "revised": {
+       "type": "boolean"
+      },
+      "revise_reason": {
+       "type": "string"
+      },
+      "fork": {
+       "type": "string",
+       "enum": [
+        "none",
+        "live",
+        "resolved"
+       ]
+      }
+     }
+    }
+   },
+   "argmap": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:argmap",
+    "title": "Svatantrya ARGMAP structural schema",
+    "x-validator": "schemas.argmap.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "traces",
+     "sanskrit_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "traces": {
+      "type": "object",
+      "required": [
+       "t1_verse",
+       "l0_ids"
+      ],
+      "properties": {
+       "t1_verse": {
+        "type": "string",
+        "minLength": 1
+       },
+       "l0_ids": {
+        "type": "array",
+        "items": {
+         "type": "string",
+         "minLength": 1
+        },
+        "minItems": 1
+       }
+      }
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "sanskrit_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "speaker": {
+      "type": "string",
+      "minLength": 1
+     },
+     "question": {
+      "type": "string",
+      "minLength": 1
+     },
+     "inference": {
+      "type": "string",
+      "minLength": 1
+     },
+     "reconstruction": {
+      "type": "string",
+      "minLength": 1
+     },
+     "premises": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     },
+     "uncertainties": {
+      "type": "array"
+     },
+     "structured": {
+      "type": "boolean"
+     }
+    }
+   },
+   "l2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l2",
+    "title": "Svatantrya L2 structural schema",
+    "x-validator": "schemas.l2.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "plain_english",
+     "sanskrit_cite",
+     "l0_ids"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "plain_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "supplied": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     }
+    }
+   },
+   "c1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:c1",
+    "title": "Svatantrya C1 structural schema",
+    "x-validator": "schemas.c1.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "song",
+     "essence",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "essence": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "renders": {
+      "type": "object",
+      "required": [
+       "standard"
+      ]
+     }
+    }
+   },
+   "l3": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l3",
+    "title": "Svatantrya L3 structural schema",
+    "x-validator": "schemas.l3.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "l4": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l4",
+    "title": "Svatantrya L4 structural schema",
+    "x-validator": "schemas.l4.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "c2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:c2",
+    "title": "Svatantrya C2 structural schema",
+    "x-validator": "schemas.c2.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "song",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "renders": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "style",
+        "prompt",
+        "paragraphs"
+       ],
+       "properties": {
+        "style": {
+         "type": "string",
+         "minLength": 1
+        },
+        "prompt": {
+         "type": "string",
+         "minLength": 1
+        },
+        "paragraphs": {
+         "type": "array",
+         "minItems": 1,
+         "items": {
+          "type": "object",
+          "required": [
+           "text",
+           "maps_to"
+          ],
+          "properties": {
+           "text": {
+            "type": "string",
+            "minLength": 1
+           },
+           "maps_to": {
+            "type": "array",
+            "items": {
+             "type": "integer",
+             "minimum": 0
+            },
+            "minItems": 1
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "layers": [
+   {
+    "id": "t1",
+    "scope": "verse",
+    "depends_on": [
+     "source"
+    ],
+    "validator": "schemas/t1.py",
+    "validator_sha256": "ac792ba1f0cbc06ab52dfbc41a31d3e39460f0e8a7de2977ed02e4ce63a20f27",
+    "example": {
+     "file": "sivastotravali/data/s01.t1.json",
+     "file_sha256": "a5c4cfae67571d05866d97ad6eb29b1c2956140a69c2fae554c29577330beb8e",
+     "target": "s01-v01",
+     "content_sha256": "26f027dafbe67347efd901cb2b94630cdb0e372957edeb4a3e1305e83745ba5b",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l0",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1"
+    ],
+    "validator": "schemas/l0.py",
+    "validator_sha256": "0651bc77f519897f8a4f8b41f4ea0cc6a88f3441910af99b18d55854a7e9030e",
+    "example": {
+     "file": "sivastotravali/data/s06.l0.json",
+     "file_sha256": "c2bb0ce1010315d72bdce75ee3c8901b17499202abe7adc5bd1977a26f4fea2f",
+     "target": "s06-v01",
+     "content_sha256": "91e3b04d47482757bcaf1e9705992edd0815ff7907ed2cb33c7c9586f3a9e5aa",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "argmap",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0"
+    ],
+    "validator": "schemas/argmap.py",
+    "validator_sha256": "335c1bbe809c5ae942ecef4a30ee7fd8fcb82645a43019312fa74397fe5758b0",
+    "example": {
+     "file": "sivastotravali/data/s01.argmap.json",
+     "file_sha256": "a44c8ec09a30c577f2a792c1255d4290f49a6138c456bb687bc00e78a3902949",
+     "target": "s01-v21",
+     "content_sha256": "80b69a54761b8b0b7c193058f6c88eef60323a3611008c41ba9879bcfc3cdc21",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l2",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap"
+    ],
+    "validator": "schemas/l2.py",
+    "validator_sha256": "95556834767ef61cf824b501ad7184b4223b6a7f479cd9644fbaae4372725ae3",
+    "example": {
+     "file": "sivastotravali/data/s01.l2.json",
+     "file_sha256": "f5a1cec55bb466c328380a0bf527e6d8906428b3436f85a79bd01df98ceb1040",
+     "target": "s01-v01",
+     "content_sha256": "f3c47f6a631f7551d4f9c8ad1117bdf65463cb8cdc92e9b42bb3bf517ae80055",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c1",
+    "scope": "song",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2"
+    ],
+    "validator": "schemas/c1.py",
+    "validator_sha256": "291c7eba42e68952b685becb6b596df7e2d9ca859d264152707d89efa5361c90",
+    "example": {
+     "file": "sivastotravali/data/s01.c1.json",
+     "file_sha256": "99f4d2bbf7a8086176ee585b6e459076e2abd72b9675435267f7546beb1515f8",
+     "target": "s01",
+     "content_sha256": "5be1f3c0c3f64fafe5395b42cf5502a139a5e208be419d5804fe1a5bdd33712a",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l3",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2",
+     "c1"
+    ],
+    "validator": "schemas/l3.py",
+    "validator_sha256": "6c3df228f886207782d5250699e9e459f236f6e7d6b25ac29b00a38541956917",
+    "example": {
+     "file": "sivastotravali/data/s01.l3.json",
+     "file_sha256": "cdb4af6a4c2a851231195f4e5c940346f65199d5d5d69ea1c41d8095f98409f9",
+     "target": "s01-v01",
+     "content_sha256": "6aa20635387174b68fe4ea3baf970c06aff9838acb2c745e7afca0ed7c6751de",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l4",
+    "scope": "verse",
+    "depends_on": [
+     "l3",
+     "c1"
+    ],
+    "validator": "schemas/l4.py",
+    "validator_sha256": "3c1f7b0dfe3d83d425ed0fd84fba7b74aa3ed9e9758402369d779eedda1a8c03",
+    "example": {
+     "file": "paramarthasara/data/param-p01.l4.json",
+     "file_sha256": "db346e51e71f2f835ddfda004d4432934611817c2c73318d335f6ca2362ad4fb",
+     "target": "param-p01-v01",
+     "content_sha256": "91e9d424cf310d4e5b45c173b02f5286d837269ef9447533c153a48cb5122c14",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c2",
+    "scope": "song",
+    "depends_on": [
+     "c1",
+     "l3"
+    ],
+    "validator": "schemas/c2.py",
+    "validator_sha256": "fb8743f206e036002c780d082c7d32cf011dcdab4c21df742a5f5e59a9d851b8",
+    "example": {
+     "file": "sivastotravali/data/s01.c2.json",
+     "file_sha256": "09660a3c09679fce8c95968934e5851a22d89cdf154d2b0635d358e1ef9e8aeb",
+     "target": "s01",
+     "content_sha256": "2faa5fa86e38faca7ef5a1a967a4e261e2df294648a31ed5bad5f731001aa41c",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   }
+  ]
+ },
+ "rights": {
+  "translation": "FREE — our English (L1–L4, commentary) is free use",
+  "scholar": "Contributors declare rights; authorship and copyright depend on the work and law."
+ },
+ "originals": {
+  "t1": {
+   "mukta-m0-p114-v2826": {
+    "verse_id": "mukta-m0-p114-v2826",
+    "song": "mukta-m0-p114",
+    "verse": 2826,
+    "tokens": [
+     {
+      "sanskrit": "paritaḥ",
+      "surface": "paritaḥ",
+      "iast": "paritaḥ",
+      "gloss": "all-around",
+      "quick_gloss": "all-around",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kalaśānaṣṭau",
+      "surface": "kalaśānaṣṭau",
+      "iast": "kalaśānaṣṭau",
+      "gloss": "pots-eight",
+      "quick_gloss": "pots-eight",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vastrakūrcādi",
+      "surface": "vastrakūrcādi",
+      "iast": "vastrakūrcādi",
+      "gloss": "cloth-brush-etcetera",
+      "quick_gloss": "cloth-brush-etcetera",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "saṃyutān",
+      "surface": "saṃyutān",
+      "iast": "saṃyutān",
+      "gloss": "endowed-with",
+      "quick_gloss": "endowed-with",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Place eight pots all around, furnished with cloth, brushes, and other such items.",
+    "source_sha": ""
+   },
+   "mukta-m0-p114-v2827": {
+    "verse_id": "mukta-m0-p114-v2827",
+    "song": "mukta-m0-p114",
+    "verse": 2827,
+    "tokens": [
+     {
+      "sanskrit": "praṇavāsanamāruḍhaṃ",
+      "surface": "praṇavāsanamāruḍhaṃ",
+      "iast": "praṇavāsanamāruḍhaṃ",
+      "gloss": "mounted-on-om-seat",
+      "quick_gloss": "mounted-on-om-seat",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "durādharṣaṃ",
+      "surface": "durādharṣaṃ",
+      "iast": "durādharṣaṃ",
+      "gloss": "unassailable",
+      "quick_gloss": "unassailable",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "mahābalam",
+      "surface": "mahābalam",
+      "iast": "mahābalam",
+      "gloss": "of-great-strength",
+      "quick_gloss": "of-great-strength",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Visualize him mounted on the seat of Om, unassailable and of great strength.",
+    "source_sha": ""
+   },
+   "mukta-m0-p114-v2828": {
+    "verse_id": "mukta-m0-p114-v2828",
+    "song": "mukta-m0-p114",
+    "verse": 2828,
+    "tokens": [
+     {
+      "sanskrit": "daṃṣṭrākarākamatyugraṃ",
+      "surface": "daṃṣṭrākarākamatyugraṃ",
+      "iast": "daṃṣṭrākarākamatyugraṃ",
+      "gloss": "tusk-hand-very-fierce",
+      "quick_gloss": "tusk-hand-very-fierce",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "muktanādaṃ",
+      "surface": "muktanādaṃ",
+      "iast": "muktanādaṃ",
+      "gloss": "releasing-roar",
+      "quick_gloss": "releasing-roar",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "sudurjayam",
+      "surface": "sudurjayam",
+      "iast": "sudurjayam",
+      "gloss": "very-hard-to-conquer",
+      "quick_gloss": "very-hard-to-conquer",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "He is very fierce with tusks and hands, roaring loudly, and extremely hard to conquer.",
+    "source_sha": ""
+   },
+   "mukta-m0-p114-v2829": {
+    "verse_id": "mukta-m0-p114-v2829",
+    "song": "mukta-m0-p114",
+    "verse": 2829,
+    "tokens": [
+     {
+      "sanskrit": "kekarākṣaṃ",
+      "surface": "kekarākṣaṃ",
+      "iast": "kekarākṣaṃ",
+      "gloss": "squinting-eyed",
+      "quick_gloss": "squinting-eyed",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "mahāmālānāgābharaṇaleliham",
+      "surface": "mahāmālānāgābharaṇaleliham",
+      "iast": "mahāmālānāgābharaṇaleliham",
+      "gloss": "licking-great-garland-snake-ornaments",
+      "quick_gloss": "licking-great-garland-snake-ornaments",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "He has squinting eyes and licks the snake ornaments that form his great garland.",
+    "source_sha": ""
+   },
+   "mukta-m0-p114-v2830": {
+    "verse_id": "mukta-m0-p114-v2830",
+    "song": "mukta-m0-p114",
+    "verse": 2830,
+    "tokens": [
+     {
+      "sanskrit": "bhujairdaśabhiratyugrairbhairavāstraissamanvitam",
+      "surface": "bhujairdaśabhiratyugrairbhairavāstraissamanvitam",
+      "iast": "bhujairdaśabhiratyugrairbhairavāstraissamanvitam",
+      "gloss": "endowed-with-ten-very-fierce-arms-bhairava-weapons",
+      "quick_gloss": "endowed-with-ten-very-fierce-arms-bhairava-weapons",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "He is endowed with ten very fierce arms bearing the weapons of Bhairava.",
+    "source_sha": ""
+   },
+   "mukta-m0-p114-v2831": {
+    "verse_id": "mukta-m0-p114-v2831",
+    "song": "mukta-m0-p114",
+    "verse": 2831,
+    "tokens": [
+     {
+      "sanskrit": "kheṭabāṇā",
+      "surface": "kheṭabāṇā",
+      "iast": "kheṭabāṇā",
+      "gloss": "shield-and-arrow",
+      "quick_gloss": "shield-and-arrow",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kapālāṃśca",
+      "surface": "kapālāṃś",
+      "iast": "kapālāṃśca",
+      "gloss": "and-skulls",
+      "quick_gloss": "and-skulls",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ca",
+      "surface": "ca",
+      "iast": "ca",
+      "gloss": "and",
+      "quick_gloss": "and",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "varaprāsau",
+      "surface": "varaprāsau",
+      "iast": "varaprāsau",
+      "gloss": "boon-and-spear",
+      "quick_gloss": "boon-and-spear",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ca",
+      "surface": "ca",
+      "iast": "ca",
+      "gloss": "and",
+      "quick_gloss": "and",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vāmataḥ",
+      "surface": "vāmataḥ",
+      "iast": "vāmataḥ",
+      "gloss": "on-the-left",
+      "quick_gloss": "on-the-left",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "On the left side he holds a shield, arrows, skulls, and also the boon-bestowing gesture and a spear.",
+    "source_sha": "",
+    "history": [
+     {
+      "gloss": "On the left side he holds a shield, arrows, skulls, and also the boon-bestowing gesture and a spear.",
+      "reason": "de-overlapped token run: stripped redundant suffix repeats from compound surfaces (count-preserving, T1-only); 1 token(s); align gate repair 2026-11-13",
+      "date": "2026-11-13"
+     }
+    ]
+   },
+   "mukta-m0-p114-v2832": {
+    "verse_id": "mukta-m0-p114-v2832",
+    "song": "mukta-m0-p114",
+    "verse": 2832,
+    "tokens": [
+     {
+      "sanskrit": "dhyātvaivaṃ",
+      "surface": "dhyātvaivaṃ",
+      "iast": "dhyātvaivaṃ",
+      "gloss": "having-meditated-thus",
+      "quick_gloss": "having-meditated-thus",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "samuccaran",
+      "surface": "samuccaran",
+      "iast": "samuccaran",
+      "gloss": "reciting",
+      "quick_gloss": "reciting",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "mantram",
+      "surface": "mantram",
+      "iast": "mantram",
+      "gloss": "mantra",
+      "quick_gloss": "mantra",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "āvāhyārcanamārabhet",
+      "surface": "āvāhyārcanamārabhet",
+      "iast": "āvāhyārcanamārabhet",
+      "gloss": "should-begin-invocation-and-worship",
+      "quick_gloss": "should-begin-invocation-and-worship",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Having meditated thus and reciting the mantra, one should begin the invocation and worship.",
+    "source_sha": ""
+   },
+   "mukta-m0-p114-v2833": {
+    "verse_id": "mukta-m0-p114-v2833",
+    "song": "mukta-m0-p114",
+    "verse": 2833,
+    "tokens": [
+     {
+      "sanskrit": "praṇavaṃ",
+      "surface": "praṇavaṃ",
+      "iast": "praṇavaṃ",
+      "gloss": "om-syllable",
+      "quick_gloss": "om-syllable",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vahni+digbhāge",
+      "surface": "vahni+digbhāge",
+      "iast": "vahni+digbhāge",
+      "gloss": "in-fire-direction-part",
+      "quick_gloss": "in-fire-direction-part",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ślīṅkāraṃ",
+      "surface": "ślīṅkāraṃ",
+      "iast": "ślīṅkāraṃ",
+      "gloss": "shrīm-syllable",
+      "quick_gloss": "shrīm-syllable",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "śāṅkare",
+      "surface": "śāṅkare",
+      "iast": "śāṅkare",
+      "gloss": "in-shankara-direction",
+      "quick_gloss": "in-shankara-direction",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "yajet",
+      "surface": "yajet",
+      "iast": "yajet",
+      "gloss": "one-should-worship",
+      "quick_gloss": "one-should-worship",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "One should worship the praṇava in the direction of fire and the śrīṃ syllable in the direction of Śaṅkara.",
+    "source_sha": ""
+   },
+   "mukta-m0-p114-v2834": {
+    "verse_id": "mukta-m0-p114-v2834",
+    "song": "mukta-m0-p114",
+    "verse": 2834,
+    "tokens": [
+     {
+      "sanskrit": "oṅkārādi+phaḍāntāśca",
+      "surface": "oṅkārādi+phaḍāntāś",
+      "iast": "oṅkārādi+phaḍāntāśca",
+      "gloss": "beginning-with-om-ending-with-phat-and",
+      "quick_gloss": "beginning-with-om-ending-with-phat-and",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ca",
+      "surface": "ca",
+      "iast": "ca",
+      "gloss": "and",
+      "quick_gloss": "and",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "varṇāḥ",
+      "surface": "varṇāḥ",
+      "iast": "varṇāḥ",
+      "gloss": "syllables",
+      "quick_gloss": "syllables",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "sthāne",
+      "surface": "sthāne",
+      "iast": "sthāne",
+      "gloss": "in-their-places",
+      "quick_gloss": "in-their-places",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "hṛdādayaḥ",
+      "surface": "hṛdādayaḥ",
+      "iast": "hṛdādayaḥ",
+      "gloss": "heart-and-others",
+      "quick_gloss": "heart-and-others",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "The syllables beginning with oṃ and ending with phaṭ are to be placed in their proper locations, such as the heart and so on.",
+    "source_sha": "",
+    "history": [
+     {
+      "gloss": "The syllables beginning with oṃ and ending with phaṭ are to be placed in their proper locations, such as the heart and so on.",
+      "reason": "de-overlapped token run: stripped redundant suffix repeats from compound surfaces (count-preserving, T1-only); 1 token(s); align gate repair 2026-11-13",
+      "date": "2026-11-13"
+     }
+    ]
+   },
+   "mukta-m0-p114-v2835": {
+    "verse_id": "mukta-m0-p114-v2835",
+    "song": "mukta-m0-p114",
+    "verse": 2835,
+    "tokens": [
+     {
+      "sanskrit": "phaḍantān",
+      "surface": "phaḍantān",
+      "iast": "phaḍantān",
+      "gloss": "ending-with-phat",
+      "quick_gloss": "ending-with-phat",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "praṇavopetān",
+      "surface": "praṇavopetān",
+      "iast": "praṇavopetān",
+      "gloss": "accompanied-by-om",
+      "quick_gloss": "accompanied-by-om",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vajrādīn",
+      "surface": "vajrādīn",
+      "iast": "vajrādīn",
+      "gloss": "vajra-and-others",
+      "quick_gloss": "vajra-and-others",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kalaśeṣu",
+      "surface": "kalaśeṣu",
+      "iast": "kalaśeṣu",
+      "gloss": "in-the-pots",
+      "quick_gloss": "in-the-pots",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tān",
+      "surface": "tān",
+      "iast": "tān",
+      "gloss": "those",
+      "quick_gloss": "those",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Place those formulas ending with phaṭ and accompanied by Om, together with the vajra and others, in the pots.",
+    "source_sha": ""
+   },
+   "mukta-m0-p114-v2836": {
+    "verse_id": "mukta-m0-p114-v2836",
+    "song": "mukta-m0-p114",
+    "verse": 2836,
+    "tokens": [
+     {
+      "sanskrit": "tadagre",
+      "surface": "tadagre",
+      "iast": "tadagre",
+      "gloss": "in-front-of-that",
+      "quick_gloss": "in-front-of-that",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "hāstike",
+      "surface": "hāstike",
+      "iast": "hāstike",
+      "gloss": "in-elephant-shaped",
+      "quick_gloss": "in-elephant-shaped",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vṛtta",
+      "surface": "vṛtta",
+      "iast": "vṛtta",
+      "gloss": "round",
+      "quick_gloss": "round",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kuṇḍe",
+      "surface": "kuṇḍe",
+      "iast": "kuṇḍe",
+      "gloss": "in-fire-pit",
+      "quick_gloss": "in-fire-pit",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vā",
+      "surface": "vā",
+      "iast": "vā",
+      "gloss": "or",
+      "quick_gloss": "or",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "sthaṇḍile",
+      "surface": "sthaṇḍile",
+      "iast": "sthaṇḍile",
+      "gloss": "on-altar",
+      "quick_gloss": "on-altar",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "api",
+      "surface": "api",
+      "iast": "api",
+      "gloss": "also",
+      "quick_gloss": "also",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vā",
+      "surface": "vā",
+      "iast": "vā",
+      "gloss": "or",
+      "quick_gloss": "or",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "In front of that, one may use an elephant-shaped or round fire pit, or else an altar.",
+    "source_sha": ""
+   },
+   "mukta-m0-p114-v2837": {
+    "verse_id": "mukta-m0-p114-v2837",
+    "song": "mukta-m0-p114",
+    "verse": 2837,
+    "tokens": [
+     {
+      "sanskrit": "devaṃ",
+      "surface": "devaṃ",
+      "iast": "devaṃ",
+      "gloss": "deity",
+      "quick_gloss": "deity",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "pāśupataṃ",
+      "surface": "pāśupataṃ",
+      "iast": "pāśupataṃ",
+      "gloss": "pashupata",
+      "quick_gloss": "pashupata",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "sāṅgam",
+      "surface": "sāṅgam",
+      "iast": "sāṅgam",
+      "gloss": "with-limbs",
+      "quick_gloss": "with-limbs",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "āvāhya",
+      "surface": "āvāhya",
+      "iast": "āvāhya",
+      "gloss": "having-invoked",
+      "quick_gloss": "having-invoked",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "abhyarcya",
+      "surface": "abhyarcya",
+      "iast": "abhyarcya",
+      "gloss": "having-worshipped",
+      "quick_gloss": "having-worshipped",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tarpayet",
+      "surface": "tarpayet",
+      "iast": "tarpayet",
+      "gloss": "one-should-satisfy",
+      "quick_gloss": "one-should-satisfy",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Having invoked and worshipped the Pāśupata deity together with its limbs, one should satisfy him.",
+    "source_sha": ""
+   },
+   "mukta-m0-p114-v2838": {
+    "verse_id": "mukta-m0-p114-v2838",
+    "song": "mukta-m0-p114",
+    "verse": 2838,
+    "tokens": [
+     {
+      "sanskrit": "sahasraṃ",
+      "surface": "sahasraṃ",
+      "iast": "sahasraṃ",
+      "gloss": "thousand",
+      "quick_gloss": "thousand",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vā",
+      "surface": "vā",
+      "iast": "vā",
+      "gloss": "or",
+      "quick_gloss": "or",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tadardhaṃ",
+      "surface": "tadardhaṃ",
+      "iast": "tadardhaṃ",
+      "gloss": "half-of-that",
+      "quick_gloss": "half-of-that",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vā",
+      "surface": "vā",
+      "iast": "vā",
+      "gloss": "or",
+      "quick_gloss": "or",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "śatamaṣṭottaraṃ",
+      "surface": "śatamaṣṭottaraṃ",
+      "iast": "śatamaṣṭottaraṃ",
+      "gloss": "hundred-plus-eight",
+      "quick_gloss": "hundred-plus-eight",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tu",
+      "surface": "tu",
+      "iast": "tu",
+      "gloss": "indeed",
+      "quick_gloss": "indeed",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vā",
+      "surface": "vā",
+      "iast": "vā",
+      "gloss": "or",
+      "quick_gloss": "or",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "One may perform a thousand, or half of that, or indeed one hundred and eight.",
+    "source_sha": ""
+   },
+   "mukta-m0-p114-v2839": {
+    "verse_id": "mukta-m0-p114-v2839",
+    "song": "mukta-m0-p114",
+    "verse": 2839,
+    "tokens": [
+     {
+      "sanskrit": "bhagavan",
+      "surface": "bhagavan",
+      "iast": "bhagavan",
+      "gloss": "o-lord",
+      "quick_gloss": "o-lord",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "doṣaśāntiṃ",
+      "surface": "doṣaśāntiṃ",
+      "iast": "doṣaśāntiṃ",
+      "gloss": "pacification-of-fault",
+      "quick_gloss": "pacification-of-fault",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tu",
+      "surface": "tu",
+      "iast": "tu",
+      "gloss": "indeed",
+      "quick_gloss": "indeed",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kurukurviti",
+      "surface": "kurukurviti",
+      "iast": "kurukurviti",
+      "gloss": "do-do-thus",
+      "quick_gloss": "do-do-thus",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "deśikaḥ",
+      "surface": "deśikaḥ",
+      "iast": "deśikaḥ",
+      "gloss": "teacher",
+      "quick_gloss": "teacher",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "The teacher should say, 'O Lord, do, do bring about the pacification of faults.'",
+    "source_sha": ""
+   },
+   "mukta-m0-p114-v2840": {
+    "verse_id": "mukta-m0-p114-v2840",
+    "song": "mukta-m0-p114",
+    "verse": 2840,
+    "tokens": [
+     {
+      "sanskrit": "pūrṇāhutiṃ",
+      "surface": "pūrṇāhutiṃ",
+      "iast": "pūrṇāhutiṃ",
+      "gloss": "full-oblation",
+      "quick_gloss": "full-oblation",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tato",
+      "surface": "tato",
+      "iast": "tato",
+      "gloss": "then",
+      "quick_gloss": "then",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "dadyādastraṃ",
+      "surface": "dadyādastraṃ",
+      "iast": "dadyādastraṃ",
+      "gloss": "should-offer-weapon",
+      "quick_gloss": "should-offer-weapon",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "pāśupataṃ",
+      "surface": "pāśupataṃ",
+      "iast": "pāśupataṃ",
+      "gloss": "pashupata",
+      "quick_gloss": "pashupata",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "smaran",
+      "surface": "smaran",
+      "iast": "smaran",
+      "gloss": "remembering",
+      "quick_gloss": "remembering",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Then, remembering the Pāśupata weapon, one should offer the full oblation.",
+    "source_sha": ""
+   },
+   "mukta-m0-p114-v2841": {
+    "verse_id": "mukta-m0-p114-v2841",
+    "song": "mukta-m0-p114",
+    "verse": 2841,
+    "tokens": [
+     {
+      "sanskrit": "punaḥ",
+      "surface": "punaḥ",
+      "iast": "punaḥ",
+      "gloss": "again",
+      "quick_gloss": "again",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "pūrṇāṃ",
+      "surface": "pūrṇāṃ",
+      "iast": "pūrṇāṃ",
+      "gloss": "full",
+      "quick_gloss": "full",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ca",
+      "surface": "ca",
+      "iast": "ca",
+      "gloss": "and",
+      "quick_gloss": "and",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tāmbūlaṃ",
+      "surface": "tāmbūlaṃ",
+      "iast": "tāmbūlaṃ",
+      "gloss": "betel",
+      "quick_gloss": "betel",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "datvārghyaṃ",
+      "surface": "datvārghyaṃ",
+      "iast": "datvārghyaṃ",
+      "gloss": "having-given-arghya",
+      "quick_gloss": "having-given-arghya",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ca",
+      "surface": "ca",
+      "iast": "ca",
+      "gloss": "and",
+      "quick_gloss": "and",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "parāṅmukham",
+      "surface": "parāṅmukham",
+      "iast": "parāṅmukham",
+      "gloss": "turned-away",
+      "quick_gloss": "turned-away",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Again one should give a full offering and betel, and having given arghya, perform the dismissal.",
+    "source_sha": ""
+   },
+   "mukta-m0-p114-v2842": {
+    "verse_id": "mukta-m0-p114-v2842",
+    "song": "mukta-m0-p114",
+    "verse": 2842,
+    "tokens": [
+     {
+      "sanskrit": "pratyahaṃ",
+      "surface": "pratyahaṃ",
+      "iast": "pratyahaṃ",
+      "gloss": "daily",
+      "quick_gloss": "daily",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vā",
+      "surface": "vā",
+      "iast": "vā",
+      "gloss": "or",
+      "quick_gloss": "or",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tadutpādya",
+      "surface": "tadutpādya",
+      "iast": "tadutpādya",
+      "gloss": "having-produced-that",
+      "quick_gloss": "having-produced-that",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tarpayedastra",
+      "surface": "tarpayedastra",
+      "iast": "tarpayedastra",
+      "gloss": "one-should-satisfy-weapon",
+      "quick_gloss": "one-should-satisfy-weapon",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "rūpiṇam",
+      "surface": "rūpiṇam",
+      "iast": "rūpiṇam",
+      "gloss": "having-form",
+      "quick_gloss": "having-form",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Or, producing it daily, one should satisfy the weapon in embodied form.",
+    "source_sha": ""
+   },
+   "mukta-m0-p114-v2843": {
+    "verse_id": "mukta-m0-p114-v2843",
+    "song": "mukta-m0-p114",
+    "verse": 2843,
+    "tokens": [
+     {
+      "sanskrit": "samarpitakriye",
+      "surface": "samarpitakriye",
+      "iast": "samarpitakriye",
+      "gloss": "when-rite-offered",
+      "quick_gloss": "when-rite-offered",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "deve",
+      "surface": "deve",
+      "iast": "deve",
+      "gloss": "to-the-deity",
+      "quick_gloss": "to-the-deity",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tu",
+      "surface": "tu",
+      "iast": "tu",
+      "gloss": "then",
+      "quick_gloss": "then",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "abhīṣṭaṃ",
+      "surface": "abhīṣṭaṃ",
+      "iast": "abhīṣṭaṃ",
+      "gloss": "desired-aim",
+      "quick_gloss": "desired-aim",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "prārthayedguruḥ",
+      "surface": "prārthayedguruḥ",
+      "iast": "prārthayedguruḥ",
+      "gloss": "teacher-should-pray",
+      "quick_gloss": "teacher-should-pray",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "When the rite has been offered to the deity, the teacher should then pray for the desired aim.",
+    "source_sha": ""
+   },
+   "mukta-m0-p114-v2844": {
+    "verse_id": "mukta-m0-p114-v2844",
+    "song": "mukta-m0-p114",
+    "verse": 2844,
+    "tokens": [
+     {
+      "sanskrit": "tataḥ",
+      "surface": "tataḥ",
+      "iast": "tataḥ",
+      "gloss": "then",
+      "quick_gloss": "then",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tat+kumbha",
+      "surface": "tat+kumbha",
+      "iast": "tat+kumbha",
+      "gloss": "that-pot",
+      "quick_gloss": "that-pot",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "pānīyaiḥ",
+      "surface": "pānīyaiḥ",
+      "iast": "pānīyaiḥ",
+      "gloss": "with-waters",
+      "quick_gloss": "with-waters",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "prokṣayedabhitastataḥ",
+      "surface": "prokṣayedabhitastataḥ",
+      "iast": "prokṣayedabhitastataḥ",
+      "gloss": "should-sprinkle-all-around-then",
+      "quick_gloss": "should-sprinkle-all-around-then",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Then one should sprinkle all around with the waters from that pot.",
+    "source_sha": ""
+   },
+   "mukta-m0-p114-v2845": {
+    "verse_id": "mukta-m0-p114-v2845",
+    "song": "mukta-m0-p114",
+    "verse": 2845,
+    "tokens": [
+     {
+      "sanskrit": "kartavyaśśāntihomo'yaṃ",
+      "surface": "kartavyaśśāntihomo'yaṃ",
+      "iast": "kartavyaśśāntihomo'yaṃ",
+      "gloss": "this-peace-oblation-to-be-done",
+      "quick_gloss": "this-peace-oblation-to-be-done",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "śāntyuktadinasaṃkhyayā",
+      "surface": "śāntyuktadinasaṃkhyayā",
+      "iast": "śāntyuktadinasaṃkhyayā",
+      "gloss": "by-day-count-stated-for-peace",
+      "quick_gloss": "by-day-count-stated-for-peace",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "This peace oblation should be performed for the number of days prescribed for pacification.",
+    "source_sha": ""
+   },
+   "mukta-m0-p114-v2846": {
+    "verse_id": "mukta-m0-p114-v2846",
+    "song": "mukta-m0-p114",
+    "verse": 2846,
+    "tokens": [
+     {
+      "sanskrit": "prāyaścittārthamanyo'yaṃ",
+      "surface": "prāyaścittārthamanyo'yaṃ",
+      "iast": "prāyaścittārthamanyo'yaṃ",
+      "gloss": "this-other-for-expiation-purpose",
+      "quick_gloss": "this-other-for-expiation-purpose",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "snapanādyaṅga",
+      "surface": "snapanādyaṅga",
+      "iast": "snapanādyaṅga",
+      "gloss": "bathing-and-other-limb",
+      "quick_gloss": "bathing-and-other-limb",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "bhāg",
+      "surface": "bhāg",
+      "iast": "bhāg",
+      "gloss": "part",
+      "quick_gloss": "part",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "bhavet",
+      "surface": "bhavet",
+      "iast": "bhavet",
+      "gloss": "should-be",
+      "quick_gloss": "should-be",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "This other rite, meant for expiation, should be a part of bathing and the other subsidiary acts.",
+    "source_sha": ""
+   },
+   "mukta-m0-p114-v2847": {
+    "verse_id": "mukta-m0-p114-v2847",
+    "song": "mukta-m0-p114",
+    "verse": 2847,
+    "tokens": [
+     {
+      "sanskrit": "maṇḍape",
+      "surface": "maṇḍape",
+      "iast": "maṇḍape",
+      "gloss": "in-pavilion",
+      "quick_gloss": "in-pavilion",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "mālikādau",
+      "surface": "mālikādau",
+      "iast": "mālikādau",
+      "gloss": "in-garland-place-and-others",
+      "quick_gloss": "in-garland-place-and-others",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vā",
+      "surface": "vā",
+      "iast": "vā",
+      "gloss": "or",
+      "quick_gloss": "or",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vṛkṣādermūla",
+      "surface": "vṛkṣādermūla",
+      "iast": "vṛkṣādermūla",
+      "gloss": "at-root-of-tree-and-others",
+      "quick_gloss": "at-root-of-tree-and-others",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "eva",
+      "surface": "eva",
+      "iast": "eva",
+      "gloss": "indeed",
+      "quick_gloss": "indeed",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vā",
+      "surface": "vā",
+      "iast": "vā",
+      "gloss": "or",
+      "quick_gloss": "or",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "It may be done in a pavilion, in a garlanded place or the like, or indeed at the root of a tree.",
+    "source_sha": ""
+   },
+   "mukta-m0-p114-v2848": {
+    "verse_id": "mukta-m0-p114-v2848",
+    "song": "mukta-m0-p114",
+    "verse": 2848,
+    "tokens": [
+     {
+      "sanskrit": "dikṣu",
+      "surface": "dikṣu",
+      "iast": "dikṣu",
+      "gloss": "in-directions",
+      "quick_gloss": "in-directions",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kūṭān",
+      "surface": "kūṭān",
+      "iast": "kūṭān",
+      "gloss": "peaks",
+      "quick_gloss": "peaks",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "prapāṃ",
+      "surface": "prapāṃ",
+      "iast": "prapāṃ",
+      "gloss": "shed",
+      "quick_gloss": "shed",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vā",
+      "surface": "vā",
+      "iast": "vā",
+      "gloss": "or",
+      "quick_gloss": "or",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "api",
+      "surface": "api",
+      "iast": "api",
+      "gloss": "also",
+      "quick_gloss": "also",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kṛtvā",
+      "surface": "kṛtvā",
+      "iast": "kṛtvā",
+      "gloss": "having-made",
+      "quick_gloss": "having-made",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kuṇḍa",
+      "surface": "kuṇḍa",
+      "iast": "kuṇḍa",
+      "gloss": "fire-pit",
+      "quick_gloss": "fire-pit",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "catuṣṭayam",
+      "surface": "catuṣṭayam",
+      "iast": "catuṣṭayam",
+      "gloss": "set-of-four",
+      "quick_gloss": "set-of-four",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Having made peaks in the directions or a shed, one should prepare a set of four fire pits.",
+    "source_sha": ""
+   },
+   "mukta-m0-p114-v2849": {
+    "verse_id": "mukta-m0-p114-v2849",
+    "song": "mukta-m0-p114",
+    "verse": 2849,
+    "tokens": [
+     {
+      "sanskrit": "sthaṇḍilaṃ",
+      "surface": "sthaṇḍilaṃ",
+      "iast": "sthaṇḍilaṃ",
+      "gloss": "altar-ground",
+      "quick_gloss": "altar-ground",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vā",
+      "surface": "vā",
+      "iast": "vā",
+      "gloss": "or",
+      "quick_gloss": "or",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "samāpādya",
+      "surface": "samāpādya",
+      "iast": "samāpādya",
+      "gloss": "having-prepared",
+      "quick_gloss": "having-prepared",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "prokṣayedastra",
+      "surface": "prokṣayedastra",
+      "iast": "prokṣayedastra",
+      "gloss": "one-should-sprinkle-weapon",
+      "quick_gloss": "one-should-sprinkle-weapon",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vāriṇā",
+      "surface": "vāriṇā",
+      "iast": "vāriṇā",
+      "gloss": "with-water",
+      "quick_gloss": "with-water",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Or, having prepared an altar ground, one should sprinkle it with water consecrated by the weapon.",
+    "source_sha": ""
+   },
+   "mukta-m0-p114-v2850": {
+    "verse_id": "mukta-m0-p114-v2850",
+    "song": "mukta-m0-p114",
+    "verse": 2850,
+    "tokens": [
+     {
+      "sanskrit": "ekaṃ",
+      "surface": "ekaṃ",
+      "iast": "ekaṃ",
+      "gloss": "one",
+      "quick_gloss": "one",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vā",
+      "surface": "vā",
+      "iast": "vā",
+      "gloss": "or",
+      "quick_gloss": "or",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kūṭamāpādya",
+      "surface": "kūṭamāpādya",
+      "iast": "kūṭamāpādya",
+      "gloss": "peak-having-prepared",
+      "quick_gloss": "peak-having-prepared",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tatra",
+      "surface": "tatra",
+      "iast": "tatra",
+      "gloss": "there",
+      "quick_gloss": "there",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "sarvaṃ",
+      "surface": "sarvaṃ",
+      "iast": "sarvaṃ",
+      "gloss": "all",
+      "quick_gloss": "all",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "samācaret",
+      "surface": "samācaret",
+      "iast": "samācaret",
+      "gloss": "one-should-perform",
+      "quick_gloss": "one-should-perform",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Or, having prepared a single peak, one should perform everything there.",
+    "source_sha": ""
+   }
+  },
+  "l0": {
+   "mukta-m0-p114-v2826": [
+    {
+     "id": "mukta-m0-p114-v2826-p000",
+     "verse_id": "mukta-m0-p114-v2826",
+     "pada_index": 0,
+     "surface": "paritaḥ",
+     "citation": "paritaḥ",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "all-around",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indeclinable indicating surrounding placement"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2826-p001",
+     "verse_id": "mukta-m0-p114-v2826",
+     "pada_index": 1,
+     "surface": "kalaśānaṣṭau",
+     "citation": "kalaśānaṣṭau",
+     "morph": "compound: kalaśa+membership, aṣṭan+acc.pl.m",
+     "options": [
+      {
+       "gloss": "pots-eight",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound denoting eight ritual pots"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2826-p002",
+     "verse_id": "mukta-m0-p114-v2826",
+     "pada_index": 2,
+     "surface": "vastrakūrcādi",
+     "citation": "vastrakūrcādi",
+     "morph": "compound: vastra-kūrca-ādi+acc.pl.n",
+     "options": [
+      {
+       "gloss": "cloth-brush-etcetera",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound listing accompanying ritual items"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2826-p003",
+     "verse_id": "mukta-m0-p114-v2826",
+     "pada_index": 3,
+     "surface": "saṃyutān",
+     "citation": "saṃyutān",
+     "morph": "acc.pl.m",
+     "options": [
+      {
+       "gloss": "endowed-with",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "describes the pots as furnished with those items"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p114-v2827": [
+    {
+     "id": "mukta-m0-p114-v2827-p000",
+     "verse_id": "mukta-m0-p114-v2827",
+     "pada_index": 0,
+     "surface": "praṇavāsanamāruḍhaṃ",
+     "citation": "praṇavāsanamāruḍhaṃ",
+     "morph": "compound: praṇava-āsana-āruḍha+acc.sg.m",
+     "options": [
+      {
+       "gloss": "mounted-on-om-seat",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "describes the deity seated upon the praṇava"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2827-p001",
+     "verse_id": "mukta-m0-p114-v2827",
+     "pada_index": 1,
+     "surface": "durādharṣaṃ",
+     "citation": "durādharṣaṃ",
+     "morph": "acc.sg.m",
+     "options": [
+      {
+       "gloss": "unassailable",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "qualifies the deity as impossible to overcome"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2827-p002",
+     "verse_id": "mukta-m0-p114-v2827",
+     "pada_index": 2,
+     "surface": "mahābalam",
+     "citation": "mahābalam",
+     "morph": "compound: mahā-bala+acc.sg.m",
+     "options": [
+      {
+       "gloss": "of-great-strength",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "qualifies the deity as possessing immense power"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p114-v2828": [
+    {
+     "id": "mukta-m0-p114-v2828-p000",
+     "verse_id": "mukta-m0-p114-v2828",
+     "pada_index": 0,
+     "surface": "daṃṣṭrākarākamatyugraṃ",
+     "citation": "daṃṣṭrākarākamatyugraṃ",
+     "morph": "compound: daṃṣṭrā-karāka-ati-ugra+acc.sg.m",
+     "options": [
+      {
+       "gloss": "tusk-hand-very-fierce",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound describing terrifying tusks and hands"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2828-p001",
+     "verse_id": "mukta-m0-p114-v2828",
+     "pada_index": 1,
+     "surface": "muktanādaṃ",
+     "citation": "muktanādaṃ",
+     "morph": "compound: mukta-nāda+acc.sg.m",
+     "options": [
+      {
+       "gloss": "releasing-roar",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "describes the deity emitting a loud sound"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2828-p002",
+     "verse_id": "mukta-m0-p114-v2828",
+     "pada_index": 2,
+     "surface": "sudurjayam",
+     "citation": "sudurjayam",
+     "morph": "acc.sg.m",
+     "options": [
+      {
+       "gloss": "very-hard-to-conquer",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "qualifies the deity as extremely difficult to defeat"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p114-v2829": [
+    {
+     "id": "mukta-m0-p114-v2829-p000",
+     "verse_id": "mukta-m0-p114-v2829",
+     "pada_index": 0,
+     "surface": "kekarākṣaṃ",
+     "citation": "kekarākṣaṃ",
+     "morph": "compound: kekara-akṣa+acc.sg.m",
+     "options": [
+      {
+       "gloss": "squinting-eyed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "describes the deity’s eyes as squinting or askew"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2829-p001",
+     "verse_id": "mukta-m0-p114-v2829",
+     "pada_index": 1,
+     "surface": "mahāmālānāgābharaṇaleliham",
+     "citation": "mahāmālānāgābharaṇaleliham",
+     "morph": "compound: mahā-mālā-nāga-ābharaṇa-leliha+acc.sg.m",
+     "options": [
+      {
+       "gloss": "licking-great-garland-snake-ornaments",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound describing the deity licking snake ornaments worn as a great garland"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p114-v2830": [
+    {
+     "id": "mukta-m0-p114-v2830-p000",
+     "verse_id": "mukta-m0-p114-v2830",
+     "pada_index": 0,
+     "surface": "bhujairdaśabhiratyugrairbhairavāstraissamanvitam",
+     "citation": "bhujairdaśabhiratyugrairbhairavāstraissamanvitam",
+     "morph": "compound: bhuja-daśan-ati-ugra-bhairava-astra-samanvita+acc.sg.m",
+     "options": [
+      {
+       "gloss": "endowed-with-ten-very-fierce-arms-bhairava-weapons",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "single fused token describing the deity equipped with ten fierce arms bearing Bhairava weapons"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p114-v2831": [
+    {
+     "id": "mukta-m0-p114-v2831-p000",
+     "verse_id": "mukta-m0-p114-v2831",
+     "pada_index": 0,
+     "surface": "kheṭabāṇā",
+     "citation": "kheṭabāṇā",
+     "morph": "compound: kheṭa-bāṇa+acc.pl.m",
+     "options": [
+      {
+       "gloss": "shield-and-arrow",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "names weapons held by the deity"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2831-p001",
+     "verse_id": "mukta-m0-p114-v2831",
+     "pada_index": 1,
+     "surface": "kapālāṃśca",
+     "citation": "kapālāṃśca",
+     "morph": "acc.pl.m + (indecl.)",
+     "options": [
+      {
+       "gloss": "and-skulls",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "adds skulls to the list of held objects; internal sandhi kapālān+ca"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2831-p002",
+     "verse_id": "mukta-m0-p114-v2831",
+     "pada_index": 2,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "connective particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2831-p003",
+     "verse_id": "mukta-m0-p114-v2831",
+     "pada_index": 3,
+     "surface": "varaprāsau",
+     "citation": "varaprāsau",
+     "morph": "compound: vara-prāsa+acc.du.m",
+     "options": [
+      {
+       "gloss": "boon-and-spear",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "names a boon-bestowing gesture and a spear"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2831-p004",
+     "verse_id": "mukta-m0-p114-v2831",
+     "pada_index": 4,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "connective particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2831-p005",
+     "verse_id": "mukta-m0-p114-v2831",
+     "pada_index": 5,
+     "surface": "vāmataḥ",
+     "citation": "vāmataḥ",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "on-the-left",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "specifies the side where these are held"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p114-v2832": [
+    {
+     "id": "mukta-m0-p114-v2832-p000",
+     "verse_id": "mukta-m0-p114-v2832",
+     "pada_index": 0,
+     "surface": "dhyātvaivaṃ",
+     "citation": "dhyātvaivaṃ",
+     "morph": "gerund + (indecl.)",
+     "options": [
+      {
+       "gloss": "having-meditated-thus",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "instructs completion of the visualization; internal sandhi dhyātvā+evam"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2832-p001",
+     "verse_id": "mukta-m0-p114-v2832",
+     "pada_index": 1,
+     "surface": "samuccaran",
+     "citation": "samuccaran",
+     "morph": "nom.sg.m.pres.part",
+     "options": [
+      {
+       "gloss": "reciting",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "describes simultaneous utterance of the mantra"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2832-p002",
+     "verse_id": "mukta-m0-p114-v2832",
+     "pada_index": 2,
+     "surface": "mantram",
+     "citation": "mantram",
+     "morph": "acc.sg.m",
+     "options": [
+      {
+       "gloss": "mantra",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "the sacred formula to be uttered"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2832-p003",
+     "verse_id": "mukta-m0-p114-v2832",
+     "pada_index": 3,
+     "surface": "āvāhyārcanamārabhet",
+     "citation": "āvāhyārcanamārabhet",
+     "morph": "gerund + acc.sg.n + 3.sg.opt.act (√rabh)",
+     "options": [
+      {
+       "gloss": "should-begin-invocation-and-worship",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "prescribes starting the ritual acts of invocation and worship; internal sandhi āvāhya+arcanam+ārabhet"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p114-v2833": [
+    {
+     "id": "mukta-m0-p114-v2833-p000",
+     "verse_id": "mukta-m0-p114-v2833",
+     "pada_index": 0,
+     "surface": "praṇavaṃ",
+     "citation": "praṇavaṃ",
+     "morph": "acc.sg.m",
+     "options": [
+      {
+       "gloss": "om-syllable",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "the sacred syllable to be worshipped"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2833-p001",
+     "verse_id": "mukta-m0-p114-v2833",
+     "pada_index": 1,
+     "surface": "vahni+digbhāge",
+     "citation": "vahni+digbhāge",
+     "morph": "compound: vahni-diś-bhāga+loc.sg.m",
+     "options": [
+      {
+       "gloss": "in-fire-direction-part",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "specifies the southeast direction associated with fire; token contains + marking internal boundary"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2833-p002",
+     "verse_id": "mukta-m0-p114-v2833",
+     "pada_index": 2,
+     "surface": "ślīṅkāraṃ",
+     "citation": "ślīṅkāraṃ",
+     "morph": "acc.sg.m",
+     "options": [
+      {
+       "gloss": "shrīm-syllable",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "the bīja syllable śrīṃ to be worshipped"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2833-p003",
+     "verse_id": "mukta-m0-p114-v2833",
+     "pada_index": 3,
+     "surface": "śāṅkare",
+     "citation": "śāṅkare",
+     "morph": "loc.sg.m",
+     "options": [
+      {
+       "gloss": "in-shankara-direction",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "specifies the direction associated with Śaṅkara"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2833-p004",
+     "verse_id": "mukta-m0-p114-v2833",
+     "pada_index": 4,
+     "surface": "yajet",
+     "citation": "yajet",
+     "morph": "3.sg.opt.act (√yaj)",
+     "options": [
+      {
+       "gloss": "one-should-worship",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "prescribes the act of worship"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p114-v2834": [
+    {
+     "id": "mukta-m0-p114-v2834-p000",
+     "verse_id": "mukta-m0-p114-v2834",
+     "pada_index": 0,
+     "surface": "oṅkārādi+phaḍāntāśca",
+     "citation": "oṅkārādi+phaḍāntāśca",
+     "morph": "compound: oṅkāra-ādi-phaḍ-anta+nom.pl.m + (indecl.)",
+     "options": [
+      {
+       "gloss": "beginning-with-om-ending-with-phat-and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "describes syllables bounded by oṃ and phaṭ; token contains + and internal sandhi -āḥ+ca"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2834-p001",
+     "verse_id": "mukta-m0-p114-v2834",
+     "pada_index": 1,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "connective particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2834-p002",
+     "verse_id": "mukta-m0-p114-v2834",
+     "pada_index": 2,
+     "surface": "varṇāḥ",
+     "citation": "varṇāḥ",
+     "morph": "nom.pl.m",
+     "options": [
+      {
+       "gloss": "syllables",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "the letters or syllables used in placement"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2834-p003",
+     "verse_id": "mukta-m0-p114-v2834",
+     "pada_index": 3,
+     "surface": "sthāne",
+     "citation": "sthāne",
+     "morph": "loc.sg.n",
+     "options": [
+      {
+       "gloss": "in-their-places",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indicates placement in designated locations"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2834-p004",
+     "verse_id": "mukta-m0-p114-v2834",
+     "pada_index": 4,
+     "surface": "hṛdādayaḥ",
+     "citation": "hṛdādayaḥ",
+     "morph": "compound: hṛd-ādi+nom.pl.m",
+     "options": [
+      {
+       "gloss": "heart-and-others",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "refers to the heart and other ritual locations"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p114-v2835": [
+    {
+     "id": "mukta-m0-p114-v2835-p000",
+     "verse_id": "mukta-m0-p114-v2835",
+     "pada_index": 0,
+     "surface": "phaḍantān",
+     "citation": "phaḍantān",
+     "morph": "compound: phaḍ-anta+acc.pl.m",
+     "options": [
+      {
+       "gloss": "ending-with-phat",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "qualifies the syllables or formulas as ending in phaṭ"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2835-p001",
+     "verse_id": "mukta-m0-p114-v2835",
+     "pada_index": 1,
+     "surface": "praṇavopetān",
+     "citation": "praṇavopetān",
+     "morph": "compound: praṇava-upeta+acc.pl.m",
+     "options": [
+      {
+       "gloss": "accompanied-by-om",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indicates the formulas are joined with the praṇava; internal sandhi praṇava+upetān"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2835-p002",
+     "verse_id": "mukta-m0-p114-v2835",
+     "pada_index": 2,
+     "surface": "vajrādīn",
+     "citation": "vajrādīn",
+     "morph": "compound: vajra-ādi+acc.pl.m",
+     "options": [
+      {
+       "gloss": "vajra-and-others",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "refers to the vajra and other weapons or items"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2835-p003",
+     "verse_id": "mukta-m0-p114-v2835",
+     "pada_index": 3,
+     "surface": "kalaśeṣu",
+     "citation": "kalaśeṣu",
+     "morph": "loc.pl.m",
+     "options": [
+      {
+       "gloss": "in-the-pots",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "specifies placement within the ritual pots"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2835-p004",
+     "verse_id": "mukta-m0-p114-v2835",
+     "pada_index": 4,
+     "surface": "tān",
+     "citation": "tān",
+     "morph": "acc.pl.m",
+     "options": [
+      {
+       "gloss": "those",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "refers back to the aforementioned items or formulas"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p114-v2836": [
+    {
+     "id": "mukta-m0-p114-v2836-p000",
+     "verse_id": "mukta-m0-p114-v2836",
+     "pada_index": 0,
+     "surface": "tadagre",
+     "citation": "tadagre",
+     "morph": "compound: tad-agra+loc.sg.n",
+     "options": [
+      {
+       "gloss": "in-front-of-that",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "specifies the location before the previously mentioned setup"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2836-p001",
+     "verse_id": "mukta-m0-p114-v2836",
+     "pada_index": 1,
+     "surface": "hāstike",
+     "citation": "hāstike",
+     "morph": "loc.sg.n",
+     "options": [
+      {
+       "gloss": "in-elephant-shaped",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "refers to a fire pit shaped like an elephant"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2836-p002",
+     "verse_id": "mukta-m0-p114-v2836",
+     "pada_index": 2,
+     "surface": "vṛtta",
+     "citation": "vṛtta",
+     "morph": "loc.sg.n",
+     "options": [
+      {
+       "gloss": "round",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "describes an alternative circular shape"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2836-p003",
+     "verse_id": "mukta-m0-p114-v2836",
+     "pada_index": 3,
+     "surface": "kuṇḍe",
+     "citation": "kuṇḍe",
+     "morph": "loc.sg.n",
+     "options": [
+      {
+       "gloss": "in-fire-pit",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "the ritual fire pit"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2836-p004",
+     "verse_id": "mukta-m0-p114-v2836",
+     "pada_index": 4,
+     "surface": "vā",
+     "citation": "vā",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "or",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "marks an alternative"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2836-p005",
+     "verse_id": "mukta-m0-p114-v2836",
+     "pada_index": 5,
+     "surface": "sthaṇḍile",
+     "citation": "sthaṇḍile",
+     "morph": "loc.sg.n",
+     "options": [
+      {
+       "gloss": "on-altar",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "an alternative ritual ground or altar"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2836-p006",
+     "verse_id": "mukta-m0-p114-v2836",
+     "pada_index": 6,
+     "surface": "api",
+     "citation": "api",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "also",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "inclusive particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2836-p007",
+     "verse_id": "mukta-m0-p114-v2836",
+     "pada_index": 7,
+     "surface": "vā",
+     "citation": "vā",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "or",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "marks an alternative"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p114-v2837": [
+    {
+     "id": "mukta-m0-p114-v2837-p000",
+     "verse_id": "mukta-m0-p114-v2837",
+     "pada_index": 0,
+     "surface": "devaṃ",
+     "citation": "devaṃ",
+     "morph": "acc.sg.m",
+     "options": [
+      {
+       "gloss": "deity",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "the divine being to be worshipped"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2837-p001",
+     "verse_id": "mukta-m0-p114-v2837",
+     "pada_index": 1,
+     "surface": "pāśupataṃ",
+     "citation": "pāśupataṃ",
+     "morph": "acc.sg.m",
+     "options": [
+      {
+       "gloss": "pashupata",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "identifies the deity in the Pāśupata form"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2837-p002",
+     "verse_id": "mukta-m0-p114-v2837",
+     "pada_index": 2,
+     "surface": "sāṅgam",
+     "citation": "sāṅgam",
+     "morph": "compound: sa-aṅga+acc.sg.m",
+     "options": [
+      {
+       "gloss": "with-limbs",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indicates worship together with attendant limbs or parts; internal sandhi sa+aṅgam"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2837-p003",
+     "verse_id": "mukta-m0-p114-v2837",
+     "pada_index": 3,
+     "surface": "āvāhya",
+     "citation": "āvāhya",
+     "morph": "gerund (√vāh with ā)",
+     "options": [
+      {
+       "gloss": "having-invoked",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "ritual act of inviting the deity"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2837-p004",
+     "verse_id": "mukta-m0-p114-v2837",
+     "pada_index": 4,
+     "surface": "abhyarcya",
+     "citation": "abhyarcya",
+     "morph": "gerund (√arc with abhi)",
+     "options": [
+      {
+       "gloss": "having-worshipped",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "ritual act of offering worship"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2837-p005",
+     "verse_id": "mukta-m0-p114-v2837",
+     "pada_index": 5,
+     "surface": "tarpayet",
+     "citation": "tarpayet",
+     "morph": "3.sg.opt.caus.act (√tṛp)",
+     "options": [
+      {
+       "gloss": "one-should-satisfy",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "prescribes the act of ritual satisfaction or oblation"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p114-v2838": [
+    {
+     "id": "mukta-m0-p114-v2838-p000",
+     "verse_id": "mukta-m0-p114-v2838",
+     "pada_index": 0,
+     "surface": "sahasraṃ",
+     "citation": "sahasraṃ",
+     "morph": "acc.sg.n",
+     "options": [
+      {
+       "gloss": "thousand",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "specifies a possible count of offerings or recitations"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2838-p001",
+     "verse_id": "mukta-m0-p114-v2838",
+     "pada_index": 1,
+     "surface": "vā",
+     "citation": "vā",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "or",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "marks an alternative"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2838-p002",
+     "verse_id": "mukta-m0-p114-v2838",
+     "pada_index": 2,
+     "surface": "tadardhaṃ",
+     "citation": "tadardhaṃ",
+     "morph": "compound: tad-ardha+acc.sg.n",
+     "options": [
+      {
+       "gloss": "half-of-that",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "specifies half the previous count; internal sandhi tad+ardham"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2838-p003",
+     "verse_id": "mukta-m0-p114-v2838",
+     "pada_index": 3,
+     "surface": "vā",
+     "citation": "vā",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "or",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "marks an alternative"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2838-p004",
+     "verse_id": "mukta-m0-p114-v2838",
+     "pada_index": 4,
+     "surface": "śatamaṣṭottaraṃ",
+     "citation": "śatamaṣṭottaraṃ",
+     "morph": "compound: śata-aṣṭottara+acc.sg.n",
+     "options": [
+      {
+       "gloss": "hundred-plus-eight",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "specifies one hundred and eight as an alternative count; internal sandhi śatam+aṣṭottaram"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2838-p005",
+     "verse_id": "mukta-m0-p114-v2838",
+     "pada_index": 5,
+     "surface": "tu",
+     "citation": "tu",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "indeed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "emphatic particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2838-p006",
+     "verse_id": "mukta-m0-p114-v2838",
+     "pada_index": 6,
+     "surface": "vā",
+     "citation": "vā",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "or",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "marks an alternative"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p114-v2839": [
+    {
+     "id": "mukta-m0-p114-v2839-p000",
+     "verse_id": "mukta-m0-p114-v2839",
+     "pada_index": 0,
+     "surface": "bhagavan",
+     "citation": "bhagavan",
+     "morph": "voc.sg.m",
+     "options": [
+      {
+       "gloss": "o-lord",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "vocative address to the deity"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2839-p001",
+     "verse_id": "mukta-m0-p114-v2839",
+     "pada_index": 1,
+     "surface": "doṣaśāntiṃ",
+     "citation": "doṣaśāntiṃ",
+     "morph": "compound: doṣa-śānti+acc.sg.f",
+     "options": [
+      {
+       "gloss": "pacification-of-fault",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "the removal or calming of defects; internal sandhi doṣa+śāntim"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2839-p002",
+     "verse_id": "mukta-m0-p114-v2839",
+     "pada_index": 2,
+     "surface": "tu",
+     "citation": "tu",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "indeed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "emphatic particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2839-p003",
+     "verse_id": "mukta-m0-p114-v2839",
+     "pada_index": 3,
+     "surface": "kurukurviti",
+     "citation": "kurukurviti",
+     "morph": "2.sg.imp.act (√kṛ) + 2.sg.imp.act (√kṛ) + (indecl.)",
+     "options": [
+      {
+       "gloss": "do-do-thus",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "imperative formula urging the deity to act; internal sandhi kuru+kuru+iti"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2839-p004",
+     "verse_id": "mukta-m0-p114-v2839",
+     "pada_index": 4,
+     "surface": "deśikaḥ",
+     "citation": "deśikaḥ",
+     "morph": "nom.sg.m",
+     "options": [
+      {
+       "gloss": "teacher",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "the officiating preceptor who utters the prayer"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p114-v2840": [
+    {
+     "id": "mukta-m0-p114-v2840-p000",
+     "verse_id": "mukta-m0-p114-v2840",
+     "pada_index": 0,
+     "surface": "pūrṇāhutiṃ",
+     "citation": "pūrṇāhutiṃ",
+     "morph": "compound: pūrṇa-āhuti+acc.sg.f",
+     "options": [
+      {
+       "gloss": "full-oblation",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "the concluding complete offering into the fire"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2840-p001",
+     "verse_id": "mukta-m0-p114-v2840",
+     "pada_index": 1,
+     "surface": "tato",
+     "citation": "tato",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "then",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indicates the next step in sequence; internal sandhi tataḥ"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2840-p002",
+     "verse_id": "mukta-m0-p114-v2840",
+     "pada_index": 2,
+     "surface": "dadyādastraṃ",
+     "citation": "dadyādastraṃ",
+     "morph": "3.sg.opt.act (√dā) + acc.sg.n",
+     "options": [
+      {
+       "gloss": "should-offer-weapon",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "prescribes offering while invoking the weapon; internal sandhi dadyāt+astram"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2840-p003",
+     "verse_id": "mukta-m0-p114-v2840",
+     "pada_index": 3,
+     "surface": "pāśupataṃ",
+     "citation": "pāśupataṃ",
+     "morph": "acc.sg.n",
+     "options": [
+      {
+       "gloss": "pashupata",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "identifies the weapon as the Pāśupata weapon"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2840-p004",
+     "verse_id": "mukta-m0-p114-v2840",
+     "pada_index": 4,
+     "surface": "smaran",
+     "citation": "smaran",
+     "morph": "nom.sg.m.pres.part (√smṛ)",
+     "options": [
+      {
+       "gloss": "remembering",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indicates mental recollection during the offering"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p114-v2841": [
+    {
+     "id": "mukta-m0-p114-v2841-p000",
+     "verse_id": "mukta-m0-p114-v2841",
+     "pada_index": 0,
+     "surface": "punaḥ",
+     "citation": "punaḥ",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "again",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indicates repetition of an offering"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2841-p001",
+     "verse_id": "mukta-m0-p114-v2841",
+     "pada_index": 1,
+     "surface": "pūrṇāṃ",
+     "citation": "pūrṇāṃ",
+     "morph": "acc.sg.f",
+     "options": [
+      {
+       "gloss": "full",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "qualifies another complete offering"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2841-p002",
+     "verse_id": "mukta-m0-p114-v2841",
+     "pada_index": 2,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "connective particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2841-p003",
+     "verse_id": "mukta-m0-p114-v2841",
+     "pada_index": 3,
+     "surface": "tāmbūlaṃ",
+     "citation": "tāmbūlaṃ",
+     "morph": "acc.sg.n",
+     "options": [
+      {
+       "gloss": "betel",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "a ritual offering of betel"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2841-p004",
+     "verse_id": "mukta-m0-p114-v2841",
+     "pada_index": 4,
+     "surface": "datvārghyaṃ",
+     "citation": "datvārghyaṃ",
+     "morph": "gerund (√dā) + acc.sg.n",
+     "options": [
+      {
+       "gloss": "having-given-arghya",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indicates giving the arghya offering; internal sandhi datvā+arghyam"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2841-p005",
+     "verse_id": "mukta-m0-p114-v2841",
+     "pada_index": 5,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "connective particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2841-p006",
+     "verse_id": "mukta-m0-p114-v2841",
+     "pada_index": 6,
+     "surface": "parāṅmukham",
+     "citation": "parāṅmukham",
+     "morph": "acc.sg.n",
+     "options": [
+      {
+       "gloss": "turned-away",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "describes the deity or rite as dismissed or facing away"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p114-v2842": [
+    {
+     "id": "mukta-m0-p114-v2842-p000",
+     "verse_id": "mukta-m0-p114-v2842",
+     "pada_index": 0,
+     "surface": "pratyahaṃ",
+     "citation": "pratyahaṃ",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "daily",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indicates daily repetition"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2842-p001",
+     "verse_id": "mukta-m0-p114-v2842",
+     "pada_index": 1,
+     "surface": "vā",
+     "citation": "vā",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "or",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "marks an alternative"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2842-p002",
+     "verse_id": "mukta-m0-p114-v2842",
+     "pada_index": 2,
+     "surface": "tadutpādya",
+     "citation": "tadutpādya",
+     "morph": "gerund (√pad with ud, caus.)",
+     "options": [
+      {
+       "gloss": "having-produced-that",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indicates generating or manifesting the form; internal sandhi tad+utpādya"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2842-p003",
+     "verse_id": "mukta-m0-p114-v2842",
+     "pada_index": 3,
+     "surface": "tarpayedastra",
+     "citation": "tarpayedastra",
+     "morph": "3.sg.opt.caus.act (√tṛp) + acc.sg.n",
+     "options": [
+      {
+       "gloss": "one-should-satisfy-weapon",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "prescribes satisfying the weapon form; internal sandhi tarpayet+astram"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2842-p004",
+     "verse_id": "mukta-m0-p114-v2842",
+     "pada_index": 4,
+     "surface": "rūpiṇam",
+     "citation": "rūpiṇam",
+     "morph": "acc.sg.n",
+     "options": [
+      {
+       "gloss": "having-form",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "qualifies the weapon as embodied or personified"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p114-v2843": [
+    {
+     "id": "mukta-m0-p114-v2843-p000",
+     "verse_id": "mukta-m0-p114-v2843",
+     "pada_index": 0,
+     "surface": "samarpitakriye",
+     "citation": "samarpitakriye",
+     "morph": "compound: samarpita-kriyā+loc.sg.m",
+     "options": [
+      {
+       "gloss": "when-rite-offered",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "describes the state after the ritual action has been dedicated; internal sandhi samarpita+kriye"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2843-p001",
+     "verse_id": "mukta-m0-p114-v2843",
+     "pada_index": 1,
+     "surface": "deve",
+     "citation": "deve",
+     "morph": "loc.sg.m",
+     "options": [
+      {
+       "gloss": "to-the-deity",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "the recipient of the offered rite"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2843-p002",
+     "verse_id": "mukta-m0-p114-v2843",
+     "pada_index": 2,
+     "surface": "tu",
+     "citation": "tu",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "then",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "marks the next step"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2843-p003",
+     "verse_id": "mukta-m0-p114-v2843",
+     "pada_index": 3,
+     "surface": "abhīṣṭaṃ",
+     "citation": "abhīṣṭaṃ",
+     "morph": "acc.sg.n",
+     "options": [
+      {
+       "gloss": "desired-aim",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "the wish or objective to be requested"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2843-p004",
+     "verse_id": "mukta-m0-p114-v2843",
+     "pada_index": 4,
+     "surface": "prārthayedguruḥ",
+     "citation": "prārthayedguruḥ",
+     "morph": "3.sg.opt.act (√arth with pra) + nom.sg.m",
+     "options": [
+      {
+       "gloss": "teacher-should-pray",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "prescribes the teacher to make the request; internal sandhi prārthayet+guruḥ"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p114-v2844": [
+    {
+     "id": "mukta-m0-p114-v2844-p000",
+     "verse_id": "mukta-m0-p114-v2844",
+     "pada_index": 0,
+     "surface": "tataḥ",
+     "citation": "tataḥ",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "then",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indicates the next ritual step"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2844-p001",
+     "verse_id": "mukta-m0-p114-v2844",
+     "pada_index": 1,
+     "surface": "tat+kumbha",
+     "citation": "tat+kumbha",
+     "morph": "compound: tad-kumbha+stem",
+     "options": [
+      {
+       "gloss": "that-pot",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "refers to the previously mentioned pot; token contains + marking internal boundary"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2844-p002",
+     "verse_id": "mukta-m0-p114-v2844",
+     "pada_index": 2,
+     "surface": "pānīyaiḥ",
+     "citation": "pānīyaiḥ",
+     "morph": "inst.pl.n",
+     "options": [
+      {
+       "gloss": "with-waters",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "the water contained in that pot used for sprinkling"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2844-p003",
+     "verse_id": "mukta-m0-p114-v2844",
+     "pada_index": 3,
+     "surface": "prokṣayedabhitastataḥ",
+     "citation": "prokṣayedabhitastataḥ",
+     "morph": "3.sg.opt.act (√ukṣ with pra) + (indecl.) + (indecl.)",
+     "options": [
+      {
+       "gloss": "should-sprinkle-all-around-then",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "prescribes sprinkling in all directions; internal sandhi prokṣayet+abhitaḥ+tataḥ"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p114-v2845": [
+    {
+     "id": "mukta-m0-p114-v2845-p000",
+     "verse_id": "mukta-m0-p114-v2845",
+     "pada_index": 0,
+     "surface": "kartavyaśśāntihomo'yaṃ",
+     "citation": "kartavyaśśāntihomo'yaṃ",
+     "morph": "nom.sg.m.gerundive + compound: śānti-homa+nom.sg.m + nom.sg.m",
+     "options": [
+      {
+       "gloss": "this-peace-oblation-to-be-done",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "prescribes performance of this peace oblation; internal sandhi kartavyaḥ+śāntihomaḥ+ayam"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2845-p001",
+     "verse_id": "mukta-m0-p114-v2845",
+     "pada_index": 1,
+     "surface": "śāntyuktadinasaṃkhyayā",
+     "citation": "śāntyuktadinasaṃkhyayā",
+     "morph": "compound: śānti-ukta-dina-saṃkhyā+inst.sg.f",
+     "options": [
+      {
+       "gloss": "by-day-count-stated-for-peace",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "specifies duration according to the number of days prescribed for pacification; internal sandhi śānti+ukta+dina+saṃkhyayā"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p114-v2846": [
+    {
+     "id": "mukta-m0-p114-v2846-p000",
+     "verse_id": "mukta-m0-p114-v2846",
+     "pada_index": 0,
+     "surface": "prāyaścittārthamanyo'yaṃ",
+     "citation": "prāyaścittārthamanyo'yaṃ",
+     "morph": "compound: prāyaścitta-artha+acc.sg.n + nom.sg.m + nom.sg.m",
+     "options": [
+      {
+       "gloss": "this-other-for-expiation-purpose",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "identifies another rite as intended for expiation; internal sandhi prāyaścitta+artham+anyaḥ+ayam"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2846-p001",
+     "verse_id": "mukta-m0-p114-v2846",
+     "pada_index": 1,
+     "surface": "snapanādyaṅga",
+     "citation": "snapanādyaṅga",
+     "morph": "compound: snapana-ādi-aṅga+stem",
+     "options": [
+      {
+       "gloss": "bathing-and-other-limb",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "refers to bathing and other subsidiary parts of the rite; internal sandhi snapana+ādi+aṅga"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2846-p002",
+     "verse_id": "mukta-m0-p114-v2846",
+     "pada_index": 2,
+     "surface": "bhāg",
+     "citation": "bhāg",
+     "morph": "nom.sg.m",
+     "options": [
+      {
+       "gloss": "part",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indicates a constituent portion"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2846-p003",
+     "verse_id": "mukta-m0-p114-v2846",
+     "pada_index": 3,
+     "surface": "bhavet",
+     "citation": "bhavet",
+     "morph": "3.sg.opt.act (√bhū)",
+     "options": [
+      {
+       "gloss": "should-be",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "states the function or status of this rite"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p114-v2847": [
+    {
+     "id": "mukta-m0-p114-v2847-p000",
+     "verse_id": "mukta-m0-p114-v2847",
+     "pada_index": 0,
+     "surface": "maṇḍape",
+     "citation": "maṇḍape",
+     "morph": "loc.sg.m",
+     "options": [
+      {
+       "gloss": "in-pavilion",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "a possible location for the rite"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2847-p001",
+     "verse_id": "mukta-m0-p114-v2847",
+     "pada_index": 1,
+     "surface": "mālikādau",
+     "citation": "mālikādau",
+     "morph": "compound: mālikā-ādi+loc.sg.m",
+     "options": [
+      {
+       "gloss": "in-garland-place-and-others",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "alternative locations such as a garlanded area; internal sandhi mālikā+ādau"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2847-p002",
+     "verse_id": "mukta-m0-p114-v2847",
+     "pada_index": 2,
+     "surface": "vā",
+     "citation": "vā",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "or",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "marks an alternative"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2847-p003",
+     "verse_id": "mukta-m0-p114-v2847",
+     "pada_index": 3,
+     "surface": "vṛkṣādermūla",
+     "citation": "vṛkṣādermūla",
+     "morph": "compound: vṛkṣa-ādi-mūla+loc.sg.n",
+     "options": [
+      {
+       "gloss": "at-root-of-tree-and-others",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "alternative location at the root of a tree; internal sandhi vṛkṣa+ādeḥ+mūle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2847-p004",
+     "verse_id": "mukta-m0-p114-v2847",
+     "pada_index": 4,
+     "surface": "eva",
+     "citation": "eva",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "indeed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "emphatic particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2847-p005",
+     "verse_id": "mukta-m0-p114-v2847",
+     "pada_index": 5,
+     "surface": "vā",
+     "citation": "vā",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "or",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "marks an alternative"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p114-v2848": [
+    {
+     "id": "mukta-m0-p114-v2848-p000",
+     "verse_id": "mukta-m0-p114-v2848",
+     "pada_index": 0,
+     "surface": "dikṣu",
+     "citation": "dikṣu",
+     "morph": "loc.pl.f",
+     "options": [
+      {
+       "gloss": "in-directions",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "specifies placement in the cardinal directions"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2848-p001",
+     "verse_id": "mukta-m0-p114-v2848",
+     "pada_index": 1,
+     "surface": "kūṭān",
+     "citation": "kūṭān",
+     "morph": "acc.pl.m",
+     "options": [
+      {
+       "gloss": "peaks",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "raised structures or mounds to be made"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2848-p002",
+     "verse_id": "mukta-m0-p114-v2848",
+     "pada_index": 2,
+     "surface": "prapāṃ",
+     "citation": "prapāṃ",
+     "morph": "acc.sg.f",
+     "options": [
+      {
+       "gloss": "shed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "an alternative structure such as a water-shed or pavilion"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2848-p003",
+     "verse_id": "mukta-m0-p114-v2848",
+     "pada_index": 3,
+     "surface": "vā",
+     "citation": "vā",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "or",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "marks an alternative"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2848-p004",
+     "verse_id": "mukta-m0-p114-v2848",
+     "pada_index": 4,
+     "surface": "api",
+     "citation": "api",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "also",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "inclusive particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2848-p005",
+     "verse_id": "mukta-m0-p114-v2848",
+     "pada_index": 5,
+     "surface": "kṛtvā",
+     "citation": "kṛtvā",
+     "morph": "gerund (√kṛ)",
+     "options": [
+      {
+       "gloss": "having-made",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indicates preparation of the structures"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2848-p006",
+     "verse_id": "mukta-m0-p114-v2848",
+     "pada_index": 6,
+     "surface": "kuṇḍa",
+     "citation": "kuṇḍa",
+     "morph": "stem",
+     "options": [
+      {
+       "gloss": "fire-pit",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "ritual pit to be prepared"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2848-p007",
+     "verse_id": "mukta-m0-p114-v2848",
+     "pada_index": 7,
+     "surface": "catuṣṭayam",
+     "citation": "catuṣṭayam",
+     "morph": "acc.sg.n",
+     "options": [
+      {
+       "gloss": "set-of-four",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "specifies four fire pits"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p114-v2849": [
+    {
+     "id": "mukta-m0-p114-v2849-p000",
+     "verse_id": "mukta-m0-p114-v2849",
+     "pada_index": 0,
+     "surface": "sthaṇḍilaṃ",
+     "citation": "sthaṇḍilaṃ",
+     "morph": "acc.sg.n",
+     "options": [
+      {
+       "gloss": "altar-ground",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "an alternative prepared ritual ground"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2849-p001",
+     "verse_id": "mukta-m0-p114-v2849",
+     "pada_index": 1,
+     "surface": "vā",
+     "citation": "vā",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "or",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "marks an alternative"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2849-p002",
+     "verse_id": "mukta-m0-p114-v2849",
+     "pada_index": 2,
+     "surface": "samāpādya",
+     "citation": "samāpādya",
+     "morph": "gerund (√pad with sam-ā, caus.)",
+     "options": [
+      {
+       "gloss": "having-prepared",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indicates arranging or establishing the altar"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2849-p003",
+     "verse_id": "mukta-m0-p114-v2849",
+     "pada_index": 3,
+     "surface": "prokṣayedastra",
+     "citation": "prokṣayedastra",
+     "morph": "3.sg.opt.act (√ukṣ with pra) + acc.sg.n",
+     "options": [
+      {
+       "gloss": "one-should-sprinkle-weapon",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "prescribes sprinkling with weapon-consecrated water; internal sandhi prokṣayet+astra"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2849-p004",
+     "verse_id": "mukta-m0-p114-v2849",
+     "pada_index": 4,
+     "surface": "vāriṇā",
+     "citation": "vāriṇā",
+     "morph": "inst.sg.n",
+     "options": [
+      {
+       "gloss": "with-water",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "the water used for sprinkling"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p114-v2850": [
+    {
+     "id": "mukta-m0-p114-v2850-p000",
+     "verse_id": "mukta-m0-p114-v2850",
+     "pada_index": 0,
+     "surface": "ekaṃ",
+     "citation": "ekaṃ",
+     "morph": "adj.acc.sg.n",
+     "options": [
+      {
+       "gloss": "one",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "qualifies the single peak as an alternative arrangement"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2850-p001",
+     "verse_id": "mukta-m0-p114-v2850",
+     "pada_index": 1,
+     "surface": "vā",
+     "citation": "vā",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "or",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "introduces an alternative to the previously stated arrangements"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2850-p002",
+     "verse_id": "mukta-m0-p114-v2850",
+     "pada_index": 2,
+     "surface": "kūṭamāpādya",
+     "citation": "kūṭamāpādya",
+     "morph": "gerund; compound=kūṭam+āpādya",
+     "options": [
+      {
+       "gloss": "peak-having-prepared",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "fused form: kūṭam (object) + āpādya (gerund of ā-√pad), having established a peak"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2850-p003",
+     "verse_id": "mukta-m0-p114-v2850",
+     "pada_index": 3,
+     "surface": "tatra",
+     "citation": "tatra",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "there",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "locates the subsequent actions at that prepared peak"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2850-p004",
+     "verse_id": "mukta-m0-p114-v2850",
+     "pada_index": 4,
+     "surface": "sarvaṃ",
+     "citation": "sarvaṃ",
+     "morph": "adj.acc.sg.n",
+     "options": [
+      {
+       "gloss": "all",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "refers to all the prescribed ritual actions"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p114-v2850-p005",
+     "verse_id": "mukta-m0-p114-v2850",
+     "pada_index": 5,
+     "surface": "samācaret",
+     "citation": "samācaret",
+     "morph": "3.sg.opt.act; √sam-ā-car",
+     "options": [
+      {
+       "gloss": "one-should-perform",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "enjoins performance of the complete ritual procedure"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ]
+  },
+  "argmap": {
+   "mukta-m0-p114-v2826": {
+    "verse_id": "mukta-m0-p114-v2826",
+    "song": "mukta-m0-p114",
+    "verse": 2826,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What ritual vessels and accompaniments must be arranged around the central setup?",
+    "premises": [
+     "Eight pots are to be placed all around.",
+     "The pots are furnished with cloth, brushes, and similar items."
+    ],
+    "inference": "The ritual space requires eight surrounding pots equipped with cloth, brushes, and related accessories.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p114-v2826",
+     "l0_ids": [
+      "mukta-m0-p114-v2826-p000",
+      "mukta-m0-p114-v2826-p001",
+      "mukta-m0-p114-v2826-p002",
+      "mukta-m0-p114-v2826-p003"
+     ],
+     "sanskrit_sha": "a52c22d39f90090a"
+    },
+    "sanskrit_sha": "a52c22d39f90090a"
+   },
+   "mukta-m0-p114-v2827": {
+    "verse_id": "mukta-m0-p114-v2827",
+    "song": "mukta-m0-p114",
+    "verse": 2827,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What qualities characterize the deity to be visualized upon the praṇava seat?",
+    "premises": [
+     "The deity is mounted on the seat of the praṇava.",
+     "The deity is unassailable and possesses great strength."
+    ],
+    "inference": "The visualized deity is seated on the praṇava, invincible, and immensely powerful.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p114-v2827",
+     "l0_ids": [
+      "mukta-m0-p114-v2827-p000",
+      "mukta-m0-p114-v2827-p001",
+      "mukta-m0-p114-v2827-p002"
+     ],
+     "sanskrit_sha": "a52c22d39f90090a"
+    },
+    "sanskrit_sha": "a52c22d39f90090a"
+   },
+   "mukta-m0-p114-v2828": {
+    "verse_id": "mukta-m0-p114-v2828",
+    "song": "mukta-m0-p114",
+    "verse": 2828,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What fierce features further define the terrifying form of the visualized deity?",
+    "premises": [
+     "The deity has very fierce tusks and hands.",
+     "The deity releases a roar and is very hard to conquer."
+    ],
+    "inference": "The deity’s form is marked by fierce tusks and hands, a roaring sound, and invincibility.",
+    "uncertainties": [
+     "The internal analysis of daṃṣṭrākarāka is uncertain; it may refer to tusks and terrifying hands or gestures."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p114-v2828",
+     "l0_ids": [
+      "mukta-m0-p114-v2828-p000",
+      "mukta-m0-p114-v2828-p001",
+      "mukta-m0-p114-v2828-p002"
+     ],
+     "sanskrit_sha": "a52c22d39f90090a"
+    },
+    "sanskrit_sha": "a52c22d39f90090a"
+   },
+   "mukta-m0-p114-v2829": {
+    "verse_id": "mukta-m0-p114-v2829",
+    "song": "mukta-m0-p114",
+    "verse": 2829,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What distinctive eyes and serpent ornaments mark the deity’s fearsome appearance?",
+    "premises": [
+     "The deity has squinting eyes.",
+     "The deity licks the snake ornaments worn as a great garland."
+    ],
+    "inference": "The deity’s fearsome appearance includes squinting eyes and the licking of serpent ornaments.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p114-v2829",
+     "l0_ids": [
+      "mukta-m0-p114-v2829-p000",
+      "mukta-m0-p114-v2829-p001"
+     ],
+     "sanskrit_sha": "a52c22d39f90090a"
+    },
+    "sanskrit_sha": "a52c22d39f90090a"
+   },
+   "mukta-m0-p114-v2830": {
+    "verse_id": "mukta-m0-p114-v2830",
+    "song": "mukta-m0-p114",
+    "verse": 2830,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "How many arms and what weapons equip the deity in this visualization?",
+    "premises": [
+     "The deity possesses ten arms.",
+     "The arms are very fierce and equipped with Bhairava weapons."
+    ],
+    "inference": "The deity is visualized with ten very fierce arms bearing the weapons of Bhairava.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p114-v2830",
+     "l0_ids": [
+      "mukta-m0-p114-v2830-p000"
+     ],
+     "sanskrit_sha": "a52c22d39f90090a"
+    },
+    "sanskrit_sha": "a52c22d39f90090a"
+   },
+   "mukta-m0-p114-v2831": {
+    "verse_id": "mukta-m0-p114-v2831",
+    "song": "mukta-m0-p114",
+    "verse": 2831,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "Which specific implements are held on the left side of the deity?",
+    "premises": [
+     "The deity holds a shield, arrow, and skulls.",
+     "The deity also holds a boon and a spear on the left side."
+    ],
+    "inference": "On the left side the deity holds a shield, arrow, skulls, a boon, and a spear.",
+    "uncertainties": [
+     "The exact distribution of items between hands is not fully specified."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p114-v2831",
+     "l0_ids": [
+      "mukta-m0-p114-v2831-p000",
+      "mukta-m0-p114-v2831-p001",
+      "mukta-m0-p114-v2831-p002",
+      "mukta-m0-p114-v2831-p003",
+      "mukta-m0-p114-v2831-p004",
+      "mukta-m0-p114-v2831-p005"
+     ],
+     "sanskrit_sha": "a52c22d39f90090a"
+    },
+    "sanskrit_sha": "a52c22d39f90090a"
+   },
+   "mukta-m0-p114-v2832": {
+    "verse_id": "mukta-m0-p114-v2832",
+    "song": "mukta-m0-p114",
+    "verse": 2832,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What ritual actions must follow after completing the prescribed visualization?",
+    "premises": [
+     "One must first meditate on the deity in this form.",
+     "While reciting the mantra, one should begin invocation and worship."
+    ],
+    "inference": "After visualizing the deity, the practitioner should recite the mantra and commence invocation and worship.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p114-v2832",
+     "l0_ids": [
+      "mukta-m0-p114-v2832-p000",
+      "mukta-m0-p114-v2832-p001",
+      "mukta-m0-p114-v2832-p002",
+      "mukta-m0-p114-v2832-p003"
+     ],
+     "sanskrit_sha": "a52c22d39f90090a"
+    },
+    "sanskrit_sha": "a52c22d39f90090a"
+   },
+   "mukta-m0-p114-v2833": {
+    "verse_id": "mukta-m0-p114-v2833",
+    "song": "mukta-m0-p114",
+    "verse": 2833,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "Where should the praṇava and the śrīṃ syllable be worshipped in the ritual layout?",
+    "premises": [
+     "The praṇava is to be worshipped in the direction of fire.",
+     "The śrīṃ syllable is to be worshipped in the direction of Śaṅkara."
+    ],
+    "inference": "The ritual assigns the praṇava to the fire direction and the śrīṃ syllable to the Śaṅkara direction.",
+    "uncertainties": [
+     "The exact compass direction indicated by śāṅkare depends on ritual convention."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p114-v2833",
+     "l0_ids": [
+      "mukta-m0-p114-v2833-p000",
+      "mukta-m0-p114-v2833-p001",
+      "mukta-m0-p114-v2833-p002",
+      "mukta-m0-p114-v2833-p003",
+      "mukta-m0-p114-v2833-p004"
+     ],
+     "sanskrit_sha": "a52c22d39f90090a"
+    },
+    "sanskrit_sha": "a52c22d39f90090a"
+   },
+   "mukta-m0-p114-v2834": {
+    "verse_id": "mukta-m0-p114-v2834",
+    "song": "mukta-m0-p114",
+    "verse": 2834,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "How are the syllables from oṃ to phaṭ assigned to the heart and other ritual locations?",
+    "premises": [
+     "The syllables begin with oṃ and end with phaṭ.",
+     "These syllables are placed in their locations as the heart and others."
+    ],
+    "inference": "The sequence of syllables from oṃ to phaṭ is assigned to the heart and the other prescribed locations.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p114-v2834",
+     "l0_ids": [
+      "mukta-m0-p114-v2834-p000",
+      "mukta-m0-p114-v2834-p001",
+      "mukta-m0-p114-v2834-p002",
+      "mukta-m0-p114-v2834-p003",
+      "mukta-m0-p114-v2834-p004"
+     ],
+     "sanskrit_sha": "a52c22d39f90090a"
+    },
+    "sanskrit_sha": "a52c22d39f90090a"
+   },
+   "mukta-m0-p114-v2835": {
+    "verse_id": "mukta-m0-p114-v2835",
+    "song": "mukta-m0-p114",
+    "verse": 2835,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "Which formulas and weapons are to be placed within the ritual pots?",
+    "premises": [
+     "The formulas end with phaṭ and are accompanied by the praṇava.",
+     "Those formulas, along with the vajra and others, are placed in the pots."
+    ],
+    "inference": "The pots receive the praṇava-prefixed, phaṭ-ending formulas and the vajra and other items.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p114-v2835",
+     "l0_ids": [
+      "mukta-m0-p114-v2835-p000",
+      "mukta-m0-p114-v2835-p001",
+      "mukta-m0-p114-v2835-p002",
+      "mukta-m0-p114-v2835-p003",
+      "mukta-m0-p114-v2835-p004"
+     ],
+     "sanskrit_sha": "a52c22d39f90090a"
+    },
+    "sanskrit_sha": "a52c22d39f90090a"
+   },
+   "mukta-m0-p114-v2836": {
+    "verse_id": "mukta-m0-p114-v2836",
+    "song": "mukta-m0-p114",
+    "verse": 2836,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What alternative ritual grounds may be prepared in front of the main arrangement?",
+    "premises": [
+     "The location is in front of the previously mentioned setup.",
+     "One may use an elephant-shaped or round fire pit, or alternatively an altar."
+    ],
+    "inference": "The ritual may be performed in front on an elephant-shaped pit, a round pit, or an altar.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p114-v2836",
+     "l0_ids": [
+      "mukta-m0-p114-v2836-p000",
+      "mukta-m0-p114-v2836-p001",
+      "mukta-m0-p114-v2836-p002",
+      "mukta-m0-p114-v2836-p003",
+      "mukta-m0-p114-v2836-p004",
+      "mukta-m0-p114-v2836-p005",
+      "mukta-m0-p114-v2836-p006",
+      "mukta-m0-p114-v2836-p007"
+     ],
+     "sanskrit_sha": "a52c22d39f90090a"
+    },
+    "sanskrit_sha": "a52c22d39f90090a"
+   },
+   "mukta-m0-p114-v2837": {
+    "verse_id": "mukta-m0-p114-v2837",
+    "song": "mukta-m0-p114",
+    "verse": 2837,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What sequence of ritual acts must be performed for the Pāśupata deity with its limbs?",
+    "premises": [
+     "The Pāśupata deity is to be invoked together with its limbs.",
+     "After invocation and worship, the deity must be satisfied."
+    ],
+    "inference": "The practitioner should invoke, worship, and then satisfy the Pāśupata deity together with its limbs.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p114-v2837",
+     "l0_ids": [
+      "mukta-m0-p114-v2837-p000",
+      "mukta-m0-p114-v2837-p001",
+      "mukta-m0-p114-v2837-p002",
+      "mukta-m0-p114-v2837-p003",
+      "mukta-m0-p114-v2837-p004",
+      "mukta-m0-p114-v2837-p005"
+     ],
+     "sanskrit_sha": "a52c22d39f90090a"
+    },
+    "sanskrit_sha": "a52c22d39f90090a"
+   },
+   "mukta-m0-p114-v2838": {
+    "verse_id": "mukta-m0-p114-v2838",
+    "song": "mukta-m0-p114",
+    "verse": 2838,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What alternative counts are permitted for the ritual oblations or recitations?",
+    "premises": [
+     "A thousand is permitted as one count.",
+     "Alternatively half of that, or one hundred and eight, may be performed."
+    ],
+    "inference": "The ritual allows a thousand, five hundred, or one hundred and eight as valid counts.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p114-v2838",
+     "l0_ids": [
+      "mukta-m0-p114-v2838-p000",
+      "mukta-m0-p114-v2838-p001",
+      "mukta-m0-p114-v2838-p002",
+      "mukta-m0-p114-v2838-p003",
+      "mukta-m0-p114-v2838-p004",
+      "mukta-m0-p114-v2838-p005",
+      "mukta-m0-p114-v2838-p006"
+     ],
+     "sanskrit_sha": "a52c22d39f90090a"
+    },
+    "sanskrit_sha": "a52c22d39f90090a"
+   },
+   "mukta-m0-p114-v2839": {
+    "verse_id": "mukta-m0-p114-v2839",
+    "song": "mukta-m0-p114",
+    "verse": 2839,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What prayer does the officiating teacher utter to request pacification of faults?",
+    "premises": [
+     "The teacher addresses the Lord directly.",
+     "The teacher requests the pacification of faults with the words 'do, do'."
+    ],
+    "inference": "The teacher prays to the Lord, saying 'do, do bring about the pacification of faults'.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p114-v2839",
+     "l0_ids": [
+      "mukta-m0-p114-v2839-p000",
+      "mukta-m0-p114-v2839-p001",
+      "mukta-m0-p114-v2839-p002",
+      "mukta-m0-p114-v2839-p003",
+      "mukta-m0-p114-v2839-p004"
+     ],
+     "sanskrit_sha": "a52c22d39f90090a"
+    },
+    "sanskrit_sha": "a52c22d39f90090a"
+   },
+   "mukta-m0-p114-v2840": {
+    "verse_id": "mukta-m0-p114-v2840",
+    "song": "mukta-m0-p114",
+    "verse": 2840,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What concluding oblation must be offered while remembering the Pāśupata weapon?",
+    "premises": [
+     "After the previous acts, a full oblation is to be given.",
+     "The offering is made while remembering the Pāśupata weapon."
+    ],
+    "inference": "The practitioner should then offer the full oblation while remembering the Pāśupata weapon.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p114-v2840",
+     "l0_ids": [
+      "mukta-m0-p114-v2840-p000",
+      "mukta-m0-p114-v2840-p001",
+      "mukta-m0-p114-v2840-p002",
+      "mukta-m0-p114-v2840-p003",
+      "mukta-m0-p114-v2840-p004"
+     ],
+     "sanskrit_sha": "a52c22d39f90090a"
+    },
+    "sanskrit_sha": "a52c22d39f90090a"
+   },
+   "mukta-m0-p114-v2841": {
+    "verse_id": "mukta-m0-p114-v2841",
+    "song": "mukta-m0-p114",
+    "verse": 2841,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What additional offerings and dismissal gesture conclude this stage of the rite?",
+    "premises": [
+     "A full offering and betel are given again.",
+     "Arghya is given and the rite concludes with a turned-away dismissal."
+    ],
+    "inference": "The stage concludes with another full offering, betel, arghya, and a dismissal gesture.",
+    "uncertainties": [
+     "Whether parāṅmukham qualifies the deity, the offering, or the practitioner is context-dependent."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p114-v2841",
+     "l0_ids": [
+      "mukta-m0-p114-v2841-p000",
+      "mukta-m0-p114-v2841-p001",
+      "mukta-m0-p114-v2841-p002",
+      "mukta-m0-p114-v2841-p003",
+      "mukta-m0-p114-v2841-p004",
+      "mukta-m0-p114-v2841-p005",
+      "mukta-m0-p114-v2841-p006"
+     ],
+     "sanskrit_sha": "a52c22d39f90090a"
+    },
+    "sanskrit_sha": "a52c22d39f90090a"
+   },
+   "mukta-m0-p114-v2842": {
+    "verse_id": "mukta-m0-p114-v2842",
+    "song": "mukta-m0-p114",
+    "verse": 2842,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "How may the embodied weapon be ritually satisfied on a daily basis?",
+    "premises": [
+     "The rite may be performed daily.",
+     "One produces that form and satisfies the embodied weapon."
+    ],
+    "inference": "Daily, one may manifest and satisfy the weapon in its embodied form.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p114-v2842",
+     "l0_ids": [
+      "mukta-m0-p114-v2842-p000",
+      "mukta-m0-p114-v2842-p001",
+      "mukta-m0-p114-v2842-p002",
+      "mukta-m0-p114-v2842-p003",
+      "mukta-m0-p114-v2842-p004"
+     ],
+     "sanskrit_sha": "a52c22d39f90090a"
+    },
+    "sanskrit_sha": "a52c22d39f90090a"
+   },
+   "mukta-m0-p114-v2843": {
+    "verse_id": "mukta-m0-p114-v2843",
+    "song": "mukta-m0-p114",
+    "verse": 2843,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What should the teacher request after dedicating the ritual action to the deity?",
+    "premises": [
+     "The ritual action has been offered to the deity.",
+     "The teacher should then pray for the desired aim."
+    ],
+    "inference": "Once the rite is dedicated to the deity, the teacher should pray for the desired outcome.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p114-v2843",
+     "l0_ids": [
+      "mukta-m0-p114-v2843-p000",
+      "mukta-m0-p114-v2843-p001",
+      "mukta-m0-p114-v2843-p002",
+      "mukta-m0-p114-v2843-p003",
+      "mukta-m0-p114-v2843-p004"
+     ],
+     "sanskrit_sha": "a52c22d39f90090a"
+    },
+    "sanskrit_sha": "a52c22d39f90090a"
+   },
+   "mukta-m0-p114-v2844": {
+    "verse_id": "mukta-m0-p114-v2844",
+    "song": "mukta-m0-p114",
+    "verse": 2844,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "How should the water from the designated pot be used after the prayer?",
+    "premises": [
+     "Water from that pot is available after the previous acts.",
+     "The practitioner should sprinkle it all around."
+    ],
+    "inference": "Afterward, the practitioner should sprinkle the water from that pot all around.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p114-v2844",
+     "l0_ids": [
+      "mukta-m0-p114-v2844-p000",
+      "mukta-m0-p114-v2844-p001",
+      "mukta-m0-p114-v2844-p002",
+      "mukta-m0-p114-v2844-p003"
+     ],
+     "sanskrit_sha": "a52c22d39f90090a"
+    },
+    "sanskrit_sha": "a52c22d39f90090a"
+   },
+   "mukta-m0-p114-v2845": {
+    "verse_id": "mukta-m0-p114-v2845",
+    "song": "mukta-m0-p114",
+    "verse": 2845,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "For how long must this peace oblation be performed according to the prescribed rule?",
+    "premises": [
+     "This peace oblation must be performed.",
+     "Its duration follows the number of days stated for pacification."
+    ],
+    "inference": "The peace oblation is to be performed for the number of days prescribed for pacification.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p114-v2845",
+     "l0_ids": [
+      "mukta-m0-p114-v2845-p000",
+      "mukta-m0-p114-v2845-p001"
+     ],
+     "sanskrit_sha": "a52c22d39f90090a"
+    },
+    "sanskrit_sha": "a52c22d39f90090a"
+   },
+   "mukta-m0-p114-v2846": {
+    "verse_id": "mukta-m0-p114-v2846",
+    "song": "mukta-m0-p114",
+    "verse": 2846,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What function does this alternative rite serve in relation to bathing and other subsidiary acts?",
+    "premises": [
+     "This other rite is for the purpose of expiation.",
+     "It becomes a part of bathing and other subsidiary limbs."
+    ],
+    "inference": "This alternative rite serves as an expiatory component within bathing and other subsidiary acts.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p114-v2846",
+     "l0_ids": [
+      "mukta-m0-p114-v2846-p000",
+      "mukta-m0-p114-v2846-p001",
+      "mukta-m0-p114-v2846-p002",
+      "mukta-m0-p114-v2846-p003"
+     ],
+     "sanskrit_sha": "a52c22d39f90090a"
+    },
+    "sanskrit_sha": "a52c22d39f90090a"
+   },
+   "mukta-m0-p114-v2847": {
+    "verse_id": "mukta-m0-p114-v2847",
+    "song": "mukta-m0-p114",
+    "verse": 2847,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What locations are permitted for performing this ritual arrangement?",
+    "premises": [
+     "The rite may be performed in a pavilion or in a garlanded place and similar locations.",
+     "It may also be performed at the root of a tree or similar place."
+    ],
+    "inference": "Permitted locations include a pavilion, a garlanded area, or the root of a tree.",
+    "uncertainties": [
+     "The exact meaning of mālikā in this ritual context is not fully certain."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p114-v2847",
+     "l0_ids": [
+      "mukta-m0-p114-v2847-p000",
+      "mukta-m0-p114-v2847-p001",
+      "mukta-m0-p114-v2847-p002",
+      "mukta-m0-p114-v2847-p003",
+      "mukta-m0-p114-v2847-p004",
+      "mukta-m0-p114-v2847-p005"
+     ],
+     "sanskrit_sha": "a52c22d39f90090a"
+    },
+    "sanskrit_sha": "a52c22d39f90090a"
+   },
+   "mukta-m0-p114-v2848": {
+    "verse_id": "mukta-m0-p114-v2848",
+    "song": "mukta-m0-p114",
+    "verse": 2848,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What structures and how many fire pits should be prepared in the directions?",
+    "premises": [
+     "One may make peaks in the directions or alternatively a shed.",
+     "A set of four fire pits is to be prepared."
+    ],
+    "inference": "After making peaks in the directions or a shed, one should prepare four fire pits.",
+    "uncertainties": [
+     "The precise architectural form of kūṭān and prapāṃ depends on ritual convention."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p114-v2848",
+     "l0_ids": [
+      "mukta-m0-p114-v2848-p000",
+      "mukta-m0-p114-v2848-p001",
+      "mukta-m0-p114-v2848-p002",
+      "mukta-m0-p114-v2848-p003",
+      "mukta-m0-p114-v2848-p004",
+      "mukta-m0-p114-v2848-p005",
+      "mukta-m0-p114-v2848-p006",
+      "mukta-m0-p114-v2848-p007"
+     ],
+     "sanskrit_sha": "a52c22d39f90090a"
+    },
+    "sanskrit_sha": "a52c22d39f90090a"
+   },
+   "mukta-m0-p114-v2849": {
+    "verse_id": "mukta-m0-p114-v2849",
+    "song": "mukta-m0-p114",
+    "verse": 2849,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What alternative preparation and sprinkling action may be performed with weapon-consecrated water?",
+    "premises": [
+     "An altar ground may alternatively be prepared.",
+     "It should be sprinkled with water consecrated by the weapon."
+    ],
+    "inference": "Alternatively, after preparing an altar ground, one should sprinkle it with weapon-consecrated water.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p114-v2849",
+     "l0_ids": [
+      "mukta-m0-p114-v2849-p000",
+      "mukta-m0-p114-v2849-p001",
+      "mukta-m0-p114-v2849-p002",
+      "mukta-m0-p114-v2849-p003",
+      "mukta-m0-p114-v2849-p004"
+     ],
+     "sanskrit_sha": "a52c22d39f90090a"
+    },
+    "sanskrit_sha": "a52c22d39f90090a"
+   },
+   "mukta-m0-p114-v2850": {
+    "verse_id": "mukta-m0-p114-v2850",
+    "song": "mukta-m0-p114",
+    "verse": 2850,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "Can all prescribed ritual procedures be completed at a single prepared peak as an alternative arrangement?",
+    "premises": [
+     "Previous verses prescribe multiple possible ritual arrangements in the directions.",
+     "A single peak may be prepared as an alternative arrangement.",
+     "All prescribed ritual actions may be performed in that one place."
+    ],
+    "inference": "Therefore, preparing one peak suffices as a valid location for performing all the prescribed ritual actions.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p114-v2850",
+     "l0_ids": [
+      "mukta-m0-p114-v2850-p000",
+      "mukta-m0-p114-v2850-p001",
+      "mukta-m0-p114-v2850-p002",
+      "mukta-m0-p114-v2850-p003",
+      "mukta-m0-p114-v2850-p004",
+      "mukta-m0-p114-v2850-p005"
+     ],
+     "sanskrit_sha": "a52c22d39f90090a"
+    },
+    "sanskrit_sha": "a52c22d39f90090a"
+   }
+  },
+  "l2": {
+   "mukta-m0-p114-v2826": {
+    "verse_id": "mukta-m0-p114-v2826",
+    "song": "mukta-m0-p114",
+    "verse": 2826,
+    "plain_english": "Place eight pots all around, furnished with cloth, brushes, and other such items.",
+    "sanskrit_cite": "paritaḥ kalaśānaṣṭau vastrakūrcādi saṃyutān",
+    "l0_ids": [
+     "mukta-m0-p114-v2826-p000",
+     "mukta-m0-p114-v2826-p001",
+     "mukta-m0-p114-v2826-p002",
+     "mukta-m0-p114-v2826-p003"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p114-v2827": {
+    "verse_id": "mukta-m0-p114-v2827",
+    "song": "mukta-m0-p114",
+    "verse": 2827,
+    "plain_english": "Visualize him mounted on the seat of Om, unassailable and of great strength.",
+    "sanskrit_cite": "praṇavāsanamāruḍhaṃ durādharṣaṃ mahābalam",
+    "l0_ids": [
+     "mukta-m0-p114-v2827-p000",
+     "mukta-m0-p114-v2827-p001",
+     "mukta-m0-p114-v2827-p002"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p114-v2828": {
+    "verse_id": "mukta-m0-p114-v2828",
+    "song": "mukta-m0-p114",
+    "verse": 2828,
+    "plain_english": "He is very fierce with tusks and hands, roaring loudly, and extremely hard to conquer.",
+    "sanskrit_cite": "daṃṣṭrākarākamatyugraṃ muktanādaṃ sudurjayam",
+    "l0_ids": [
+     "mukta-m0-p114-v2828-p000",
+     "mukta-m0-p114-v2828-p001",
+     "mukta-m0-p114-v2828-p002"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p114-v2829": {
+    "verse_id": "mukta-m0-p114-v2829",
+    "song": "mukta-m0-p114",
+    "verse": 2829,
+    "plain_english": "He has squinting eyes and licks the snake ornaments that form his great garland.",
+    "sanskrit_cite": "kekarākṣaṃ mahāmālānāgābharaṇaleliham",
+    "l0_ids": [
+     "mukta-m0-p114-v2829-p000",
+     "mukta-m0-p114-v2829-p001"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p114-v2830": {
+    "verse_id": "mukta-m0-p114-v2830",
+    "song": "mukta-m0-p114",
+    "verse": 2830,
+    "plain_english": "He is endowed with ten very fierce arms bearing the weapons of Bhairava.",
+    "sanskrit_cite": "bhujairdaśabhiratyugrairbhairavāstraissamanvitam",
+    "l0_ids": [
+     "mukta-m0-p114-v2830-p000"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p114-v2831": {
+    "verse_id": "mukta-m0-p114-v2831",
+    "song": "mukta-m0-p114",
+    "verse": 2831,
+    "plain_english": "On the left side he holds a shield, arrows, skulls, and also the boon-bestowing gesture and a spear.",
+    "sanskrit_cite": "kheṭabāṇā kapālāṃśca varaprāsau ca vāmataḥ",
+    "l0_ids": [
+     "mukta-m0-p114-v2831-p000",
+     "mukta-m0-p114-v2831-p001",
+     "mukta-m0-p114-v2831-p002",
+     "mukta-m0-p114-v2831-p003",
+     "mukta-m0-p114-v2831-p004",
+     "mukta-m0-p114-v2831-p005"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p114-v2832": {
+    "verse_id": "mukta-m0-p114-v2832",
+    "song": "mukta-m0-p114",
+    "verse": 2832,
+    "plain_english": "Having meditated thus and reciting the mantra, one should begin the invocation and worship.",
+    "sanskrit_cite": "dhyātvaivaṃ samuccaran mantramāvāhyārcanamārabhet",
+    "l0_ids": [
+     "mukta-m0-p114-v2832-p000",
+     "mukta-m0-p114-v2832-p001",
+     "mukta-m0-p114-v2832-p002",
+     "mukta-m0-p114-v2832-p003"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p114-v2833": {
+    "verse_id": "mukta-m0-p114-v2833",
+    "song": "mukta-m0-p114",
+    "verse": 2833,
+    "plain_english": "One should worship the praṇava in the direction of fire and the śrīṃ syllable in the direction of Śaṅkara.",
+    "sanskrit_cite": "praṇavaṃ vahni digbhāge ślīṅkāraṃ śāṅkare yajet",
+    "l0_ids": [
+     "mukta-m0-p114-v2833-p000",
+     "mukta-m0-p114-v2833-p001",
+     "mukta-m0-p114-v2833-p002",
+     "mukta-m0-p114-v2833-p003",
+     "mukta-m0-p114-v2833-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p114-v2834": {
+    "verse_id": "mukta-m0-p114-v2834",
+    "song": "mukta-m0-p114",
+    "verse": 2834,
+    "plain_english": "The syllables beginning with oṃ and ending with phaṭ are to be placed in their proper locations, such as the heart and so on.",
+    "sanskrit_cite": "oṅkārādi phaḍāntāśca varṇāḥ sthāne hṛdādayaḥ",
+    "l0_ids": [
+     "mukta-m0-p114-v2834-p000",
+     "mukta-m0-p114-v2834-p001",
+     "mukta-m0-p114-v2834-p002",
+     "mukta-m0-p114-v2834-p003",
+     "mukta-m0-p114-v2834-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p114-v2835": {
+    "verse_id": "mukta-m0-p114-v2835",
+    "song": "mukta-m0-p114",
+    "verse": 2835,
+    "plain_english": "Place those formulas ending with phaṭ and accompanied by Om, together with the vajra and others, in the pots.",
+    "sanskrit_cite": "phaḍantān praṇavopetān vajrādīn kalaśeṣu tān",
+    "l0_ids": [
+     "mukta-m0-p114-v2835-p000",
+     "mukta-m0-p114-v2835-p001",
+     "mukta-m0-p114-v2835-p002",
+     "mukta-m0-p114-v2835-p003",
+     "mukta-m0-p114-v2835-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p114-v2836": {
+    "verse_id": "mukta-m0-p114-v2836",
+    "song": "mukta-m0-p114",
+    "verse": 2836,
+    "plain_english": "In front of that, one may use an elephant-shaped or round fire pit, or else an altar.",
+    "sanskrit_cite": "tadagre hāstike vṛtta kuṇḍe vā sthaṇḍile'pi vā",
+    "l0_ids": [
+     "mukta-m0-p114-v2836-p000",
+     "mukta-m0-p114-v2836-p001",
+     "mukta-m0-p114-v2836-p002",
+     "mukta-m0-p114-v2836-p003",
+     "mukta-m0-p114-v2836-p004",
+     "mukta-m0-p114-v2836-p005",
+     "mukta-m0-p114-v2836-p006",
+     "mukta-m0-p114-v2836-p007"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p114-v2837": {
+    "verse_id": "mukta-m0-p114-v2837",
+    "song": "mukta-m0-p114",
+    "verse": 2837,
+    "plain_english": "Having invoked and worshipped the Pāśupata deity together with its limbs, one should satisfy him.",
+    "sanskrit_cite": "devaṃ pāśupataṃ sāṅgamāvāhyābhyarcya tarpayet",
+    "l0_ids": [
+     "mukta-m0-p114-v2837-p000",
+     "mukta-m0-p114-v2837-p001",
+     "mukta-m0-p114-v2837-p002",
+     "mukta-m0-p114-v2837-p003",
+     "mukta-m0-p114-v2837-p004",
+     "mukta-m0-p114-v2837-p005"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p114-v2838": {
+    "verse_id": "mukta-m0-p114-v2838",
+    "song": "mukta-m0-p114",
+    "verse": 2838,
+    "plain_english": "One may perform a thousand, or half of that, or indeed one hundred and eight.",
+    "sanskrit_cite": "sahasraṃ vā tadardhaṃ vā śatamaṣṭottaraṃ tu vā",
+    "l0_ids": [
+     "mukta-m0-p114-v2838-p000",
+     "mukta-m0-p114-v2838-p001",
+     "mukta-m0-p114-v2838-p002",
+     "mukta-m0-p114-v2838-p003",
+     "mukta-m0-p114-v2838-p004",
+     "mukta-m0-p114-v2838-p005",
+     "mukta-m0-p114-v2838-p006"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p114-v2839": {
+    "verse_id": "mukta-m0-p114-v2839",
+    "song": "mukta-m0-p114",
+    "verse": 2839,
+    "plain_english": "The teacher should say, 'O Lord, do, do bring about the pacification of faults.'",
+    "sanskrit_cite": "bhagavan doṣaśāntiṃ tu kurukurviti deśikaḥ",
+    "l0_ids": [
+     "mukta-m0-p114-v2839-p000",
+     "mukta-m0-p114-v2839-p001",
+     "mukta-m0-p114-v2839-p002",
+     "mukta-m0-p114-v2839-p003",
+     "mukta-m0-p114-v2839-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p114-v2840": {
+    "verse_id": "mukta-m0-p114-v2840",
+    "song": "mukta-m0-p114",
+    "verse": 2840,
+    "plain_english": "Then, remembering the Pāśupata weapon, one should offer the full oblation.",
+    "sanskrit_cite": "pūrṇāhutiṃ tato dadyādastraṃ pāśupataṃ smaran",
+    "l0_ids": [
+     "mukta-m0-p114-v2840-p000",
+     "mukta-m0-p114-v2840-p001",
+     "mukta-m0-p114-v2840-p002",
+     "mukta-m0-p114-v2840-p003",
+     "mukta-m0-p114-v2840-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p114-v2841": {
+    "verse_id": "mukta-m0-p114-v2841",
+    "song": "mukta-m0-p114",
+    "verse": 2841,
+    "plain_english": "Again one should give a full offering and betel, and having given arghya, perform the dismissal.",
+    "sanskrit_cite": "punaḥ pūrṇāṃ ca tāmbūlaṃ datvārghyaṃ ca parāṅmukham",
+    "l0_ids": [
+     "mukta-m0-p114-v2841-p000",
+     "mukta-m0-p114-v2841-p001",
+     "mukta-m0-p114-v2841-p002",
+     "mukta-m0-p114-v2841-p003",
+     "mukta-m0-p114-v2841-p004",
+     "mukta-m0-p114-v2841-p005",
+     "mukta-m0-p114-v2841-p006"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p114-v2842": {
+    "verse_id": "mukta-m0-p114-v2842",
+    "song": "mukta-m0-p114",
+    "verse": 2842,
+    "plain_english": "Or, producing it daily, one should satisfy the weapon in embodied form.",
+    "sanskrit_cite": "pratyahaṃ vā tadutpādya tarpayedastra rūpiṇam",
+    "l0_ids": [
+     "mukta-m0-p114-v2842-p000",
+     "mukta-m0-p114-v2842-p001",
+     "mukta-m0-p114-v2842-p002",
+     "mukta-m0-p114-v2842-p003",
+     "mukta-m0-p114-v2842-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p114-v2843": {
+    "verse_id": "mukta-m0-p114-v2843",
+    "song": "mukta-m0-p114",
+    "verse": 2843,
+    "plain_english": "When the rite has been offered to the deity, the teacher should then pray for the desired aim.",
+    "sanskrit_cite": "samarpitakriye deve tvabhīṣṭaṃ prārthayedguruḥ",
+    "l0_ids": [
+     "mukta-m0-p114-v2843-p000",
+     "mukta-m0-p114-v2843-p001",
+     "mukta-m0-p114-v2843-p002",
+     "mukta-m0-p114-v2843-p003",
+     "mukta-m0-p114-v2843-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p114-v2844": {
+    "verse_id": "mukta-m0-p114-v2844",
+    "song": "mukta-m0-p114",
+    "verse": 2844,
+    "plain_english": "Then one should sprinkle all around with the waters from that pot.",
+    "sanskrit_cite": "tatastatkumbha pānīyaiḥ prokṣayedabhitastataḥ",
+    "l0_ids": [
+     "mukta-m0-p114-v2844-p000",
+     "mukta-m0-p114-v2844-p001",
+     "mukta-m0-p114-v2844-p002",
+     "mukta-m0-p114-v2844-p003"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p114-v2845": {
+    "verse_id": "mukta-m0-p114-v2845",
+    "song": "mukta-m0-p114",
+    "verse": 2845,
+    "plain_english": "This peace oblation should be performed for the number of days prescribed for pacification.",
+    "sanskrit_cite": "kartavyaśśāntihomo'yaṃ śāntyuktadinasaṃkhyayā",
+    "l0_ids": [
+     "mukta-m0-p114-v2845-p000",
+     "mukta-m0-p114-v2845-p001"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p114-v2846": {
+    "verse_id": "mukta-m0-p114-v2846",
+    "song": "mukta-m0-p114",
+    "verse": 2846,
+    "plain_english": "This other rite, meant for expiation, should be a part of bathing and the other subsidiary acts.",
+    "sanskrit_cite": "prāyaścittārthamanyo'yaṃ snapanādyaṅga bhāgbhavet",
+    "l0_ids": [
+     "mukta-m0-p114-v2846-p000",
+     "mukta-m0-p114-v2846-p001",
+     "mukta-m0-p114-v2846-p002",
+     "mukta-m0-p114-v2846-p003"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p114-v2847": {
+    "verse_id": "mukta-m0-p114-v2847",
+    "song": "mukta-m0-p114",
+    "verse": 2847,
+    "plain_english": "It may be done in a pavilion, in a garlanded place or the like, or indeed at the root of a tree.",
+    "sanskrit_cite": "maṇḍape mālikādau vā vṛkṣādermūla eva vā",
+    "l0_ids": [
+     "mukta-m0-p114-v2847-p000",
+     "mukta-m0-p114-v2847-p001",
+     "mukta-m0-p114-v2847-p002",
+     "mukta-m0-p114-v2847-p003",
+     "mukta-m0-p114-v2847-p004",
+     "mukta-m0-p114-v2847-p005"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p114-v2848": {
+    "verse_id": "mukta-m0-p114-v2848",
+    "song": "mukta-m0-p114",
+    "verse": 2848,
+    "plain_english": "Having made peaks in the directions or a shed, one should prepare a set of four fire pits.",
+    "sanskrit_cite": "dikṣu kūṭān prapāṃ vāpi kṛtvā kuṇḍa catuṣṭayam",
+    "l0_ids": [
+     "mukta-m0-p114-v2848-p000",
+     "mukta-m0-p114-v2848-p001",
+     "mukta-m0-p114-v2848-p002",
+     "mukta-m0-p114-v2848-p003",
+     "mukta-m0-p114-v2848-p004",
+     "mukta-m0-p114-v2848-p005",
+     "mukta-m0-p114-v2848-p006",
+     "mukta-m0-p114-v2848-p007"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p114-v2849": {
+    "verse_id": "mukta-m0-p114-v2849",
+    "song": "mukta-m0-p114",
+    "verse": 2849,
+    "plain_english": "Or, having prepared an altar ground, one should sprinkle it with water consecrated by the weapon.",
+    "sanskrit_cite": "sthaṇḍilaṃ vā samāpādya prokṣayedastra vāriṇā",
+    "l0_ids": [
+     "mukta-m0-p114-v2849-p000",
+     "mukta-m0-p114-v2849-p001",
+     "mukta-m0-p114-v2849-p002",
+     "mukta-m0-p114-v2849-p003",
+     "mukta-m0-p114-v2849-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p114-v2850": {
+    "verse_id": "mukta-m0-p114-v2850",
+    "song": "mukta-m0-p114",
+    "verse": 2850,
+    "plain_english": "Or, having prepared a single peak, one should perform everything there.",
+    "sanskrit_cite": "ekaṃ vā kūṭamāpādya tatra sarvaṃ samācaret",
+    "l0_ids": [
+     "mukta-m0-p114-v2850-p000",
+     "mukta-m0-p114-v2850-p001",
+     "mukta-m0-p114-v2850-p002",
+     "mukta-m0-p114-v2850-p003",
+     "mukta-m0-p114-v2850-p004",
+     "mukta-m0-p114-v2850-p005"
+    ],
+    "supplied": []
+   }
+  },
+  "c1": {
+   "mukta-m0-p114": {
+    "song": "mukta-m0-p114",
+    "essence": [
+     "The ritual space requires eight surrounding pots equipped with cloth, brushes, and related accessories.",
+     "The visualized deity is seated on the praṇava, invincible, and immensely powerful.",
+     "The deity’s form is marked by fierce tusks and hands, a roaring sound, and invincibility.",
+     "The deity’s fearsome appearance includes squinting eyes and the licking of serpent ornaments.",
+     "The deity is visualized with ten very fierce arms bearing the weapons of Bhairava."
+    ],
+    "essence_source": "derived from argmap inferences (machine-proposed; assessor review outstanding)",
+    "rasa": {},
+    "essence_only": true,
+    "renders": {}
+   }
+  },
+  "l3": {},
+  "l4": {},
+  "c2": {}
+ },
+ "source_verses": {
+  "mukta-m0-p114-v2826": {
+   "text": "paritaḥ kalaśānaṣṭau vastrakūrcādi saṃyutān",
+   "source_file": "translation-work/mukta-m00125/source/edition.txt",
+   "source_sha256": "0fd54820da9ef3a9a8fa9e497b47835b3d8f358216d9bca37c0fb4bf61aba620",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p114-v2827": {
+   "text": "praṇavāsanamāruḍhaṃ durādharṣaṃ mahābalam",
+   "source_file": "translation-work/mukta-m00125/source/edition.txt",
+   "source_sha256": "0fd54820da9ef3a9a8fa9e497b47835b3d8f358216d9bca37c0fb4bf61aba620",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p114-v2828": {
+   "text": "daṃṣṭrākarākamatyugraṃ muktanādaṃ sudurjayam",
+   "source_file": "translation-work/mukta-m00125/source/edition.txt",
+   "source_sha256": "0fd54820da9ef3a9a8fa9e497b47835b3d8f358216d9bca37c0fb4bf61aba620",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p114-v2829": {
+   "text": "kekarākṣaṃ mahāmālānāgābharaṇaleliham",
+   "source_file": "translation-work/mukta-m00125/source/edition.txt",
+   "source_sha256": "0fd54820da9ef3a9a8fa9e497b47835b3d8f358216d9bca37c0fb4bf61aba620",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p114-v2830": {
+   "text": "bhujairdaśabhiratyugrairbhairavāstraissamanvitam",
+   "source_file": "translation-work/mukta-m00125/source/edition.txt",
+   "source_sha256": "0fd54820da9ef3a9a8fa9e497b47835b3d8f358216d9bca37c0fb4bf61aba620",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p114-v2831": {
+   "text": "kheṭabāṇā kapālāṃśca varaprāsau ca vāmataḥ",
+   "source_file": "translation-work/mukta-m00125/source/edition.txt",
+   "source_sha256": "0fd54820da9ef3a9a8fa9e497b47835b3d8f358216d9bca37c0fb4bf61aba620",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p114-v2832": {
+   "text": "dhyātvaivaṃ samuccaran mantramāvāhyārcanamārabhet",
+   "source_file": "translation-work/mukta-m00125/source/edition.txt",
+   "source_sha256": "0fd54820da9ef3a9a8fa9e497b47835b3d8f358216d9bca37c0fb4bf61aba620",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p114-v2833": {
+   "text": "praṇavaṃ vahni digbhāge ślīṅkāraṃ śāṅkare yajet",
+   "source_file": "translation-work/mukta-m00125/source/edition.txt",
+   "source_sha256": "0fd54820da9ef3a9a8fa9e497b47835b3d8f358216d9bca37c0fb4bf61aba620",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p114-v2834": {
+   "text": "oṅkārādi phaḍāntāśca varṇāḥ sthāne hṛdādayaḥ",
+   "source_file": "translation-work/mukta-m00125/source/edition.txt",
+   "source_sha256": "0fd54820da9ef3a9a8fa9e497b47835b3d8f358216d9bca37c0fb4bf61aba620",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p114-v2835": {
+   "text": "phaḍantān praṇavopetān vajrādīn kalaśeṣu tān",
+   "source_file": "translation-work/mukta-m00125/source/edition.txt",
+   "source_sha256": "0fd54820da9ef3a9a8fa9e497b47835b3d8f358216d9bca37c0fb4bf61aba620",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p114-v2836": {
+   "text": "tadagre hāstike vṛtta kuṇḍe vā sthaṇḍile'pi vā",
+   "source_file": "translation-work/mukta-m00125/source/edition.txt",
+   "source_sha256": "0fd54820da9ef3a9a8fa9e497b47835b3d8f358216d9bca37c0fb4bf61aba620",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p114-v2837": {
+   "text": "devaṃ pāśupataṃ sāṅgamāvāhyābhyarcya tarpayet",
+   "source_file": "translation-work/mukta-m00125/source/edition.txt",
+   "source_sha256": "0fd54820da9ef3a9a8fa9e497b47835b3d8f358216d9bca37c0fb4bf61aba620",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p114-v2838": {
+   "text": "sahasraṃ vā tadardhaṃ vā śatamaṣṭottaraṃ tu vā",
+   "source_file": "translation-work/mukta-m00125/source/edition.txt",
+   "source_sha256": "0fd54820da9ef3a9a8fa9e497b47835b3d8f358216d9bca37c0fb4bf61aba620",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p114-v2839": {
+   "text": "bhagavan doṣaśāntiṃ tu kurukurviti deśikaḥ",
+   "source_file": "translation-work/mukta-m00125/source/edition.txt",
+   "source_sha256": "0fd54820da9ef3a9a8fa9e497b47835b3d8f358216d9bca37c0fb4bf61aba620",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p114-v2840": {
+   "text": "pūrṇāhutiṃ tato dadyādastraṃ pāśupataṃ smaran",
+   "source_file": "translation-work/mukta-m00125/source/edition.txt",
+   "source_sha256": "0fd54820da9ef3a9a8fa9e497b47835b3d8f358216d9bca37c0fb4bf61aba620",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p114-v2841": {
+   "text": "punaḥ pūrṇāṃ ca tāmbūlaṃ datvārghyaṃ ca parāṅmukham",
+   "source_file": "translation-work/mukta-m00125/source/edition.txt",
+   "source_sha256": "0fd54820da9ef3a9a8fa9e497b47835b3d8f358216d9bca37c0fb4bf61aba620",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p114-v2842": {
+   "text": "pratyahaṃ vā tadutpādya tarpayedastra rūpiṇam",
+   "source_file": "translation-work/mukta-m00125/source/edition.txt",
+   "source_sha256": "0fd54820da9ef3a9a8fa9e497b47835b3d8f358216d9bca37c0fb4bf61aba620",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p114-v2843": {
+   "text": "samarpitakriye deve tvabhīṣṭaṃ prārthayedguruḥ",
+   "source_file": "translation-work/mukta-m00125/source/edition.txt",
+   "source_sha256": "0fd54820da9ef3a9a8fa9e497b47835b3d8f358216d9bca37c0fb4bf61aba620",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p114-v2844": {
+   "text": "tatastatkumbha pānīyaiḥ prokṣayedabhitastataḥ",
+   "source_file": "translation-work/mukta-m00125/source/edition.txt",
+   "source_sha256": "0fd54820da9ef3a9a8fa9e497b47835b3d8f358216d9bca37c0fb4bf61aba620",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p114-v2845": {
+   "text": "kartavyaśśāntihomo'yaṃ śāntyuktadinasaṃkhyayā",
+   "source_file": "translation-work/mukta-m00125/source/edition.txt",
+   "source_sha256": "0fd54820da9ef3a9a8fa9e497b47835b3d8f358216d9bca37c0fb4bf61aba620",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p114-v2846": {
+   "text": "prāyaścittārthamanyo'yaṃ snapanādyaṅga bhāgbhavet",
+   "source_file": "translation-work/mukta-m00125/source/edition.txt",
+   "source_sha256": "0fd54820da9ef3a9a8fa9e497b47835b3d8f358216d9bca37c0fb4bf61aba620",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p114-v2847": {
+   "text": "maṇḍape mālikādau vā vṛkṣādermūla eva vā",
+   "source_file": "translation-work/mukta-m00125/source/edition.txt",
+   "source_sha256": "0fd54820da9ef3a9a8fa9e497b47835b3d8f358216d9bca37c0fb4bf61aba620",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p114-v2848": {
+   "text": "dikṣu kūṭān prapāṃ vāpi kṛtvā kuṇḍa catuṣṭayam",
+   "source_file": "translation-work/mukta-m00125/source/edition.txt",
+   "source_sha256": "0fd54820da9ef3a9a8fa9e497b47835b3d8f358216d9bca37c0fb4bf61aba620",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p114-v2849": {
+   "text": "sthaṇḍilaṃ vā samāpādya prokṣayedastra vāriṇā",
+   "source_file": "translation-work/mukta-m00125/source/edition.txt",
+   "source_sha256": "0fd54820da9ef3a9a8fa9e497b47835b3d8f358216d9bca37c0fb4bf61aba620",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p114-v2850": {
+   "text": "ekaṃ vā kūṭamāpādya tatra sarvaṃ samācaret",
+   "source_file": "translation-work/mukta-m00125/source/edition.txt",
+   "source_sha256": "0fd54820da9ef3a9a8fa9e497b47835b3d8f358216d9bca37c0fb4bf61aba620",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  }
+ },
+ "l4_craft": {},
+ "withheld_songs": [],
+ "original_hashes": {
+  "t1": {
+   "mukta-m0-p114-v2826": "1870781261e1b0e9aace5ad90bc819d0154b93e97447b8d1bd7fbaaad7dce08d",
+   "mukta-m0-p114-v2827": "807d4b617cc0ed71d6dd66b8c753adca5592a3c60f6b8101c60fbcacd79ef9b2",
+   "mukta-m0-p114-v2828": "4a48ba4a13c04ab24e4469e18b4759d03ee23aa4db00c4a0d4300f95777fbefc",
+   "mukta-m0-p114-v2829": "5882e8651202fdffa521112dd0e312bf404ee2542f58c20b0f1f2815fa00a7bb",
+   "mukta-m0-p114-v2830": "1e9f9fc84b8b1502ccf9a1cc05d49970ebaa67165223e7221a3c6acf4fa7f839",
+   "mukta-m0-p114-v2831": "cb4abcd3f1942b65906b14fd923b520ad2b346ab6b1c47bb2a3fe43a6459ed16",
+   "mukta-m0-p114-v2832": "c690b3f9b141904619015df7716eb9e20fb9917d443fba4fdbe29b847459d0e4",
+   "mukta-m0-p114-v2833": "20c0a366b3aae161a1ab9e522689525bd66ccdd4a0bbdc8d192ebdd42f8794c2",
+   "mukta-m0-p114-v2834": "976c52717c8c7707c6911331440c83f408ab59879f785fd7fa2a8c87f1c5feeb",
+   "mukta-m0-p114-v2835": "819f0e9d8db943a89151c3eab2a70e3a0a76cc8e46960db6e5b06ff064a35a13",
+   "mukta-m0-p114-v2836": "cc9897eee4d66835b63f5a4d73dd46e7960801c586e11132057c98af09d4a94c",
+   "mukta-m0-p114-v2837": "4de923a8793dedf8035ccfbfea296552619c88b782fb1fb442d7a25a1c618722",
+   "mukta-m0-p114-v2838": "ef3f7124ad689463960dd7cbe204f915ce7bb9d541acd79097b90fbe050b68af",
+   "mukta-m0-p114-v2839": "2e1878e1e3c506892ea70530be961ec994fed75a336fcf7addb0c3ebe3ba06ad",
+   "mukta-m0-p114-v2840": "3094aa2d1713062824faf2f810558b6cff03a98e9178fa1783c7d64a2c3ff4fb",
+   "mukta-m0-p114-v2841": "9d2aa3eb0d877cef91a9fcd987ff1752e04e2f5db693e5bd7b573d3deeaa70e3",
+   "mukta-m0-p114-v2842": "7231475d24cd400fe0ee6e813c3b251065f19499bf4183ef6008c9a6a3f00b35",
+   "mukta-m0-p114-v2843": "f2fe19b1edcee89e64eda0be2e90674296cd400c946dd71182d04762c373c9a8",
+   "mukta-m0-p114-v2844": "64d68df36cbb2ed9c0384e27fb6a70c62535c081e09154c9457a7273d6fdf7f7",
+   "mukta-m0-p114-v2845": "94301e1dbb9093ba58db819ef4c730f1704feb2bc0e14873a974ebb378fcf0a5",
+   "mukta-m0-p114-v2846": "f81e533187c2ecbb48e74f4a6213ca876a9e558ef7e4df0dba6d75b0dedf661c",
+   "mukta-m0-p114-v2847": "4ca1c58ce93d8bd26691cde53eb445d177871388643e50e836f05fd8b8577ab6",
+   "mukta-m0-p114-v2848": "7002e8958bcfe5da8c06fc80075b171d28b0699fdf76fe583fe1dbf52d96ff04",
+   "mukta-m0-p114-v2849": "64a907318c6ea6a35b2683ca1086a6726cfc7f7224dca627a6b2259ce4d1e215",
+   "mukta-m0-p114-v2850": "bb9a304a5f62f7fcd49eff509ce5e103b9d1716c574e344ba523ab1f0f637802"
+  },
+  "l0": {
+   "mukta-m0-p114-v2826": "0d568c33f17310cffd8ff0871b64bb44c0518a187c6eefcc5f9d673d1cbab903",
+   "mukta-m0-p114-v2827": "2b4d74f310a353c7334d28a086bd320bac735ca75171878094b5902b7b96c3cc",
+   "mukta-m0-p114-v2828": "d05143967c9472a0fc99cde23d53b3bb700fe40e8a7f9dee179d5126caae0eb4",
+   "mukta-m0-p114-v2829": "3839811210616597155130cac65ba56c9a50e0a8e1f364f67d67d6b8ed7fddea",
+   "mukta-m0-p114-v2830": "79a9bebf1078ad9a049e5b0bb15cc2206d2ce3e1b49a742db4c86b193bf2b4bb",
+   "mukta-m0-p114-v2831": "3fdf5bc0e17c50c989cca78796fd8e300b57820cdd1c7d382094bf40cb69f47d",
+   "mukta-m0-p114-v2832": "d1f5719025d7a5ca660680acfacb9c60111da2cff84758927348541b952a2d5d",
+   "mukta-m0-p114-v2833": "a3651c6a4e6aabc853571cb34b23b8da685809c268ae0fed1b7e20a0c6694e00",
+   "mukta-m0-p114-v2834": "782d80ec7b444de6cf4b7e0eaad7747d22aba77d3e4d62643e6211a95ec4ed0a",
+   "mukta-m0-p114-v2835": "9a1059cf1bf3ddc784cbbf8f3201e831fedb5ba42578dc6c2f74c329476f091e",
+   "mukta-m0-p114-v2836": "a130bfe417b5547ed70335198e3152a501ff501426ded2093a71a72ec6a40094",
+   "mukta-m0-p114-v2837": "f52176ffbdf9f423fa76a9e878714de813f645f17ff0df3280842d1f05d1e0b4",
+   "mukta-m0-p114-v2838": "9475bb3ee40e1d49808e26ffabd9ea30515b08b9647474d9b02962a582a8fcd8",
+   "mukta-m0-p114-v2839": "0431ac724bbae5850a9ec9d1c2f225406bd400e6d11e236429c628f9ca8aac13",
+   "mukta-m0-p114-v2840": "8669263fad40382b80a283618cacaf95b68dd41d69f7fda416fe38cf1dccd4d1",
+   "mukta-m0-p114-v2841": "a8566de3222c9afb8285d0112c509cec2e3b85a8a8eafba0ab8697248e655aa3",
+   "mukta-m0-p114-v2842": "14ac01b218dac248d3be8813a54cedd91c7a3b9c2b9e0a12141fa1ce192fd1ab",
+   "mukta-m0-p114-v2843": "a7a74cbfe2d6143abce4fb9475095b50bee98b477571f67eca3c63dde915f0dd",
+   "mukta-m0-p114-v2844": "98312c019f1aa59c68b73b3552cf89cfe722eea1fe81eab9d2799dbc316d2556",
+   "mukta-m0-p114-v2845": "a8b3c9f6f984c0ec1c9b8444036c6201dd2cafb143abf72ea40a8c9d697cf6f1",
+   "mukta-m0-p114-v2846": "be45b869ee12056dd671253f1c4bda34442b7b1373c077958b8dc6779f635add",
+   "mukta-m0-p114-v2847": "0e5763c5279550446cd893663d0224dfc0b53733c15e945f335cab877f5031e4",
+   "mukta-m0-p114-v2848": "41037c6ae1ecf434ae6c16c3d32805933f1704a2f26509b1a6c5786b9c7522a9",
+   "mukta-m0-p114-v2849": "e29384430e84662ca1c4198d221027d3c4a7e6d909fef89a59ea2c20c3999732",
+   "mukta-m0-p114-v2850": "2c3b32cc1ad3557aed422d821f318758e1399404075dd1d2bcfd9c5ea79df6bd"
+  },
+  "argmap": {
+   "mukta-m0-p114-v2826": "f371e5342d4ffece0a5a1426a39c3d16cc49fe84dd241aefdea78434563668ed",
+   "mukta-m0-p114-v2827": "c0d9b9e88424130f0e69ff65a5cfa37361c7290d995a96a9c0f888fbfcba6346",
+   "mukta-m0-p114-v2828": "49e32ba12e7d9b8dffa265c4b6a36e1a6e880284ced70c42fc809006db37f42c",
+   "mukta-m0-p114-v2829": "15cd9334c3512f77d460abda256dcaef2f0982860940c2e6763bb62cce57169c",
+   "mukta-m0-p114-v2830": "c0cb192fd008bb6682c3056f77b45d1deaf155c1220465922f49855c295dbf49",
+   "mukta-m0-p114-v2831": "6d7bfc728308082042ef59a6f181f8c38a84cc218c984cea70988d8546fec7e3",
+   "mukta-m0-p114-v2832": "8670cbe4f7775a9243f7dd0f78d34556c942d831da70d14ea0bd52b983a05331",
+   "mukta-m0-p114-v2833": "20d6665eb90e18e0c993de734d78c7ae80f1c3820d41f1211c113b92827dfe61",
+   "mukta-m0-p114-v2834": "16b40e9e8c6b3dcd819bc07c1cf051101b0ab19aeeabcfd0ed66df5a6b1e4637",
+   "mukta-m0-p114-v2835": "92ebe1ed371c487d7bbb6e772f7151ba018f707086eb2e492b9ab4278aa2e6b5",
+   "mukta-m0-p114-v2836": "74a1b8762049302d3f6747cfeec3b273f6ac0fe22de8a011b149129f9a51bfa3",
+   "mukta-m0-p114-v2837": "9fb4cc1d22b5e108a096fc3f3002b0f2361943cb77d3ae63316f79be3d1f0826",
+   "mukta-m0-p114-v2838": "2c1d14f33cc3496b3f32e178605b723dd5664d39f58ab74e44b0ba568d05adcd",
+   "mukta-m0-p114-v2839": "a97362bfde704a85d42f232fb2b655da4b5ecaf59f214e650ec71597f56074db",
+   "mukta-m0-p114-v2840": "a57746126abd38935f0933d4ccf98a4f7985b9da5db5e293c83815c96ffc523c",
+   "mukta-m0-p114-v2841": "a765de9af855ab1c0f598bac0232167c6cb5722c43940eddcb3702da0d8656ca",
+   "mukta-m0-p114-v2842": "3a6aa54a64d60a6dea5a149d70f42c03ebfc522663ed372e647bfd5be6058eaf",
+   "mukta-m0-p114-v2843": "8a28d7626d97b64559fe12f4f28d75525dba6c28b99b969f15650e28bcd8f010",
+   "mukta-m0-p114-v2844": "879987dc93833b654106943656b1ad4749df14287ef819db5a9d541253380d39",
+   "mukta-m0-p114-v2845": "ff501cd547ed633550b88fa76ea382c245f4958cc8808420823a9b9432837c5c",
+   "mukta-m0-p114-v2846": "f41f7265214b0a3c1cabd027397c3cb139619bd1ab9fe373980be0ebd20c020f",
+   "mukta-m0-p114-v2847": "a0a0e5a50cefc9886abf02468437b476ce185e730174d97d2385d7a4d3496a2a",
+   "mukta-m0-p114-v2848": "7c6e6d900a912cc32f30edb6aa5a5b016cebad1bc204b5276d52f8f6e29d8d0e",
+   "mukta-m0-p114-v2849": "5bccf7a2c463bbb947f3a637d61b9bf71a6a37a44b185849802bf43047b33048",
+   "mukta-m0-p114-v2850": "43bebbe18a2729e3bc78e9fc24fae5d38ce004e0af07ca14d4343bd910424d86"
+  },
+  "l2": {
+   "mukta-m0-p114-v2826": "67ae5805078e15d6f3af46e4231d6a71d0d2a238e073e06646361ad8b16ddca7",
+   "mukta-m0-p114-v2827": "be6a42228b0bc38de37cfe27142e5a6bb3b1b331026496c7d67b2926cbc89e86",
+   "mukta-m0-p114-v2828": "a518487bc40b411a8449a99923666c51921f9dcb9482df6fe8a70adcda721626",
+   "mukta-m0-p114-v2829": "15d8b9d57c706552d34e0170ac50c10334b7757d03db58e34272db1524fbdf52",
+   "mukta-m0-p114-v2830": "f845e84973cd13d9df3d8981637d81b36a1bf86eb3fbd0ed8829524d7e890c67",
+   "mukta-m0-p114-v2831": "a06ff20cfa11c5c84676f6c92d663114f2bc898c99e4c8444988f3c6b8439051",
+   "mukta-m0-p114-v2832": "4aafe0337f761b2f3f5527064429c8ed8e5ca2b50252f76e0f0a73df5fd23a2a",
+   "mukta-m0-p114-v2833": "ef22117ed64299928bab1eea22536091b65ded6766e124939e3acaf03e45afc0",
+   "mukta-m0-p114-v2834": "93badbde70a1866e7f8a37bf7deb17e6f3076d31bcab8f9b76bda49c2bd72dc9",
+   "mukta-m0-p114-v2835": "a3d574e68ff1b7b46a96bd30f501962f4fe90c880440915b0996a32ae3f42a1d",
+   "mukta-m0-p114-v2836": "3c46c3df1bfedb7d02fd82d29687eff94d216121ec84ce5d52f37d48ff35e0df",
+   "mukta-m0-p114-v2837": "126b7c4b92e3a8a0bd13698ae2a3365734288bb9244251fe9e382e1b8b502704",
+   "mukta-m0-p114-v2838": "c5c93c0a22e7118a9325e28b6855af06d33f305a156de03d79efcd80c07fc0a2",
+   "mukta-m0-p114-v2839": "beaa7653cd18dc77d8db77c000db0c2cefa7bf3ac3641b17591e104ee435ee2a",
+   "mukta-m0-p114-v2840": "47cf24e6dc37cd3e13d8b4a7d4f77884f569ed9a9c7f149f93edf5d654ff87f5",
+   "mukta-m0-p114-v2841": "9159f54eb6234e7b531aa519cfb229c9292401d01296ee2056bced94dce39c50",
+   "mukta-m0-p114-v2842": "fb8ca32f4699920e0a3c30498deb26fdde2fb684994e5d741b0041758dbdd657",
+   "mukta-m0-p114-v2843": "2a6b2491db7192a4fee7c1c6f7e41bbed8027dcca9a753626c338a1074ea1805",
+   "mukta-m0-p114-v2844": "a18fe0b28fc971b3a0ebc491e01cb8d8cb2c2c1fa46a3b8b675dda34349eb8a4",
+   "mukta-m0-p114-v2845": "c3fd39d909c93f23a12941b6e313c74485042c749fdd6411f5ed3e5cba5aadcb",
+   "mukta-m0-p114-v2846": "f40f1de6d19ea8a41b051c942589a28a2477add162c9665124d5fbe85e5ea89d",
+   "mukta-m0-p114-v2847": "42f51a8efca28cea7fb00a7dced600f20621b0a0f7a15d0d3a01517550e6254f",
+   "mukta-m0-p114-v2848": "ed5cdcdf6bd24734c8f7bd04ce53d835888baa98005ddd6556c42027a37a96d7",
+   "mukta-m0-p114-v2849": "84752a5ab9d9573d6b1b838c251bc4049594f04b46e21f2d9d925ed0c4ea11d5",
+   "mukta-m0-p114-v2850": "17327930badeb8fe8dfbdf450c08aac7c2df84f25ca75c208e795009f9c0da01"
+  },
+  "c1": {
+   "mukta-m0-p114": "17c6028bd9a2f03ad94d648486b4e0af0fe9e433084159cab74b15a116011a38"
+  },
+  "l3": {},
+  "l4": {},
+  "c2": {}
+ },
+ "versions": [],
+ "essays": [],
+ "reviews": [],
+ "promotions": [],
+ "signoffs": [],
+ "stack_hashes": {
+  "mukta-m0-p114": "4eef9aff37a3b259571bb695613a7f2931c5878f2dd9b364da88f6a4cc513aac"
+ },
+ "projection_sha256": "c4895a1c1d2e3a86112b6c59a13ca5ad29b9e0d8946d32bfeab4109ddefa817d"
+}

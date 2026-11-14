@@ -1,0 +1,5924 @@
+{
+ "work": "mukta-m00064",
+ "generated": null,
+ "source": "translation-work canonical data + scholar/ ledgers (emit_scholar.py)",
+ "source_edition": "Muktabodha M00064 (IAST, CC BY-NC 4.0) [concat of non-contiguous segment slices]",
+ "contract": {
+  "contract_version": "svatantrya-agent-contract/1",
+  "contract_sha256": "575232010d119225d9b3f12121fa59ad744765a875914708396c51a3129d7301",
+  "schema_version": "1.4.0",
+  "structural_schema_version": "2.1.0",
+  "structural_schema_snapshot_sha256": "3ce4085b2cbcebfec8471eee4b24a6974f9a19c77f0d125c7cad46bbb1ae8b0a",
+  "order": [
+   "source",
+   "t1",
+   "l0",
+   "argmap",
+   "l2",
+   "c1",
+   "l3",
+   "l4",
+   "c2"
+  ],
+  "schemas": {
+   "t1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:t1",
+    "title": "Svatantrya T1 structural schema",
+    "x-validator": "schemas.t1.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "quick_english",
+     "tokens",
+     "source_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "quick_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "source_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "tokens": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "surface",
+        "quick_gloss"
+       ],
+       "properties": {
+        "surface": {
+         "type": "string",
+         "minLength": 1
+        },
+        "quick_gloss": {
+         "type": "string",
+         "minLength": 1
+        }
+       }
+      }
+     }
+    }
+   },
+   "l0": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l0:verse",
+    "title": "Svatantrya L0 verse token list structural schema",
+    "x-validator": "schemas.l0.validate (per token)",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+     "$schema": "https://json-schema.org/draft/2020-12/schema",
+     "$id": "urn:svatantrya:schema:2.1.0:l0",
+     "title": "Svatantrya L0 structural schema",
+     "x-validator": "schemas.l0.validate",
+     "x-schema-version": "1.4.0",
+     "x-structural-schema-version": "2.1.0",
+     "type": "object",
+     "required": [
+      "id",
+      "verse_id",
+      "pada_index",
+      "surface",
+      "citation",
+      "options",
+      "chosen_index",
+      "status"
+     ],
+     "properties": {
+      "id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "verse_id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "pada_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "surface": {
+       "type": "string",
+       "minLength": 1
+      },
+      "citation": {
+       "type": "string",
+       "minLength": 1
+      },
+      "morph": {
+       "type": "string"
+      },
+      "morph_unknown": {
+       "type": "boolean"
+      },
+      "options": {
+       "type": "array",
+       "maxItems": 5,
+       "items": {
+        "type": "object",
+        "required": [
+         "gloss",
+         "rank",
+         "source",
+         "grounds"
+        ],
+        "properties": {
+         "gloss": {
+          "type": "string",
+          "minLength": 1
+         },
+         "rank": {
+          "type": "integer",
+          "minimum": 1
+         },
+         "source": {
+          "type": "string",
+          "minLength": 1
+         },
+         "grounds": {
+          "type": "string",
+          "minLength": 1
+         }
+        }
+       }
+      },
+      "chosen_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "status": {
+       "type": "string",
+       "enum": [
+        "PARSED",
+        "AMBIGUOUS",
+        "FAILED"
+       ]
+      },
+      "revised": {
+       "type": "boolean"
+      },
+      "revise_reason": {
+       "type": "string"
+      },
+      "fork": {
+       "type": "string",
+       "enum": [
+        "none",
+        "live",
+        "resolved"
+       ]
+      }
+     }
+    }
+   },
+   "argmap": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:argmap",
+    "title": "Svatantrya ARGMAP structural schema",
+    "x-validator": "schemas.argmap.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "traces",
+     "sanskrit_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "traces": {
+      "type": "object",
+      "required": [
+       "t1_verse",
+       "l0_ids"
+      ],
+      "properties": {
+       "t1_verse": {
+        "type": "string",
+        "minLength": 1
+       },
+       "l0_ids": {
+        "type": "array",
+        "items": {
+         "type": "string",
+         "minLength": 1
+        },
+        "minItems": 1
+       }
+      }
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "sanskrit_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "speaker": {
+      "type": "string",
+      "minLength": 1
+     },
+     "question": {
+      "type": "string",
+      "minLength": 1
+     },
+     "inference": {
+      "type": "string",
+      "minLength": 1
+     },
+     "reconstruction": {
+      "type": "string",
+      "minLength": 1
+     },
+     "premises": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     },
+     "uncertainties": {
+      "type": "array"
+     },
+     "structured": {
+      "type": "boolean"
+     }
+    }
+   },
+   "l2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l2",
+    "title": "Svatantrya L2 structural schema",
+    "x-validator": "schemas.l2.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "plain_english",
+     "sanskrit_cite",
+     "l0_ids"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "plain_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "supplied": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     }
+    }
+   },
+   "c1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:c1",
+    "title": "Svatantrya C1 structural schema",
+    "x-validator": "schemas.c1.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "song",
+     "essence",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "essence": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "renders": {
+      "type": "object",
+      "required": [
+       "standard"
+      ]
+     }
+    }
+   },
+   "l3": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l3",
+    "title": "Svatantrya L3 structural schema",
+    "x-validator": "schemas.l3.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "l4": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l4",
+    "title": "Svatantrya L4 structural schema",
+    "x-validator": "schemas.l4.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "c2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:c2",
+    "title": "Svatantrya C2 structural schema",
+    "x-validator": "schemas.c2.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "song",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "renders": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "style",
+        "prompt",
+        "paragraphs"
+       ],
+       "properties": {
+        "style": {
+         "type": "string",
+         "minLength": 1
+        },
+        "prompt": {
+         "type": "string",
+         "minLength": 1
+        },
+        "paragraphs": {
+         "type": "array",
+         "minItems": 1,
+         "items": {
+          "type": "object",
+          "required": [
+           "text",
+           "maps_to"
+          ],
+          "properties": {
+           "text": {
+            "type": "string",
+            "minLength": 1
+           },
+           "maps_to": {
+            "type": "array",
+            "items": {
+             "type": "integer",
+             "minimum": 0
+            },
+            "minItems": 1
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "layers": [
+   {
+    "id": "t1",
+    "scope": "verse",
+    "depends_on": [
+     "source"
+    ],
+    "validator": "schemas/t1.py",
+    "validator_sha256": "ac792ba1f0cbc06ab52dfbc41a31d3e39460f0e8a7de2977ed02e4ce63a20f27",
+    "example": {
+     "file": "sivastotravali/data/s01.t1.json",
+     "file_sha256": "a5c4cfae67571d05866d97ad6eb29b1c2956140a69c2fae554c29577330beb8e",
+     "target": "s01-v01",
+     "content_sha256": "26f027dafbe67347efd901cb2b94630cdb0e372957edeb4a3e1305e83745ba5b",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l0",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1"
+    ],
+    "validator": "schemas/l0.py",
+    "validator_sha256": "0651bc77f519897f8a4f8b41f4ea0cc6a88f3441910af99b18d55854a7e9030e",
+    "example": {
+     "file": "sivastotravali/data/s06.l0.json",
+     "file_sha256": "c2bb0ce1010315d72bdce75ee3c8901b17499202abe7adc5bd1977a26f4fea2f",
+     "target": "s06-v01",
+     "content_sha256": "91e3b04d47482757bcaf1e9705992edd0815ff7907ed2cb33c7c9586f3a9e5aa",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "argmap",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0"
+    ],
+    "validator": "schemas/argmap.py",
+    "validator_sha256": "335c1bbe809c5ae942ecef4a30ee7fd8fcb82645a43019312fa74397fe5758b0",
+    "example": {
+     "file": "sivastotravali/data/s01.argmap.json",
+     "file_sha256": "a44c8ec09a30c577f2a792c1255d4290f49a6138c456bb687bc00e78a3902949",
+     "target": "s01-v21",
+     "content_sha256": "80b69a54761b8b0b7c193058f6c88eef60323a3611008c41ba9879bcfc3cdc21",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l2",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap"
+    ],
+    "validator": "schemas/l2.py",
+    "validator_sha256": "95556834767ef61cf824b501ad7184b4223b6a7f479cd9644fbaae4372725ae3",
+    "example": {
+     "file": "sivastotravali/data/s01.l2.json",
+     "file_sha256": "f5a1cec55bb466c328380a0bf527e6d8906428b3436f85a79bd01df98ceb1040",
+     "target": "s01-v01",
+     "content_sha256": "f3c47f6a631f7551d4f9c8ad1117bdf65463cb8cdc92e9b42bb3bf517ae80055",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c1",
+    "scope": "song",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2"
+    ],
+    "validator": "schemas/c1.py",
+    "validator_sha256": "291c7eba42e68952b685becb6b596df7e2d9ca859d264152707d89efa5361c90",
+    "example": {
+     "file": "sivastotravali/data/s01.c1.json",
+     "file_sha256": "99f4d2bbf7a8086176ee585b6e459076e2abd72b9675435267f7546beb1515f8",
+     "target": "s01",
+     "content_sha256": "5be1f3c0c3f64fafe5395b42cf5502a139a5e208be419d5804fe1a5bdd33712a",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l3",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2",
+     "c1"
+    ],
+    "validator": "schemas/l3.py",
+    "validator_sha256": "6c3df228f886207782d5250699e9e459f236f6e7d6b25ac29b00a38541956917",
+    "example": {
+     "file": "sivastotravali/data/s01.l3.json",
+     "file_sha256": "cdb4af6a4c2a851231195f4e5c940346f65199d5d5d69ea1c41d8095f98409f9",
+     "target": "s01-v01",
+     "content_sha256": "6aa20635387174b68fe4ea3baf970c06aff9838acb2c745e7afca0ed7c6751de",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l4",
+    "scope": "verse",
+    "depends_on": [
+     "l3",
+     "c1"
+    ],
+    "validator": "schemas/l4.py",
+    "validator_sha256": "3c1f7b0dfe3d83d425ed0fd84fba7b74aa3ed9e9758402369d779eedda1a8c03",
+    "example": {
+     "file": "paramarthasara/data/param-p01.l4.json",
+     "file_sha256": "db346e51e71f2f835ddfda004d4432934611817c2c73318d335f6ca2362ad4fb",
+     "target": "param-p01-v01",
+     "content_sha256": "91e9d424cf310d4e5b45c173b02f5286d837269ef9447533c153a48cb5122c14",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c2",
+    "scope": "song",
+    "depends_on": [
+     "c1",
+     "l3"
+    ],
+    "validator": "schemas/c2.py",
+    "validator_sha256": "fb8743f206e036002c780d082c7d32cf011dcdab4c21df742a5f5e59a9d851b8",
+    "example": {
+     "file": "sivastotravali/data/s01.c2.json",
+     "file_sha256": "09660a3c09679fce8c95968934e5851a22d89cdf154d2b0635d358e1ef9e8aeb",
+     "target": "s01",
+     "content_sha256": "2faa5fa86e38faca7ef5a1a967a4e261e2df294648a31ed5bad5f731001aa41c",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   }
+  ]
+ },
+ "rights": {
+  "translation": "FREE — our English (L1–L4, commentary) is free use",
+  "scholar": "Contributors declare rights; authorship and copyright depend on the work and law."
+ },
+ "originals": {
+  "t1": {
+   "mukta-m0-p73-v1801": {
+    "verse_id": "mukta-m0-p73-v1801",
+    "song": "mukta-m0-p73",
+    "verse": 1801,
+    "tokens": [
+     {
+      "sanskrit": "pūjanīyaṃ",
+      "surface": "pūjanīyaṃ",
+      "iast": "pūjanīyaṃ",
+      "gloss": "to-be-worshipped",
+      "quick_gloss": "to-be-worshipped",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "prayatnena",
+      "surface": "prayatnena",
+      "iast": "prayatnena",
+      "gloss": "with-effort",
+      "quick_gloss": "with-effort",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "stotavyaṃ",
+      "surface": "stotavyaṃ",
+      "iast": "stotavyaṃ",
+      "gloss": "to-be-praised",
+      "quick_gloss": "to-be-praised",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vividhaiḥ",
+      "surface": "vividhaiḥ",
+      "iast": "vividhaiḥ",
+      "gloss": "with-various",
+      "quick_gloss": "with-various",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "stavaiḥ",
+      "surface": "stavaiḥ",
+      "iast": "stavaiḥ",
+      "gloss": "with-hymns",
+      "quick_gloss": "with-hymns",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "He should be worshipped with effort and praised with various hymns.",
+    "source_sha": ""
+   },
+   "mukta-m0-p73-v1802": {
+    "verse_id": "mukta-m0-p73-v1802",
+    "song": "mukta-m0-p73",
+    "verse": 1802,
+    "tokens": [
+     {
+      "sanskrit": "tasmin",
+      "surface": "tasmin",
+      "iast": "tasmin",
+      "gloss": "in-that",
+      "quick_gloss": "in-that",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "snāto",
+      "surface": "snāto",
+      "iast": "snāto",
+      "gloss": "having-bathed",
+      "quick_gloss": "having-bathed",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "varārohe",
+      "surface": "varārohe",
+      "iast": "varārohe",
+      "gloss": "O-fair-one",
+      "quick_gloss": "O-fair-one",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "brahmahatyāṃ",
+      "surface": "brahmahatyāṃ",
+      "iast": "brahmahatyāṃ",
+      "gloss": "brahman-murder",
+      "quick_gloss": "brahman-murder",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vyapohati",
+      "surface": "vyapohati",
+      "iast": "vyapohati",
+      "gloss": "removes",
+      "quick_gloss": "removes",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "O fair one, having bathed there, one removes the sin of killing a brahman.",
+    "source_sha": ""
+   },
+   "mukta-m0-p73-v1803": {
+    "verse_id": "mukta-m0-p73-v1803",
+    "song": "mukta-m0-p73",
+    "verse": 1803,
+    "tokens": [
+     {
+      "sanskrit": "tasya",
+      "surface": "tasya",
+      "iast": "tasya",
+      "gloss": "of-that",
+      "quick_gloss": "of-that",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "uttare",
+      "surface": "uttare",
+      "iast": "uttare",
+      "gloss": "to-the-north",
+      "quick_gloss": "to-the-north",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "dhanuḥ",
+      "surface": "dhanuḥ",
+      "iast": "dhanuḥ",
+      "gloss": "bows",
+      "quick_gloss": "bows",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "pañca",
+      "surface": "pañca",
+      "iast": "pañca",
+      "gloss": "five",
+      "quick_gloss": "five",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kapilā",
+      "surface": "kapilā",
+      "iast": "kapilā",
+      "gloss": "Kapilā",
+      "quick_gloss": "Kapilā",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "nāma",
+      "surface": "nāma",
+      "iast": "nāma",
+      "gloss": "named",
+      "quick_gloss": "named",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vai",
+      "surface": "vai",
+      "iast": "vai",
+      "gloss": "indeed",
+      "quick_gloss": "indeed",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "śive",
+      "surface": "śive",
+      "iast": "śive",
+      "gloss": "O-Śivā",
+      "quick_gloss": "O-Śivā",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "O Śivā, five bows to the north of that place is the site indeed named Kapilā.",
+    "source_sha": ""
+   },
+   "mukta-m0-p73-v1804": {
+    "verse_id": "mukta-m0-p73-v1804",
+    "song": "mukta-m0-p73",
+    "verse": 1804,
+    "tokens": [
+     {
+      "sanskrit": "kapilāhnadatīrthe",
+      "surface": "kapilāhnadatīrthe",
+      "iast": "kapilāhnadatīrthe",
+      "gloss": "at-Kapilā-Ahada-tīrtha",
+      "quick_gloss": "at-Kapilā-Ahada-tīrtha",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "asmin",
+      "surface": "asmin",
+      "iast": "asmin",
+      "gloss": "in-this",
+      "quick_gloss": "in-this",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "snātvā",
+      "surface": "snātvā",
+      "iast": "snātvā",
+      "gloss": "having-bathed",
+      "quick_gloss": "having-bathed",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "saṃyatamānasaḥ",
+      "surface": "saṃyatamānasaḥ",
+      "iast": "saṃyatamānasaḥ",
+      "gloss": "with-restrained-mind",
+      "quick_gloss": "with-restrained-mind",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Having bathed at this Kapilāhnadatīrtha with a restrained mind.",
+    "source_sha": ""
+   },
+   "mukta-m0-p73-v1805": {
+    "verse_id": "mukta-m0-p73-v1805",
+    "song": "mukta-m0-p73",
+    "verse": 1805,
+    "tokens": [
+     {
+      "sanskrit": "pūrvāśābhimukhena",
+      "surface": "pūrvāśābhimukhena",
+      "iast": "pūrvāśābhimukhena",
+      "gloss": "facing-east",
+      "quick_gloss": "facing-east",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "eva",
+      "surface": "eva",
+      "iast": "eva",
+      "gloss": "indeed",
+      "quick_gloss": "indeed",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ārohed",
+      "surface": "ārohed",
+      "iast": "ārohed",
+      "gloss": "one-should-ascend",
+      "quick_gloss": "one-should-ascend",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "bhasmakūṭakam",
+      "surface": "bhasmakūṭakam",
+      "iast": "bhasmakūṭakam",
+      "gloss": "Bhasmakūṭaka",
+      "quick_gloss": "Bhasmakūṭaka",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Facing east, one should indeed ascend Bhasmakūṭaka.",
+    "source_sha": ""
+   },
+   "mukta-m0-p73-v1806": {
+    "verse_id": "mukta-m0-p73-v1806",
+    "song": "mukta-m0-p73",
+    "verse": 1806,
+    "tokens": [
+     {
+      "sanskrit": "ārohayāmi",
+      "surface": "ārohayāmi",
+      "iast": "ārohayāmi",
+      "gloss": "I-ascend",
+      "quick_gloss": "I-ascend",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "śikharaṃ",
+      "surface": "śikharaṃ",
+      "iast": "śikharaṃ",
+      "gloss": "peak",
+      "quick_gloss": "peak",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "bhasmakūṭaṃ",
+      "surface": "bhasmakūṭaṃ",
+      "iast": "bhasmakūṭaṃ",
+      "gloss": "Bhasmakūṭa",
+      "quick_gloss": "Bhasmakūṭa",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "namaḥ",
+      "surface": "namaḥ",
+      "iast": "namaḥ",
+      "gloss": "obeisance",
+      "quick_gloss": "obeisance",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "astu",
+      "surface": "astu",
+      "iast": "astu",
+      "gloss": "be",
+      "quick_gloss": "be",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "te",
+      "surface": "te",
+      "iast": "te",
+      "gloss": "to-you",
+      "quick_gloss": "to-you",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "I ascend the peak Bhasmakūṭa; obeisance be to you.",
+    "source_sha": ""
+   },
+   "mukta-m0-p73-v1807": {
+    "verse_id": "mukta-m0-p73-v1807",
+    "song": "mukta-m0-p73",
+    "verse": 1807,
+    "tokens": [
+     {
+      "sanskrit": "daśajanmakṛtaṃ",
+      "surface": "daśajanmakṛtaṃ",
+      "iast": "daśajanmakṛtaṃ",
+      "gloss": "ten-births-done",
+      "quick_gloss": "ten-births-done",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "puṇyaṃ",
+      "surface": "puṇyaṃ",
+      "iast": "puṇyaṃ",
+      "gloss": "merit",
+      "quick_gloss": "merit",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tatkṣaṇād",
+      "surface": "tatkṣaṇād",
+      "iast": "tatkṣaṇād",
+      "gloss": "in-that-very-moment",
+      "quick_gloss": "in-that-very-moment",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "eva",
+      "surface": "eva",
+      "iast": "eva",
+      "gloss": "indeed",
+      "quick_gloss": "indeed",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "naśyati",
+      "surface": "naśyati",
+      "iast": "naśyati",
+      "gloss": "perishes",
+      "quick_gloss": "perishes",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Merit accumulated over ten births perishes in that very moment.",
+    "source_sha": ""
+   },
+   "mukta-m0-p73-v1808": {
+    "verse_id": "mukta-m0-p73-v1808",
+    "song": "mukta-m0-p73",
+    "verse": 1808,
+    "tokens": [
+     {
+      "sanskrit": "dhanaṃ",
+      "surface": "dhanaṃ",
+      "iast": "dhanaṃ",
+      "gloss": "wealth",
+      "quick_gloss": "wealth",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "putraṃ",
+      "surface": "putraṃ",
+      "iast": "putraṃ",
+      "gloss": "son",
+      "quick_gloss": "son",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kalatrañ",
+      "surface": "kalatrañ",
+      "iast": "kalatrañ",
+      "gloss": "wife",
+      "quick_gloss": "wife",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ca",
+      "surface": "ca",
+      "iast": "ca",
+      "gloss": "and",
+      "quick_gloss": "and",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "sarvaṃ",
+      "surface": "sarvaṃ",
+      "iast": "sarvaṃ",
+      "gloss": "all",
+      "quick_gloss": "all",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "naśyati",
+      "surface": "naśyati",
+      "iast": "naśyati",
+      "gloss": "perishes",
+      "quick_gloss": "perishes",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tatkṣaṇāt",
+      "surface": "tatkṣaṇāt",
+      "iast": "tatkṣaṇāt",
+      "gloss": "in-that-very-moment",
+      "quick_gloss": "in-that-very-moment",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Wealth, son, wife, and everything perishes in that very moment.",
+    "source_sha": ""
+   },
+   "mukta-m0-p73-v1809": {
+    "verse_id": "mukta-m0-p73-v1809",
+    "song": "mukta-m0-p73",
+    "verse": 1809,
+    "tokens": [
+     {
+      "sanskrit": "vṛṣadhvajasya",
+      "surface": "vṛṣadhvajasya",
+      "iast": "vṛṣadhvajasya",
+      "gloss": "of-bull-bannered-one",
+      "quick_gloss": "of-bull-bannered-one",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "māhātmyaṃ",
+      "surface": "māhātmyaṃ",
+      "iast": "māhātmyaṃ",
+      "gloss": "greatness",
+      "quick_gloss": "greatness",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "śṛṇu",
+      "surface": "śṛṇu",
+      "iast": "śṛṇu",
+      "gloss": "hear",
+      "quick_gloss": "hear",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "devi",
+      "surface": "devi",
+      "iast": "devi",
+      "gloss": "O-goddess",
+      "quick_gloss": "O-goddess",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "varānane",
+      "surface": "varānane",
+      "iast": "varānane",
+      "gloss": "O-fair-faced-one",
+      "quick_gloss": "O-fair-faced-one",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "O goddess, O fair-faced one, hear the greatness of the bull-bannered one.",
+    "source_sha": ""
+   },
+   "mukta-m0-p73-v1810": {
+    "verse_id": "mukta-m0-p73-v1810",
+    "song": "mukta-m0-p73",
+    "verse": 1810,
+    "tokens": [
+     {
+      "sanskrit": "tadā",
+      "surface": "tadā",
+      "iast": "tadā",
+      "gloss": "then",
+      "quick_gloss": "then",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "bhasmācalaṃ",
+      "surface": "bhasmācalaṃ",
+      "iast": "bhasmācalaṃ",
+      "gloss": "to-Bhasma-mountain",
+      "quick_gloss": "to-Bhasma-mountain",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "gatvā",
+      "surface": "gatvā",
+      "iast": "gatvā",
+      "gloss": "having-gone",
+      "quick_gloss": "having-gone",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "devam",
+      "surface": "devam",
+      "iast": "devam",
+      "gloss": "the-god",
+      "quick_gloss": "the-god",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "abhyarcya",
+      "surface": "abhyarcya",
+      "iast": "abhyarcya",
+      "gloss": "having-worshipped",
+      "quick_gloss": "having-worshipped",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "yatnataḥ",
+      "surface": "yatnataḥ",
+      "iast": "yatnataḥ",
+      "gloss": "with-effort",
+      "quick_gloss": "with-effort",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Then, having gone to Bhasma mountain and having worshipped the god with effort.",
+    "source_sha": ""
+   },
+   "mukta-m0-p73-v1811": {
+    "verse_id": "mukta-m0-p73-v1811",
+    "song": "mukta-m0-p73",
+    "verse": 1811,
+    "tokens": [
+     {
+      "sanskrit": "gandhādyaiḥ",
+      "surface": "gandhādyaiḥ",
+      "iast": "gandhādyaiḥ",
+      "gloss": "with-fragrances-and-others",
+      "quick_gloss": "with-fragrances-and-others",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "snāpayel",
+      "surface": "snāpayel",
+      "iast": "snāpayel",
+      "gloss": "one-should-bathe",
+      "quick_gloss": "one-should-bathe",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "liṅgaṃ",
+      "surface": "liṅgaṃ",
+      "iast": "liṅgaṃ",
+      "gloss": "the-liṅga",
+      "quick_gloss": "the-liṅga",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kamalaiḥ",
+      "surface": "kamalaiḥ",
+      "iast": "kamalaiḥ",
+      "gloss": "with-lotuses",
+      "quick_gloss": "with-lotuses",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "sumanoharaiḥ",
+      "surface": "sumanoharaiḥ",
+      "iast": "sumanoharaiḥ",
+      "gloss": "very-charming",
+      "quick_gloss": "very-charming",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "One should bathe the liṅga with fragrances and other substances and with very charming lotuses.",
+    "source_sha": ""
+   },
+   "mukta-m0-p73-v1812": {
+    "verse_id": "mukta-m0-p73-v1812",
+    "song": "mukta-m0-p73",
+    "verse": 1812,
+    "tokens": [
+     {
+      "sanskrit": "mahātmānaṃ",
+      "surface": "mahātmānaṃ",
+      "iast": "mahātmānaṃ",
+      "gloss": "the-great-soul",
+      "quick_gloss": "the-great-soul",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tataḥ",
+      "surface": "tataḥ",
+      "iast": "tataḥ",
+      "gloss": "then",
+      "quick_gloss": "then",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kuryān",
+      "surface": "kuryān",
+      "iast": "kuryān",
+      "gloss": "one-should-make",
+      "quick_gloss": "one-should-make",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "māsānte",
+      "surface": "māsānte",
+      "iast": "māsānte",
+      "gloss": "at-month-end",
+      "quick_gloss": "at-month-end",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "pratiparvaṇi",
+      "surface": "pratiparvaṇi",
+      "iast": "pratiparvaṇi",
+      "gloss": "on-every-festival",
+      "quick_gloss": "on-every-festival",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Then one should perform worship for the great-souled one at the end of the month and on every festival.",
+    "source_sha": ""
+   },
+   "mukta-m0-p73-v1813": {
+    "verse_id": "mukta-m0-p73-v1813",
+    "song": "mukta-m0-p73",
+    "verse": 1813,
+    "tokens": [
+     {
+      "sanskrit": "prasādena",
+      "surface": "prasādena",
+      "iast": "prasādena",
+      "gloss": "with-favor",
+      "quick_gloss": "with-favor",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tu",
+      "surface": "tu",
+      "iast": "tu",
+      "gloss": "indeed",
+      "quick_gloss": "indeed",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "mantreṇa",
+      "surface": "mantreṇa",
+      "iast": "mantreṇa",
+      "gloss": "with-mantra",
+      "quick_gloss": "with-mantra",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "rudrapuṣpeṇa",
+      "surface": "rudrapuṣpeṇa",
+      "iast": "rudrapuṣpeṇa",
+      "gloss": "with-rudra-flower",
+      "quick_gloss": "with-rudra-flower",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "pūjayet",
+      "surface": "pūjayet",
+      "iast": "pūjayet",
+      "gloss": "one-should-worship",
+      "quick_gloss": "one-should-worship",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "One should indeed worship with prasāda, with mantra, and with the rudra flower.",
+    "source_sha": ""
+   },
+   "mukta-m0-p73-v1814": {
+    "verse_id": "mukta-m0-p73-v1814",
+    "song": "mukta-m0-p73",
+    "verse": 1814,
+    "tokens": [
+     {
+      "sanskrit": "yaḥ",
+      "surface": "yaḥ",
+      "iast": "yaḥ",
+      "gloss": "who",
+      "quick_gloss": "who",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "caturo",
+      "surface": "caturo",
+      "iast": "caturo",
+      "gloss": "four",
+      "quick_gloss": "four",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "devadevaḥ",
+      "surface": "devadevaḥ",
+      "iast": "devadevaḥ",
+      "gloss": "O-god-of-gods",
+      "quick_gloss": "O-god-of-gods",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "O god of gods, who are the four...",
+    "source_sha": ""
+   },
+   "mukta-m0-p73-v1815": {
+    "verse_id": "mukta-m0-p73-v1815",
+    "song": "mukta-m0-p73",
+    "verse": 1815,
+    "tokens": [
+     {
+      "sanskrit": "dhāma",
+      "surface": "dhāma",
+      "iast": "dhāma",
+      "gloss": "abode",
+      "quick_gloss": "abode",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "dharmaṃ",
+      "surface": "dharmaṃ",
+      "iast": "dharmaṃ",
+      "gloss": "dharma",
+      "quick_gloss": "dharma",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tathā",
+      "surface": "tathā",
+      "iast": "tathā",
+      "gloss": "likewise",
+      "quick_gloss": "likewise",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "sūkṣmaṃ",
+      "surface": "sūkṣmaṃ",
+      "iast": "sūkṣmaṃ",
+      "gloss": "subtle",
+      "quick_gloss": "subtle",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "viṣṇuṃ",
+      "surface": "viṣṇuṃ",
+      "iast": "viṣṇuṃ",
+      "gloss": "Viṣṇu",
+      "quick_gloss": "Viṣṇu",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "nārāyaṇaṃ",
+      "surface": "nārāyaṇaṃ",
+      "iast": "nārāyaṇaṃ",
+      "gloss": "Nārāyaṇa",
+      "quick_gloss": "Nārāyaṇa",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "haram",
+      "surface": "haram",
+      "iast": "haram",
+      "gloss": "Hara",
+      "quick_gloss": "Hara",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Abode, dharma, likewise the subtle, Viṣṇu, Nārāyaṇa, and Hara.",
+    "source_sha": ""
+   },
+   "mukta-m0-p73-v1816": {
+    "verse_id": "mukta-m0-p73-v1816",
+    "song": "mukta-m0-p73",
+    "verse": 1816,
+    "tokens": [
+     {
+      "sanskrit": "śaktīḥ",
+      "surface": "śaktīḥ",
+      "iast": "śaktīḥ",
+      "gloss": "the-śaktis",
+      "quick_gloss": "the-śaktis",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "sampūjayec",
+      "surface": "sampūjayec",
+      "iast": "sampūjayec",
+      "gloss": "one-should-worship",
+      "quick_gloss": "one-should-worship",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ca",
+      "surface": "ca",
+      "iast": "ca",
+      "gloss": "and",
+      "quick_gloss": "and",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "eva",
+      "surface": "eva",
+      "iast": "eva",
+      "gloss": "indeed",
+      "quick_gloss": "indeed",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "rāmādyāḥ",
+      "surface": "rāmādyāḥ",
+      "iast": "rāmādyāḥ",
+      "gloss": "Rāmā-and-others",
+      "quick_gloss": "Rāmā-and-others",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "proktalakṣaṇāḥ",
+      "surface": "proktalakṣaṇāḥ",
+      "iast": "proktalakṣaṇāḥ",
+      "gloss": "with-declared-characteristics",
+      "quick_gloss": "with-declared-characteristics",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "One should indeed worship the śaktis, beginning with Rāmā, whose characteristics have been declared.",
+    "source_sha": ""
+   },
+   "mukta-m0-p73-v1817": {
+    "verse_id": "mukta-m0-p73-v1817",
+    "song": "mukta-m0-p73",
+    "verse": 1817,
+    "tokens": [
+     {
+      "sanskrit": "pīṭheśāṃś",
+      "surface": "pīṭheśāṃś",
+      "iast": "pīṭheśāṃś",
+      "gloss": "the-lords-of-the-pedestal",
+      "quick_gloss": "the-lords-of-the-pedestal",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ca",
+      "surface": "ca",
+      "iast": "ca",
+      "gloss": "and",
+      "quick_gloss": "and",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tathā",
+      "surface": "tathā",
+      "iast": "tathā",
+      "gloss": "likewise",
+      "quick_gloss": "likewise",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "bāhye",
+      "surface": "bāhye",
+      "iast": "bāhye",
+      "gloss": "outside",
+      "quick_gloss": "outside",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "pīṭheśāṃś",
+      "surface": "pīṭheśāṃś",
+      "iast": "pīṭheśāṃś",
+      "gloss": "the-lords-of-the-pedestal",
+      "quick_gloss": "the-lords-of-the-pedestal",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ca",
+      "surface": "ca",
+      "iast": "ca",
+      "gloss": "and",
+      "quick_gloss": "and",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "agrataḥ",
+      "surface": "agrataḥ",
+      "iast": "agrataḥ",
+      "gloss": "in-front",
+      "quick_gloss": "in-front",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "arcayet",
+      "surface": "arcayet",
+      "iast": "arcayet",
+      "gloss": "one-should-worship",
+      "quick_gloss": "one-should-worship",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "One should likewise worship the lords of the pedestal outside and in front.",
+    "source_sha": ""
+   },
+   "mukta-m0-p73-v1818": {
+    "verse_id": "mukta-m0-p73-v1818",
+    "song": "mukta-m0-p73",
+    "verse": 1818,
+    "tokens": [
+     {
+      "sanskrit": "nandīśaṃ",
+      "surface": "nandīśaṃ",
+      "iast": "nandīśaṃ",
+      "gloss": "Nandīśa",
+      "quick_gloss": "Nandīśa",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "mukuṭañ",
+      "surface": "mukuṭañ",
+      "iast": "mukuṭañ",
+      "gloss": "Mukuṭa",
+      "quick_gloss": "Mukuṭa",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ca",
+      "surface": "ca",
+      "iast": "ca",
+      "gloss": "and",
+      "quick_gloss": "and",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "eva",
+      "surface": "eva",
+      "iast": "eva",
+      "gloss": "indeed",
+      "quick_gloss": "indeed",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "dikpālān",
+      "surface": "dikpālān",
+      "iast": "dikpālān",
+      "gloss": "the-guardians-of-directions",
+      "quick_gloss": "the-guardians-of-directions",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "pūjayet",
+      "surface": "pūjayet",
+      "iast": "pūjayet",
+      "gloss": "one-should-worship",
+      "quick_gloss": "one-should-worship",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kramāt",
+      "surface": "kramāt",
+      "iast": "kramāt",
+      "gloss": "in-order",
+      "quick_gloss": "in-order",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "One should worship Nandīśa, Mukuṭa, and the guardians of the directions in due order.",
+    "source_sha": ""
+   },
+   "mukta-m0-p73-v1819": {
+    "verse_id": "mukta-m0-p73-v1819",
+    "song": "mukta-m0-p73",
+    "verse": 1819,
+    "tokens": [
+     {
+      "sanskrit": "praṇamya",
+      "surface": "praṇamya",
+      "iast": "praṇamya",
+      "gloss": "having-bowed",
+      "quick_gloss": "having-bowed",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "parameśānam",
+      "surface": "parameśānam",
+      "iast": "parameśānam",
+      "gloss": "to-the-supreme-lord",
+      "quick_gloss": "to-the-supreme-lord",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "idaṃ",
+      "surface": "idaṃ",
+      "iast": "idaṃ",
+      "gloss": "this",
+      "quick_gloss": "this",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "stotram",
+      "surface": "stotram",
+      "iast": "stotram",
+      "gloss": "hymn",
+      "quick_gloss": "hymn",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "udāharet",
+      "surface": "udāharet",
+      "iast": "udāharet",
+      "gloss": "one-should-recite",
+      "quick_gloss": "one-should-recite",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Having bowed to the supreme lord, one should recite this hymn.",
+    "source_sha": ""
+   },
+   "mukta-m0-p73-v1820": {
+    "verse_id": "mukta-m0-p73-v1820",
+    "song": "mukta-m0-p73",
+    "verse": 1820,
+    "tokens": [
+     {
+      "sanskrit": "hiraṇyakṝtacūḍāya",
+      "surface": "hiraṇyakṝtacūḍāya",
+      "iast": "hiraṇyakṝtacūḍāya",
+      "gloss": "to-him-with-golden-crest",
+      "quick_gloss": "to-him-with-golden-crest",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "hiraṇyapataye",
+      "surface": "hiraṇyapataye",
+      "iast": "hiraṇyapataye",
+      "gloss": "to-the-lord-of-gold",
+      "quick_gloss": "to-the-lord-of-gold",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "namaḥ",
+      "surface": "namaḥ",
+      "iast": "namaḥ",
+      "gloss": "obeisance",
+      "quick_gloss": "obeisance",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Obeisance to him with the golden crest, to the lord of gold.",
+    "source_sha": ""
+   },
+   "mukta-m0-p73-v1821": {
+    "verse_id": "mukta-m0-p73-v1821",
+    "song": "mukta-m0-p73",
+    "verse": 1821,
+    "tokens": [
+     {
+      "sanskrit": "namo",
+      "surface": "namo",
+      "iast": "namo",
+      "gloss": "obeisance",
+      "quick_gloss": "obeisance",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "bālārkavarṇāya",
+      "surface": "bālārkavarṇāya",
+      "iast": "bālārkavarṇāya",
+      "gloss": "to-him-of-young-sun-color",
+      "quick_gloss": "to-him-of-young-sun-color",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "jvaladrūpadharāya",
+      "surface": "jvaladrūpadharāya",
+      "iast": "jvaladrūpadharāya",
+      "gloss": "to-him-bearing-blazing-form",
+      "quick_gloss": "to-him-bearing-blazing-form",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ca",
+      "surface": "ca",
+      "iast": "ca",
+      "gloss": "and",
+      "quick_gloss": "and",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Obeisance to him of the color of the young sun, and to him bearing a blazing form.",
+    "source_sha": ""
+   },
+   "mukta-m0-p73-v1822": {
+    "verse_id": "mukta-m0-p73-v1822",
+    "song": "mukta-m0-p73",
+    "verse": 1822,
+    "tokens": [
+     {
+      "sanskrit": "bhavāṅgojjhitakeśāya",
+      "surface": "bhavāṅgojjhitakeśāya",
+      "iast": "bhavāṅgojjhitakeśāya",
+      "gloss": "to-him-with-hair-removed-from-body",
+      "quick_gloss": "to-him-with-hair-removed-from-body",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "muktakeśāya",
+      "surface": "muktakeśāya",
+      "iast": "muktakeśāya",
+      "gloss": "to-him-with-loosened-hair",
+      "quick_gloss": "to-him-with-loosened-hair",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vai",
+      "surface": "vai",
+      "iast": "vai",
+      "gloss": "indeed",
+      "quick_gloss": "indeed",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "namaḥ",
+      "surface": "namaḥ",
+      "iast": "namaḥ",
+      "gloss": "obeisance",
+      "quick_gloss": "obeisance",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Obeisance indeed to him with hair removed from the body, and to him with loosened hair.",
+    "source_sha": ""
+   },
+   "mukta-m0-p73-v1823": {
+    "verse_id": "mukta-m0-p73-v1823",
+    "song": "mukta-m0-p73",
+    "verse": 1823,
+    "tokens": [
+     {
+      "sanskrit": "varṇāśrameṇa",
+      "surface": "varṇāśrameṇa",
+      "iast": "varṇāśrameṇa",
+      "gloss": "by-class-and-stage-of-life",
+      "quick_gloss": "by-class-and-stage-of-life",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vidhivat",
+      "surface": "vidhivat",
+      "iast": "vidhivat",
+      "gloss": "according-to-rule",
+      "quick_gloss": "according-to-rule",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "pṛthak",
+      "surface": "pṛthak",
+      "iast": "pṛthak",
+      "gloss": "separately",
+      "quick_gloss": "separately",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "karmapravartine",
+      "surface": "karmapravartine",
+      "iast": "karmapravartine",
+      "gloss": "to-the-promoter-of-actions",
+      "quick_gloss": "to-the-promoter-of-actions",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Obeisance to the promoter of actions performed separately according to rule by class and stage of life.",
+    "source_sha": ""
+   },
+   "mukta-m0-p73-v1824": {
+    "verse_id": "mukta-m0-p73-v1824",
+    "song": "mukta-m0-p73",
+    "verse": 1824,
+    "tokens": [
+     {
+      "sanskrit": "śvetapiṅgalanetrāya",
+      "surface": "śvetapiṅgalanetrāya",
+      "iast": "śvetapiṅgalanetrāya",
+      "gloss": "to-him-with-white-tawny-eyes",
+      "quick_gloss": "to-him-with-white-tawny-eyes",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kṛṣṇavaktrekṣaṇāya",
+      "surface": "kṛṣṇavaktrekṣaṇāya",
+      "iast": "kṛṣṇavaktrekṣaṇāya",
+      "gloss": "to-him-with-black-face-eyes",
+      "quick_gloss": "to-him-with-black-face-eyes",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ca",
+      "surface": "ca",
+      "iast": "ca",
+      "gloss": "and",
+      "quick_gloss": "and",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "And obeisance to him with white and tawny eyes, and to him with black face and eyes.",
+    "source_sha": ""
+   },
+   "mukta-m0-p73-v1825": {
+    "verse_id": "mukta-m0-p73-v1825",
+    "song": "mukta-m0-p73",
+    "verse": 1825,
+    "tokens": [
+     {
+      "sanskrit": "namas",
+      "surface": "namas",
+      "iast": "namas",
+      "gloss": "obeisance",
+      "quick_gloss": "obeisance",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "triśūlahastāya",
+      "surface": "triśūlahastāya",
+      "iast": "triśūlahastāya",
+      "gloss": "to-trident-in-hand",
+      "quick_gloss": "to-trident-in-hand",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "umākāntāya",
+      "surface": "umākāntāya",
+      "iast": "umākāntāya",
+      "gloss": "to-beloved-of-umā",
+      "quick_gloss": "to-beloved-of-umā",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vai",
+      "surface": "vai",
+      "iast": "vai",
+      "gloss": "indeed",
+      "quick_gloss": "indeed",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "namaḥ",
+      "surface": "namaḥ",
+      "iast": "namaḥ",
+      "gloss": "obeisance",
+      "quick_gloss": "obeisance",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Obeisance, indeed obeisance, to the trident-handed beloved of Umā.",
+    "source_sha": ""
+   }
+  },
+  "l0": {
+   "mukta-m0-p73-v1801": [
+    {
+     "id": "mukta-m0-p73-v1801-p000",
+     "verse_id": "mukta-m0-p73-v1801",
+     "pada_index": 0,
+     "surface": "pūjanīyaṃ",
+     "citation": "pūjanīyaṃ",
+     "morph": "n.nom.sg",
+     "options": [
+      {
+       "gloss": "to-be-worshipped",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "gerundive expressing obligation"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1801-p001",
+     "verse_id": "mukta-m0-p73-v1801",
+     "pada_index": 1,
+     "surface": "prayatnena",
+     "citation": "prayatnena",
+     "morph": "m.inst.sg",
+     "options": [
+      {
+       "gloss": "with-effort",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "instrument of manner"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1801-p002",
+     "verse_id": "mukta-m0-p73-v1801",
+     "pada_index": 2,
+     "surface": "stotavyaṃ",
+     "citation": "stotavyaṃ",
+     "morph": "n.nom.sg",
+     "options": [
+      {
+       "gloss": "to-be-praised",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "gerundive expressing obligation"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1801-p003",
+     "verse_id": "mukta-m0-p73-v1801",
+     "pada_index": 3,
+     "surface": "vividhaiḥ",
+     "citation": "vividhaiḥ",
+     "morph": "m.inst.pl",
+     "options": [
+      {
+       "gloss": "with-various",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "qualifies hymns"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1801-p004",
+     "verse_id": "mukta-m0-p73-v1801",
+     "pada_index": 4,
+     "surface": "stavaiḥ",
+     "citation": "stavaiḥ",
+     "morph": "m.inst.pl",
+     "options": [
+      {
+       "gloss": "with-hymns",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "instrument of praise"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p73-v1802": [
+    {
+     "id": "mukta-m0-p73-v1802-p000",
+     "verse_id": "mukta-m0-p73-v1802",
+     "pada_index": 0,
+     "surface": "tasmin",
+     "citation": "tasmin",
+     "morph": "m.loc.sg",
+     "options": [
+      {
+       "gloss": "in-that",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "locative reference to sacred place"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1802-p001",
+     "verse_id": "mukta-m0-p73-v1802",
+     "pada_index": 1,
+     "surface": "snāto",
+     "citation": "snāto",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "having-bathed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "past participle indicating prior act"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1802-p002",
+     "verse_id": "mukta-m0-p73-v1802",
+     "pada_index": 2,
+     "surface": "varārohe",
+     "citation": "varārohe",
+     "morph": "f.voc.sg",
+     "options": [
+      {
+       "gloss": "O-fair-one",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "vocative address to goddess"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1802-p003",
+     "verse_id": "mukta-m0-p73-v1802",
+     "pada_index": 3,
+     "surface": "brahmahatyāṃ",
+     "citation": "brahmahatyāṃ",
+     "morph": "f.acc.sg",
+     "options": [
+      {
+       "gloss": "brahman-murder",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "grave sin as object"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1802-p004",
+     "verse_id": "mukta-m0-p73-v1802",
+     "pada_index": 4,
+     "surface": "vyapohati",
+     "citation": "vyapohati",
+     "morph": "3.sg.pres.act √vyapoh",
+     "options": [
+      {
+       "gloss": "removes",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "result of bathing"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p73-v1803": [
+    {
+     "id": "mukta-m0-p73-v1803-p000",
+     "verse_id": "mukta-m0-p73-v1803",
+     "pada_index": 0,
+     "surface": "tasya",
+     "citation": "tasya",
+     "morph": "m.gen.sg",
+     "options": [
+      {
+       "gloss": "of-that",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "points to previously mentioned place"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1803-p001",
+     "verse_id": "mukta-m0-p73-v1803",
+     "pada_index": 1,
+     "surface": "uttare",
+     "citation": "uttare",
+     "morph": "n.loc.sg",
+     "options": [
+      {
+       "gloss": "to-the-north",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "directional location"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1803-p002",
+     "verse_id": "mukta-m0-p73-v1803",
+     "pada_index": 2,
+     "surface": "dhanuḥ",
+     "citation": "dhanuḥ",
+     "morph": "n.acc.pl",
+     "options": [
+      {
+       "gloss": "bows",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "unit of distance"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1803-p003",
+     "verse_id": "mukta-m0-p73-v1803",
+     "pada_index": 3,
+     "surface": "pañca",
+     "citation": "pañca",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "five",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "number of bows"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1803-p004",
+     "verse_id": "mukta-m0-p73-v1803",
+     "pada_index": 4,
+     "surface": "kapilā",
+     "citation": "kapilā",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "Kapilā",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "name of sacred site"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1803-p005",
+     "verse_id": "mukta-m0-p73-v1803",
+     "pada_index": 5,
+     "surface": "nāma",
+     "citation": "nāma",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "named",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "introduces name"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1803-p006",
+     "verse_id": "mukta-m0-p73-v1803",
+     "pada_index": 6,
+     "surface": "vai",
+     "citation": "vai",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "indeed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "emphatic particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1803-p007",
+     "verse_id": "mukta-m0-p73-v1803",
+     "pada_index": 7,
+     "surface": "śive",
+     "citation": "śive",
+     "morph": "f.voc.sg",
+     "options": [
+      {
+       "gloss": "O-Śivā",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "vocative address to goddess"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p73-v1804": [
+    {
+     "id": "mukta-m0-p73-v1804-p000",
+     "verse_id": "mukta-m0-p73-v1804",
+     "pada_index": 0,
+     "surface": "kapilāhnadatīrthe",
+     "citation": "kapilāhnadatīrthe",
+     "morph": "n.loc.sg, compound",
+     "options": [
+      {
+       "gloss": "at-Kapilā-Ahada-tīrtha",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound naming sacred bathing place"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1804-p001",
+     "verse_id": "mukta-m0-p73-v1804",
+     "pada_index": 1,
+     "surface": "asmin",
+     "citation": "asmin",
+     "morph": "n.loc.sg",
+     "options": [
+      {
+       "gloss": "in-this",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "demonstrative locating the tīrtha"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1804-p002",
+     "verse_id": "mukta-m0-p73-v1804",
+     "pada_index": 2,
+     "surface": "snātvā",
+     "citation": "snātvā",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "having-bathed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "prior ritual action"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1804-p003",
+     "verse_id": "mukta-m0-p73-v1804",
+     "pada_index": 3,
+     "surface": "saṃyatamānasaḥ",
+     "citation": "saṃyatamānasaḥ",
+     "morph": "m.nom.sg, compound",
+     "options": [
+      {
+       "gloss": "with-restrained-mind",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound describing mental state"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p73-v1805": [
+    {
+     "id": "mukta-m0-p73-v1805-p000",
+     "verse_id": "mukta-m0-p73-v1805",
+     "pada_index": 0,
+     "surface": "pūrvāśābhimukhena",
+     "citation": "pūrvāśābhimukhena",
+     "morph": "m.inst.sg, compound",
+     "options": [
+      {
+       "gloss": "facing-east",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound indicating direction faced"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1805-p001",
+     "verse_id": "mukta-m0-p73-v1805",
+     "pada_index": 1,
+     "surface": "eva",
+     "citation": "eva",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "indeed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "emphatic particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1805-p002",
+     "verse_id": "mukta-m0-p73-v1805",
+     "pada_index": 2,
+     "surface": "ārohed",
+     "citation": "ārohed",
+     "morph": "3.sg.opt.act √āruh",
+     "options": [
+      {
+       "gloss": "one-should-ascend",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "prescriptive action"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1805-p003",
+     "verse_id": "mukta-m0-p73-v1805",
+     "pada_index": 3,
+     "surface": "bhasmakūṭakam",
+     "citation": "bhasmakūṭakam",
+     "morph": "n.acc.sg",
+     "options": [
+      {
+       "gloss": "Bhasmakūṭaka",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "name of place to ascend"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p73-v1806": [
+    {
+     "id": "mukta-m0-p73-v1806-p000",
+     "verse_id": "mukta-m0-p73-v1806",
+     "pada_index": 0,
+     "surface": "ārohayāmi",
+     "citation": "ārohayāmi",
+     "morph": "1.sg.pres.act √āruh",
+     "options": [
+      {
+       "gloss": "I-ascend",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "declarative ritual utterance"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1806-p001",
+     "verse_id": "mukta-m0-p73-v1806",
+     "pada_index": 1,
+     "surface": "śikharaṃ",
+     "citation": "śikharaṃ",
+     "morph": "n.acc.sg",
+     "options": [
+      {
+       "gloss": "peak",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "object of ascent"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1806-p002",
+     "verse_id": "mukta-m0-p73-v1806",
+     "pada_index": 2,
+     "surface": "bhasmakūṭaṃ",
+     "citation": "bhasmakūṭaṃ",
+     "morph": "n.acc.sg",
+     "options": [
+      {
+       "gloss": "Bhasmakūṭa",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "name of the peak"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1806-p003",
+     "verse_id": "mukta-m0-p73-v1806",
+     "pada_index": 3,
+     "surface": "namaḥ",
+     "citation": "namaḥ",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "obeisance",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "reverential salutation"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1806-p004",
+     "verse_id": "mukta-m0-p73-v1806",
+     "pada_index": 4,
+     "surface": "astu",
+     "citation": "astu",
+     "morph": "3.sg.imp.act √as",
+     "options": [
+      {
+       "gloss": "be",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "optative benediction"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1806-p005",
+     "verse_id": "mukta-m0-p73-v1806",
+     "pada_index": 5,
+     "surface": "te",
+     "citation": "te",
+     "morph": "pron.dat.sg",
+     "options": [
+      {
+       "gloss": "to-you",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "recipient of obeisance"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p73-v1807": [
+    {
+     "id": "mukta-m0-p73-v1807-p000",
+     "verse_id": "mukta-m0-p73-v1807",
+     "pada_index": 0,
+     "surface": "daśajanmakṛtaṃ",
+     "citation": "daśajanmakṛtaṃ",
+     "morph": "n.nom.sg, compound",
+     "options": [
+      {
+       "gloss": "ten-births-done",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound describing accumulated merit"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1807-p001",
+     "verse_id": "mukta-m0-p73-v1807",
+     "pada_index": 1,
+     "surface": "puṇyaṃ",
+     "citation": "puṇyaṃ",
+     "morph": "n.nom.sg",
+     "options": [
+      {
+       "gloss": "merit",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "subject that perishes"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1807-p002",
+     "verse_id": "mukta-m0-p73-v1807",
+     "pada_index": 2,
+     "surface": "tatkṣaṇād",
+     "citation": "tatkṣaṇād",
+     "morph": "n.abl.sg, compound",
+     "options": [
+      {
+       "gloss": "in-that-very-moment",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound indicating immediacy"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1807-p003",
+     "verse_id": "mukta-m0-p73-v1807",
+     "pada_index": 3,
+     "surface": "eva",
+     "citation": "eva",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "indeed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "emphatic particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1807-p004",
+     "verse_id": "mukta-m0-p73-v1807",
+     "pada_index": 4,
+     "surface": "naśyati",
+     "citation": "naśyati",
+     "morph": "3.sg.pres.act √naś",
+     "options": [
+      {
+       "gloss": "perishes",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "result of the act"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p73-v1808": [
+    {
+     "id": "mukta-m0-p73-v1808-p000",
+     "verse_id": "mukta-m0-p73-v1808",
+     "pada_index": 0,
+     "surface": "dhanaṃ",
+     "citation": "dhanaṃ",
+     "morph": "n.nom.sg",
+     "options": [
+      {
+       "gloss": "wealth",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "first item lost"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1808-p001",
+     "verse_id": "mukta-m0-p73-v1808",
+     "pada_index": 1,
+     "surface": "putraṃ",
+     "citation": "putraṃ",
+     "morph": "m.acc.sg",
+     "options": [
+      {
+       "gloss": "son",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "second item lost"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1808-p002",
+     "verse_id": "mukta-m0-p73-v1808",
+     "pada_index": 2,
+     "surface": "kalatrañ",
+     "citation": "kalatrañ",
+     "morph": "n.acc.sg",
+     "options": [
+      {
+       "gloss": "wife",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "third item lost; sandhi form of kalatram"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1808-p003",
+     "verse_id": "mukta-m0-p73-v1808",
+     "pada_index": 3,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "connective particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1808-p004",
+     "verse_id": "mukta-m0-p73-v1808",
+     "pada_index": 4,
+     "surface": "sarvaṃ",
+     "citation": "sarvaṃ",
+     "morph": "n.nom.sg",
+     "options": [
+      {
+       "gloss": "all",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "totality of possessions"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1808-p005",
+     "verse_id": "mukta-m0-p73-v1808",
+     "pada_index": 5,
+     "surface": "naśyati",
+     "citation": "naśyati",
+     "morph": "3.sg.pres.act √naś",
+     "options": [
+      {
+       "gloss": "perishes",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "result of the act"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1808-p006",
+     "verse_id": "mukta-m0-p73-v1808",
+     "pada_index": 6,
+     "surface": "tatkṣaṇāt",
+     "citation": "tatkṣaṇāt",
+     "morph": "n.abl.sg, compound",
+     "options": [
+      {
+       "gloss": "in-that-very-moment",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound indicating immediacy"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p73-v1809": [
+    {
+     "id": "mukta-m0-p73-v1809-p000",
+     "verse_id": "mukta-m0-p73-v1809",
+     "pada_index": 0,
+     "surface": "vṛṣadhvajasya",
+     "citation": "vṛṣadhvajasya",
+     "morph": "m.gen.sg, compound",
+     "options": [
+      {
+       "gloss": "of-bull-bannered-one",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "epithet of Śiva"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1809-p001",
+     "verse_id": "mukta-m0-p73-v1809",
+     "pada_index": 1,
+     "surface": "māhātmyaṃ",
+     "citation": "māhātmyaṃ",
+     "morph": "n.acc.sg",
+     "options": [
+      {
+       "gloss": "greatness",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "object to be heard"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1809-p002",
+     "verse_id": "mukta-m0-p73-v1809",
+     "pada_index": 2,
+     "surface": "śṛṇu",
+     "citation": "śṛṇu",
+     "morph": "2.sg.imp.act √śru",
+     "options": [
+      {
+       "gloss": "hear",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "imperative request"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1809-p003",
+     "verse_id": "mukta-m0-p73-v1809",
+     "pada_index": 3,
+     "surface": "devi",
+     "citation": "devi",
+     "morph": "f.voc.sg",
+     "options": [
+      {
+       "gloss": "O-goddess",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "vocative address"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1809-p004",
+     "verse_id": "mukta-m0-p73-v1809",
+     "pada_index": 4,
+     "surface": "varānane",
+     "citation": "varānane",
+     "morph": "f.voc.sg, compound",
+     "options": [
+      {
+       "gloss": "O-fair-faced-one",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "vocative compound address"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p73-v1810": [
+    {
+     "id": "mukta-m0-p73-v1810-p000",
+     "verse_id": "mukta-m0-p73-v1810",
+     "pada_index": 0,
+     "surface": "tadā",
+     "citation": "tadā",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "then",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "temporal marker"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1810-p001",
+     "verse_id": "mukta-m0-p73-v1810",
+     "pada_index": 1,
+     "surface": "bhasmācalaṃ",
+     "citation": "bhasmācalaṃ",
+     "morph": "n.acc.sg, compound",
+     "options": [
+      {
+       "gloss": "to-Bhasma-mountain",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "destination of movement"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1810-p002",
+     "verse_id": "mukta-m0-p73-v1810",
+     "pada_index": 2,
+     "surface": "gatvā",
+     "citation": "gatvā",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "having-gone",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "prior action"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1810-p003",
+     "verse_id": "mukta-m0-p73-v1810",
+     "pada_index": 3,
+     "surface": "devam",
+     "citation": "devam",
+     "morph": "m.acc.sg",
+     "options": [
+      {
+       "gloss": "the-god",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "object of worship"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1810-p004",
+     "verse_id": "mukta-m0-p73-v1810",
+     "pada_index": 4,
+     "surface": "abhyarcya",
+     "citation": "abhyarcya",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "having-worshipped",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "prior ritual action"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1810-p005",
+     "verse_id": "mukta-m0-p73-v1810",
+     "pada_index": 5,
+     "surface": "yatnataḥ",
+     "citation": "yatnataḥ",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "with-effort",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "manner of worship"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p73-v1811": [
+    {
+     "id": "mukta-m0-p73-v1811-p000",
+     "verse_id": "mukta-m0-p73-v1811",
+     "pada_index": 0,
+     "surface": "gandhādyaiḥ",
+     "citation": "gandhādyaiḥ",
+     "morph": "m.inst.pl, compound",
+     "options": [
+      {
+       "gloss": "with-fragrances-and-others",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound listing ritual substances"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1811-p001",
+     "verse_id": "mukta-m0-p73-v1811",
+     "pada_index": 1,
+     "surface": "snāpayel",
+     "citation": "snāpayel",
+     "morph": "3.sg.opt.caus.act √snā",
+     "options": [
+      {
+       "gloss": "one-should-bathe",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "prescriptive ritual action"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1811-p002",
+     "verse_id": "mukta-m0-p73-v1811",
+     "pada_index": 2,
+     "surface": "liṅgaṃ",
+     "citation": "liṅgaṃ",
+     "morph": "n.acc.sg",
+     "options": [
+      {
+       "gloss": "the-liṅga",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "object of bathing ritual"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1811-p003",
+     "verse_id": "mukta-m0-p73-v1811",
+     "pada_index": 3,
+     "surface": "kamalaiḥ",
+     "citation": "kamalaiḥ",
+     "morph": "n.inst.pl",
+     "options": [
+      {
+       "gloss": "with-lotuses",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "offerings used in worship"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1811-p004",
+     "verse_id": "mukta-m0-p73-v1811",
+     "pada_index": 4,
+     "surface": "sumanoharaiḥ",
+     "citation": "sumanoharaiḥ",
+     "morph": "n.inst.pl, compound",
+     "options": [
+      {
+       "gloss": "very-charming",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound qualifying lotuses"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p73-v1812": [
+    {
+     "id": "mukta-m0-p73-v1812-p000",
+     "verse_id": "mukta-m0-p73-v1812",
+     "pada_index": 0,
+     "surface": "mahātmānaṃ",
+     "citation": "mahātmānaṃ",
+     "morph": "m.acc.sg, compound",
+     "options": [
+      {
+       "gloss": "the-great-soul",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "epithet of the deity"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1812-p001",
+     "verse_id": "mukta-m0-p73-v1812",
+     "pada_index": 1,
+     "surface": "tataḥ",
+     "citation": "tataḥ",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "then",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "sequence marker"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1812-p002",
+     "verse_id": "mukta-m0-p73-v1812",
+     "pada_index": 2,
+     "surface": "kuryān",
+     "citation": "kuryān",
+     "morph": "3.sg.opt.act √kṛ",
+     "options": [
+      {
+       "gloss": "one-should-make",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "prescriptive ritual action"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1812-p003",
+     "verse_id": "mukta-m0-p73-v1812",
+     "pada_index": 3,
+     "surface": "māsānte",
+     "citation": "māsānte",
+     "morph": "m.loc.sg, compound",
+     "options": [
+      {
+       "gloss": "at-month-end",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound indicating time"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1812-p004",
+     "verse_id": "mukta-m0-p73-v1812",
+     "pada_index": 4,
+     "surface": "pratiparvaṇi",
+     "citation": "pratiparvaṇi",
+     "morph": "n.loc.sg, compound",
+     "options": [
+      {
+       "gloss": "on-every-festival",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound indicating recurring occasions"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p73-v1813": [
+    {
+     "id": "mukta-m0-p73-v1813-p000",
+     "verse_id": "mukta-m0-p73-v1813",
+     "pada_index": 0,
+     "surface": "prasādena",
+     "citation": "prasādena",
+     "morph": "m.inst.sg",
+     "options": [
+      {
+       "gloss": "with-favor",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "ritual offering or grace context"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1813-p001",
+     "verse_id": "mukta-m0-p73-v1813",
+     "pada_index": 1,
+     "surface": "tu",
+     "citation": "tu",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "indeed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "emphatic particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1813-p002",
+     "verse_id": "mukta-m0-p73-v1813",
+     "pada_index": 2,
+     "surface": "mantreṇa",
+     "citation": "mantreṇa",
+     "morph": "m.inst.sg",
+     "options": [
+      {
+       "gloss": "with-mantra",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "instrument of worship"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1813-p003",
+     "verse_id": "mukta-m0-p73-v1813",
+     "pada_index": 3,
+     "surface": "rudrapuṣpeṇa",
+     "citation": "rudrapuṣpeṇa",
+     "morph": "n.inst.sg, compound",
+     "options": [
+      {
+       "gloss": "with-rudra-flower",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound naming offering"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1813-p004",
+     "verse_id": "mukta-m0-p73-v1813",
+     "pada_index": 4,
+     "surface": "pūjayet",
+     "citation": "pūjayet",
+     "morph": "3.sg.opt.act √pūj",
+     "options": [
+      {
+       "gloss": "one-should-worship",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "prescriptive ritual action"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p73-v1814": [
+    {
+     "id": "mukta-m0-p73-v1814-p000",
+     "verse_id": "mukta-m0-p73-v1814",
+     "pada_index": 0,
+     "surface": "yaḥ",
+     "citation": "yaḥ",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "who",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "relative pronoun introducing deity"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1814-p001",
+     "verse_id": "mukta-m0-p73-v1814",
+     "pada_index": 1,
+     "surface": "caturo",
+     "citation": "caturo",
+     "morph": "m.acc.pl",
+     "options": [
+      {
+       "gloss": "four",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "number; sandhi form of caturaḥ"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1814-p002",
+     "verse_id": "mukta-m0-p73-v1814",
+     "pada_index": 2,
+     "surface": "devadevaḥ",
+     "citation": "devadevaḥ",
+     "morph": "m.voc.sg, compound",
+     "options": [
+      {
+       "gloss": "O-god-of-gods",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "vocative compound epithet"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p73-v1815": [
+    {
+     "id": "mukta-m0-p73-v1815-p000",
+     "verse_id": "mukta-m0-p73-v1815",
+     "pada_index": 0,
+     "surface": "dhāma",
+     "citation": "dhāma",
+     "morph": "n.acc.sg",
+     "options": [
+      {
+       "gloss": "abode",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "first of the four named"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1815-p001",
+     "verse_id": "mukta-m0-p73-v1815",
+     "pada_index": 1,
+     "surface": "dharmaṃ",
+     "citation": "dharmaṃ",
+     "morph": "m.acc.sg",
+     "options": [
+      {
+       "gloss": "dharma",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "second of the four named"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1815-p002",
+     "verse_id": "mukta-m0-p73-v1815",
+     "pada_index": 2,
+     "surface": "tathā",
+     "citation": "tathā",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "likewise",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "connective particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1815-p003",
+     "verse_id": "mukta-m0-p73-v1815",
+     "pada_index": 3,
+     "surface": "sūkṣmaṃ",
+     "citation": "sūkṣmaṃ",
+     "morph": "m.acc.sg",
+     "options": [
+      {
+       "gloss": "subtle",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "third of the four named"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1815-p004",
+     "verse_id": "mukta-m0-p73-v1815",
+     "pada_index": 4,
+     "surface": "viṣṇuṃ",
+     "citation": "viṣṇuṃ",
+     "morph": "m.acc.sg",
+     "options": [
+      {
+       "gloss": "Viṣṇu",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "fourth named as deity"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1815-p005",
+     "verse_id": "mukta-m0-p73-v1815",
+     "pada_index": 5,
+     "surface": "nārāyaṇaṃ",
+     "citation": "nārāyaṇaṃ",
+     "morph": "m.acc.sg",
+     "options": [
+      {
+       "gloss": "Nārāyaṇa",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "epithet or form of Viṣṇu"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1815-p006",
+     "verse_id": "mukta-m0-p73-v1815",
+     "pada_index": 6,
+     "surface": "haram",
+     "citation": "haram",
+     "morph": "m.acc.sg",
+     "options": [
+      {
+       "gloss": "Hara",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "name of Śiva included in list"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p73-v1816": [
+    {
+     "id": "mukta-m0-p73-v1816-p000",
+     "verse_id": "mukta-m0-p73-v1816",
+     "pada_index": 0,
+     "surface": "śaktīḥ",
+     "citation": "śaktīḥ",
+     "morph": "f.acc.pl",
+     "options": [
+      {
+       "gloss": "the-śaktis",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "divine powers to be worshipped"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1816-p001",
+     "verse_id": "mukta-m0-p73-v1816",
+     "pada_index": 1,
+     "surface": "sampūjayec",
+     "citation": "sampūjayec",
+     "morph": "3.sg.opt.act √pūj",
+     "options": [
+      {
+       "gloss": "one-should-worship",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "prescriptive ritual action; sandhi form of sampūjayet"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1816-p002",
+     "verse_id": "mukta-m0-p73-v1816",
+     "pada_index": 2,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "connective particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1816-p003",
+     "verse_id": "mukta-m0-p73-v1816",
+     "pada_index": 3,
+     "surface": "eva",
+     "citation": "eva",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "indeed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "emphatic particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1816-p004",
+     "verse_id": "mukta-m0-p73-v1816",
+     "pada_index": 4,
+     "surface": "rāmādyāḥ",
+     "citation": "rāmādyāḥ",
+     "morph": "f.nom.pl, compound",
+     "options": [
+      {
+       "gloss": "Rāmā-and-others",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound naming group of śaktis"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1816-p005",
+     "verse_id": "mukta-m0-p73-v1816",
+     "pada_index": 5,
+     "surface": "proktalakṣaṇāḥ",
+     "citation": "proktalakṣaṇāḥ",
+     "morph": "f.nom.pl, compound",
+     "options": [
+      {
+       "gloss": "with-declared-characteristics",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound indicating defined attributes"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p73-v1817": [
+    {
+     "id": "mukta-m0-p73-v1817-p000",
+     "verse_id": "mukta-m0-p73-v1817",
+     "pada_index": 0,
+     "surface": "pīṭheśāṃś",
+     "citation": "pīṭheśāṃś",
+     "morph": "m.acc.pl, compound",
+     "options": [
+      {
+       "gloss": "the-lords-of-the-pedestal",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound naming deities; sandhi form of pīṭheśān"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1817-p001",
+     "verse_id": "mukta-m0-p73-v1817",
+     "pada_index": 1,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "connective particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1817-p002",
+     "verse_id": "mukta-m0-p73-v1817",
+     "pada_index": 2,
+     "surface": "tathā",
+     "citation": "tathā",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "likewise",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "connective particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1817-p003",
+     "verse_id": "mukta-m0-p73-v1817",
+     "pada_index": 3,
+     "surface": "bāhye",
+     "citation": "bāhye",
+     "morph": "n.loc.sg",
+     "options": [
+      {
+       "gloss": "outside",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "location of worship"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1817-p004",
+     "verse_id": "mukta-m0-p73-v1817",
+     "pada_index": 4,
+     "surface": "pīṭheśāṃś",
+     "citation": "pīṭheśāṃś",
+     "morph": "m.acc.pl, compound",
+     "options": [
+      {
+       "gloss": "the-lords-of-the-pedestal",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound naming deities; sandhi form of pīṭheśān"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1817-p005",
+     "verse_id": "mukta-m0-p73-v1817",
+     "pada_index": 5,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "connective particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1817-p006",
+     "verse_id": "mukta-m0-p73-v1817",
+     "pada_index": 6,
+     "surface": "agrataḥ",
+     "citation": "agrataḥ",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "in-front",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "location of worship"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1817-p007",
+     "verse_id": "mukta-m0-p73-v1817",
+     "pada_index": 7,
+     "surface": "arcayet",
+     "citation": "arcayet",
+     "morph": "3.sg.opt.act √arc",
+     "options": [
+      {
+       "gloss": "one-should-worship",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "prescriptive ritual action"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p73-v1818": [
+    {
+     "id": "mukta-m0-p73-v1818-p000",
+     "verse_id": "mukta-m0-p73-v1818",
+     "pada_index": 0,
+     "surface": "nandīśaṃ",
+     "citation": "nandīśaṃ",
+     "morph": "m.acc.sg",
+     "options": [
+      {
+       "gloss": "Nandīśa",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "deity to be worshipped"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1818-p001",
+     "verse_id": "mukta-m0-p73-v1818",
+     "pada_index": 1,
+     "surface": "mukuṭañ",
+     "citation": "mukuṭañ",
+     "morph": "m.acc.sg",
+     "options": [
+      {
+       "gloss": "Mukuṭa",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "deity to be worshipped; sandhi form of mukuṭam"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1818-p002",
+     "verse_id": "mukta-m0-p73-v1818",
+     "pada_index": 2,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "connective particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1818-p003",
+     "verse_id": "mukta-m0-p73-v1818",
+     "pada_index": 3,
+     "surface": "eva",
+     "citation": "eva",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "indeed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "emphatic particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1818-p004",
+     "verse_id": "mukta-m0-p73-v1818",
+     "pada_index": 4,
+     "surface": "dikpālān",
+     "citation": "dikpālān",
+     "morph": "m.acc.pl, compound",
+     "options": [
+      {
+       "gloss": "the-guardians-of-directions",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound naming directional deities"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1818-p005",
+     "verse_id": "mukta-m0-p73-v1818",
+     "pada_index": 5,
+     "surface": "pūjayet",
+     "citation": "pūjayet",
+     "morph": "3.sg.opt.act √pūj",
+     "options": [
+      {
+       "gloss": "one-should-worship",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "prescriptive ritual action"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1818-p006",
+     "verse_id": "mukta-m0-p73-v1818",
+     "pada_index": 6,
+     "surface": "kramāt",
+     "citation": "kramāt",
+     "morph": "m.abl.sg",
+     "options": [
+      {
+       "gloss": "in-order",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "manner of worship"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p73-v1819": [
+    {
+     "id": "mukta-m0-p73-v1819-p000",
+     "verse_id": "mukta-m0-p73-v1819",
+     "pada_index": 0,
+     "surface": "praṇamya",
+     "citation": "praṇamya",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "having-bowed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "prior act of reverence"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1819-p001",
+     "verse_id": "mukta-m0-p73-v1819",
+     "pada_index": 1,
+     "surface": "parameśānam",
+     "citation": "parameśānam",
+     "morph": "m.acc.sg, compound",
+     "options": [
+      {
+       "gloss": "to-the-supreme-lord",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound epithet of deity"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1819-p002",
+     "verse_id": "mukta-m0-p73-v1819",
+     "pada_index": 2,
+     "surface": "idaṃ",
+     "citation": "idaṃ",
+     "morph": "n.acc.sg",
+     "options": [
+      {
+       "gloss": "this",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "demonstrative qualifying hymn"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1819-p003",
+     "verse_id": "mukta-m0-p73-v1819",
+     "pada_index": 3,
+     "surface": "stotram",
+     "citation": "stotram",
+     "morph": "n.acc.sg",
+     "options": [
+      {
+       "gloss": "hymn",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "object to be recited"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1819-p004",
+     "verse_id": "mukta-m0-p73-v1819",
+     "pada_index": 4,
+     "surface": "udāharet",
+     "citation": "udāharet",
+     "morph": "3.sg.opt.act √udāhṛ",
+     "options": [
+      {
+       "gloss": "one-should-recite",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "prescriptive ritual action"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p73-v1820": [
+    {
+     "id": "mukta-m0-p73-v1820-p000",
+     "verse_id": "mukta-m0-p73-v1820",
+     "pada_index": 0,
+     "surface": "hiraṇyakṝtacūḍāya",
+     "citation": "hiraṇyakṝtacūḍāya",
+     "morph": "m.dat.sg, compound",
+     "options": [
+      {
+       "gloss": "to-him-with-golden-crest",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound epithet in dative of salutation"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1820-p001",
+     "verse_id": "mukta-m0-p73-v1820",
+     "pada_index": 1,
+     "surface": "hiraṇyapataye",
+     "citation": "hiraṇyapataye",
+     "morph": "m.dat.sg, compound",
+     "options": [
+      {
+       "gloss": "to-the-lord-of-gold",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound epithet in dative of salutation"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1820-p002",
+     "verse_id": "mukta-m0-p73-v1820",
+     "pada_index": 2,
+     "surface": "namaḥ",
+     "citation": "namaḥ",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "obeisance",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "reverential salutation"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p73-v1821": [
+    {
+     "id": "mukta-m0-p73-v1821-p000",
+     "verse_id": "mukta-m0-p73-v1821",
+     "pada_index": 0,
+     "surface": "namo",
+     "citation": "namo",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "obeisance",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "reverential salutation; sandhi form of namaḥ"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1821-p001",
+     "verse_id": "mukta-m0-p73-v1821",
+     "pada_index": 1,
+     "surface": "bālārkavarṇāya",
+     "citation": "bālārkavarṇāya",
+     "morph": "m.dat.sg, compound",
+     "options": [
+      {
+       "gloss": "to-him-of-young-sun-color",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound epithet in dative of salutation"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1821-p002",
+     "verse_id": "mukta-m0-p73-v1821",
+     "pada_index": 2,
+     "surface": "jvaladrūpadharāya",
+     "citation": "jvaladrūpadharāya",
+     "morph": "m.dat.sg, compound",
+     "options": [
+      {
+       "gloss": "to-him-bearing-blazing-form",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound epithet in dative of salutation"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1821-p003",
+     "verse_id": "mukta-m0-p73-v1821",
+     "pada_index": 3,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "connective particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p73-v1822": [
+    {
+     "id": "mukta-m0-p73-v1822-p000",
+     "verse_id": "mukta-m0-p73-v1822",
+     "pada_index": 0,
+     "surface": "bhavāṅgojjhitakeśāya",
+     "citation": "bhavāṅgojjhitakeśāya",
+     "morph": "m.dat.sg, compound",
+     "options": [
+      {
+       "gloss": "to-him-with-hair-removed-from-body",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound epithet in dative of salutation"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1822-p001",
+     "verse_id": "mukta-m0-p73-v1822",
+     "pada_index": 1,
+     "surface": "muktakeśāya",
+     "citation": "muktakeśāya",
+     "morph": "m.dat.sg, compound",
+     "options": [
+      {
+       "gloss": "to-him-with-loosened-hair",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound epithet in dative of salutation"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1822-p002",
+     "verse_id": "mukta-m0-p73-v1822",
+     "pada_index": 2,
+     "surface": "vai",
+     "citation": "vai",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "indeed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "emphatic particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1822-p003",
+     "verse_id": "mukta-m0-p73-v1822",
+     "pada_index": 3,
+     "surface": "namaḥ",
+     "citation": "namaḥ",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "obeisance",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "reverential salutation"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p73-v1823": [
+    {
+     "id": "mukta-m0-p73-v1823-p000",
+     "verse_id": "mukta-m0-p73-v1823",
+     "pada_index": 0,
+     "surface": "varṇāśrameṇa",
+     "citation": "varṇāśrameṇa",
+     "morph": "m.inst.sg, compound",
+     "options": [
+      {
+       "gloss": "by-class-and-stage-of-life",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound indicating social-religious order"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1823-p001",
+     "verse_id": "mukta-m0-p73-v1823",
+     "pada_index": 1,
+     "surface": "vidhivat",
+     "citation": "vidhivat",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "according-to-rule",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "manner conforming to injunction"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1823-p002",
+     "verse_id": "mukta-m0-p73-v1823",
+     "pada_index": 2,
+     "surface": "pṛthak",
+     "citation": "pṛthak",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "separately",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indicates distinct application"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1823-p003",
+     "verse_id": "mukta-m0-p73-v1823",
+     "pada_index": 3,
+     "surface": "karmapravartine",
+     "citation": "karmapravartine",
+     "morph": "m.dat.sg, compound",
+     "options": [
+      {
+       "gloss": "to-the-promoter-of-actions",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound epithet in dative of salutation"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p73-v1824": [
+    {
+     "id": "mukta-m0-p73-v1824-p000",
+     "verse_id": "mukta-m0-p73-v1824",
+     "pada_index": 0,
+     "surface": "śvetapiṅgalanetrāya",
+     "citation": "śvetapiṅgalanetrāya",
+     "morph": "m.dat.sg, compound",
+     "options": [
+      {
+       "gloss": "to-him-with-white-tawny-eyes",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound epithet in dative of salutation"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1824-p001",
+     "verse_id": "mukta-m0-p73-v1824",
+     "pada_index": 1,
+     "surface": "kṛṣṇavaktrekṣaṇāya",
+     "citation": "kṛṣṇavaktrekṣaṇāya",
+     "morph": "m.dat.sg, compound",
+     "options": [
+      {
+       "gloss": "to-him-with-black-face-eyes",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound epithet in dative of salutation"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1824-p002",
+     "verse_id": "mukta-m0-p73-v1824",
+     "pada_index": 2,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "connective particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p73-v1825": [
+    {
+     "id": "mukta-m0-p73-v1825-p000",
+     "verse_id": "mukta-m0-p73-v1825",
+     "pada_index": 0,
+     "surface": "namas",
+     "citation": "namas",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "obeisance",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "salutatory indeclinable"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1825-p001",
+     "verse_id": "mukta-m0-p73-v1825",
+     "pada_index": 1,
+     "surface": "triśūlahastāya",
+     "citation": "triśūlahastāya",
+     "morph": "m.dat.sg",
+     "options": [
+      {
+       "gloss": "to-trident-in-hand",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound triśūla+hasta, recipient of obeisance"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1825-p002",
+     "verse_id": "mukta-m0-p73-v1825",
+     "pada_index": 2,
+     "surface": "umākāntāya",
+     "citation": "umākāntāya",
+     "morph": "m.dat.sg",
+     "options": [
+      {
+       "gloss": "to-beloved-of-umā",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound umā+kānta, epithet identifying the deity"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1825-p003",
+     "verse_id": "mukta-m0-p73-v1825",
+     "pada_index": 3,
+     "surface": "vai",
+     "citation": "vai",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "indeed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "emphatic particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p73-v1825-p004",
+     "verse_id": "mukta-m0-p73-v1825",
+     "pada_index": 4,
+     "surface": "namaḥ",
+     "citation": "namaḥ",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "obeisance",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "repeated salutatory indeclinable"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ]
+  },
+  "argmap": {
+   "mukta-m0-p73-v1801": {
+    "verse_id": "mukta-m0-p73-v1801",
+    "song": "mukta-m0-p73",
+    "verse": 1801,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What devotional acts must be performed with effort toward the deity?",
+    "premises": [
+     "The deity is to be worshipped",
+     "Worship must be done with effort",
+     "The deity is to be praised with various hymns"
+    ],
+    "inference": "Devotees must worship and praise the deity diligently with diverse hymns.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p73-v1801",
+     "l0_ids": [
+      "mukta-m0-p73-v1801-p000",
+      "mukta-m0-p73-v1801-p001",
+      "mukta-m0-p73-v1801-p002",
+      "mukta-m0-p73-v1801-p003",
+      "mukta-m0-p73-v1801-p004"
+     ],
+     "sanskrit_sha": "c18f36e07f6bacc2"
+    },
+    "sanskrit_sha": "c18f36e07f6bacc2"
+   },
+   "mukta-m0-p73-v1802": {
+    "verse_id": "mukta-m0-p73-v1802",
+    "song": "mukta-m0-p73",
+    "verse": 1802,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What sin is removed by bathing in that sacred place?",
+    "premises": [
+     "A person bathes in that place",
+     "The address is to the fair one",
+     "Bathing there removes brahman-murder"
+    ],
+    "inference": "Bathing in that place removes the sin of brahman-murder.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p73-v1802",
+     "l0_ids": [
+      "mukta-m0-p73-v1802-p000",
+      "mukta-m0-p73-v1802-p001",
+      "mukta-m0-p73-v1802-p002",
+      "mukta-m0-p73-v1802-p003",
+      "mukta-m0-p73-v1802-p004"
+     ],
+     "sanskrit_sha": "c18f36e07f6bacc2"
+    },
+    "sanskrit_sha": "c18f36e07f6bacc2"
+   },
+   "mukta-m0-p73-v1803": {
+    "verse_id": "mukta-m0-p73-v1803",
+    "song": "mukta-m0-p73",
+    "verse": 1803,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What sacred site named Kapilā lies north of that place?",
+    "premises": [
+     "A location is north of that place",
+     "It is five bows away",
+     "The site is named Kapilā"
+    ],
+    "inference": "Five bows to the north of that place lies the site named Kapilā.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p73-v1803",
+     "l0_ids": [
+      "mukta-m0-p73-v1803-p000",
+      "mukta-m0-p73-v1803-p001",
+      "mukta-m0-p73-v1803-p002",
+      "mukta-m0-p73-v1803-p003",
+      "mukta-m0-p73-v1803-p004",
+      "mukta-m0-p73-v1803-p005",
+      "mukta-m0-p73-v1803-p006",
+      "mukta-m0-p73-v1803-p007"
+     ],
+     "sanskrit_sha": "c18f36e07f6bacc2"
+    },
+    "sanskrit_sha": "c18f36e07f6bacc2"
+   },
+   "mukta-m0-p73-v1804": {
+    "verse_id": "mukta-m0-p73-v1804",
+    "song": "mukta-m0-p73",
+    "verse": 1804,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What mental state is required when bathing at Kapilāhnadatīrtha?",
+    "premises": [
+     "The place is Kapilāhnadatīrtha",
+     "One bathes there",
+     "The bather must have a restrained mind"
+    ],
+    "inference": "Bathing at Kapilāhnadatīrtha requires a restrained mind.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p73-v1804",
+     "l0_ids": [
+      "mukta-m0-p73-v1804-p000",
+      "mukta-m0-p73-v1804-p001",
+      "mukta-m0-p73-v1804-p002",
+      "mukta-m0-p73-v1804-p003"
+     ],
+     "sanskrit_sha": "c18f36e07f6bacc2"
+    },
+    "sanskrit_sha": "c18f36e07f6bacc2"
+   },
+   "mukta-m0-p73-v1805": {
+    "verse_id": "mukta-m0-p73-v1805",
+    "song": "mukta-m0-p73",
+    "verse": 1805,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "In which direction must one face to ascend Bhasmakūṭaka?",
+    "premises": [
+     "One should ascend Bhasmakūṭaka",
+     "The ascent must be done facing east",
+     "The direction is emphasized"
+    ],
+    "inference": "One must ascend Bhasmakūṭaka while facing east.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p73-v1805",
+     "l0_ids": [
+      "mukta-m0-p73-v1805-p000",
+      "mukta-m0-p73-v1805-p001",
+      "mukta-m0-p73-v1805-p002",
+      "mukta-m0-p73-v1805-p003"
+     ],
+     "sanskrit_sha": "c18f36e07f6bacc2"
+    },
+    "sanskrit_sha": "c18f36e07f6bacc2"
+   },
+   "mukta-m0-p73-v1806": {
+    "verse_id": "mukta-m0-p73-v1806",
+    "song": "mukta-m0-p73",
+    "verse": 1806,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What declaration and salutation accompany the ascent of Bhasmakūṭa?",
+    "premises": [
+     "The speaker declares ascent of the peak",
+     "The peak is Bhasmakūṭa",
+     "Obeisance is offered to it"
+    ],
+    "inference": "The ascent is accompanied by declaring the climb and offering obeisance.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p73-v1806",
+     "l0_ids": [
+      "mukta-m0-p73-v1806-p000",
+      "mukta-m0-p73-v1806-p001",
+      "mukta-m0-p73-v1806-p002",
+      "mukta-m0-p73-v1806-p003",
+      "mukta-m0-p73-v1806-p004",
+      "mukta-m0-p73-v1806-p005"
+     ],
+     "sanskrit_sha": "c18f36e07f6bacc2"
+    },
+    "sanskrit_sha": "c18f36e07f6bacc2"
+   },
+   "mukta-m0-p73-v1807": {
+    "verse_id": "mukta-m0-p73-v1807",
+    "song": "mukta-m0-p73",
+    "verse": 1807,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What happens to merit accumulated over ten births upon this ascent?",
+    "premises": [
+     "Merit was accumulated over ten births",
+     "The consequence occurs at that very moment",
+     "That merit perishes"
+    ],
+    "inference": "Merit accumulated over ten births perishes immediately upon this ascent.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p73-v1807",
+     "l0_ids": [
+      "mukta-m0-p73-v1807-p000",
+      "mukta-m0-p73-v1807-p001",
+      "mukta-m0-p73-v1807-p002",
+      "mukta-m0-p73-v1807-p003",
+      "mukta-m0-p73-v1807-p004"
+     ],
+     "sanskrit_sha": "c18f36e07f6bacc2"
+    },
+    "sanskrit_sha": "c18f36e07f6bacc2"
+   },
+   "mukta-m0-p73-v1808": {
+    "verse_id": "mukta-m0-p73-v1808",
+    "song": "mukta-m0-p73",
+    "verse": 1808,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What worldly possessions are lost immediately upon this ascent?",
+    "premises": [
+     "Wealth, son, and wife are mentioned",
+     "All these are included",
+     "They perish at that very moment"
+    ],
+    "inference": "Wealth, son, wife, and all possessions perish immediately upon this ascent.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p73-v1808",
+     "l0_ids": [
+      "mukta-m0-p73-v1808-p000",
+      "mukta-m0-p73-v1808-p001",
+      "mukta-m0-p73-v1808-p002",
+      "mukta-m0-p73-v1808-p003",
+      "mukta-m0-p73-v1808-p004",
+      "mukta-m0-p73-v1808-p005",
+      "mukta-m0-p73-v1808-p006"
+     ],
+     "sanskrit_sha": "c18f36e07f6bacc2"
+    },
+    "sanskrit_sha": "c18f36e07f6bacc2"
+   },
+   "mukta-m0-p73-v1809": {
+    "verse_id": "mukta-m0-p73-v1809",
+    "song": "mukta-m0-p73",
+    "verse": 1809,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "Whose greatness is the goddess asked to hear about?",
+    "premises": [
+     "The goddess is addressed to listen",
+     "The subject is greatness",
+     "The greatness belongs to the bull-bannered one"
+    ],
+    "inference": "The goddess is asked to hear the greatness of the bull-bannered one.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p73-v1809",
+     "l0_ids": [
+      "mukta-m0-p73-v1809-p000",
+      "mukta-m0-p73-v1809-p001",
+      "mukta-m0-p73-v1809-p002",
+      "mukta-m0-p73-v1809-p003",
+      "mukta-m0-p73-v1809-p004"
+     ],
+     "sanskrit_sha": "c18f36e07f6bacc2"
+    },
+    "sanskrit_sha": "c18f36e07f6bacc2"
+   },
+   "mukta-m0-p73-v1810": {
+    "verse_id": "mukta-m0-p73-v1810",
+    "song": "mukta-m0-p73",
+    "verse": 1810,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What actions must be performed upon reaching Bhasma mountain?",
+    "premises": [
+     "One goes to Bhasma mountain",
+     "One worships the god",
+     "The worship is done with effort"
+    ],
+    "inference": "After reaching Bhasma mountain, one must worship the god with effort.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p73-v1810",
+     "l0_ids": [
+      "mukta-m0-p73-v1810-p000",
+      "mukta-m0-p73-v1810-p001",
+      "mukta-m0-p73-v1810-p002",
+      "mukta-m0-p73-v1810-p003",
+      "mukta-m0-p73-v1810-p004",
+      "mukta-m0-p73-v1810-p005"
+     ],
+     "sanskrit_sha": "c18f36e07f6bacc2"
+    },
+    "sanskrit_sha": "c18f36e07f6bacc2"
+   },
+   "mukta-m0-p73-v1811": {
+    "verse_id": "mukta-m0-p73-v1811",
+    "song": "mukta-m0-p73",
+    "verse": 1811,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "How should the liṅga be ritually bathed and adorned?",
+    "premises": [
+     "The liṅga should be bathed",
+     "Bathing uses fragrances and other substances",
+     "Very charming lotuses are used"
+    ],
+    "inference": "The liṅga should be bathed with fragrances and other substances and adorned with very charming lotuses.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p73-v1811",
+     "l0_ids": [
+      "mukta-m0-p73-v1811-p000",
+      "mukta-m0-p73-v1811-p001",
+      "mukta-m0-p73-v1811-p002",
+      "mukta-m0-p73-v1811-p003",
+      "mukta-m0-p73-v1811-p004"
+     ],
+     "sanskrit_sha": "c18f36e07f6bacc2"
+    },
+    "sanskrit_sha": "c18f36e07f6bacc2"
+   },
+   "mukta-m0-p73-v1812": {
+    "verse_id": "mukta-m0-p73-v1812",
+    "song": "mukta-m0-p73",
+    "verse": 1812,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "At what times should worship of the great-souled deity be performed?",
+    "premises": [
+     "Worship should be performed for the great-souled one",
+     "It should be done at month’s end",
+     "It should be done on every festival"
+    ],
+    "inference": "Worship of the great-souled deity should be performed at month’s end and on every festival.",
+    "uncertainties": [
+     "The exact ritual action implied by kuryān is context-dependent."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p73-v1812",
+     "l0_ids": [
+      "mukta-m0-p73-v1812-p000",
+      "mukta-m0-p73-v1812-p001",
+      "mukta-m0-p73-v1812-p002",
+      "mukta-m0-p73-v1812-p003",
+      "mukta-m0-p73-v1812-p004"
+     ],
+     "sanskrit_sha": "c18f36e07f6bacc2"
+    },
+    "sanskrit_sha": "c18f36e07f6bacc2"
+   },
+   "mukta-m0-p73-v1813": {
+    "verse_id": "mukta-m0-p73-v1813",
+    "song": "mukta-m0-p73",
+    "verse": 1813,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "With what offerings and means should the deity be worshipped?",
+    "premises": [
+     "Worship should be performed",
+     "It involves prasāda and mantra",
+     "It involves the rudra flower"
+    ],
+    "inference": "The deity should be worshipped with prasāda, mantra, and the rudra flower.",
+    "uncertainties": [
+     "prasādena may refer to consecrated offering or divine grace."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p73-v1813",
+     "l0_ids": [
+      "mukta-m0-p73-v1813-p000",
+      "mukta-m0-p73-v1813-p001",
+      "mukta-m0-p73-v1813-p002",
+      "mukta-m0-p73-v1813-p003",
+      "mukta-m0-p73-v1813-p004"
+     ],
+     "sanskrit_sha": "c18f36e07f6bacc2"
+    },
+    "sanskrit_sha": "c18f36e07f6bacc2"
+   },
+   "mukta-m0-p73-v1814": {
+    "verse_id": "mukta-m0-p73-v1814",
+    "song": "mukta-m0-p73",
+    "verse": 1814,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "How is the supreme deity addressed in relation to the four forms?",
+    "premises": [
+     "The deity is addressed as god of gods",
+     "Four entities or forms are indicated",
+     "The verse introduces these four"
+    ],
+    "inference": "The god of gods is invoked in connection with four forms.",
+    "uncertainties": [
+     "The four referents are specified in the following verse."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p73-v1814",
+     "l0_ids": [
+      "mukta-m0-p73-v1814-p000",
+      "mukta-m0-p73-v1814-p001",
+      "mukta-m0-p73-v1814-p002"
+     ],
+     "sanskrit_sha": "c18f36e07f6bacc2"
+    },
+    "sanskrit_sha": "c18f36e07f6bacc2"
+   },
+   "mukta-m0-p73-v1815": {
+    "verse_id": "mukta-m0-p73-v1815",
+    "song": "mukta-m0-p73",
+    "verse": 1815,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "Which divine forms or principles are enumerated as the four?",
+    "premises": [
+     "Dhāma, dharma, and the subtle are named",
+     "Viṣṇu, Nārāyaṇa, and Hara are named",
+     "These continue the fourfold reference"
+    ],
+    "inference": "The enumeration includes abode, dharma, the subtle, Viṣṇu, Nārāyaṇa, and Hara.",
+    "uncertainties": [
+     "The exact grouping into four is ambiguous from the list given."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p73-v1815",
+     "l0_ids": [
+      "mukta-m0-p73-v1815-p000",
+      "mukta-m0-p73-v1815-p001",
+      "mukta-m0-p73-v1815-p002",
+      "mukta-m0-p73-v1815-p003",
+      "mukta-m0-p73-v1815-p004",
+      "mukta-m0-p73-v1815-p005",
+      "mukta-m0-p73-v1815-p006"
+     ],
+     "sanskrit_sha": "c18f36e07f6bacc2"
+    },
+    "sanskrit_sha": "c18f36e07f6bacc2"
+   },
+   "mukta-m0-p73-v1816": {
+    "verse_id": "mukta-m0-p73-v1816",
+    "song": "mukta-m0-p73",
+    "verse": 1816,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "Which śaktis with declared characteristics must be worshipped?",
+    "premises": [
+     "The śaktis should be worshipped",
+     "They include Rāmā and others",
+     "Their characteristics have been declared"
+    ],
+    "inference": "One should worship the śaktis beginning with Rāmā, whose characteristics have been declared.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p73-v1816",
+     "l0_ids": [
+      "mukta-m0-p73-v1816-p000",
+      "mukta-m0-p73-v1816-p001",
+      "mukta-m0-p73-v1816-p002",
+      "mukta-m0-p73-v1816-p003",
+      "mukta-m0-p73-v1816-p004",
+      "mukta-m0-p73-v1816-p005"
+     ],
+     "sanskrit_sha": "c18f36e07f6bacc2"
+    },
+    "sanskrit_sha": "c18f36e07f6bacc2"
+   },
+   "mukta-m0-p73-v1817": {
+    "verse_id": "mukta-m0-p73-v1817",
+    "song": "mukta-m0-p73",
+    "verse": 1817,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "Where should the lords of the pedestal be worshipped?",
+    "premises": [
+     "The lords of the pedestal are to be worshipped",
+     "Worship occurs outside",
+     "Worship also occurs in front"
+    ],
+    "inference": "The lords of the pedestal should be worshipped outside and in front.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p73-v1817",
+     "l0_ids": [
+      "mukta-m0-p73-v1817-p000",
+      "mukta-m0-p73-v1817-p001",
+      "mukta-m0-p73-v1817-p002",
+      "mukta-m0-p73-v1817-p003",
+      "mukta-m0-p73-v1817-p004",
+      "mukta-m0-p73-v1817-p005",
+      "mukta-m0-p73-v1817-p006",
+      "mukta-m0-p73-v1817-p007"
+     ],
+     "sanskrit_sha": "c18f36e07f6bacc2"
+    },
+    "sanskrit_sha": "c18f36e07f6bacc2"
+   },
+   "mukta-m0-p73-v1818": {
+    "verse_id": "mukta-m0-p73-v1818",
+    "song": "mukta-m0-p73",
+    "verse": 1818,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "In what sequence should Nandīśa, Mukuṭa, and the directional guardians be worshipped?",
+    "premises": [
+     "Nandīśa and Mukuṭa are to be worshipped",
+     "The guardians of the directions are to be worshipped",
+     "Worship must follow proper order"
+    ],
+    "inference": "Nandīśa, Mukuṭa, and the directional guardians should be worshipped in order.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p73-v1818",
+     "l0_ids": [
+      "mukta-m0-p73-v1818-p000",
+      "mukta-m0-p73-v1818-p001",
+      "mukta-m0-p73-v1818-p002",
+      "mukta-m0-p73-v1818-p003",
+      "mukta-m0-p73-v1818-p004",
+      "mukta-m0-p73-v1818-p005",
+      "mukta-m0-p73-v1818-p006"
+     ],
+     "sanskrit_sha": "c18f36e07f6bacc2"
+    },
+    "sanskrit_sha": "c18f36e07f6bacc2"
+   },
+   "mukta-m0-p73-v1819": {
+    "verse_id": "mukta-m0-p73-v1819",
+    "song": "mukta-m0-p73",
+    "verse": 1819,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What must be recited after bowing to the supreme lord?",
+    "premises": [
+     "One bows to the supreme lord",
+     "A hymn is specified",
+     "The hymn should be recited"
+    ],
+    "inference": "After bowing to the supreme lord, one should recite this hymn.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p73-v1819",
+     "l0_ids": [
+      "mukta-m0-p73-v1819-p000",
+      "mukta-m0-p73-v1819-p001",
+      "mukta-m0-p73-v1819-p002",
+      "mukta-m0-p73-v1819-p003",
+      "mukta-m0-p73-v1819-p004"
+     ],
+     "sanskrit_sha": "c18f36e07f6bacc2"
+    },
+    "sanskrit_sha": "c18f36e07f6bacc2"
+   },
+   "mukta-m0-p73-v1820": {
+    "verse_id": "mukta-m0-p73-v1820",
+    "song": "mukta-m0-p73",
+    "verse": 1820,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "Which golden attributes of the deity are honored in this salutation?",
+    "premises": [
+     "The deity has a golden crest",
+     "The deity is lord of gold",
+     "Obeisance is offered to him"
+    ],
+    "inference": "Obeisance is offered to the deity characterized by a golden crest and lordship over gold.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p73-v1820",
+     "l0_ids": [
+      "mukta-m0-p73-v1820-p000",
+      "mukta-m0-p73-v1820-p001",
+      "mukta-m0-p73-v1820-p002"
+     ],
+     "sanskrit_sha": "c18f36e07f6bacc2"
+    },
+    "sanskrit_sha": "c18f36e07f6bacc2"
+   },
+   "mukta-m0-p73-v1821": {
+    "verse_id": "mukta-m0-p73-v1821",
+    "song": "mukta-m0-p73",
+    "verse": 1821,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What radiant qualities of the deity are praised in this salutation?",
+    "premises": [
+     "The deity has the color of the young sun",
+     "The deity bears a blazing form",
+     "Obeisance is offered to him"
+    ],
+    "inference": "Obeisance is offered to the deity who is radiant like the young sun and bears a blazing form.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p73-v1821",
+     "l0_ids": [
+      "mukta-m0-p73-v1821-p000",
+      "mukta-m0-p73-v1821-p001",
+      "mukta-m0-p73-v1821-p002",
+      "mukta-m0-p73-v1821-p003"
+     ],
+     "sanskrit_sha": "c18f36e07f6bacc2"
+    },
+    "sanskrit_sha": "c18f36e07f6bacc2"
+   },
+   "mukta-m0-p73-v1822": {
+    "verse_id": "mukta-m0-p73-v1822",
+    "song": "mukta-m0-p73",
+    "verse": 1822,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What contrasting aspects of the deity’s hair are honored in this salutation?",
+    "premises": [
+     "One epithet describes hair removed from the body",
+     "Another epithet describes loosened hair",
+     "Obeisance is offered to him"
+    ],
+    "inference": "Obeisance is offered to the deity described with both removed and loosened hair.",
+    "uncertainties": [
+     "The precise sense of bhavāṅgojjhitakeśāya is uncertain."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p73-v1822",
+     "l0_ids": [
+      "mukta-m0-p73-v1822-p000",
+      "mukta-m0-p73-v1822-p001",
+      "mukta-m0-p73-v1822-p002",
+      "mukta-m0-p73-v1822-p003"
+     ],
+     "sanskrit_sha": "c18f36e07f6bacc2"
+    },
+    "sanskrit_sha": "c18f36e07f6bacc2"
+   },
+   "mukta-m0-p73-v1823": {
+    "verse_id": "mukta-m0-p73-v1823",
+    "song": "mukta-m0-p73",
+    "verse": 1823,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "How does the deity promote actions according to social and ritual order?",
+    "premises": [
+     "Actions are performed by class and stage of life",
+     "They are performed according to rule",
+     "The deity promotes these actions separately"
+    ],
+    "inference": "The deity promotes actions performed separately according to rule by each class and stage of life.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p73-v1823",
+     "l0_ids": [
+      "mukta-m0-p73-v1823-p000",
+      "mukta-m0-p73-v1823-p001",
+      "mukta-m0-p73-v1823-p002",
+      "mukta-m0-p73-v1823-p003"
+     ],
+     "sanskrit_sha": "c18f36e07f6bacc2"
+    },
+    "sanskrit_sha": "c18f36e07f6bacc2"
+   },
+   "mukta-m0-p73-v1824": {
+    "verse_id": "mukta-m0-p73-v1824",
+    "song": "mukta-m0-p73",
+    "verse": 1824,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What distinctive features of the deity’s eyes and face are honored in this salutation?",
+    "premises": [
+     "The deity has white and tawny eyes",
+     "The deity has a black face and eyes",
+     "Obeisance is offered to him"
+    ],
+    "inference": "Obeisance is offered to the deity distinguished by white-tawny eyes and a black face and eyes.",
+    "uncertainties": [
+     "The exact sense of kṛṣṇavaktrekṣaṇāya is ambiguous."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p73-v1824",
+     "l0_ids": [
+      "mukta-m0-p73-v1824-p000",
+      "mukta-m0-p73-v1824-p001",
+      "mukta-m0-p73-v1824-p002"
+     ],
+     "sanskrit_sha": "c18f36e07f6bacc2"
+    },
+    "sanskrit_sha": "c18f36e07f6bacc2"
+   },
+   "mukta-m0-p73-v1825": {
+    "verse_id": "mukta-m0-p73-v1825",
+    "song": "mukta-m0-p73",
+    "verse": 1825,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "Which specific attributes of the deity warrant repeated obeisance in this invocation?",
+    "premises": [
+     "Obeisance is expressed twice in this verse.",
+     "The recipient is characterized as holding a trident.",
+     "The recipient is identified as the beloved of Umā."
+    ],
+    "inference": "Repeated reverential salutation is directed to the trident-bearing beloved of Umā.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p73-v1825",
+     "l0_ids": [
+      "mukta-m0-p73-v1825-p000",
+      "mukta-m0-p73-v1825-p001",
+      "mukta-m0-p73-v1825-p002",
+      "mukta-m0-p73-v1825-p003",
+      "mukta-m0-p73-v1825-p004"
+     ],
+     "sanskrit_sha": "c18f36e07f6bacc2"
+    },
+    "sanskrit_sha": "c18f36e07f6bacc2"
+   }
+  },
+  "l2": {
+   "mukta-m0-p73-v1801": {
+    "verse_id": "mukta-m0-p73-v1801",
+    "song": "mukta-m0-p73",
+    "verse": 1801,
+    "plain_english": "He should be worshipped with effort and praised with various hymns.",
+    "sanskrit_cite": "pūjanīyaṃ prayatnena stotavyaṃ vividhaiḥ stavaiḥ",
+    "l0_ids": [
+     "mukta-m0-p73-v1801-p000",
+     "mukta-m0-p73-v1801-p001",
+     "mukta-m0-p73-v1801-p002",
+     "mukta-m0-p73-v1801-p003",
+     "mukta-m0-p73-v1801-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p73-v1802": {
+    "verse_id": "mukta-m0-p73-v1802",
+    "song": "mukta-m0-p73",
+    "verse": 1802,
+    "plain_english": "O fair one, having bathed there, one removes the sin of killing a brahman.",
+    "sanskrit_cite": "tasmin snāto varārohe brahmahatyāṃ vyapohati",
+    "l0_ids": [
+     "mukta-m0-p73-v1802-p000",
+     "mukta-m0-p73-v1802-p001",
+     "mukta-m0-p73-v1802-p002",
+     "mukta-m0-p73-v1802-p003",
+     "mukta-m0-p73-v1802-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p73-v1803": {
+    "verse_id": "mukta-m0-p73-v1803",
+    "song": "mukta-m0-p73",
+    "verse": 1803,
+    "plain_english": "O Śivā, five bows to the north of that place is the site indeed named Kapilā.",
+    "sanskrit_cite": "tasyottare dhanuḥ pañca kapilā nāma vai śive",
+    "l0_ids": [
+     "mukta-m0-p73-v1803-p000",
+     "mukta-m0-p73-v1803-p001",
+     "mukta-m0-p73-v1803-p002",
+     "mukta-m0-p73-v1803-p003",
+     "mukta-m0-p73-v1803-p004",
+     "mukta-m0-p73-v1803-p005",
+     "mukta-m0-p73-v1803-p006",
+     "mukta-m0-p73-v1803-p007"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p73-v1804": {
+    "verse_id": "mukta-m0-p73-v1804",
+    "song": "mukta-m0-p73",
+    "verse": 1804,
+    "plain_english": "Having bathed at this Kapilāhnadatīrtha with a restrained mind.",
+    "sanskrit_cite": "kapilāhnadatīrthe'smin snātvā saṃyatamānasaḥ",
+    "l0_ids": [
+     "mukta-m0-p73-v1804-p000",
+     "mukta-m0-p73-v1804-p001",
+     "mukta-m0-p73-v1804-p002",
+     "mukta-m0-p73-v1804-p003"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p73-v1805": {
+    "verse_id": "mukta-m0-p73-v1805",
+    "song": "mukta-m0-p73",
+    "verse": 1805,
+    "plain_english": "Facing east, one should indeed ascend Bhasmakūṭaka.",
+    "sanskrit_cite": "pūrvāśābhimukhenaiva ārohedbhasmakūṭakam",
+    "l0_ids": [
+     "mukta-m0-p73-v1805-p000",
+     "mukta-m0-p73-v1805-p001",
+     "mukta-m0-p73-v1805-p002",
+     "mukta-m0-p73-v1805-p003"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p73-v1806": {
+    "verse_id": "mukta-m0-p73-v1806",
+    "song": "mukta-m0-p73",
+    "verse": 1806,
+    "plain_english": "I ascend the peak Bhasmakūṭa; obeisance be to you.",
+    "sanskrit_cite": "ārohayāmi śikharaṃ bhasmakūṭaṃ namo'stu te",
+    "l0_ids": [
+     "mukta-m0-p73-v1806-p000",
+     "mukta-m0-p73-v1806-p001",
+     "mukta-m0-p73-v1806-p002",
+     "mukta-m0-p73-v1806-p003",
+     "mukta-m0-p73-v1806-p004",
+     "mukta-m0-p73-v1806-p005"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p73-v1807": {
+    "verse_id": "mukta-m0-p73-v1807",
+    "song": "mukta-m0-p73",
+    "verse": 1807,
+    "plain_english": "Merit accumulated over ten births perishes in that very moment.",
+    "sanskrit_cite": "daśajanmakṛtaṃ puṇyaṃ tatkṣaṇādeva naśyati",
+    "l0_ids": [
+     "mukta-m0-p73-v1807-p000",
+     "mukta-m0-p73-v1807-p001",
+     "mukta-m0-p73-v1807-p002",
+     "mukta-m0-p73-v1807-p003",
+     "mukta-m0-p73-v1807-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p73-v1808": {
+    "verse_id": "mukta-m0-p73-v1808",
+    "song": "mukta-m0-p73",
+    "verse": 1808,
+    "plain_english": "Wealth, son, wife, and everything perishes in that very moment.",
+    "sanskrit_cite": "dhanaṃ putraṃ kalatrañca sarvaṃ naśyati tatkṣaṇāt",
+    "l0_ids": [
+     "mukta-m0-p73-v1808-p000",
+     "mukta-m0-p73-v1808-p001",
+     "mukta-m0-p73-v1808-p002",
+     "mukta-m0-p73-v1808-p003",
+     "mukta-m0-p73-v1808-p004",
+     "mukta-m0-p73-v1808-p005",
+     "mukta-m0-p73-v1808-p006"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p73-v1809": {
+    "verse_id": "mukta-m0-p73-v1809",
+    "song": "mukta-m0-p73",
+    "verse": 1809,
+    "plain_english": "O goddess, O fair-faced one, hear the greatness of the bull-bannered one.",
+    "sanskrit_cite": "vṛṣadhvajasya māhātmyaṃ śṛṇu devi varānane",
+    "l0_ids": [
+     "mukta-m0-p73-v1809-p000",
+     "mukta-m0-p73-v1809-p001",
+     "mukta-m0-p73-v1809-p002",
+     "mukta-m0-p73-v1809-p003",
+     "mukta-m0-p73-v1809-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p73-v1810": {
+    "verse_id": "mukta-m0-p73-v1810",
+    "song": "mukta-m0-p73",
+    "verse": 1810,
+    "plain_english": "Then, having gone to Bhasma mountain and having worshipped the god with effort.",
+    "sanskrit_cite": "tadā bhasmācalaṃ gatvā devamabhyarcya yatnataḥ",
+    "l0_ids": [
+     "mukta-m0-p73-v1810-p000",
+     "mukta-m0-p73-v1810-p001",
+     "mukta-m0-p73-v1810-p002",
+     "mukta-m0-p73-v1810-p003",
+     "mukta-m0-p73-v1810-p004",
+     "mukta-m0-p73-v1810-p005"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p73-v1811": {
+    "verse_id": "mukta-m0-p73-v1811",
+    "song": "mukta-m0-p73",
+    "verse": 1811,
+    "plain_english": "One should bathe the liṅga with fragrances and other substances and with very charming lotuses.",
+    "sanskrit_cite": "gandhādyaiḥ snāpayelliṅgaṃ kamalaiḥ sumanoharaiḥ",
+    "l0_ids": [
+     "mukta-m0-p73-v1811-p000",
+     "mukta-m0-p73-v1811-p001",
+     "mukta-m0-p73-v1811-p002",
+     "mukta-m0-p73-v1811-p003",
+     "mukta-m0-p73-v1811-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p73-v1812": {
+    "verse_id": "mukta-m0-p73-v1812",
+    "song": "mukta-m0-p73",
+    "verse": 1812,
+    "plain_english": "Then one should perform worship for the great-souled one at the end of the month and on every festival.",
+    "sanskrit_cite": "mahātmānaṃ tataḥ kuryānmāsānte pratiparvaṇi",
+    "l0_ids": [
+     "mukta-m0-p73-v1812-p000",
+     "mukta-m0-p73-v1812-p001",
+     "mukta-m0-p73-v1812-p002",
+     "mukta-m0-p73-v1812-p003",
+     "mukta-m0-p73-v1812-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p73-v1813": {
+    "verse_id": "mukta-m0-p73-v1813",
+    "song": "mukta-m0-p73",
+    "verse": 1813,
+    "plain_english": "One should indeed worship with prasāda, with mantra, and with the rudra flower.",
+    "sanskrit_cite": "prasādena tu mantreṇa rudrapuṣpeṇa pūjayet",
+    "l0_ids": [
+     "mukta-m0-p73-v1813-p000",
+     "mukta-m0-p73-v1813-p001",
+     "mukta-m0-p73-v1813-p002",
+     "mukta-m0-p73-v1813-p003",
+     "mukta-m0-p73-v1813-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p73-v1814": {
+    "verse_id": "mukta-m0-p73-v1814",
+    "song": "mukta-m0-p73",
+    "verse": 1814,
+    "plain_english": "O god of gods, who are the four...",
+    "sanskrit_cite": "yaścaturo devadevaḥ",
+    "l0_ids": [
+     "mukta-m0-p73-v1814-p000",
+     "mukta-m0-p73-v1814-p001",
+     "mukta-m0-p73-v1814-p002"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p73-v1815": {
+    "verse_id": "mukta-m0-p73-v1815",
+    "song": "mukta-m0-p73",
+    "verse": 1815,
+    "plain_english": "Abode, dharma, likewise the subtle, Viṣṇu, Nārāyaṇa, and Hara.",
+    "sanskrit_cite": "dhāma dharmaṃ tathā sūkṣmaṃ viṣṇuṃ nārāyaṇaṃ haram",
+    "l0_ids": [
+     "mukta-m0-p73-v1815-p000",
+     "mukta-m0-p73-v1815-p001",
+     "mukta-m0-p73-v1815-p002",
+     "mukta-m0-p73-v1815-p003",
+     "mukta-m0-p73-v1815-p004",
+     "mukta-m0-p73-v1815-p005",
+     "mukta-m0-p73-v1815-p006"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p73-v1816": {
+    "verse_id": "mukta-m0-p73-v1816",
+    "song": "mukta-m0-p73",
+    "verse": 1816,
+    "plain_english": "One should indeed worship the śaktis, beginning with Rāmā, whose characteristics have been declared.",
+    "sanskrit_cite": "śaktīḥ sampūjayeccaiva rāmādyāḥ proktalakṣaṇāḥ",
+    "l0_ids": [
+     "mukta-m0-p73-v1816-p000",
+     "mukta-m0-p73-v1816-p001",
+     "mukta-m0-p73-v1816-p002",
+     "mukta-m0-p73-v1816-p003",
+     "mukta-m0-p73-v1816-p004",
+     "mukta-m0-p73-v1816-p005"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p73-v1817": {
+    "verse_id": "mukta-m0-p73-v1817",
+    "song": "mukta-m0-p73",
+    "verse": 1817,
+    "plain_english": "One should likewise worship the lords of the pedestal outside and in front.",
+    "sanskrit_cite": "pīṭheśāṃśca tathā bāhye pīṭheśāṃścāgrato'rcayet",
+    "l0_ids": [
+     "mukta-m0-p73-v1817-p000",
+     "mukta-m0-p73-v1817-p001",
+     "mukta-m0-p73-v1817-p002",
+     "mukta-m0-p73-v1817-p003",
+     "mukta-m0-p73-v1817-p004",
+     "mukta-m0-p73-v1817-p005",
+     "mukta-m0-p73-v1817-p006",
+     "mukta-m0-p73-v1817-p007"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p73-v1818": {
+    "verse_id": "mukta-m0-p73-v1818",
+    "song": "mukta-m0-p73",
+    "verse": 1818,
+    "plain_english": "One should worship Nandīśa, Mukuṭa, and the guardians of the directions in due order.",
+    "sanskrit_cite": "nandīśaṃ mukuṭañcaiva dikpālān pūjayet kramāt",
+    "l0_ids": [
+     "mukta-m0-p73-v1818-p000",
+     "mukta-m0-p73-v1818-p001",
+     "mukta-m0-p73-v1818-p002",
+     "mukta-m0-p73-v1818-p003",
+     "mukta-m0-p73-v1818-p004",
+     "mukta-m0-p73-v1818-p005",
+     "mukta-m0-p73-v1818-p006"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p73-v1819": {
+    "verse_id": "mukta-m0-p73-v1819",
+    "song": "mukta-m0-p73",
+    "verse": 1819,
+    "plain_english": "Having bowed to the supreme lord, one should recite this hymn.",
+    "sanskrit_cite": "praṇamya parameśānam idaṃ stotramudāharet",
+    "l0_ids": [
+     "mukta-m0-p73-v1819-p000",
+     "mukta-m0-p73-v1819-p001",
+     "mukta-m0-p73-v1819-p002",
+     "mukta-m0-p73-v1819-p003",
+     "mukta-m0-p73-v1819-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p73-v1820": {
+    "verse_id": "mukta-m0-p73-v1820",
+    "song": "mukta-m0-p73",
+    "verse": 1820,
+    "plain_english": "Obeisance to him with the golden crest, to the lord of gold.",
+    "sanskrit_cite": "hiraṇyakṝtacūḍāya hiraṇyapataye namaḥ",
+    "l0_ids": [
+     "mukta-m0-p73-v1820-p000",
+     "mukta-m0-p73-v1820-p001",
+     "mukta-m0-p73-v1820-p002"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p73-v1821": {
+    "verse_id": "mukta-m0-p73-v1821",
+    "song": "mukta-m0-p73",
+    "verse": 1821,
+    "plain_english": "Obeisance to him of the color of the young sun, and to him bearing a blazing form.",
+    "sanskrit_cite": "namo bālārkavarṇāya jvaladrūpadharāya ca",
+    "l0_ids": [
+     "mukta-m0-p73-v1821-p000",
+     "mukta-m0-p73-v1821-p001",
+     "mukta-m0-p73-v1821-p002",
+     "mukta-m0-p73-v1821-p003"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p73-v1822": {
+    "verse_id": "mukta-m0-p73-v1822",
+    "song": "mukta-m0-p73",
+    "verse": 1822,
+    "plain_english": "Obeisance indeed to him with hair removed from the body, and to him with loosened hair.",
+    "sanskrit_cite": "bhavāṅgojjhitakeśāya muktakeśāya vai namaḥ",
+    "l0_ids": [
+     "mukta-m0-p73-v1822-p000",
+     "mukta-m0-p73-v1822-p001",
+     "mukta-m0-p73-v1822-p002",
+     "mukta-m0-p73-v1822-p003"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p73-v1823": {
+    "verse_id": "mukta-m0-p73-v1823",
+    "song": "mukta-m0-p73",
+    "verse": 1823,
+    "plain_english": "Obeisance to the promoter of actions performed separately according to rule by class and stage of life.",
+    "sanskrit_cite": "varṇāśrameṇa vidhivat pṛthak karmapravartine",
+    "l0_ids": [
+     "mukta-m0-p73-v1823-p000",
+     "mukta-m0-p73-v1823-p001",
+     "mukta-m0-p73-v1823-p002",
+     "mukta-m0-p73-v1823-p003"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p73-v1824": {
+    "verse_id": "mukta-m0-p73-v1824",
+    "song": "mukta-m0-p73",
+    "verse": 1824,
+    "plain_english": "And obeisance to him with white and tawny eyes, and to him with black face and eyes.",
+    "sanskrit_cite": "śvetapiṅgalanetrāya kṛṣṇavaktrekṣaṇāya ca",
+    "l0_ids": [
+     "mukta-m0-p73-v1824-p000",
+     "mukta-m0-p73-v1824-p001",
+     "mukta-m0-p73-v1824-p002"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p73-v1825": {
+    "verse_id": "mukta-m0-p73-v1825",
+    "song": "mukta-m0-p73",
+    "verse": 1825,
+    "plain_english": "Obeisance, indeed obeisance, to the trident-handed beloved of Umā.",
+    "sanskrit_cite": "namastriśūlahastāya umākāntāya vai namaḥ",
+    "l0_ids": [
+     "mukta-m0-p73-v1825-p000",
+     "mukta-m0-p73-v1825-p001",
+     "mukta-m0-p73-v1825-p002",
+     "mukta-m0-p73-v1825-p003",
+     "mukta-m0-p73-v1825-p004"
+    ],
+    "supplied": []
+   }
+  },
+  "c1": {
+   "mukta-m0-p73": {
+    "song": "mukta-m0-p73",
+    "essence": [
+     "Devotees must worship and praise the deity diligently with diverse hymns.",
+     "Bathing in that place removes the sin of brahman-murder.",
+     "Five bows to the north of that place lies the site named Kapilā.",
+     "Bathing at Kapilāhnadatīrtha requires a restrained mind.",
+     "One must ascend Bhasmakūṭaka while facing east."
+    ],
+    "essence_source": "derived from argmap inferences (machine-proposed; assessor review outstanding)",
+    "rasa": {},
+    "essence_only": true,
+    "renders": {}
+   }
+  },
+  "l3": {},
+  "l4": {},
+  "c2": {}
+ },
+ "source_verses": {
+  "mukta-m0-p73-v1801": {
+   "text": "pūjanīyaṃ prayatnena stotavyaṃ vividhaiḥ stavaiḥ",
+   "source_file": "translation-work/mukta-m00064/source/edition.txt",
+   "source_sha256": "31d649757d3ddafb5c0bff10e4f5cda866451279b333e3cac853e31541c9b58d",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p73-v1802": {
+   "text": "tasmin snāto varārohe brahmahatyāṃ vyapohati",
+   "source_file": "translation-work/mukta-m00064/source/edition.txt",
+   "source_sha256": "31d649757d3ddafb5c0bff10e4f5cda866451279b333e3cac853e31541c9b58d",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p73-v1803": {
+   "text": "tasyottare dhanuḥ pañca kapilā nāma vai śive",
+   "source_file": "translation-work/mukta-m00064/source/edition.txt",
+   "source_sha256": "31d649757d3ddafb5c0bff10e4f5cda866451279b333e3cac853e31541c9b58d",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p73-v1804": {
+   "text": "kapilāhnadatīrthe'smin snātvā saṃyatamānasaḥ",
+   "source_file": "translation-work/mukta-m00064/source/edition.txt",
+   "source_sha256": "31d649757d3ddafb5c0bff10e4f5cda866451279b333e3cac853e31541c9b58d",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p73-v1805": {
+   "text": "pūrvāśābhimukhenaiva ārohedbhasmakūṭakam",
+   "source_file": "translation-work/mukta-m00064/source/edition.txt",
+   "source_sha256": "31d649757d3ddafb5c0bff10e4f5cda866451279b333e3cac853e31541c9b58d",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p73-v1806": {
+   "text": "ārohayāmi śikharaṃ bhasmakūṭaṃ namo'stu te",
+   "source_file": "translation-work/mukta-m00064/source/edition.txt",
+   "source_sha256": "31d649757d3ddafb5c0bff10e4f5cda866451279b333e3cac853e31541c9b58d",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p73-v1807": {
+   "text": "daśajanmakṛtaṃ puṇyaṃ tatkṣaṇādeva naśyati",
+   "source_file": "translation-work/mukta-m00064/source/edition.txt",
+   "source_sha256": "31d649757d3ddafb5c0bff10e4f5cda866451279b333e3cac853e31541c9b58d",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p73-v1808": {
+   "text": "dhanaṃ putraṃ kalatrañca sarvaṃ naśyati tatkṣaṇāt",
+   "source_file": "translation-work/mukta-m00064/source/edition.txt",
+   "source_sha256": "31d649757d3ddafb5c0bff10e4f5cda866451279b333e3cac853e31541c9b58d",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p73-v1809": {
+   "text": "vṛṣadhvajasya māhātmyaṃ śṛṇu devi varānane",
+   "source_file": "translation-work/mukta-m00064/source/edition.txt",
+   "source_sha256": "31d649757d3ddafb5c0bff10e4f5cda866451279b333e3cac853e31541c9b58d",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p73-v1810": {
+   "text": "tadā bhasmācalaṃ gatvā devamabhyarcya yatnataḥ",
+   "source_file": "translation-work/mukta-m00064/source/edition.txt",
+   "source_sha256": "31d649757d3ddafb5c0bff10e4f5cda866451279b333e3cac853e31541c9b58d",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p73-v1811": {
+   "text": "gandhādyaiḥ snāpayelliṅgaṃ kamalaiḥ sumanoharaiḥ",
+   "source_file": "translation-work/mukta-m00064/source/edition.txt",
+   "source_sha256": "31d649757d3ddafb5c0bff10e4f5cda866451279b333e3cac853e31541c9b58d",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p73-v1812": {
+   "text": "mahātmānaṃ tataḥ kuryānmāsānte pratiparvaṇi",
+   "source_file": "translation-work/mukta-m00064/source/edition.txt",
+   "source_sha256": "31d649757d3ddafb5c0bff10e4f5cda866451279b333e3cac853e31541c9b58d",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p73-v1813": {
+   "text": "prasādena tu mantreṇa rudrapuṣpeṇa pūjayet",
+   "source_file": "translation-work/mukta-m00064/source/edition.txt",
+   "source_sha256": "31d649757d3ddafb5c0bff10e4f5cda866451279b333e3cac853e31541c9b58d",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p73-v1814": {
+   "text": "yaścaturo devadevaḥ",
+   "source_file": "translation-work/mukta-m00064/source/edition.txt",
+   "source_sha256": "31d649757d3ddafb5c0bff10e4f5cda866451279b333e3cac853e31541c9b58d",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p73-v1815": {
+   "text": "dhāma dharmaṃ tathā sūkṣmaṃ viṣṇuṃ nārāyaṇaṃ haram",
+   "source_file": "translation-work/mukta-m00064/source/edition.txt",
+   "source_sha256": "31d649757d3ddafb5c0bff10e4f5cda866451279b333e3cac853e31541c9b58d",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p73-v1816": {
+   "text": "śaktīḥ sampūjayeccaiva rāmādyāḥ proktalakṣaṇāḥ",
+   "source_file": "translation-work/mukta-m00064/source/edition.txt",
+   "source_sha256": "31d649757d3ddafb5c0bff10e4f5cda866451279b333e3cac853e31541c9b58d",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p73-v1817": {
+   "text": "pīṭheśāṃśca tathā bāhye pīṭheśāṃścāgrato'rcayet",
+   "source_file": "translation-work/mukta-m00064/source/edition.txt",
+   "source_sha256": "31d649757d3ddafb5c0bff10e4f5cda866451279b333e3cac853e31541c9b58d",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p73-v1818": {
+   "text": "nandīśaṃ mukuṭañcaiva dikpālān pūjayet kramāt",
+   "source_file": "translation-work/mukta-m00064/source/edition.txt",
+   "source_sha256": "31d649757d3ddafb5c0bff10e4f5cda866451279b333e3cac853e31541c9b58d",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p73-v1819": {
+   "text": "praṇamya parameśānam idaṃ stotramudāharet",
+   "source_file": "translation-work/mukta-m00064/source/edition.txt",
+   "source_sha256": "31d649757d3ddafb5c0bff10e4f5cda866451279b333e3cac853e31541c9b58d",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p73-v1820": {
+   "text": "hiraṇyakṝtacūḍāya hiraṇyapataye namaḥ",
+   "source_file": "translation-work/mukta-m00064/source/edition.txt",
+   "source_sha256": "31d649757d3ddafb5c0bff10e4f5cda866451279b333e3cac853e31541c9b58d",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p73-v1821": {
+   "text": "namo bālārkavarṇāya jvaladrūpadharāya ca",
+   "source_file": "translation-work/mukta-m00064/source/edition.txt",
+   "source_sha256": "31d649757d3ddafb5c0bff10e4f5cda866451279b333e3cac853e31541c9b58d",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p73-v1822": {
+   "text": "bhavāṅgojjhitakeśāya muktakeśāya vai namaḥ",
+   "source_file": "translation-work/mukta-m00064/source/edition.txt",
+   "source_sha256": "31d649757d3ddafb5c0bff10e4f5cda866451279b333e3cac853e31541c9b58d",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p73-v1823": {
+   "text": "varṇāśrameṇa vidhivat pṛthak karmapravartine",
+   "source_file": "translation-work/mukta-m00064/source/edition.txt",
+   "source_sha256": "31d649757d3ddafb5c0bff10e4f5cda866451279b333e3cac853e31541c9b58d",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p73-v1824": {
+   "text": "śvetapiṅgalanetrāya kṛṣṇavaktrekṣaṇāya ca",
+   "source_file": "translation-work/mukta-m00064/source/edition.txt",
+   "source_sha256": "31d649757d3ddafb5c0bff10e4f5cda866451279b333e3cac853e31541c9b58d",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p73-v1825": {
+   "text": "namastriśūlahastāya umākāntāya vai namaḥ",
+   "source_file": "translation-work/mukta-m00064/source/edition.txt",
+   "source_sha256": "31d649757d3ddafb5c0bff10e4f5cda866451279b333e3cac853e31541c9b58d",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  }
+ },
+ "l4_craft": {},
+ "withheld_songs": [
+  "mukta-m0-p117",
+  "mukta-m0-p31",
+  "mukta-m0-p89"
+ ],
+ "original_hashes": {
+  "t1": {
+   "mukta-m0-p73-v1801": "ef6a4054225c67648046072ac1abc9d2535674e9f9010ee4c3d2061336df9093",
+   "mukta-m0-p73-v1802": "e3afd70d0197b1c272c67e17372f6f8cecda88beb4e3b8cac4da40fbf9c9c54f",
+   "mukta-m0-p73-v1803": "fd2522d3607a58250ae3f8328546fd6bc551b38b966825b5852b6c042d0e7fe6",
+   "mukta-m0-p73-v1804": "49bfb4786209675f626c62cd0c19e9d88441730abc5071ba5316661085330440",
+   "mukta-m0-p73-v1805": "5d4a8f24a098553e0dc9c94ae3683aa96e27a6891db91bc924e6f867d5b9e189",
+   "mukta-m0-p73-v1806": "d33dc48edaedf26b5f0b02b80656ac02bc92019cd0a2efef89094aabbc7a18bc",
+   "mukta-m0-p73-v1807": "81536b1bb5c3285531318f51cd1f56976c73a1f2c35d385a785fbfd741c05f8f",
+   "mukta-m0-p73-v1808": "a82ead023d68247efa6f45d8e4afa7e7bc1717eacb734910f5f8cf286eb0b4c1",
+   "mukta-m0-p73-v1809": "06cfae773c7ab4afb427c17e523e9ec559ec8901228a6687f29af6f8512c5d51",
+   "mukta-m0-p73-v1810": "29cbb7816f61722921070997ea7622c94473ded1ca6c7ffa475e86466630c3c7",
+   "mukta-m0-p73-v1811": "f6bbcac09de38d2b9df016c82b909c88a33341a8b1fa457273928e6ec9543ea8",
+   "mukta-m0-p73-v1812": "bc5ca61987de80e531bdf10ab9318f2f01c1abf645d3bbb03f1f90a14effff6a",
+   "mukta-m0-p73-v1813": "afbea2b17e1b730a4831fe317e17f4b3b8ff0a0af90aab6c87d93aa6d94918c1",
+   "mukta-m0-p73-v1814": "6430463cd8e64f964762b56c17d4b7ba3157a2725aca486c1ceac6ed76900da7",
+   "mukta-m0-p73-v1815": "898f7d86f5d34b537e4e19538a2c911855b8bd3f6c7c991fc8a809e6d15e6470",
+   "mukta-m0-p73-v1816": "9efef74fe04dce46f4a588be0a453eb8e1bb7617a480bd99d2d906b19fc1ae2e",
+   "mukta-m0-p73-v1817": "3f84eab3ee4267fae5f67030fdc7be573096eed389c344f3a795c637e4d345f0",
+   "mukta-m0-p73-v1818": "c91461531a269e4f6cf91f9b5bd847c71eef468553d2457841606b5b298fb88b",
+   "mukta-m0-p73-v1819": "f6afec8bdc6ba569022ecbd172b327dd640792dd6e0f8023baaa892df9fb449b",
+   "mukta-m0-p73-v1820": "0aab46ce0d3647b80dad8cfaadaee4adab0b2d0f8756a1c829fc46ba8080fb05",
+   "mukta-m0-p73-v1821": "ac44fbda3a58524c7d5cba2eb411568ad4794c79ef8921e3a42055ba273d29e8",
+   "mukta-m0-p73-v1822": "96cc8c61e9037b604027ac299d553c86099e1987dff89adaa9a06286d4f823ea",
+   "mukta-m0-p73-v1823": "3159d13912e012c2edddf17830c04bf1d73cb4d89dd0e3ce6a42d8addadd8084",
+   "mukta-m0-p73-v1824": "e7b65eb3653b75670df44cc43b92cb7289001a40d7eb06b1bf0ab128708b8203",
+   "mukta-m0-p73-v1825": "90eca606b04e3763da4d5d0f2b2c2c72afa540823565f4c9f8a5ac0b8b155240"
+  },
+  "l0": {
+   "mukta-m0-p73-v1801": "13d7df4ba7855e3fde0de691b2937ee46c074230fa402ac0a79f619809422361",
+   "mukta-m0-p73-v1802": "19bdb32631e37c5d4e06c4115183c7c8ee7977a9063405d3162f6be916817a00",
+   "mukta-m0-p73-v1803": "75738ba66a290ff38a2a572f6bbf80d6eb9f00202f2d67a55a1ac87253fb9283",
+   "mukta-m0-p73-v1804": "8fd23e70a99a9ed5573a75433096207e45be74bd73b62292518b9c270a95ed5a",
+   "mukta-m0-p73-v1805": "62be7da1d4a9459a9d870fb005a105e7327fc325558df7dc798f26c40cedc1fe",
+   "mukta-m0-p73-v1806": "87e7fe251b6f699f94d21d40a667d92cf010e885f3e9544dcf358f2ba769c011",
+   "mukta-m0-p73-v1807": "b312aa1d494cc0ee9195efa5a707c2c6c61be3286a6e2a86fb024df10c366257",
+   "mukta-m0-p73-v1808": "c78754aed76b83ed05d203e0fd8fbf2de7b8636dce7d09c5fc64225825f1a113",
+   "mukta-m0-p73-v1809": "0b58f1643ac7ce14e8bab090318b060c532c633aa672687a9ab69f3341b6bdf4",
+   "mukta-m0-p73-v1810": "401deb23c6d27a48470cd6e29c896dcef387b35cfc203c041cb475a64d1883fd",
+   "mukta-m0-p73-v1811": "bf06ae543b909aef360179eadcb0ff6582caea2a960c67118aaa962d9c23d83d",
+   "mukta-m0-p73-v1812": "902fba0ece0ce80ff1812d1304aa9a985a64d2edb04118e31239dfd21d11c842",
+   "mukta-m0-p73-v1813": "35480f7c84f6ec162fac725df247af462332391917b0e30805d1bace809e9934",
+   "mukta-m0-p73-v1814": "d57c573381f3b7c449cb76c620eafd38a933657acc09d75029eaf30acc32d65b",
+   "mukta-m0-p73-v1815": "56a8d23cbeeddaa3c8657aa40438d7b59bfbe937fefb2edb4a78de333d4165d5",
+   "mukta-m0-p73-v1816": "38b359de692f2e130f65d03b720b0c2528072b1134bc8d1a1c7a5f07d44ff828",
+   "mukta-m0-p73-v1817": "390a3c55b4ca02dd06e40faf023b90f274b7324a92496e7b7f5298fe45266ce0",
+   "mukta-m0-p73-v1818": "d334b7f7f04860088d308e8a6c9682456efe36b3a4b6e53b73aa1286dbe9b0e3",
+   "mukta-m0-p73-v1819": "7e39487fe5c510d7ccb146027594a3b980b434b444e050dfd8a69c201fe79488",
+   "mukta-m0-p73-v1820": "d09940e7830204b1ae2a764ee3777c95c39d6f50c5f88348790859703e3f8e93",
+   "mukta-m0-p73-v1821": "1034429e358e2dff7949df304192b627675408843637aa06ebf3282191bb37f2",
+   "mukta-m0-p73-v1822": "134b1dd5a28d645a4a63dc51e4d7c71355771948c7af0a4c0cddc88016478511",
+   "mukta-m0-p73-v1823": "3c1d6830b8c1d3812329a12df7b0ffbbd97b3286d65c0c6ecd0e85c014d9b1c8",
+   "mukta-m0-p73-v1824": "d2919245f96b1be6b65826ea21ac2fbd4ba609792ef7aa5d5196c2cfb13bc467",
+   "mukta-m0-p73-v1825": "4c127528a54b135a1ddac41a012d97f2dba4234e81af8323b583f24c1cbf9556"
+  },
+  "argmap": {
+   "mukta-m0-p73-v1801": "bd6936ded78851ae0b1cf672a7fbaeec58e7abdbe28093085e49ce27b27eeb16",
+   "mukta-m0-p73-v1802": "545b2e49b022bafa0a68c508ce01e458e4f8ac09c5c4e3f93c10fd074fed57f1",
+   "mukta-m0-p73-v1803": "9dbc7788d36b0be4e40630c747396c96bd0e0304fe7d525622193761d9d3e4db",
+   "mukta-m0-p73-v1804": "8a75f30bad45942fb9d656a2b8ef55e2e14b71335d4038eb2c021b6447e75da6",
+   "mukta-m0-p73-v1805": "41e35af651e5af56f6e7f091804cfea75eb076052a652d2f67b299570aa96941",
+   "mukta-m0-p73-v1806": "4fc458187bd5d3b253b99a04a6973ea8a49c5da23280e1887279baef1d68b2fb",
+   "mukta-m0-p73-v1807": "c24a5b7c108acaf2d5a0ef9af60fdf28bbe8be8cd099265edddef4ca7d6bba3e",
+   "mukta-m0-p73-v1808": "bdadee8d423b53102cd5ba2187cb74e1621e124cf4c58a8d088d2d2f26bb019e",
+   "mukta-m0-p73-v1809": "98cfbdc161ddab504fcac2e122cd160a146ac87fadb61cc00098a01ae69751a8",
+   "mukta-m0-p73-v1810": "d7a770a2e7e25ced23fbd334b4db5f6d0186978479cee65ba57e2b6ba0fa8725",
+   "mukta-m0-p73-v1811": "2bb3f1dc7219124631173eca85fc5584411e10213ad44ea481fa60d1090e0153",
+   "mukta-m0-p73-v1812": "03a71782c07298664a378025391e12252e55c6306e7fb8a2cf2f5f59e7bcd4f5",
+   "mukta-m0-p73-v1813": "3169a85fd0278c145ce136909bde96c5faa696cd32a4fb85bcbe9285369f5743",
+   "mukta-m0-p73-v1814": "064524d085b7d1104b45fa8de80b1676efa272d2d7227a47921548bc7310f6e3",
+   "mukta-m0-p73-v1815": "a996c5053f1b9b852d47c9e1f39034065bcaebea19ec4c84fa452117101a37fe",
+   "mukta-m0-p73-v1816": "edd18e3f358dfe472d1a6ca3e9ec8e64bb69d6f9c1f93408c089131c7b460919",
+   "mukta-m0-p73-v1817": "84ad67a252a8b8e79da4270ae51c2c6dca527ea3b89422f06ea285631a956b37",
+   "mukta-m0-p73-v1818": "fca0551cae3ff504f25812e33230acbc7a8507d91e349393b95cf88e3fc5a118",
+   "mukta-m0-p73-v1819": "5cc709a3c0851a7e3d9980ab150ff9d13769bba2b9209f3a1c4757cd3d072863",
+   "mukta-m0-p73-v1820": "a593aff21aaa29399ad3f324e881b1ec20a5bfd6e2f9d737d4c3b6c3dce13f57",
+   "mukta-m0-p73-v1821": "146ab6856916283ed635ed3af21d37c94ce7be578cb6247f8811ab48fcdd9cb0",
+   "mukta-m0-p73-v1822": "d258a5b4c90c2ae6351781201dd02d7b97787c38c8bc57f7743f61403e3a43b3",
+   "mukta-m0-p73-v1823": "8dc1f2c2d3756f9d085aa8f915921d8a4e069c9c4b7687d15048960c114fa6c7",
+   "mukta-m0-p73-v1824": "409e9daa7998e7f72edf4af43d1f64de63774fabcf783d2eb3461603bc5bc231",
+   "mukta-m0-p73-v1825": "667b0511ab739246047037067cd8eed2c18a371fdde2cb2e4ca17757bf4d2794"
+  },
+  "l2": {
+   "mukta-m0-p73-v1801": "94d4722f51833ec66f7c72c23637163699544cd63041bb41e4f4d3c963ddc594",
+   "mukta-m0-p73-v1802": "4f107a285d975525b3c10f65d4c723eb4569c5622fa793b0a67df9fe7e5ab2fe",
+   "mukta-m0-p73-v1803": "bfadf406b383ef79277f6bdbf9078b66e8d8ecf3dc7d053bffa87ca76b6ca127",
+   "mukta-m0-p73-v1804": "4f6bee4d8b1f8f50cfc068c4e245496168fc8643fa6ba9b42ccfe923f5aecbd2",
+   "mukta-m0-p73-v1805": "6d29f3e043458362a7f843ffa5edc3df07c096914167a0796e5b1aa3bd2e8458",
+   "mukta-m0-p73-v1806": "68642de3ea27018103b39adff8b3e615f8009ca17705ab12abcb1d583bb75a7b",
+   "mukta-m0-p73-v1807": "f5b8f1a30b3e6d2247e11fa575db60b22ad91113f22316445981220bc67b1d12",
+   "mukta-m0-p73-v1808": "77ae583a6da4e70461a7de429e3636e14c3de7f67958d308ba344baa6a6d470a",
+   "mukta-m0-p73-v1809": "1097d476c90d25bd0d6af2b915f7c5ae615bb438c55aa77f59e34d7ca017bf04",
+   "mukta-m0-p73-v1810": "82a5b4254dba28a0a59978b5eb2e6824bbf6dd77dee5d9822195bcbf0e5d6ed9",
+   "mukta-m0-p73-v1811": "a7eace1ba67df5415bccf8931886b3d72afcbdbe6b28d8555f0c76cf6cdf2743",
+   "mukta-m0-p73-v1812": "03eee2b650a103e6956d760129c97e4c8814dfdca5347a82030ca1eb3df13491",
+   "mukta-m0-p73-v1813": "6ffee97cb70cff79c15fd0cd245d50e51440f93aabc509f9bae6ba43e6bd813d",
+   "mukta-m0-p73-v1814": "dbf865bd978fc544420d8fd852c8e6368c7051d544c024391b5fe196935ee625",
+   "mukta-m0-p73-v1815": "ef2582e8a722d3cfd5fd9ae8e6e574b55d0ce67307b1880cc827b373d6f16f77",
+   "mukta-m0-p73-v1816": "eee4edac414c7e762f8c95c8c29e1b5796db2473efed073feb7c340bc2495899",
+   "mukta-m0-p73-v1817": "c11162c41f19df1fa172b65c734853356d4bbe358515305f6ec459a63ce7b239",
+   "mukta-m0-p73-v1818": "14dc90f639db5bcdb3a81b4cb7d450fa663645b4fed3f4cc2f48724e9f83a2c0",
+   "mukta-m0-p73-v1819": "47fdd8f1db06fd9e28d940d30f1711bf6d61952057d1b0768f115826abed90f5",
+   "mukta-m0-p73-v1820": "88743d187ce3368b05b4349a6333c82097fc4ec225fe2939bb8ca7b01deafa84",
+   "mukta-m0-p73-v1821": "d7cb77df2bb2c93a65117e3549d730fbf44d96d43b620b0d10100b6a5f547c36",
+   "mukta-m0-p73-v1822": "449c8221c963077d3bae3775c0d9cc9218a21097a27826aa1ed9955392d721ff",
+   "mukta-m0-p73-v1823": "6f084f88d229232cba9239eb55d1c444d724665ed5cd845dae6cf7c8a6a74b3a",
+   "mukta-m0-p73-v1824": "5322fdbaf2192e0cf3d0be729c6a7ebec0d676f900bf9ba686c682507bbd23da",
+   "mukta-m0-p73-v1825": "35379924e0afed3603297c9337801ef61bb10acf1857ab8a34ee1572408bbb69"
+  },
+  "c1": {
+   "mukta-m0-p73": "4667316fdf23130d20b710687e7c61dae2323ae921815931740422bc9d98684d"
+  },
+  "l3": {},
+  "l4": {},
+  "c2": {}
+ },
+ "versions": [],
+ "essays": [],
+ "reviews": [],
+ "promotions": [],
+ "signoffs": [],
+ "stack_hashes": {
+  "mukta-m0-p73": "e71b091a9d665ed90f14071afcb3f5c1054f947ecd8eb6d7616e91687ef98cce"
+ },
+ "projection_sha256": "a18df4041ed891e390c72302e48fa3632f35dc4ebb3d7f393e9a3894ed880d20"
+}

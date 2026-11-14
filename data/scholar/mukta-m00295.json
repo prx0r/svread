@@ -1,0 +1,1959 @@
+{
+ "work": "mukta-m00295",
+ "generated": null,
+ "source": "translation-work canonical data + scholar/ ledgers (emit_scholar.py)",
+ "source_edition": "Muktabodha M00295 (IAST, CC BY-NC 4.0) [concat of non-contiguous segment slices]",
+ "contract": {
+  "contract_version": "svatantrya-agent-contract/1",
+  "contract_sha256": "575232010d119225d9b3f12121fa59ad744765a875914708396c51a3129d7301",
+  "schema_version": "1.4.0",
+  "structural_schema_version": "2.1.0",
+  "structural_schema_snapshot_sha256": "3ce4085b2cbcebfec8471eee4b24a6974f9a19c77f0d125c7cad46bbb1ae8b0a",
+  "order": [
+   "source",
+   "t1",
+   "l0",
+   "argmap",
+   "l2",
+   "c1",
+   "l3",
+   "l4",
+   "c2"
+  ],
+  "schemas": {
+   "t1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:t1",
+    "title": "Svatantrya T1 structural schema",
+    "x-validator": "schemas.t1.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "quick_english",
+     "tokens",
+     "source_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "quick_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "source_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "tokens": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "surface",
+        "quick_gloss"
+       ],
+       "properties": {
+        "surface": {
+         "type": "string",
+         "minLength": 1
+        },
+        "quick_gloss": {
+         "type": "string",
+         "minLength": 1
+        }
+       }
+      }
+     }
+    }
+   },
+   "l0": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l0:verse",
+    "title": "Svatantrya L0 verse token list structural schema",
+    "x-validator": "schemas.l0.validate (per token)",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+     "$schema": "https://json-schema.org/draft/2020-12/schema",
+     "$id": "urn:svatantrya:schema:2.1.0:l0",
+     "title": "Svatantrya L0 structural schema",
+     "x-validator": "schemas.l0.validate",
+     "x-schema-version": "1.4.0",
+     "x-structural-schema-version": "2.1.0",
+     "type": "object",
+     "required": [
+      "id",
+      "verse_id",
+      "pada_index",
+      "surface",
+      "citation",
+      "options",
+      "chosen_index",
+      "status"
+     ],
+     "properties": {
+      "id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "verse_id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "pada_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "surface": {
+       "type": "string",
+       "minLength": 1
+      },
+      "citation": {
+       "type": "string",
+       "minLength": 1
+      },
+      "morph": {
+       "type": "string"
+      },
+      "morph_unknown": {
+       "type": "boolean"
+      },
+      "options": {
+       "type": "array",
+       "maxItems": 5,
+       "items": {
+        "type": "object",
+        "required": [
+         "gloss",
+         "rank",
+         "source",
+         "grounds"
+        ],
+        "properties": {
+         "gloss": {
+          "type": "string",
+          "minLength": 1
+         },
+         "rank": {
+          "type": "integer",
+          "minimum": 1
+         },
+         "source": {
+          "type": "string",
+          "minLength": 1
+         },
+         "grounds": {
+          "type": "string",
+          "minLength": 1
+         }
+        }
+       }
+      },
+      "chosen_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "status": {
+       "type": "string",
+       "enum": [
+        "PARSED",
+        "AMBIGUOUS",
+        "FAILED"
+       ]
+      },
+      "revised": {
+       "type": "boolean"
+      },
+      "revise_reason": {
+       "type": "string"
+      },
+      "fork": {
+       "type": "string",
+       "enum": [
+        "none",
+        "live",
+        "resolved"
+       ]
+      }
+     }
+    }
+   },
+   "argmap": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:argmap",
+    "title": "Svatantrya ARGMAP structural schema",
+    "x-validator": "schemas.argmap.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "traces",
+     "sanskrit_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "traces": {
+      "type": "object",
+      "required": [
+       "t1_verse",
+       "l0_ids"
+      ],
+      "properties": {
+       "t1_verse": {
+        "type": "string",
+        "minLength": 1
+       },
+       "l0_ids": {
+        "type": "array",
+        "items": {
+         "type": "string",
+         "minLength": 1
+        },
+        "minItems": 1
+       }
+      }
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "sanskrit_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "speaker": {
+      "type": "string",
+      "minLength": 1
+     },
+     "question": {
+      "type": "string",
+      "minLength": 1
+     },
+     "inference": {
+      "type": "string",
+      "minLength": 1
+     },
+     "reconstruction": {
+      "type": "string",
+      "minLength": 1
+     },
+     "premises": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     },
+     "uncertainties": {
+      "type": "array"
+     },
+     "structured": {
+      "type": "boolean"
+     }
+    }
+   },
+   "l2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l2",
+    "title": "Svatantrya L2 structural schema",
+    "x-validator": "schemas.l2.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "plain_english",
+     "sanskrit_cite",
+     "l0_ids"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "plain_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "supplied": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     }
+    }
+   },
+   "c1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:c1",
+    "title": "Svatantrya C1 structural schema",
+    "x-validator": "schemas.c1.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "song",
+     "essence",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "essence": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "renders": {
+      "type": "object",
+      "required": [
+       "standard"
+      ]
+     }
+    }
+   },
+   "l3": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l3",
+    "title": "Svatantrya L3 structural schema",
+    "x-validator": "schemas.l3.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "l4": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l4",
+    "title": "Svatantrya L4 structural schema",
+    "x-validator": "schemas.l4.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "c2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:c2",
+    "title": "Svatantrya C2 structural schema",
+    "x-validator": "schemas.c2.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "song",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "renders": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "style",
+        "prompt",
+        "paragraphs"
+       ],
+       "properties": {
+        "style": {
+         "type": "string",
+         "minLength": 1
+        },
+        "prompt": {
+         "type": "string",
+         "minLength": 1
+        },
+        "paragraphs": {
+         "type": "array",
+         "minItems": 1,
+         "items": {
+          "type": "object",
+          "required": [
+           "text",
+           "maps_to"
+          ],
+          "properties": {
+           "text": {
+            "type": "string",
+            "minLength": 1
+           },
+           "maps_to": {
+            "type": "array",
+            "items": {
+             "type": "integer",
+             "minimum": 0
+            },
+            "minItems": 1
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "layers": [
+   {
+    "id": "t1",
+    "scope": "verse",
+    "depends_on": [
+     "source"
+    ],
+    "validator": "schemas/t1.py",
+    "validator_sha256": "ac792ba1f0cbc06ab52dfbc41a31d3e39460f0e8a7de2977ed02e4ce63a20f27",
+    "example": {
+     "file": "sivastotravali/data/s01.t1.json",
+     "file_sha256": "a5c4cfae67571d05866d97ad6eb29b1c2956140a69c2fae554c29577330beb8e",
+     "target": "s01-v01",
+     "content_sha256": "26f027dafbe67347efd901cb2b94630cdb0e372957edeb4a3e1305e83745ba5b",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l0",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1"
+    ],
+    "validator": "schemas/l0.py",
+    "validator_sha256": "0651bc77f519897f8a4f8b41f4ea0cc6a88f3441910af99b18d55854a7e9030e",
+    "example": {
+     "file": "sivastotravali/data/s06.l0.json",
+     "file_sha256": "c2bb0ce1010315d72bdce75ee3c8901b17499202abe7adc5bd1977a26f4fea2f",
+     "target": "s06-v01",
+     "content_sha256": "91e3b04d47482757bcaf1e9705992edd0815ff7907ed2cb33c7c9586f3a9e5aa",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "argmap",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0"
+    ],
+    "validator": "schemas/argmap.py",
+    "validator_sha256": "335c1bbe809c5ae942ecef4a30ee7fd8fcb82645a43019312fa74397fe5758b0",
+    "example": {
+     "file": "sivastotravali/data/s01.argmap.json",
+     "file_sha256": "a44c8ec09a30c577f2a792c1255d4290f49a6138c456bb687bc00e78a3902949",
+     "target": "s01-v21",
+     "content_sha256": "80b69a54761b8b0b7c193058f6c88eef60323a3611008c41ba9879bcfc3cdc21",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l2",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap"
+    ],
+    "validator": "schemas/l2.py",
+    "validator_sha256": "95556834767ef61cf824b501ad7184b4223b6a7f479cd9644fbaae4372725ae3",
+    "example": {
+     "file": "sivastotravali/data/s01.l2.json",
+     "file_sha256": "f5a1cec55bb466c328380a0bf527e6d8906428b3436f85a79bd01df98ceb1040",
+     "target": "s01-v01",
+     "content_sha256": "f3c47f6a631f7551d4f9c8ad1117bdf65463cb8cdc92e9b42bb3bf517ae80055",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c1",
+    "scope": "song",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2"
+    ],
+    "validator": "schemas/c1.py",
+    "validator_sha256": "291c7eba42e68952b685becb6b596df7e2d9ca859d264152707d89efa5361c90",
+    "example": {
+     "file": "sivastotravali/data/s01.c1.json",
+     "file_sha256": "99f4d2bbf7a8086176ee585b6e459076e2abd72b9675435267f7546beb1515f8",
+     "target": "s01",
+     "content_sha256": "5be1f3c0c3f64fafe5395b42cf5502a139a5e208be419d5804fe1a5bdd33712a",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l3",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2",
+     "c1"
+    ],
+    "validator": "schemas/l3.py",
+    "validator_sha256": "6c3df228f886207782d5250699e9e459f236f6e7d6b25ac29b00a38541956917",
+    "example": {
+     "file": "sivastotravali/data/s01.l3.json",
+     "file_sha256": "cdb4af6a4c2a851231195f4e5c940346f65199d5d5d69ea1c41d8095f98409f9",
+     "target": "s01-v01",
+     "content_sha256": "6aa20635387174b68fe4ea3baf970c06aff9838acb2c745e7afca0ed7c6751de",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l4",
+    "scope": "verse",
+    "depends_on": [
+     "l3",
+     "c1"
+    ],
+    "validator": "schemas/l4.py",
+    "validator_sha256": "3c1f7b0dfe3d83d425ed0fd84fba7b74aa3ed9e9758402369d779eedda1a8c03",
+    "example": {
+     "file": "paramarthasara/data/param-p01.l4.json",
+     "file_sha256": "db346e51e71f2f835ddfda004d4432934611817c2c73318d335f6ca2362ad4fb",
+     "target": "param-p01-v01",
+     "content_sha256": "91e9d424cf310d4e5b45c173b02f5286d837269ef9447533c153a48cb5122c14",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c2",
+    "scope": "song",
+    "depends_on": [
+     "c1",
+     "l3"
+    ],
+    "validator": "schemas/c2.py",
+    "validator_sha256": "fb8743f206e036002c780d082c7d32cf011dcdab4c21df742a5f5e59a9d851b8",
+    "example": {
+     "file": "sivastotravali/data/s01.c2.json",
+     "file_sha256": "09660a3c09679fce8c95968934e5851a22d89cdf154d2b0635d358e1ef9e8aeb",
+     "target": "s01",
+     "content_sha256": "2faa5fa86e38faca7ef5a1a967a4e261e2df294648a31ed5bad5f731001aa41c",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   }
+  ]
+ },
+ "rights": {
+  "translation": "FREE — our English (L1–L4, commentary) is free use",
+  "scholar": "Contributors declare rights; authorship and copyright depend on the work and law."
+ },
+ "originals": {
+  "t1": {
+   "mukta-m00295-p01-v1": {
+    "verse_id": "mukta-m00295-p01-v1",
+    "song": "mukta-m00295-p01",
+    "verse": 1,
+    "tokens": [
+     {
+      "sanskrit": "brahmā",
+      "surface": "brahmā",
+      "iast": "brahmā",
+      "gloss": "brahmā",
+      "quick_gloss": "brahmā",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "nārāyaṇo",
+      "surface": "nārāyaṇo",
+      "iast": "nārāyaṇo",
+      "gloss": "nārāyaṇa",
+      "quick_gloss": "nārāyaṇa",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "viṣṇu",
+      "surface": "viṣṇu",
+      "iast": "viṣṇu",
+      "gloss": "viṣṇu",
+      "quick_gloss": "viṣṇu",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "nṛsiṃho",
+      "surface": "nṛsiṃho",
+      "iast": "nṛsiṃho",
+      "gloss": "man-lion",
+      "quick_gloss": "man-lion",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vāsudevavān",
+      "surface": "vāsudevavān",
+      "iast": "vāsudevavān",
+      "gloss": "possessing-vāsudeva",
+      "quick_gloss": "possessing-vāsudeva",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Brahmā, Nārāyaṇa, Viṣṇu, Nṛsiṃha, and one possessing Vāsudeva.",
+    "source_sha": ""
+   },
+   "mukta-m00295-p01-v2": {
+    "verse_id": "mukta-m00295-p01-v2",
+    "song": "mukta-m00295-p01",
+    "verse": 2,
+    "tokens": [
+     {
+      "sanskrit": "ramo",
+      "surface": "ramo",
+      "iast": "ramo",
+      "gloss": "rāma",
+      "quick_gloss": "rāma",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "rāmaś",
+      "surface": "rāmaś",
+      "iast": "rāmaś",
+      "gloss": "rāma",
+      "quick_gloss": "rāma",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ca",
+      "surface": "ca",
+      "iast": "ca",
+      "gloss": "and",
+      "quick_gloss": "and",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "rāmaś",
+      "surface": "rāmaś",
+      "iast": "rāmaś",
+      "gloss": "rāma",
+      "quick_gloss": "rāma",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ca",
+      "surface": "ca",
+      "iast": "ca",
+      "gloss": "and",
+      "quick_gloss": "and",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vuddhaḥ",
+      "surface": "vuddhaḥ",
+      "iast": "vuddhaḥ",
+      "gloss": "buddha",
+      "quick_gloss": "buddha",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kalki",
+      "surface": "kalki",
+      "iast": "kalki",
+      "gloss": "kalki",
+      "quick_gloss": "kalki",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "dharāditaḥ",
+      "surface": "dharāditaḥ",
+      "iast": "dharāditaḥ",
+      "gloss": "from-earth-onward",
+      "quick_gloss": "from-earth-onward",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Rāma, and Rāma, and Rāma, Buddha, and Kalki, beginning from the earth.",
+    "source_sha": ""
+   },
+   "mukta-m00295-p01-v3": {
+    "verse_id": "mukta-m00295-p01-v3",
+    "song": "mukta-m00295-p01",
+    "verse": 3,
+    "tokens": [
+     {
+      "sanskrit": "padmanābha",
+      "surface": "padmanābha",
+      "iast": "padmanābha",
+      "gloss": "lotus-naveled",
+      "quick_gloss": "lotus-naveled",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "dāmodarasya",
+      "surface": "dāmodarasya",
+      "iast": "dāmodarasya",
+      "gloss": "of-dāmodara",
+      "quick_gloss": "of-dāmodara",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tvate",
+      "surface": "tvate",
+      "iast": "tvate",
+      "gloss": "of-you",
+      "quick_gloss": "of-you",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kṣmādi",
+      "surface": "kṣmādi",
+      "iast": "kṣmādi",
+      "gloss": "beginning-with-earth",
+      "quick_gloss": "beginning-with-earth",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "śivāntā",
+      "surface": "śivāntā",
+      "iast": "śivāntā",
+      "gloss": "ending-with-śiva",
+      "quick_gloss": "ending-with-śiva",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Padmanābha, of Dāmodara, of you, beginning with earth and ending with Śiva.",
+    "source_sha": ""
+   },
+   "mukta-m00295-p01-v4": {
+    "verse_id": "mukta-m00295-p01-v4",
+    "song": "mukta-m00295-p01",
+    "verse": 4,
+    "tokens": [
+     {
+      "sanskrit": "īśāno",
+      "surface": "īśāno",
+      "iast": "īśāno",
+      "gloss": "īśāna",
+      "quick_gloss": "īśāna",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "dhanado",
+      "surface": "dhanado",
+      "iast": "dhanado",
+      "gloss": "wealth-giver",
+      "quick_gloss": "wealth-giver",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "bhīmo",
+      "surface": "bhīmo",
+      "iast": "bhīmo",
+      "gloss": "bhīma",
+      "quick_gloss": "bhīma",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "rudrāḥ",
+      "surface": "rudrāḥ",
+      "iast": "rudrāḥ",
+      "gloss": "rudras",
+      "quick_gloss": "rudras",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "mārgādi",
+      "surface": "mārgādi",
+      "iast": "mārgādi",
+      "gloss": "beginning-with-mārga",
+      "quick_gloss": "beginning-with-mārga",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kārtike",
+      "surface": "kārtike",
+      "iast": "kārtike",
+      "gloss": "in-kārtika",
+      "quick_gloss": "in-kārtika",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Īśāna, the wealth-giver, Bhīma, and the Rudras, beginning with Mārga, in Kārtika.",
+    "source_sha": ""
+   },
+   "mukta-m00295-p01-v5": {
+    "verse_id": "mukta-m00295-p01-v5",
+    "song": "mukta-m00295-p01",
+    "verse": 5,
+    "tokens": [
+     {
+      "sanskrit": "prakṛtaḥ",
+      "surface": "prakṛtaḥ",
+      "iast": "prakṛtaḥ",
+      "gloss": "primordial-nature",
+      "quick_gloss": "primordial-nature",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "puruṣaḥ",
+      "surface": "puruṣaḥ",
+      "iast": "puruṣaḥ",
+      "gloss": "person",
+      "quick_gloss": "person",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "śakti",
+      "surface": "śakti",
+      "iast": "śakti",
+      "gloss": "power",
+      "quick_gloss": "power",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "śivo'",
+      "surface": "śivo'",
+      "iast": "śivo'",
+      "gloss": "śiva",
+      "quick_gloss": "śiva",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "arka",
+      "surface": "arka",
+      "iast": "arka",
+      "gloss": "sun",
+      "quick_gloss": "sun",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "rudravat",
+      "surface": "rudravat",
+      "iast": "rudravat",
+      "gloss": "like-rudra",
+      "quick_gloss": "like-rudra",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "sthitāḥ",
+      "surface": "sthitāḥ",
+      "iast": "sthitāḥ",
+      "gloss": "situated",
+      "quick_gloss": "situated",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Prakṛti, Puruṣa, Śakti, and Śiva are situated like the sun and Rudra.",
+    "source_sha": ""
+   }
+  },
+  "l0": {
+   "mukta-m00295-p01-v1": [
+    {
+     "id": "mukta-m00295-p01-v1-p000",
+     "verse_id": "mukta-m00295-p01-v1",
+     "pada_index": 0,
+     "surface": "brahmā",
+     "citation": "brahmā",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "brahmā",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "name of a deity; nominative subject in enumeration"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00295-p01-v1-p001",
+     "verse_id": "mukta-m00295-p01-v1",
+     "pada_index": 1,
+     "surface": "nārāyaṇo",
+     "citation": "nārāyaṇo",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "nārāyaṇa",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "name of a deity; final vowel shows sandhi before following word"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00295-p01-v1-p002",
+     "verse_id": "mukta-m00295-p01-v1",
+     "pada_index": 2,
+     "surface": "viṣṇu",
+     "citation": "viṣṇu",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "viṣṇu",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "name of a deity; nominative form in enumeration"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00295-p01-v1-p003",
+     "verse_id": "mukta-m00295-p01-v1",
+     "pada_index": 3,
+     "surface": "nṛsiṃho",
+     "citation": "nṛsiṃho",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "man-lion",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "name of a deity; final vowel shows sandhi"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00295-p01-v1-p004",
+     "verse_id": "mukta-m00295-p01-v1",
+     "pada_index": 4,
+     "surface": "vāsudevavān",
+     "citation": "vāsudevavān",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "possessing-vāsudeva",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "possessive adjective describing an associated figure"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m00295-p01-v2": [
+    {
+     "id": "mukta-m00295-p01-v2-p000",
+     "verse_id": "mukta-m00295-p01-v2",
+     "pada_index": 0,
+     "surface": "ramo",
+     "citation": "ramo",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "rāma",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "name of a deity; final vowel shows sandhi"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00295-p01-v2-p001",
+     "verse_id": "mukta-m00295-p01-v2",
+     "pada_index": 1,
+     "surface": "rāmaś",
+     "citation": "rāmaś",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "rāma",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "name of a deity; final sibilant shows sandhi before ca"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00295-p01-v2-p002",
+     "verse_id": "mukta-m00295-p01-v2",
+     "pada_index": 2,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "conjunction connecting listed figures"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00295-p01-v2-p003",
+     "verse_id": "mukta-m00295-p01-v2",
+     "pada_index": 3,
+     "surface": "rāmaś",
+     "citation": "rāmaś",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "rāma",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "name of a deity; final sibilant shows sandhi before ca"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00295-p01-v2-p004",
+     "verse_id": "mukta-m00295-p01-v2",
+     "pada_index": 4,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "conjunction connecting listed figures"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00295-p01-v2-p005",
+     "verse_id": "mukta-m00295-p01-v2",
+     "pada_index": 5,
+     "surface": "vuddhaḥ",
+     "citation": "vuddhaḥ",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "buddha",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "name of a figure; spelling as given in text"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00295-p01-v2-p006",
+     "verse_id": "mukta-m00295-p01-v2",
+     "pada_index": 6,
+     "surface": "kalki",
+     "citation": "kalki",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "kalki",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "name of a figure in the enumeration"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00295-p01-v2-p007",
+     "verse_id": "mukta-m00295-p01-v2",
+     "pada_index": 7,
+     "surface": "dharāditaḥ",
+     "citation": "dharāditaḥ",
+     "morph": "dharā+ādi+tas (compound/indecl.)",
+     "options": [
+      {
+       "gloss": "from-earth-onward",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound indicating starting point or scope; UNC exact sense"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m00295-p01-v3": [
+    {
+     "id": "mukta-m00295-p01-v3-p000",
+     "verse_id": "mukta-m00295-p01-v3",
+     "pada_index": 0,
+     "surface": "padmanābha",
+     "citation": "padmanābha",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "lotus-naveled",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "epithet or name of a deity"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00295-p01-v3-p001",
+     "verse_id": "mukta-m00295-p01-v3",
+     "pada_index": 1,
+     "surface": "dāmodarasya",
+     "citation": "dāmodarasya",
+     "morph": "m.gen.sg",
+     "options": [
+      {
+       "gloss": "of-dāmodara",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "name of a deity in possessive relation"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00295-p01-v3-p002",
+     "verse_id": "mukta-m00295-p01-v3",
+     "pada_index": 2,
+     "surface": "tvate",
+     "citation": "tvate",
+     "morph": "UNC",
+     "options": [
+      {
+       "gloss": "of-you",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "form as given; UNC interpretation and analysis"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00295-p01-v3-p003",
+     "verse_id": "mukta-m00295-p01-v3",
+     "pada_index": 3,
+     "surface": "kṣmādi",
+     "citation": "kṣmādi",
+     "morph": "kṣmā+ādi (compound)",
+     "options": [
+      {
+       "gloss": "beginning-with-earth",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound marking the start of a range"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00295-p01-v3-p004",
+     "verse_id": "mukta-m00295-p01-v3",
+     "pada_index": 4,
+     "surface": "śivāntā",
+     "citation": "śivāntā",
+     "morph": "śiva+anta (compound, f.nom.sg)",
+     "options": [
+      {
+       "gloss": "ending-with-śiva",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound marking the end of a range"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m00295-p01-v4": [
+    {
+     "id": "mukta-m00295-p01-v4-p000",
+     "verse_id": "mukta-m00295-p01-v4",
+     "pada_index": 0,
+     "surface": "īśāno",
+     "citation": "īśāno",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "īśāna",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "name of a deity; final vowel shows sandhi"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00295-p01-v4-p001",
+     "verse_id": "mukta-m00295-p01-v4",
+     "pada_index": 1,
+     "surface": "dhanado",
+     "citation": "dhanado",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "wealth-giver",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "epithet or name of a deity; final vowel shows sandhi"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00295-p01-v4-p002",
+     "verse_id": "mukta-m00295-p01-v4",
+     "pada_index": 2,
+     "surface": "bhīmo",
+     "citation": "bhīmo",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "bhīma",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "name of a deity; final vowel shows sandhi"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00295-p01-v4-p003",
+     "verse_id": "mukta-m00295-p01-v4",
+     "pada_index": 3,
+     "surface": "rudrāḥ",
+     "citation": "rudrāḥ",
+     "morph": "m.nom.pl",
+     "options": [
+      {
+       "gloss": "rudras",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "name of a group of deities in plural"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00295-p01-v4-p004",
+     "verse_id": "mukta-m00295-p01-v4",
+     "pada_index": 4,
+     "surface": "mārgādi",
+     "citation": "mārgādi",
+     "morph": "mārga+ādi (compound)",
+     "options": [
+      {
+       "gloss": "beginning-with-mārga",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound marking a starting point; UNC exact referent of mārga"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00295-p01-v4-p005",
+     "verse_id": "mukta-m00295-p01-v4",
+     "pada_index": 5,
+     "surface": "kārtike",
+     "citation": "kārtike",
+     "morph": "m.loc.sg",
+     "options": [
+      {
+       "gloss": "in-kārtika",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "locative indicating time or context"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m00295-p01-v5": [
+    {
+     "id": "mukta-m00295-p01-v5-p000",
+     "verse_id": "mukta-m00295-p01-v5",
+     "pada_index": 0,
+     "surface": "prakṛtaḥ",
+     "citation": "prakṛtaḥ",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "primordial-nature",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "term for a principle; form as given in text"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00295-p01-v5-p001",
+     "verse_id": "mukta-m00295-p01-v5",
+     "pada_index": 1,
+     "surface": "puruṣaḥ",
+     "citation": "puruṣaḥ",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "person",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "term for a principle or being"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00295-p01-v5-p002",
+     "verse_id": "mukta-m00295-p01-v5",
+     "pada_index": 2,
+     "surface": "śakti",
+     "citation": "śakti",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "power",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "term for a principle; nominative form as given"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00295-p01-v5-p003",
+     "verse_id": "mukta-m00295-p01-v5",
+     "pada_index": 3,
+     "surface": "śivo'",
+     "citation": "śivo'",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "śiva",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "name of a deity; avagraha marks elision in sandhi"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00295-p01-v5-p004",
+     "verse_id": "mukta-m00295-p01-v5",
+     "pada_index": 4,
+     "surface": "arka",
+     "citation": "arka",
+     "morph": "arka+rudravat (compound member)",
+     "options": [
+      {
+       "gloss": "sun",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "first member of a comparison compound"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00295-p01-v5-p005",
+     "verse_id": "mukta-m00295-p01-v5",
+     "pada_index": 5,
+     "surface": "rudravat",
+     "citation": "rudravat",
+     "morph": "arka+rudravat (compound)",
+     "options": [
+      {
+       "gloss": "like-rudra",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "comparative suffix forming likeness to rudra"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00295-p01-v5-p006",
+     "verse_id": "mukta-m00295-p01-v5",
+     "pada_index": 6,
+     "surface": "sthitāḥ",
+     "citation": "sthitāḥ",
+     "morph": "m.nom.pl (past-participle, √sthā)",
+     "options": [
+      {
+       "gloss": "situated",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "past participle indicating state or position"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ]
+  },
+  "argmap": {
+   "mukta-m00295-p01-v1": {
+    "verse_id": "mukta-m00295-p01-v1",
+    "song": "mukta-m00295-p01",
+    "verse": 1,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "Which divine figures are included in the opening enumeration of deities?",
+    "premises": [
+     "brahmā is named as a deity",
+     "nārāyaṇa, viṣṇu, and nṛsiṃha are named as deities",
+     "a figure possessing vāsudeva is included"
+    ],
+    "inference": "The opening sequence enumerates brahmā, nārāyaṇa, viṣṇu, nṛsiṃha, and one possessing vāsudeva.",
+    "uncertainties": [
+     "The exact referent of vāsudevavān is uncertain without broader context."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m00295-p01-v1",
+     "l0_ids": [
+      "mukta-m00295-p01-v1-p000",
+      "mukta-m00295-p01-v1-p001",
+      "mukta-m00295-p01-v1-p002",
+      "mukta-m00295-p01-v1-p003",
+      "mukta-m00295-p01-v1-p004"
+     ],
+     "sanskrit_sha": "0985e291cf2fb327"
+    },
+    "sanskrit_sha": "0985e291cf2fb327"
+   },
+   "mukta-m00295-p01-v2": {
+    "verse_id": "mukta-m00295-p01-v2",
+    "song": "mukta-m00295-p01",
+    "verse": 2,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "Which additional figures extend the enumerated sequence beginning from the earth?",
+    "premises": [
+     "rāma is named three times in sequence",
+     "buddha and kalki are named after rāma",
+     "the phrase dharāditaḥ indicates a scope from earth onward"
+    ],
+    "inference": "The sequence extends with three rāmas, buddha, and kalki, beginning from the earth.",
+    "uncertainties": [
+     "The distinction among the three occurrences of rāma is not specified.",
+     "The precise function of dharāditaḥ is uncertain."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m00295-p01-v2",
+     "l0_ids": [
+      "mukta-m00295-p01-v2-p000",
+      "mukta-m00295-p01-v2-p001",
+      "mukta-m00295-p01-v2-p002",
+      "mukta-m00295-p01-v2-p003",
+      "mukta-m00295-p01-v2-p004",
+      "mukta-m00295-p01-v2-p005",
+      "mukta-m00295-p01-v2-p006",
+      "mukta-m00295-p01-v2-p007"
+     ],
+     "sanskrit_sha": "0985e291cf2fb327"
+    },
+    "sanskrit_sha": "0985e291cf2fb327"
+   },
+   "mukta-m00295-p01-v3": {
+    "verse_id": "mukta-m00295-p01-v3",
+    "song": "mukta-m00295-p01",
+    "verse": 3,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What range of principles or entities is delimited from earth up to Śiva?",
+    "premises": [
+     "padmanābha and dāmodara are named",
+     "kṣmādi indicates a beginning with earth",
+     "śivāntā indicates an ending with śiva"
+    ],
+    "inference": "A range extending from earth to śiva is indicated in association with the named figures.",
+    "uncertainties": [
+     "The form and meaning of tvate are uncertain.",
+     "The syntactic relation among the named figures and the range is unclear."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m00295-p01-v3",
+     "l0_ids": [
+      "mukta-m00295-p01-v3-p000",
+      "mukta-m00295-p01-v3-p001",
+      "mukta-m00295-p01-v3-p002",
+      "mukta-m00295-p01-v3-p003",
+      "mukta-m00295-p01-v3-p004"
+     ],
+     "sanskrit_sha": "0985e291cf2fb327"
+    },
+    "sanskrit_sha": "0985e291cf2fb327"
+   },
+   "mukta-m00295-p01-v4": {
+    "verse_id": "mukta-m00295-p01-v4",
+    "song": "mukta-m00295-p01",
+    "verse": 4,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "Which deities and temporal or contextual marker are specified in this enumeration?",
+    "premises": [
+     "īśāna, dhanada, and bhīma are named",
+     "rudrāḥ refers to multiple rudras",
+     "mārgādi and kārtike provide contextual markers"
+    ],
+    "inference": "The enumeration includes īśāna, dhanada, bhīma, and the rudras, with markers beginning with mārga in kārtika.",
+    "uncertainties": [
+     "The referent of mārgādi is uncertain.",
+     "The relation between the deities and the contextual markers is unclear."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m00295-p01-v4",
+     "l0_ids": [
+      "mukta-m00295-p01-v4-p000",
+      "mukta-m00295-p01-v4-p001",
+      "mukta-m00295-p01-v4-p002",
+      "mukta-m00295-p01-v4-p003",
+      "mukta-m00295-p01-v4-p004",
+      "mukta-m00295-p01-v4-p005"
+     ],
+     "sanskrit_sha": "0985e291cf2fb327"
+    },
+    "sanskrit_sha": "0985e291cf2fb327"
+   },
+   "mukta-m00295-p01-v5": {
+    "verse_id": "mukta-m00295-p01-v5",
+    "song": "mukta-m00295-p01",
+    "verse": 5,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "Which fundamental principles are stated to be situated like the sun and Rudra?",
+    "premises": [
+     "prakṛti, puruṣa, śakti, and śiva are named",
+     "arka-rudravat expresses a comparison to sun and rudra",
+     "sthitāḥ indicates that these are situated"
+    ],
+    "inference": "Prakṛti, puruṣa, śakti, and śiva are stated to be situated like the sun and Rudra.",
+    "uncertainties": [
+     "The exact sense of the comparison arka-rudravat is uncertain."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m00295-p01-v5",
+     "l0_ids": [
+      "mukta-m00295-p01-v5-p000",
+      "mukta-m00295-p01-v5-p001",
+      "mukta-m00295-p01-v5-p002",
+      "mukta-m00295-p01-v5-p003",
+      "mukta-m00295-p01-v5-p004",
+      "mukta-m00295-p01-v5-p005",
+      "mukta-m00295-p01-v5-p006"
+     ],
+     "sanskrit_sha": "0985e291cf2fb327"
+    },
+    "sanskrit_sha": "0985e291cf2fb327"
+   }
+  },
+  "l2": {
+   "mukta-m00295-p01-v1": {
+    "verse_id": "mukta-m00295-p01-v1",
+    "song": "mukta-m00295-p01",
+    "verse": 1,
+    "plain_english": "Brahmā, Nārāyaṇa, Viṣṇu, Nṛsiṃha, and one possessing Vāsudeva.",
+    "sanskrit_cite": "brahmānārāyaṇo viṣṇu nṛsiṃho vāsudevavān",
+    "l0_ids": [
+     "mukta-m00295-p01-v1-p000",
+     "mukta-m00295-p01-v1-p001",
+     "mukta-m00295-p01-v1-p002",
+     "mukta-m00295-p01-v1-p003",
+     "mukta-m00295-p01-v1-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m00295-p01-v2": {
+    "verse_id": "mukta-m00295-p01-v2",
+    "song": "mukta-m00295-p01",
+    "verse": 2,
+    "plain_english": "Rāma, and Rāma, and Rāma, Buddha, and Kalki, beginning from the earth.",
+    "sanskrit_cite": "ramorāmaśca rāmaśca vuddhaḥ kalki dharāditaḥ",
+    "l0_ids": [
+     "mukta-m00295-p01-v2-p000",
+     "mukta-m00295-p01-v2-p001",
+     "mukta-m00295-p01-v2-p002",
+     "mukta-m00295-p01-v2-p003",
+     "mukta-m00295-p01-v2-p004",
+     "mukta-m00295-p01-v2-p005",
+     "mukta-m00295-p01-v2-p006",
+     "mukta-m00295-p01-v2-p007"
+    ],
+    "supplied": []
+   },
+   "mukta-m00295-p01-v3": {
+    "verse_id": "mukta-m00295-p01-v3",
+    "song": "mukta-m00295-p01",
+    "verse": 3,
+    "plain_english": "Padmanābha, of Dāmodara, of you, beginning with earth and ending with Śiva.",
+    "sanskrit_cite": "padmanābhadāmodarasya tvate kṣmādi śivāntā",
+    "l0_ids": [
+     "mukta-m00295-p01-v3-p000",
+     "mukta-m00295-p01-v3-p001",
+     "mukta-m00295-p01-v3-p002",
+     "mukta-m00295-p01-v3-p003",
+     "mukta-m00295-p01-v3-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m00295-p01-v4": {
+    "verse_id": "mukta-m00295-p01-v4",
+    "song": "mukta-m00295-p01",
+    "verse": 4,
+    "plain_english": "Īśāna, the wealth-giver, Bhīma, and the Rudras, beginning with Mārga, in Kārtika.",
+    "sanskrit_cite": "īśāno dhanado bhīmo rudrāḥ mārgādi kārtike",
+    "l0_ids": [
+     "mukta-m00295-p01-v4-p000",
+     "mukta-m00295-p01-v4-p001",
+     "mukta-m00295-p01-v4-p002",
+     "mukta-m00295-p01-v4-p003",
+     "mukta-m00295-p01-v4-p004",
+     "mukta-m00295-p01-v4-p005"
+    ],
+    "supplied": []
+   },
+   "mukta-m00295-p01-v5": {
+    "verse_id": "mukta-m00295-p01-v5",
+    "song": "mukta-m00295-p01",
+    "verse": 5,
+    "plain_english": "Prakṛti, Puruṣa, Śakti, and Śiva are situated like the sun and Rudra.",
+    "sanskrit_cite": "prakṛtaḥ puruṣaḥ śakti śivo'rkārudravat sthitāḥ",
+    "l0_ids": [
+     "mukta-m00295-p01-v5-p000",
+     "mukta-m00295-p01-v5-p001",
+     "mukta-m00295-p01-v5-p002",
+     "mukta-m00295-p01-v5-p003",
+     "mukta-m00295-p01-v5-p004",
+     "mukta-m00295-p01-v5-p005",
+     "mukta-m00295-p01-v5-p006"
+    ],
+    "supplied": []
+   }
+  },
+  "c1": {
+   "mukta-m00295-p01": {
+    "song": "mukta-m00295-p01",
+    "essence": [
+     "The opening sequence enumerates brahmā, nārāyaṇa, viṣṇu, nṛsiṃha, and one possessing vāsudeva.",
+     "The sequence extends with three rāmas, buddha, and kalki, beginning from the earth.",
+     "A range extending from earth to śiva is indicated in association with the named figures.",
+     "The enumeration includes īśāna, dhanada, bhīma, and the rudras, with markers beginning with mārga in kārtika.",
+     "Prakṛti, puruṣa, śakti, and śiva are stated to be situated like the sun and Rudra."
+    ],
+    "essence_source": "derived from argmap inferences (machine-proposed; assessor review outstanding)",
+    "rasa": {},
+    "essence_only": true,
+    "renders": {}
+   }
+  },
+  "l3": {},
+  "l4": {},
+  "c2": {}
+ },
+ "source_verses": {
+  "mukta-m00295-p01-v1": {
+   "text": "brahmānārāyaṇo viṣṇu nṛsiṃho vāsudevavān",
+   "source_file": "translation-work/mukta-m00295/source/edition.txt",
+   "source_sha256": "d47dcb1db6edc513b38bbb2b8dbc61b45287969afa7aa59163938973acba87c6",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m00295-p01-v2": {
+   "text": "ramorāmaśca rāmaśca vuddhaḥ kalki dharāditaḥ",
+   "source_file": "translation-work/mukta-m00295/source/edition.txt",
+   "source_sha256": "d47dcb1db6edc513b38bbb2b8dbc61b45287969afa7aa59163938973acba87c6",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m00295-p01-v3": {
+   "text": "padmanābhadāmodarasya tvate kṣmādi śivāntā",
+   "source_file": "translation-work/mukta-m00295/source/edition.txt",
+   "source_sha256": "d47dcb1db6edc513b38bbb2b8dbc61b45287969afa7aa59163938973acba87c6",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m00295-p01-v4": {
+   "text": "īśāno dhanado bhīmo rudrāḥ mārgādi kārtike",
+   "source_file": "translation-work/mukta-m00295/source/edition.txt",
+   "source_sha256": "d47dcb1db6edc513b38bbb2b8dbc61b45287969afa7aa59163938973acba87c6",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m00295-p01-v5": {
+   "text": "prakṛtaḥ puruṣaḥ śakti śivo'rkārudravat sthitāḥ",
+   "source_file": "translation-work/mukta-m00295/source/edition.txt",
+   "source_sha256": "d47dcb1db6edc513b38bbb2b8dbc61b45287969afa7aa59163938973acba87c6",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  }
+ },
+ "l4_craft": {},
+ "withheld_songs": [],
+ "original_hashes": {
+  "t1": {
+   "mukta-m00295-p01-v1": "8b3fca7f1f39ce7f85e42ecb0c342b76f8d3bfeb1712cc43720f56efc549d28c",
+   "mukta-m00295-p01-v2": "379a1ce51c560ad6386009457849b9955c093349c36ff1de91dfcec58844a575",
+   "mukta-m00295-p01-v3": "44694cc654b857e855856e59d2263d937f4b1198d874d902584fc4e826603052",
+   "mukta-m00295-p01-v4": "610bf412dec5e0a967cd15e40d286d5d41766300bd25f38a40bd4fd4b32c3853",
+   "mukta-m00295-p01-v5": "328969f73e75ca378b0f2bf46fd7ef188d5bf73c267f5c8580876626c52670ac"
+  },
+  "l0": {
+   "mukta-m00295-p01-v1": "6a2dce44ab353ac0f61c2db7accd4dfa352a625d3de8cc1384c4c50b4e74b505",
+   "mukta-m00295-p01-v2": "fb4688999a48d401b90ea31f043e360eee011c93cef98aaf2bb23f0da2d41479",
+   "mukta-m00295-p01-v3": "8a4457a6d45bf154f640c77a33c1fd4746b00df7048d460ba1d12b7d0e8817b2",
+   "mukta-m00295-p01-v4": "bd87cba83ddc8b7b6d7ad6159462d83aa229419f1817e863f53ba7d3890c61e9",
+   "mukta-m00295-p01-v5": "07cc6d55efd27d31b16fa5e053b70f8ca801d5d0d77e667b54a1d55523b541aa"
+  },
+  "argmap": {
+   "mukta-m00295-p01-v1": "757b0ac11bcdf65d0a2bdd622c1010cb0f0fff11d6bb1a3422085768cac6e1bd",
+   "mukta-m00295-p01-v2": "80c1fa1adead9d22e464653460d8cb9179ce163425340533ca5017679abb872f",
+   "mukta-m00295-p01-v3": "3bab18b35ae7ef1174e87ad16bf2cb7339b5b6bc08907ae38789450a63e210d0",
+   "mukta-m00295-p01-v4": "832aba6b02039d1c791deac8914132997f249a2f777ce2af18d4694bcd90ecd0",
+   "mukta-m00295-p01-v5": "049117b74ec831dfbababe1e12f4ec1309b968a8996f005bb29423e8008c9b32"
+  },
+  "l2": {
+   "mukta-m00295-p01-v1": "b5f5c8554046bba62438dd20ff369a6179f622d49044081f498e25f6a435b637",
+   "mukta-m00295-p01-v2": "45aa5d4eaca60b71cb709aa24da04bead26f00278332cf2026233cab110a7f5b",
+   "mukta-m00295-p01-v3": "e0c23474b1521d5c1ee6181290243e97736e40b321b3c7c633e9f0b75ea39856",
+   "mukta-m00295-p01-v4": "c284a89fe23347ab8c75d7a231c9c0c6c75ef0fb4543775ab5c4b0f7175b4f72",
+   "mukta-m00295-p01-v5": "ff6018208e1b58650ec5543366f57e7f5d4edaaa83292dc5205d53fbcb3ac571"
+  },
+  "c1": {
+   "mukta-m00295-p01": "c06bc0e1e532c06be5507c16be00ef9dc67ef9aaad8d3162976c564ac02dbe61"
+  },
+  "l3": {},
+  "l4": {},
+  "c2": {}
+ },
+ "versions": [],
+ "essays": [],
+ "reviews": [],
+ "promotions": [],
+ "signoffs": [],
+ "stack_hashes": {
+  "mukta-m00295-p01": "ed1d468a9c70fcdc1f9a1860e84d26a93b28cc08831ab34da18557a05e8c328c"
+ },
+ "projection_sha256": "4e415a9b0fa2171cd8d0dc853417c3fb4d52dff18e2849aa964a08e8da0f3ca2"
+}

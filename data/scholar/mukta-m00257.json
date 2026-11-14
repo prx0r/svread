@@ -1,0 +1,1920 @@
+{
+ "work": "mukta-m00257",
+ "generated": null,
+ "source": "translation-work canonical data + scholar/ ledgers (emit_scholar.py)",
+ "source_edition": "Muktabodha M00257 (IAST, CC BY-NC 4.0) [concat of non-contiguous segment slices]",
+ "contract": {
+  "contract_version": "svatantrya-agent-contract/1",
+  "contract_sha256": "575232010d119225d9b3f12121fa59ad744765a875914708396c51a3129d7301",
+  "schema_version": "1.4.0",
+  "structural_schema_version": "2.1.0",
+  "structural_schema_snapshot_sha256": "3ce4085b2cbcebfec8471eee4b24a6974f9a19c77f0d125c7cad46bbb1ae8b0a",
+  "order": [
+   "source",
+   "t1",
+   "l0",
+   "argmap",
+   "l2",
+   "c1",
+   "l3",
+   "l4",
+   "c2"
+  ],
+  "schemas": {
+   "t1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:t1",
+    "title": "Svatantrya T1 structural schema",
+    "x-validator": "schemas.t1.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "quick_english",
+     "tokens",
+     "source_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "quick_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "source_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "tokens": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "surface",
+        "quick_gloss"
+       ],
+       "properties": {
+        "surface": {
+         "type": "string",
+         "minLength": 1
+        },
+        "quick_gloss": {
+         "type": "string",
+         "minLength": 1
+        }
+       }
+      }
+     }
+    }
+   },
+   "l0": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l0:verse",
+    "title": "Svatantrya L0 verse token list structural schema",
+    "x-validator": "schemas.l0.validate (per token)",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+     "$schema": "https://json-schema.org/draft/2020-12/schema",
+     "$id": "urn:svatantrya:schema:2.1.0:l0",
+     "title": "Svatantrya L0 structural schema",
+     "x-validator": "schemas.l0.validate",
+     "x-schema-version": "1.4.0",
+     "x-structural-schema-version": "2.1.0",
+     "type": "object",
+     "required": [
+      "id",
+      "verse_id",
+      "pada_index",
+      "surface",
+      "citation",
+      "options",
+      "chosen_index",
+      "status"
+     ],
+     "properties": {
+      "id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "verse_id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "pada_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "surface": {
+       "type": "string",
+       "minLength": 1
+      },
+      "citation": {
+       "type": "string",
+       "minLength": 1
+      },
+      "morph": {
+       "type": "string"
+      },
+      "morph_unknown": {
+       "type": "boolean"
+      },
+      "options": {
+       "type": "array",
+       "maxItems": 5,
+       "items": {
+        "type": "object",
+        "required": [
+         "gloss",
+         "rank",
+         "source",
+         "grounds"
+        ],
+        "properties": {
+         "gloss": {
+          "type": "string",
+          "minLength": 1
+         },
+         "rank": {
+          "type": "integer",
+          "minimum": 1
+         },
+         "source": {
+          "type": "string",
+          "minLength": 1
+         },
+         "grounds": {
+          "type": "string",
+          "minLength": 1
+         }
+        }
+       }
+      },
+      "chosen_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "status": {
+       "type": "string",
+       "enum": [
+        "PARSED",
+        "AMBIGUOUS",
+        "FAILED"
+       ]
+      },
+      "revised": {
+       "type": "boolean"
+      },
+      "revise_reason": {
+       "type": "string"
+      },
+      "fork": {
+       "type": "string",
+       "enum": [
+        "none",
+        "live",
+        "resolved"
+       ]
+      }
+     }
+    }
+   },
+   "argmap": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:argmap",
+    "title": "Svatantrya ARGMAP structural schema",
+    "x-validator": "schemas.argmap.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "traces",
+     "sanskrit_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "traces": {
+      "type": "object",
+      "required": [
+       "t1_verse",
+       "l0_ids"
+      ],
+      "properties": {
+       "t1_verse": {
+        "type": "string",
+        "minLength": 1
+       },
+       "l0_ids": {
+        "type": "array",
+        "items": {
+         "type": "string",
+         "minLength": 1
+        },
+        "minItems": 1
+       }
+      }
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "sanskrit_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "speaker": {
+      "type": "string",
+      "minLength": 1
+     },
+     "question": {
+      "type": "string",
+      "minLength": 1
+     },
+     "inference": {
+      "type": "string",
+      "minLength": 1
+     },
+     "reconstruction": {
+      "type": "string",
+      "minLength": 1
+     },
+     "premises": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     },
+     "uncertainties": {
+      "type": "array"
+     },
+     "structured": {
+      "type": "boolean"
+     }
+    }
+   },
+   "l2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l2",
+    "title": "Svatantrya L2 structural schema",
+    "x-validator": "schemas.l2.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "plain_english",
+     "sanskrit_cite",
+     "l0_ids"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "plain_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "supplied": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     }
+    }
+   },
+   "c1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:c1",
+    "title": "Svatantrya C1 structural schema",
+    "x-validator": "schemas.c1.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "song",
+     "essence",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "essence": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "renders": {
+      "type": "object",
+      "required": [
+       "standard"
+      ]
+     }
+    }
+   },
+   "l3": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l3",
+    "title": "Svatantrya L3 structural schema",
+    "x-validator": "schemas.l3.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "l4": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l4",
+    "title": "Svatantrya L4 structural schema",
+    "x-validator": "schemas.l4.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "c2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:c2",
+    "title": "Svatantrya C2 structural schema",
+    "x-validator": "schemas.c2.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "song",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "renders": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "style",
+        "prompt",
+        "paragraphs"
+       ],
+       "properties": {
+        "style": {
+         "type": "string",
+         "minLength": 1
+        },
+        "prompt": {
+         "type": "string",
+         "minLength": 1
+        },
+        "paragraphs": {
+         "type": "array",
+         "minItems": 1,
+         "items": {
+          "type": "object",
+          "required": [
+           "text",
+           "maps_to"
+          ],
+          "properties": {
+           "text": {
+            "type": "string",
+            "minLength": 1
+           },
+           "maps_to": {
+            "type": "array",
+            "items": {
+             "type": "integer",
+             "minimum": 0
+            },
+            "minItems": 1
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "layers": [
+   {
+    "id": "t1",
+    "scope": "verse",
+    "depends_on": [
+     "source"
+    ],
+    "validator": "schemas/t1.py",
+    "validator_sha256": "ac792ba1f0cbc06ab52dfbc41a31d3e39460f0e8a7de2977ed02e4ce63a20f27",
+    "example": {
+     "file": "sivastotravali/data/s01.t1.json",
+     "file_sha256": "a5c4cfae67571d05866d97ad6eb29b1c2956140a69c2fae554c29577330beb8e",
+     "target": "s01-v01",
+     "content_sha256": "26f027dafbe67347efd901cb2b94630cdb0e372957edeb4a3e1305e83745ba5b",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l0",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1"
+    ],
+    "validator": "schemas/l0.py",
+    "validator_sha256": "0651bc77f519897f8a4f8b41f4ea0cc6a88f3441910af99b18d55854a7e9030e",
+    "example": {
+     "file": "sivastotravali/data/s06.l0.json",
+     "file_sha256": "c2bb0ce1010315d72bdce75ee3c8901b17499202abe7adc5bd1977a26f4fea2f",
+     "target": "s06-v01",
+     "content_sha256": "91e3b04d47482757bcaf1e9705992edd0815ff7907ed2cb33c7c9586f3a9e5aa",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "argmap",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0"
+    ],
+    "validator": "schemas/argmap.py",
+    "validator_sha256": "335c1bbe809c5ae942ecef4a30ee7fd8fcb82645a43019312fa74397fe5758b0",
+    "example": {
+     "file": "sivastotravali/data/s01.argmap.json",
+     "file_sha256": "a44c8ec09a30c577f2a792c1255d4290f49a6138c456bb687bc00e78a3902949",
+     "target": "s01-v21",
+     "content_sha256": "80b69a54761b8b0b7c193058f6c88eef60323a3611008c41ba9879bcfc3cdc21",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l2",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap"
+    ],
+    "validator": "schemas/l2.py",
+    "validator_sha256": "95556834767ef61cf824b501ad7184b4223b6a7f479cd9644fbaae4372725ae3",
+    "example": {
+     "file": "sivastotravali/data/s01.l2.json",
+     "file_sha256": "f5a1cec55bb466c328380a0bf527e6d8906428b3436f85a79bd01df98ceb1040",
+     "target": "s01-v01",
+     "content_sha256": "f3c47f6a631f7551d4f9c8ad1117bdf65463cb8cdc92e9b42bb3bf517ae80055",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c1",
+    "scope": "song",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2"
+    ],
+    "validator": "schemas/c1.py",
+    "validator_sha256": "291c7eba42e68952b685becb6b596df7e2d9ca859d264152707d89efa5361c90",
+    "example": {
+     "file": "sivastotravali/data/s01.c1.json",
+     "file_sha256": "99f4d2bbf7a8086176ee585b6e459076e2abd72b9675435267f7546beb1515f8",
+     "target": "s01",
+     "content_sha256": "5be1f3c0c3f64fafe5395b42cf5502a139a5e208be419d5804fe1a5bdd33712a",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l3",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2",
+     "c1"
+    ],
+    "validator": "schemas/l3.py",
+    "validator_sha256": "6c3df228f886207782d5250699e9e459f236f6e7d6b25ac29b00a38541956917",
+    "example": {
+     "file": "sivastotravali/data/s01.l3.json",
+     "file_sha256": "cdb4af6a4c2a851231195f4e5c940346f65199d5d5d69ea1c41d8095f98409f9",
+     "target": "s01-v01",
+     "content_sha256": "6aa20635387174b68fe4ea3baf970c06aff9838acb2c745e7afca0ed7c6751de",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l4",
+    "scope": "verse",
+    "depends_on": [
+     "l3",
+     "c1"
+    ],
+    "validator": "schemas/l4.py",
+    "validator_sha256": "3c1f7b0dfe3d83d425ed0fd84fba7b74aa3ed9e9758402369d779eedda1a8c03",
+    "example": {
+     "file": "paramarthasara/data/param-p01.l4.json",
+     "file_sha256": "db346e51e71f2f835ddfda004d4432934611817c2c73318d335f6ca2362ad4fb",
+     "target": "param-p01-v01",
+     "content_sha256": "91e9d424cf310d4e5b45c173b02f5286d837269ef9447533c153a48cb5122c14",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c2",
+    "scope": "song",
+    "depends_on": [
+     "c1",
+     "l3"
+    ],
+    "validator": "schemas/c2.py",
+    "validator_sha256": "fb8743f206e036002c780d082c7d32cf011dcdab4c21df742a5f5e59a9d851b8",
+    "example": {
+     "file": "sivastotravali/data/s01.c2.json",
+     "file_sha256": "09660a3c09679fce8c95968934e5851a22d89cdf154d2b0635d358e1ef9e8aeb",
+     "target": "s01",
+     "content_sha256": "2faa5fa86e38faca7ef5a1a967a4e261e2df294648a31ed5bad5f731001aa41c",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   }
+  ]
+ },
+ "rights": {
+  "translation": "FREE — our English (L1–L4, commentary) is free use",
+  "scholar": "Contributors declare rights; authorship and copyright depend on the work and law."
+ },
+ "originals": {
+  "t1": {
+   "mukta-m00257-p01-v1": {
+    "verse_id": "mukta-m00257-p01-v1",
+    "song": "mukta-m00257-p01",
+    "verse": 1,
+    "tokens": [
+     {
+      "sanskrit": "vara",
+      "surface": "vara",
+      "iast": "vara",
+      "gloss": "boon",
+      "quick_gloss": "boon",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "anavara",
+      "surface": "anavara",
+      "iast": "anavara",
+      "gloss": "fearlessness",
+      "quick_gloss": "fearlessness",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "da",
+      "surface": "da",
+      "iast": "da",
+      "gloss": "giving",
+      "quick_gloss": "giving",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "dakṣa",
+      "surface": "dakṣa",
+      "iast": "dakṣa",
+      "gloss": "right",
+      "quick_gloss": "right",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "hastaiḥ",
+      "surface": "hastaiḥ",
+      "iast": "hastaiḥ",
+      "gloss": "with-hands",
+      "quick_gloss": "with-hands",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vahantīm",
+      "surface": "vahantīm",
+      "iast": "vahantīm",
+      "gloss": "bearing",
+      "quick_gloss": "bearing",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Bearing boon and fearlessness with her right hands.",
+    "source_sha": ""
+   },
+   "mukta-m00257-p01-v2": {
+    "verse_id": "mukta-m00257-p01-v2",
+    "song": "mukta-m00257-p01",
+    "verse": 2,
+    "tokens": [
+     {
+      "sanskrit": "kāmaṃ",
+      "surface": "kāmaṃ",
+      "iast": "kāmaṃ",
+      "gloss": "desire",
+      "quick_gloss": "desire",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vāmaiḥ",
+      "surface": "vāmaiḥ",
+      "iast": "vāmaiḥ",
+      "gloss": "with-left",
+      "quick_gloss": "with-left",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "śubha",
+      "surface": "śubha",
+      "iast": "śubha",
+      "gloss": "auspicious",
+      "quick_gloss": "auspicious",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kara",
+      "surface": "kara",
+      "iast": "kara",
+      "gloss": "making",
+      "quick_gloss": "making",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "talaiḥ",
+      "surface": "talaiḥ",
+      "iast": "talaiḥ",
+      "gloss": "with-palms",
+      "quick_gloss": "with-palms",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "bibhratīṃ",
+      "surface": "bibhratīṃ",
+      "iast": "bibhratīṃ",
+      "gloss": "holding",
+      "quick_gloss": "holding",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "viśva",
+      "surface": "viśva",
+      "iast": "viśva",
+      "gloss": "by-universe",
+      "quick_gloss": "by-universe",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vandyāṃ",
+      "surface": "vandyāṃ",
+      "iast": "vandyāṃ",
+      "gloss": "worshipped",
+      "quick_gloss": "worshipped",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "padma",
+      "surface": "padma",
+      "iast": "padma",
+      "gloss": "lotus",
+      "quick_gloss": "lotus",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "preta",
+      "surface": "preta",
+      "iast": "preta",
+      "gloss": "corpse",
+      "quick_gloss": "corpse",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "uparikṛta",
+      "surface": "uparikṛta",
+      "iast": "uparikṛta",
+      "gloss": "placed-upon",
+      "quick_gloss": "placed-upon",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "padāṃ",
+      "surface": "padāṃ",
+      "iast": "padāṃ",
+      "gloss": "feet",
+      "quick_gloss": "feet",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "siddhalakṣmīṃ",
+      "surface": "siddhalakṣmīṃ",
+      "iast": "siddhalakṣmīṃ",
+      "gloss": "Siddhalakshmi",
+      "quick_gloss": "Siddhalakshmi",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "namāmi",
+      "surface": "namāmi",
+      "iast": "namāmi",
+      "gloss": "I-bow",
+      "quick_gloss": "I-bow",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Holding desire with her auspicious left palms, worshipped by the universe, with feet placed upon lotus and corpse, I bow to Siddhalakshmi.",
+    "source_sha": ""
+   },
+   "mukta-m00257-p01-v3": {
+    "verse_id": "mukta-m00257-p01-v3",
+    "song": "mukta-m00257-p01",
+    "verse": 3,
+    "tokens": [
+     {
+      "sanskrit": "śrī",
+      "surface": "śrī",
+      "iast": "śrī",
+      "gloss": "auspicious",
+      "quick_gloss": "auspicious",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "sat",
+      "surface": "sat",
+      "iast": "sat",
+      "gloss": "true",
+      "quick_gloss": "true",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "paddhati",
+      "surface": "paddhati",
+      "iast": "paddhati",
+      "gloss": "tradition",
+      "quick_gloss": "tradition",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ānanda",
+      "surface": "ānanda",
+      "iast": "ānanda",
+      "gloss": "bliss",
+      "quick_gloss": "bliss",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kaulena",
+      "surface": "kaulena",
+      "iast": "kaulena",
+      "gloss": "by-Kaula",
+      "quick_gloss": "by-Kaula",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "mukti",
+      "surface": "mukti",
+      "iast": "mukti",
+      "gloss": "liberation",
+      "quick_gloss": "liberation",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "dāyinī",
+      "surface": "dāyinī",
+      "iast": "dāyinī",
+      "gloss": "giving",
+      "quick_gloss": "giving",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "śrī",
+      "surface": "śrī",
+      "iast": "śrī",
+      "gloss": "auspicious",
+      "quick_gloss": "auspicious",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "sadguroḥ",
+      "surface": "sadguroḥ",
+      "iast": "sadguroḥ",
+      "gloss": "of-true-guru",
+      "quick_gloss": "of-true-guru",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "karuṇayā",
+      "surface": "karuṇayā",
+      "iast": "karuṇayā",
+      "gloss": "by-compassion",
+      "quick_gloss": "by-compassion",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "bhūyāt",
+      "surface": "bhūyāt",
+      "iast": "bhūyāt",
+      "gloss": "may-be",
+      "quick_gloss": "may-be",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "śrī",
+      "surface": "śrī",
+      "iast": "śrī",
+      "gloss": "auspicious",
+      "quick_gloss": "auspicious",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "śambhu",
+      "surface": "śambhu",
+      "iast": "śambhu",
+      "gloss": "Shambhu",
+      "quick_gloss": "Shambhu",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "prītaye",
+      "surface": "prītaye",
+      "iast": "prītaye",
+      "gloss": "for-pleasure",
+      "quick_gloss": "for-pleasure",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "By the compassion of the auspicious true guru, may the liberating blissful Kaula of the auspicious true tradition be for the pleasure of auspicious Shambhu.",
+    "source_sha": ""
+   }
+  },
+  "l0": {
+   "mukta-m00257-p01-v1": [
+    {
+     "id": "mukta-m00257-p01-v1-p000",
+     "verse_id": "mukta-m00257-p01-v1",
+     "pada_index": 0,
+     "surface": "vara",
+     "citation": "vara",
+     "morph": "compound-member",
+     "options": [
+      {
+       "gloss": "boon",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "First member of compound describing hands; legacy hint 'boon'."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00257-p01-v1-p001",
+     "verse_id": "mukta-m00257-p01-v1",
+     "pada_index": 1,
+     "surface": "anavara",
+     "citation": "anavara",
+     "morph": "compound-member",
+     "options": [
+      {
+       "gloss": "fearlessness",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Second member in compound sequence; legacy hint 'and-fearlessness'; form uncertain (possibly variant of abhaya), UNC."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00257-p01-v1-p002",
+     "verse_id": "mukta-m00257-p01-v1",
+     "pada_index": 2,
+     "surface": "da",
+     "citation": "da",
+     "morph": "compound-member",
+     "options": [
+      {
+       "gloss": "giving",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Agentive compound member from √dā 'to give'."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00257-p01-v1-p003",
+     "verse_id": "mukta-m00257-p01-v1",
+     "pada_index": 3,
+     "surface": "dakṣa",
+     "citation": "dakṣa",
+     "morph": "compound-member",
+     "options": [
+      {
+       "gloss": "right",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Qualifies hands as right-side; compound member."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00257-p01-v1-p004",
+     "verse_id": "mukta-m00257-p01-v1",
+     "pada_index": 4,
+     "surface": "hastaiḥ",
+     "citation": "hastaiḥ",
+     "morph": "m.inst.pl",
+     "options": [
+      {
+       "gloss": "with-hands",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Instrumental plural denoting means by which she bears."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00257-p01-v1-p005",
+     "verse_id": "mukta-m00257-p01-v1",
+     "pada_index": 5,
+     "surface": "vahantīm",
+     "citation": "vahantīm",
+     "morph": "f.acc.sg.pres.part √vah",
+     "options": [
+      {
+       "gloss": "bearing",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Present participle agreeing with Siddhalakshmi (accusative) in verse 2."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m00257-p01-v2": [
+    {
+     "id": "mukta-m00257-p01-v2-p000",
+     "verse_id": "mukta-m00257-p01-v2",
+     "pada_index": 0,
+     "surface": "kāmaṃ",
+     "citation": "kāmaṃ",
+     "morph": "m.acc.sg",
+     "options": [
+      {
+       "gloss": "desire",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Object held or granted by the left hands."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00257-p01-v2-p001",
+     "verse_id": "mukta-m00257-p01-v2",
+     "pada_index": 1,
+     "surface": "vāmaiḥ",
+     "citation": "vāmaiḥ",
+     "morph": "m.inst.pl",
+     "options": [
+      {
+       "gloss": "with-left",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Qualifies the palms/hands on the left side."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00257-p01-v2-p002",
+     "verse_id": "mukta-m00257-p01-v2",
+     "pada_index": 2,
+     "surface": "śubha",
+     "citation": "śubha",
+     "morph": "compound-member",
+     "options": [
+      {
+       "gloss": "auspicious",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "First member of compound describing palms."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00257-p01-v2-p003",
+     "verse_id": "mukta-m00257-p01-v2",
+     "pada_index": 3,
+     "surface": "kara",
+     "citation": "kara",
+     "morph": "compound-member",
+     "options": [
+      {
+       "gloss": "making",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Agentive compound member indicating action of the palms."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00257-p01-v2-p004",
+     "verse_id": "mukta-m00257-p01-v2",
+     "pada_index": 4,
+     "surface": "talaiḥ",
+     "citation": "talaiḥ",
+     "morph": "m.inst.pl",
+     "options": [
+      {
+       "gloss": "with-palms",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Instrumental plural denoting means by which she holds."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00257-p01-v2-p005",
+     "verse_id": "mukta-m00257-p01-v2",
+     "pada_index": 5,
+     "surface": "bibhratīṃ",
+     "citation": "bibhratīṃ",
+     "morph": "f.acc.sg.pres.part √bhṛ",
+     "options": [
+      {
+       "gloss": "holding",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Present participle agreeing with Siddhalakshmi."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00257-p01-v2-p006",
+     "verse_id": "mukta-m00257-p01-v2",
+     "pada_index": 6,
+     "surface": "viśva",
+     "citation": "viśva",
+     "morph": "compound-member",
+     "options": [
+      {
+       "gloss": "by-universe",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "First member of compound indicating universal scope."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00257-p01-v2-p007",
+     "verse_id": "mukta-m00257-p01-v2",
+     "pada_index": 7,
+     "surface": "vandyāṃ",
+     "citation": "vandyāṃ",
+     "morph": "f.acc.sg.gerundive √vand",
+     "options": [
+      {
+       "gloss": "worshipped",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Gerundive describing Siddhalakshmi as worthy of worship."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00257-p01-v2-p008",
+     "verse_id": "mukta-m00257-p01-v2",
+     "pada_index": 8,
+     "surface": "padma",
+     "citation": "padma",
+     "morph": "compound-member",
+     "options": [
+      {
+       "gloss": "lotus",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "First member of locative compound describing her stance."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00257-p01-v2-p009",
+     "verse_id": "mukta-m00257-p01-v2",
+     "pada_index": 9,
+     "surface": "preta",
+     "citation": "preta",
+     "morph": "compound-member",
+     "options": [
+      {
+       "gloss": "corpse",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Second member of locative compound describing her stance."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00257-p01-v2-p010",
+     "verse_id": "mukta-m00257-p01-v2",
+     "pada_index": 10,
+     "surface": "uparikṛta",
+     "citation": "uparikṛta",
+     "morph": "compound-member",
+     "options": [
+      {
+       "gloss": "placed-upon",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Compound member indicating feet placed above lotus and corpse."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00257-p01-v2-p011",
+     "verse_id": "mukta-m00257-p01-v2",
+     "pada_index": 11,
+     "surface": "padāṃ",
+     "citation": "padāṃ",
+     "morph": "f.acc.sg",
+     "options": [
+      {
+       "gloss": "feet",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Accusative singular describing Siddhalakshmi's feet."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00257-p01-v2-p012",
+     "verse_id": "mukta-m00257-p01-v2",
+     "pada_index": 12,
+     "surface": "siddhalakṣmīṃ",
+     "citation": "siddhalakṣmīṃ",
+     "morph": "f.acc.sg",
+     "options": [
+      {
+       "gloss": "Siddhalakshmi",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Name of the deity, object of homage."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00257-p01-v2-p013",
+     "verse_id": "mukta-m00257-p01-v2",
+     "pada_index": 13,
+     "surface": "namāmi",
+     "citation": "namāmi",
+     "morph": "1.sg.pres.act.ind √nam",
+     "options": [
+      {
+       "gloss": "I-bow",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Main verb expressing the speaker's act of reverence."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m00257-p01-v3": [
+    {
+     "id": "mukta-m00257-p01-v3-p000",
+     "verse_id": "mukta-m00257-p01-v3",
+     "pada_index": 0,
+     "surface": "śrī",
+     "citation": "śrī",
+     "morph": "indecl.",
+     "options": [
+      {
+       "gloss": "auspicious",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Honorific prefix in compound."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00257-p01-v3-p001",
+     "verse_id": "mukta-m00257-p01-v3",
+     "pada_index": 1,
+     "surface": "sat",
+     "citation": "sat",
+     "morph": "compound-member",
+     "options": [
+      {
+       "gloss": "true",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Compound member qualifying the tradition."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00257-p01-v3-p002",
+     "verse_id": "mukta-m00257-p01-v3",
+     "pada_index": 2,
+     "surface": "paddhati",
+     "citation": "paddhati",
+     "morph": "compound-member",
+     "options": [
+      {
+       "gloss": "tradition",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Compound member denoting the ritual or doctrinal path."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00257-p01-v3-p003",
+     "verse_id": "mukta-m00257-p01-v3",
+     "pada_index": 3,
+     "surface": "ānanda",
+     "citation": "ānanda",
+     "morph": "compound-member",
+     "options": [
+      {
+       "gloss": "bliss",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Compound member associated with the Kaula."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00257-p01-v3-p004",
+     "verse_id": "mukta-m00257-p01-v3",
+     "pada_index": 4,
+     "surface": "kaulena",
+     "citation": "kaulena",
+     "morph": "m.inst.sg",
+     "options": [
+      {
+       "gloss": "by-Kaula",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Instrumental singular indicating the agent or means."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00257-p01-v3-p005",
+     "verse_id": "mukta-m00257-p01-v3",
+     "pada_index": 5,
+     "surface": "mukti",
+     "citation": "mukti",
+     "morph": "compound-member",
+     "options": [
+      {
+       "gloss": "liberation",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "First member of compound describing what is given."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00257-p01-v3-p006",
+     "verse_id": "mukta-m00257-p01-v3",
+     "pada_index": 6,
+     "surface": "dāyinī",
+     "citation": "dāyinī",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "giving",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Feminine agentive noun, subject of the optative."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00257-p01-v3-p007",
+     "verse_id": "mukta-m00257-p01-v3",
+     "pada_index": 7,
+     "surface": "śrī",
+     "citation": "śrī",
+     "morph": "indecl.",
+     "options": [
+      {
+       "gloss": "auspicious",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Honorific prefix to the true guru."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00257-p01-v3-p008",
+     "verse_id": "mukta-m00257-p01-v3",
+     "pada_index": 8,
+     "surface": "sadguroḥ",
+     "citation": "sadguroḥ",
+     "morph": "m.gen.sg",
+     "options": [
+      {
+       "gloss": "of-true-guru",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Genitive singular indicating source of compassion."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00257-p01-v3-p009",
+     "verse_id": "mukta-m00257-p01-v3",
+     "pada_index": 9,
+     "surface": "karuṇayā",
+     "citation": "karuṇayā",
+     "morph": "f.inst.sg",
+     "options": [
+      {
+       "gloss": "by-compassion",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Instrumental singular indicating the means."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00257-p01-v3-p010",
+     "verse_id": "mukta-m00257-p01-v3",
+     "pada_index": 10,
+     "surface": "bhūyāt",
+     "citation": "bhūyāt",
+     "morph": "3.sg.opt.act √bhū",
+     "options": [
+      {
+       "gloss": "may-be",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Optative expressing a benediction or wish."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00257-p01-v3-p011",
+     "verse_id": "mukta-m00257-p01-v3",
+     "pada_index": 11,
+     "surface": "śrī",
+     "citation": "śrī",
+     "morph": "indecl.",
+     "options": [
+      {
+       "gloss": "auspicious",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Honorific prefix to Shambhu."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00257-p01-v3-p012",
+     "verse_id": "mukta-m00257-p01-v3",
+     "pada_index": 12,
+     "surface": "śambhu",
+     "citation": "śambhu",
+     "morph": "compound-member",
+     "options": [
+      {
+       "gloss": "Shambhu",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Name in compound forming purpose of pleasure."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00257-p01-v3-p013",
+     "verse_id": "mukta-m00257-p01-v3",
+     "pada_index": 13,
+     "surface": "prītaye",
+     "citation": "prītaye",
+     "morph": "f.dat.sg",
+     "options": [
+      {
+       "gloss": "for-pleasure",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Dative singular expressing purpose."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ]
+  },
+  "argmap": {
+   "mukta-m00257-p01-v1": {
+    "verse_id": "mukta-m00257-p01-v1",
+    "song": "mukta-m00257-p01",
+    "verse": 1,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What gifts are borne by the right hands of Siddhalakshmi in this depiction?",
+    "premises": [
+     "The right hands are described as giving boon and fearlessness.",
+     "Siddhalakshmi is portrayed as bearing these gifts with her hands."
+    ],
+    "inference": "Siddhalakshmi's right hands embody the bestowal of boon and fearlessness.",
+    "uncertainties": [
+     "The form 'anavara' is taken as 'fearlessness' following legacy hint, but its exact lexical identity is uncertain."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m00257-p01-v1",
+     "l0_ids": [
+      "mukta-m00257-p01-v1-p000",
+      "mukta-m00257-p01-v1-p001",
+      "mukta-m00257-p01-v1-p002",
+      "mukta-m00257-p01-v1-p003",
+      "mukta-m00257-p01-v1-p004",
+      "mukta-m00257-p01-v1-p005"
+     ],
+     "sanskrit_sha": "ef31c6a214658c1b"
+    },
+    "sanskrit_sha": "ef31c6a214658c1b"
+   },
+   "mukta-m00257-p01-v2": {
+    "verse_id": "mukta-m00257-p01-v2",
+    "song": "mukta-m00257-p01",
+    "verse": 2,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "How is Siddhalakshmi characterized and honored in this act of obeisance?",
+    "premises": [
+     "Siddhalakshmi holds desire with her auspicious left palms.",
+     "She is worshipped by the universe and stands with feet placed upon lotus and corpse.",
+     "The speaker performs an act of bowing to Siddhalakshmi."
+    ],
+    "inference": "The verse offers reverence to Siddhalakshmi as a universally worshipped deity who grants desire and stands upon lotus and corpse.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m00257-p01-v2",
+     "l0_ids": [
+      "mukta-m00257-p01-v2-p000",
+      "mukta-m00257-p01-v2-p001",
+      "mukta-m00257-p01-v2-p002",
+      "mukta-m00257-p01-v2-p003",
+      "mukta-m00257-p01-v2-p004",
+      "mukta-m00257-p01-v2-p005",
+      "mukta-m00257-p01-v2-p006",
+      "mukta-m00257-p01-v2-p007",
+      "mukta-m00257-p01-v2-p008",
+      "mukta-m00257-p01-v2-p009",
+      "mukta-m00257-p01-v2-p010",
+      "mukta-m00257-p01-v2-p011",
+      "mukta-m00257-p01-v2-p012",
+      "mukta-m00257-p01-v2-p013"
+     ],
+     "sanskrit_sha": "ef31c6a214658c1b"
+    },
+    "sanskrit_sha": "ef31c6a214658c1b"
+   },
+   "mukta-m00257-p01-v3": {
+    "verse_id": "mukta-m00257-p01-v3",
+    "song": "mukta-m00257-p01",
+    "verse": 3,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What outcome is sought through the Kaula tradition and the true guru's compassion?",
+    "premises": [
+     "The auspicious true tradition is associated with the blissful Kaula who grants liberation.",
+     "The compassion of the auspicious true guru is invoked as the means.",
+     "The desired result is expressed as a wish for the pleasure of auspicious Shambhu."
+    ],
+    "inference": "By the Kaula tradition and the true guru's compassion, may liberation be granted for the pleasure of Shambhu.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m00257-p01-v3",
+     "l0_ids": [
+      "mukta-m00257-p01-v3-p000",
+      "mukta-m00257-p01-v3-p001",
+      "mukta-m00257-p01-v3-p002",
+      "mukta-m00257-p01-v3-p003",
+      "mukta-m00257-p01-v3-p004",
+      "mukta-m00257-p01-v3-p005",
+      "mukta-m00257-p01-v3-p006",
+      "mukta-m00257-p01-v3-p007",
+      "mukta-m00257-p01-v3-p008",
+      "mukta-m00257-p01-v3-p009",
+      "mukta-m00257-p01-v3-p010",
+      "mukta-m00257-p01-v3-p011",
+      "mukta-m00257-p01-v3-p012",
+      "mukta-m00257-p01-v3-p013"
+     ],
+     "sanskrit_sha": "ef31c6a214658c1b"
+    },
+    "sanskrit_sha": "ef31c6a214658c1b"
+   }
+  },
+  "l2": {
+   "mukta-m00257-p01-v1": {
+    "verse_id": "mukta-m00257-p01-v1",
+    "song": "mukta-m00257-p01",
+    "verse": 1,
+    "plain_english": "Bearing boon and fearlessness with her right hands.",
+    "sanskrit_cite": "varamanavaradakṣahastairvahantīm",
+    "l0_ids": [
+     "mukta-m00257-p01-v1-p000",
+     "mukta-m00257-p01-v1-p001",
+     "mukta-m00257-p01-v1-p002",
+     "mukta-m00257-p01-v1-p003",
+     "mukta-m00257-p01-v1-p004",
+     "mukta-m00257-p01-v1-p005"
+    ],
+    "supplied": []
+   },
+   "mukta-m00257-p01-v2": {
+    "verse_id": "mukta-m00257-p01-v2",
+    "song": "mukta-m00257-p01",
+    "verse": 2,
+    "plain_english": "Holding desire with her auspicious left palms, worshipped by the universe, with feet placed upon lotus and corpse, I bow to Siddhalakshmi.",
+    "sanskrit_cite": "kāmaṃ vāmaiḥ śubhakaratalairbibhratīṃ viśvavandyāṃ padmapretoparikṛtapadāṃ siddhalakṣmīṃ namāmi",
+    "l0_ids": [
+     "mukta-m00257-p01-v2-p000",
+     "mukta-m00257-p01-v2-p001",
+     "mukta-m00257-p01-v2-p002",
+     "mukta-m00257-p01-v2-p003",
+     "mukta-m00257-p01-v2-p004",
+     "mukta-m00257-p01-v2-p005",
+     "mukta-m00257-p01-v2-p006",
+     "mukta-m00257-p01-v2-p007",
+     "mukta-m00257-p01-v2-p008",
+     "mukta-m00257-p01-v2-p009",
+     "mukta-m00257-p01-v2-p010",
+     "mukta-m00257-p01-v2-p011",
+     "mukta-m00257-p01-v2-p012",
+     "mukta-m00257-p01-v2-p013"
+    ],
+    "supplied": []
+   },
+   "mukta-m00257-p01-v3": {
+    "verse_id": "mukta-m00257-p01-v3",
+    "song": "mukta-m00257-p01",
+    "verse": 3,
+    "plain_english": "By the compassion of the auspicious true guru, may the liberating blissful Kaula of the auspicious true tradition be for the pleasure of auspicious Shambhu.",
+    "sanskrit_cite": "śrīsatpaddhatirānanda kaulena muktidāyinī śrīsadguroḥ karuṇayā bhūyācchrīśambhuprītaye",
+    "l0_ids": [
+     "mukta-m00257-p01-v3-p000",
+     "mukta-m00257-p01-v3-p001",
+     "mukta-m00257-p01-v3-p002",
+     "mukta-m00257-p01-v3-p003",
+     "mukta-m00257-p01-v3-p004",
+     "mukta-m00257-p01-v3-p005",
+     "mukta-m00257-p01-v3-p006",
+     "mukta-m00257-p01-v3-p007",
+     "mukta-m00257-p01-v3-p008",
+     "mukta-m00257-p01-v3-p009",
+     "mukta-m00257-p01-v3-p010",
+     "mukta-m00257-p01-v3-p011",
+     "mukta-m00257-p01-v3-p012",
+     "mukta-m00257-p01-v3-p013"
+    ],
+    "supplied": []
+   }
+  },
+  "c1": {
+   "mukta-m00257-p01": {
+    "song": "mukta-m00257-p01",
+    "essence": [
+     "Siddhalakshmi's right hands embody the bestowal of boon and fearlessness.",
+     "The verse offers reverence to Siddhalakshmi as a universally worshipped deity who grants desire and stands upon lotus and corpse.",
+     "By the Kaula tradition and the true guru's compassion, may liberation be granted for the pleasure of Shambhu."
+    ],
+    "essence_source": "derived from argmap inferences (machine-proposed; assessor review outstanding)",
+    "rasa": {},
+    "essence_only": true,
+    "renders": {}
+   }
+  },
+  "l3": {},
+  "l4": {},
+  "c2": {}
+ },
+ "source_verses": {
+  "mukta-m00257-p01-v1": {
+   "text": "varamanavaradakṣahastairvahantīm",
+   "source_file": "translation-work/mukta-m00257/source/edition.txt",
+   "source_sha256": "0f139a37065d11a0779536efa5077320c04f59aa259f99bdce4bba4cf94fadbf",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m00257-p01-v2": {
+   "text": "kāmaṃ vāmaiḥ śubhakaratalairbibhratīṃ viśvavandyāṃ padmapretoparikṛtapadāṃ siddhalakṣmīṃ namāmi",
+   "source_file": "translation-work/mukta-m00257/source/edition.txt",
+   "source_sha256": "0f139a37065d11a0779536efa5077320c04f59aa259f99bdce4bba4cf94fadbf",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m00257-p01-v3": {
+   "text": "śrīsatpaddhatirānanda kaulena muktidāyinī śrīsadguroḥ karuṇayā bhūyācchrīśambhuprītaye",
+   "source_file": "translation-work/mukta-m00257/source/edition.txt",
+   "source_sha256": "0f139a37065d11a0779536efa5077320c04f59aa259f99bdce4bba4cf94fadbf",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  }
+ },
+ "l4_craft": {},
+ "withheld_songs": [],
+ "original_hashes": {
+  "t1": {
+   "mukta-m00257-p01-v1": "015b96a4ff80f6ebdfe21254d64a68aa22f0641dd475fe2c916f9cffbe7ad34e",
+   "mukta-m00257-p01-v2": "6ce96c38828a1db7afcca7e6d78027ad563825570e4afe14e5b66004cd853ce6",
+   "mukta-m00257-p01-v3": "5c4a0c463fd89f0673c0109284c5835f9841b264171f7c027c4adf3ddfd2f843"
+  },
+  "l0": {
+   "mukta-m00257-p01-v1": "17cb51a75ab3e01a346e936f56442c1f34a0cd77e1b04b3da14e47ab2c88422d",
+   "mukta-m00257-p01-v2": "dc89421ac12f5ad8060d2992a96108c335ca428d78d5b19b520bce502a915439",
+   "mukta-m00257-p01-v3": "037cfe6117ce84182fc601db28b01c13a221cc1e5f1ecaff58fd5eef9cab1b5b"
+  },
+  "argmap": {
+   "mukta-m00257-p01-v1": "8b4601a9f185dc6316404dbba10631ed405d6ba94b737be8d4a2ed26607fe36b",
+   "mukta-m00257-p01-v2": "7ddf9759471af0929e3ff5ee0918168e840cabc3455b6912853c6e6f5537e3cb",
+   "mukta-m00257-p01-v3": "a64caab6409c8d759ed8fbf770b39932130a0cbb0879cc4f29445e1d22a6f3c2"
+  },
+  "l2": {
+   "mukta-m00257-p01-v1": "b225e776487d7460ba4787f4dd48850c8f95fdf578c4e650812d66ae8b166fef",
+   "mukta-m00257-p01-v2": "b36043f6a777b96b07bc38fbb7292521a2aac9ed5b068a10de0f12d2ad333c6f",
+   "mukta-m00257-p01-v3": "f0b958f025056b41670971905e83c5a3e6ccd5c0c81660518dc4bdb21a183a57"
+  },
+  "c1": {
+   "mukta-m00257-p01": "99c62d190df4fe9357f7666a2212d727afa58403be9c7998cf13f66625b15d17"
+  },
+  "l3": {},
+  "l4": {},
+  "c2": {}
+ },
+ "versions": [],
+ "essays": [],
+ "reviews": [],
+ "promotions": [],
+ "signoffs": [],
+ "stack_hashes": {
+  "mukta-m00257-p01": "9316fbed4aae93b570cac0f29b963a84a482518ae7448bfa06641e7d5172d7fd"
+ },
+ "projection_sha256": "edd06842665c0e2658322ad9e378cc67cb4b05f40535d67a86b2d17baf326fa4"
+}

@@ -1,0 +1,1429 @@
+{
+ "work": "mukta-m00634",
+ "generated": null,
+ "source": "translation-work canonical data + scholar/ ledgers (emit_scholar.py)",
+ "source_edition": "Muktabodha M00634 (IAST, CC BY-NC 4.0)",
+ "contract": {
+  "contract_version": "svatantrya-agent-contract/1",
+  "contract_sha256": "575232010d119225d9b3f12121fa59ad744765a875914708396c51a3129d7301",
+  "schema_version": "1.4.0",
+  "structural_schema_version": "2.1.0",
+  "structural_schema_snapshot_sha256": "3ce4085b2cbcebfec8471eee4b24a6974f9a19c77f0d125c7cad46bbb1ae8b0a",
+  "order": [
+   "source",
+   "t1",
+   "l0",
+   "argmap",
+   "l2",
+   "c1",
+   "l3",
+   "l4",
+   "c2"
+  ],
+  "schemas": {
+   "t1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:t1",
+    "title": "Svatantrya T1 structural schema",
+    "x-validator": "schemas.t1.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "quick_english",
+     "tokens",
+     "source_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "quick_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "source_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "tokens": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "surface",
+        "quick_gloss"
+       ],
+       "properties": {
+        "surface": {
+         "type": "string",
+         "minLength": 1
+        },
+        "quick_gloss": {
+         "type": "string",
+         "minLength": 1
+        }
+       }
+      }
+     }
+    }
+   },
+   "l0": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l0:verse",
+    "title": "Svatantrya L0 verse token list structural schema",
+    "x-validator": "schemas.l0.validate (per token)",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+     "$schema": "https://json-schema.org/draft/2020-12/schema",
+     "$id": "urn:svatantrya:schema:2.1.0:l0",
+     "title": "Svatantrya L0 structural schema",
+     "x-validator": "schemas.l0.validate",
+     "x-schema-version": "1.4.0",
+     "x-structural-schema-version": "2.1.0",
+     "type": "object",
+     "required": [
+      "id",
+      "verse_id",
+      "pada_index",
+      "surface",
+      "citation",
+      "options",
+      "chosen_index",
+      "status"
+     ],
+     "properties": {
+      "id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "verse_id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "pada_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "surface": {
+       "type": "string",
+       "minLength": 1
+      },
+      "citation": {
+       "type": "string",
+       "minLength": 1
+      },
+      "morph": {
+       "type": "string"
+      },
+      "morph_unknown": {
+       "type": "boolean"
+      },
+      "options": {
+       "type": "array",
+       "maxItems": 5,
+       "items": {
+        "type": "object",
+        "required": [
+         "gloss",
+         "rank",
+         "source",
+         "grounds"
+        ],
+        "properties": {
+         "gloss": {
+          "type": "string",
+          "minLength": 1
+         },
+         "rank": {
+          "type": "integer",
+          "minimum": 1
+         },
+         "source": {
+          "type": "string",
+          "minLength": 1
+         },
+         "grounds": {
+          "type": "string",
+          "minLength": 1
+         }
+        }
+       }
+      },
+      "chosen_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "status": {
+       "type": "string",
+       "enum": [
+        "PARSED",
+        "AMBIGUOUS",
+        "FAILED"
+       ]
+      },
+      "revised": {
+       "type": "boolean"
+      },
+      "revise_reason": {
+       "type": "string"
+      },
+      "fork": {
+       "type": "string",
+       "enum": [
+        "none",
+        "live",
+        "resolved"
+       ]
+      }
+     }
+    }
+   },
+   "argmap": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:argmap",
+    "title": "Svatantrya ARGMAP structural schema",
+    "x-validator": "schemas.argmap.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "traces",
+     "sanskrit_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "traces": {
+      "type": "object",
+      "required": [
+       "t1_verse",
+       "l0_ids"
+      ],
+      "properties": {
+       "t1_verse": {
+        "type": "string",
+        "minLength": 1
+       },
+       "l0_ids": {
+        "type": "array",
+        "items": {
+         "type": "string",
+         "minLength": 1
+        },
+        "minItems": 1
+       }
+      }
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "sanskrit_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "speaker": {
+      "type": "string",
+      "minLength": 1
+     },
+     "question": {
+      "type": "string",
+      "minLength": 1
+     },
+     "inference": {
+      "type": "string",
+      "minLength": 1
+     },
+     "reconstruction": {
+      "type": "string",
+      "minLength": 1
+     },
+     "premises": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     },
+     "uncertainties": {
+      "type": "array"
+     },
+     "structured": {
+      "type": "boolean"
+     }
+    }
+   },
+   "l2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l2",
+    "title": "Svatantrya L2 structural schema",
+    "x-validator": "schemas.l2.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "plain_english",
+     "sanskrit_cite",
+     "l0_ids"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "plain_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "supplied": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     }
+    }
+   },
+   "c1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:c1",
+    "title": "Svatantrya C1 structural schema",
+    "x-validator": "schemas.c1.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "song",
+     "essence",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "essence": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "renders": {
+      "type": "object",
+      "required": [
+       "standard"
+      ]
+     }
+    }
+   },
+   "l3": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l3",
+    "title": "Svatantrya L3 structural schema",
+    "x-validator": "schemas.l3.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "l4": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l4",
+    "title": "Svatantrya L4 structural schema",
+    "x-validator": "schemas.l4.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "c2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:c2",
+    "title": "Svatantrya C2 structural schema",
+    "x-validator": "schemas.c2.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "song",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "renders": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "style",
+        "prompt",
+        "paragraphs"
+       ],
+       "properties": {
+        "style": {
+         "type": "string",
+         "minLength": 1
+        },
+        "prompt": {
+         "type": "string",
+         "minLength": 1
+        },
+        "paragraphs": {
+         "type": "array",
+         "minItems": 1,
+         "items": {
+          "type": "object",
+          "required": [
+           "text",
+           "maps_to"
+          ],
+          "properties": {
+           "text": {
+            "type": "string",
+            "minLength": 1
+           },
+           "maps_to": {
+            "type": "array",
+            "items": {
+             "type": "integer",
+             "minimum": 0
+            },
+            "minItems": 1
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "layers": [
+   {
+    "id": "t1",
+    "scope": "verse",
+    "depends_on": [
+     "source"
+    ],
+    "validator": "schemas/t1.py",
+    "validator_sha256": "ac792ba1f0cbc06ab52dfbc41a31d3e39460f0e8a7de2977ed02e4ce63a20f27",
+    "example": {
+     "file": "sivastotravali/data/s01.t1.json",
+     "file_sha256": "a5c4cfae67571d05866d97ad6eb29b1c2956140a69c2fae554c29577330beb8e",
+     "target": "s01-v01",
+     "content_sha256": "26f027dafbe67347efd901cb2b94630cdb0e372957edeb4a3e1305e83745ba5b",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l0",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1"
+    ],
+    "validator": "schemas/l0.py",
+    "validator_sha256": "0651bc77f519897f8a4f8b41f4ea0cc6a88f3441910af99b18d55854a7e9030e",
+    "example": {
+     "file": "sivastotravali/data/s06.l0.json",
+     "file_sha256": "c2bb0ce1010315d72bdce75ee3c8901b17499202abe7adc5bd1977a26f4fea2f",
+     "target": "s06-v01",
+     "content_sha256": "91e3b04d47482757bcaf1e9705992edd0815ff7907ed2cb33c7c9586f3a9e5aa",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "argmap",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0"
+    ],
+    "validator": "schemas/argmap.py",
+    "validator_sha256": "335c1bbe809c5ae942ecef4a30ee7fd8fcb82645a43019312fa74397fe5758b0",
+    "example": {
+     "file": "sivastotravali/data/s01.argmap.json",
+     "file_sha256": "a44c8ec09a30c577f2a792c1255d4290f49a6138c456bb687bc00e78a3902949",
+     "target": "s01-v21",
+     "content_sha256": "80b69a54761b8b0b7c193058f6c88eef60323a3611008c41ba9879bcfc3cdc21",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l2",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap"
+    ],
+    "validator": "schemas/l2.py",
+    "validator_sha256": "95556834767ef61cf824b501ad7184b4223b6a7f479cd9644fbaae4372725ae3",
+    "example": {
+     "file": "sivastotravali/data/s01.l2.json",
+     "file_sha256": "f5a1cec55bb466c328380a0bf527e6d8906428b3436f85a79bd01df98ceb1040",
+     "target": "s01-v01",
+     "content_sha256": "f3c47f6a631f7551d4f9c8ad1117bdf65463cb8cdc92e9b42bb3bf517ae80055",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c1",
+    "scope": "song",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2"
+    ],
+    "validator": "schemas/c1.py",
+    "validator_sha256": "291c7eba42e68952b685becb6b596df7e2d9ca859d264152707d89efa5361c90",
+    "example": {
+     "file": "sivastotravali/data/s01.c1.json",
+     "file_sha256": "99f4d2bbf7a8086176ee585b6e459076e2abd72b9675435267f7546beb1515f8",
+     "target": "s01",
+     "content_sha256": "5be1f3c0c3f64fafe5395b42cf5502a139a5e208be419d5804fe1a5bdd33712a",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l3",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2",
+     "c1"
+    ],
+    "validator": "schemas/l3.py",
+    "validator_sha256": "6c3df228f886207782d5250699e9e459f236f6e7d6b25ac29b00a38541956917",
+    "example": {
+     "file": "sivastotravali/data/s01.l3.json",
+     "file_sha256": "cdb4af6a4c2a851231195f4e5c940346f65199d5d5d69ea1c41d8095f98409f9",
+     "target": "s01-v01",
+     "content_sha256": "6aa20635387174b68fe4ea3baf970c06aff9838acb2c745e7afca0ed7c6751de",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l4",
+    "scope": "verse",
+    "depends_on": [
+     "l3",
+     "c1"
+    ],
+    "validator": "schemas/l4.py",
+    "validator_sha256": "3c1f7b0dfe3d83d425ed0fd84fba7b74aa3ed9e9758402369d779eedda1a8c03",
+    "example": {
+     "file": "paramarthasara/data/param-p01.l4.json",
+     "file_sha256": "db346e51e71f2f835ddfda004d4432934611817c2c73318d335f6ca2362ad4fb",
+     "target": "param-p01-v01",
+     "content_sha256": "91e9d424cf310d4e5b45c173b02f5286d837269ef9447533c153a48cb5122c14",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c2",
+    "scope": "song",
+    "depends_on": [
+     "c1",
+     "l3"
+    ],
+    "validator": "schemas/c2.py",
+    "validator_sha256": "fb8743f206e036002c780d082c7d32cf011dcdab4c21df742a5f5e59a9d851b8",
+    "example": {
+     "file": "sivastotravali/data/s01.c2.json",
+     "file_sha256": "09660a3c09679fce8c95968934e5851a22d89cdf154d2b0635d358e1ef9e8aeb",
+     "target": "s01",
+     "content_sha256": "2faa5fa86e38faca7ef5a1a967a4e261e2df294648a31ed5bad5f731001aa41c",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   }
+  ]
+ },
+ "rights": {
+  "translation": "FREE — our English (L1–L4, commentary) is free use",
+  "scholar": "Contributors declare rights; authorship and copyright depend on the work and law."
+ },
+ "originals": {
+  "t1": {
+   "mukta-m00634-p01-v1": {
+    "verse_id": "mukta-m00634-p01-v1",
+    "song": "mukta-m00634-p01",
+    "verse": 1,
+    "tokens": [
+     {
+      "sanskrit": "laḥ",
+      "surface": "laḥ",
+      "iast": "laḥ",
+      "gloss": "letter-la",
+      "quick_gloss": "letter-la",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "pari",
+      "surface": "pari",
+      "iast": "pari",
+      "gloss": "fully",
+      "quick_gloss": "fully",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "pūr",
+      "surface": "pūr",
+      "iast": "pūr",
+      "gloss": "filled",
+      "quick_gloss": "filled",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ṇaḥ",
+      "surface": "ṇaḥ",
+      "iast": "ṇaḥ",
+      "gloss": "complete",
+      "quick_gloss": "complete",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "The letter la is fully complete.",
+    "source_sha": ""
+   },
+   "mukta-m00634-p01-v2": {
+    "verse_id": "mukta-m00634-p01-v2",
+    "song": "mukta-m00634-p01",
+    "verse": 2,
+    "tokens": [
+     {
+      "sanskrit": "dvitīyaḥ",
+      "surface": "dvitīyaḥ",
+      "iast": "dvitīyaḥ",
+      "gloss": "second",
+      "quick_gloss": "second",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "paṭalaḥ",
+      "surface": "paṭalaḥ",
+      "iast": "paṭalaḥ",
+      "gloss": "chapter",
+      "quick_gloss": "chapter",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "paripūrṇaḥ",
+      "surface": "paripūrṇaḥ",
+      "iast": "paripūrṇaḥ",
+      "gloss": "fully-completed",
+      "quick_gloss": "fully-completed",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "oṃ",
+      "surface": "oṃ",
+      "iast": "oṃ",
+      "gloss": "oṃ",
+      "quick_gloss": "oṃ",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "namaḥ",
+      "surface": "namaḥ",
+      "iast": "namaḥ",
+      "gloss": "salutation",
+      "quick_gloss": "salutation",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "mātṛkāyai",
+      "surface": "mātṛkāyai",
+      "iast": "mātṛkāyai",
+      "gloss": "to-the-mātṛkā",
+      "quick_gloss": "to-the-mātṛkā",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "The second chapter is fully completed. Oṃ, salutation to the Mātṛkā.",
+    "source_sha": ""
+   },
+   "mukta-m00634-p01-v3": {
+    "verse_id": "mukta-m00634-p01-v3",
+    "song": "mukta-m00634-p01",
+    "verse": 3,
+    "tokens": [
+     {
+      "sanskrit": "kābhede",
+      "surface": "kābhede",
+      "iast": "kābhede",
+      "gloss": "in-the-kābheda",
+      "quick_gloss": "in-the-kābheda",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tantre",
+      "surface": "tantre",
+      "iast": "tantre",
+      "gloss": "in-the-tantra",
+      "quick_gloss": "in-the-tantra",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "paṃcamaḥ",
+      "surface": "paṃcamaḥ",
+      "iast": "paṃcamaḥ",
+      "gloss": "fifth",
+      "quick_gloss": "fifth",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "paṭalaḥ",
+      "surface": "paṭalaḥ",
+      "iast": "paṭalaḥ",
+      "gloss": "chapter",
+      "quick_gloss": "chapter",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "oṃ",
+      "surface": "oṃ",
+      "iast": "oṃ",
+      "gloss": "oṃ",
+      "quick_gloss": "oṃ",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "devī",
+      "surface": "devī",
+      "iast": "devī",
+      "gloss": "the-goddess",
+      "quick_gloss": "the-goddess",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "uvāca",
+      "surface": "uvāca",
+      "iast": "uvāca",
+      "gloss": "said",
+      "quick_gloss": "said",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "In the Kābheda tantra, the fifth chapter. Oṃ, the goddess said.",
+    "source_sha": ""
+   }
+  },
+  "l0": {
+   "mukta-m00634-p01-v1": [
+    {
+     "id": "mukta-m00634-p01-v1-p000",
+     "verse_id": "mukta-m00634-p01-v1",
+     "pada_index": 0,
+     "surface": "laḥ",
+     "citation": "laḥ",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "letter-la",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Name of the phoneme la."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00634-p01-v1-p001",
+     "verse_id": "mukta-m00634-p01-v1",
+     "pada_index": 1,
+     "surface": "pari",
+     "citation": "pari",
+     "morph": "compound-member.prefix",
+     "options": [
+      {
+       "gloss": "fully",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Prefixal member of the adjective paripūrṇaḥ, split across tokens in the source."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00634-p01-v1-p002",
+     "verse_id": "mukta-m00634-p01-v1",
+     "pada_index": 2,
+     "surface": "pūr",
+     "citation": "pūr",
+     "morph": "compound-member.root",
+     "options": [
+      {
+       "gloss": "filled",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Verbal-root member of paripūrṇaḥ (√pṛ/pūr), split across tokens in the source."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00634-p01-v1-p003",
+     "verse_id": "mukta-m00634-p01-v1",
+     "pada_index": 3,
+     "surface": "ṇaḥ",
+     "citation": "ṇaḥ",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "complete",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Terminal member completing paripūrṇaḥ, masculine nominative singular adjective in the fused form."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m00634-p01-v2": [
+    {
+     "id": "mukta-m00634-p01-v2-p000",
+     "verse_id": "mukta-m00634-p01-v2",
+     "pada_index": 0,
+     "surface": "dvitīyaḥ",
+     "citation": "dvitīyaḥ",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "second",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Ordinal adjective qualifying paṭalaḥ."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00634-p01-v2-p001",
+     "verse_id": "mukta-m00634-p01-v2",
+     "pada_index": 1,
+     "surface": "paṭalaḥ",
+     "citation": "paṭalaḥ",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "chapter",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Noun denoting a chapter or section."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00634-p01-v2-p002",
+     "verse_id": "mukta-m00634-p01-v2",
+     "pada_index": 2,
+     "surface": "paripūrṇaḥ",
+     "citation": "paripūrṇaḥ",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "fully-completed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Adjective indicating completion of the chapter."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00634-p01-v2-p003",
+     "verse_id": "mukta-m00634-p01-v2",
+     "pada_index": 3,
+     "surface": "oṃ",
+     "citation": "oṃ",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "oṃ",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Sacred syllable, kept byte-exact."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00634-p01-v2-p004",
+     "verse_id": "mukta-m00634-p01-v2",
+     "pada_index": 4,
+     "surface": "namaḥ",
+     "citation": "namaḥ",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "salutation",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Indeclinable expressing reverence, governing the dative."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00634-p01-v2-p005",
+     "verse_id": "mukta-m00634-p01-v2",
+     "pada_index": 5,
+     "surface": "mātṛkāyai",
+     "citation": "mātṛkāyai",
+     "morph": "f.dat.sg",
+     "options": [
+      {
+       "gloss": "to-the-mātṛkā",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Recipient of the salutation; Mātṛkā is a technical name kept in situ."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m00634-p01-v3": [
+    {
+     "id": "mukta-m00634-p01-v3-p000",
+     "verse_id": "mukta-m00634-p01-v3",
+     "pada_index": 0,
+     "surface": "kābhede",
+     "citation": "kābhede",
+     "morph": "m.loc.sg",
+     "options": [
+      {
+       "gloss": "in-the-kābheda",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Locative qualifier of tantre; kābhede is a text or section name kept in situ (UNC)."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00634-p01-v3-p001",
+     "verse_id": "mukta-m00634-p01-v3",
+     "pada_index": 1,
+     "surface": "tantre",
+     "citation": "tantre",
+     "morph": "n.loc.sg",
+     "options": [
+      {
+       "gloss": "in-the-tantra",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Locative noun indicating the textual setting."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00634-p01-v3-p002",
+     "verse_id": "mukta-m00634-p01-v3",
+     "pada_index": 2,
+     "surface": "paṃcamaḥ",
+     "citation": "paṃcamaḥ",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "fifth",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Ordinal adjective qualifying paṭalaḥ."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00634-p01-v3-p003",
+     "verse_id": "mukta-m00634-p01-v3",
+     "pada_index": 3,
+     "surface": "paṭalaḥ",
+     "citation": "paṭalaḥ",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "chapter",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Noun denoting a chapter or section."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00634-p01-v3-p004",
+     "verse_id": "mukta-m00634-p01-v3",
+     "pada_index": 4,
+     "surface": "oṃ",
+     "citation": "oṃ",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "oṃ",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Sacred syllable, kept byte-exact."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00634-p01-v3-p005",
+     "verse_id": "mukta-m00634-p01-v3",
+     "pada_index": 5,
+     "surface": "devī",
+     "citation": "devī",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "the-goddess",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Subject of the verb uvāca; speaker identity not further specified in this text."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m00634-p01-v3-p006",
+     "verse_id": "mukta-m00634-p01-v3",
+     "pada_index": 6,
+     "surface": "uvāca",
+     "citation": "uvāca",
+     "morph": "3.sg.perfect-active √vac",
+     "options": [
+      {
+       "gloss": "said",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "Speech verb introducing utterance."
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ]
+  },
+  "argmap": {
+   "mukta-m00634-p01-v1": {
+    "verse_id": "mukta-m00634-p01-v1",
+    "song": "mukta-m00634-p01",
+    "verse": 1,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "In what sense is the phoneme la characterized as fully complete?",
+    "premises": [
+     "The phoneme la is explicitly named.",
+     "The phoneme la is qualified as fully complete."
+    ],
+    "inference": "The phoneme la is presented as possessing a state of full completeness.",
+    "uncertainties": [
+     "The doctrinal context for the completeness of la is not supplied in this short text."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m00634-p01-v1",
+     "l0_ids": [
+      "mukta-m00634-p01-v1-p000",
+      "mukta-m00634-p01-v1-p001",
+      "mukta-m00634-p01-v1-p002",
+      "mukta-m00634-p01-v1-p003"
+     ],
+     "sanskrit_sha": "db2039f3f2c901a0"
+    },
+    "sanskrit_sha": "db2039f3f2c901a0"
+   },
+   "mukta-m00634-p01-v2": {
+    "verse_id": "mukta-m00634-p01-v2",
+    "song": "mukta-m00634-p01",
+    "verse": 2,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What textual closure and reverential dedication mark the end of the second chapter?",
+    "premises": [
+     "The second chapter is declared fully completed.",
+     "A salutation is offered to the Mātṛkā."
+    ],
+    "inference": "The completion of the second chapter is formally sealed with reverence to the Mātṛkā.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m00634-p01-v2",
+     "l0_ids": [
+      "mukta-m00634-p01-v2-p000",
+      "mukta-m00634-p01-v2-p001",
+      "mukta-m00634-p01-v2-p002",
+      "mukta-m00634-p01-v2-p003",
+      "mukta-m00634-p01-v2-p004",
+      "mukta-m00634-p01-v2-p005"
+     ],
+     "sanskrit_sha": "db2039f3f2c901a0"
+    },
+    "sanskrit_sha": "db2039f3f2c901a0"
+   },
+   "mukta-m00634-p01-v3": {
+    "verse_id": "mukta-m00634-p01-v3",
+    "song": "mukta-m00634-p01",
+    "verse": 3,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What textual setting and speaker are introduced at the opening of the fifth chapter?",
+    "premises": [
+     "The setting is located in the Kābheda tantra.",
+     "The fifth chapter is identified.",
+     "The goddess is presented as speaking."
+    ],
+    "inference": "The fifth chapter of the Kābheda tantra opens with the goddess as speaker.",
+    "uncertainties": [
+     "The precise identification of kābhede is uncertain (UNC).",
+     "The identity of the goddess is not specified in this short text."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m00634-p01-v3",
+     "l0_ids": [
+      "mukta-m00634-p01-v3-p000",
+      "mukta-m00634-p01-v3-p001",
+      "mukta-m00634-p01-v3-p002",
+      "mukta-m00634-p01-v3-p003",
+      "mukta-m00634-p01-v3-p004",
+      "mukta-m00634-p01-v3-p005",
+      "mukta-m00634-p01-v3-p006"
+     ],
+     "sanskrit_sha": "db2039f3f2c901a0"
+    },
+    "sanskrit_sha": "db2039f3f2c901a0"
+   }
+  },
+  "l2": {
+   "mukta-m00634-p01-v1": {
+    "verse_id": "mukta-m00634-p01-v1",
+    "song": "mukta-m00634-p01",
+    "verse": 1,
+    "plain_english": "The letter la is fully complete.",
+    "sanskrit_cite": "laḥparipūrṇaḥ",
+    "l0_ids": [
+     "mukta-m00634-p01-v1-p000",
+     "mukta-m00634-p01-v1-p001",
+     "mukta-m00634-p01-v1-p002",
+     "mukta-m00634-p01-v1-p003"
+    ],
+    "supplied": []
+   },
+   "mukta-m00634-p01-v2": {
+    "verse_id": "mukta-m00634-p01-v2",
+    "song": "mukta-m00634-p01",
+    "verse": 2,
+    "plain_english": "The second chapter is fully completed. Oṃ, salutation to the Mātṛkā.",
+    "sanskrit_cite": "dvitīyaḥpaṭalaḥparipūrṇaḥ oṃnamomātṛkāyai",
+    "l0_ids": [
+     "mukta-m00634-p01-v2-p000",
+     "mukta-m00634-p01-v2-p001",
+     "mukta-m00634-p01-v2-p002",
+     "mukta-m00634-p01-v2-p003",
+     "mukta-m00634-p01-v2-p004",
+     "mukta-m00634-p01-v2-p005"
+    ],
+    "supplied": []
+   },
+   "mukta-m00634-p01-v3": {
+    "verse_id": "mukta-m00634-p01-v3",
+    "song": "mukta-m00634-p01",
+    "verse": 3,
+    "plain_english": "In the Kābheda tantra, the fifth chapter. Oṃ, the goddess said.",
+    "sanskrit_cite": "kābhedetantrepaṃcamaḥpaṭalaḥ oṃdevyuvāca",
+    "l0_ids": [
+     "mukta-m00634-p01-v3-p000",
+     "mukta-m00634-p01-v3-p001",
+     "mukta-m00634-p01-v3-p002",
+     "mukta-m00634-p01-v3-p003",
+     "mukta-m00634-p01-v3-p004",
+     "mukta-m00634-p01-v3-p005",
+     "mukta-m00634-p01-v3-p006"
+    ],
+    "supplied": []
+   }
+  },
+  "c1": {
+   "mukta-m00634-p01": {
+    "song": "mukta-m00634-p01",
+    "essence": [
+     "The phoneme la is presented as possessing a state of full completeness.",
+     "The completion of the second chapter is formally sealed with reverence to the Mātṛkā.",
+     "The fifth chapter of the Kābheda tantra opens with the goddess as speaker."
+    ],
+    "essence_source": "derived from argmap inferences (machine-proposed; assessor review outstanding)",
+    "rasa": {},
+    "essence_only": true,
+    "renders": {}
+   }
+  },
+  "l3": {},
+  "l4": {},
+  "c2": {}
+ },
+ "source_verses": {
+  "mukta-m00634-p01-v1": {
+   "text": "laḥparipūrṇaḥ",
+   "source_file": "translation-work/mukta-m00634/source/edition.txt",
+   "source_sha256": "7d9bb12f8f0681bf52b1474e4c663e52567d813a8fda69a35075c48cf8df8e9e",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m00634-p01-v2": {
+   "text": "dvitīyaḥpaṭalaḥparipūrṇaḥ oṃnamomātṛkāyai",
+   "source_file": "translation-work/mukta-m00634/source/edition.txt",
+   "source_sha256": "7d9bb12f8f0681bf52b1474e4c663e52567d813a8fda69a35075c48cf8df8e9e",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m00634-p01-v3": {
+   "text": "kābhedetantrepaṃcamaḥpaṭalaḥ oṃdevyuvāca",
+   "source_file": "translation-work/mukta-m00634/source/edition.txt",
+   "source_sha256": "7d9bb12f8f0681bf52b1474e4c663e52567d813a8fda69a35075c48cf8df8e9e",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  }
+ },
+ "l4_craft": {},
+ "withheld_songs": [],
+ "original_hashes": {
+  "t1": {
+   "mukta-m00634-p01-v1": "e2915a9e4ce2135b923ec07ad04356639e40bf8a8795b9e215a71a8380823564",
+   "mukta-m00634-p01-v2": "ca3e0ec573f0e25149240efb07a1220c1dda3151e06068c4cab274d479f5a973",
+   "mukta-m00634-p01-v3": "2e16fc027e317453c39c3544a315e4213653c84626c25490c1940758e2ccde37"
+  },
+  "l0": {
+   "mukta-m00634-p01-v1": "8c95c35911fc5d527368783b48077458e69f695d29e3cbbc415dd788faffa989",
+   "mukta-m00634-p01-v2": "0ec43a28ec019da155f3a8fca06c9228407b935b2d0d2cf6647fbae5eaf67ce2",
+   "mukta-m00634-p01-v3": "7c0f3e522c5296eee0db05db91bab4360948e571738a0db119f54cefbc1bddd4"
+  },
+  "argmap": {
+   "mukta-m00634-p01-v1": "4a69953c6bdedd3edd96536f8abc2b8d92b1f208616699ea21585f31900ab6cf",
+   "mukta-m00634-p01-v2": "9e3726d410298fc2909ee212319c614969b155d1c4e0a6d5fdb710e579e975ce",
+   "mukta-m00634-p01-v3": "ab2d5b18ad99f4383a25fc6865a68ccdf71b553d5dcf404bbbdb4226df6b5f72"
+  },
+  "l2": {
+   "mukta-m00634-p01-v1": "a45e1a18949cb3bd133163ad2d4f798eb632ad497a0382fdf6510c04be02c65c",
+   "mukta-m00634-p01-v2": "14614132f178fe5fbc15a2b2e2340dc3d31d92cf169b99eed27fbbceaaa313aa",
+   "mukta-m00634-p01-v3": "182df21aa09a7abf7f09ad4809226baa287994f3a23ee9f6ecab74ba5a85210d"
+  },
+  "c1": {
+   "mukta-m00634-p01": "bd1a755d46332b338d568cb2b90eb83ddaa8e9f8a710f378379884f3eded098b"
+  },
+  "l3": {},
+  "l4": {},
+  "c2": {}
+ },
+ "versions": [],
+ "essays": [],
+ "reviews": [],
+ "promotions": [],
+ "signoffs": [],
+ "stack_hashes": {
+  "mukta-m00634-p01": "d1aec2f0fbd4ed31be9d000b73125815d7644129ad0f3a9ccee94c842d47c2af"
+ },
+ "projection_sha256": "173f92d4082989176760d954f6dad9fef0b6e990fbe5525fadaadad3bb27fc8c"
+}

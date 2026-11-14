@@ -1,0 +1,1576 @@
+{
+ "work": "mukta-m00003",
+ "generated": null,
+ "source": "translation-work canonical data + scholar/ ledgers (emit_scholar.py)",
+ "source_edition": "Muktabodha M00003 (IAST, CC BY-NC 4.0) [concat of non-contiguous segment slices]",
+ "contract": {
+  "contract_version": "svatantrya-agent-contract/1",
+  "contract_sha256": "575232010d119225d9b3f12121fa59ad744765a875914708396c51a3129d7301",
+  "schema_version": "1.4.0",
+  "structural_schema_version": "2.1.0",
+  "structural_schema_snapshot_sha256": "3ce4085b2cbcebfec8471eee4b24a6974f9a19c77f0d125c7cad46bbb1ae8b0a",
+  "order": [
+   "source",
+   "t1",
+   "l0",
+   "argmap",
+   "l2",
+   "c1",
+   "l3",
+   "l4",
+   "c2"
+  ],
+  "schemas": {
+   "t1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:t1",
+    "title": "Svatantrya T1 structural schema",
+    "x-validator": "schemas.t1.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "quick_english",
+     "tokens",
+     "source_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "quick_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "source_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "tokens": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "surface",
+        "quick_gloss"
+       ],
+       "properties": {
+        "surface": {
+         "type": "string",
+         "minLength": 1
+        },
+        "quick_gloss": {
+         "type": "string",
+         "minLength": 1
+        }
+       }
+      }
+     }
+    }
+   },
+   "l0": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l0:verse",
+    "title": "Svatantrya L0 verse token list structural schema",
+    "x-validator": "schemas.l0.validate (per token)",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+     "$schema": "https://json-schema.org/draft/2020-12/schema",
+     "$id": "urn:svatantrya:schema:2.1.0:l0",
+     "title": "Svatantrya L0 structural schema",
+     "x-validator": "schemas.l0.validate",
+     "x-schema-version": "1.4.0",
+     "x-structural-schema-version": "2.1.0",
+     "type": "object",
+     "required": [
+      "id",
+      "verse_id",
+      "pada_index",
+      "surface",
+      "citation",
+      "options",
+      "chosen_index",
+      "status"
+     ],
+     "properties": {
+      "id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "verse_id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "pada_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "surface": {
+       "type": "string",
+       "minLength": 1
+      },
+      "citation": {
+       "type": "string",
+       "minLength": 1
+      },
+      "morph": {
+       "type": "string"
+      },
+      "morph_unknown": {
+       "type": "boolean"
+      },
+      "options": {
+       "type": "array",
+       "maxItems": 5,
+       "items": {
+        "type": "object",
+        "required": [
+         "gloss",
+         "rank",
+         "source",
+         "grounds"
+        ],
+        "properties": {
+         "gloss": {
+          "type": "string",
+          "minLength": 1
+         },
+         "rank": {
+          "type": "integer",
+          "minimum": 1
+         },
+         "source": {
+          "type": "string",
+          "minLength": 1
+         },
+         "grounds": {
+          "type": "string",
+          "minLength": 1
+         }
+        }
+       }
+      },
+      "chosen_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "status": {
+       "type": "string",
+       "enum": [
+        "PARSED",
+        "AMBIGUOUS",
+        "FAILED"
+       ]
+      },
+      "revised": {
+       "type": "boolean"
+      },
+      "revise_reason": {
+       "type": "string"
+      },
+      "fork": {
+       "type": "string",
+       "enum": [
+        "none",
+        "live",
+        "resolved"
+       ]
+      }
+     }
+    }
+   },
+   "argmap": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:argmap",
+    "title": "Svatantrya ARGMAP structural schema",
+    "x-validator": "schemas.argmap.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "traces",
+     "sanskrit_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "traces": {
+      "type": "object",
+      "required": [
+       "t1_verse",
+       "l0_ids"
+      ],
+      "properties": {
+       "t1_verse": {
+        "type": "string",
+        "minLength": 1
+       },
+       "l0_ids": {
+        "type": "array",
+        "items": {
+         "type": "string",
+         "minLength": 1
+        },
+        "minItems": 1
+       }
+      }
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "sanskrit_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "speaker": {
+      "type": "string",
+      "minLength": 1
+     },
+     "question": {
+      "type": "string",
+      "minLength": 1
+     },
+     "inference": {
+      "type": "string",
+      "minLength": 1
+     },
+     "reconstruction": {
+      "type": "string",
+      "minLength": 1
+     },
+     "premises": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     },
+     "uncertainties": {
+      "type": "array"
+     },
+     "structured": {
+      "type": "boolean"
+     }
+    }
+   },
+   "l2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l2",
+    "title": "Svatantrya L2 structural schema",
+    "x-validator": "schemas.l2.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "plain_english",
+     "sanskrit_cite",
+     "l0_ids"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "plain_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "supplied": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     }
+    }
+   },
+   "c1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:c1",
+    "title": "Svatantrya C1 structural schema",
+    "x-validator": "schemas.c1.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "song",
+     "essence",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "essence": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "renders": {
+      "type": "object",
+      "required": [
+       "standard"
+      ]
+     }
+    }
+   },
+   "l3": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l3",
+    "title": "Svatantrya L3 structural schema",
+    "x-validator": "schemas.l3.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "l4": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l4",
+    "title": "Svatantrya L4 structural schema",
+    "x-validator": "schemas.l4.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "c2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:c2",
+    "title": "Svatantrya C2 structural schema",
+    "x-validator": "schemas.c2.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "song",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "renders": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "style",
+        "prompt",
+        "paragraphs"
+       ],
+       "properties": {
+        "style": {
+         "type": "string",
+         "minLength": 1
+        },
+        "prompt": {
+         "type": "string",
+         "minLength": 1
+        },
+        "paragraphs": {
+         "type": "array",
+         "minItems": 1,
+         "items": {
+          "type": "object",
+          "required": [
+           "text",
+           "maps_to"
+          ],
+          "properties": {
+           "text": {
+            "type": "string",
+            "minLength": 1
+           },
+           "maps_to": {
+            "type": "array",
+            "items": {
+             "type": "integer",
+             "minimum": 0
+            },
+            "minItems": 1
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "layers": [
+   {
+    "id": "t1",
+    "scope": "verse",
+    "depends_on": [
+     "source"
+    ],
+    "validator": "schemas/t1.py",
+    "validator_sha256": "ac792ba1f0cbc06ab52dfbc41a31d3e39460f0e8a7de2977ed02e4ce63a20f27",
+    "example": {
+     "file": "sivastotravali/data/s01.t1.json",
+     "file_sha256": "a5c4cfae67571d05866d97ad6eb29b1c2956140a69c2fae554c29577330beb8e",
+     "target": "s01-v01",
+     "content_sha256": "26f027dafbe67347efd901cb2b94630cdb0e372957edeb4a3e1305e83745ba5b",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l0",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1"
+    ],
+    "validator": "schemas/l0.py",
+    "validator_sha256": "0651bc77f519897f8a4f8b41f4ea0cc6a88f3441910af99b18d55854a7e9030e",
+    "example": {
+     "file": "sivastotravali/data/s06.l0.json",
+     "file_sha256": "c2bb0ce1010315d72bdce75ee3c8901b17499202abe7adc5bd1977a26f4fea2f",
+     "target": "s06-v01",
+     "content_sha256": "91e3b04d47482757bcaf1e9705992edd0815ff7907ed2cb33c7c9586f3a9e5aa",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "argmap",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0"
+    ],
+    "validator": "schemas/argmap.py",
+    "validator_sha256": "335c1bbe809c5ae942ecef4a30ee7fd8fcb82645a43019312fa74397fe5758b0",
+    "example": {
+     "file": "sivastotravali/data/s01.argmap.json",
+     "file_sha256": "a44c8ec09a30c577f2a792c1255d4290f49a6138c456bb687bc00e78a3902949",
+     "target": "s01-v21",
+     "content_sha256": "80b69a54761b8b0b7c193058f6c88eef60323a3611008c41ba9879bcfc3cdc21",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l2",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap"
+    ],
+    "validator": "schemas/l2.py",
+    "validator_sha256": "95556834767ef61cf824b501ad7184b4223b6a7f479cd9644fbaae4372725ae3",
+    "example": {
+     "file": "sivastotravali/data/s01.l2.json",
+     "file_sha256": "f5a1cec55bb466c328380a0bf527e6d8906428b3436f85a79bd01df98ceb1040",
+     "target": "s01-v01",
+     "content_sha256": "f3c47f6a631f7551d4f9c8ad1117bdf65463cb8cdc92e9b42bb3bf517ae80055",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c1",
+    "scope": "song",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2"
+    ],
+    "validator": "schemas/c1.py",
+    "validator_sha256": "291c7eba42e68952b685becb6b596df7e2d9ca859d264152707d89efa5361c90",
+    "example": {
+     "file": "sivastotravali/data/s01.c1.json",
+     "file_sha256": "99f4d2bbf7a8086176ee585b6e459076e2abd72b9675435267f7546beb1515f8",
+     "target": "s01",
+     "content_sha256": "5be1f3c0c3f64fafe5395b42cf5502a139a5e208be419d5804fe1a5bdd33712a",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l3",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2",
+     "c1"
+    ],
+    "validator": "schemas/l3.py",
+    "validator_sha256": "6c3df228f886207782d5250699e9e459f236f6e7d6b25ac29b00a38541956917",
+    "example": {
+     "file": "sivastotravali/data/s01.l3.json",
+     "file_sha256": "cdb4af6a4c2a851231195f4e5c940346f65199d5d5d69ea1c41d8095f98409f9",
+     "target": "s01-v01",
+     "content_sha256": "6aa20635387174b68fe4ea3baf970c06aff9838acb2c745e7afca0ed7c6751de",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l4",
+    "scope": "verse",
+    "depends_on": [
+     "l3",
+     "c1"
+    ],
+    "validator": "schemas/l4.py",
+    "validator_sha256": "3c1f7b0dfe3d83d425ed0fd84fba7b74aa3ed9e9758402369d779eedda1a8c03",
+    "example": {
+     "file": "paramarthasara/data/param-p01.l4.json",
+     "file_sha256": "db346e51e71f2f835ddfda004d4432934611817c2c73318d335f6ca2362ad4fb",
+     "target": "param-p01-v01",
+     "content_sha256": "91e9d424cf310d4e5b45c173b02f5286d837269ef9447533c153a48cb5122c14",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c2",
+    "scope": "song",
+    "depends_on": [
+     "c1",
+     "l3"
+    ],
+    "validator": "schemas/c2.py",
+    "validator_sha256": "fb8743f206e036002c780d082c7d32cf011dcdab4c21df742a5f5e59a9d851b8",
+    "example": {
+     "file": "sivastotravali/data/s01.c2.json",
+     "file_sha256": "09660a3c09679fce8c95968934e5851a22d89cdf154d2b0635d358e1ef9e8aeb",
+     "target": "s01",
+     "content_sha256": "2faa5fa86e38faca7ef5a1a967a4e261e2df294648a31ed5bad5f731001aa41c",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   }
+  ]
+ },
+ "rights": {
+  "translation": "FREE — our English (L1–L4, commentary) is free use",
+  "scholar": "Contributors declare rights; authorship and copyright depend on the work and law."
+ },
+ "originals": {
+  "t1": {
+   "mukta-m0-p07-v151": {
+    "verse_id": "mukta-m0-p07-v151",
+    "song": "mukta-m0-p07",
+    "verse": 151,
+    "tokens": [
+     {
+      "sanskrit": "pūrvaṃ",
+      "surface": "pūrvaṃ",
+      "iast": "pūrvaṃ",
+      "gloss": "formerly",
+      "quick_gloss": "formerly",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "yat",
+      "surface": "yat",
+      "iast": "yat",
+      "gloss": "which",
+      "quick_gloss": "which",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "uktāḥ",
+      "surface": "uktāḥ",
+      "iast": "uktāḥ",
+      "gloss": "spoken",
+      "quick_gloss": "spoken",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "sarve",
+      "surface": "sarve",
+      "iast": "sarve",
+      "gloss": "all",
+      "quick_gloss": "all",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "anvaya+mārge",
+      "surface": "anvaya+mārge",
+      "iast": "anvaya+mārge",
+      "gloss": "in-lineage-path",
+      "quick_gloss": "in-lineage-path",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kaulike",
+      "surface": "kaulike",
+      "iast": "kaulike",
+      "gloss": "in-kaulika",
+      "quick_gloss": "in-kaulika",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "All that was formerly spoken applies within the Kaulika lineage path.",
+    "source_sha": ""
+   },
+   "mukta-m0-p07-v152": {
+    "verse_id": "mukta-m0-p07-v152",
+    "song": "mukta-m0-p07",
+    "verse": 152,
+    "tokens": [
+     {
+      "sanskrit": "parama+amṛta+santṛptāḥ",
+      "surface": "parama+amṛta+santṛptāḥ",
+      "iast": "parama+amṛta+santṛptāḥ",
+      "gloss": "satisfied-by-supreme-nectar",
+      "quick_gloss": "satisfied-by-supreme-nectar",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "sahaja+ānandaṃ",
+      "surface": "sahaja+ānandaṃ",
+      "iast": "sahaja+ānandaṃ",
+      "gloss": "innate-bliss",
+      "quick_gloss": "innate-bliss",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ca",
+      "surface": "ca",
+      "iast": "ca",
+      "gloss": "and",
+      "quick_gloss": "and",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kevalam",
+      "surface": "kevalam",
+      "iast": "kevalam",
+      "gloss": "alone",
+      "quick_gloss": "alone",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Satisfied by the supreme nectar, they experience innate bliss alone.",
+    "source_sha": ""
+   },
+   "mukta-m0-p07-v153": {
+    "verse_id": "mukta-m0-p07-v153",
+    "song": "mukta-m0-p07",
+    "verse": 153,
+    "tokens": [
+     {
+      "sanskrit": "sarva+vyādhi+haraḥ",
+      "surface": "sarva+vyādhi+haraḥ",
+      "iast": "sarva+vyādhi+haraḥ",
+      "gloss": "all-disease-remover",
+      "quick_gloss": "all-disease-remover",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ca+eva",
+      "surface": "ca+eva",
+      "iast": "ca+eva",
+      "gloss": "and-indeed",
+      "quick_gloss": "and-indeed",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "na",
+      "surface": "na",
+      "iast": "na",
+      "gloss": "not",
+      "quick_gloss": "not",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "punarbhava+saṃbhavaḥ",
+      "surface": "punarbhava+saṃbhavaḥ",
+      "iast": "punarbhava+saṃbhavaḥ",
+      "gloss": "rebirth-occurrence",
+      "quick_gloss": "rebirth-occurrence",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "He removes all diseases and indeed has no possibility of rebirth.",
+    "source_sha": ""
+   },
+   "mukta-m0-p07-v154": {
+    "verse_id": "mukta-m0-p07-v154",
+    "song": "mukta-m0-p07",
+    "verse": 154,
+    "tokens": [
+     {
+      "sanskrit": "sarvataḥ",
+      "surface": "sarvataḥ",
+      "iast": "sarvataḥ",
+      "gloss": "everywhere",
+      "quick_gloss": "everywhere",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "sarvadā",
+      "surface": "sarvadā",
+      "iast": "sarvadā",
+      "gloss": "always",
+      "quick_gloss": "always",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "śuddhaḥ",
+      "surface": "śuddhaḥ",
+      "iast": "śuddhaḥ",
+      "gloss": "pure",
+      "quick_gloss": "pure",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "sarvataḥ",
+      "surface": "sarvataḥ",
+      "iast": "sarvataḥ",
+      "gloss": "everywhere",
+      "quick_gloss": "everywhere",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "sarvadā",
+      "surface": "sarvadā",
+      "iast": "sarvadā",
+      "gloss": "always",
+      "quick_gloss": "always",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "prabhuḥ",
+      "surface": "prabhuḥ",
+      "iast": "prabhuḥ",
+      "gloss": "lord",
+      "quick_gloss": "lord",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "He is pure everywhere and always, and lord everywhere and always.",
+    "source_sha": ""
+   }
+  },
+  "l0": {
+   "mukta-m0-p07-v151": [
+    {
+     "id": "mukta-m0-p07-v151-p000",
+     "verse_id": "mukta-m0-p07-v151",
+     "pada_index": 0,
+     "surface": "pūrvaṃ",
+     "citation": "pūrvaṃ",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "formerly",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "time adverb indicating prior teaching"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p07-v151-p001",
+     "verse_id": "mukta-m0-p07-v151",
+     "pada_index": 1,
+     "surface": "yat",
+     "citation": "yat",
+     "morph": "n.nom.sg",
+     "options": [
+      {
+       "gloss": "which",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "relative pronoun referring to teachings"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p07-v151-p002",
+     "verse_id": "mukta-m0-p07-v151",
+     "pada_index": 2,
+     "surface": "uktāḥ",
+     "citation": "uktāḥ",
+     "morph": "m.nom.pl.past-passive-participle √vac",
+     "options": [
+      {
+       "gloss": "spoken",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "past passive participle of vac"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p07-v151-p003",
+     "verse_id": "mukta-m0-p07-v151",
+     "pada_index": 3,
+     "surface": "sarve",
+     "citation": "sarve",
+     "morph": "m.nom.pl",
+     "options": [
+      {
+       "gloss": "all",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "quantifier for the teachings or practitioners"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p07-v151-p004",
+     "verse_id": "mukta-m0-p07-v151",
+     "pada_index": 4,
+     "surface": "anvaya+mārge",
+     "citation": "anvaya+mārge",
+     "morph": "compound m.loc.sg (anvaya+mārga)",
+     "options": [
+      {
+       "gloss": "in-lineage-path",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound: anvaya (lineage) + mārga (path), location of practice"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p07-v151-p005",
+     "verse_id": "mukta-m0-p07-v151",
+     "pada_index": 5,
+     "surface": "kaulike",
+     "citation": "kaulike",
+     "morph": "m.loc.sg",
+     "options": [
+      {
+       "gloss": "in-kaulika",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "qualifies the lineage path as Kaulika"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p07-v152": [
+    {
+     "id": "mukta-m0-p07-v152-p000",
+     "verse_id": "mukta-m0-p07-v152",
+     "pada_index": 0,
+     "surface": "parama+amṛta+santṛptāḥ",
+     "citation": "parama+amṛta+santṛptāḥ",
+     "morph": "compound m.nom.pl (parama+amṛta+santṛpta)",
+     "options": [
+      {
+       "gloss": "satisfied-by-supreme-nectar",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound: parama (supreme) + amṛta (nectar) + santṛpta (satisfied)"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p07-v152-p001",
+     "verse_id": "mukta-m0-p07-v152",
+     "pada_index": 1,
+     "surface": "sahaja+ānandaṃ",
+     "citation": "sahaja+ānandaṃ",
+     "morph": "compound n.acc.sg (sahaja+ānanda)",
+     "options": [
+      {
+       "gloss": "innate-bliss",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound: sahaja (innate) + ānanda (bliss), object of experience"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p07-v152-p002",
+     "verse_id": "mukta-m0-p07-v152",
+     "pada_index": 2,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "connective particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p07-v152-p003",
+     "verse_id": "mukta-m0-p07-v152",
+     "pada_index": 3,
+     "surface": "kevalam",
+     "citation": "kevalam",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "alone",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "emphasizes exclusivity or absoluteness"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p07-v153": [
+    {
+     "id": "mukta-m0-p07-v153-p000",
+     "verse_id": "mukta-m0-p07-v153",
+     "pada_index": 0,
+     "surface": "sarva+vyādhi+haraḥ",
+     "citation": "sarva+vyādhi+haraḥ",
+     "morph": "compound: sarva+vyādhi+hara; m.nom.sg",
+     "options": [
+      {
+       "gloss": "all-disease-remover",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound describing one who removes all diseases"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p07-v153-p001",
+     "verse_id": "mukta-m0-p07-v153",
+     "pada_index": 1,
+     "surface": "ca+eva",
+     "citation": "ca+eva",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "and-indeed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "emphatic conjunction"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p07-v153-p002",
+     "verse_id": "mukta-m0-p07-v153",
+     "pada_index": 2,
+     "surface": "na",
+     "citation": "na",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "not",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "negation particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p07-v153-p003",
+     "verse_id": "mukta-m0-p07-v153",
+     "pada_index": 3,
+     "surface": "punarbhava+saṃbhavaḥ",
+     "citation": "punarbhava+saṃbhavaḥ",
+     "morph": "compound: punarbhava+saṃbhava; m.nom.sg",
+     "options": [
+      {
+       "gloss": "rebirth-occurrence",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound indicating the arising of rebirth"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p07-v154": [
+    {
+     "id": "mukta-m0-p07-v154-p000",
+     "verse_id": "mukta-m0-p07-v154",
+     "pada_index": 0,
+     "surface": "sarvataḥ",
+     "citation": "sarvataḥ",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "everywhere",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indicates pervasiveness in all directions"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p07-v154-p001",
+     "verse_id": "mukta-m0-p07-v154",
+     "pada_index": 1,
+     "surface": "sarvadā",
+     "citation": "sarvadā",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "always",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indicates pervasiveness at all times"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p07-v154-p002",
+     "verse_id": "mukta-m0-p07-v154",
+     "pada_index": 2,
+     "surface": "śuddhaḥ",
+     "citation": "śuddhaḥ",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "pure",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "describes the being's untainted nature"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p07-v154-p003",
+     "verse_id": "mukta-m0-p07-v154",
+     "pada_index": 3,
+     "surface": "sarvataḥ",
+     "citation": "sarvataḥ",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "everywhere",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indicates pervasiveness in all directions"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p07-v154-p004",
+     "verse_id": "mukta-m0-p07-v154",
+     "pada_index": 4,
+     "surface": "sarvadā",
+     "citation": "sarvadā",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "always",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indicates pervasiveness at all times"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p07-v154-p005",
+     "verse_id": "mukta-m0-p07-v154",
+     "pada_index": 5,
+     "surface": "prabhuḥ",
+     "citation": "prabhuḥ",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "lord",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "describes sovereign mastery"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ]
+  },
+  "argmap": {
+   "mukta-m0-p07-v151": {
+    "verse_id": "mukta-m0-p07-v151",
+    "song": "mukta-m0-p07",
+    "verse": 151,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "Which teachings were previously declared for all within the Kaulika lineage path?",
+    "premises": [
+     "Certain teachings were spoken formerly.",
+     "These teachings apply to all practitioners.",
+     "The context is the Kaulika lineage path."
+    ],
+    "inference": "All previously declared teachings pertain to those situated in the Kaulika lineage path.",
+    "uncertainties": [
+     "Whether sarve qualifies the teachings or the practitioners is contextually ambiguous."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p07-v151",
+     "l0_ids": [
+      "mukta-m0-p07-v151-p000",
+      "mukta-m0-p07-v151-p001",
+      "mukta-m0-p07-v151-p002",
+      "mukta-m0-p07-v151-p003",
+      "mukta-m0-p07-v151-p004",
+      "mukta-m0-p07-v151-p005"
+     ],
+     "sanskrit_sha": "bcca6adcafe03ba1"
+    },
+    "sanskrit_sha": "bcca6adcafe03ba1"
+   },
+   "mukta-m0-p07-v152": {
+    "verse_id": "mukta-m0-p07-v152",
+    "song": "mukta-m0-p07",
+    "verse": 152,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What exclusive state of fulfillment characterizes those satisfied by the supreme nectar?",
+    "premises": [
+     "Practitioners are satisfied by supreme nectar.",
+     "They experience innate bliss.",
+     "This bliss is characterized as alone or absolute."
+    ],
+    "inference": "Those satisfied by the supreme nectar experience innate bliss alone.",
+    "uncertainties": [
+     "Whether kevalam qualifies sahaja+ānandaṃ as exclusive or indicates a non-dual absolute state."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p07-v152",
+     "l0_ids": [
+      "mukta-m0-p07-v152-p000",
+      "mukta-m0-p07-v152-p001",
+      "mukta-m0-p07-v152-p002",
+      "mukta-m0-p07-v152-p003"
+     ],
+     "sanskrit_sha": "bcca6adcafe03ba1"
+    },
+    "sanskrit_sha": "bcca6adcafe03ba1"
+   },
+   "mukta-m0-p07-v153": {
+    "verse_id": "mukta-m0-p07-v153",
+    "song": "mukta-m0-p07",
+    "verse": 153,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What freedom from disease and rebirth characterizes the realized being?",
+    "premises": [
+     "The realized being removes all diseases.",
+     "The realized being is not subject to rebirth.",
+     "These qualities define the realized state."
+    ],
+    "inference": "Therefore, the realized being is free from both disease and the cycle of rebirth.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p07-v153",
+     "l0_ids": [
+      "mukta-m0-p07-v153-p000",
+      "mukta-m0-p07-v153-p001",
+      "mukta-m0-p07-v153-p002",
+      "mukta-m0-p07-v153-p003"
+     ],
+     "sanskrit_sha": "bcca6adcafe03ba1"
+    },
+    "sanskrit_sha": "bcca6adcafe03ba1"
+   },
+   "mukta-m0-p07-v154": {
+    "verse_id": "mukta-m0-p07-v154",
+    "song": "mukta-m0-p07",
+    "verse": 154,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "In what manner is the realized being pure and sovereign?",
+    "premises": [
+     "The realized being is pure everywhere and always.",
+     "The realized being is sovereign everywhere and always.",
+     "Purity and sovereignty are unrestricted in space and time."
+    ],
+    "inference": "Therefore, the realized being possesses unlimited purity and lordship.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p07-v154",
+     "l0_ids": [
+      "mukta-m0-p07-v154-p000",
+      "mukta-m0-p07-v154-p001",
+      "mukta-m0-p07-v154-p002",
+      "mukta-m0-p07-v154-p003",
+      "mukta-m0-p07-v154-p004",
+      "mukta-m0-p07-v154-p005"
+     ],
+     "sanskrit_sha": "bcca6adcafe03ba1"
+    },
+    "sanskrit_sha": "bcca6adcafe03ba1"
+   }
+  },
+  "l2": {
+   "mukta-m0-p07-v151": {
+    "verse_id": "mukta-m0-p07-v151",
+    "song": "mukta-m0-p07",
+    "verse": 151,
+    "plain_english": "All that was formerly spoken applies within the Kaulika lineage path.",
+    "sanskrit_cite": "pūrvaṃ yaduktā sarve anvayamārge tvakaulike (?)",
+    "l0_ids": [
+     "mukta-m0-p07-v151-p000",
+     "mukta-m0-p07-v151-p001",
+     "mukta-m0-p07-v151-p002",
+     "mukta-m0-p07-v151-p003",
+     "mukta-m0-p07-v151-p004",
+     "mukta-m0-p07-v151-p005"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p07-v152": {
+    "verse_id": "mukta-m0-p07-v152",
+    "song": "mukta-m0-p07",
+    "verse": 152,
+    "plain_english": "Satisfied by the supreme nectar, they experience innate bliss alone.",
+    "sanskrit_cite": "paramāmṛtasantṛptāḥ sahajānandaṃ ca kevalam",
+    "l0_ids": [
+     "mukta-m0-p07-v152-p000",
+     "mukta-m0-p07-v152-p001",
+     "mukta-m0-p07-v152-p002",
+     "mukta-m0-p07-v152-p003"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p07-v153": {
+    "verse_id": "mukta-m0-p07-v153",
+    "song": "mukta-m0-p07",
+    "verse": 153,
+    "plain_english": "He removes all diseases and indeed has no possibility of rebirth.",
+    "sanskrit_cite": "sarvavyādhiharaścaiva na punarbhavasaṃbhavaḥ",
+    "l0_ids": [
+     "mukta-m0-p07-v153-p000",
+     "mukta-m0-p07-v153-p001",
+     "mukta-m0-p07-v153-p002",
+     "mukta-m0-p07-v153-p003"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p07-v154": {
+    "verse_id": "mukta-m0-p07-v154",
+    "song": "mukta-m0-p07",
+    "verse": 154,
+    "plain_english": "He is pure everywhere and always, and lord everywhere and always.",
+    "sanskrit_cite": "sarvataḥ sarvadā śuddhaḥ sarvataḥ sarvadā prabhuḥ",
+    "l0_ids": [
+     "mukta-m0-p07-v154-p000",
+     "mukta-m0-p07-v154-p001",
+     "mukta-m0-p07-v154-p002",
+     "mukta-m0-p07-v154-p003",
+     "mukta-m0-p07-v154-p004",
+     "mukta-m0-p07-v154-p005"
+    ],
+    "supplied": []
+   }
+  },
+  "c1": {
+   "mukta-m0-p07": {
+    "song": "mukta-m0-p07",
+    "essence": [
+     "All previously declared teachings pertain to those situated in the Kaulika lineage path.",
+     "Those satisfied by the supreme nectar experience innate bliss alone.",
+     "Therefore, the realized being is free from both disease and the cycle of rebirth.",
+     "Therefore, the realized being possesses unlimited purity and lordship."
+    ],
+    "essence_source": "derived from argmap inferences (machine-proposed; assessor review outstanding)",
+    "rasa": {},
+    "essence_only": true,
+    "renders": {}
+   }
+  },
+  "l3": {},
+  "l4": {},
+  "c2": {}
+ },
+ "source_verses": {
+  "mukta-m0-p07-v151": {
+   "text": "pūrvaṃ yaduktā sarve anvayamārge tvakaulike (?)",
+   "source_file": "translation-work/mukta-m00003/source/edition.txt",
+   "source_sha256": "1c0583afa859a6c402b5391e5ea24317f76ec79dfd4b9973887f2febd1157a92",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p07-v152": {
+   "text": "paramāmṛtasantṛptāḥ sahajānandaṃ ca kevalam",
+   "source_file": "translation-work/mukta-m00003/source/edition.txt",
+   "source_sha256": "1c0583afa859a6c402b5391e5ea24317f76ec79dfd4b9973887f2febd1157a92",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p07-v153": {
+   "text": "sarvavyādhiharaścaiva na punarbhavasaṃbhavaḥ",
+   "source_file": "translation-work/mukta-m00003/source/edition.txt",
+   "source_sha256": "1c0583afa859a6c402b5391e5ea24317f76ec79dfd4b9973887f2febd1157a92",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p07-v154": {
+   "text": "sarvataḥ sarvadā śuddhaḥ sarvataḥ sarvadā prabhuḥ",
+   "source_file": "translation-work/mukta-m00003/source/edition.txt",
+   "source_sha256": "1c0583afa859a6c402b5391e5ea24317f76ec79dfd4b9973887f2febd1157a92",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  }
+ },
+ "l4_craft": {},
+ "withheld_songs": [
+  "mukta-m0-p03"
+ ],
+ "original_hashes": {
+  "t1": {
+   "mukta-m0-p07-v151": "9962ab002b2d1d767e56e401093a4587a0998e166d7dc8961c82b3fe053a20a9",
+   "mukta-m0-p07-v152": "d65762aeddcc7a8f6653c87187e87097f930b1a896b01e721b6329b25fdb809b",
+   "mukta-m0-p07-v153": "66fe23f69c084b717815ada73c4dcb6bf00b4601598de8a6cf6005f8dce6ad73",
+   "mukta-m0-p07-v154": "1be8aa41151f153cb16154415299b2c661bc70f4687e6899a72eed947980012e"
+  },
+  "l0": {
+   "mukta-m0-p07-v151": "550b8b82bbf26b450a27e0ddb9f8dca50f1c87d0fbfd02cf0bf91b94f502c932",
+   "mukta-m0-p07-v152": "829d812bc590e56be5ee12126fbc5d4adbf46937ecab081943a8b509622c14ac",
+   "mukta-m0-p07-v153": "354bddf0b19039ed92a7cd1497f196e836df6599edfc09c53ba8bb2ee20e8229",
+   "mukta-m0-p07-v154": "1fc0e40a9973c0fec407eb70f41aed3c474b336fe846443a9a9591589a669f5f"
+  },
+  "argmap": {
+   "mukta-m0-p07-v151": "63fffbf7f72919680edf21ee4d75f9e3860dbd3977bb9b05aee14f414e99e1a9",
+   "mukta-m0-p07-v152": "e75ecb6d7fd6d2f40018904afb5fd7847e6125bd97242849ad203f42a024b8ed",
+   "mukta-m0-p07-v153": "64216e9cb48f188df722dd2bacc1d3bbe270de2ae9548100e7d0e020024ba284",
+   "mukta-m0-p07-v154": "3eeb8114a879d5b2e9a7be739aa283f2f93a8b823895aed463eca884456026ff"
+  },
+  "l2": {
+   "mukta-m0-p07-v151": "834546f09e5443728d66d88659afdab1daa15013f17d6971615842af25b0be10",
+   "mukta-m0-p07-v152": "eff5d9211e64de09c15d6230c5e6d86f6b0e898119396286494228576e2bf6c1",
+   "mukta-m0-p07-v153": "560e18a1b986df0e167930c27ac3b8e6a098e487ddc1993fcbf8f80f1b0d14a3",
+   "mukta-m0-p07-v154": "f8c389300898e5d729443c9ba45dcb99bba0f3cbc5f6300f60d605fabc066f9e"
+  },
+  "c1": {
+   "mukta-m0-p07": "3b8bb5edfd8fbb55c237ef2e7a6de7691bc9b3f621966977dd36bac437cc63c6"
+  },
+  "l3": {},
+  "l4": {},
+  "c2": {}
+ },
+ "versions": [],
+ "essays": [],
+ "reviews": [],
+ "promotions": [],
+ "signoffs": [],
+ "stack_hashes": {
+  "mukta-m0-p07": "19c2db91f5c903a4938eddef45ee8de1065b317ac8667d8a6d871be6e45e43ca"
+ },
+ "projection_sha256": "e2ffc81451e331c5626616b2422954d1dc55166dc4c4711a228c25fcf66e1ac6"
+}

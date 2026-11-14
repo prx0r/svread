@@ -1,0 +1,2958 @@
+{
+ "work": "mukta-m00026",
+ "generated": null,
+ "source": "translation-work canonical data + scholar/ ledgers (emit_scholar.py)",
+ "source_edition": "Muktabodha M00026 (IAST, CC BY-NC 4.0) [concat of non-contiguous segment slices]",
+ "contract": {
+  "contract_version": "svatantrya-agent-contract/1",
+  "contract_sha256": "575232010d119225d9b3f12121fa59ad744765a875914708396c51a3129d7301",
+  "schema_version": "1.4.0",
+  "structural_schema_version": "2.1.0",
+  "structural_schema_snapshot_sha256": "3ce4085b2cbcebfec8471eee4b24a6974f9a19c77f0d125c7cad46bbb1ae8b0a",
+  "order": [
+   "source",
+   "t1",
+   "l0",
+   "argmap",
+   "l2",
+   "c1",
+   "l3",
+   "l4",
+   "c2"
+  ],
+  "schemas": {
+   "t1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:t1",
+    "title": "Svatantrya T1 structural schema",
+    "x-validator": "schemas.t1.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "quick_english",
+     "tokens",
+     "source_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "quick_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "source_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "tokens": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "surface",
+        "quick_gloss"
+       ],
+       "properties": {
+        "surface": {
+         "type": "string",
+         "minLength": 1
+        },
+        "quick_gloss": {
+         "type": "string",
+         "minLength": 1
+        }
+       }
+      }
+     }
+    }
+   },
+   "l0": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l0:verse",
+    "title": "Svatantrya L0 verse token list structural schema",
+    "x-validator": "schemas.l0.validate (per token)",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+     "$schema": "https://json-schema.org/draft/2020-12/schema",
+     "$id": "urn:svatantrya:schema:2.1.0:l0",
+     "title": "Svatantrya L0 structural schema",
+     "x-validator": "schemas.l0.validate",
+     "x-schema-version": "1.4.0",
+     "x-structural-schema-version": "2.1.0",
+     "type": "object",
+     "required": [
+      "id",
+      "verse_id",
+      "pada_index",
+      "surface",
+      "citation",
+      "options",
+      "chosen_index",
+      "status"
+     ],
+     "properties": {
+      "id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "verse_id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "pada_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "surface": {
+       "type": "string",
+       "minLength": 1
+      },
+      "citation": {
+       "type": "string",
+       "minLength": 1
+      },
+      "morph": {
+       "type": "string"
+      },
+      "morph_unknown": {
+       "type": "boolean"
+      },
+      "options": {
+       "type": "array",
+       "maxItems": 5,
+       "items": {
+        "type": "object",
+        "required": [
+         "gloss",
+         "rank",
+         "source",
+         "grounds"
+        ],
+        "properties": {
+         "gloss": {
+          "type": "string",
+          "minLength": 1
+         },
+         "rank": {
+          "type": "integer",
+          "minimum": 1
+         },
+         "source": {
+          "type": "string",
+          "minLength": 1
+         },
+         "grounds": {
+          "type": "string",
+          "minLength": 1
+         }
+        }
+       }
+      },
+      "chosen_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "status": {
+       "type": "string",
+       "enum": [
+        "PARSED",
+        "AMBIGUOUS",
+        "FAILED"
+       ]
+      },
+      "revised": {
+       "type": "boolean"
+      },
+      "revise_reason": {
+       "type": "string"
+      },
+      "fork": {
+       "type": "string",
+       "enum": [
+        "none",
+        "live",
+        "resolved"
+       ]
+      }
+     }
+    }
+   },
+   "argmap": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:argmap",
+    "title": "Svatantrya ARGMAP structural schema",
+    "x-validator": "schemas.argmap.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "traces",
+     "sanskrit_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "traces": {
+      "type": "object",
+      "required": [
+       "t1_verse",
+       "l0_ids"
+      ],
+      "properties": {
+       "t1_verse": {
+        "type": "string",
+        "minLength": 1
+       },
+       "l0_ids": {
+        "type": "array",
+        "items": {
+         "type": "string",
+         "minLength": 1
+        },
+        "minItems": 1
+       }
+      }
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "sanskrit_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "speaker": {
+      "type": "string",
+      "minLength": 1
+     },
+     "question": {
+      "type": "string",
+      "minLength": 1
+     },
+     "inference": {
+      "type": "string",
+      "minLength": 1
+     },
+     "reconstruction": {
+      "type": "string",
+      "minLength": 1
+     },
+     "premises": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     },
+     "uncertainties": {
+      "type": "array"
+     },
+     "structured": {
+      "type": "boolean"
+     }
+    }
+   },
+   "l2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l2",
+    "title": "Svatantrya L2 structural schema",
+    "x-validator": "schemas.l2.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "plain_english",
+     "sanskrit_cite",
+     "l0_ids"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "plain_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "supplied": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     }
+    }
+   },
+   "c1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:c1",
+    "title": "Svatantrya C1 structural schema",
+    "x-validator": "schemas.c1.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "song",
+     "essence",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "essence": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "renders": {
+      "type": "object",
+      "required": [
+       "standard"
+      ]
+     }
+    }
+   },
+   "l3": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l3",
+    "title": "Svatantrya L3 structural schema",
+    "x-validator": "schemas.l3.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "l4": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l4",
+    "title": "Svatantrya L4 structural schema",
+    "x-validator": "schemas.l4.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "c2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:c2",
+    "title": "Svatantrya C2 structural schema",
+    "x-validator": "schemas.c2.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "song",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "renders": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "style",
+        "prompt",
+        "paragraphs"
+       ],
+       "properties": {
+        "style": {
+         "type": "string",
+         "minLength": 1
+        },
+        "prompt": {
+         "type": "string",
+         "minLength": 1
+        },
+        "paragraphs": {
+         "type": "array",
+         "minItems": 1,
+         "items": {
+          "type": "object",
+          "required": [
+           "text",
+           "maps_to"
+          ],
+          "properties": {
+           "text": {
+            "type": "string",
+            "minLength": 1
+           },
+           "maps_to": {
+            "type": "array",
+            "items": {
+             "type": "integer",
+             "minimum": 0
+            },
+            "minItems": 1
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "layers": [
+   {
+    "id": "t1",
+    "scope": "verse",
+    "depends_on": [
+     "source"
+    ],
+    "validator": "schemas/t1.py",
+    "validator_sha256": "ac792ba1f0cbc06ab52dfbc41a31d3e39460f0e8a7de2977ed02e4ce63a20f27",
+    "example": {
+     "file": "sivastotravali/data/s01.t1.json",
+     "file_sha256": "a5c4cfae67571d05866d97ad6eb29b1c2956140a69c2fae554c29577330beb8e",
+     "target": "s01-v01",
+     "content_sha256": "26f027dafbe67347efd901cb2b94630cdb0e372957edeb4a3e1305e83745ba5b",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l0",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1"
+    ],
+    "validator": "schemas/l0.py",
+    "validator_sha256": "0651bc77f519897f8a4f8b41f4ea0cc6a88f3441910af99b18d55854a7e9030e",
+    "example": {
+     "file": "sivastotravali/data/s06.l0.json",
+     "file_sha256": "c2bb0ce1010315d72bdce75ee3c8901b17499202abe7adc5bd1977a26f4fea2f",
+     "target": "s06-v01",
+     "content_sha256": "91e3b04d47482757bcaf1e9705992edd0815ff7907ed2cb33c7c9586f3a9e5aa",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "argmap",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0"
+    ],
+    "validator": "schemas/argmap.py",
+    "validator_sha256": "335c1bbe809c5ae942ecef4a30ee7fd8fcb82645a43019312fa74397fe5758b0",
+    "example": {
+     "file": "sivastotravali/data/s01.argmap.json",
+     "file_sha256": "a44c8ec09a30c577f2a792c1255d4290f49a6138c456bb687bc00e78a3902949",
+     "target": "s01-v21",
+     "content_sha256": "80b69a54761b8b0b7c193058f6c88eef60323a3611008c41ba9879bcfc3cdc21",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l2",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap"
+    ],
+    "validator": "schemas/l2.py",
+    "validator_sha256": "95556834767ef61cf824b501ad7184b4223b6a7f479cd9644fbaae4372725ae3",
+    "example": {
+     "file": "sivastotravali/data/s01.l2.json",
+     "file_sha256": "f5a1cec55bb466c328380a0bf527e6d8906428b3436f85a79bd01df98ceb1040",
+     "target": "s01-v01",
+     "content_sha256": "f3c47f6a631f7551d4f9c8ad1117bdf65463cb8cdc92e9b42bb3bf517ae80055",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c1",
+    "scope": "song",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2"
+    ],
+    "validator": "schemas/c1.py",
+    "validator_sha256": "291c7eba42e68952b685becb6b596df7e2d9ca859d264152707d89efa5361c90",
+    "example": {
+     "file": "sivastotravali/data/s01.c1.json",
+     "file_sha256": "99f4d2bbf7a8086176ee585b6e459076e2abd72b9675435267f7546beb1515f8",
+     "target": "s01",
+     "content_sha256": "5be1f3c0c3f64fafe5395b42cf5502a139a5e208be419d5804fe1a5bdd33712a",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l3",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2",
+     "c1"
+    ],
+    "validator": "schemas/l3.py",
+    "validator_sha256": "6c3df228f886207782d5250699e9e459f236f6e7d6b25ac29b00a38541956917",
+    "example": {
+     "file": "sivastotravali/data/s01.l3.json",
+     "file_sha256": "cdb4af6a4c2a851231195f4e5c940346f65199d5d5d69ea1c41d8095f98409f9",
+     "target": "s01-v01",
+     "content_sha256": "6aa20635387174b68fe4ea3baf970c06aff9838acb2c745e7afca0ed7c6751de",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l4",
+    "scope": "verse",
+    "depends_on": [
+     "l3",
+     "c1"
+    ],
+    "validator": "schemas/l4.py",
+    "validator_sha256": "3c1f7b0dfe3d83d425ed0fd84fba7b74aa3ed9e9758402369d779eedda1a8c03",
+    "example": {
+     "file": "paramarthasara/data/param-p01.l4.json",
+     "file_sha256": "db346e51e71f2f835ddfda004d4432934611817c2c73318d335f6ca2362ad4fb",
+     "target": "param-p01-v01",
+     "content_sha256": "91e9d424cf310d4e5b45c173b02f5286d837269ef9447533c153a48cb5122c14",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c2",
+    "scope": "song",
+    "depends_on": [
+     "c1",
+     "l3"
+    ],
+    "validator": "schemas/c2.py",
+    "validator_sha256": "fb8743f206e036002c780d082c7d32cf011dcdab4c21df742a5f5e59a9d851b8",
+    "example": {
+     "file": "sivastotravali/data/s01.c2.json",
+     "file_sha256": "09660a3c09679fce8c95968934e5851a22d89cdf154d2b0635d358e1ef9e8aeb",
+     "target": "s01",
+     "content_sha256": "2faa5fa86e38faca7ef5a1a967a4e261e2df294648a31ed5bad5f731001aa41c",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   }
+  ]
+ },
+ "rights": {
+  "translation": "FREE — our English (L1–L4, commentary) is free use",
+  "scholar": "Contributors declare rights; authorship and copyright depend on the work and law."
+ },
+ "originals": {
+  "t1": {
+   "mukta-m0-p22-v526": {
+    "verse_id": "mukta-m0-p22-v526",
+    "song": "mukta-m0-p22",
+    "verse": 526,
+    "tokens": [
+     {
+      "sanskrit": "tārā",
+      "surface": "tārā",
+      "iast": "tārā",
+      "gloss": "tārā",
+      "quick_gloss": "tārā",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ca",
+      "surface": "ca",
+      "iast": "ca",
+      "gloss": "and",
+      "quick_gloss": "and",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "eva",
+      "surface": "eva",
+      "iast": "eva",
+      "gloss": "indeed",
+      "quick_gloss": "indeed",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "mahāvidyā",
+      "surface": "mahāvidyā",
+      "iast": "mahāvidyā",
+      "gloss": "great-knowledge",
+      "quick_gloss": "great-knowledge",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tathā",
+      "surface": "tathā",
+      "iast": "tathā",
+      "gloss": "likewise",
+      "quick_gloss": "likewise",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tripurasundarī",
+      "surface": "tripurasundarī",
+      "iast": "tripurasundarī",
+      "gloss": "tripurasundarī",
+      "quick_gloss": "tripurasundarī",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Tārā indeed is a great knowledge, and likewise Tripurasundarī.",
+    "source_sha": ""
+   },
+   "mukta-m0-p22-v527": {
+    "verse_id": "mukta-m0-p22-v527",
+    "song": "mukta-m0-p22",
+    "verse": 527,
+    "tokens": [
+     {
+      "sanskrit": "tvaritā",
+      "surface": "tvaritā",
+      "iast": "tvaritā",
+      "gloss": "tvaritā",
+      "quick_gloss": "tvaritā",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "annapūrṇā",
+      "surface": "annapūrṇā",
+      "iast": "annapūrṇā",
+      "gloss": "annapūrṇā",
+      "quick_gloss": "annapūrṇā",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ca",
+      "surface": "ca",
+      "iast": "ca",
+      "gloss": "and",
+      "quick_gloss": "and",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tathā",
+      "surface": "tathā",
+      "iast": "tathā",
+      "gloss": "likewise",
+      "quick_gloss": "likewise",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vāgvādinī",
+      "surface": "vāgvādinī",
+      "iast": "vāgvādinī",
+      "gloss": "vāgvādinī",
+      "quick_gloss": "vāgvādinī",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "priye",
+      "surface": "priye",
+      "iast": "priye",
+      "gloss": "o-beloved",
+      "quick_gloss": "o-beloved",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Tvaritā and Annapūrṇā, and likewise Vāgvādinī, O beloved.",
+    "source_sha": ""
+   },
+   "mukta-m0-p22-v528": {
+    "verse_id": "mukta-m0-p22-v528",
+    "song": "mukta-m0-p22",
+    "verse": 528,
+    "tokens": [
+     {
+      "sanskrit": "dhūmāvatī",
+      "surface": "dhūmāvatī",
+      "iast": "dhūmāvatī",
+      "gloss": "dhūmāvatī",
+      "quick_gloss": "dhūmāvatī",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "bhairavī",
+      "surface": "bhairavī",
+      "iast": "bhairavī",
+      "gloss": "bhairavī",
+      "quick_gloss": "bhairavī",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ca",
+      "surface": "ca",
+      "iast": "ca",
+      "gloss": "and",
+      "quick_gloss": "and",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tathā",
+      "surface": "tathā",
+      "iast": "tathā",
+      "gloss": "likewise",
+      "quick_gloss": "likewise",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "pratyaṅgirā+ādikāḥ",
+      "surface": "pratyaṅgirā+ādikāḥ",
+      "iast": "pratyaṅgirā+ādikāḥ",
+      "gloss": "pratyaṅgirā-and-others",
+      "quick_gloss": "pratyaṅgirā-and-others",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Dhūmāvatī and Bhairavī, and likewise Pratyaṅgirā and others.",
+    "source_sha": ""
+   },
+   "mukta-m0-p22-v529": {
+    "verse_id": "mukta-m0-p22-v529",
+    "song": "mukta-m0-p22",
+    "verse": 529,
+    "tokens": [
+     {
+      "sanskrit": "etāsāṃ",
+      "surface": "etāsāṃ",
+      "iast": "etāsāṃ",
+      "gloss": "of-these",
+      "quick_gloss": "of-these",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "japa+mantreṇa",
+      "surface": "japa+mantreṇa",
+      "iast": "japa+mantreṇa",
+      "gloss": "by-recitation-mantra",
+      "quick_gloss": "by-recitation-mantra",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "nidrā+bhaṅgaḥ",
+      "surface": "nidrā+bhaṅgaḥ",
+      "iast": "nidrā+bhaṅgaḥ",
+      "gloss": "sleep-breaking",
+      "quick_gloss": "sleep-breaking",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "abhijāyate",
+      "surface": "abhijāyate",
+      "iast": "abhijāyate",
+      "gloss": "arises",
+      "quick_gloss": "arises",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "By reciting the mantras of these goddesses, sleep is broken.",
+    "source_sha": ""
+   },
+   "mukta-m0-p22-v530": {
+    "verse_id": "mukta-m0-p22-v530",
+    "song": "mukta-m0-p22",
+    "verse": 530,
+    "tokens": [
+     {
+      "sanskrit": "kiṃ",
+      "surface": "kiṃ",
+      "iast": "kiṃ",
+      "gloss": "what",
+      "quick_gloss": "what",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tāsāṃ",
+      "surface": "tāsāṃ",
+      "iast": "tāsāṃ",
+      "gloss": "of-these",
+      "quick_gloss": "of-these",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "japa+pūjāyāṃ",
+      "surface": "japa+pūjāyāṃ",
+      "iast": "japa+pūjāyāṃ",
+      "gloss": "in-recitation-worship",
+      "quick_gloss": "in-recitation-worship",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "hāniḥ",
+      "surface": "hāniḥ",
+      "iast": "hāniḥ",
+      "gloss": "harm",
+      "quick_gloss": "harm",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "syāt",
+      "surface": "syāt",
+      "iast": "syāt",
+      "gloss": "would-be",
+      "quick_gloss": "would-be",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "uttara+uttaram",
+      "surface": "uttara+uttaram",
+      "iast": "uttara+uttaram",
+      "gloss": "higher-and-higher",
+      "quick_gloss": "higher-and-higher",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "What harm could there be in their recitation and worship? It becomes higher and higher.",
+    "source_sha": ""
+   },
+   "mukta-m0-p22-v531": {
+    "verse_id": "mukta-m0-p22-v531",
+    "song": "mukta-m0-p22",
+    "verse": 531,
+    "tokens": [
+     {
+      "sanskrit": "satyā+di",
+      "surface": "satyā+di",
+      "iast": "satyā+di",
+      "gloss": "satya-and-so-on",
+      "quick_gloss": "satya-and-so-on",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ca",
+      "surface": "ca",
+      "iast": "ca",
+      "gloss": "and",
+      "quick_gloss": "and",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "catur+yuge",
+      "surface": "catur+yuge",
+      "iast": "catur+yuge",
+      "gloss": "in-four-age",
+      "quick_gloss": "in-four-age",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "sarva+jātiṣu",
+      "surface": "sarva+jātiṣu",
+      "iast": "sarva+jātiṣu",
+      "gloss": "in-all-classes",
+      "quick_gloss": "in-all-classes",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kālikā",
+      "surface": "kālikā",
+      "iast": "kālikā",
+      "gloss": "kālikā",
+      "quick_gloss": "kālikā",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "In the four ages beginning with Satya, and among all classes, there is Kālikā.",
+    "source_sha": ""
+   },
+   "mukta-m0-p22-v532": {
+    "verse_id": "mukta-m0-p22-v532",
+    "song": "mukta-m0-p22",
+    "verse": 532,
+    "tokens": [
+     {
+      "sanskrit": "upāyāṃs",
+      "surface": "upāyāṃs",
+      "iast": "upāyāṃs",
+      "gloss": "means",
+      "quick_gloss": "means",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tatra",
+      "surface": "tatra",
+      "iast": "tatra",
+      "gloss": "there",
+      "quick_gloss": "there",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vakṣyāmi",
+      "surface": "vakṣyāmi",
+      "iast": "vakṣyāmi",
+      "gloss": "i-shall-tell",
+      "quick_gloss": "i-shall-tell",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "yena",
+      "surface": "yena",
+      "iast": "yena",
+      "gloss": "by-which",
+      "quick_gloss": "by-which",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "siddhiḥ",
+      "surface": "siddhiḥ",
+      "iast": "siddhiḥ",
+      "gloss": "success",
+      "quick_gloss": "success",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "prajāyate",
+      "surface": "prajāyate",
+      "iast": "prajāyate",
+      "gloss": "arises",
+      "quick_gloss": "arises",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "There I shall tell the means by which success arises.",
+    "source_sha": ""
+   },
+   "mukta-m0-p22-v533": {
+    "verse_id": "mukta-m0-p22-v533",
+    "song": "mukta-m0-p22",
+    "verse": 533,
+    "tokens": [
+     {
+      "sanskrit": "bahu+kāle",
+      "surface": "bahu+kāle",
+      "iast": "bahu+kāle",
+      "gloss": "in-long-time",
+      "quick_gloss": "in-long-time",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tadā",
+      "surface": "tadā",
+      "iast": "tadā",
+      "gloss": "then",
+      "quick_gloss": "then",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "siddhiḥ",
+      "surface": "siddhiḥ",
+      "iast": "siddhiḥ",
+      "gloss": "success",
+      "quick_gloss": "success",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "jāyate",
+      "surface": "jāyate",
+      "iast": "jāyate",
+      "gloss": "arises",
+      "quick_gloss": "arises",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "na",
+      "surface": "na",
+      "iast": "na",
+      "gloss": "not",
+      "quick_gloss": "not",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "atra",
+      "surface": "atra",
+      "iast": "atra",
+      "gloss": "here",
+      "quick_gloss": "here",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "saṃśyaḥ",
+      "surface": "saṃśyaḥ",
+      "iast": "saṃśyaḥ",
+      "gloss": "doubt",
+      "quick_gloss": "doubt",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Then success arises after a long time; there is no doubt about this.",
+    "source_sha": ""
+   },
+   "mukta-m0-p22-v534": {
+    "verse_id": "mukta-m0-p22-v534",
+    "song": "mukta-m0-p22",
+    "verse": 534,
+    "tokens": [
+     {
+      "sanskrit": "japa+pūjā",
+      "surface": "japa+pūjā",
+      "iast": "japa+pūjā",
+      "gloss": "recitation-worship",
+      "quick_gloss": "recitation-worship",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "sadaiva",
+      "surface": "sadaiva",
+      "iast": "sadaiva",
+      "gloss": "always",
+      "quick_gloss": "always",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "āsāṃ",
+      "surface": "āsāṃ",
+      "iast": "āsāṃ",
+      "gloss": "of-these",
+      "quick_gloss": "of-these",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "praśastā",
+      "surface": "praśastā",
+      "iast": "praśastā",
+      "gloss": "commended",
+      "quick_gloss": "commended",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vīra+vandite",
+      "surface": "vīra+vandite",
+      "iast": "vīra+vandite",
+      "gloss": "o-hero-praised-one",
+      "quick_gloss": "o-hero-praised-one",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Recitation and worship of these goddesses is always commended, O one praised by heroes.",
+    "source_sha": ""
+   },
+   "mukta-m0-p22-v535": {
+    "verse_id": "mukta-m0-p22-v535",
+    "song": "mukta-m0-p22",
+    "verse": 535,
+    "tokens": [
+     {
+      "sanskrit": "jāyate",
+      "surface": "jāyate",
+      "iast": "jāyate",
+      "gloss": "arises",
+      "quick_gloss": "arises",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "subhage",
+      "surface": "subhage",
+      "iast": "subhage",
+      "gloss": "o-fortunate-one",
+      "quick_gloss": "o-fortunate-one",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "mātaḥ",
+      "surface": "mātaḥ",
+      "iast": "mātaḥ",
+      "gloss": "o-mother",
+      "quick_gloss": "o-mother",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "guru+bhaktiḥ",
+      "surface": "guru+bhaktiḥ",
+      "iast": "guru+bhaktiḥ",
+      "gloss": "guru-devotion",
+      "quick_gloss": "guru-devotion",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "bhavet",
+      "surface": "bhavet",
+      "iast": "bhavet",
+      "gloss": "may-be",
+      "quick_gloss": "may-be",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "yadi",
+      "surface": "yadi",
+      "iast": "yadi",
+      "gloss": "if",
+      "quick_gloss": "if",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "O fortunate one, O mother, devotion to the guru arises, if it may be.",
+    "source_sha": ""
+   }
+  },
+  "l0": {
+   "mukta-m0-p22-v526": [
+    {
+     "id": "mukta-m0-p22-v526-p000",
+     "verse_id": "mukta-m0-p22-v526",
+     "pada_index": 0,
+     "surface": "tārā",
+     "citation": "tārā",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "tārā",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "name of a goddess"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v526-p001",
+     "verse_id": "mukta-m0-p22-v526",
+     "pada_index": 1,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "conjunction"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v526-p002",
+     "verse_id": "mukta-m0-p22-v526",
+     "pada_index": 2,
+     "surface": "eva",
+     "citation": "eva",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "indeed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "emphatic particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v526-p003",
+     "verse_id": "mukta-m0-p22-v526",
+     "pada_index": 3,
+     "surface": "mahāvidyā",
+     "citation": "mahāvidyā",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "great-knowledge",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "epithet for a supreme goddess"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v526-p004",
+     "verse_id": "mukta-m0-p22-v526",
+     "pada_index": 4,
+     "surface": "tathā",
+     "citation": "tathā",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "likewise",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "adverb indicating addition"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v526-p005",
+     "verse_id": "mukta-m0-p22-v526",
+     "pada_index": 5,
+     "surface": "tripurasundarī",
+     "citation": "tripurasundarī",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "tripurasundarī",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "name of a goddess"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p22-v527": [
+    {
+     "id": "mukta-m0-p22-v527-p000",
+     "verse_id": "mukta-m0-p22-v527",
+     "pada_index": 0,
+     "surface": "tvaritā",
+     "citation": "tvaritā",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "tvaritā",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "name of a goddess"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v527-p001",
+     "verse_id": "mukta-m0-p22-v527",
+     "pada_index": 1,
+     "surface": "annapūrṇā",
+     "citation": "annapūrṇā",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "annapūrṇā",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "name of a goddess"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v527-p002",
+     "verse_id": "mukta-m0-p22-v527",
+     "pada_index": 2,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "conjunction"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v527-p003",
+     "verse_id": "mukta-m0-p22-v527",
+     "pada_index": 3,
+     "surface": "tathā",
+     "citation": "tathā",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "likewise",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "adverb indicating addition"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v527-p004",
+     "verse_id": "mukta-m0-p22-v527",
+     "pada_index": 4,
+     "surface": "vāgvādinī",
+     "citation": "vāgvādinī",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "vāgvādinī",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "name of a goddess"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v527-p005",
+     "verse_id": "mukta-m0-p22-v527",
+     "pada_index": 5,
+     "surface": "priye",
+     "citation": "priye",
+     "morph": "f.voc.sg",
+     "options": [
+      {
+       "gloss": "o-beloved",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "vocative address to the listener"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p22-v528": [
+    {
+     "id": "mukta-m0-p22-v528-p000",
+     "verse_id": "mukta-m0-p22-v528",
+     "pada_index": 0,
+     "surface": "dhūmāvatī",
+     "citation": "dhūmāvatī",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "dhūmāvatī",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "name of a goddess"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v528-p001",
+     "verse_id": "mukta-m0-p22-v528",
+     "pada_index": 1,
+     "surface": "bhairavī",
+     "citation": "bhairavī",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "bhairavī",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "name of a goddess"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v528-p002",
+     "verse_id": "mukta-m0-p22-v528",
+     "pada_index": 2,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "conjunction"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v528-p003",
+     "verse_id": "mukta-m0-p22-v528",
+     "pada_index": 3,
+     "surface": "tathā",
+     "citation": "tathā",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "likewise",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "adverb indicating addition"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v528-p004",
+     "verse_id": "mukta-m0-p22-v528",
+     "pada_index": 4,
+     "surface": "pratyaṅgirā+ādikāḥ",
+     "citation": "pratyaṅgirā+ādikāḥ",
+     "morph": "compound: pratyaṅgirā+ādikāḥ (f.nom.pl)",
+     "options": [
+      {
+       "gloss": "pratyaṅgirā-and-others",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound naming Pratyaṅgirā and similar goddesses"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p22-v529": [
+    {
+     "id": "mukta-m0-p22-v529-p000",
+     "verse_id": "mukta-m0-p22-v529",
+     "pada_index": 0,
+     "surface": "etāsāṃ",
+     "citation": "etāsāṃ",
+     "morph": "f.gen.pl",
+     "options": [
+      {
+       "gloss": "of-these",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "demonstrative referring to the previously named goddesses"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v529-p001",
+     "verse_id": "mukta-m0-p22-v529",
+     "pada_index": 1,
+     "surface": "japa+mantreṇa",
+     "citation": "japa+mantreṇa",
+     "morph": "compound: japa+mantreṇa (m.inst.sg)",
+     "options": [
+      {
+       "gloss": "by-recitation-mantra",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound indicating mantra used in recitation"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v529-p002",
+     "verse_id": "mukta-m0-p22-v529",
+     "pada_index": 2,
+     "surface": "nidrā+bhaṅgaḥ",
+     "citation": "nidrā+bhaṅgaḥ",
+     "morph": "compound: nidrā+bhaṅgaḥ (m.nom.sg)",
+     "options": [
+      {
+       "gloss": "sleep-breaking",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound denoting interruption of sleep"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v529-p003",
+     "verse_id": "mukta-m0-p22-v529",
+     "pada_index": 3,
+     "surface": "abhijāyate",
+     "citation": "abhijāyate",
+     "morph": "3.sg.pres.pass (√jan)",
+     "options": [
+      {
+       "gloss": "arises",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "verb expressing occurrence"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p22-v530": [
+    {
+     "id": "mukta-m0-p22-v530-p000",
+     "verse_id": "mukta-m0-p22-v530",
+     "pada_index": 0,
+     "surface": "kiṃ",
+     "citation": "kiṃ",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "what",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "interrogative particle introducing a rhetorical question"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v530-p001",
+     "verse_id": "mukta-m0-p22-v530",
+     "pada_index": 1,
+     "surface": "tāsāṃ",
+     "citation": "tāsāṃ",
+     "morph": "f.gen.pl",
+     "options": [
+      {
+       "gloss": "of-these",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "demonstrative referring to the goddesses"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v530-p002",
+     "verse_id": "mukta-m0-p22-v530",
+     "pada_index": 2,
+     "surface": "japa+pūjāyāṃ",
+     "citation": "japa+pūjāyāṃ",
+     "morph": "compound: japa+pūjāyāṃ (f.loc.sg)",
+     "options": [
+      {
+       "gloss": "in-recitation-worship",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound denoting recitation and worship"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v530-p003",
+     "verse_id": "mukta-m0-p22-v530",
+     "pada_index": 3,
+     "surface": "hāniḥ",
+     "citation": "hāniḥ",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "harm",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "loss or detriment"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v530-p004",
+     "verse_id": "mukta-m0-p22-v530",
+     "pada_index": 4,
+     "surface": "syāt",
+     "citation": "syāt",
+     "morph": "3.sg.opt.act (√as)",
+     "options": [
+      {
+       "gloss": "would-be",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "optative expressing possibility"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v530-p005",
+     "verse_id": "mukta-m0-p22-v530",
+     "pada_index": 5,
+     "surface": "uttara+uttaram",
+     "citation": "uttara+uttaram",
+     "morph": "compound: uttara+uttaram (indecl.)",
+     "options": [
+      {
+       "gloss": "higher-and-higher",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "reduplicative compound indicating progressive increase"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p22-v531": [
+    {
+     "id": "mukta-m0-p22-v531-p000",
+     "verse_id": "mukta-m0-p22-v531",
+     "pada_index": 0,
+     "surface": "satyā+di",
+     "citation": "satyā+di",
+     "morph": "compound: satyā+di (n.nom.sg)",
+     "options": [
+      {
+       "gloss": "satya-and-so-on",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound referring to Satya and subsequent ages"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v531-p001",
+     "verse_id": "mukta-m0-p22-v531",
+     "pada_index": 1,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "and",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "conjunction"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v531-p002",
+     "verse_id": "mukta-m0-p22-v531",
+     "pada_index": 2,
+     "surface": "catur+yuge",
+     "citation": "catur+yuge",
+     "morph": "compound: catur+yuge (n.loc.sg)",
+     "options": [
+      {
+       "gloss": "in-four-age",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound denoting the cycle of four ages"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v531-p003",
+     "verse_id": "mukta-m0-p22-v531",
+     "pada_index": 3,
+     "surface": "sarva+jātiṣu",
+     "citation": "sarva+jātiṣu",
+     "morph": "compound: sarva+jātiṣu (f.loc.pl)",
+     "options": [
+      {
+       "gloss": "in-all-classes",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound indicating all social classes"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v531-p004",
+     "verse_id": "mukta-m0-p22-v531",
+     "pada_index": 4,
+     "surface": "kālikā",
+     "citation": "kālikā",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "kālikā",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "name of the goddess Kālikā"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p22-v532": [
+    {
+     "id": "mukta-m0-p22-v532-p000",
+     "verse_id": "mukta-m0-p22-v532",
+     "pada_index": 0,
+     "surface": "upāyāṃs",
+     "citation": "upāyāṃs",
+     "morph": "m.acc.pl",
+     "options": [
+      {
+       "gloss": "means",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "methods or practices"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v532-p001",
+     "verse_id": "mukta-m0-p22-v532",
+     "pada_index": 1,
+     "surface": "tatra",
+     "citation": "tatra",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "there",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "adverb referring to that context"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v532-p002",
+     "verse_id": "mukta-m0-p22-v532",
+     "pada_index": 2,
+     "surface": "vakṣyāmi",
+     "citation": "vakṣyāmi",
+     "morph": "1.sg.fut.act (√vac)",
+     "options": [
+      {
+       "gloss": "i-shall-tell",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "speaker's declaration of intent"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v532-p003",
+     "verse_id": "mukta-m0-p22-v532",
+     "pada_index": 3,
+     "surface": "yena",
+     "citation": "yena",
+     "morph": "m.inst.sg",
+     "options": [
+      {
+       "gloss": "by-which",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "relative pronoun indicating instrument"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v532-p004",
+     "verse_id": "mukta-m0-p22-v532",
+     "pada_index": 4,
+     "surface": "siddhiḥ",
+     "citation": "siddhiḥ",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "success",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "spiritual accomplishment"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v532-p005",
+     "verse_id": "mukta-m0-p22-v532",
+     "pada_index": 5,
+     "surface": "prajāyate",
+     "citation": "prajāyate",
+     "morph": "3.sg.pres.pass (√jan)",
+     "options": [
+      {
+       "gloss": "arises",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "verb expressing occurrence"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p22-v533": [
+    {
+     "id": "mukta-m0-p22-v533-p000",
+     "verse_id": "mukta-m0-p22-v533",
+     "pada_index": 0,
+     "surface": "bahu+kāle",
+     "citation": "bahu+kāle",
+     "morph": "compound: bahu+kāle (m.loc.sg)",
+     "options": [
+      {
+       "gloss": "in-long-time",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound indicating a long duration"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v533-p001",
+     "verse_id": "mukta-m0-p22-v533",
+     "pada_index": 1,
+     "surface": "tadā",
+     "citation": "tadā",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "then",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "temporal adverb"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v533-p002",
+     "verse_id": "mukta-m0-p22-v533",
+     "pada_index": 2,
+     "surface": "siddhiḥ",
+     "citation": "siddhiḥ",
+     "morph": "f.nom.sg",
+     "options": [
+      {
+       "gloss": "success",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "spiritual accomplishment"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v533-p003",
+     "verse_id": "mukta-m0-p22-v533",
+     "pada_index": 3,
+     "surface": "jāyate",
+     "citation": "jāyate",
+     "morph": "3.sg.pres.pass (√jan)",
+     "options": [
+      {
+       "gloss": "arises",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "verb expressing occurrence"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v533-p004",
+     "verse_id": "mukta-m0-p22-v533",
+     "pada_index": 4,
+     "surface": "na",
+     "citation": "na",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "not",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "negation particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v533-p005",
+     "verse_id": "mukta-m0-p22-v533",
+     "pada_index": 5,
+     "surface": "atra",
+     "citation": "atra",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "here",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "adverb indicating this matter"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v533-p006",
+     "verse_id": "mukta-m0-p22-v533",
+     "pada_index": 6,
+     "surface": "saṃśyaḥ",
+     "citation": "saṃśyaḥ",
+     "morph": "m.nom.sg",
+     "options": [
+      {
+       "gloss": "doubt",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "uncertainty or hesitation"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p22-v534": [
+    {
+     "id": "mukta-m0-p22-v534-p000",
+     "verse_id": "mukta-m0-p22-v534",
+     "pada_index": 0,
+     "surface": "japa+pūjā",
+     "citation": "japa+pūjā",
+     "morph": "compound: japa+pūjā (f.nom.sg)",
+     "options": [
+      {
+       "gloss": "recitation-worship",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound denoting recitation and worship"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v534-p001",
+     "verse_id": "mukta-m0-p22-v534",
+     "pada_index": 1,
+     "surface": "sadaiva",
+     "citation": "sadaiva",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "always",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "adverb indicating constant practice"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v534-p002",
+     "verse_id": "mukta-m0-p22-v534",
+     "pada_index": 2,
+     "surface": "āsāṃ",
+     "citation": "āsāṃ",
+     "morph": "f.gen.pl",
+     "options": [
+      {
+       "gloss": "of-these",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "demonstrative referring to the goddesses"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v534-p003",
+     "verse_id": "mukta-m0-p22-v534",
+     "pada_index": 3,
+     "surface": "praśastā",
+     "citation": "praśastā",
+     "morph": "f.nom.sg (ppp)",
+     "options": [
+      {
+       "gloss": "commended",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "praised or recommended"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v534-p004",
+     "verse_id": "mukta-m0-p22-v534",
+     "pada_index": 4,
+     "surface": "vīra+vandite",
+     "citation": "vīra+vandite",
+     "morph": "compound: vīra+vandite (f.voc.sg)",
+     "options": [
+      {
+       "gloss": "o-hero-praised-one",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "vocative compound addressing one praised by heroes"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p22-v535": [
+    {
+     "id": "mukta-m0-p22-v535-p000",
+     "verse_id": "mukta-m0-p22-v535",
+     "pada_index": 0,
+     "surface": "jāyate",
+     "citation": "jāyate",
+     "morph": "3.sg.pres.pass (√jan)",
+     "options": [
+      {
+       "gloss": "arises",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "verb expressing occurrence"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v535-p001",
+     "verse_id": "mukta-m0-p22-v535",
+     "pada_index": 1,
+     "surface": "subhage",
+     "citation": "subhage",
+     "morph": "f.voc.sg",
+     "options": [
+      {
+       "gloss": "o-fortunate-one",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "vocative address"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v535-p002",
+     "verse_id": "mukta-m0-p22-v535",
+     "pada_index": 2,
+     "surface": "mātaḥ",
+     "citation": "mātaḥ",
+     "morph": "f.voc.sg",
+     "options": [
+      {
+       "gloss": "o-mother",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "vocative address"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v535-p003",
+     "verse_id": "mukta-m0-p22-v535",
+     "pada_index": 3,
+     "surface": "guru+bhaktiḥ",
+     "citation": "guru+bhaktiḥ",
+     "morph": "compound: guru+bhaktiḥ (f.nom.sg)",
+     "options": [
+      {
+       "gloss": "guru-devotion",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound denoting devotion to the guru"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v535-p004",
+     "verse_id": "mukta-m0-p22-v535",
+     "pada_index": 4,
+     "surface": "bhavet",
+     "citation": "bhavet",
+     "morph": "3.sg.opt.act (√bhū)",
+     "options": [
+      {
+       "gloss": "may-be",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "optative expressing condition or possibility"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p22-v535-p005",
+     "verse_id": "mukta-m0-p22-v535",
+     "pada_index": 5,
+     "surface": "yadi",
+     "citation": "yadi",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "if",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "conditional particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ]
+  },
+  "argmap": {
+   "mukta-m0-p22-v526": {
+    "verse_id": "mukta-m0-p22-v526",
+    "song": "mukta-m0-p22",
+    "verse": 526,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "Which goddesses are identified as great knowledges alongside Tārā?",
+    "premises": [
+     "Tārā is named explicitly.",
+     "Tārā is identified as a great knowledge.",
+     "Tripurasundarī is likewise included."
+    ],
+    "inference": "Tārā and Tripurasundarī are both counted among the great knowledges.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p22-v526",
+     "l0_ids": [
+      "mukta-m0-p22-v526-p000",
+      "mukta-m0-p22-v526-p001",
+      "mukta-m0-p22-v526-p002",
+      "mukta-m0-p22-v526-p003",
+      "mukta-m0-p22-v526-p004",
+      "mukta-m0-p22-v526-p005"
+     ],
+     "sanskrit_sha": "f9539a2c7e8a99b5"
+    },
+    "sanskrit_sha": "f9539a2c7e8a99b5"
+   },
+   "mukta-m0-p22-v527": {
+    "verse_id": "mukta-m0-p22-v527",
+    "song": "mukta-m0-p22",
+    "verse": 527,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "Which additional goddesses are enumerated in address to the beloved?",
+    "premises": [
+     "Tvaritā is named in the list.",
+     "Annapūrṇā is added by conjunction.",
+     "Vāgvādinī is likewise included."
+    ],
+    "inference": "Tvaritā, Annapūrṇā, and Vāgvādinī are included among the enumerated goddesses.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p22-v527",
+     "l0_ids": [
+      "mukta-m0-p22-v527-p000",
+      "mukta-m0-p22-v527-p001",
+      "mukta-m0-p22-v527-p002",
+      "mukta-m0-p22-v527-p003",
+      "mukta-m0-p22-v527-p004",
+      "mukta-m0-p22-v527-p005"
+     ],
+     "sanskrit_sha": "f9539a2c7e8a99b5"
+    },
+    "sanskrit_sha": "f9539a2c7e8a99b5"
+   },
+   "mukta-m0-p22-v528": {
+    "verse_id": "mukta-m0-p22-v528",
+    "song": "mukta-m0-p22",
+    "verse": 528,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "Which further goddesses complete the enumerated group including Pratyaṅgirā?",
+    "premises": [
+     "Dhūmāvatī is named in the list.",
+     "Bhairavī is added by conjunction.",
+     "Pratyaṅgirā and others are likewise included."
+    ],
+    "inference": "Dhūmāvatī, Bhairavī, and Pratyaṅgirā with others complete this enumeration.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p22-v528",
+     "l0_ids": [
+      "mukta-m0-p22-v528-p000",
+      "mukta-m0-p22-v528-p001",
+      "mukta-m0-p22-v528-p002",
+      "mukta-m0-p22-v528-p003",
+      "mukta-m0-p22-v528-p004"
+     ],
+     "sanskrit_sha": "f9539a2c7e8a99b5"
+    },
+    "sanskrit_sha": "f9539a2c7e8a99b5"
+   },
+   "mukta-m0-p22-v529": {
+    "verse_id": "mukta-m0-p22-v529",
+    "song": "mukta-m0-p22",
+    "verse": 529,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What effect arises from reciting the mantras of these goddesses?",
+    "premises": [
+     "The referent is the previously named goddesses.",
+     "Their recitation mantra is employed.",
+     "Breaking of sleep arises from this practice."
+    ],
+    "inference": "Recitation of these goddesses' mantras causes the breaking of sleep.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p22-v529",
+     "l0_ids": [
+      "mukta-m0-p22-v529-p000",
+      "mukta-m0-p22-v529-p001",
+      "mukta-m0-p22-v529-p002",
+      "mukta-m0-p22-v529-p003"
+     ],
+     "sanskrit_sha": "f9539a2c7e8a99b5"
+    },
+    "sanskrit_sha": "f9539a2c7e8a99b5"
+   },
+   "mukta-m0-p22-v530": {
+    "verse_id": "mukta-m0-p22-v530",
+    "song": "mukta-m0-p22",
+    "verse": 530,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "Does continued recitation and worship of these goddesses cause any harm?",
+    "premises": [
+     "The practice concerns recitation and worship of these goddesses.",
+     "The question asks about possible harm.",
+     "The practice is considered progressively higher and higher."
+    ],
+    "inference": "There is no harm in their recitation and worship; it becomes progressively superior.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p22-v530",
+     "l0_ids": [
+      "mukta-m0-p22-v530-p000",
+      "mukta-m0-p22-v530-p001",
+      "mukta-m0-p22-v530-p002",
+      "mukta-m0-p22-v530-p003",
+      "mukta-m0-p22-v530-p004",
+      "mukta-m0-p22-v530-p005"
+     ],
+     "sanskrit_sha": "f9539a2c7e8a99b5"
+    },
+    "sanskrit_sha": "f9539a2c7e8a99b5"
+   },
+   "mukta-m0-p22-v531": {
+    "verse_id": "mukta-m0-p22-v531",
+    "song": "mukta-m0-p22",
+    "verse": 531,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "For whom and in which ages is Kālikā accessible as a deity?",
+    "premises": [
+     "The context spans the four ages beginning with Satya.",
+     "The context includes all classes.",
+     "Kālikā is affirmed in this universal scope."
+    ],
+    "inference": "Kālikā is accessible in all four ages and among all classes.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p22-v531",
+     "l0_ids": [
+      "mukta-m0-p22-v531-p000",
+      "mukta-m0-p22-v531-p001",
+      "mukta-m0-p22-v531-p002",
+      "mukta-m0-p22-v531-p003",
+      "mukta-m0-p22-v531-p004"
+     ],
+     "sanskrit_sha": "f9539a2c7e8a99b5"
+    },
+    "sanskrit_sha": "f9539a2c7e8a99b5"
+   },
+   "mukta-m0-p22-v532": {
+    "verse_id": "mukta-m0-p22-v532",
+    "song": "mukta-m0-p22",
+    "verse": 532,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What promise is made regarding the means to attain success with Kālikā?",
+    "premises": [
+     "The speaker intends to tell the means.",
+     "The means pertain to that context.",
+     "Success arises through those means."
+    ],
+    "inference": "The speaker will explain the means by which success in that context arises.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p22-v532",
+     "l0_ids": [
+      "mukta-m0-p22-v532-p000",
+      "mukta-m0-p22-v532-p001",
+      "mukta-m0-p22-v532-p002",
+      "mukta-m0-p22-v532-p003",
+      "mukta-m0-p22-v532-p004",
+      "mukta-m0-p22-v532-p005"
+     ],
+     "sanskrit_sha": "f9539a2c7e8a99b5"
+    },
+    "sanskrit_sha": "f9539a2c7e8a99b5"
+   },
+   "mukta-m0-p22-v533": {
+    "verse_id": "mukta-m0-p22-v533",
+    "song": "mukta-m0-p22",
+    "verse": 533,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "How certain and timely is the attainment of success through these means?",
+    "premises": [
+     "Success arises after a long time.",
+     "The arising of success is affirmed.",
+     "Doubt about this matter is explicitly denied."
+    ],
+    "inference": "Success will certainly arise, though only after a long time.",
+    "uncertainties": [
+     "Surface 'saṃśyaḥ' may reflect a variant spelling of 'saṃśayaḥ'."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p22-v533",
+     "l0_ids": [
+      "mukta-m0-p22-v533-p000",
+      "mukta-m0-p22-v533-p001",
+      "mukta-m0-p22-v533-p002",
+      "mukta-m0-p22-v533-p003",
+      "mukta-m0-p22-v533-p004",
+      "mukta-m0-p22-v533-p005",
+      "mukta-m0-p22-v533-p006"
+     ],
+     "sanskrit_sha": "f9539a2c7e8a99b5"
+    },
+    "sanskrit_sha": "f9539a2c7e8a99b5"
+   },
+   "mukta-m0-p22-v534": {
+    "verse_id": "mukta-m0-p22-v534",
+    "song": "mukta-m0-p22",
+    "verse": 534,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What ongoing practice toward these goddesses is commended to the praised one?",
+    "premises": [
+     "Recitation and worship of these goddesses is the subject.",
+     "This practice is to be done always.",
+     "The practice is explicitly commended."
+    ],
+    "inference": "Constant recitation and worship of these goddesses is commended.",
+    "uncertainties": [],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p22-v534",
+     "l0_ids": [
+      "mukta-m0-p22-v534-p000",
+      "mukta-m0-p22-v534-p001",
+      "mukta-m0-p22-v534-p002",
+      "mukta-m0-p22-v534-p003",
+      "mukta-m0-p22-v534-p004"
+     ],
+     "sanskrit_sha": "f9539a2c7e8a99b5"
+    },
+    "sanskrit_sha": "f9539a2c7e8a99b5"
+   },
+   "mukta-m0-p22-v535": {
+    "verse_id": "mukta-m0-p22-v535",
+    "song": "mukta-m0-p22",
+    "verse": 535,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "Under what condition does devotion to the guru arise in the practitioner?",
+    "premises": [
+     "Devotion to the guru is the outcome in question.",
+     "The arising of this devotion is conditional.",
+     "The condition is introduced by 'if'."
+    ],
+    "inference": "Devotion to the guru arises if the requisite condition is fulfilled.",
+    "uncertainties": [
+     "The protasis condition is not explicitly stated in this verse alone."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p22-v535",
+     "l0_ids": [
+      "mukta-m0-p22-v535-p000",
+      "mukta-m0-p22-v535-p001",
+      "mukta-m0-p22-v535-p002",
+      "mukta-m0-p22-v535-p003",
+      "mukta-m0-p22-v535-p004",
+      "mukta-m0-p22-v535-p005"
+     ],
+     "sanskrit_sha": "f9539a2c7e8a99b5"
+    },
+    "sanskrit_sha": "f9539a2c7e8a99b5"
+   }
+  },
+  "l2": {
+   "mukta-m0-p22-v526": {
+    "verse_id": "mukta-m0-p22-v526",
+    "song": "mukta-m0-p22",
+    "verse": 526,
+    "plain_english": "Tārā indeed is a great knowledge, and likewise Tripurasundarī.",
+    "sanskrit_cite": "tārā caiva mahāvidyā tathā tripurasundarī",
+    "l0_ids": [
+     "mukta-m0-p22-v526-p000",
+     "mukta-m0-p22-v526-p001",
+     "mukta-m0-p22-v526-p002",
+     "mukta-m0-p22-v526-p003",
+     "mukta-m0-p22-v526-p004",
+     "mukta-m0-p22-v526-p005"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p22-v527": {
+    "verse_id": "mukta-m0-p22-v527",
+    "song": "mukta-m0-p22",
+    "verse": 527,
+    "plain_english": "Tvaritā and Annapūrṇā, and likewise Vāgvādinī, O beloved.",
+    "sanskrit_cite": "tvaritā annapūrṇā ca tathā vāgvādinī priye",
+    "l0_ids": [
+     "mukta-m0-p22-v527-p000",
+     "mukta-m0-p22-v527-p001",
+     "mukta-m0-p22-v527-p002",
+     "mukta-m0-p22-v527-p003",
+     "mukta-m0-p22-v527-p004",
+     "mukta-m0-p22-v527-p005"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p22-v528": {
+    "verse_id": "mukta-m0-p22-v528",
+    "song": "mukta-m0-p22",
+    "verse": 528,
+    "plain_english": "Dhūmāvatī and Bhairavī, and likewise Pratyaṅgirā and others.",
+    "sanskrit_cite": "dhūmāvatī bhairavī ca tathā pratyaṅgirādikāḥ",
+    "l0_ids": [
+     "mukta-m0-p22-v528-p000",
+     "mukta-m0-p22-v528-p001",
+     "mukta-m0-p22-v528-p002",
+     "mukta-m0-p22-v528-p003",
+     "mukta-m0-p22-v528-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p22-v529": {
+    "verse_id": "mukta-m0-p22-v529",
+    "song": "mukta-m0-p22",
+    "verse": 529,
+    "plain_english": "By reciting the mantras of these goddesses, sleep is broken.",
+    "sanskrit_cite": "etāsāṃ japamantreṇa nidrābhaṅgo'bhijāyate",
+    "l0_ids": [
+     "mukta-m0-p22-v529-p000",
+     "mukta-m0-p22-v529-p001",
+     "mukta-m0-p22-v529-p002",
+     "mukta-m0-p22-v529-p003"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p22-v530": {
+    "verse_id": "mukta-m0-p22-v530",
+    "song": "mukta-m0-p22",
+    "verse": 530,
+    "plain_english": "What harm could there be in their recitation and worship? It becomes higher and higher.",
+    "sanskrit_cite": "kiṃ tāsāṃ japapūjāyāṃ hāniḥ syāduttarottaram",
+    "l0_ids": [
+     "mukta-m0-p22-v530-p000",
+     "mukta-m0-p22-v530-p001",
+     "mukta-m0-p22-v530-p002",
+     "mukta-m0-p22-v530-p003",
+     "mukta-m0-p22-v530-p004",
+     "mukta-m0-p22-v530-p005"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p22-v531": {
+    "verse_id": "mukta-m0-p22-v531",
+    "song": "mukta-m0-p22",
+    "verse": 531,
+    "plain_english": "In the four ages beginning with Satya, and among all classes, there is Kālikā.",
+    "sanskrit_cite": "satyādi ca caturyuge sarvajātiṣu kālikā",
+    "l0_ids": [
+     "mukta-m0-p22-v531-p000",
+     "mukta-m0-p22-v531-p001",
+     "mukta-m0-p22-v531-p002",
+     "mukta-m0-p22-v531-p003",
+     "mukta-m0-p22-v531-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p22-v532": {
+    "verse_id": "mukta-m0-p22-v532",
+    "song": "mukta-m0-p22",
+    "verse": 532,
+    "plain_english": "There I shall tell the means by which success arises.",
+    "sanskrit_cite": "upāyāṃstatra vakṣyāmi yena siddhiḥ prajāyate",
+    "l0_ids": [
+     "mukta-m0-p22-v532-p000",
+     "mukta-m0-p22-v532-p001",
+     "mukta-m0-p22-v532-p002",
+     "mukta-m0-p22-v532-p003",
+     "mukta-m0-p22-v532-p004",
+     "mukta-m0-p22-v532-p005"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p22-v533": {
+    "verse_id": "mukta-m0-p22-v533",
+    "song": "mukta-m0-p22",
+    "verse": 533,
+    "plain_english": "Then success arises after a long time; there is no doubt about this.",
+    "sanskrit_cite": "bahukāle tadā siddhirjāyate nātra saṃśyaḥ",
+    "l0_ids": [
+     "mukta-m0-p22-v533-p000",
+     "mukta-m0-p22-v533-p001",
+     "mukta-m0-p22-v533-p002",
+     "mukta-m0-p22-v533-p003",
+     "mukta-m0-p22-v533-p004",
+     "mukta-m0-p22-v533-p005",
+     "mukta-m0-p22-v533-p006"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p22-v534": {
+    "verse_id": "mukta-m0-p22-v534",
+    "song": "mukta-m0-p22",
+    "verse": 534,
+    "plain_english": "Recitation and worship of these goddesses is always commended, O one praised by heroes.",
+    "sanskrit_cite": "japapūjā sadaivāsāṃ praśastā vīravandite",
+    "l0_ids": [
+     "mukta-m0-p22-v534-p000",
+     "mukta-m0-p22-v534-p001",
+     "mukta-m0-p22-v534-p002",
+     "mukta-m0-p22-v534-p003",
+     "mukta-m0-p22-v534-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p22-v535": {
+    "verse_id": "mukta-m0-p22-v535",
+    "song": "mukta-m0-p22",
+    "verse": 535,
+    "plain_english": "O fortunate one, O mother, devotion to the guru arises, if it may be.",
+    "sanskrit_cite": "jāyate subhage mātargurubhaktirbhavet yadi",
+    "l0_ids": [
+     "mukta-m0-p22-v535-p000",
+     "mukta-m0-p22-v535-p001",
+     "mukta-m0-p22-v535-p002",
+     "mukta-m0-p22-v535-p003",
+     "mukta-m0-p22-v535-p004",
+     "mukta-m0-p22-v535-p005"
+    ],
+    "supplied": []
+   }
+  },
+  "c1": {
+   "mukta-m0-p22": {
+    "song": "mukta-m0-p22",
+    "essence": [
+     "Tārā and Tripurasundarī are both counted among the great knowledges.",
+     "Tvaritā, Annapūrṇā, and Vāgvādinī are included among the enumerated goddesses.",
+     "Dhūmāvatī, Bhairavī, and Pratyaṅgirā with others complete this enumeration.",
+     "Recitation of these goddesses' mantras causes the breaking of sleep.",
+     "There is no harm in their recitation and worship; it becomes progressively superior."
+    ],
+    "essence_source": "derived from argmap inferences (machine-proposed; assessor review outstanding)",
+    "rasa": {},
+    "essence_only": true,
+    "renders": {}
+   }
+  },
+  "l3": {},
+  "l4": {},
+  "c2": {}
+ },
+ "source_verses": {
+  "mukta-m0-p22-v526": {
+   "text": "tārā caiva mahāvidyā tathā tripurasundarī",
+   "source_file": "translation-work/mukta-m00026/source/edition.txt",
+   "source_sha256": "f25ce50b068526259b5c54d6a85a56350b48a2475062a5cfda2ff1c698d32ec5",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p22-v527": {
+   "text": "tvaritā annapūrṇā ca tathā vāgvādinī priye",
+   "source_file": "translation-work/mukta-m00026/source/edition.txt",
+   "source_sha256": "f25ce50b068526259b5c54d6a85a56350b48a2475062a5cfda2ff1c698d32ec5",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p22-v528": {
+   "text": "dhūmāvatī bhairavī ca tathā pratyaṅgirādikāḥ",
+   "source_file": "translation-work/mukta-m00026/source/edition.txt",
+   "source_sha256": "f25ce50b068526259b5c54d6a85a56350b48a2475062a5cfda2ff1c698d32ec5",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p22-v529": {
+   "text": "etāsāṃ japamantreṇa nidrābhaṅgo'bhijāyate",
+   "source_file": "translation-work/mukta-m00026/source/edition.txt",
+   "source_sha256": "f25ce50b068526259b5c54d6a85a56350b48a2475062a5cfda2ff1c698d32ec5",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p22-v530": {
+   "text": "kiṃ tāsāṃ japapūjāyāṃ hāniḥ syāduttarottaram",
+   "source_file": "translation-work/mukta-m00026/source/edition.txt",
+   "source_sha256": "f25ce50b068526259b5c54d6a85a56350b48a2475062a5cfda2ff1c698d32ec5",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p22-v531": {
+   "text": "satyādi ca caturyuge sarvajātiṣu kālikā",
+   "source_file": "translation-work/mukta-m00026/source/edition.txt",
+   "source_sha256": "f25ce50b068526259b5c54d6a85a56350b48a2475062a5cfda2ff1c698d32ec5",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p22-v532": {
+   "text": "upāyāṃstatra vakṣyāmi yena siddhiḥ prajāyate",
+   "source_file": "translation-work/mukta-m00026/source/edition.txt",
+   "source_sha256": "f25ce50b068526259b5c54d6a85a56350b48a2475062a5cfda2ff1c698d32ec5",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p22-v533": {
+   "text": "bahukāle tadā siddhirjāyate nātra saṃśyaḥ",
+   "source_file": "translation-work/mukta-m00026/source/edition.txt",
+   "source_sha256": "f25ce50b068526259b5c54d6a85a56350b48a2475062a5cfda2ff1c698d32ec5",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p22-v534": {
+   "text": "japapūjā sadaivāsāṃ praśastā vīravandite",
+   "source_file": "translation-work/mukta-m00026/source/edition.txt",
+   "source_sha256": "f25ce50b068526259b5c54d6a85a56350b48a2475062a5cfda2ff1c698d32ec5",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p22-v535": {
+   "text": "jāyate subhage mātargurubhaktirbhavet yadi",
+   "source_file": "translation-work/mukta-m00026/source/edition.txt",
+   "source_sha256": "f25ce50b068526259b5c54d6a85a56350b48a2475062a5cfda2ff1c698d32ec5",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  }
+ },
+ "l4_craft": {},
+ "withheld_songs": [
+  "mukta-m0-p17",
+  "mukta-m0-p19"
+ ],
+ "original_hashes": {
+  "t1": {
+   "mukta-m0-p22-v526": "2a2562b66203d5de22f93885888756bd775370c12a6ca95ef91e4483a965d38b",
+   "mukta-m0-p22-v527": "0c9361dd49c117cbfc32dd9ebad2f1a71d4bf0da898aa1804ffee9b0c2147d08",
+   "mukta-m0-p22-v528": "0b6b9874273bb4ddb82d6223c4758e86d80388bd171b6ac92b9fc6d6a02fe7a9",
+   "mukta-m0-p22-v529": "a1babe6170ec259c4f0d955b626809c822df0700d1b448bcdc15cbbd7c737ecb",
+   "mukta-m0-p22-v530": "9f9f34625b73d064b3bc982f9dfab4d5958b769c56f9c71a5f59fbef6d7af975",
+   "mukta-m0-p22-v531": "222ca0b07d298b433f69eaeeeb667c3042308581bd0a556c899bb4273f88e0b8",
+   "mukta-m0-p22-v532": "6de076d206c55de46587a8402d936bf15fd4f79931e6ef188b1ec734d7510995",
+   "mukta-m0-p22-v533": "c1d847bca4dca861f780e0936e5bc927a194444a92127814240ef5e22c40bc18",
+   "mukta-m0-p22-v534": "c81f45e72105cd2dbf828cd3fb79538968899c6daabb03abe6f17910a32d591c",
+   "mukta-m0-p22-v535": "dbc8dbefed3efe192a3340c2ed4b51705902b0d44cc257bf81de93811419ed9e"
+  },
+  "l0": {
+   "mukta-m0-p22-v526": "a7d09cf51704c767ee4ad3fc8c8443747de2e0a0e2ceb082d622f49dc9d9f8bb",
+   "mukta-m0-p22-v527": "fba12d3773983bc83707785a939a9665e53af9c60f1fc25389b21a3f7b916f8d",
+   "mukta-m0-p22-v528": "129fa4427f0d742d4d45ffb50c16aa45b9c8b1be71691beec17f61133b7a1f80",
+   "mukta-m0-p22-v529": "dd0d5a804708e3f516d79596bce1c31fff06e91aea8b46f62c0ee8e8bec20387",
+   "mukta-m0-p22-v530": "23ff030798f2c3ad5d3fbf0ebaa059c810ddab36820d7740f2185e93ae8f6c13",
+   "mukta-m0-p22-v531": "9096a1b9e77d778a1b8b2a715d76814ffab1ec89dc33bff125cf5c44af5ee27d",
+   "mukta-m0-p22-v532": "63252531dd90060b2e7ae426676edae13ace50f093fcaf82d97490a83cd1e091",
+   "mukta-m0-p22-v533": "c78a06369e68fb4ca738b7c5d16ee04c279b3917b20c45b06d4ae9d9fd8490fe",
+   "mukta-m0-p22-v534": "4b9e77dea35b7e24d2bdd7f86661671c56492acc8dd413c41fa6c6fed9e5d086",
+   "mukta-m0-p22-v535": "13d755d033f2894f8f5787a78369fb04a534054f811141c2dad7252bb8046255"
+  },
+  "argmap": {
+   "mukta-m0-p22-v526": "198a79756bd8c241975aed46eeffb63ea45c991c8b6bef839b5a444215b9825c",
+   "mukta-m0-p22-v527": "4665bf61e5496112e6678bc8f22c6e6cea2bfbc0bf98c2f473290e5fb2b79d93",
+   "mukta-m0-p22-v528": "5c0b9b18ab1195adcf2b7d8f1b2388a1f2a30e0e3dc02c081015dfa1ee6f407f",
+   "mukta-m0-p22-v529": "0f7d8172e4f8ba0d5d908a22be7d33085291165a34c49ed1729e44428c092e4b",
+   "mukta-m0-p22-v530": "26a236905534cef2d887d13df982abf4f28c6685abef4d59e1ec0f95d57ea9a4",
+   "mukta-m0-p22-v531": "239cdd1d4bef02afeb1552c83107cd026e4d4ccd4e03f0db7332d9ebe529b590",
+   "mukta-m0-p22-v532": "ca7a44b0e094939fe161c465265fb32bafac0cbe30595f739f9fa22548dbac9e",
+   "mukta-m0-p22-v533": "4458c8365ac99afb2bc4080f600dc4756c2c3a5ef5fb62fbc8b40baadd5b8834",
+   "mukta-m0-p22-v534": "33ef8681b599f8c54c5ae44302461be2ac4cdd545868738409b1063649b947d0",
+   "mukta-m0-p22-v535": "b438a8233491522ac55e866e8655b8aeeb2cf937220713f9c95b22b60228afdb"
+  },
+  "l2": {
+   "mukta-m0-p22-v526": "7e16baf4f9f66fa96711da1d118b7dbaa9497f6ae25ebe476bf8de283548df66",
+   "mukta-m0-p22-v527": "77ba9f1a37893bbfc07df446f3a34b9c2653def04a80b86116e363944bd115b8",
+   "mukta-m0-p22-v528": "37f6e765e0b4c4a6743984e61ad095f6dc24166b2a509839275c7534c255993d",
+   "mukta-m0-p22-v529": "08ac18c3e90f5ee6c3a32993c4f449869ebb577eef3bf789758afd334c50c736",
+   "mukta-m0-p22-v530": "6a18e13c21fb7c0648faf45ebdd7a048e41229ea575f8f02ef2ab2f5837c3109",
+   "mukta-m0-p22-v531": "f253b72c5750019754c5cb2d8deb2ccc8ce00f24473f80f521d0a0ba72c0628e",
+   "mukta-m0-p22-v532": "ceca490f55a507cf27f3dd6c221ffbe9423262a18a1fe2a431295931e28ae332",
+   "mukta-m0-p22-v533": "a594560031a00c4f13cec95799fec624c9117932abf59b0deb0ffc2336c73877",
+   "mukta-m0-p22-v534": "0d25d4c614938a6ba2f9e25f1688d7edc71d95d10f53be2a627bbc6b7f088927",
+   "mukta-m0-p22-v535": "af095abe6618d6e7a6911ac180436e7059c5bf04ee24ed788d824c5fcff8e412"
+  },
+  "c1": {
+   "mukta-m0-p22": "0576b87567dfab8e9aff9019f653c0dc1dece3c3f77264569a8bd776a45b1654"
+  },
+  "l3": {},
+  "l4": {},
+  "c2": {}
+ },
+ "versions": [],
+ "essays": [],
+ "reviews": [],
+ "promotions": [],
+ "signoffs": [],
+ "stack_hashes": {
+  "mukta-m0-p22": "6b05f34db9b2d90b47b12f655ecb885d2b4182a572c59dbdcfc1665740f55dd2"
+ },
+ "projection_sha256": "b4a3c2a362e29c84dbb46c1fdc0b3ffbb8a2502cce241554619ca930786a9823"
+}

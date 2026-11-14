@@ -1,0 +1,6608 @@
+{
+ "work": "mukta-m00088",
+ "generated": null,
+ "source": "translation-work canonical data + scholar/ ledgers (emit_scholar.py)",
+ "source_edition": "Muktabodha M00088 (IAST, CC BY-NC 4.0) [concat of non-contiguous segment slices]",
+ "contract": {
+  "contract_version": "svatantrya-agent-contract/1",
+  "contract_sha256": "575232010d119225d9b3f12121fa59ad744765a875914708396c51a3129d7301",
+  "schema_version": "1.4.0",
+  "structural_schema_version": "2.1.0",
+  "structural_schema_snapshot_sha256": "3ce4085b2cbcebfec8471eee4b24a6974f9a19c77f0d125c7cad46bbb1ae8b0a",
+  "order": [
+   "source",
+   "t1",
+   "l0",
+   "argmap",
+   "l2",
+   "c1",
+   "l3",
+   "l4",
+   "c2"
+  ],
+  "schemas": {
+   "t1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:t1",
+    "title": "Svatantrya T1 structural schema",
+    "x-validator": "schemas.t1.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "quick_english",
+     "tokens",
+     "source_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "quick_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "source_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "tokens": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "surface",
+        "quick_gloss"
+       ],
+       "properties": {
+        "surface": {
+         "type": "string",
+         "minLength": 1
+        },
+        "quick_gloss": {
+         "type": "string",
+         "minLength": 1
+        }
+       }
+      }
+     }
+    }
+   },
+   "l0": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l0:verse",
+    "title": "Svatantrya L0 verse token list structural schema",
+    "x-validator": "schemas.l0.validate (per token)",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+     "$schema": "https://json-schema.org/draft/2020-12/schema",
+     "$id": "urn:svatantrya:schema:2.1.0:l0",
+     "title": "Svatantrya L0 structural schema",
+     "x-validator": "schemas.l0.validate",
+     "x-schema-version": "1.4.0",
+     "x-structural-schema-version": "2.1.0",
+     "type": "object",
+     "required": [
+      "id",
+      "verse_id",
+      "pada_index",
+      "surface",
+      "citation",
+      "options",
+      "chosen_index",
+      "status"
+     ],
+     "properties": {
+      "id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "verse_id": {
+       "type": "string",
+       "minLength": 1
+      },
+      "pada_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "surface": {
+       "type": "string",
+       "minLength": 1
+      },
+      "citation": {
+       "type": "string",
+       "minLength": 1
+      },
+      "morph": {
+       "type": "string"
+      },
+      "morph_unknown": {
+       "type": "boolean"
+      },
+      "options": {
+       "type": "array",
+       "maxItems": 5,
+       "items": {
+        "type": "object",
+        "required": [
+         "gloss",
+         "rank",
+         "source",
+         "grounds"
+        ],
+        "properties": {
+         "gloss": {
+          "type": "string",
+          "minLength": 1
+         },
+         "rank": {
+          "type": "integer",
+          "minimum": 1
+         },
+         "source": {
+          "type": "string",
+          "minLength": 1
+         },
+         "grounds": {
+          "type": "string",
+          "minLength": 1
+         }
+        }
+       }
+      },
+      "chosen_index": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "status": {
+       "type": "string",
+       "enum": [
+        "PARSED",
+        "AMBIGUOUS",
+        "FAILED"
+       ]
+      },
+      "revised": {
+       "type": "boolean"
+      },
+      "revise_reason": {
+       "type": "string"
+      },
+      "fork": {
+       "type": "string",
+       "enum": [
+        "none",
+        "live",
+        "resolved"
+       ]
+      }
+     }
+    }
+   },
+   "argmap": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:argmap",
+    "title": "Svatantrya ARGMAP structural schema",
+    "x-validator": "schemas.argmap.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "traces",
+     "sanskrit_sha"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "traces": {
+      "type": "object",
+      "required": [
+       "t1_verse",
+       "l0_ids"
+      ],
+      "properties": {
+       "t1_verse": {
+        "type": "string",
+        "minLength": 1
+       },
+       "l0_ids": {
+        "type": "array",
+        "items": {
+         "type": "string",
+         "minLength": 1
+        },
+        "minItems": 1
+       }
+      }
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "sanskrit_sha": {
+      "type": "string",
+      "minLength": 1
+     },
+     "speaker": {
+      "type": "string",
+      "minLength": 1
+     },
+     "question": {
+      "type": "string",
+      "minLength": 1
+     },
+     "inference": {
+      "type": "string",
+      "minLength": 1
+     },
+     "reconstruction": {
+      "type": "string",
+      "minLength": 1
+     },
+     "premises": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     },
+     "uncertainties": {
+      "type": "array"
+     },
+     "structured": {
+      "type": "boolean"
+     }
+    }
+   },
+   "l2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l2",
+    "title": "Svatantrya L2 structural schema",
+    "x-validator": "schemas.l2.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "plain_english",
+     "sanskrit_cite",
+     "l0_ids"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "plain_english": {
+      "type": "string",
+      "minLength": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "supplied": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     }
+    }
+   },
+   "c1": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:c1",
+    "title": "Svatantrya C1 structural schema",
+    "x-validator": "schemas.c1.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "song",
+     "essence",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "essence": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "renders": {
+      "type": "object",
+      "required": [
+       "standard"
+      ]
+     }
+    }
+   },
+   "l3": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l3",
+    "title": "Svatantrya L3 structural schema",
+    "x-validator": "schemas.l3.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "l4": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:l4",
+    "title": "Svatantrya L4 structural schema",
+    "x-validator": "schemas.l4.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "verse_id",
+     "song",
+     "verse",
+     "lines",
+     "sanskrit_cite",
+     "l0_ids",
+     "essence_maps"
+    ],
+    "properties": {
+     "verse_id": {
+      "type": "string",
+      "minLength": 1
+     },
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "verse": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "lines": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "sanskrit_cite": {
+      "type": "string",
+      "minLength": 1
+     },
+     "l0_ids": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "minItems": 1
+     },
+     "essence_maps": {
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "minimum": 0
+      },
+      "minItems": 1
+     }
+    }
+   },
+   "c2": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:svatantrya:schema:2.1.0:c2",
+    "title": "Svatantrya C2 structural schema",
+    "x-validator": "schemas.c2.validate",
+    "x-schema-version": "1.4.0",
+    "x-structural-schema-version": "2.1.0",
+    "type": "object",
+    "required": [
+     "song",
+     "renders"
+    ],
+    "properties": {
+     "song": {
+      "type": "string",
+      "minLength": 1
+     },
+     "renders": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+       "type": "object",
+       "required": [
+        "style",
+        "prompt",
+        "paragraphs"
+       ],
+       "properties": {
+        "style": {
+         "type": "string",
+         "minLength": 1
+        },
+        "prompt": {
+         "type": "string",
+         "minLength": 1
+        },
+        "paragraphs": {
+         "type": "array",
+         "minItems": 1,
+         "items": {
+          "type": "object",
+          "required": [
+           "text",
+           "maps_to"
+          ],
+          "properties": {
+           "text": {
+            "type": "string",
+            "minLength": 1
+           },
+           "maps_to": {
+            "type": "array",
+            "items": {
+             "type": "integer",
+             "minimum": 0
+            },
+            "minItems": 1
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "layers": [
+   {
+    "id": "t1",
+    "scope": "verse",
+    "depends_on": [
+     "source"
+    ],
+    "validator": "schemas/t1.py",
+    "validator_sha256": "ac792ba1f0cbc06ab52dfbc41a31d3e39460f0e8a7de2977ed02e4ce63a20f27",
+    "example": {
+     "file": "sivastotravali/data/s01.t1.json",
+     "file_sha256": "a5c4cfae67571d05866d97ad6eb29b1c2956140a69c2fae554c29577330beb8e",
+     "target": "s01-v01",
+     "content_sha256": "26f027dafbe67347efd901cb2b94630cdb0e372957edeb4a3e1305e83745ba5b",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l0",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1"
+    ],
+    "validator": "schemas/l0.py",
+    "validator_sha256": "0651bc77f519897f8a4f8b41f4ea0cc6a88f3441910af99b18d55854a7e9030e",
+    "example": {
+     "file": "sivastotravali/data/s06.l0.json",
+     "file_sha256": "c2bb0ce1010315d72bdce75ee3c8901b17499202abe7adc5bd1977a26f4fea2f",
+     "target": "s06-v01",
+     "content_sha256": "91e3b04d47482757bcaf1e9705992edd0815ff7907ed2cb33c7c9586f3a9e5aa",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "argmap",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0"
+    ],
+    "validator": "schemas/argmap.py",
+    "validator_sha256": "335c1bbe809c5ae942ecef4a30ee7fd8fcb82645a43019312fa74397fe5758b0",
+    "example": {
+     "file": "sivastotravali/data/s01.argmap.json",
+     "file_sha256": "a44c8ec09a30c577f2a792c1255d4290f49a6138c456bb687bc00e78a3902949",
+     "target": "s01-v21",
+     "content_sha256": "80b69a54761b8b0b7c193058f6c88eef60323a3611008c41ba9879bcfc3cdc21",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l2",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap"
+    ],
+    "validator": "schemas/l2.py",
+    "validator_sha256": "95556834767ef61cf824b501ad7184b4223b6a7f479cd9644fbaae4372725ae3",
+    "example": {
+     "file": "sivastotravali/data/s01.l2.json",
+     "file_sha256": "f5a1cec55bb466c328380a0bf527e6d8906428b3436f85a79bd01df98ceb1040",
+     "target": "s01-v01",
+     "content_sha256": "f3c47f6a631f7551d4f9c8ad1117bdf65463cb8cdc92e9b42bb3bf517ae80055",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c1",
+    "scope": "song",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2"
+    ],
+    "validator": "schemas/c1.py",
+    "validator_sha256": "291c7eba42e68952b685becb6b596df7e2d9ca859d264152707d89efa5361c90",
+    "example": {
+     "file": "sivastotravali/data/s01.c1.json",
+     "file_sha256": "99f4d2bbf7a8086176ee585b6e459076e2abd72b9675435267f7546beb1515f8",
+     "target": "s01",
+     "content_sha256": "5be1f3c0c3f64fafe5395b42cf5502a139a5e208be419d5804fe1a5bdd33712a",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l3",
+    "scope": "verse",
+    "depends_on": [
+     "source",
+     "t1",
+     "l0",
+     "argmap",
+     "l2",
+     "c1"
+    ],
+    "validator": "schemas/l3.py",
+    "validator_sha256": "6c3df228f886207782d5250699e9e459f236f6e7d6b25ac29b00a38541956917",
+    "example": {
+     "file": "sivastotravali/data/s01.l3.json",
+     "file_sha256": "cdb4af6a4c2a851231195f4e5c940346f65199d5d5d69ea1c41d8095f98409f9",
+     "target": "s01-v01",
+     "content_sha256": "6aa20635387174b68fe4ea3baf970c06aff9838acb2c745e7afca0ed7c6751de",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "l4",
+    "scope": "verse",
+    "depends_on": [
+     "l3",
+     "c1"
+    ],
+    "validator": "schemas/l4.py",
+    "validator_sha256": "3c1f7b0dfe3d83d425ed0fd84fba7b74aa3ed9e9758402369d779eedda1a8c03",
+    "example": {
+     "file": "paramarthasara/data/param-p01.l4.json",
+     "file_sha256": "db346e51e71f2f835ddfda004d4432934611817c2c73318d335f6ca2362ad4fb",
+     "target": "param-p01-v01",
+     "content_sha256": "91e9d424cf310d4e5b45c173b02f5286d837269ef9447533c153a48cb5122c14",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   },
+   {
+    "id": "c2",
+    "scope": "song",
+    "depends_on": [
+     "c1",
+     "l3"
+    ],
+    "validator": "schemas/c2.py",
+    "validator_sha256": "fb8743f206e036002c780d082c7d32cf011dcdab4c21df742a5f5e59a9d851b8",
+    "example": {
+     "file": "sivastotravali/data/s01.c2.json",
+     "file_sha256": "09660a3c09679fce8c95968934e5851a22d89cdf154d2b0635d358e1ef9e8aeb",
+     "target": "s01",
+     "content_sha256": "2faa5fa86e38faca7ef5a1a967a4e261e2df294648a31ed5bad5f731001aa41c",
+     "note": "Illustrates the data shape; review status is not implied."
+    }
+   }
+  ]
+ },
+ "rights": {
+  "translation": "FREE — our English (L1–L4, commentary) is free use",
+  "scholar": "Contributors declare rights; authorship and copyright depend on the work and law."
+ },
+ "originals": {
+  "t1": {
+   "mukta-m0-p51-v1251": {
+    "verse_id": "mukta-m0-p51-v1251",
+    "song": "mukta-m0-p51",
+    "verse": 1251,
+    "tokens": [
+     {
+      "sanskrit": "śālmalīkusumaiḥ",
+      "surface": "śālmalīkusumaiḥ",
+      "iast": "śālmalīkusumaiḥ",
+      "gloss": "silk-cotton-flowers",
+      "quick_gloss": "silk-cotton-flowers",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "siddhadravyaiḥ",
+      "surface": "siddhadravyaiḥ",
+      "iast": "siddhadravyaiḥ",
+      "gloss": "perfected-substances",
+      "quick_gloss": "perfected-substances",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "māsam",
+      "surface": "māsam",
+      "iast": "māsam",
+      "gloss": "month",
+      "quick_gloss": "month",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tu",
+      "surface": "tu",
+      "iast": "tu",
+      "gloss": "indeed",
+      "quick_gloss": "indeed",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "nirbhayaḥ",
+      "surface": "nirbhayaḥ",
+      "iast": "nirbhayaḥ",
+      "gloss": "fearless",
+      "quick_gloss": "fearless",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "With silk-cotton flowers and perfected substances for a month, one becomes fearless.",
+    "source_sha": ""
+   },
+   "mukta-m0-p51-v1252": {
+    "verse_id": "mukta-m0-p51-v1252",
+    "song": "mukta-m0-p51",
+    "verse": 1252,
+    "tokens": [
+     {
+      "sanskrit": "nirjane",
+      "surface": "nirjane",
+      "iast": "nirjane",
+      "gloss": "lonely",
+      "quick_gloss": "lonely",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vipine",
+      "surface": "vipine",
+      "iast": "vipine",
+      "gloss": "forest",
+      "quick_gloss": "forest",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "rātrau",
+      "surface": "rātrau",
+      "iast": "rātrau",
+      "gloss": "night",
+      "quick_gloss": "night",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "māsam",
+      "surface": "māsam",
+      "iast": "māsam",
+      "gloss": "month",
+      "quick_gloss": "month",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tu",
+      "surface": "tu",
+      "iast": "tu",
+      "gloss": "indeed",
+      "quick_gloss": "indeed",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "nirbhayaḥ",
+      "surface": "nirbhayaḥ",
+      "iast": "nirbhayaḥ",
+      "gloss": "fearless",
+      "quick_gloss": "fearless",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "In a lonely forest at night for a month, one becomes fearless.",
+    "source_sha": ""
+   },
+   "mukta-m0-p51-v1253": {
+    "verse_id": "mukta-m0-p51-v1253",
+    "song": "mukta-m0-p51",
+    "verse": 1253,
+    "tokens": [
+     {
+      "sanskrit": "mālatī",
+      "surface": "mālatī",
+      "iast": "mālatī",
+      "gloss": "jasmine",
+      "quick_gloss": "jasmine",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "jāti",
+      "surface": "jāti",
+      "iast": "jāti",
+      "gloss": "champak",
+      "quick_gloss": "champak",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "punnāga",
+      "surface": "punnāga",
+      "iast": "punnāga",
+      "gloss": "screw-pine",
+      "quick_gloss": "screw-pine",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ketakī",
+      "surface": "ketakī",
+      "iast": "ketakī",
+      "gloss": "ketaki",
+      "quick_gloss": "ketaki",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "madhubhiḥ",
+      "surface": "madhubhiḥ",
+      "iast": "madhubhiḥ",
+      "gloss": "honey",
+      "quick_gloss": "honey",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kramāt",
+      "surface": "kramāt",
+      "iast": "kramāt",
+      "gloss": "in-order",
+      "quick_gloss": "in-order",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Jasmine, champak, screw-pine, ketaki, and honey are used in order.",
+    "source_sha": ""
+   },
+   "mukta-m0-p51-v1254": {
+    "verse_id": "mukta-m0-p51-v1254",
+    "song": "mukta-m0-p51",
+    "verse": 1254,
+    "tokens": [
+     {
+      "sanskrit": "śmaśāne",
+      "surface": "śmaśāne",
+      "iast": "śmaśāne",
+      "gloss": "cremation-ground",
+      "quick_gloss": "cremation-ground",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "caṇḍikāgehe",
+      "surface": "caṇḍikāgehe",
+      "iast": "caṇḍikāgehe",
+      "gloss": "caṇḍikā-house",
+      "quick_gloss": "caṇḍikā-house",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "nirjane",
+      "surface": "nirjane",
+      "iast": "nirjane",
+      "gloss": "lonely",
+      "quick_gloss": "lonely",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vipine",
+      "surface": "vipine",
+      "iast": "vipine",
+      "gloss": "forest",
+      "quick_gloss": "forest",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "athavā",
+      "surface": "athavā",
+      "iast": "athavā",
+      "gloss": "or",
+      "quick_gloss": "or",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Worship may be done in a cremation ground, caṇḍikā house, or lonely forest.",
+    "source_sha": ""
+   },
+   "mukta-m0-p51-v1255": {
+    "verse_id": "mukta-m0-p51-v1255",
+    "song": "mukta-m0-p51",
+    "verse": 1255,
+    "tokens": [
+     {
+      "sanskrit": "kṛṣṇacakre",
+      "surface": "kṛṣṇacakre",
+      "iast": "kṛṣṇacakre",
+      "gloss": "black-circle",
+      "quick_gloss": "black-circle",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "atikṛṣṇāṃ",
+      "surface": "atikṛṣṇāṃ",
+      "iast": "atikṛṣṇāṃ",
+      "gloss": "very-black",
+      "quick_gloss": "very-black",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tām",
+      "surface": "tām",
+      "iast": "tām",
+      "gloss": "her",
+      "quick_gloss": "her",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "abhivādya",
+      "surface": "abhivādya",
+      "iast": "abhivādya",
+      "gloss": "saluting",
+      "quick_gloss": "saluting",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "prapūjayet",
+      "surface": "prapūjayet",
+      "iast": "prapūjayet",
+      "gloss": "worship",
+      "quick_gloss": "worship",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "In the black circle, salute and worship the very black goddess.",
+    "source_sha": ""
+   },
+   "mukta-m0-p51-v1256": {
+    "verse_id": "mukta-m0-p51-v1256",
+    "song": "mukta-m0-p51",
+    "verse": 1256,
+    "tokens": [
+     {
+      "sanskrit": "siddhadravya",
+      "surface": "siddhadravya",
+      "iast": "siddhadravya",
+      "gloss": "perfected-substances",
+      "quick_gloss": "perfected-substances",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "samopetaṃ",
+      "surface": "samopetaṃ",
+      "iast": "samopetaṃ",
+      "gloss": "endowed",
+      "quick_gloss": "endowed",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "māsāt",
+      "surface": "māsāt",
+      "iast": "māsāt",
+      "gloss": "month",
+      "quick_gloss": "month",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tad",
+      "surface": "tad",
+      "iast": "tad",
+      "gloss": "that",
+      "quick_gloss": "that",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "bhāva",
+      "surface": "bhāva",
+      "iast": "bhāva",
+      "gloss": "bhāva",
+      "quick_gloss": "bhāva",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "locanāt",
+      "surface": "locanāt",
+      "iast": "locanāt",
+      "gloss": "sight",
+      "quick_gloss": "sight",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Endowed with perfected substances for a month, that bhāva appears to sight.",
+    "source_sha": ""
+   },
+   "mukta-m0-p51-v1257": {
+    "verse_id": "mukta-m0-p51-v1257",
+    "song": "mukta-m0-p51",
+    "verse": 1257,
+    "tokens": [
+     {
+      "sanskrit": "viśva",
+      "surface": "viśva",
+      "iast": "viśva",
+      "gloss": "universe",
+      "quick_gloss": "universe",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "saṃhāra",
+      "surface": "saṃhāra",
+      "iast": "saṃhāra",
+      "gloss": "destruction",
+      "quick_gloss": "destruction",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "santuṣṭāṃ",
+      "surface": "santuṣṭāṃ",
+      "iast": "santuṣṭāṃ",
+      "gloss": "satisfied",
+      "quick_gloss": "satisfied",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "punar",
+      "surface": "punar",
+      "iast": "punar",
+      "gloss": "again",
+      "quick_gloss": "again",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "etya",
+      "surface": "etya",
+      "iast": "etya",
+      "gloss": "returning",
+      "quick_gloss": "returning",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "nija",
+      "surface": "nija",
+      "iast": "nija",
+      "gloss": "own",
+      "quick_gloss": "own",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "icchayā",
+      "surface": "icchayā",
+      "iast": "icchayā",
+      "gloss": "will",
+      "quick_gloss": "will",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Satisfied with universal destruction, she returns again by her own will.",
+    "source_sha": ""
+   },
+   "mukta-m0-p51-v1258": {
+    "verse_id": "mukta-m0-p51-v1258",
+    "song": "mukta-m0-p51",
+    "verse": 1258,
+    "tokens": [
+     {
+      "sanskrit": "devyā",
+      "surface": "devyā",
+      "iast": "devyā",
+      "gloss": "goddess",
+      "quick_gloss": "goddess",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "lalāṭa",
+      "surface": "lalāṭa",
+      "iast": "lalāṭa",
+      "gloss": "forehead",
+      "quick_gloss": "forehead",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "netre",
+      "surface": "netre",
+      "iast": "netre",
+      "gloss": "eye",
+      "quick_gloss": "eye",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "syuḥ",
+      "surface": "syuḥ",
+      "iast": "syuḥ",
+      "gloss": "would-be",
+      "quick_gloss": "would-be",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "prārthanena",
+      "surface": "prārthanena",
+      "iast": "prārthanena",
+      "gloss": "prayer",
+      "quick_gloss": "prayer",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tirohitā",
+      "surface": "tirohitā",
+      "iast": "tirohitā",
+      "gloss": "hidden",
+      "quick_gloss": "hidden",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "By prayer, the goddess's forehead eye becomes hidden.",
+    "source_sha": ""
+   },
+   "mukta-m0-p51-v1259": {
+    "verse_id": "mukta-m0-p51-v1259",
+    "song": "mukta-m0-p51",
+    "verse": 1259,
+    "tokens": [
+     {
+      "sanskrit": "udyāne",
+      "surface": "udyāne",
+      "iast": "udyāne",
+      "gloss": "garden",
+      "quick_gloss": "garden",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "nirjane",
+      "surface": "nirjane",
+      "iast": "nirjane",
+      "gloss": "lonely",
+      "quick_gloss": "lonely",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "devīṃ",
+      "surface": "devīṃ",
+      "iast": "devīṃ",
+      "gloss": "goddess",
+      "quick_gloss": "goddess",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "cakre",
+      "surface": "cakre",
+      "iast": "cakre",
+      "gloss": "in-circle",
+      "quick_gloss": "in-circle",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "sañcintya",
+      "surface": "sañcintya",
+      "iast": "sañcintya",
+      "gloss": "contemplating",
+      "quick_gloss": "contemplating",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "pūjayet",
+      "surface": "pūjayet",
+      "iast": "pūjayet",
+      "gloss": "worship",
+      "quick_gloss": "worship",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "In a lonely garden, contemplate the goddess in the circle and worship her.",
+    "source_sha": ""
+   },
+   "mukta-m0-p51-v1260": {
+    "verse_id": "mukta-m0-p51-v1260",
+    "song": "mukta-m0-p51",
+    "verse": 1260,
+    "tokens": [
+     {
+      "sanskrit": "siddhadravya",
+      "surface": "siddhadravya",
+      "iast": "siddhadravya",
+      "gloss": "perfected-substances",
+      "quick_gloss": "perfected-substances",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "samopetair",
+      "surface": "samopetair",
+      "iast": "samopetair",
+      "gloss": "endowed",
+      "quick_gloss": "endowed",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "māyāḥ",
+      "surface": "māyāḥ",
+      "iast": "māyāḥ",
+      "gloss": "illusions",
+      "quick_gloss": "illusions",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "sidhyanti",
+      "surface": "sidhyanti",
+      "iast": "sidhyanti",
+      "gloss": "succeed",
+      "quick_gloss": "succeed",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "māsataḥ",
+      "surface": "māsataḥ",
+      "iast": "māsataḥ",
+      "gloss": "month",
+      "quick_gloss": "month",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Endowed with perfected substances, illusions succeed after a month.",
+    "source_sha": ""
+   },
+   "mukta-m0-p51-v1261": {
+    "verse_id": "mukta-m0-p51-v1261",
+    "song": "mukta-m0-p51",
+    "verse": 1261,
+    "tokens": [
+     {
+      "sanskrit": "yābhiḥ",
+      "surface": "yābhiḥ",
+      "iast": "yābhiḥ",
+      "gloss": "by-whom",
+      "quick_gloss": "by-whom",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "viśvaṃ",
+      "surface": "viśvaṃ",
+      "iast": "viśvaṃ",
+      "gloss": "universe",
+      "quick_gloss": "universe",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "yayau",
+      "surface": "yayau",
+      "iast": "yayau",
+      "gloss": "went",
+      "quick_gloss": "went",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "viśvacārī",
+      "surface": "viśvacārī",
+      "iast": "viśvacārī",
+      "gloss": "world-wandering",
+      "quick_gloss": "world-wandering",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "viśvavinodavān",
+      "surface": "viśvavinodavān",
+      "iast": "viśvavinodavān",
+      "gloss": "world-delighting",
+      "quick_gloss": "world-delighting",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "By whom the universe is traversed, that world-wandering, world-delighting one goes.",
+    "source_sha": ""
+   },
+   "mukta-m0-p51-v1262": {
+    "verse_id": "mukta-m0-p51-v1262",
+    "song": "mukta-m0-p51",
+    "verse": 1262,
+    "tokens": [
+     {
+      "sanskrit": "trikāla",
+      "surface": "trikāla",
+      "iast": "trikāla",
+      "gloss": "three-times",
+      "quick_gloss": "three-times",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "jño",
+      "surface": "jño",
+      "iast": "jño",
+      "gloss": "knower",
+      "quick_gloss": "knower",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "bhaved",
+      "surface": "bhaved",
+      "iast": "bhaved",
+      "gloss": "would-be",
+      "quick_gloss": "would-be",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "devīṃ",
+      "surface": "devīṃ",
+      "iast": "devīṃ",
+      "gloss": "goddess",
+      "quick_gloss": "goddess",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "teṣu",
+      "surface": "teṣu",
+      "iast": "teṣu",
+      "gloss": "in-them",
+      "quick_gloss": "in-them",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "samyag",
+      "surface": "samyag",
+      "iast": "samyag",
+      "gloss": "properly",
+      "quick_gloss": "properly",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vicintayet",
+      "surface": "vicintayet",
+      "iast": "vicintayet",
+      "gloss": "contemplate",
+      "quick_gloss": "contemplate",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Contemplating the goddess properly in those places, one becomes a knower of three times.",
+    "source_sha": ""
+   },
+   "mukta-m0-p51-v1263": {
+    "verse_id": "mukta-m0-p51-v1263",
+    "song": "mukta-m0-p51",
+    "verse": 1263,
+    "tokens": [
+     {
+      "sanskrit": "nivasaṃs",
+      "surface": "nivasaṃs",
+      "iast": "nivasaṃs",
+      "gloss": "dwelling",
+      "quick_gloss": "dwelling",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tatra",
+      "surface": "tatra",
+      "iast": "tatra",
+      "gloss": "there",
+      "quick_gloss": "there",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tatpuṣpair",
+      "surface": "tatpuṣpair",
+      "iast": "tatpuṣpair",
+      "gloss": "with-those-flowers",
+      "quick_gloss": "with-those-flowers",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "jāyate",
+      "surface": "jāyate",
+      "iast": "jāyate",
+      "gloss": "becomes",
+      "quick_gloss": "becomes",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "manmathopamaḥ",
+      "surface": "manmathopamaḥ",
+      "iast": "manmathopamaḥ",
+      "gloss": "cupid-like",
+      "quick_gloss": "cupid-like",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Dwelling there with those flowers, one becomes cupid-like.",
+    "source_sha": ""
+   },
+   "mukta-m0-p51-v1264": {
+    "verse_id": "mukta-m0-p51-v1264",
+    "song": "mukta-m0-p51",
+    "verse": 1264,
+    "tokens": [
+     {
+      "sanskrit": "kṛtyāḥ",
+      "surface": "kṛtyāḥ",
+      "iast": "kṛtyāḥ",
+      "gloss": "rites",
+      "quick_gloss": "rites",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "pareritā",
+      "surface": "pareritā",
+      "iast": "pareritā",
+      "gloss": "by-others",
+      "quick_gloss": "by-others",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "mantrā",
+      "surface": "mantrā",
+      "iast": "mantrā",
+      "gloss": "mantras",
+      "quick_gloss": "mantras",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vimukhās",
+      "surface": "vimukhās",
+      "iast": "vimukhās",
+      "gloss": "averted",
+      "quick_gloss": "averted",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tān",
+      "surface": "tān",
+      "iast": "tān",
+      "gloss": "them",
+      "quick_gloss": "them",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "grasanti",
+      "surface": "grasanti",
+      "iast": "grasanti",
+      "gloss": "devour",
+      "quick_gloss": "devour",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "vai",
+      "surface": "vai",
+      "iast": "vai",
+      "gloss": "indeed",
+      "quick_gloss": "indeed",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Rites and mantras sent by others are averted and indeed devoured.",
+    "source_sha": ""
+   },
+   "mukta-m0-p51-v1265": {
+    "verse_id": "mukta-m0-p51-v1265",
+    "song": "mukta-m0-p51",
+    "verse": 1265,
+    "tokens": [
+     {
+      "sanskrit": "saṃvatsara",
+      "surface": "saṃvatsara",
+      "iast": "saṃvatsara",
+      "gloss": "year",
+      "quick_gloss": "year",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kṛtā",
+      "surface": "kṛtā",
+      "iast": "kṛtā",
+      "gloss": "done",
+      "quick_gloss": "done",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "pūjā",
+      "surface": "pūjā",
+      "iast": "pūjā",
+      "gloss": "worship",
+      "quick_gloss": "worship",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "yenaiva",
+      "surface": "yenaiva",
+      "iast": "yenaiva",
+      "gloss": "by-whom",
+      "quick_gloss": "by-whom",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "pūrṇatā",
+      "surface": "pūrṇatā",
+      "iast": "pūrṇatā",
+      "gloss": "completion",
+      "quick_gloss": "completion",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "bhavet",
+      "surface": "bhavet",
+      "iast": "bhavet",
+      "gloss": "becomes",
+      "quick_gloss": "becomes",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Worship done for a year becomes complete.",
+    "source_sha": ""
+   },
+   "mukta-m0-p51-v1266": {
+    "verse_id": "mukta-m0-p51-v1266",
+    "song": "mukta-m0-p51",
+    "verse": 1266,
+    "tokens": [
+     {
+      "sanskrit": "bhasma",
+      "surface": "bhasma",
+      "iast": "bhasma",
+      "gloss": "ash",
+      "quick_gloss": "ash",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "abhavat",
+      "surface": "abhavat",
+      "iast": "abhavat",
+      "gloss": "became",
+      "quick_gloss": "became",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tadā",
+      "surface": "tadā",
+      "iast": "tadā",
+      "gloss": "then",
+      "quick_gloss": "then",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "patnī",
+      "surface": "patnī",
+      "iast": "patnī",
+      "gloss": "wife",
+      "quick_gloss": "wife",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ratiḥ",
+      "surface": "ratiḥ",
+      "iast": "ratiḥ",
+      "gloss": "delight",
+      "quick_gloss": "delight",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "prītiś",
+      "surface": "prītiś",
+      "iast": "prītiś",
+      "gloss": "pleasure",
+      "quick_gloss": "pleasure",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ca",
+      "surface": "ca",
+      "iast": "ca",
+      "gloss": "ca",
+      "quick_gloss": "ca",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "duḥkhitā",
+      "surface": "duḥkhitā",
+      "iast": "duḥkhitā",
+      "gloss": "distressed",
+      "quick_gloss": "distressed",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Then ash became; the wife, delight, and pleasure were distressed.",
+    "source_sha": ""
+   },
+   "mukta-m0-p51-v1267": {
+    "verse_id": "mukta-m0-p51-v1267",
+    "song": "mukta-m0-p51",
+    "verse": 1267,
+    "tokens": [
+     {
+      "sanskrit": "tat",
+      "surface": "tat",
+      "iast": "tat",
+      "gloss": "that",
+      "quick_gloss": "that",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "saurabhaṃ",
+      "surface": "saurabhaṃ",
+      "iast": "saurabhaṃ",
+      "gloss": "fragrance",
+      "quick_gloss": "fragrance",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ca",
+      "surface": "ca",
+      "iast": "ca",
+      "gloss": "ca",
+      "quick_gloss": "ca",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "saubhāgyaṃ",
+      "surface": "saubhāgyaṃ",
+      "iast": "saubhāgyaṃ",
+      "gloss": "auspiciousness",
+      "quick_gloss": "auspiciousness",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "mahad",
+      "surface": "mahad",
+      "iast": "mahad",
+      "gloss": "great",
+      "quick_gloss": "great",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "āsīt",
+      "surface": "āsīt",
+      "iast": "āsīt",
+      "gloss": "was",
+      "quick_gloss": "was",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tad",
+      "surface": "tad",
+      "iast": "tad",
+      "gloss": "that",
+      "quick_gloss": "that",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "adbhutam",
+      "surface": "adbhutam",
+      "iast": "adbhutam",
+      "gloss": "wonderful",
+      "quick_gloss": "wonderful",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "That fragrance and great auspiciousness were wonderful.",
+    "source_sha": ""
+   },
+   "mukta-m0-p51-v1268": {
+    "verse_id": "mukta-m0-p51-v1268",
+    "song": "mukta-m0-p51",
+    "verse": 1268,
+    "tokens": [
+     {
+      "sanskrit": "ratyai",
+      "surface": "ratyai",
+      "iast": "ratyai",
+      "gloss": "for-delight",
+      "quick_gloss": "for-delight",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "prītyai",
+      "surface": "prītyai",
+      "iast": "prītyai",
+      "gloss": "for-pleasure",
+      "quick_gloss": "for-pleasure",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ca",
+      "surface": "ca",
+      "iast": "ca",
+      "gloss": "ca",
+      "quick_gloss": "ca",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tasmāt",
+      "surface": "tasmāt",
+      "iast": "tasmāt",
+      "gloss": "therefore",
+      "quick_gloss": "therefore",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tu",
+      "surface": "tu",
+      "iast": "tu",
+      "gloss": "tu",
+      "quick_gloss": "tu",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "madanaḥ",
+      "surface": "madanaḥ",
+      "iast": "madanaḥ",
+      "gloss": "cupid",
+      "quick_gloss": "cupid",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "prakṛtīkṛtaḥ",
+      "surface": "prakṛtīkṛtaḥ",
+      "iast": "prakṛtīkṛtaḥ",
+      "gloss": "made-nature",
+      "quick_gloss": "made-nature",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Therefore Cupid was made nature for delight and pleasure.",
+    "source_sha": ""
+   },
+   "mukta-m0-p51-v1269": {
+    "verse_id": "mukta-m0-p51-v1269",
+    "song": "mukta-m0-p51",
+    "verse": 1269,
+    "tokens": [
+     {
+      "sanskrit": "tasya",
+      "surface": "tasya",
+      "iast": "tasya",
+      "gloss": "his",
+      "quick_gloss": "his",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "sāṃvatsarī",
+      "surface": "sāṃvatsarī",
+      "iast": "sāṃvatsarī",
+      "gloss": "yearly",
+      "quick_gloss": "yearly",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "pūjā",
+      "surface": "pūjā",
+      "iast": "pūjā",
+      "gloss": "worship",
+      "quick_gloss": "worship",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "madanāya",
+      "surface": "madanāya",
+      "iast": "madanāya",
+      "gloss": "for-cupid",
+      "quick_gloss": "for-cupid",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "bhaviṣyati",
+      "surface": "bhaviṣyati",
+      "iast": "bhaviṣyati",
+      "gloss": "will-be",
+      "quick_gloss": "will-be",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "His yearly worship will be for Cupid.",
+    "source_sha": ""
+   },
+   "mukta-m0-p51-v1270": {
+    "verse_id": "mukta-m0-p51-v1270",
+    "song": "mukta-m0-p51",
+    "verse": 1270,
+    "tokens": [
+     {
+      "sanskrit": "tasmāt",
+      "surface": "tasmāt",
+      "iast": "tasmāt",
+      "gloss": "therefore",
+      "quick_gloss": "therefore",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "madanapūjā",
+      "surface": "madanapūjā",
+      "iast": "madanapūjā",
+      "gloss": "cupid-worship",
+      "quick_gloss": "cupid-worship",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ca",
+      "surface": "ca",
+      "iast": "ca",
+      "gloss": "ca",
+      "quick_gloss": "ca",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kartavyā",
+      "surface": "kartavyā",
+      "iast": "kartavyā",
+      "gloss": "to-be-done",
+      "quick_gloss": "to-be-done",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "sādhakottamaiḥ",
+      "surface": "sādhakottamaiḥ",
+      "iast": "sādhakottamaiḥ",
+      "gloss": "by-best-practitioners",
+      "quick_gloss": "by-best-practitioners",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Therefore Cupid worship must be done by the best practitioners.",
+    "source_sha": ""
+   },
+   "mukta-m0-p51-v1271": {
+    "verse_id": "mukta-m0-p51-v1271",
+    "song": "mukta-m0-p51",
+    "verse": 1271,
+    "tokens": [
+     {
+      "sanskrit": "madanaṃ",
+      "surface": "madanaṃ",
+      "iast": "madanaṃ",
+      "gloss": "cupid",
+      "quick_gloss": "cupid",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "navadhā",
+      "surface": "navadhā",
+      "iast": "navadhā",
+      "gloss": "ninefold",
+      "quick_gloss": "ninefold",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kuryāt",
+      "surface": "kuryāt",
+      "iast": "kuryāt",
+      "gloss": "make",
+      "quick_gloss": "make",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "pūjayet",
+      "surface": "pūjayet",
+      "iast": "pūjayet",
+      "gloss": "worship",
+      "quick_gloss": "worship",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tadanantaram",
+      "surface": "tadanantaram",
+      "iast": "tadanantaram",
+      "gloss": "thereafter",
+      "quick_gloss": "thereafter",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Make Cupid ninefold, then worship him.",
+    "source_sha": ""
+   },
+   "mukta-m0-p51-v1272": {
+    "verse_id": "mukta-m0-p51-v1272",
+    "song": "mukta-m0-p51",
+    "verse": 1272,
+    "tokens": [
+     {
+      "sanskrit": "nānā",
+      "surface": "nānā",
+      "iast": "nānā",
+      "gloss": "various",
+      "quick_gloss": "various",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "prakāra",
+      "surface": "prakāra",
+      "iast": "prakāra",
+      "gloss": "kinds",
+      "quick_gloss": "kinds",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "saṃbhinnaṃ",
+      "surface": "saṃbhinnaṃ",
+      "iast": "saṃbhinnaṃ",
+      "gloss": "combined",
+      "quick_gloss": "combined",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "madanaṃ",
+      "surface": "madanaṃ",
+      "iast": "madanaṃ",
+      "gloss": "cupid",
+      "quick_gloss": "cupid",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "pūjayet",
+      "surface": "pūjayet",
+      "iast": "pūjayet",
+      "gloss": "worship",
+      "quick_gloss": "worship",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "kramāt",
+      "surface": "kramāt",
+      "iast": "kramāt",
+      "gloss": "in-order",
+      "quick_gloss": "in-order",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Worship combined Cupid of various kinds in order.",
+    "source_sha": ""
+   },
+   "mukta-m0-p51-v1273": {
+    "verse_id": "mukta-m0-p51-v1273",
+    "song": "mukta-m0-p51",
+    "verse": 1273,
+    "tokens": [
+     {
+      "sanskrit": "māyā",
+      "surface": "māyā",
+      "iast": "māyā",
+      "gloss": "illusion",
+      "quick_gloss": "illusion",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "sphurat",
+      "surface": "sphurat",
+      "iast": "sphurat",
+      "gloss": "flashing",
+      "quick_gloss": "flashing",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "dvayaṃ",
+      "surface": "dvayaṃ",
+      "iast": "dvayaṃ",
+      "gloss": "pair",
+      "quick_gloss": "pair",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "bhūyaḥ",
+      "surface": "bhūyaḥ",
+      "iast": "bhūyaḥ",
+      "gloss": "again",
+      "quick_gloss": "again",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "prasphurat",
+      "surface": "prasphurat",
+      "iast": "prasphurat",
+      "gloss": "flashing",
+      "quick_gloss": "flashing",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "dvitayaṃ",
+      "surface": "dvitayaṃ",
+      "iast": "dvitayaṃ",
+      "gloss": "pair",
+      "quick_gloss": "pair",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "punaḥ",
+      "surface": "punaḥ",
+      "iast": "punaḥ",
+      "gloss": "again",
+      "quick_gloss": "again",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Illusion flashes as a pair, then again flashes as a pair.",
+    "source_sha": ""
+   },
+   "mukta-m0-p51-v1274": {
+    "verse_id": "mukta-m0-p51-v1274",
+    "song": "mukta-m0-p51",
+    "verse": 1274,
+    "tokens": [
+     {
+      "sanskrit": "caṭa",
+      "surface": "caṭa",
+      "iast": "caṭa",
+      "gloss": "caṭa",
+      "quick_gloss": "caṭa",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "dvayaṃ",
+      "surface": "dvayaṃ",
+      "iast": "dvayaṃ",
+      "gloss": "pair",
+      "quick_gloss": "pair",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "tadante",
+      "surface": "tadante",
+      "iast": "tadante",
+      "gloss": "then-end",
+      "quick_gloss": "then-end",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "api",
+      "surface": "api",
+      "iast": "api",
+      "gloss": "api",
+      "quick_gloss": "api",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "prakaṭa",
+      "surface": "prakaṭa",
+      "iast": "prakaṭa",
+      "gloss": "manifest",
+      "quick_gloss": "manifest",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "dvitayaṃ",
+      "surface": "dvitayaṃ",
+      "iast": "dvitayaṃ",
+      "gloss": "pair",
+      "quick_gloss": "pair",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "punaḥ",
+      "surface": "punaḥ",
+      "iast": "punaḥ",
+      "gloss": "again",
+      "quick_gloss": "again",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "A caṭa pair, then at the end a manifest pair again.",
+    "source_sha": ""
+   },
+   "mukta-m0-p51-v1275": {
+    "verse_id": "mukta-m0-p51-v1275",
+    "song": "mukta-m0-p51",
+    "verse": 1275,
+    "tokens": [
+     {
+      "sanskrit": "ghātaya",
+      "surface": "ghātaya",
+      "iast": "ghātaya",
+      "gloss": "strike",
+      "quick_gloss": "strike",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "dvitayaṃ",
+      "surface": "dvitayaṃ",
+      "iast": "dvitayaṃ",
+      "gloss": "pair",
+      "quick_gloss": "pair",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "varma",
+      "surface": "varma",
+      "iast": "varma",
+      "gloss": "armor",
+      "quick_gloss": "armor",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "phaḍanto",
+      "surface": "phaḍanto",
+      "iast": "phaḍanto",
+      "gloss": "phaṭ-ending",
+      "quick_gloss": "phaṭ-ending",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "ghorako",
+      "surface": "ghorako",
+      "iast": "ghorako",
+      "gloss": "fierce",
+      "quick_gloss": "fierce",
+      "status": "GLOSSED"
+     },
+     {
+      "sanskrit": "manuḥ",
+      "surface": "manuḥ",
+      "iast": "manuḥ",
+      "gloss": "mantra",
+      "quick_gloss": "mantra",
+      "status": "GLOSSED"
+     }
+    ],
+    "quick_english": "Strike the pair and armor: the fierce mantra ending in phaṭ.",
+    "source_sha": ""
+   }
+  },
+  "l0": {
+   "mukta-m0-p51-v1251": [
+    {
+     "id": "mukta-m0-p51-v1251-p000",
+     "verse_id": "mukta-m0-p51-v1251",
+     "pada_index": 0,
+     "surface": "śālmalīkusumaiḥ",
+     "citation": "śālmalīkusumaiḥ",
+     "morph": "n.instr.pl",
+     "options": [
+      {
+       "gloss": "silk-cotton-flowers",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "instrumental plural of śālmalīkusuma"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1251-p001",
+     "verse_id": "mukta-m0-p51-v1251",
+     "pada_index": 1,
+     "surface": "siddhadravyaiḥ",
+     "citation": "siddhadravyaiḥ",
+     "morph": "n.instr.pl",
+     "options": [
+      {
+       "gloss": "perfected-substances",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "instrumental plural of siddhadravya"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1251-p002",
+     "verse_id": "mukta-m0-p51-v1251",
+     "pada_index": 2,
+     "surface": "māsam",
+     "citation": "māsam",
+     "morph": "n.acc.sg",
+     "options": [
+      {
+       "gloss": "month",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "accusative singular of māsa"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1251-p003",
+     "verse_id": "mukta-m0-p51-v1251",
+     "pada_index": 3,
+     "surface": "tu",
+     "citation": "tu",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "indeed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indeclinable particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1251-p004",
+     "verse_id": "mukta-m0-p51-v1251",
+     "pada_index": 4,
+     "surface": "nirbhayaḥ",
+     "citation": "nirbhayaḥ",
+     "morph": "adj.nom.sg.m",
+     "options": [
+      {
+       "gloss": "fearless",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular masculine adjective"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p51-v1252": [
+    {
+     "id": "mukta-m0-p51-v1252-p000",
+     "verse_id": "mukta-m0-p51-v1252",
+     "pada_index": 0,
+     "surface": "nirjane",
+     "citation": "nirjane",
+     "morph": "adj.loc.sg",
+     "options": [
+      {
+       "gloss": "lonely",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "locative singular of nirjana"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1252-p001",
+     "verse_id": "mukta-m0-p51-v1252",
+     "pada_index": 1,
+     "surface": "vipine",
+     "citation": "vipine",
+     "morph": "n.loc.sg",
+     "options": [
+      {
+       "gloss": "forest",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "locative singular of vipina"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1252-p002",
+     "verse_id": "mukta-m0-p51-v1252",
+     "pada_index": 2,
+     "surface": "rātrau",
+     "citation": "rātrau",
+     "morph": "n.loc.sg",
+     "options": [
+      {
+       "gloss": "night",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "locative singular of rātri"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1252-p003",
+     "verse_id": "mukta-m0-p51-v1252",
+     "pada_index": 3,
+     "surface": "māsam",
+     "citation": "māsam",
+     "morph": "n.acc.sg",
+     "options": [
+      {
+       "gloss": "month",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "accusative singular of māsa"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1252-p004",
+     "verse_id": "mukta-m0-p51-v1252",
+     "pada_index": 4,
+     "surface": "tu",
+     "citation": "tu",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "indeed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indeclinable particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1252-p005",
+     "verse_id": "mukta-m0-p51-v1252",
+     "pada_index": 5,
+     "surface": "nirbhayaḥ",
+     "citation": "nirbhayaḥ",
+     "morph": "adj.nom.sg.m",
+     "options": [
+      {
+       "gloss": "fearless",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular masculine adjective"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p51-v1253": [
+    {
+     "id": "mukta-m0-p51-v1253-p000",
+     "verse_id": "mukta-m0-p51-v1253",
+     "pada_index": 0,
+     "surface": "mālatī",
+     "citation": "mālatī",
+     "morph": "n.nom.sg.f",
+     "options": [
+      {
+       "gloss": "jasmine",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular feminine noun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1253-p001",
+     "verse_id": "mukta-m0-p51-v1253",
+     "pada_index": 1,
+     "surface": "jāti",
+     "citation": "jāti",
+     "morph": "n.nom.sg.f",
+     "options": [
+      {
+       "gloss": "champak",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular feminine noun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1253-p002",
+     "verse_id": "mukta-m0-p51-v1253",
+     "pada_index": 2,
+     "surface": "punnāga",
+     "citation": "punnāga",
+     "morph": "n.nom.sg.m",
+     "options": [
+      {
+       "gloss": "screw-pine",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular masculine noun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1253-p003",
+     "verse_id": "mukta-m0-p51-v1253",
+     "pada_index": 3,
+     "surface": "ketakī",
+     "citation": "ketakī",
+     "morph": "n.nom.sg.f",
+     "options": [
+      {
+       "gloss": "ketaki",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular feminine noun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1253-p004",
+     "verse_id": "mukta-m0-p51-v1253",
+     "pada_index": 4,
+     "surface": "madhubhiḥ",
+     "citation": "madhubhiḥ",
+     "morph": "n.instr.pl",
+     "options": [
+      {
+       "gloss": "honey",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "instrumental plural of madhu"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1253-p005",
+     "verse_id": "mukta-m0-p51-v1253",
+     "pada_index": 5,
+     "surface": "kramāt",
+     "citation": "kramāt",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "in-order",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indeclinable adverb"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p51-v1254": [
+    {
+     "id": "mukta-m0-p51-v1254-p000",
+     "verse_id": "mukta-m0-p51-v1254",
+     "pada_index": 0,
+     "surface": "śmaśāne",
+     "citation": "śmaśāne",
+     "morph": "n.loc.sg",
+     "options": [
+      {
+       "gloss": "cremation-ground",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "locative singular of śmaśāna"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1254-p001",
+     "verse_id": "mukta-m0-p51-v1254",
+     "pada_index": 1,
+     "surface": "caṇḍikāgehe",
+     "citation": "caṇḍikāgehe",
+     "morph": "n.loc.sg",
+     "options": [
+      {
+       "gloss": "caṇḍikā-house",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "locative singular compound"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1254-p002",
+     "verse_id": "mukta-m0-p51-v1254",
+     "pada_index": 2,
+     "surface": "nirjane",
+     "citation": "nirjane",
+     "morph": "adj.loc.sg",
+     "options": [
+      {
+       "gloss": "lonely",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "locative singular of nirjana"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1254-p003",
+     "verse_id": "mukta-m0-p51-v1254",
+     "pada_index": 3,
+     "surface": "vipine",
+     "citation": "vipine",
+     "morph": "n.loc.sg",
+     "options": [
+      {
+       "gloss": "forest",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "locative singular of vipina"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1254-p004",
+     "verse_id": "mukta-m0-p51-v1254",
+     "pada_index": 4,
+     "surface": "athavā",
+     "citation": "athavā",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "or",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indeclinable conjunction"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p51-v1255": [
+    {
+     "id": "mukta-m0-p51-v1255-p000",
+     "verse_id": "mukta-m0-p51-v1255",
+     "pada_index": 0,
+     "surface": "kṛṣṇacakre",
+     "citation": "kṛṣṇacakre",
+     "morph": "n.loc.sg",
+     "options": [
+      {
+       "gloss": "black-circle",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "locative singular of kṛṣṇacakra"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1255-p001",
+     "verse_id": "mukta-m0-p51-v1255",
+     "pada_index": 1,
+     "surface": "atikṛṣṇāṃ",
+     "citation": "atikṛṣṇāṃ",
+     "morph": "adj.acc.sg.f",
+     "options": [
+      {
+       "gloss": "very-black",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "accusative singular feminine adjective"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1255-p002",
+     "verse_id": "mukta-m0-p51-v1255",
+     "pada_index": 2,
+     "surface": "tām",
+     "citation": "tām",
+     "morph": "pron.acc.sg.f",
+     "options": [
+      {
+       "gloss": "her",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "accusative singular feminine pronoun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1255-p003",
+     "verse_id": "mukta-m0-p51-v1255",
+     "pada_index": 3,
+     "surface": "abhivādya",
+     "citation": "abhivādya",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "saluting",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indeclinable participle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1255-p004",
+     "verse_id": "mukta-m0-p51-v1255",
+     "pada_index": 4,
+     "surface": "prapūjayet",
+     "citation": "prapūjayet",
+     "morph": "v.3.sg.opt",
+     "options": [
+      {
+       "gloss": "worship",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "third singular optative of prapūj"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p51-v1256": [
+    {
+     "id": "mukta-m0-p51-v1256-p000",
+     "verse_id": "mukta-m0-p51-v1256",
+     "pada_index": 0,
+     "surface": "siddhadravya",
+     "citation": "siddhadravya",
+     "morph": "n.nom.sg",
+     "options": [
+      {
+       "gloss": "perfected-substances",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound member in sandhi context"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1256-p001",
+     "verse_id": "mukta-m0-p51-v1256",
+     "pada_index": 1,
+     "surface": "samopetaṃ",
+     "citation": "samopetaṃ",
+     "morph": "part.acc.sg.n",
+     "options": [
+      {
+       "gloss": "endowed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "accusative singular neuter participle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1256-p002",
+     "verse_id": "mukta-m0-p51-v1256",
+     "pada_index": 2,
+     "surface": "māsāt",
+     "citation": "māsāt",
+     "morph": "n.abl.sg",
+     "options": [
+      {
+       "gloss": "month",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "ablative singular of māsa"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1256-p003",
+     "verse_id": "mukta-m0-p51-v1256",
+     "pada_index": 3,
+     "surface": "tad",
+     "citation": "tad",
+     "morph": "pron.nom/acc.sg.n",
+     "options": [
+      {
+       "gloss": "that",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative or accusative singular neuter pronoun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1256-p004",
+     "verse_id": "mukta-m0-p51-v1256",
+     "pada_index": 4,
+     "surface": "bhāva",
+     "citation": "bhāva",
+     "morph": "n.nom.sg.m",
+     "options": [
+      {
+       "gloss": "bhāva",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular masculine noun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1256-p005",
+     "verse_id": "mukta-m0-p51-v1256",
+     "pada_index": 5,
+     "surface": "locanāt",
+     "citation": "locanāt",
+     "morph": "n.abl.sg",
+     "options": [
+      {
+       "gloss": "sight",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "ablative singular of locana"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p51-v1257": [
+    {
+     "id": "mukta-m0-p51-v1257-p000",
+     "verse_id": "mukta-m0-p51-v1257",
+     "pada_index": 0,
+     "surface": "viśva",
+     "citation": "viśva",
+     "morph": "n.nom.sg",
+     "options": [
+      {
+       "gloss": "universe",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound member"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1257-p001",
+     "verse_id": "mukta-m0-p51-v1257",
+     "pada_index": 1,
+     "surface": "saṃhāra",
+     "citation": "saṃhāra",
+     "morph": "n.nom.sg",
+     "options": [
+      {
+       "gloss": "destruction",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound member"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1257-p002",
+     "verse_id": "mukta-m0-p51-v1257",
+     "pada_index": 2,
+     "surface": "santuṣṭāṃ",
+     "citation": "santuṣṭāṃ",
+     "morph": "part.acc.sg.f",
+     "options": [
+      {
+       "gloss": "satisfied",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "accusative singular feminine participle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1257-p003",
+     "verse_id": "mukta-m0-p51-v1257",
+     "pada_index": 3,
+     "surface": "punar",
+     "citation": "punar",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "again",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indeclinable adverb"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1257-p004",
+     "verse_id": "mukta-m0-p51-v1257",
+     "pada_index": 4,
+     "surface": "etya",
+     "citation": "etya",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "returning",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indeclinable participle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1257-p005",
+     "verse_id": "mukta-m0-p51-v1257",
+     "pada_index": 5,
+     "surface": "nija",
+     "citation": "nija",
+     "morph": "adj.nom.sg.n",
+     "options": [
+      {
+       "gloss": "own",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular neuter adjective"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1257-p006",
+     "verse_id": "mukta-m0-p51-v1257",
+     "pada_index": 6,
+     "surface": "icchayā",
+     "citation": "icchayā",
+     "morph": "n.instr.sg",
+     "options": [
+      {
+       "gloss": "will",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "instrumental singular of icchā"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p51-v1258": [
+    {
+     "id": "mukta-m0-p51-v1258-p000",
+     "verse_id": "mukta-m0-p51-v1258",
+     "pada_index": 0,
+     "surface": "devyā",
+     "citation": "devyā",
+     "morph": "n.gen/inst.sg.f",
+     "options": [
+      {
+       "gloss": "goddess",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "genitive or instrumental singular feminine"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1258-p001",
+     "verse_id": "mukta-m0-p51-v1258",
+     "pada_index": 1,
+     "surface": "lalāṭa",
+     "citation": "lalāṭa",
+     "morph": "n.nom.sg",
+     "options": [
+      {
+       "gloss": "forehead",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound member"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1258-p002",
+     "verse_id": "mukta-m0-p51-v1258",
+     "pada_index": 2,
+     "surface": "netre",
+     "citation": "netre",
+     "morph": "n.loc.sg.n",
+     "options": [
+      {
+       "gloss": "eye",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "locative singular neuter noun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1258-p003",
+     "verse_id": "mukta-m0-p51-v1258",
+     "pada_index": 3,
+     "surface": "syuḥ",
+     "citation": "syuḥ",
+     "morph": "v.3.pl.opt",
+     "options": [
+      {
+       "gloss": "would-be",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "third plural optative of as"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1258-p004",
+     "verse_id": "mukta-m0-p51-v1258",
+     "pada_index": 4,
+     "surface": "prārthanena",
+     "citation": "prārthanena",
+     "morph": "n.instr.sg",
+     "options": [
+      {
+       "gloss": "prayer",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "instrumental singular of prārthana"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1258-p005",
+     "verse_id": "mukta-m0-p51-v1258",
+     "pada_index": 5,
+     "surface": "tirohitā",
+     "citation": "tirohitā",
+     "morph": "part.nom.sg.f",
+     "options": [
+      {
+       "gloss": "hidden",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular feminine participle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p51-v1259": [
+    {
+     "id": "mukta-m0-p51-v1259-p000",
+     "verse_id": "mukta-m0-p51-v1259",
+     "pada_index": 0,
+     "surface": "udyāne",
+     "citation": "udyāne",
+     "morph": "n.loc.sg",
+     "options": [
+      {
+       "gloss": "garden",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "locative singular of udyāna"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1259-p001",
+     "verse_id": "mukta-m0-p51-v1259",
+     "pada_index": 1,
+     "surface": "nirjane",
+     "citation": "nirjane",
+     "morph": "adj.loc.sg",
+     "options": [
+      {
+       "gloss": "lonely",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "locative singular of nirjana"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1259-p002",
+     "verse_id": "mukta-m0-p51-v1259",
+     "pada_index": 2,
+     "surface": "devīṃ",
+     "citation": "devīṃ",
+     "morph": "n.acc.sg.f",
+     "options": [
+      {
+       "gloss": "goddess",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "accusative singular feminine noun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1259-p003",
+     "verse_id": "mukta-m0-p51-v1259",
+     "pada_index": 3,
+     "surface": "cakre",
+     "citation": "cakre",
+     "morph": "n.loc.sg",
+     "options": [
+      {
+       "gloss": "in-circle",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "locative singular of cakra"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1259-p004",
+     "verse_id": "mukta-m0-p51-v1259",
+     "pada_index": 4,
+     "surface": "sañcintya",
+     "citation": "sañcintya",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "contemplating",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indeclinable participle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1259-p005",
+     "verse_id": "mukta-m0-p51-v1259",
+     "pada_index": 5,
+     "surface": "pūjayet",
+     "citation": "pūjayet",
+     "morph": "v.3.sg.opt",
+     "options": [
+      {
+       "gloss": "worship",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "third singular optative of pūj"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p51-v1260": [
+    {
+     "id": "mukta-m0-p51-v1260-p000",
+     "verse_id": "mukta-m0-p51-v1260",
+     "pada_index": 0,
+     "surface": "siddhadravya",
+     "citation": "siddhadravya",
+     "morph": "n.nom.sg",
+     "options": [
+      {
+       "gloss": "perfected-substances",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound member"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1260-p001",
+     "verse_id": "mukta-m0-p51-v1260",
+     "pada_index": 1,
+     "surface": "samopetair",
+     "citation": "samopetair",
+     "morph": "part.instr.pl.m",
+     "options": [
+      {
+       "gloss": "endowed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "instrumental plural masculine participle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1260-p002",
+     "verse_id": "mukta-m0-p51-v1260",
+     "pada_index": 2,
+     "surface": "māyāḥ",
+     "citation": "māyāḥ",
+     "morph": "n.nom/acc.pl.f",
+     "options": [
+      {
+       "gloss": "illusions",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative or accusative plural feminine noun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1260-p003",
+     "verse_id": "mukta-m0-p51-v1260",
+     "pada_index": 3,
+     "surface": "sidhyanti",
+     "citation": "sidhyanti",
+     "morph": "v.3.pl.pres",
+     "options": [
+      {
+       "gloss": "succeed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "third plural present of sidh"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1260-p004",
+     "verse_id": "mukta-m0-p51-v1260",
+     "pada_index": 4,
+     "surface": "māsataḥ",
+     "citation": "māsataḥ",
+     "morph": "n.abl.sg",
+     "options": [
+      {
+       "gloss": "month",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "ablative singular of māsa"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p51-v1261": [
+    {
+     "id": "mukta-m0-p51-v1261-p000",
+     "verse_id": "mukta-m0-p51-v1261",
+     "pada_index": 0,
+     "surface": "yābhiḥ",
+     "citation": "yābhiḥ",
+     "morph": "pron.instr.pl.f",
+     "options": [
+      {
+       "gloss": "by-whom",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "instrumental plural feminine relative pronoun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1261-p001",
+     "verse_id": "mukta-m0-p51-v1261",
+     "pada_index": 1,
+     "surface": "viśvaṃ",
+     "citation": "viśvaṃ",
+     "morph": "n.acc.sg.n",
+     "options": [
+      {
+       "gloss": "universe",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "accusative singular neuter noun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1261-p002",
+     "verse_id": "mukta-m0-p51-v1261",
+     "pada_index": 2,
+     "surface": "yayau",
+     "citation": "yayau",
+     "morph": "v.3.sg.perf",
+     "options": [
+      {
+       "gloss": "went",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "third singular perfect of yā"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1261-p003",
+     "verse_id": "mukta-m0-p51-v1261",
+     "pada_index": 3,
+     "surface": "viśvacārī",
+     "citation": "viśvacārī",
+     "morph": "adj.nom.sg.f",
+     "options": [
+      {
+       "gloss": "world-wandering",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular feminine adjective"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1261-p004",
+     "verse_id": "mukta-m0-p51-v1261",
+     "pada_index": 4,
+     "surface": "viśvavinodavān",
+     "citation": "viśvavinodavān",
+     "morph": "adj.nom.sg.m",
+     "options": [
+      {
+       "gloss": "world-delighting",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular masculine adjective"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p51-v1262": [
+    {
+     "id": "mukta-m0-p51-v1262-p000",
+     "verse_id": "mukta-m0-p51-v1262",
+     "pada_index": 0,
+     "surface": "trikāla",
+     "citation": "trikāla",
+     "morph": "n.nom.sg",
+     "options": [
+      {
+       "gloss": "three-times",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound member"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1262-p001",
+     "verse_id": "mukta-m0-p51-v1262",
+     "pada_index": 1,
+     "surface": "jño",
+     "citation": "jño",
+     "morph": "n.nom.sg.m",
+     "options": [
+      {
+       "gloss": "knower",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular masculine noun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1262-p002",
+     "verse_id": "mukta-m0-p51-v1262",
+     "pada_index": 2,
+     "surface": "bhaved",
+     "citation": "bhaved",
+     "morph": "v.3.sg.opt",
+     "options": [
+      {
+       "gloss": "would-be",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "third singular optative of bhū"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1262-p003",
+     "verse_id": "mukta-m0-p51-v1262",
+     "pada_index": 3,
+     "surface": "devīṃ",
+     "citation": "devīṃ",
+     "morph": "n.acc.sg.f",
+     "options": [
+      {
+       "gloss": "goddess",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "accusative singular feminine noun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1262-p004",
+     "verse_id": "mukta-m0-p51-v1262",
+     "pada_index": 4,
+     "surface": "teṣu",
+     "citation": "teṣu",
+     "morph": "pron.loc.pl.m",
+     "options": [
+      {
+       "gloss": "in-them",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "locative plural masculine pronoun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1262-p005",
+     "verse_id": "mukta-m0-p51-v1262",
+     "pada_index": 5,
+     "surface": "samyag",
+     "citation": "samyag",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "properly",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indeclinable adverb"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1262-p006",
+     "verse_id": "mukta-m0-p51-v1262",
+     "pada_index": 6,
+     "surface": "vicintayet",
+     "citation": "vicintayet",
+     "morph": "v.3.sg.opt",
+     "options": [
+      {
+       "gloss": "contemplate",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "third singular optative of vicint"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p51-v1263": [
+    {
+     "id": "mukta-m0-p51-v1263-p000",
+     "verse_id": "mukta-m0-p51-v1263",
+     "pada_index": 0,
+     "surface": "nivasaṃs",
+     "citation": "nivasaṃs",
+     "morph": "part.nom.sg.m",
+     "options": [
+      {
+       "gloss": "dwelling",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular masculine participle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1263-p001",
+     "verse_id": "mukta-m0-p51-v1263",
+     "pada_index": 1,
+     "surface": "tatra",
+     "citation": "tatra",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "there",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indeclinable adverb"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1263-p002",
+     "verse_id": "mukta-m0-p51-v1263",
+     "pada_index": 2,
+     "surface": "tatpuṣpair",
+     "citation": "tatpuṣpair",
+     "morph": "n.instr.pl",
+     "options": [
+      {
+       "gloss": "with-those-flowers",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "instrumental plural of tatpuṣpa"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1263-p003",
+     "verse_id": "mukta-m0-p51-v1263",
+     "pada_index": 3,
+     "surface": "jāyate",
+     "citation": "jāyate",
+     "morph": "v.3.sg.pres",
+     "options": [
+      {
+       "gloss": "becomes",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "third singular present of jan"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1263-p004",
+     "verse_id": "mukta-m0-p51-v1263",
+     "pada_index": 4,
+     "surface": "manmathopamaḥ",
+     "citation": "manmathopamaḥ",
+     "morph": "adj.nom.sg.m",
+     "options": [
+      {
+       "gloss": "cupid-like",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular masculine adjective"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p51-v1264": [
+    {
+     "id": "mukta-m0-p51-v1264-p000",
+     "verse_id": "mukta-m0-p51-v1264",
+     "pada_index": 0,
+     "surface": "kṛtyāḥ",
+     "citation": "kṛtyāḥ",
+     "morph": "n.nom.pl.f",
+     "options": [
+      {
+       "gloss": "rites",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative plural feminine noun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1264-p001",
+     "verse_id": "mukta-m0-p51-v1264",
+     "pada_index": 1,
+     "surface": "pareritā",
+     "citation": "pareritā",
+     "morph": "part.nom.sg.f",
+     "options": [
+      {
+       "gloss": "by-others",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular feminine participle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1264-p002",
+     "verse_id": "mukta-m0-p51-v1264",
+     "pada_index": 2,
+     "surface": "mantrā",
+     "citation": "mantrā",
+     "morph": "n.nom.pl.m",
+     "options": [
+      {
+       "gloss": "mantras",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative plural masculine noun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1264-p003",
+     "verse_id": "mukta-m0-p51-v1264",
+     "pada_index": 3,
+     "surface": "vimukhās",
+     "citation": "vimukhās",
+     "morph": "adj.nom.pl",
+     "options": [
+      {
+       "gloss": "averted",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative plural masculine or feminine adjective"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1264-p004",
+     "verse_id": "mukta-m0-p51-v1264",
+     "pada_index": 4,
+     "surface": "tān",
+     "citation": "tān",
+     "morph": "pron.acc.pl.m",
+     "options": [
+      {
+       "gloss": "them",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "accusative plural masculine pronoun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1264-p005",
+     "verse_id": "mukta-m0-p51-v1264",
+     "pada_index": 5,
+     "surface": "grasanti",
+     "citation": "grasanti",
+     "morph": "v.3.pl.pres",
+     "options": [
+      {
+       "gloss": "devour",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "third plural present of gras"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1264-p006",
+     "verse_id": "mukta-m0-p51-v1264",
+     "pada_index": 6,
+     "surface": "vai",
+     "citation": "vai",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "indeed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indeclinable particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p51-v1265": [
+    {
+     "id": "mukta-m0-p51-v1265-p000",
+     "verse_id": "mukta-m0-p51-v1265",
+     "pada_index": 0,
+     "surface": "saṃvatsara",
+     "citation": "saṃvatsara",
+     "morph": "n.nom.sg",
+     "options": [
+      {
+       "gloss": "year",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound member"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1265-p001",
+     "verse_id": "mukta-m0-p51-v1265",
+     "pada_index": 1,
+     "surface": "kṛtā",
+     "citation": "kṛtā",
+     "morph": "part.nom.sg.f",
+     "options": [
+      {
+       "gloss": "done",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular feminine participle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1265-p002",
+     "verse_id": "mukta-m0-p51-v1265",
+     "pada_index": 2,
+     "surface": "pūjā",
+     "citation": "pūjā",
+     "morph": "n.nom.sg.f",
+     "options": [
+      {
+       "gloss": "worship",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular feminine noun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1265-p003",
+     "verse_id": "mukta-m0-p51-v1265",
+     "pada_index": 3,
+     "surface": "yenaiva",
+     "citation": "yenaiva",
+     "morph": "pron.instr.sg.m",
+     "options": [
+      {
+       "gloss": "by-whom",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "instrumental singular masculine pronoun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1265-p004",
+     "verse_id": "mukta-m0-p51-v1265",
+     "pada_index": 4,
+     "surface": "pūrṇatā",
+     "citation": "pūrṇatā",
+     "morph": "n.nom.sg.f",
+     "options": [
+      {
+       "gloss": "completion",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular feminine noun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1265-p005",
+     "verse_id": "mukta-m0-p51-v1265",
+     "pada_index": 5,
+     "surface": "bhavet",
+     "citation": "bhavet",
+     "morph": "v.3.sg.opt",
+     "options": [
+      {
+       "gloss": "becomes",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "third singular optative of bhū"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p51-v1266": [
+    {
+     "id": "mukta-m0-p51-v1266-p000",
+     "verse_id": "mukta-m0-p51-v1266",
+     "pada_index": 0,
+     "surface": "bhasma",
+     "citation": "bhasma",
+     "morph": "n.nom.sg.n",
+     "options": [
+      {
+       "gloss": "ash",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular neuter noun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1266-p001",
+     "verse_id": "mukta-m0-p51-v1266",
+     "pada_index": 1,
+     "surface": "abhavat",
+     "citation": "abhavat",
+     "morph": "v.3.sg.imperf",
+     "options": [
+      {
+       "gloss": "became",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "third singular imperfect of bhū"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1266-p002",
+     "verse_id": "mukta-m0-p51-v1266",
+     "pada_index": 2,
+     "surface": "tadā",
+     "citation": "tadā",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "then",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indeclinable adverb"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1266-p003",
+     "verse_id": "mukta-m0-p51-v1266",
+     "pada_index": 3,
+     "surface": "patnī",
+     "citation": "patnī",
+     "morph": "n.nom.sg.f",
+     "options": [
+      {
+       "gloss": "wife",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular feminine noun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1266-p004",
+     "verse_id": "mukta-m0-p51-v1266",
+     "pada_index": 4,
+     "surface": "ratiḥ",
+     "citation": "ratiḥ",
+     "morph": "n.nom.sg.f",
+     "options": [
+      {
+       "gloss": "delight",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular feminine noun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1266-p005",
+     "verse_id": "mukta-m0-p51-v1266",
+     "pada_index": 5,
+     "surface": "prītiś",
+     "citation": "prītiś",
+     "morph": "n.nom.sg.f",
+     "options": [
+      {
+       "gloss": "pleasure",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular feminine noun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1266-p006",
+     "verse_id": "mukta-m0-p51-v1266",
+     "pada_index": 6,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "ca",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indeclinable conjunction"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1266-p007",
+     "verse_id": "mukta-m0-p51-v1266",
+     "pada_index": 7,
+     "surface": "duḥkhitā",
+     "citation": "duḥkhitā",
+     "morph": "adj.nom.sg.f",
+     "options": [
+      {
+       "gloss": "distressed",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular feminine adjective"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p51-v1267": [
+    {
+     "id": "mukta-m0-p51-v1267-p000",
+     "verse_id": "mukta-m0-p51-v1267",
+     "pada_index": 0,
+     "surface": "tat",
+     "citation": "tat",
+     "morph": "pron.nom.sg.n",
+     "options": [
+      {
+       "gloss": "that",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular neuter pronoun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1267-p001",
+     "verse_id": "mukta-m0-p51-v1267",
+     "pada_index": 1,
+     "surface": "saurabhaṃ",
+     "citation": "saurabhaṃ",
+     "morph": "n.nom.sg.n",
+     "options": [
+      {
+       "gloss": "fragrance",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular neuter noun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1267-p002",
+     "verse_id": "mukta-m0-p51-v1267",
+     "pada_index": 2,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "ca",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indeclinable conjunction"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1267-p003",
+     "verse_id": "mukta-m0-p51-v1267",
+     "pada_index": 3,
+     "surface": "saubhāgyaṃ",
+     "citation": "saubhāgyaṃ",
+     "morph": "n.nom.sg.n",
+     "options": [
+      {
+       "gloss": "auspiciousness",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular neuter noun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1267-p004",
+     "verse_id": "mukta-m0-p51-v1267",
+     "pada_index": 4,
+     "surface": "mahad",
+     "citation": "mahad",
+     "morph": "adj.nom.sg.n",
+     "options": [
+      {
+       "gloss": "great",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular neuter adjective"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1267-p005",
+     "verse_id": "mukta-m0-p51-v1267",
+     "pada_index": 5,
+     "surface": "āsīt",
+     "citation": "āsīt",
+     "morph": "v.3.sg.imperf",
+     "options": [
+      {
+       "gloss": "was",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "third singular imperfect of as"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1267-p006",
+     "verse_id": "mukta-m0-p51-v1267",
+     "pada_index": 6,
+     "surface": "tad",
+     "citation": "tad",
+     "morph": "pron.nom.sg.n",
+     "options": [
+      {
+       "gloss": "that",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular neuter pronoun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1267-p007",
+     "verse_id": "mukta-m0-p51-v1267",
+     "pada_index": 7,
+     "surface": "adbhutam",
+     "citation": "adbhutam",
+     "morph": "adj.nom.sg.n",
+     "options": [
+      {
+       "gloss": "wonderful",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular neuter adjective"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p51-v1268": [
+    {
+     "id": "mukta-m0-p51-v1268-p000",
+     "verse_id": "mukta-m0-p51-v1268",
+     "pada_index": 0,
+     "surface": "ratyai",
+     "citation": "ratyai",
+     "morph": "n.dat.sg.f",
+     "options": [
+      {
+       "gloss": "for-delight",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "dative singular feminine noun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1268-p001",
+     "verse_id": "mukta-m0-p51-v1268",
+     "pada_index": 1,
+     "surface": "prītyai",
+     "citation": "prītyai",
+     "morph": "n.dat.sg.f",
+     "options": [
+      {
+       "gloss": "for-pleasure",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "dative singular feminine noun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1268-p002",
+     "verse_id": "mukta-m0-p51-v1268",
+     "pada_index": 2,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "ca",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indeclinable conjunction"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1268-p003",
+     "verse_id": "mukta-m0-p51-v1268",
+     "pada_index": 3,
+     "surface": "tasmāt",
+     "citation": "tasmāt",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "therefore",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indeclinable adverb"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1268-p004",
+     "verse_id": "mukta-m0-p51-v1268",
+     "pada_index": 4,
+     "surface": "tu",
+     "citation": "tu",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "tu",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indeclinable particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1268-p005",
+     "verse_id": "mukta-m0-p51-v1268",
+     "pada_index": 5,
+     "surface": "madanaḥ",
+     "citation": "madanaḥ",
+     "morph": "n.nom.sg.m",
+     "options": [
+      {
+       "gloss": "cupid",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular masculine noun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1268-p006",
+     "verse_id": "mukta-m0-p51-v1268",
+     "pada_index": 6,
+     "surface": "prakṛtīkṛtaḥ",
+     "citation": "prakṛtīkṛtaḥ",
+     "morph": "part.nom.sg.m",
+     "options": [
+      {
+       "gloss": "made-nature",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular masculine participle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p51-v1269": [
+    {
+     "id": "mukta-m0-p51-v1269-p000",
+     "verse_id": "mukta-m0-p51-v1269",
+     "pada_index": 0,
+     "surface": "tasya",
+     "citation": "tasya",
+     "morph": "pron.gen.sg.m",
+     "options": [
+      {
+       "gloss": "his",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "genitive singular masculine pronoun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1269-p001",
+     "verse_id": "mukta-m0-p51-v1269",
+     "pada_index": 1,
+     "surface": "sāṃvatsarī",
+     "citation": "sāṃvatsarī",
+     "morph": "adj.nom.sg.f",
+     "options": [
+      {
+       "gloss": "yearly",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular feminine adjective"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1269-p002",
+     "verse_id": "mukta-m0-p51-v1269",
+     "pada_index": 2,
+     "surface": "pūjā",
+     "citation": "pūjā",
+     "morph": "n.nom.sg.f",
+     "options": [
+      {
+       "gloss": "worship",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular feminine noun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1269-p003",
+     "verse_id": "mukta-m0-p51-v1269",
+     "pada_index": 3,
+     "surface": "madanāya",
+     "citation": "madanāya",
+     "morph": "n.dat.sg.m",
+     "options": [
+      {
+       "gloss": "for-cupid",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "dative singular masculine noun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1269-p004",
+     "verse_id": "mukta-m0-p51-v1269",
+     "pada_index": 4,
+     "surface": "bhaviṣyati",
+     "citation": "bhaviṣyati",
+     "morph": "v.3.sg.fut",
+     "options": [
+      {
+       "gloss": "will-be",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "third singular future of bhū"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p51-v1270": [
+    {
+     "id": "mukta-m0-p51-v1270-p000",
+     "verse_id": "mukta-m0-p51-v1270",
+     "pada_index": 0,
+     "surface": "tasmāt",
+     "citation": "tasmāt",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "therefore",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indeclinable adverb"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1270-p001",
+     "verse_id": "mukta-m0-p51-v1270",
+     "pada_index": 1,
+     "surface": "madanapūjā",
+     "citation": "madanapūjā",
+     "morph": "n.nom.sg.f",
+     "options": [
+      {
+       "gloss": "cupid-worship",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular feminine compound noun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1270-p002",
+     "verse_id": "mukta-m0-p51-v1270",
+     "pada_index": 2,
+     "surface": "ca",
+     "citation": "ca",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "ca",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indeclinable conjunction"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1270-p003",
+     "verse_id": "mukta-m0-p51-v1270",
+     "pada_index": 3,
+     "surface": "kartavyā",
+     "citation": "kartavyā",
+     "morph": "ger.nom.sg.f",
+     "options": [
+      {
+       "gloss": "to-be-done",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular feminine gerundive"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1270-p004",
+     "verse_id": "mukta-m0-p51-v1270",
+     "pada_index": 4,
+     "surface": "sādhakottamaiḥ",
+     "citation": "sādhakottamaiḥ",
+     "morph": "n.instr.pl.m",
+     "options": [
+      {
+       "gloss": "by-best-practitioners",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "instrumental plural masculine noun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p51-v1271": [
+    {
+     "id": "mukta-m0-p51-v1271-p000",
+     "verse_id": "mukta-m0-p51-v1271",
+     "pada_index": 0,
+     "surface": "madanaṃ",
+     "citation": "madanaṃ",
+     "morph": "n.acc.sg.m",
+     "options": [
+      {
+       "gloss": "cupid",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "accusative singular masculine noun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1271-p001",
+     "verse_id": "mukta-m0-p51-v1271",
+     "pada_index": 1,
+     "surface": "navadhā",
+     "citation": "navadhā",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "ninefold",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indeclinable adverb"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1271-p002",
+     "verse_id": "mukta-m0-p51-v1271",
+     "pada_index": 2,
+     "surface": "kuryāt",
+     "citation": "kuryāt",
+     "morph": "v.3.sg.opt",
+     "options": [
+      {
+       "gloss": "make",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "third singular optative of kṛ"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1271-p003",
+     "verse_id": "mukta-m0-p51-v1271",
+     "pada_index": 3,
+     "surface": "pūjayet",
+     "citation": "pūjayet",
+     "morph": "v.3.sg.opt",
+     "options": [
+      {
+       "gloss": "worship",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "third singular optative of pūj"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1271-p004",
+     "verse_id": "mukta-m0-p51-v1271",
+     "pada_index": 4,
+     "surface": "tadanantaram",
+     "citation": "tadanantaram",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "thereafter",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indeclinable adverb"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p51-v1272": [
+    {
+     "id": "mukta-m0-p51-v1272-p000",
+     "verse_id": "mukta-m0-p51-v1272",
+     "pada_index": 0,
+     "surface": "nānā",
+     "citation": "nānā",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "various",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indeclinable adjective"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1272-p001",
+     "verse_id": "mukta-m0-p51-v1272",
+     "pada_index": 1,
+     "surface": "prakāra",
+     "citation": "prakāra",
+     "morph": "n.nom.sg",
+     "options": [
+      {
+       "gloss": "kinds",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "compound member"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1272-p002",
+     "verse_id": "mukta-m0-p51-v1272",
+     "pada_index": 2,
+     "surface": "saṃbhinnaṃ",
+     "citation": "saṃbhinnaṃ",
+     "morph": "part.acc.sg.n",
+     "options": [
+      {
+       "gloss": "combined",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "accusative singular neuter participle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1272-p003",
+     "verse_id": "mukta-m0-p51-v1272",
+     "pada_index": 3,
+     "surface": "madanaṃ",
+     "citation": "madanaṃ",
+     "morph": "n.acc.sg.m",
+     "options": [
+      {
+       "gloss": "cupid",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "accusative singular masculine noun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1272-p004",
+     "verse_id": "mukta-m0-p51-v1272",
+     "pada_index": 4,
+     "surface": "pūjayet",
+     "citation": "pūjayet",
+     "morph": "v.3.sg.opt",
+     "options": [
+      {
+       "gloss": "worship",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "third singular optative of pūj"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1272-p005",
+     "verse_id": "mukta-m0-p51-v1272",
+     "pada_index": 5,
+     "surface": "kramāt",
+     "citation": "kramāt",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "in-order",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indeclinable adverb"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p51-v1273": [
+    {
+     "id": "mukta-m0-p51-v1273-p000",
+     "verse_id": "mukta-m0-p51-v1273",
+     "pada_index": 0,
+     "surface": "māyā",
+     "citation": "māyā",
+     "morph": "n.nom.sg.f",
+     "options": [
+      {
+       "gloss": "illusion",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular feminine noun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1273-p001",
+     "verse_id": "mukta-m0-p51-v1273",
+     "pada_index": 1,
+     "surface": "sphurat",
+     "citation": "sphurat",
+     "morph": "part.nom.sg.n",
+     "options": [
+      {
+       "gloss": "flashing",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular neuter participle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1273-p002",
+     "verse_id": "mukta-m0-p51-v1273",
+     "pada_index": 2,
+     "surface": "dvayaṃ",
+     "citation": "dvayaṃ",
+     "morph": "n.nom/acc.sg.n",
+     "options": [
+      {
+       "gloss": "pair",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative or accusative singular neuter noun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1273-p003",
+     "verse_id": "mukta-m0-p51-v1273",
+     "pada_index": 3,
+     "surface": "bhūyaḥ",
+     "citation": "bhūyaḥ",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "again",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indeclinable adverb"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1273-p004",
+     "verse_id": "mukta-m0-p51-v1273",
+     "pada_index": 4,
+     "surface": "prasphurat",
+     "citation": "prasphurat",
+     "morph": "part.nom.sg.n",
+     "options": [
+      {
+       "gloss": "flashing",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular neuter participle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1273-p005",
+     "verse_id": "mukta-m0-p51-v1273",
+     "pada_index": 5,
+     "surface": "dvitayaṃ",
+     "citation": "dvitayaṃ",
+     "morph": "n.nom/acc.sg.n",
+     "options": [
+      {
+       "gloss": "pair",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative or accusative singular neuter noun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1273-p006",
+     "verse_id": "mukta-m0-p51-v1273",
+     "pada_index": 6,
+     "surface": "punaḥ",
+     "citation": "punaḥ",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "again",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indeclinable adverb"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p51-v1274": [
+    {
+     "id": "mukta-m0-p51-v1274-p000",
+     "verse_id": "mukta-m0-p51-v1274",
+     "pada_index": 0,
+     "surface": "caṭa",
+     "citation": "caṭa",
+     "morph": "n.nom.sg.m",
+     "options": [
+      {
+       "gloss": "caṭa",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular masculine noun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1274-p001",
+     "verse_id": "mukta-m0-p51-v1274",
+     "pada_index": 1,
+     "surface": "dvayaṃ",
+     "citation": "dvayaṃ",
+     "morph": "n.nom/acc.sg.n",
+     "options": [
+      {
+       "gloss": "pair",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative or accusative singular neuter noun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1274-p002",
+     "verse_id": "mukta-m0-p51-v1274",
+     "pada_index": 2,
+     "surface": "tadante",
+     "citation": "tadante",
+     "morph": "n.loc.sg",
+     "options": [
+      {
+       "gloss": "then-end",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "locative singular compound"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1274-p003",
+     "verse_id": "mukta-m0-p51-v1274",
+     "pada_index": 3,
+     "surface": "api",
+     "citation": "api",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "api",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indeclinable particle"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1274-p004",
+     "verse_id": "mukta-m0-p51-v1274",
+     "pada_index": 4,
+     "surface": "prakaṭa",
+     "citation": "prakaṭa",
+     "morph": "adj.nom.sg.n",
+     "options": [
+      {
+       "gloss": "manifest",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative singular neuter adjective"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1274-p005",
+     "verse_id": "mukta-m0-p51-v1274",
+     "pada_index": 5,
+     "surface": "dvitayaṃ",
+     "citation": "dvitayaṃ",
+     "morph": "n.nom/acc.sg.n",
+     "options": [
+      {
+       "gloss": "pair",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative or accusative singular neuter noun"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1274-p006",
+     "verse_id": "mukta-m0-p51-v1274",
+     "pada_index": 6,
+     "surface": "punaḥ",
+     "citation": "punaḥ",
+     "morph": "(indecl.)",
+     "options": [
+      {
+       "gloss": "again",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "indeclinable adverb"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ],
+   "mukta-m0-p51-v1275": [
+    {
+     "id": "mukta-m0-p51-v1275-p000",
+     "verse_id": "mukta-m0-p51-v1275",
+     "pada_index": 0,
+     "surface": "ghātaya",
+     "citation": "ghātaya",
+     "morph": "verb.2.sg.act.imp",
+     "options": [
+      {
+       "gloss": "strike",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "imperative verb directing the action"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1275-p001",
+     "verse_id": "mukta-m0-p51-v1275",
+     "pada_index": 1,
+     "surface": "dvitayaṃ",
+     "citation": "dvitayaṃ",
+     "morph": "noun.acc.sg.n",
+     "options": [
+      {
+       "gloss": "pair",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "accusative object of strike"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1275-p002",
+     "verse_id": "mukta-m0-p51-v1275",
+     "pada_index": 2,
+     "surface": "varma",
+     "citation": "varma",
+     "morph": "noun.acc.sg.n",
+     "options": [
+      {
+       "gloss": "armor",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "accusative object of strike"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1275-p003",
+     "verse_id": "mukta-m0-p51-v1275",
+     "pada_index": 3,
+     "surface": "phaḍanto",
+     "citation": "phaḍanto",
+     "morph": "adj.nom.sg.m",
+     "options": [
+      {
+       "gloss": "phaṭ-ending",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "adjective describing the mantra"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1275-p004",
+     "verse_id": "mukta-m0-p51-v1275",
+     "pada_index": 4,
+     "surface": "ghorako",
+     "citation": "ghorako",
+     "morph": "adj.nom.sg.m",
+     "options": [
+      {
+       "gloss": "fierce",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "adjective describing the mantra"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    },
+    {
+     "id": "mukta-m0-p51-v1275-p005",
+     "verse_id": "mukta-m0-p51-v1275",
+     "pada_index": 5,
+     "surface": "manuḥ",
+     "citation": "manuḥ",
+     "morph": "noun.nom.sg.m",
+     "options": [
+      {
+       "gloss": "mantra",
+       "rank": 1,
+       "source": "t1-draft",
+       "grounds": "nominative subject performing the action"
+      }
+     ],
+     "chosen_index": 0,
+     "status": "PARSED",
+     "fork": "none"
+    }
+   ]
+  },
+  "argmap": {
+   "mukta-m0-p51-v1251": {
+    "verse_id": "mukta-m0-p51-v1251",
+    "song": "mukta-m0-p51",
+    "verse": 1251,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What offerings and duration establish fearless practice in this rite?",
+    "premises": [
+     "silk-cotton-flowers are used",
+     "perfected-substances are used",
+     "the period is one month"
+    ],
+    "inference": "The practitioner becomes fearless through a month of worship with specified substances.",
+    "uncertainties": [
+     "exact ritual context is not fully stated"
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p51-v1251",
+     "l0_ids": [
+      "mukta-m0-p51-v1251-p000",
+      "mukta-m0-p51-v1251-p001",
+      "mukta-m0-p51-v1251-p002",
+      "mukta-m0-p51-v1251-p003",
+      "mukta-m0-p51-v1251-p004"
+     ],
+     "sanskrit_sha": "1c9a6708a7fe04bd"
+    },
+    "sanskrit_sha": "1c9a6708a7fe04bd"
+   },
+   "mukta-m0-p51-v1252": {
+    "verse_id": "mukta-m0-p51-v1252",
+    "song": "mukta-m0-p51",
+    "verse": 1252,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "Where and when does the fearless rite take place?",
+    "premises": [
+     "the place is a lonely forest",
+     "the time is night",
+     "the duration is one month"
+    ],
+    "inference": "Fearlessness is attained by practicing in a lonely forest at night for a month.",
+    "uncertainties": [
+     "whether this is a separate rite or continuation"
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p51-v1252",
+     "l0_ids": [
+      "mukta-m0-p51-v1252-p000",
+      "mukta-m0-p51-v1252-p001",
+      "mukta-m0-p51-v1252-p002",
+      "mukta-m0-p51-v1252-p003",
+      "mukta-m0-p51-v1252-p004",
+      "mukta-m0-p51-v1252-p005"
+     ],
+     "sanskrit_sha": "1c9a6708a7fe04bd"
+    },
+    "sanskrit_sha": "1c9a6708a7fe04bd"
+   },
+   "mukta-m0-p51-v1253": {
+    "verse_id": "mukta-m0-p51-v1253",
+    "song": "mukta-m0-p51",
+    "verse": 1253,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "Which flowers and substance are used in ordered worship?",
+    "premises": [
+     "jasmine is named",
+     "champak is named",
+     "screw-pine is named",
+     "ketaki is named",
+     "honey is used",
+     "the order is specified"
+    ],
+    "inference": "The rite employs these flowers and honey in a prescribed sequence.",
+    "uncertainties": [
+     "exact ritual application is not stated"
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p51-v1253",
+     "l0_ids": [
+      "mukta-m0-p51-v1253-p000",
+      "mukta-m0-p51-v1253-p001",
+      "mukta-m0-p51-v1253-p002",
+      "mukta-m0-p51-v1253-p003",
+      "mukta-m0-p51-v1253-p004",
+      "mukta-m0-p51-v1253-p005"
+     ],
+     "sanskrit_sha": "1c9a6708a7fe04bd"
+    },
+    "sanskrit_sha": "1c9a6708a7fe04bd"
+   },
+   "mukta-m0-p51-v1254": {
+    "verse_id": "mukta-m0-p51-v1254",
+    "song": "mukta-m0-p51",
+    "verse": 1254,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "Where may this worship be performed?",
+    "premises": [
+     "a cremation ground is allowed",
+     "a caṇḍikā house is allowed",
+     "a lonely forest is allowed",
+     "the locations are alternatives"
+    ],
+    "inference": "The practitioner may worship in any of these secluded or sacred places.",
+    "uncertainties": [
+     "whether all locations suit every rite"
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p51-v1254",
+     "l0_ids": [
+      "mukta-m0-p51-v1254-p000",
+      "mukta-m0-p51-v1254-p001",
+      "mukta-m0-p51-v1254-p002",
+      "mukta-m0-p51-v1254-p003",
+      "mukta-m0-p51-v1254-p004"
+     ],
+     "sanskrit_sha": "1c9a6708a7fe04bd"
+    },
+    "sanskrit_sha": "1c9a6708a7fe04bd"
+   },
+   "mukta-m0-p51-v1255": {
+    "verse_id": "mukta-m0-p51-v1255",
+    "song": "mukta-m0-p51",
+    "verse": 1255,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "How is the goddess worshipped in the black circle?",
+    "premises": [
+     "the black circle is the place",
+     "the very black goddess is addressed",
+     "salutation precedes worship"
+    ],
+    "inference": "The practitioner salutes and then worships the very black goddess in the black circle.",
+    "uncertainties": [
+     "identity of the goddess is not explicit"
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p51-v1255",
+     "l0_ids": [
+      "mukta-m0-p51-v1255-p000",
+      "mukta-m0-p51-v1255-p001",
+      "mukta-m0-p51-v1255-p002",
+      "mukta-m0-p51-v1255-p003",
+      "mukta-m0-p51-v1255-p004"
+     ],
+     "sanskrit_sha": "1c9a6708a7fe04bd"
+    },
+    "sanskrit_sha": "1c9a6708a7fe04bd"
+   },
+   "mukta-m0-p51-v1256": {
+    "verse_id": "mukta-m0-p51-v1256",
+    "song": "mukta-m0-p51",
+    "verse": 1256,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What result follows from perfected substances and a month?",
+    "premises": [
+     "perfected substances are present",
+     "the period is one month",
+     "a bhāva arises",
+     "it is connected with sight"
+    ],
+    "inference": "After a month with perfected substances, a bhāva becomes visible.",
+    "uncertainties": [
+     "exact meaning of bhāva and locana"
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p51-v1256",
+     "l0_ids": [
+      "mukta-m0-p51-v1256-p000",
+      "mukta-m0-p51-v1256-p001",
+      "mukta-m0-p51-v1256-p002",
+      "mukta-m0-p51-v1256-p003",
+      "mukta-m0-p51-v1256-p004",
+      "mukta-m0-p51-v1256-p005"
+     ],
+     "sanskrit_sha": "1c9a6708a7fe04bd"
+    },
+    "sanskrit_sha": "1c9a6708a7fe04bd"
+   },
+   "mukta-m0-p51-v1257": {
+    "verse_id": "mukta-m0-p51-v1257",
+    "song": "mukta-m0-p51",
+    "verse": 1257,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What happens when the goddess is satisfied with universal destruction?",
+    "premises": [
+     "the goddess is satisfied",
+     "she returns again",
+     "she acts by her own will"
+    ],
+    "inference": "The satisfied goddess returns and acts according to her own will.",
+    "uncertainties": [
+     "whether destruction is literal or symbolic"
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p51-v1257",
+     "l0_ids": [
+      "mukta-m0-p51-v1257-p000",
+      "mukta-m0-p51-v1257-p001",
+      "mukta-m0-p51-v1257-p002",
+      "mukta-m0-p51-v1257-p003",
+      "mukta-m0-p51-v1257-p004",
+      "mukta-m0-p51-v1257-p005",
+      "mukta-m0-p51-v1257-p006"
+     ],
+     "sanskrit_sha": "1c9a6708a7fe04bd"
+    },
+    "sanskrit_sha": "1c9a6708a7fe04bd"
+   },
+   "mukta-m0-p51-v1258": {
+    "verse_id": "mukta-m0-p51-v1258",
+    "song": "mukta-m0-p51",
+    "verse": 1258,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What becomes hidden through the goddess's forehead eye?",
+    "premises": [
+     "the goddess's forehead eye is mentioned",
+     "prayer is the means",
+     "something becomes hidden"
+    ],
+    "inference": "Through prayer, the goddess's forehead-eye powers become hidden or withdrawn.",
+    "uncertainties": [
+     "exact referent of syuḥ"
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p51-v1258",
+     "l0_ids": [
+      "mukta-m0-p51-v1258-p000",
+      "mukta-m0-p51-v1258-p001",
+      "mukta-m0-p51-v1258-p002",
+      "mukta-m0-p51-v1258-p003",
+      "mukta-m0-p51-v1258-p004",
+      "mukta-m0-p51-v1258-p005"
+     ],
+     "sanskrit_sha": "1c9a6708a7fe04bd"
+    },
+    "sanskrit_sha": "1c9a6708a7fe04bd"
+   },
+   "mukta-m0-p51-v1259": {
+    "verse_id": "mukta-m0-p51-v1259",
+    "song": "mukta-m0-p51",
+    "verse": 1259,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "How is the goddess worshipped in a lonely garden?",
+    "premises": [
+     "the place is a lonely garden",
+     "the goddess is contemplated in the circle",
+     "worship follows contemplation"
+    ],
+    "inference": "The practitioner contemplates the goddess in the circle and worships her in a lonely garden.",
+    "uncertainties": [
+     "whether cakra means śrīcakra"
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p51-v1259",
+     "l0_ids": [
+      "mukta-m0-p51-v1259-p000",
+      "mukta-m0-p51-v1259-p001",
+      "mukta-m0-p51-v1259-p002",
+      "mukta-m0-p51-v1259-p003",
+      "mukta-m0-p51-v1259-p004",
+      "mukta-m0-p51-v1259-p005"
+     ],
+     "sanskrit_sha": "1c9a6708a7fe04bd"
+    },
+    "sanskrit_sha": "1c9a6708a7fe04bd"
+   },
+   "mukta-m0-p51-v1260": {
+    "verse_id": "mukta-m0-p51-v1260",
+    "song": "mukta-m0-p51",
+    "verse": 1260,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What succeeds through perfected substances after a month?",
+    "premises": [
+     "perfected substances are present",
+     "illusions are mentioned",
+     "success occurs after a month"
+    ],
+    "inference": "Illusions succeed or are accomplished after a month with perfected substances.",
+    "uncertainties": [
+     "whether māyāḥ are powers or deceptions"
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p51-v1260",
+     "l0_ids": [
+      "mukta-m0-p51-v1260-p000",
+      "mukta-m0-p51-v1260-p001",
+      "mukta-m0-p51-v1260-p002",
+      "mukta-m0-p51-v1260-p003",
+      "mukta-m0-p51-v1260-p004"
+     ],
+     "sanskrit_sha": "1c9a6708a7fe04bd"
+    },
+    "sanskrit_sha": "1c9a6708a7fe04bd"
+   },
+   "mukta-m0-p51-v1261": {
+    "verse_id": "mukta-m0-p51-v1261",
+    "song": "mukta-m0-p51",
+    "verse": 1261,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "Who wanders and delights in the universe?",
+    "premises": [
+     "the universe is traversed",
+     "the agent is world-wandering",
+     "the agent is world-delighting"
+    ],
+    "inference": "The practitioner or goddess becomes a world-wandering, world-delighting being.",
+    "uncertainties": [
+     "subject is not explicitly named"
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p51-v1261",
+     "l0_ids": [
+      "mukta-m0-p51-v1261-p000",
+      "mukta-m0-p51-v1261-p001",
+      "mukta-m0-p51-v1261-p002",
+      "mukta-m0-p51-v1261-p003",
+      "mukta-m0-p51-v1261-p004"
+     ],
+     "sanskrit_sha": "1c9a6708a7fe04bd"
+    },
+    "sanskrit_sha": "1c9a6708a7fe04bd"
+   },
+   "mukta-m0-p51-v1262": {
+    "verse_id": "mukta-m0-p51-v1262",
+    "song": "mukta-m0-p51",
+    "verse": 1262,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "How does one become a knower of three times?",
+    "premises": [
+     "the goddess is contemplated",
+     "contemplation is proper",
+     "it occurs in those places"
+    ],
+    "inference": "Proper contemplation of the goddess makes one a knower of three times.",
+    "uncertainties": [
+     "what teṣu refers to"
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p51-v1262",
+     "l0_ids": [
+      "mukta-m0-p51-v1262-p000",
+      "mukta-m0-p51-v1262-p001",
+      "mukta-m0-p51-v1262-p002",
+      "mukta-m0-p51-v1262-p003",
+      "mukta-m0-p51-v1262-p004",
+      "mukta-m0-p51-v1262-p005",
+      "mukta-m0-p51-v1262-p006"
+     ],
+     "sanskrit_sha": "1c9a6708a7fe04bd"
+    },
+    "sanskrit_sha": "1c9a6708a7fe04bd"
+   },
+   "mukta-m0-p51-v1263": {
+    "verse_id": "mukta-m0-p51-v1263",
+    "song": "mukta-m0-p51",
+    "verse": 1263,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What results from dwelling there with those flowers?",
+    "premises": [
+     "dwelling occurs there",
+     "those flowers are used",
+     "one becomes cupid-like"
+    ],
+    "inference": "Dwelling there with those flowers makes one cupid-like.",
+    "uncertainties": [
+     "location is context-dependent"
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p51-v1263",
+     "l0_ids": [
+      "mukta-m0-p51-v1263-p000",
+      "mukta-m0-p51-v1263-p001",
+      "mukta-m0-p51-v1263-p002",
+      "mukta-m0-p51-v1263-p003",
+      "mukta-m0-p51-v1263-p004"
+     ],
+     "sanskrit_sha": "1c9a6708a7fe04bd"
+    },
+    "sanskrit_sha": "1c9a6708a7fe04bd"
+   },
+   "mukta-m0-p51-v1264": {
+    "verse_id": "mukta-m0-p51-v1264",
+    "song": "mukta-m0-p51",
+    "verse": 1264,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What happens to rites and mantras sent by others?",
+    "premises": [
+     "rites are mentioned",
+     "mantras are mentioned",
+     "they are averted",
+     "they are devoured"
+    ],
+    "inference": "Rites and mantras sent by others are averted and devoured.",
+    "uncertainties": [
+     "agent of devouring is not stated"
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p51-v1264",
+     "l0_ids": [
+      "mukta-m0-p51-v1264-p000",
+      "mukta-m0-p51-v1264-p001",
+      "mukta-m0-p51-v1264-p002",
+      "mukta-m0-p51-v1264-p003",
+      "mukta-m0-p51-v1264-p004",
+      "mukta-m0-p51-v1264-p005",
+      "mukta-m0-p51-v1264-p006"
+     ],
+     "sanskrit_sha": "1c9a6708a7fe04bd"
+    },
+    "sanskrit_sha": "1c9a6708a7fe04bd"
+   },
+   "mukta-m0-p51-v1265": {
+    "verse_id": "mukta-m0-p51-v1265",
+    "song": "mukta-m0-p51",
+    "verse": 1265,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What completes a year of worship?",
+    "premises": [
+     "worship is done for a year",
+     "completion is mentioned",
+     "it becomes complete by that agent"
+    ],
+    "inference": "A year of worship becomes complete through the practitioner's performance.",
+    "uncertainties": [
+     "exact agent and rite"
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p51-v1265",
+     "l0_ids": [
+      "mukta-m0-p51-v1265-p000",
+      "mukta-m0-p51-v1265-p001",
+      "mukta-m0-p51-v1265-p002",
+      "mukta-m0-p51-v1265-p003",
+      "mukta-m0-p51-v1265-p004",
+      "mukta-m0-p51-v1265-p005"
+     ],
+     "sanskrit_sha": "1c9a6708a7fe04bd"
+    },
+    "sanskrit_sha": "1c9a6708a7fe04bd"
+   },
+   "mukta-m0-p51-v1266": {
+    "verse_id": "mukta-m0-p51-v1266",
+    "song": "mukta-m0-p51",
+    "verse": 1266,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What happened to the wife when ash appeared?",
+    "premises": [
+     "ash became present",
+     "the wife is named",
+     "delight and pleasure are named",
+     "she was distressed"
+    ],
+    "inference": "When ash appeared, the wife, delight, and pleasure were distressed.",
+    "uncertainties": [
+     "mythic narrative context"
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p51-v1266",
+     "l0_ids": [
+      "mukta-m0-p51-v1266-p000",
+      "mukta-m0-p51-v1266-p001",
+      "mukta-m0-p51-v1266-p002",
+      "mukta-m0-p51-v1266-p003",
+      "mukta-m0-p51-v1266-p004",
+      "mukta-m0-p51-v1266-p005",
+      "mukta-m0-p51-v1266-p006",
+      "mukta-m0-p51-v1266-p007"
+     ],
+     "sanskrit_sha": "1c9a6708a7fe04bd"
+    },
+    "sanskrit_sha": "1c9a6708a7fe04bd"
+   },
+   "mukta-m0-p51-v1267": {
+    "verse_id": "mukta-m0-p51-v1267",
+    "song": "mukta-m0-p51",
+    "verse": 1267,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What qualities were present in that event?",
+    "premises": [
+     "fragrance was present",
+     "auspiciousness was present",
+     "it was great",
+     "it was wonderful"
+    ],
+    "inference": "The event was marked by great fragrance, auspiciousness, and wonder.",
+    "uncertainties": [
+     "referent of tad"
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p51-v1267",
+     "l0_ids": [
+      "mukta-m0-p51-v1267-p000",
+      "mukta-m0-p51-v1267-p001",
+      "mukta-m0-p51-v1267-p002",
+      "mukta-m0-p51-v1267-p003",
+      "mukta-m0-p51-v1267-p004",
+      "mukta-m0-p51-v1267-p005",
+      "mukta-m0-p51-v1267-p006",
+      "mukta-m0-p51-v1267-p007"
+     ],
+     "sanskrit_sha": "1c9a6708a7fe04bd"
+    },
+    "sanskrit_sha": "1c9a6708a7fe04bd"
+   },
+   "mukta-m0-p51-v1268": {
+    "verse_id": "mukta-m0-p51-v1268",
+    "song": "mukta-m0-p51",
+    "verse": 1268,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "Why was Cupid made nature for delight and pleasure?",
+    "premises": [
+     "delight is named",
+     "pleasure is named",
+     "therefore Cupid is mentioned",
+     "Cupid is made nature"
+    ],
+    "inference": "Cupid is established as nature for the sake of delight and pleasure.",
+    "uncertainties": [
+     "exact theological sense"
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p51-v1268",
+     "l0_ids": [
+      "mukta-m0-p51-v1268-p000",
+      "mukta-m0-p51-v1268-p001",
+      "mukta-m0-p51-v1268-p002",
+      "mukta-m0-p51-v1268-p003",
+      "mukta-m0-p51-v1268-p004",
+      "mukta-m0-p51-v1268-p005",
+      "mukta-m0-p51-v1268-p006"
+     ],
+     "sanskrit_sha": "1c9a6708a7fe04bd"
+    },
+    "sanskrit_sha": "1c9a6708a7fe04bd"
+   },
+   "mukta-m0-p51-v1269": {
+    "verse_id": "mukta-m0-p51-v1269",
+    "song": "mukta-m0-p51",
+    "verse": 1269,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What worship will be performed for Cupid?",
+    "premises": [
+     "his yearly worship is named",
+     "it is for Cupid",
+     "it will be"
+    ],
+    "inference": "A yearly worship for Cupid will be performed.",
+    "uncertainties": [
+     "whose worship is referenced"
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p51-v1269",
+     "l0_ids": [
+      "mukta-m0-p51-v1269-p000",
+      "mukta-m0-p51-v1269-p001",
+      "mukta-m0-p51-v1269-p002",
+      "mukta-m0-p51-v1269-p003",
+      "mukta-m0-p51-v1269-p004"
+     ],
+     "sanskrit_sha": "1c9a6708a7fe04bd"
+    },
+    "sanskrit_sha": "1c9a6708a7fe04bd"
+   },
+   "mukta-m0-p51-v1270": {
+    "verse_id": "mukta-m0-p51-v1270",
+    "song": "mukta-m0-p51",
+    "verse": 1270,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "Who must perform Cupid worship?",
+    "premises": [
+     "therefore Cupid worship is named",
+     "it is to be done",
+     "best practitioners are the agents"
+    ],
+    "inference": "The best practitioners must perform Cupid worship.",
+    "uncertainties": [
+     "scope of obligation"
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p51-v1270",
+     "l0_ids": [
+      "mukta-m0-p51-v1270-p000",
+      "mukta-m0-p51-v1270-p001",
+      "mukta-m0-p51-v1270-p002",
+      "mukta-m0-p51-v1270-p003",
+      "mukta-m0-p51-v1270-p004"
+     ],
+     "sanskrit_sha": "1c9a6708a7fe04bd"
+    },
+    "sanskrit_sha": "1c9a6708a7fe04bd"
+   },
+   "mukta-m0-p51-v1271": {
+    "verse_id": "mukta-m0-p51-v1271",
+    "song": "mukta-m0-p51",
+    "verse": 1271,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "How is Cupid to be made and worshipped?",
+    "premises": [
+     "Cupid is the object",
+     "it is ninefold",
+     "one should make it",
+     "one should worship it thereafter"
+    ],
+    "inference": "Cupid is to be made ninefold and then worshipped.",
+    "uncertainties": [
+     "whether making and worshiping are sequential or alternative"
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p51-v1271",
+     "l0_ids": [
+      "mukta-m0-p51-v1271-p000",
+      "mukta-m0-p51-v1271-p001",
+      "mukta-m0-p51-v1271-p002",
+      "mukta-m0-p51-v1271-p003",
+      "mukta-m0-p51-v1271-p004"
+     ],
+     "sanskrit_sha": "1c9a6708a7fe04bd"
+    },
+    "sanskrit_sha": "1c9a6708a7fe04bd"
+   },
+   "mukta-m0-p51-v1272": {
+    "verse_id": "mukta-m0-p51-v1272",
+    "song": "mukta-m0-p51",
+    "verse": 1272,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "How is combined Cupid worshipped?",
+    "premises": [
+     "various kinds are combined",
+     "Cupid is the object",
+     "worship is prescribed",
+     "it is in order"
+    ],
+    "inference": "Combined Cupid of various kinds is worshipped in order.",
+    "uncertainties": [
+     "exact combination method"
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p51-v1272",
+     "l0_ids": [
+      "mukta-m0-p51-v1272-p000",
+      "mukta-m0-p51-v1272-p001",
+      "mukta-m0-p51-v1272-p002",
+      "mukta-m0-p51-v1272-p003",
+      "mukta-m0-p51-v1272-p004",
+      "mukta-m0-p51-v1272-p005"
+     ],
+     "sanskrit_sha": "1c9a6708a7fe04bd"
+    },
+    "sanskrit_sha": "1c9a6708a7fe04bd"
+   },
+   "mukta-m0-p51-v1273": {
+    "verse_id": "mukta-m0-p51-v1273",
+    "song": "mukta-m0-p51",
+    "verse": 1273,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What flashing pairs are described?",
+    "premises": [
+     "illusion is named",
+     "a flashing pair is named",
+     "again a flashing pair is named"
+    ],
+    "inference": "The verse describes flashing pairs of illusion appearing again.",
+    "uncertainties": [
+     "doctrinal referent of the pairs"
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p51-v1273",
+     "l0_ids": [
+      "mukta-m0-p51-v1273-p000",
+      "mukta-m0-p51-v1273-p001",
+      "mukta-m0-p51-v1273-p002",
+      "mukta-m0-p51-v1273-p003",
+      "mukta-m0-p51-v1273-p004",
+      "mukta-m0-p51-v1273-p005",
+      "mukta-m0-p51-v1273-p006"
+     ],
+     "sanskrit_sha": "1c9a6708a7fe04bd"
+    },
+    "sanskrit_sha": "1c9a6708a7fe04bd"
+   },
+   "mukta-m0-p51-v1274": {
+    "verse_id": "mukta-m0-p51-v1274",
+    "song": "mukta-m0-p51",
+    "verse": 1274,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What manifest pair appears at the end?",
+    "premises": [
+     "a caṭa pair is named",
+     "then at the end",
+     "a manifest pair is named",
+     "again is stated"
+    ],
+    "inference": "At the end, a manifest pair appears again.",
+    "uncertainties": [
+     "meaning of caṭa and manifest pair"
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p51-v1274",
+     "l0_ids": [
+      "mukta-m0-p51-v1274-p000",
+      "mukta-m0-p51-v1274-p001",
+      "mukta-m0-p51-v1274-p002",
+      "mukta-m0-p51-v1274-p003",
+      "mukta-m0-p51-v1274-p004",
+      "mukta-m0-p51-v1274-p005",
+      "mukta-m0-p51-v1274-p006"
+     ],
+     "sanskrit_sha": "1c9a6708a7fe04bd"
+    },
+    "sanskrit_sha": "1c9a6708a7fe04bd"
+   },
+   "mukta-m0-p51-v1275": {
+    "verse_id": "mukta-m0-p51-v1275",
+    "song": "mukta-m0-p51",
+    "verse": 1275,
+    "scope": "verse",
+    "structured": true,
+    "speaker": "Abhinavagupta (teacher voice)",
+    "question": "What does the fierce mantra ending in phaṭ strike?",
+    "premises": [
+     "Fierce mantra ends with phaṭ.",
+     "Strike targets pair and armor.",
+     "Mantra acts as agent."
+    ],
+    "inference": "The fierce phaṭ-ending mantra strikes the pair and armor.",
+    "uncertainties": [
+     "Exact referent of pair and armor remains unclear."
+    ],
+    "option_choices": [],
+    "traces": {
+     "t1_verse": "mukta-m0-p51-v1275",
+     "l0_ids": [
+      "mukta-m0-p51-v1275-p000",
+      "mukta-m0-p51-v1275-p001",
+      "mukta-m0-p51-v1275-p002",
+      "mukta-m0-p51-v1275-p003",
+      "mukta-m0-p51-v1275-p004",
+      "mukta-m0-p51-v1275-p005"
+     ],
+     "sanskrit_sha": "1c9a6708a7fe04bd"
+    },
+    "sanskrit_sha": "1c9a6708a7fe04bd"
+   }
+  },
+  "l2": {
+   "mukta-m0-p51-v1251": {
+    "verse_id": "mukta-m0-p51-v1251",
+    "song": "mukta-m0-p51",
+    "verse": 1251,
+    "plain_english": "With silk-cotton flowers and perfected substances for a month, one becomes fearless.",
+    "sanskrit_cite": "śālmalīkusumaiḥ siddhadravyairmāsantu nirbhayaḥ",
+    "l0_ids": [
+     "mukta-m0-p51-v1251-p000",
+     "mukta-m0-p51-v1251-p001",
+     "mukta-m0-p51-v1251-p002",
+     "mukta-m0-p51-v1251-p003",
+     "mukta-m0-p51-v1251-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p51-v1252": {
+    "verse_id": "mukta-m0-p51-v1252",
+    "song": "mukta-m0-p51",
+    "verse": 1252,
+    "plain_english": "In a lonely forest at night for a month, one becomes fearless.",
+    "sanskrit_cite": "nirjane vipine rātrau māsamātrantu nirbhayaḥ",
+    "l0_ids": [
+     "mukta-m0-p51-v1252-p000",
+     "mukta-m0-p51-v1252-p001",
+     "mukta-m0-p51-v1252-p002",
+     "mukta-m0-p51-v1252-p003",
+     "mukta-m0-p51-v1252-p004",
+     "mukta-m0-p51-v1252-p005"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p51-v1253": {
+    "verse_id": "mukta-m0-p51-v1253",
+    "song": "mukta-m0-p51",
+    "verse": 1253,
+    "plain_english": "Jasmine, champak, screw-pine, ketaki, and honey are used in order.",
+    "sanskrit_cite": "mālatījātipunnāgaketakīmadhubhiḥ kramāt",
+    "l0_ids": [
+     "mukta-m0-p51-v1253-p000",
+     "mukta-m0-p51-v1253-p001",
+     "mukta-m0-p51-v1253-p002",
+     "mukta-m0-p51-v1253-p003",
+     "mukta-m0-p51-v1253-p004",
+     "mukta-m0-p51-v1253-p005"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p51-v1254": {
+    "verse_id": "mukta-m0-p51-v1254",
+    "song": "mukta-m0-p51",
+    "verse": 1254,
+    "plain_english": "Worship may be done in a cremation ground, caṇḍikā house, or lonely forest.",
+    "sanskrit_cite": "śmaśāne caṇḍikāgehe nirjane vipine'thavā",
+    "l0_ids": [
+     "mukta-m0-p51-v1254-p000",
+     "mukta-m0-p51-v1254-p001",
+     "mukta-m0-p51-v1254-p002",
+     "mukta-m0-p51-v1254-p003",
+     "mukta-m0-p51-v1254-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p51-v1255": {
+    "verse_id": "mukta-m0-p51-v1255",
+    "song": "mukta-m0-p51",
+    "verse": 1255,
+    "plain_english": "In the black circle, salute and worship the very black goddess.",
+    "sanskrit_cite": "kṛṣṇacakre'tikṛṣṇāṃ tāmabhivādya prapūjayet",
+    "l0_ids": [
+     "mukta-m0-p51-v1255-p000",
+     "mukta-m0-p51-v1255-p001",
+     "mukta-m0-p51-v1255-p002",
+     "mukta-m0-p51-v1255-p003",
+     "mukta-m0-p51-v1255-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p51-v1256": {
+    "verse_id": "mukta-m0-p51-v1256",
+    "song": "mukta-m0-p51",
+    "verse": 1256,
+    "plain_english": "Endowed with perfected substances for a month, that bhāva appears to sight.",
+    "sanskrit_cite": "siddhadravyasamopetaṃ māsāttadbhāvalocanāt",
+    "l0_ids": [
+     "mukta-m0-p51-v1256-p000",
+     "mukta-m0-p51-v1256-p001",
+     "mukta-m0-p51-v1256-p002",
+     "mukta-m0-p51-v1256-p003",
+     "mukta-m0-p51-v1256-p004",
+     "mukta-m0-p51-v1256-p005"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p51-v1257": {
+    "verse_id": "mukta-m0-p51-v1257",
+    "song": "mukta-m0-p51",
+    "verse": 1257,
+    "plain_english": "Satisfied with universal destruction, she returns again by her own will.",
+    "sanskrit_cite": "viśvasaṃhārasantuṣṭāṃ punaretya nijecchayā",
+    "l0_ids": [
+     "mukta-m0-p51-v1257-p000",
+     "mukta-m0-p51-v1257-p001",
+     "mukta-m0-p51-v1257-p002",
+     "mukta-m0-p51-v1257-p003",
+     "mukta-m0-p51-v1257-p004",
+     "mukta-m0-p51-v1257-p005",
+     "mukta-m0-p51-v1257-p006"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p51-v1258": {
+    "verse_id": "mukta-m0-p51-v1258",
+    "song": "mukta-m0-p51",
+    "verse": 1258,
+    "plain_english": "By prayer, the goddess's forehead eye becomes hidden.",
+    "sanskrit_cite": "devyā lalāṭanetre syuḥ prārthanena tirohitā",
+    "l0_ids": [
+     "mukta-m0-p51-v1258-p000",
+     "mukta-m0-p51-v1258-p001",
+     "mukta-m0-p51-v1258-p002",
+     "mukta-m0-p51-v1258-p003",
+     "mukta-m0-p51-v1258-p004",
+     "mukta-m0-p51-v1258-p005"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p51-v1259": {
+    "verse_id": "mukta-m0-p51-v1259",
+    "song": "mukta-m0-p51",
+    "verse": 1259,
+    "plain_english": "In a lonely garden, contemplate the goddess in the circle and worship her.",
+    "sanskrit_cite": "udyāne nirjane devīṃ cakre sañcintya pūjayet",
+    "l0_ids": [
+     "mukta-m0-p51-v1259-p000",
+     "mukta-m0-p51-v1259-p001",
+     "mukta-m0-p51-v1259-p002",
+     "mukta-m0-p51-v1259-p003",
+     "mukta-m0-p51-v1259-p004",
+     "mukta-m0-p51-v1259-p005"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p51-v1260": {
+    "verse_id": "mukta-m0-p51-v1260",
+    "song": "mukta-m0-p51",
+    "verse": 1260,
+    "plain_english": "Endowed with perfected substances, illusions succeed after a month.",
+    "sanskrit_cite": "siddhadravyasamopetairmāyāḥ sidhyanti māsataḥ",
+    "l0_ids": [
+     "mukta-m0-p51-v1260-p000",
+     "mukta-m0-p51-v1260-p001",
+     "mukta-m0-p51-v1260-p002",
+     "mukta-m0-p51-v1260-p003",
+     "mukta-m0-p51-v1260-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p51-v1261": {
+    "verse_id": "mukta-m0-p51-v1261",
+    "song": "mukta-m0-p51",
+    "verse": 1261,
+    "plain_english": "By whom the universe is traversed, that world-wandering, world-delighting one goes.",
+    "sanskrit_cite": "yābhirviśvaṃ yayau viśvacārī viśvavinodavān",
+    "l0_ids": [
+     "mukta-m0-p51-v1261-p000",
+     "mukta-m0-p51-v1261-p001",
+     "mukta-m0-p51-v1261-p002",
+     "mukta-m0-p51-v1261-p003",
+     "mukta-m0-p51-v1261-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p51-v1262": {
+    "verse_id": "mukta-m0-p51-v1262",
+    "song": "mukta-m0-p51",
+    "verse": 1262,
+    "plain_english": "Contemplating the goddess properly in those places, one becomes a knower of three times.",
+    "sanskrit_cite": "trikālajño bhaveddevīṃ teṣu samyag vicintayet",
+    "l0_ids": [
+     "mukta-m0-p51-v1262-p000",
+     "mukta-m0-p51-v1262-p001",
+     "mukta-m0-p51-v1262-p002",
+     "mukta-m0-p51-v1262-p003",
+     "mukta-m0-p51-v1262-p004",
+     "mukta-m0-p51-v1262-p005",
+     "mukta-m0-p51-v1262-p006"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p51-v1263": {
+    "verse_id": "mukta-m0-p51-v1263",
+    "song": "mukta-m0-p51",
+    "verse": 1263,
+    "plain_english": "Dwelling there with those flowers, one becomes cupid-like.",
+    "sanskrit_cite": "nivasaṃstatra tatpuṣpairjāyate manmathopamaḥ",
+    "l0_ids": [
+     "mukta-m0-p51-v1263-p000",
+     "mukta-m0-p51-v1263-p001",
+     "mukta-m0-p51-v1263-p002",
+     "mukta-m0-p51-v1263-p003",
+     "mukta-m0-p51-v1263-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p51-v1264": {
+    "verse_id": "mukta-m0-p51-v1264",
+    "song": "mukta-m0-p51",
+    "verse": 1264,
+    "plain_english": "Rites and mantras sent by others are averted and indeed devoured.",
+    "sanskrit_cite": "kṛtyāḥ pareritā mantrā vimukhāstān grasanti vai",
+    "l0_ids": [
+     "mukta-m0-p51-v1264-p000",
+     "mukta-m0-p51-v1264-p001",
+     "mukta-m0-p51-v1264-p002",
+     "mukta-m0-p51-v1264-p003",
+     "mukta-m0-p51-v1264-p004",
+     "mukta-m0-p51-v1264-p005",
+     "mukta-m0-p51-v1264-p006"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p51-v1265": {
+    "verse_id": "mukta-m0-p51-v1265",
+    "song": "mukta-m0-p51",
+    "verse": 1265,
+    "plain_english": "Worship done for a year becomes complete.",
+    "sanskrit_cite": "saṃvatsarakṛtā pūjā yenaiva pūrṇatā bhavet",
+    "l0_ids": [
+     "mukta-m0-p51-v1265-p000",
+     "mukta-m0-p51-v1265-p001",
+     "mukta-m0-p51-v1265-p002",
+     "mukta-m0-p51-v1265-p003",
+     "mukta-m0-p51-v1265-p004",
+     "mukta-m0-p51-v1265-p005"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p51-v1266": {
+    "verse_id": "mukta-m0-p51-v1266",
+    "song": "mukta-m0-p51",
+    "verse": 1266,
+    "plain_english": "Then ash became; the wife, delight, and pleasure were distressed.",
+    "sanskrit_cite": "bhasmābhavattadā patnī ratiḥ prītiśca duḥkhitā",
+    "l0_ids": [
+     "mukta-m0-p51-v1266-p000",
+     "mukta-m0-p51-v1266-p001",
+     "mukta-m0-p51-v1266-p002",
+     "mukta-m0-p51-v1266-p003",
+     "mukta-m0-p51-v1266-p004",
+     "mukta-m0-p51-v1266-p005",
+     "mukta-m0-p51-v1266-p006",
+     "mukta-m0-p51-v1266-p007"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p51-v1267": {
+    "verse_id": "mukta-m0-p51-v1267",
+    "song": "mukta-m0-p51",
+    "verse": 1267,
+    "plain_english": "That fragrance and great auspiciousness were wonderful.",
+    "sanskrit_cite": "tat saurabhañca saubhāgyaṃ mahadāsīttadadbhutam",
+    "l0_ids": [
+     "mukta-m0-p51-v1267-p000",
+     "mukta-m0-p51-v1267-p001",
+     "mukta-m0-p51-v1267-p002",
+     "mukta-m0-p51-v1267-p003",
+     "mukta-m0-p51-v1267-p004",
+     "mukta-m0-p51-v1267-p005",
+     "mukta-m0-p51-v1267-p006",
+     "mukta-m0-p51-v1267-p007"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p51-v1268": {
+    "verse_id": "mukta-m0-p51-v1268",
+    "song": "mukta-m0-p51",
+    "verse": 1268,
+    "plain_english": "Therefore Cupid was made nature for delight and pleasure.",
+    "sanskrit_cite": "ratyai prītyai ca tasmāttu madanaḥ prakṛtīkṛtaḥ",
+    "l0_ids": [
+     "mukta-m0-p51-v1268-p000",
+     "mukta-m0-p51-v1268-p001",
+     "mukta-m0-p51-v1268-p002",
+     "mukta-m0-p51-v1268-p003",
+     "mukta-m0-p51-v1268-p004",
+     "mukta-m0-p51-v1268-p005",
+     "mukta-m0-p51-v1268-p006"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p51-v1269": {
+    "verse_id": "mukta-m0-p51-v1269",
+    "song": "mukta-m0-p51",
+    "verse": 1269,
+    "plain_english": "His yearly worship will be for Cupid.",
+    "sanskrit_cite": "tasya sāṃvatsarī pūjā madanāya bhaviṣyati",
+    "l0_ids": [
+     "mukta-m0-p51-v1269-p000",
+     "mukta-m0-p51-v1269-p001",
+     "mukta-m0-p51-v1269-p002",
+     "mukta-m0-p51-v1269-p003",
+     "mukta-m0-p51-v1269-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p51-v1270": {
+    "verse_id": "mukta-m0-p51-v1270",
+    "song": "mukta-m0-p51",
+    "verse": 1270,
+    "plain_english": "Therefore Cupid worship must be done by the best practitioners.",
+    "sanskrit_cite": "tasmānmadanapūjā ca kartavyā sādhakottamaiḥ",
+    "l0_ids": [
+     "mukta-m0-p51-v1270-p000",
+     "mukta-m0-p51-v1270-p001",
+     "mukta-m0-p51-v1270-p002",
+     "mukta-m0-p51-v1270-p003",
+     "mukta-m0-p51-v1270-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p51-v1271": {
+    "verse_id": "mukta-m0-p51-v1271",
+    "song": "mukta-m0-p51",
+    "verse": 1271,
+    "plain_english": "Make Cupid ninefold, then worship him.",
+    "sanskrit_cite": "madanaṃ navadhā kuryāt pūjayettadanantaram",
+    "l0_ids": [
+     "mukta-m0-p51-v1271-p000",
+     "mukta-m0-p51-v1271-p001",
+     "mukta-m0-p51-v1271-p002",
+     "mukta-m0-p51-v1271-p003",
+     "mukta-m0-p51-v1271-p004"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p51-v1272": {
+    "verse_id": "mukta-m0-p51-v1272",
+    "song": "mukta-m0-p51",
+    "verse": 1272,
+    "plain_english": "Worship combined Cupid of various kinds in order.",
+    "sanskrit_cite": "nānāprakārasaṃbhinnaṃ madanaṃ pūjayet kramāt",
+    "l0_ids": [
+     "mukta-m0-p51-v1272-p000",
+     "mukta-m0-p51-v1272-p001",
+     "mukta-m0-p51-v1272-p002",
+     "mukta-m0-p51-v1272-p003",
+     "mukta-m0-p51-v1272-p004",
+     "mukta-m0-p51-v1272-p005"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p51-v1273": {
+    "verse_id": "mukta-m0-p51-v1273",
+    "song": "mukta-m0-p51",
+    "verse": 1273,
+    "plain_english": "Illusion flashes as a pair, then again flashes as a pair.",
+    "sanskrit_cite": "māyā sphuradvayaṃ bhūyaḥ prasphuradvitayaṃ punaḥ",
+    "l0_ids": [
+     "mukta-m0-p51-v1273-p000",
+     "mukta-m0-p51-v1273-p001",
+     "mukta-m0-p51-v1273-p002",
+     "mukta-m0-p51-v1273-p003",
+     "mukta-m0-p51-v1273-p004",
+     "mukta-m0-p51-v1273-p005",
+     "mukta-m0-p51-v1273-p006"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p51-v1274": {
+    "verse_id": "mukta-m0-p51-v1274",
+    "song": "mukta-m0-p51",
+    "verse": 1274,
+    "plain_english": "A caṭa pair, then at the end a manifest pair again.",
+    "sanskrit_cite": "caṭadvayaṃ tadante'pi prakaṭadvitayaṃ punaḥ",
+    "l0_ids": [
+     "mukta-m0-p51-v1274-p000",
+     "mukta-m0-p51-v1274-p001",
+     "mukta-m0-p51-v1274-p002",
+     "mukta-m0-p51-v1274-p003",
+     "mukta-m0-p51-v1274-p004",
+     "mukta-m0-p51-v1274-p005",
+     "mukta-m0-p51-v1274-p006"
+    ],
+    "supplied": []
+   },
+   "mukta-m0-p51-v1275": {
+    "verse_id": "mukta-m0-p51-v1275",
+    "song": "mukta-m0-p51",
+    "verse": 1275,
+    "plain_english": "Strike the pair and armor: the fierce mantra ending in phaṭ.",
+    "sanskrit_cite": "ghātaya dvitayaṃ varma phaḍanto ghorako manuḥ",
+    "l0_ids": [
+     "mukta-m0-p51-v1275-p000",
+     "mukta-m0-p51-v1275-p001",
+     "mukta-m0-p51-v1275-p002",
+     "mukta-m0-p51-v1275-p003",
+     "mukta-m0-p51-v1275-p004",
+     "mukta-m0-p51-v1275-p005"
+    ],
+    "supplied": []
+   }
+  },
+  "c1": {
+   "mukta-m0-p51": {
+    "song": "mukta-m0-p51",
+    "essence": [
+     "The practitioner becomes fearless through a month of worship with specified substances.",
+     "Fearlessness is attained by practicing in a lonely forest at night for a month.",
+     "The rite employs these flowers and honey in a prescribed sequence.",
+     "The practitioner may worship in any of these secluded or sacred places.",
+     "The practitioner salutes and then worships the very black goddess in the black circle."
+    ],
+    "essence_source": "derived from argmap inferences (machine-proposed; assessor review outstanding)",
+    "rasa": {},
+    "essence_only": true,
+    "renders": {}
+   }
+  },
+  "l3": {},
+  "l4": {},
+  "c2": {}
+ },
+ "source_verses": {
+  "mukta-m0-p51-v1251": {
+   "text": "śālmalīkusumaiḥ siddhadravyairmāsantu nirbhayaḥ",
+   "source_file": "translation-work/mukta-m00088/source/edition.txt",
+   "source_sha256": "5304adce476079399fd6cfa42c2b33d1e5df72302cd90bf5fcce27cb51aa97ac",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p51-v1252": {
+   "text": "nirjane vipine rātrau māsamātrantu nirbhayaḥ",
+   "source_file": "translation-work/mukta-m00088/source/edition.txt",
+   "source_sha256": "5304adce476079399fd6cfa42c2b33d1e5df72302cd90bf5fcce27cb51aa97ac",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p51-v1253": {
+   "text": "mālatījātipunnāgaketakīmadhubhiḥ kramāt",
+   "source_file": "translation-work/mukta-m00088/source/edition.txt",
+   "source_sha256": "5304adce476079399fd6cfa42c2b33d1e5df72302cd90bf5fcce27cb51aa97ac",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p51-v1254": {
+   "text": "śmaśāne caṇḍikāgehe nirjane vipine'thavā",
+   "source_file": "translation-work/mukta-m00088/source/edition.txt",
+   "source_sha256": "5304adce476079399fd6cfa42c2b33d1e5df72302cd90bf5fcce27cb51aa97ac",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p51-v1255": {
+   "text": "kṛṣṇacakre'tikṛṣṇāṃ tāmabhivādya prapūjayet",
+   "source_file": "translation-work/mukta-m00088/source/edition.txt",
+   "source_sha256": "5304adce476079399fd6cfa42c2b33d1e5df72302cd90bf5fcce27cb51aa97ac",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p51-v1256": {
+   "text": "siddhadravyasamopetaṃ māsāttadbhāvalocanāt",
+   "source_file": "translation-work/mukta-m00088/source/edition.txt",
+   "source_sha256": "5304adce476079399fd6cfa42c2b33d1e5df72302cd90bf5fcce27cb51aa97ac",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p51-v1257": {
+   "text": "viśvasaṃhārasantuṣṭāṃ punaretya nijecchayā",
+   "source_file": "translation-work/mukta-m00088/source/edition.txt",
+   "source_sha256": "5304adce476079399fd6cfa42c2b33d1e5df72302cd90bf5fcce27cb51aa97ac",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p51-v1258": {
+   "text": "devyā lalāṭanetre syuḥ prārthanena tirohitā",
+   "source_file": "translation-work/mukta-m00088/source/edition.txt",
+   "source_sha256": "5304adce476079399fd6cfa42c2b33d1e5df72302cd90bf5fcce27cb51aa97ac",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p51-v1259": {
+   "text": "udyāne nirjane devīṃ cakre sañcintya pūjayet",
+   "source_file": "translation-work/mukta-m00088/source/edition.txt",
+   "source_sha256": "5304adce476079399fd6cfa42c2b33d1e5df72302cd90bf5fcce27cb51aa97ac",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p51-v1260": {
+   "text": "siddhadravyasamopetairmāyāḥ sidhyanti māsataḥ",
+   "source_file": "translation-work/mukta-m00088/source/edition.txt",
+   "source_sha256": "5304adce476079399fd6cfa42c2b33d1e5df72302cd90bf5fcce27cb51aa97ac",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p51-v1261": {
+   "text": "yābhirviśvaṃ yayau viśvacārī viśvavinodavān",
+   "source_file": "translation-work/mukta-m00088/source/edition.txt",
+   "source_sha256": "5304adce476079399fd6cfa42c2b33d1e5df72302cd90bf5fcce27cb51aa97ac",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p51-v1262": {
+   "text": "trikālajño bhaveddevīṃ teṣu samyag vicintayet",
+   "source_file": "translation-work/mukta-m00088/source/edition.txt",
+   "source_sha256": "5304adce476079399fd6cfa42c2b33d1e5df72302cd90bf5fcce27cb51aa97ac",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p51-v1263": {
+   "text": "nivasaṃstatra tatpuṣpairjāyate manmathopamaḥ",
+   "source_file": "translation-work/mukta-m00088/source/edition.txt",
+   "source_sha256": "5304adce476079399fd6cfa42c2b33d1e5df72302cd90bf5fcce27cb51aa97ac",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p51-v1264": {
+   "text": "kṛtyāḥ pareritā mantrā vimukhāstān grasanti vai",
+   "source_file": "translation-work/mukta-m00088/source/edition.txt",
+   "source_sha256": "5304adce476079399fd6cfa42c2b33d1e5df72302cd90bf5fcce27cb51aa97ac",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p51-v1265": {
+   "text": "saṃvatsarakṛtā pūjā yenaiva pūrṇatā bhavet",
+   "source_file": "translation-work/mukta-m00088/source/edition.txt",
+   "source_sha256": "5304adce476079399fd6cfa42c2b33d1e5df72302cd90bf5fcce27cb51aa97ac",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p51-v1266": {
+   "text": "bhasmābhavattadā patnī ratiḥ prītiśca duḥkhitā",
+   "source_file": "translation-work/mukta-m00088/source/edition.txt",
+   "source_sha256": "5304adce476079399fd6cfa42c2b33d1e5df72302cd90bf5fcce27cb51aa97ac",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p51-v1267": {
+   "text": "tat saurabhañca saubhāgyaṃ mahadāsīttadadbhutam",
+   "source_file": "translation-work/mukta-m00088/source/edition.txt",
+   "source_sha256": "5304adce476079399fd6cfa42c2b33d1e5df72302cd90bf5fcce27cb51aa97ac",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p51-v1268": {
+   "text": "ratyai prītyai ca tasmāttu madanaḥ prakṛtīkṛtaḥ",
+   "source_file": "translation-work/mukta-m00088/source/edition.txt",
+   "source_sha256": "5304adce476079399fd6cfa42c2b33d1e5df72302cd90bf5fcce27cb51aa97ac",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p51-v1269": {
+   "text": "tasya sāṃvatsarī pūjā madanāya bhaviṣyati",
+   "source_file": "translation-work/mukta-m00088/source/edition.txt",
+   "source_sha256": "5304adce476079399fd6cfa42c2b33d1e5df72302cd90bf5fcce27cb51aa97ac",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p51-v1270": {
+   "text": "tasmānmadanapūjā ca kartavyā sādhakottamaiḥ",
+   "source_file": "translation-work/mukta-m00088/source/edition.txt",
+   "source_sha256": "5304adce476079399fd6cfa42c2b33d1e5df72302cd90bf5fcce27cb51aa97ac",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p51-v1271": {
+   "text": "madanaṃ navadhā kuryāt pūjayettadanantaram",
+   "source_file": "translation-work/mukta-m00088/source/edition.txt",
+   "source_sha256": "5304adce476079399fd6cfa42c2b33d1e5df72302cd90bf5fcce27cb51aa97ac",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p51-v1272": {
+   "text": "nānāprakārasaṃbhinnaṃ madanaṃ pūjayet kramāt",
+   "source_file": "translation-work/mukta-m00088/source/edition.txt",
+   "source_sha256": "5304adce476079399fd6cfa42c2b33d1e5df72302cd90bf5fcce27cb51aa97ac",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p51-v1273": {
+   "text": "māyā sphuradvayaṃ bhūyaḥ prasphuradvitayaṃ punaḥ",
+   "source_file": "translation-work/mukta-m00088/source/edition.txt",
+   "source_sha256": "5304adce476079399fd6cfa42c2b33d1e5df72302cd90bf5fcce27cb51aa97ac",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p51-v1274": {
+   "text": "caṭadvayaṃ tadante'pi prakaṭadvitayaṃ punaḥ",
+   "source_file": "translation-work/mukta-m00088/source/edition.txt",
+   "source_sha256": "5304adce476079399fd6cfa42c2b33d1e5df72302cd90bf5fcce27cb51aa97ac",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  },
+  "mukta-m0-p51-v1275": {
+   "text": "ghātaya dvitayaṃ varma phaḍanto ghorako manuḥ",
+   "source_file": "translation-work/mukta-m00088/source/edition.txt",
+   "source_sha256": "5304adce476079399fd6cfa42c2b33d1e5df72302cd90bf5fcce27cb51aa97ac",
+   "source_lines": null,
+   "note": "Parser-reconstructed tokens; consult the edition for exact typography."
+  }
+ },
+ "l4_craft": {},
+ "withheld_songs": [],
+ "original_hashes": {
+  "t1": {
+   "mukta-m0-p51-v1251": "9d8d306d9093c3f28429b8802cdea1255f62bdeb7350345826010e46e10e6d82",
+   "mukta-m0-p51-v1252": "2fb64e0c6dcf4fe2aa25465621310c32dd3b2c755134bc8d18688c5c1bb7ddf7",
+   "mukta-m0-p51-v1253": "ea8369f8def7fd1a323ff891994e31488ece10265c71bc702eb4bc6deea93479",
+   "mukta-m0-p51-v1254": "11df2ce0d1614776692af0db98ae04ded2fe6ec358821e571c109189517ac777",
+   "mukta-m0-p51-v1255": "47a3485e014f342a51d20ac0f423ee3fc3fd53fef057a3601ec55f2eabe4abc9",
+   "mukta-m0-p51-v1256": "83d455a535446077fa422874649eb6ad919223f597583b31d6eab9b2d4a3198b",
+   "mukta-m0-p51-v1257": "74145483fd7021182e58af0485e4851dfc97cfa9d8523ac4ac7dec1dbe2a82a9",
+   "mukta-m0-p51-v1258": "4d98aaf41534b3211bea559d2768dc83466c8157c49f590ce9968a8c75cad78c",
+   "mukta-m0-p51-v1259": "4ebbf5517004da4ccaa04e551663ecfbf52d7cb14e47ff02ccc25fea94845a75",
+   "mukta-m0-p51-v1260": "f9844ed46d825c47fd1228ba702d23b18251baab30913c04bee708cd22ae9a0d",
+   "mukta-m0-p51-v1261": "e710db1956084605d1810b8a7a845e9efcf17891928149ac782d815b5993a33d",
+   "mukta-m0-p51-v1262": "9eecdcc17d0b327d1a8615c31597661ee380e296fe7d7a305662eff7e12eab29",
+   "mukta-m0-p51-v1263": "e91b95efacd574f57b567a1caefadf7fa8127a94daf55bbf008caadab8dfc8a7",
+   "mukta-m0-p51-v1264": "1b56730e85bfbc0e5d33fe84c21daed269f23b19e0bf1422129e69cd867a4bfe",
+   "mukta-m0-p51-v1265": "b03dd3748cec285e1982de26e2693da9aaac53a79fbfdf81a1762543023e7b33",
+   "mukta-m0-p51-v1266": "9cf06ea2648350a7e437beeaf45ea21b51e1154cb726416e4680cbdbbb7332bb",
+   "mukta-m0-p51-v1267": "dd3988e813a3b603f77c0fc88037fbd3185f96c3c9e2e9cf5d54e353e3e1c73e",
+   "mukta-m0-p51-v1268": "2aefd91e5321a615f7c0b121d660528794a7ada260f3f6fda207f34bcf3a8670",
+   "mukta-m0-p51-v1269": "26f69866e92132f12720b657d5d85122ef30e9287bf23e8433c07fd1d3b137ee",
+   "mukta-m0-p51-v1270": "ed25313c5fc3da191a4449f806e17e70949ae1041631f3429d0567cd8ddd9e76",
+   "mukta-m0-p51-v1271": "810bec8e67acc186128fbf9b922e2ce9d8c8b9fd53cff84d8c12ff4fa0db846b",
+   "mukta-m0-p51-v1272": "4b5812fb8c1856392d71ce24a1172314f230c52a1a69023a812e727d86e77bbc",
+   "mukta-m0-p51-v1273": "ec3d8feea917de21dddb677d6b69bd52e81da1e8768b00447dae92b7830b7479",
+   "mukta-m0-p51-v1274": "13d53fda360f9bb22c575024de948813323b9c64b1399f139225c9cde9106500",
+   "mukta-m0-p51-v1275": "1c3e2583122d0fdf8a17fa0cf4ef6f32164c0415d735df94ce682179a35428f8"
+  },
+  "l0": {
+   "mukta-m0-p51-v1251": "3f87bd6f86b51f68b3bf7bd63f36215ecadd78dd93b1f1360ce9312b6a6bace7",
+   "mukta-m0-p51-v1252": "3aebedb0468cfd2692159b8c4263a6fbdde7546eaf678aa1a52b9cfb012f6aef",
+   "mukta-m0-p51-v1253": "76ca5269bd87ecbae69f5d2b8089f4f8edb5dd1af151a05c48b2690dce8e6287",
+   "mukta-m0-p51-v1254": "e399956ef40f183eb0eb0d6338fc962d336765445d316d1e62f21b5a50cca08b",
+   "mukta-m0-p51-v1255": "291795ba3d1284e912be3e4868686142b691cfd22b22a3e5d1734cdca70f30f7",
+   "mukta-m0-p51-v1256": "ead80ad2e9c7a559507c076e1214fa195411151511c8d2beebd229f956bd7ccb",
+   "mukta-m0-p51-v1257": "15aea37d1dac432d3aa1d795c05da043d2162bf38fce119013c7253dc5cb4478",
+   "mukta-m0-p51-v1258": "499a4a2e768a81bea42008981052051c2479ab24bd92f83ad7ee70cf49377c1a",
+   "mukta-m0-p51-v1259": "67d1746121262abf143779be6a3d438b0426d7ab0bff8733918f41813946c348",
+   "mukta-m0-p51-v1260": "e5c11249a51bdbd1f13d46d003bae0ac4a066e1fb8166c81900bf026f4d9a02a",
+   "mukta-m0-p51-v1261": "ce21c0b75cedae2cff8b66a37ac210a714fb5a55e02700cb61184f9ce7bdab3b",
+   "mukta-m0-p51-v1262": "d6bb5de1ce876ea9ccd2648ee7fd6d82b4751aa2947c179fb560aee301217973",
+   "mukta-m0-p51-v1263": "9ac747b7ff1400b5d8e59f447f46b10434605534a989fc3f418d569d2d2e1e03",
+   "mukta-m0-p51-v1264": "9fb4617944c7db02eb5615063d8b037c0ea20e8552a160a389665712940e8187",
+   "mukta-m0-p51-v1265": "26986ff1bdaf703bd32be6bf9151968eb54ce20a6aea479c8c4dc1d547b00e10",
+   "mukta-m0-p51-v1266": "921883a1f7614b417db38a764331acdbe5062e8cde9f109cbedf16e6f4d225e4",
+   "mukta-m0-p51-v1267": "76f759517c3ad575cf9356ef5023868e3ee8e785b9888bcc8e8332d3140f1bb3",
+   "mukta-m0-p51-v1268": "18f0f3a3146c8f4146ebef2b05096505d907cd3fd7e0b7bf1d5c71dc3e1d3a5c",
+   "mukta-m0-p51-v1269": "29781b74a391597fba6af37a6b5749beeac9f6a0aa05492ec491d323e6dabbd9",
+   "mukta-m0-p51-v1270": "60d512cb5692b9741b7da1d96c25782acb62034d2ed1fc8764c187c604d58f8b",
+   "mukta-m0-p51-v1271": "450db2a33962a763dc8d2f40d4d1dab05765b75f1ceadff2fb79f343dbcc5d49",
+   "mukta-m0-p51-v1272": "786ec51eef3ff7a6e235b0752b26a12266a1dd345205906b131111803f1f1fd0",
+   "mukta-m0-p51-v1273": "aac2eedd669b0de157aca7ea98e4ea2e146d526708c70bc0203227d405427406",
+   "mukta-m0-p51-v1274": "e35746518d83de3dafdc987061b96a20e1828966f3cb80dd4f0dff58ec3a35a2",
+   "mukta-m0-p51-v1275": "cff3b702d06b90ee5bc5f1228939b917c5fd0bf254e82af30951271c7520ef6f"
+  },
+  "argmap": {
+   "mukta-m0-p51-v1251": "67d751d5435254d998cb2ebda56ce7e4255db2b05fa1ea0d173a4afd2f325fc5",
+   "mukta-m0-p51-v1252": "b83d92d3100b122360fbf8f481fe1c07f58e8776de09a9a4377cb2975cb6e8d5",
+   "mukta-m0-p51-v1253": "267ae49a463bf00ad74c999ee2a6ced44eed64d3ddcaea4f1a8a0323dc807bc1",
+   "mukta-m0-p51-v1254": "916fd960ed0778fea9ccc84394d407f49a0e8912084696f4e4291ad6ed47222e",
+   "mukta-m0-p51-v1255": "9c4e81e69b7325a325192f170e3c69e3bcccb643eca6fab9e32c1c2fe60300da",
+   "mukta-m0-p51-v1256": "d1d0276adf1674383362fcbc59b9abccbf8828fdbdc84d40026ca8827aee4c33",
+   "mukta-m0-p51-v1257": "c08271e866b3b41621e61f8980a98966afe4bdad0d08d8e7737e61c85b1773a0",
+   "mukta-m0-p51-v1258": "1b1838ec4e3d93eacb3f005404c26a22dd6f1bf15cb922fc454f7acaee391a73",
+   "mukta-m0-p51-v1259": "e9e06f80d1befb269ee6a97d2fbba4f9c1ad6a5dee079b2e0cc092d3e073af27",
+   "mukta-m0-p51-v1260": "c02e12e37332ffe2b9c3abc6813360b549e2e6dbf639a95b8d8d72403c16096b",
+   "mukta-m0-p51-v1261": "c57f5b28a4541e1c22c5650654ced38bf690e2e34488d0e8f2c62900242a9a06",
+   "mukta-m0-p51-v1262": "d620e9e7928d932fbe9b86ea09bc5a29e64f554cefc7db8a0e620b7db6ad9997",
+   "mukta-m0-p51-v1263": "45de947405f9a787b696e8903ce7e10ccfb355b868ed73150ec451dcd45a23de",
+   "mukta-m0-p51-v1264": "51f1e2c08f9873b347e38738b92c8cd785863a1e60aa6bdfba8ad592b65cc9ec",
+   "mukta-m0-p51-v1265": "2761c533e57d804cd8da39697280a71e1b68b3d860c5ac12857ba187c81cf924",
+   "mukta-m0-p51-v1266": "c07b49c8d61485a03f46cf8484c4b76707144db9ca75067d663d25a61e91aff0",
+   "mukta-m0-p51-v1267": "2393555d1d7ff03d01dc221135f748ba4bc9afb13544938003067b29fcbcea8b",
+   "mukta-m0-p51-v1268": "3f08fb13bff026e7b1c972deb53b5326d21aa3a2638267f430d21fd533a01b2e",
+   "mukta-m0-p51-v1269": "9687d3b9fbcb8285efab11a048761beacecededce60424e1a9887a5ed2b458ad",
+   "mukta-m0-p51-v1270": "0595468f8d525e2ce885ae9a4f0655ecfcc1de6cf4a535610fbb0263312f3610",
+   "mukta-m0-p51-v1271": "6157f3fed3383516194ec89565e507ceb70ea72063414fef40150c85d5e25619",
+   "mukta-m0-p51-v1272": "4b97daf8cca36b205631da8fffd9a6c3a04356896188ee571f884217bb8fbd01",
+   "mukta-m0-p51-v1273": "9076c2aad6070de179d4ce8af54d229c9af2c4223714a1906909c29838f7362a",
+   "mukta-m0-p51-v1274": "35425b98192077a593bd504dfa1135e40d508161d30cf4e9b51e13a786b4aa1c",
+   "mukta-m0-p51-v1275": "4f2bfb676b19254a74c6ddaef209a764f323f6425d9494cb9599ce6ffb1856d7"
+  },
+  "l2": {
+   "mukta-m0-p51-v1251": "ec2cbbecf5baf2c0054a886f1a66ede7b6b29ab19b33e7477c86b76b45ad947e",
+   "mukta-m0-p51-v1252": "6932278a04b32278a6e88623a0d0b91b7cf4dea5d670df0553e38b1cddb70761",
+   "mukta-m0-p51-v1253": "f3cb313ad4381057a99177fc59e9484318cb7fd0c56c78ec03d82278fa187746",
+   "mukta-m0-p51-v1254": "424a375fca1a4669358b56a217e343eebb50eef239fbba586f7cf88efe038e55",
+   "mukta-m0-p51-v1255": "1b03ef873ef19f6efb4d7696f1409a1a466372bfe6fbda50a5ce752f2efeddba",
+   "mukta-m0-p51-v1256": "27774bc55e6d40a564be29bc4d40c0db26e8c6f647cc4a244572617489eb43a7",
+   "mukta-m0-p51-v1257": "9da7f3ced64063a1645174be73aae3a9fe982733e562492836010a7cd7d4090f",
+   "mukta-m0-p51-v1258": "6a2b3044938f594a214b7f41ad99045bd9f5f12787f46f1e7062ec481517e96b",
+   "mukta-m0-p51-v1259": "8c30f47508f9df5453db8e672a3295e345db9e542553b5051e55143a2e82822a",
+   "mukta-m0-p51-v1260": "eddfb6b1c0ad3fcb282467f8f750ea6be6decceadf3ff19682ecbcf0f1eca9ae",
+   "mukta-m0-p51-v1261": "58d9933bff2a97c3a47416b1286ce5638a43161dc425ffb4678036446b009b1b",
+   "mukta-m0-p51-v1262": "627cddc26f470a66ca40a9e94069357c1a6c174638442065333cd2660d9bde68",
+   "mukta-m0-p51-v1263": "c13d23627bd9ad1ab48f492672d8fe5ff20d69247d91db6f2354a122f2c7b49d",
+   "mukta-m0-p51-v1264": "211d1e538da391515a6aa528b13cb9be031294e59ad116fe7eba0b55f8b2cdc1",
+   "mukta-m0-p51-v1265": "fce5b24876f246a5421c65b23516934ff7ce259c1efd5f5d030bd7e1094564b2",
+   "mukta-m0-p51-v1266": "d1d0f71fa78bc120a9ad48c2345c76e788a4cfda1dc0b671059b489e438bc531",
+   "mukta-m0-p51-v1267": "4f2ca0c8a63fdaeeebe427fbe455279816e12c0eed951fdccb715e65bd399b87",
+   "mukta-m0-p51-v1268": "3048d1cbe0e36debe5289157c961855cce58d4af7d20c904396dbd29fb46d32a",
+   "mukta-m0-p51-v1269": "87949ed9148b6919b6c61f8ded10f7ea07753f525cd4f697056913d437de9862",
+   "mukta-m0-p51-v1270": "14a12a975cc14d3b52b712f918cb286205ba4024dc7ff3fd130d829be5d8645d",
+   "mukta-m0-p51-v1271": "67605634c70b3bd3407c13b97320ed671411208052d57cd64d9c4bfd205065d2",
+   "mukta-m0-p51-v1272": "0e0ab32d8454e205b0fd7b8be7f322244b9f758ea38ea6122eaf952ca31d3efb",
+   "mukta-m0-p51-v1273": "71ff509acb392f71cc9f81cee445cd96ebfaf2bc8a3a68db0cc24fb1a5e7f83b",
+   "mukta-m0-p51-v1274": "ca46cfad787542cce5b8b09b047c8d685ff5c820e58ebbf31bd5d4a3ddf205d4",
+   "mukta-m0-p51-v1275": "abe3b639b848da6b25e13e9a729e965efe16aca087002a3e301df785caaca060"
+  },
+  "c1": {
+   "mukta-m0-p51": "22bcadd9d02d160d3fcec0c386bb5f350100c27db3e875dd2e7475fb9b9a36c4"
+  },
+  "l3": {},
+  "l4": {},
+  "c2": {}
+ },
+ "versions": [],
+ "essays": [],
+ "reviews": [],
+ "promotions": [],
+ "signoffs": [],
+ "stack_hashes": {
+  "mukta-m0-p51": "3677f1b2dd74c6a6cb6314311613dc0632bef9e049d15e026e8bac3cdcbbc52a"
+ },
+ "projection_sha256": "ba173672e86956224004d72e6175c8a7e0f53c972a874fa962a655823eb0debf"
+}
