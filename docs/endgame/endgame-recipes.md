@@ -1,7 +1,8 @@
-<!-- vendored: source=/root/trika-x/ENDGAME-RECIPES.md sha256=d2299081f6e25549dbe9cf093d10b551c371f4fb29a3a4ffd192f35b2040937f fetched=2026-11-11
+<!-- vendored: source=/root/trika-x/ENDGAME-RECIPES.md sha256=d60f71b7481a77171203580577264f8d81c62f2916c63440dadf24f010fd0fcd fetched=2026-11-11
      edit the source, not this copy; regenerate with tools/emit_endgame_docs.py -->
 
 # ENDGAME RECIPES — diary → teachings → media → journey (spec, 2026-11-06)
+*Status: PROPOSED. Canonical as spec; unbuilt by design (R9 explicitly NOT YET).
 
 Owner vision verbatim: `/root/AGENTS.md` §ENDGAME VISION. This doc specs
 the recipes. All spec, no builds; lanes dispose. Standing invariants

@@ -38,6 +38,13 @@ class TestMcp(unittest.TestCase):
         self.assertIn('draft_with_qwen',[x['name'] for x in rs[1]['result']['tools']])
         self.assertIn('paramarthasara',content(rs[2])['works'])
         ev=content(rs[3]);self.assertIn('śambhuṃ',ev['source']['text']);self.assertIn('l0',ev['layers']);self.assertEqual(len(ev['projection_sha256']),64)
+        # per-layer sha256 + review state are exposed; reviewed work is SELF_ATTESTED, not upgraded
+        self.assertTrue(ev['layer_sha256'] and all(len(h)==64 for h in ev['layer_sha256'].values()))
+        self.assertEqual(ev['review_state']['default'],'UNREVIEWED')
+        self.assertIn('stack',ev['review_state']['per_layer'])
+        self.assertEqual(ev['review_state']['per_layer']['stack']['identity_state'],'SELF_ATTESTED')
+        self.assertIsNotNone(ev['review_state']['signoff'])
+        self.assertTrue(ev['review_state']['signoff']['review_current'])
         self.assertTrue(rs[4]['result']['isError']);self.assertTrue(rs[5]['result']['isError'])
     @unittest.skipUnless(importlib.util.find_spec('vidyut'), 'optional Vidyut is not installed')
     def test_vidyut_candidates_use_bundled_source_and_are_unreviewed(self):

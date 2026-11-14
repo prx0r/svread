@@ -1,7 +1,8 @@
-<!-- vendored: source=/root/trika-x/MASTERPLAN-TECHNICAL-SPEC.md sha256=38c687cb69f8bd0cc67522056249640896f3aeacfdc0da4704e74167da16eaf2 fetched=2026-11-11
+<!-- vendored: source=/root/trika-x/MASTERPLAN-TECHNICAL-SPEC.md sha256=97b63d545fc8d0250a273dd9f66a68bcb60507e5a558951ca579ea932a49dddc fetched=2026-11-11
      edit the source, not this copy; regenerate with tools/emit_endgame_docs.py -->
 
 # MASTERPLAN TECHNICAL SPEC — endgame build, ground up (2026-11-06)
+*Status: HISTORICAL. Superseded by MASTERPLAN2; frozen reference (2026-11-06).
 
 **Canonical build spec.** Companion to the adversarial audit
 (`/root/TECHNICAL-SPEC-2026-11-05.md` — reproduced breaks; this doc

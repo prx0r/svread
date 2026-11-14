@@ -32,6 +32,8 @@ test('emit_discovery --check is green and outputs are well-formed', (t) => {
   assert.ok(!llms.includes('{ORIGIN}'), 'no unexpanded template vars');
   assert.ok(llms.includes('How to cite'), 'citation section present');
   assert.ok(llms.includes('SELF_ATTESTED'), 'honesty vocabulary present');
+  assert.ok(llms.includes('https://mcp.svatantrya.net/mcp'), 'llms names the public MCP endpoint');
+  assert.ok(llms.includes('https://mcp.sanskrit.help/mcp'), 'llms names the owner console');
   const sm = fs.readFileSync(path.join(ROOT, 'sitemap.xml'), 'utf8');
   assert.ok(sm.includes('<urlset'), 'sitemap root');
   assert.ok(!sm.includes('?view='), 'no query-string app routes in sitemap (not crawlable)');
