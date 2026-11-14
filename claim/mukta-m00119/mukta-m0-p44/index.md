@@ -1,0 +1,27 @@
+# mukta-m00119 mukta-m0-p44 (1076-1100)
+
+mukta-m00119 mukta-m0-p44 (1076-1100) links incomplete (9 gaps named); no formal theorems bound. Chunk gate UNKNOWN; no witness verified.
+
+> Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
+
+Canonical: https://svatantrya.net/claim/mukta-m00119/mukta-m0-p44/
+
+## Passage (excerpt as hashed)
+
+```
+bhaktiyuktaḥ prasannātmā devatātithipūjakaḥūrdhve śākhāstatra puṣpaṃ phalaṃ tatra taduttaramjalaṃ tatra pradeyaṃ syādvṛkṣakaḥ puruṣādhamaḥcīnadrumalatāyāstu mūlaṃ caivālavālakamsvarakṣakaḥ svayaṃ devi jalabindurghaṭasthitaḥsarvamekatra siddhañca vṛkṣe bhinnaṃ maheśvarisarvasiddhaḥ paraḥ prokto vṛkṣo'pyevaṃ maheśvarideveśa śrotumicchāmi rahasyātirahasyakammahākalpalatāmūle vicintya sveṣṭadevatāmtadrūpaḥ sanmahādevi dhyānayogaṃ samabhyasetghaṭikādaśakadhyānātpṛthivyāṃ jayamāpnuyātghaṭikāviṃśatidhyānātsarvākarṣaṇakārakaḥahorātreṇa deveśi mūlādīnjapati priyedhyānayogaṃ samabhyasya kuṇḍalīdhyānabhāgbhavetmārgadarśanakāryārthaṃ latā proktā kimicchasiṣoḍaśaḥ paṭalaḥrahasyamapi deveśi yanna kasyāpi kīrtitamgrahanaṃ dvividhaṃ devi bāhyābhyantarabhedataḥbhāvayogāt kriyāyogād dvidhā tatrāpi pārvatibāhyaṃ śṛṇu maheśāni sūryacandrakramāt dvidhāsūryoparāgo grastāstastathā grastodayaḥ smṛtaḥsārdhadvayāṅgulottaraṃ grastāstatvaṃ prakīrtitamsa kālo'kṣayarūpeṇa puraścaraṇakarmaṇiyāvatsaṅkhayaṃ manuṃ japtvā tāvaddhomādikaṃ caretsiddheśvarīmataṃ proktaṃ sarvasiddhipradāyakam
+```
+
+## Reading
+
+Withheld. no verified L2 layer in this pack
+
+## Claims
+
+| Claim | Status | Basis |
+|---|---|---|
+| Link completeness | FAIL (9 gaps named) | assurance.trace_links_present + gaps |
+| Human review | UNREVIEWED (machine rendering; no human sign-off) | assurance.review |
+| Deterministic chunk gate | UNKNOWN (none) | proofs.chunk_gate |
+| Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
+| Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

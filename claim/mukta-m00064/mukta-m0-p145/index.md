@@ -1,0 +1,27 @@
+# mukta-m00064 mukta-m0-p145 (3601-3625)
+
+mukta-m00064 mukta-m0-p145 (3601-3625) links incomplete (9 gaps named); no formal theorems bound. Chunk gate UNKNOWN; no witness verified.
+
+> Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
+
+Canonical: https://svatantrya.net/claim/mukta-m00064/mukta-m0-p145/
+
+## Passage (excerpt as hashed)
+
+```
+mayūragirimāruhya dakṣiṇaṃ sāgaraṃ mayānamaste brahmaputrāya namaḥ śantanusūnavemayūragirimāruhya paśyato vihagācalamtadā abhīkṣṇaṃ deveśi brāhmaṇānāñca sampadaḥtadā tu makare rājye hāhākāraśca jāyateyadā bhavati deveśi cāturvarṇasya sampadaḥtadā tu kṣatriyo rājā dharmarājye sthiro bhavetpañcavarṣāntare devi jalpīśaścāti mlecchakaḥyadā tu dakṣiṇe tasya krūro rājā bhavedanutadā pariharedvāso bhadrapīṭhe viśeṣataḥsaṃśayaḥtadā pṛthvī bhaved bhogyā bhaviṣyati phalādhikābhānave'rghyaṃ tato dadyād brāhmaṇān bhojayet tataḥtatra snātvā maheśāni tiryag yonau na jāyateca tridivaṃ) | pāṭhaḥ keṣucit pāṇḍulipiṣu nāsti] vrajettasyāñca parvaṇi snātvā brahmahatyāṃ vyapohatikapotakuṇḍasambhūtā kapilenāvatāritātasyāḥ pūrve ca krośānte divyanāmā sarasvatīayane viṣuve caiva saṃkrāntyāṃ ca viśeṣataḥyadā pūrvamukhaṃ yāti brāhmaṇānāṃ bhayantadāyadā aiśānye gamanaṃ mahāmārī tadā bhavetpaścimasthāśca ye kecid dhana-dhānya-kṣayo bhavettatra vāsaṃ na kuryācca dūrataḥ parivarjayettasmin snāne bhaved yaddhi vāyurlakṣmīḥ pravardhateyāvacca bandhanamurvyāstāvad kulaṃ śapanti ca
+```
+
+## Reading
+
+Withheld. no verified L2 layer in this pack
+
+## Claims
+
+| Claim | Status | Basis |
+|---|---|---|
+| Link completeness | FAIL (9 gaps named) | assurance.trace_links_present + gaps |
+| Human review | UNREVIEWED (machine rendering; no human sign-off) | assurance.review |
+| Deterministic chunk gate | UNKNOWN (none) | proofs.chunk_gate |
+| Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
+| Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

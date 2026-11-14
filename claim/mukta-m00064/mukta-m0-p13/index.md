@@ -1,0 +1,27 @@
+# mukta-m00064 mukta-m0-p13 (301-325)
+
+mukta-m00064 mukta-m0-p13 (301-325) links incomplete (9 gaps named); no formal theorems bound. Chunk gate UNKNOWN; no witness verified.
+
+> Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
+
+Canonical: https://svatantrya.net/claim/mukta-m00064/mukta-m0-p13/
+
+## Passage (excerpt as hashed)
+
+```
+mahālakṣmīrvilvavṛkṣo jātaḥ śrīśailaparvatevṛttāntaṃ paramāścaryaṃ vada me karuṇāmayasatye tu pūjayāmāsa liṅgaṃ rāmeśvarābhidhamtatra me'nugrahād vāṇī sarveṣāṃ priyatāṃ gatātādṛk prītirna lakṣmyāñca jāyate keśavasya caprāptaṃ malliṅgamekānte tapastepe'tidāruṇamtadā sā vṛkṣarūpeṇa sthitā liṅgāgrataḥ satīkoṭivarṣe maheśāni tato me'nugraho'bhavatsadaiva parameśāni viharet sā sadaiva hisadaivāpūjayad mām sā madbhaktā sātulā śivesarvatīrthamayo devi sarvadevamayaḥ sadātatphalaistatprasūnairvā tatpatrairyaḥ prapūjayettatkāṣṭhacandanaṃ bhāle yo dhārayati saṃbhramātatastaccandanaṃ devi dhārayenna kadācanabilvamūle maheśāni prāṇāṃstyajati yo naraḥatastatsādhanaṃ devi sarveṣāṃ priyakārakamabhyarcya yatnato devi kṣetrapālaṃ prapūjya casiddhiṃ dehi jagatkartā dehi sthānaṃ namostu tetataḥ sthānantu sampūjya likhettatra varānanetadante mūlamantrañca vilikhet sādhakottamaḥsaṃkalpyāṣṭottarayutaṃ japtvā cchidrāvadhārayetityevaṃ kathitaṃ tubhyaṃ sārāt sāraṃ parāt paramidānīṃ śṛṇu deveśi muṇḍasādhanamuttamamnaramahiṣamārjāramuṇḍatrayaṃ varānaneśivāsarpasārameyanṛṇāṃ [vṛṣabhānāṃ] bhavā maheśvari
+```
+
+## Reading
+
+Withheld. no verified L2 layer in this pack
+
+## Claims
+
+| Claim | Status | Basis |
+|---|---|---|
+| Link completeness | FAIL (9 gaps named) | assurance.trace_links_present + gaps |
+| Human review | UNREVIEWED (machine rendering; no human sign-off) | assurance.review |
+| Deterministic chunk gate | UNKNOWN (none) | proofs.chunk_gate |
+| Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
+| Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

@@ -1,0 +1,90 @@
+{
+ "artifacts": [
+  {
+   "bytes": 1300,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "693ef5e7875be1910621014eec272101ab3afd1b5370c5e982cfbaca8a806bfb"
+  },
+  {
+   "bytes": 19201,
+   "name": "kul-p63.argmap.json",
+   "origin": "kularnavatantra/data/kul-p63.argmap.json",
+   "role": "layer-argmap",
+   "sha256": "d064b999d6d0ede5b3638a4c89a39c3581a7c7804684ab6afa8e7a00975945ff",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 509,
+   "name": "kul-p63.c1.json",
+   "origin": "kularnavatantra/data/kul-p63.c1.json",
+   "role": "layer-c1",
+   "sha256": "1713edf61ec00aa844ff61216d65bb37abaa06101cd14f894d49f1a34628aa9f",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 52595,
+   "name": "kul-p63.l0.json",
+   "origin": "kularnavatantra/data/kul-p63.l0.json",
+   "role": "layer-l0",
+   "sha256": "580c4c460a5919f424ed037613884f0bcdb96c70afea451670d2a1d159d2d1e9",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 10515,
+   "name": "kul-p63.l2.json",
+   "origin": "kularnavatantra/data/kul-p63.l2.json",
+   "role": "layer-l2",
+   "sha256": "ed183d2b9ccf61746c3da1903e0f769266e51b2761ffe0748d4e619ae6567226",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 29617,
+   "name": "kul-p63.t1.json",
+   "origin": "kularnavatantra/data/kul-p63.t1.json",
+   "role": "layer-t1",
+   "sha256": "2d0261f62d963679596280596082e44b57bd445fc738d1b1e9a7e1a4b9cf5023",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 2209,
+   "name": "proof-kul-p63.json",
+   "origin": "kularnavatantra/proof/proof-kul-p63.json",
+   "role": "proof",
+   "sha256": "a4e2cf0c72d9211ed784aacf4636787ea537e369a7874fbfc5263b53a326ce90"
+  }
+ ],
+ "assurance": {
+  "chunk_gate": "UNKNOWN",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "FAIL",
+  "witness": "UNPINNED"
+ },
+ "caveats": [],
+ "chunk": {
+  "immutable_id": "pt:pid:kularnavatantra:693ef5e7875b",
+  "target": "kul-p63",
+  "work": "kularnavatantra"
+ },
+ "format": "trika-verify-pack/1",
+ "gaps": [
+  "layer:l3",
+  "layer:l4",
+  "identity:db"
+ ],
+ "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/kularnavatantra-kul-p63/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
+ "trace": {
+  "file": "traces/kularnavatantra-kul-p63.json",
+  "sha256": "971ba11f5f9ab8476bd84129a54ab2b5c80625d258373fb89b6e444dcc2adb2f"
+ },
+ "verdict": "PARTIAL",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
+}

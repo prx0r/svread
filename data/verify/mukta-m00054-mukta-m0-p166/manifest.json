@@ -1,0 +1,90 @@
+{
+ "artifacts": [
+  {
+   "bytes": 1327,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "8da1e86b805b47f54af55bdde0f00fbeb6b92d7cbd69378915048e4b8a1cf733"
+  },
+  {
+   "bytes": 21859,
+   "name": "mukta-m0-p166.argmap.json",
+   "origin": "mukta-m00054/data/mukta-m0-p166.argmap.json",
+   "role": "layer-argmap",
+   "sha256": "ad3bb36baee1bed6c8a3650123b9d2311202feae3ea07196767f60fe0085b5bb",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 679,
+   "name": "mukta-m0-p166.c1.json",
+   "origin": "mukta-m00054/data/mukta-m0-p166.c1.json",
+   "role": "layer-c1",
+   "sha256": "3286127a8dc73bb11e32dd1ac9b060e3736df534e1226a009c9cf5be43321a9d",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 37183,
+   "name": "mukta-m0-p166.l0.json",
+   "origin": "mukta-m00054/data/mukta-m0-p166.l0.json",
+   "role": "layer-l0",
+   "sha256": "249113ca017dbc2c1fd9b71bca5e6a5edb6bb9d2c22795bac8ffa0e7eaa2241c",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 10410,
+   "name": "mukta-m0-p166.l2.json",
+   "origin": "mukta-m00054/data/mukta-m0-p166.l2.json",
+   "role": "layer-l2",
+   "sha256": "b3d81f966e1f8d1e7f252b845ed09d1c6deaabecbb3dc33e11c616f25e2b37fd",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 23719,
+   "name": "mukta-m0-p166.t1.json",
+   "origin": "mukta-m00054/data/mukta-m0-p166.t1.json",
+   "role": "layer-t1",
+   "sha256": "2273cfa094806d426b1117669c7154411897eae747f05b078a81db877e3c2a17",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1574,
+   "name": "proof-mukta-m0-p166.json",
+   "origin": "mukta-m00054/proof/proof-mukta-m0-p166.json",
+   "role": "proof",
+   "sha256": "04ad8c41c380173827389bb3945907a62456ee7e248f99bda65e106cc8d61a82"
+  }
+ ],
+ "assurance": {
+  "chunk_gate": "UNKNOWN",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "FAIL",
+  "witness": "UNPINNED"
+ },
+ "caveats": [],
+ "chunk": {
+  "immutable_id": "pt:pid:mukta-m00054:8da1e86b805b",
+  "target": "mukta-m0-p166",
+  "work": "mukta-m00054"
+ },
+ "format": "trika-verify-pack/1",
+ "gaps": [
+  "layer:l3",
+  "layer:l4",
+  "identity:db"
+ ],
+ "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/mukta-m00054-mukta-m0-p166/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
+ "trace": {
+  "file": "traces/mukta-m00054-mukta-m0-p166.json",
+  "sha256": "c42446552d2d1c9a73c3f3f24eeb3ad443fa91bc3fb31ed2a4a7c3e7d562c4ad"
+ },
+ "verdict": "PARTIAL",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
+}
