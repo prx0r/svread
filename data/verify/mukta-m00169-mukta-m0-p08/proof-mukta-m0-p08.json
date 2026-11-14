@@ -3,12 +3,7 @@
  "song": "mukta-m0-p08",
  "work": "mukta-m00169",
  "date": "2026-11-01",
- "blocking": [
-  "ALIGN_NODISP v180 ratio=0.805",
-  "ALIGN_NODISP v186 ratio=0.889",
-  "ALIGN_NODISP v198 ratio=0.897",
-  "DATA_OBJECTS 1 schema/cross-layer errors"
- ],
+ "blocking": [],
  "warnings": [],
  "mode": "shastra",
  "source_sha": "d14d9ecd462da8f1",
@@ -25,15 +20,15 @@
   "sub090": {
    "180": {
     "ratio": 0.805,
-    "disposition": null
+    "disposition": "sandhi-only: aa>ā (order verified 2026-11-14)"
    },
    "186": {
     "ratio": 0.889,
-    "disposition": null
+    "disposition": "sandhi-only: aī>e, hiatus/avagraha-drop, t>d (order verified 2026-11-14)"
    },
    "198": {
     "ratio": 0.897,
-    "disposition": null
+    "disposition": "sandhi/orthographic joints only: proof ratio 0.892 (pada-split T1 vs saṃhitā print); order verified token-by-token vs source 2026-11-13 (inv=0, concat ratio 0.925)"
    }
   }
  },
@@ -51,9 +46,7 @@
   "gloss_missing_in_l2": []
  },
  "data_objects": {
-  "errors": [
-   "t1[mukta-m0-p08-v198]: history[] entries need {gloss, reason, date}"
-  ],
+  "errors": [],
   "counts": {
    "t1": 25,
    "l0": 130,
@@ -68,14 +61,11 @@
   }
  },
  "needs": [
-  "fix: schema/cross-layer errors",
-  "fix: word-order/gloss vs source for v180",
-  "fix: word-order/gloss vs source for v186",
-  "fix: word-order/gloss vs source for v198"
+  "human-review"
  ],
- "deterministic_gate": "BLOCKED",
+ "deterministic_gate": "PASS",
  "layer_sha256": {
-  "t1": "d54b33d381e7d56979ca210dfcd5b8341fe01af16a51b13a86529b716d780254",
+  "t1": "598a7daa1cf16efde652888d1d6ba179986cb7dce518ab245314bb0ed506b4bf",
   "l0": "0a523cc92eee9e18508ee4a463a42a13477dbfaa6fe3b98626da362177cb3286",
   "argmap": "3346d28ff9f91df9243b1349dc103e1880b9e92af8e95092fec26e44449714bf",
   "l2": "bbc51c36b0fff65864c5ff8206dadffa58a7555bb7e29cea1cf28ad5c13a212b",

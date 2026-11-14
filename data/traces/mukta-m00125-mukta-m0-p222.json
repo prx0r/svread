@@ -28,15 +28,9 @@
  },
  "format": "trika-trace/1",
  "gaps": [
-  "layer:t1",
-  "layer:l0",
-  "layer:argmap",
-  "layer:l2",
-  "layer:c1",
   "layer:l3",
   "layer:l4",
-  "identity:db",
-  "proofs:song"
+  "identity:db"
  ],
  "identity": {
   "db": "postgresql://patala:***@localhost:5432/openpatala",
@@ -49,12 +43,16 @@
  },
  "layers": {
   "argmap": {
-   "present": false,
-   "status": "UNKNOWN"
+   "path": "mukta-m00125/data/mukta-m0-p222.argmap.json",
+   "present": true,
+   "sha256": "614e69514ecdec86152eb1b9a84e45e0515f2a7b49a7462f7f78a4e22fc83d3d",
+   "status": "BOUND"
   },
   "c1": {
-   "present": false,
-   "status": "UNKNOWN"
+   "path": "mukta-m00125/data/mukta-m0-p222.c1.json",
+   "present": true,
+   "sha256": "e642653d496ddeb5c7bf00d1410182af49190eacb6cec51ee45b5f11b602f1c9",
+   "status": "BOUND"
   },
   "c2": {
    "note": "C2 renders are optional (owner: existing C2 stays; waived)",
@@ -62,12 +60,16 @@
    "status": "NOT-APPLICABLE"
   },
   "l0": {
-   "present": false,
-   "status": "UNKNOWN"
+   "path": "mukta-m00125/data/mukta-m0-p222.l0.json",
+   "present": true,
+   "sha256": "b3d1ae96322af7c9003b43597a5fde0ae1537902aef5d6d08efc1fe7667b4024",
+   "status": "BOUND"
   },
   "l2": {
-   "present": false,
-   "status": "UNKNOWN"
+   "path": "mukta-m00125/data/mukta-m0-p222.l2.json",
+   "present": true,
+   "sha256": "0f6735142e2751660bf599bc2e53f06b7c12cc6e86e67ae27dcd5e62659dad65",
+   "status": "BOUND"
   },
   "l3": {
    "present": false,
@@ -78,14 +80,16 @@
    "status": "UNKNOWN"
   },
   "t1": {
-   "present": false,
-   "status": "UNKNOWN"
+   "path": "mukta-m00125/data/mukta-m0-p222.t1.json",
+   "present": true,
+   "sha256": "115288f335d0d8e504457b2c91091b6d49799f6f775bcebfffc0ecb598bd8519",
+   "status": "BOUND"
   }
  },
  "open_problems": [
   "passage id absent from box DB"
  ],
- "produced_at": "2026-11-14T06:14:34+00:00",
+ "produced_at": "2026-11-14T08:31:39+00:00",
  "produced_by": {
   "tool": "trace_bundle/1",
   "trika_rev": "UNKNOWN"
@@ -96,8 +100,17 @@
    "status": "UNKNOWN"
   },
   "song_proof": {
-   "note": "no proof file",
-   "status": "UNKNOWN"
+   "blocking": [
+    "ALIGN_NODISP v5548 ratio=0.899",
+    "ALIGN_NODISP v5549 ratio=0.894",
+    "ALIGN_NODISP v5550 ratio=0.897"
+   ],
+   "deterministic_gate": "BLOCKED",
+   "file": "mukta-m00125/proof/proof-mukta-m0-p222.json",
+   "sha256": "b0402190790e5be3fe078a29379d89cc70bec70ff5bc661c411e1c543dd1090f",
+   "status": "BLOCKED",
+   "tool": "proof_record v1 2026-11-01",
+   "warnings": 0
   }
  },
  "source": {

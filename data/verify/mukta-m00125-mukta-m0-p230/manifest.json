@@ -5,6 +5,53 @@
    "name": "source.txt",
    "role": "source-bytes",
    "sha256": "e89f424fb2e53711be26d1dbab3fccb76f9ed869d8042eee886b9c321d6b2a6c"
+  },
+  {
+   "bytes": 22191,
+   "name": "mukta-m0-p230.argmap.json",
+   "origin": "mukta-m00125/data/mukta-m0-p230.argmap.json",
+   "role": "layer-argmap",
+   "sha256": "c6739d208fa04e24d999cfd9f50554d704f19be89dcfd18fea1c1d48b9ae6374",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 657,
+   "name": "mukta-m0-p230.c1.json",
+   "origin": "mukta-m00125/data/mukta-m0-p230.c1.json",
+   "role": "layer-c1",
+   "sha256": "ce158f43d42424b67a25dfdc9769bb72e50c99dbafc889e9a8a9184aac92aef3",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 42597,
+   "name": "mukta-m0-p230.l0.json",
+   "origin": "mukta-m00125/data/mukta-m0-p230.l0.json",
+   "role": "layer-l0",
+   "sha256": "e8f4f8852f3990ae08241356c4773d883b06783d94615bffa4222fc24fa74819",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 10900,
+   "name": "mukta-m0-p230.l2.json",
+   "origin": "mukta-m00125/data/mukta-m0-p230.l2.json",
+   "role": "layer-l2",
+   "sha256": "4fef83f4f313149aee8073298d5bcae58e5f4b3923c2cd019ab4f8bf2d4f0b65",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 26084,
+   "name": "mukta-m0-p230.t1.json",
+   "origin": "mukta-m00125/data/mukta-m0-p230.t1.json",
+   "role": "layer-t1",
+   "sha256": "bc8849bf4ed69b6a1146336d0590a42ca137437ab7aa5cdfffcd7aa9255ef6f8",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1578,
+   "name": "proof-mukta-m0-p230.json",
+   "origin": "mukta-m00125/proof/proof-mukta-m0-p230.json",
+   "role": "proof",
+   "sha256": "19d4a02a86a3f53861e8703788d4fc4a6c8a96e9e31b4866e1c36ab8dea7959a"
   }
  ],
  "assurance": {
@@ -28,21 +75,15 @@
  },
  "format": "trika-verify-pack/1",
  "gaps": [
-  "layer:t1",
-  "layer:l0",
-  "layer:argmap",
-  "layer:l2",
-  "layer:c1",
   "layer:l3",
   "layer:l4",
-  "identity:db",
-  "proofs:song"
+  "identity:db"
  ],
  "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/mukta-m00125-mukta-m0-p230/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
  "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
  "trace": {
   "file": "traces/mukta-m00125-mukta-m0-p230.json",
-  "sha256": "937ea0c0cdd62730909ac56eb3309eec1141fc459b56fab65d39d68a9e3ab667"
+  "sha256": "8246d987798956c763ee42ed89940dcea3256132866c5c81fa287d1fb390d5bc"
  },
  "verdict": "PARTIAL",
  "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
