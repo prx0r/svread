@@ -1,6 +1,6 @@
-# svabodhasiddhi svab-p01 (2-10)
+# svabodhasiddhi svab-p01 (1-6)
 
-svabodhasiddhi svab-p01 (2-10) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+svabodhasiddhi svab-p01 (1-6) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
@@ -9,11 +9,12 @@ Canonical: https://svatantrya.net/claim/svabodhasiddhi/svab-p01/
 ## Passage (excerpt as hashed)
 
 ```
-aśeṣadarśanāveśaviśeṣādhivivarjitam / svasaṃvedanasaṃvedyaṃ svasthaṃ vande paraṃ śivam nirastakalpanājālavikalpaughavighātine / namo 'stu paramānandapadātītāya śambhave jayanty apārasaṃsārasārāsāravibhāgadāḥ / kaivalyajñānasaṃbodhahetavaś śambhavāṅghrayaḥ mano buddhir ahaṃ prāṇās tanmātrendriyajīvanam / yaṃ dṛṣṭvā vinivartante tam upāsyam upāsmahe mamāham iti hṛdgranthicchedanaikakṛpāṇikām / spandāspandakṛtagrāsāṃ naumy ahaṃ śuddhasaṃvidam vyapadeśavihīnasya tattvasya kathanaṃ katham / svasaṃvedanasadyuktyā gamyate yadi kenacit jñānayogopadeśena yasya nāśvāsa āntaraḥ / samāśvāsavihīnatvāt kathaṃ naiḥśreyasaṃ phalam upeyaprāptyupāyo 'yaṃ svabodhe jāgarūkatā / svabodhajāgarūkatvān nirvibhāgā sthitir muneḥ upāyo nāparaḥ kaścit svasattānugamād ṛte / tām evānusaran yogī svastho yaḥ sa sukhī bhavet
+namaḥ sakalakalyāṇamayakaivalyadāyine / śivāya śamitāśeṣabhavādhvadhvāntabhānaveaśeṣadarśanāveśaviśeṣādhivivarjitam / svasaṃvedanasaṃvedyaṃ svasthaṃ vande paraṃ śivamnirastakalpanājālavikalpaughavighātine / namo 'stu paramānandapadātītāya śambhavejayanty apārasaṃsārasārāsāravibhāgadāḥ / kaivalyajñānasaṃbodhahetavaś śambhavāṅghrayaḥmano buddhir ahaṃ prāṇās tanmātrendriyajīvanam / yaṃ dṛṣṭvā vinivartante tam upāsyam upāsmahemamāham iti hṛdgranthicchedanaikakṛpāṇikām / spandāspandakṛtagrāsāṃ naumy ahaṃ śuddhasaṃvidam
 ```
 
 ## Reading (machine draft, verse-mapped)
 
+**svab-p01-v01** — Bow to the giver of freedom, made of every blessing — to Śiva, the sun that burnt away the darkness on every road of becoming.
 **svab-p01-v02** — I praise the highest Śiva — sick with no possession by any creed, to be known only by the feeling of the self, dwelling in himself.
 **svab-p01-v03** — Bow, let there be bow, to Śambhu — smasher of the net of fancies and their floods, standing past even the highest bliss.
 **svab-p01-v04** — Victorious are Śambhu's feet: they teach the wandering world to tell the real from the sham, and wake the knowledge that frees.

@@ -1,6 +1,6 @@
-# spanda span-p01 (2-10)
+# spanda span-p01 (1-6)
 
-spanda span-p01 (2-10) passes link checks; counts REGISTERED without a per-declaration run. Chunk gate BLOCKED; no witness verified.
+spanda span-p01 (1-6) passes link checks; counts REGISTERED without a per-declaration run. Chunk gate BLOCKED; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
@@ -9,11 +9,12 @@ Canonical: https://svatantrya.net/claim/spanda/span-p01/
 ## Passage (excerpt as hashed)
 
 ```
-yatra sthitam idaṃ sarvaṃ kāryaṃ yasmāc ca nirgataṃ | tasyānāvṛtarūpatvān na nirodho 'sti kutracit jāgradādi vibhede 'pi tadabhinne prasarpati | nivartate nijānnaiva svabhāvād upalabdhṛtaḥ ahaṃ sukhī ca duḥkhī ca raktaś ca ityadisamvidaḥ | sukhādyavasthānusyūte vartante 'nyatra tāḥ sphuṭam na duḥkhaṃ na sukhaṃ yatra na grāhyam grāhakaṃ na ca | na cāsti mūḍhabhāvo 'pi tad asti paramārthataḥ yataḥ karaṇavargo 'yaṃ vimūḍho 'mūḍhavat svayam | sahāntareṇa cakreṇa pravṛttisthitisaṃhṛtiḥ labhate tatprayatnena parīkṣyaṃ tattvam ādarāt | yataḥ svatantratā tasya sarvatreyam akṛtrimā na hīcchānodanasyāyam prerakatvena vartate | api tv ātmabalasparśāt puruṣas tatsamo bhavet nijāśuddhyāsamarthasya kartavyeṣv abhilāṣiṇaḥ | yadā kṣobhaḥ pralīyeta tadā syāt paramam padam tadāsyākṛtrimo dharmo jñatvakartṛtvalakṣaṇah | yatas tadepsitaṃ sarvaṃ jānāti ca karoti ca
+yasyonmeṣanimeṣābhyāṃ jagataḥ pralayodayau | taṃ śakticakravibhavaprabhavaṃ śaṅkaraṃ stumaḥyatra sthitam idaṃ sarvaṃ kāryaṃ yasmāc ca nirgataṃ | tasyānāvṛtarūpatvān na nirodho 'sti kutracitjāgradādi vibhede 'pi tadabhinne prasarpati | nivartate nijānnaiva svabhāvād upalabdhṛtaḥahaṃ sukhī ca duḥkhī ca raktaś ca ityadisamvidaḥ | sukhādyavasthānusyūte vartante 'nyatra tāḥ sphuṭamna duḥkhaṃ na sukhaṃ yatra na grāhyam grāhakaṃ na ca | na cāsti mūḍhabhāvo 'pi tad asti paramārthataḥyataḥ karaṇavargo 'yaṃ vimūḍho 'mūḍhavat svayam | sahāntareṇa cakreṇa pravṛttisthitisaṃhṛtiḥ
 ```
 
 ## Reading (machine draft, verse-mapped)
 
+**span-p01-v01** — By whose opening and closing the worlds dissolve and emerge — to him, source of power-wheel glory, I praise Śaṅkara.
 **span-p01-v02** — Where this whole effect abides, and whence it has come forth — from being uncovered in form, there is no obstruction anywhere.
 **span-p01-v03** — Even in the difference of waking and the rest, it glides in the undifferent; the perceiver-ness never turns back from its own being.
 **span-p01-v04** — I happy, suffering, attached, and the like — those awarenesses plainly abide elsewhere, strung on pleasure-states.

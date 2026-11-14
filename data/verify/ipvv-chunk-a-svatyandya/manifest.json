@@ -1,0 +1,69 @@
+{
+ "artifacts": [
+  {
+   "bytes": 27723,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "c6af93f66e75635b56204cb799d831e2d9b65f71133451052b16c6acb5e8e253"
+  },
+  {
+   "bytes": 953163,
+   "name": "chunk-a-svatyandya.l0.json",
+   "origin": "ipvv/data/chunk-a-svatyandya.l0.json",
+   "role": "layer-l0",
+   "sha256": "ac301b9f2f5f1fa41f5f5c33eb64f9cb396be83fbe0c0c051c255786435141f7",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 155719,
+   "name": "chunk-a-svatyandya.t1.json",
+   "origin": "ipvv/data/chunk-a-svatyandya.t1.json",
+   "role": "layer-t1",
+   "sha256": "f2cf47a8b7f42b40877f604c2664f88c9c7904a093a88630763d661b8c13e4cc",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1605,
+   "name": "proof-chunk-a-svatyandya.json",
+   "origin": "ipvv/proof/proof-chunk-a-svatyandya.json",
+   "role": "proof",
+   "sha256": "0a57f68a99faec2f755f84a01e53c0fcacfbfd275a171f8bffb65b6eaed9b405"
+  }
+ ],
+ "assurance": {
+  "chunk_gate": "UNKNOWN",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "FAIL",
+  "witness": "UNPINNED"
+ },
+ "caveats": [],
+ "chunk": {
+  "immutable_id": "pt:pid:ipvv:c6af93f66e75",
+  "target": "chunk-a-svatyandya",
+  "work": "ipvv"
+ },
+ "format": "trika-verify-pack/1",
+ "gaps": [
+  "layer:argmap",
+  "layer:l2",
+  "layer:c1",
+  "layer:l3",
+  "layer:l4",
+  "identity:db"
+ ],
+ "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/ipvv-chunk-a-svatyandya/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
+ "trace": {
+  "file": "traces/ipvv-chunk-a-svatyandya.json",
+  "sha256": "8dcb3b8a1fbdbaa423ec7e7cad378ee4667a0c99099a13ca32ed25226e5c7215"
+ },
+ "verdict": "PARTIAL",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
+}

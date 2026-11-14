@@ -1,6 +1,6 @@
-# vbt vbt-p05 (42-51)
+# vbt vbt-p05 (41-50)
 
-vbt vbt-p05 (42-51) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+vbt vbt-p05 (41-50) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
@@ -9,11 +9,12 @@ Canonical: https://svatantrya.net/claim/vbt/vbt-p05/
 ## Passage (excerpt as hashed)
 
 ```
-pi.ṅdamantrasya sarvasya sthūlavarṇakrameṇa tu | ardhendubindunādāntaḥ śūnyoccārād bhavec chivaḥ nijadehe sarvadikkaṃ yugapad bhāvayed viyat | nirvikalpamanās tasya viyat sarvam pravartate pṛṣṭaśūnyaṃ mūlaśūnyaṃ yugapad bhāvayec ca yaḥ | śarīranirapekṣiṇyā śaktyā śūnyamanā bhavet pṛṣṭaśūnyaṃ mūlaśūnyaṃ hṛcchūnyam bhāvayet sthiram | yugapan nirvikalpatvān nirvikalpodayas tataḥ tanūdeśe śūnyataiva kṣaṇamātraṃ vibhāvayet | nirvikalpaṃ nirvikalpo nirvikalpasvarūpabhāk sarvaṃ dehagataṃ dravyaṃ viyadvyāptaṃ mṛgekṣaṇe | vibhāvayet tatas tasya bhāvanā sā sthirā bhavet dehāntare tvagvibhāgam bhittibhūtaṃ vicintayet | na kiṃcid antare tasya dhyāyann adhyeyabhāg bhavet hṛdyākāśe nilīnākṣaḥ padmasampuṭamadhyagaḥ | ananyacetāḥ subhage paraṃ saubhāgyam āpnuyāt sarvataḥ svaśarīrasya dvādaśānte manolayāt | dṛḍhabuddher dṛḍhībhūtaṃ tattvalakṣyam pravartate yathā tathā yatra tatra dvādaśānte manaḥ kṣipet || pratikṣaṇaṃ kṣīṇavṛtter vailakṣaṇyaṃ dinair bhavet
+tantryādivādyaśabdeṣu dīrgheṣu kramasaṃsthiteḥ | ananyacetāḥ pratyante paravyomavapur bhavetpi.ṅdamantrasya sarvasya sthūlavarṇakrameṇa tu | ardhendubindunādāntaḥ śūnyoccārād bhavec chivaḥnijadehe sarvadikkaṃ yugapad bhāvayed viyat | nirvikalpamanās tasya viyat sarvam pravartatepṛṣṭaśūnyaṃ mūlaśūnyaṃ yugapad bhāvayec ca yaḥ | śarīranirapekṣiṇyā śaktyā śūnyamanā bhavetpṛṣṭaśūnyaṃ mūlaśūnyaṃ hṛcchūnyam bhāvayet sthiram | yugapan nirvikalpatvān nirvikalpodayas tataḥtanūdeśe śūnyataiva kṣaṇamātraṃ vibhāvayet | nirvikalpaṃ nirvikalpo nirvikalpasvarūpabhāksarvaṃ dehagataṃ dravyaṃ viyadvyāptaṃ mṛgekṣaṇe | vibhāvayet tatas tasya bhāvanā sā sthirā bhavetdehāntare tvagvibhāgam bhittibhūtaṃ vicintayet | na kiṃcid antare tasya dhyāyann adhyeyabhāg bhavethṛdyākāśe nilīnākṣaḥ padmasampuṭamadhyagaḥ | ananyacetāḥ subhage paraṃ saubhāgyam āpnuyātsarvataḥ svaśarīrasya dvādaśānte manolayāt | dṛḍhabuddher dṛḍhībhūtaṃ tattvalakṣyam pravartate
 ```
 
 ## Reading (machine draft, verse-mapped)
 
+**vbt-p05-v41** — In stringed instruments and the like, in the long tones of ordered resonance: with undivided mind at the limit, the body may become the supreme sky.
 **vbt-p05-v42** — Of the body-mantra of all, by the gross-letter course — ending in moon-drop-sound: from void uttering, one may become Śiva.
 **vbt-p05-v43** — In one's own body, all directions at once should be contemplated as sky; with undirected mind — of him, sky proceeds everywhere.
 **vbt-p05-v44** — The back-void and the root-void at once should be contemplated, and whoever: by the body-disregarding power, void-minded he may be.

@@ -1,0 +1,138 @@
+{
+ "assurance": {
+  "chunk_gate": "UNKNOWN",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "FAIL",
+  "witness": "UNPINNED"
+ },
+ "caveats": [],
+ "chunk": {
+  "immutable_id": "pt:pid:ipvv:61044fa8286b",
+  "target": "chunk-v3-m-agama-dvitiyo-close-k12-20",
+  "work": "ipvv"
+ },
+ "essays": {
+  "citing": [],
+  "projection_sha256": "4bf816c9a66f3685409fc5a7d90218aa10ca5623db3b63c5552838db6326aa98"
+ },
+ "formal": {
+  "status": "none",
+  "theorems": []
+ },
+ "format": "trika-trace/1",
+ "gaps": [
+  "layer:argmap",
+  "layer:l2",
+  "layer:c1",
+  "layer:l3",
+  "layer:l4",
+  "identity:db"
+ ],
+ "identity": {
+  "db": "postgresql://patala:***@localhost:5432/openpatala",
+  "rows": {
+   "editions": [
+    {
+     "id": "ipvv:edition:1",
+     "title": "ipvv"
+    }
+   ],
+   "etexts": [
+    {
+     "artifact": "7b6b1a13d89f96eca15471942b3ca161af6b759c8923f3c77f12e9c5068bcdd1",
+     "id": "ipvv:etext:1",
+     "provider": "translation-work"
+    }
+   ],
+   "witnesses_total": 0
+  },
+  "status": "UNRESOLVED"
+ },
+ "layers": {
+  "argmap": {
+   "present": false,
+   "status": "UNKNOWN"
+  },
+  "c1": {
+   "present": false,
+   "status": "UNKNOWN"
+  },
+  "c2": {
+   "note": "C2 renders are optional (owner: existing C2 stays; waived)",
+   "present": false,
+   "status": "NOT-APPLICABLE"
+  },
+  "l0": {
+   "path": "ipvv/data/chunk-v3-m-agama-dvitiyo-close-k12-20.l0.json",
+   "present": true,
+   "sha256": "475026bdcb7406c364a99be63329efcca784ef216603fb01c83b01f16f7d7ecf",
+   "status": "BOUND"
+  },
+  "l2": {
+   "present": false,
+   "status": "UNKNOWN"
+  },
+  "l3": {
+   "present": false,
+   "status": "UNKNOWN"
+  },
+  "l4": {
+   "present": false,
+   "status": "UNKNOWN"
+  },
+  "t1": {
+   "path": "ipvv/data/chunk-v3-m-agama-dvitiyo-close-k12-20.t1.json",
+   "present": true,
+   "sha256": "fee0a93f155059a628c0e4b9d4941f86c4085e77f3746b3d5b5bb9cd5e484ba1",
+   "status": "BOUND"
+  }
+ },
+ "open_problems": [
+  "passage id absent from box DB"
+ ],
+ "produced_at": "2026-11-14T05:11:48+00:00",
+ "produced_by": {
+  "tool": "trace_bundle/1",
+  "trika_rev": "UNKNOWN"
+ },
+ "proofs": {
+  "chunk_gate": {
+   "note": "chunk not in GATE.json",
+   "status": "UNKNOWN"
+  },
+  "song_proof": {
+   "blocking": [],
+   "deterministic_gate": "PASS",
+   "file": "ipvv/proof/proof-chunk-v3-m-agama-dvitiyo-close-k12-20.json",
+   "sha256": "59a8e2e2ef2427c75b17648c2cb7539d19cc1119898a9a4311593e17756366b2",
+   "status": "PASS",
+   "tool": "proof_record v1 2026-11-01",
+   "warnings": 0
+  }
+ },
+ "source": {
+  "bytes_present": true,
+  "bytes_sha256": "61044fa8286b8c38cf44c495522e57ffdd726fb6c864ece6cd476f63a85d7ce2",
+  "edition": {
+   "label": null,
+   "status": "UNKNOWN"
+  },
+  "immutable_id": "pt:pid:ipvv:61044fa8286b",
+  "ledger": "ipvv/passages.jsonl",
+  "source_sha_file": null,
+  "verses": "46",
+  "witness": {
+   "id": null,
+   "status": "UNPINNED"
+  }
+ },
+ "verdict": "PARTIAL",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
+}

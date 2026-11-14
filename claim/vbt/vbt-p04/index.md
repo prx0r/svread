@@ -1,6 +1,6 @@
-# vbt vbt-p04 (32-41)
+# vbt vbt-p04 (31-40)
 
-vbt vbt-p04 (32-41) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+vbt vbt-p04 (31-40) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
@@ -9,11 +9,12 @@ Canonical: https://svatantrya.net/claim/vbt/vbt-p04/
 ## Passage (excerpt as hashed)
 
 ```
-śikhipakṣaiś citrarūpair ma.ṅdalaiḥ śūnyapañcakam | dhyāyato 'nuttare śūnye praveśo hṛdaye bhavet īdṛśena krameṇaiva yatra kutrāpi cintanā | śūnye kuḍye pare pātre svayaṃ līnā varapradā kapālāntar mano nyasya tiṣṭhan mīlitalocanaḥ | krameṇa manaso dārḍhyāt lakṣayet laṣyam uttamam madhyanāḍī madhyasaṃsthā bisasūtrābharūpayā | dhyātāntarvyomayā devyā tayā devaḥ prakāśate kararuddhadṛgastreṇa bhrūbhedād dvārarodhanāt | dṛṣṭe bindau kramāl līne tanmadhye paramā sthitiḥ dhāmāntaḥkṣobhasambhūtasūkṣmāgnitilakākṛtim | binduṃ śikhānte hṛdaye layānte dhyāyato layaḥ anāhate pātrakarṇe 'bhagnaśabde sariddrute | śabdabrahmaṇi niṣṇātaḥ param brahmādhigacchati praṇavādisamuccārāt plutānte śūnyabhāvānāt | śūnyayā parayā śaktyā śūnyatām eti bhairavi yasya kasyāpi varṇasya pūrvāntāv anubhāvayet | śūnyayā śūnyabhūto 'sau śūnyākāraḥ pumān bhavet tantryādivādyaśabdeṣu dīrgheṣu kramasaṃsthiteḥ | ananyacetāḥ pratyante paravyomavapur bhavet
+tayāpūryāśu mūrdhāntaṃ bhaṅktvā bhrūkṣepasetunā | nirvikalpaṃ manaḥ kṛtvā sarvordhve sarvagodgamaḥśikhipakṣaiś citrarūpair ma.ṅdalaiḥ śūnyapañcakam | dhyāyato 'nuttare śūnye praveśo hṛdaye bhavetīdṛśena krameṇaiva yatra kutrāpi cintanā | śūnye kuḍye pare pātre svayaṃ līnā varapradākapālāntar mano nyasya tiṣṭhan mīlitalocanaḥ | krameṇa manaso dārḍhyāt lakṣayet laṣyam uttamammadhyanāḍī madhyasaṃsthā bisasūtrābharūpayā | dhyātāntarvyomayā devyā tayā devaḥ prakāśatekararuddhadṛgastreṇa bhrūbhedād dvārarodhanāt | dṛṣṭe bindau kramāl līne tanmadhye paramā sthitiḥdhāmāntaḥkṣobhasambhūtasūkṣmāgnitilakākṛtim | binduṃ śikhānte hṛdaye layānte dhyāyato layaḥanāhate pātrakarṇe 'bhagnaśabde sariddrute | śabdabrahmaṇi niṣṇātaḥ param brahmādhigacchatipraṇavādisamuccārāt plutānte śūnyabhāvānāt | śūnyayā parayā śaktyā śūnyatām eti bhairaviyasya kasyāpi varṇasya pūrvāntāv anubhāvayet | śūnyayā śūnyabhūto 'sau śūnyākāraḥ pumān bhavet
 ```
 
 ## Reading (machine draft, verse-mapped)
 
+**vbt-p04-v31** — By that quick filling, to the crown's end broken through, by the brow-toss bridge: thought-free mind made — above all, all go forth.
 **vbt-p04-v32** — With peacock feathers, with varied forms, with circles, in the five-void: of the meditating one, in the unsurpassed void, entry in the heart may be.
 **vbt-p04-v33** — By just such course — wherever thought: in void, on the wall, on the supreme, on the vessel, self dissolved — the boon-giving.
 **vbt-p04-v34** — Inside the skull, mind placed; standing with eyes half closed: in order, from the mind's firmness, mark the to-be-marked — the highest.

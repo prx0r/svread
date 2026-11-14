@@ -1,0 +1,90 @@
+{
+ "artifacts": [
+  {
+   "bytes": 19472,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "079c273dd4e2d49d7adfdb745797fcc3dc22fa493e0f1cd1f513fe9d84ddef61"
+  },
+  {
+   "bytes": 140945,
+   "name": "mv-k02.argmap.json",
+   "origin": "malinivijayavarttika/data/mv-k02.argmap.json",
+   "role": "layer-argmap",
+   "sha256": "1074fec333b944045ccc7245bef5f9dd51750071fb2df246731d3ab7d538baba",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 739,
+   "name": "mv-k02.c1.json",
+   "origin": "malinivijayavarttika/data/mv-k02.c1.json",
+   "role": "layer-c1",
+   "sha256": "21817f12d3d712dc3db02e48181eb9e575f0191311be444594163f3d3c136032",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 536328,
+   "name": "mv-k02.l0.json",
+   "origin": "malinivijayavarttika/data/mv-k02.l0.json",
+   "role": "layer-l0",
+   "sha256": "65615df7af6dbc5ddeda420fd5c1b200370f401682ad1f95a26722d17cd5181c",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 95285,
+   "name": "mv-k02.l2.json",
+   "origin": "malinivijayavarttika/data/mv-k02.l2.json",
+   "role": "layer-l2",
+   "sha256": "f7409fdbb3752656816765f374aa55953a9942b1ce6eb884a88a4381ed914ca2",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 244805,
+   "name": "mv-k02.t1.json",
+   "origin": "malinivijayavarttika/data/mv-k02.t1.json",
+   "role": "layer-t1",
+   "sha256": "e929eaad47de7188f94b4e82514c015a224107981ccde4392aab946fd8425247",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1531,
+   "name": "proof-mv-k02.json",
+   "origin": "malinivijayavarttika/proof/proof-mv-k02.json",
+   "role": "proof",
+   "sha256": "fb669339335996a0820faa55c8d21ff824804ac359e63c2421ada926901dda37"
+  }
+ ],
+ "assurance": {
+  "chunk_gate": "UNKNOWN",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "FAIL",
+  "witness": "UNPINNED"
+ },
+ "caveats": [],
+ "chunk": {
+  "immutable_id": "pt:pid:malinivijayavarttika:079c273dd4e2",
+  "target": "mv-k02",
+  "work": "malinivijayavarttika"
+ },
+ "format": "trika-verify-pack/1",
+ "gaps": [
+  "layer:l3",
+  "layer:l4",
+  "identity:db"
+ ],
+ "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/malinivijayavarttika-mv-k02/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
+ "trace": {
+  "file": "traces/malinivijayavarttika-mv-k02.json",
+  "sha256": "b9a0cb81bce66852c62fd4e56a0d2c4fdbabc5b435bb1f1e68e733e0d6ab90bd"
+ },
+ "verdict": "PARTIAL",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
+}

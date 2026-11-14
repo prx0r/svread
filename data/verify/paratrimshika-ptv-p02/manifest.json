@@ -1,0 +1,112 @@
+{
+ "artifacts": [
+  {
+   "bytes": 921,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "1e455db220ef8e24adeaa3697769dc0dff191b6370a2b04f2409b05eb397c857"
+  },
+  {
+   "bytes": 7309,
+   "name": "ptv-p02.argmap.json",
+   "origin": "paratrimshika/data/ptv-p02.argmap.json",
+   "role": "layer-argmap",
+   "sha256": "09b299ee24b0435e4a4a83eb008c07bfbc174736a9429c4ce4a512fd22b84d15",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 2890,
+   "name": "ptv-p02.c1.json",
+   "origin": "paratrimshika/data/ptv-p02.c1.json",
+   "role": "layer-c1",
+   "sha256": "69b1af706f77c9b3edc7001f19689d701f030b5161a0217da69465a5d54ffa89",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 2865,
+   "name": "ptv-p02.c2.json",
+   "origin": "paratrimshika/data/ptv-p02.c2.json",
+   "role": "layer-c2",
+   "sha256": "c7778502c34062cad3f92c09c0697a9440263dc7e3fef2a84a6d96606bb3c4d7",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 33402,
+   "name": "ptv-p02.l0.json",
+   "origin": "paratrimshika/data/ptv-p02.l0.json",
+   "role": "layer-l0",
+   "sha256": "ef24a77946b40ec92f351796d4b424a8cbbea31f6a50914d97d3365f4e15eed9",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 5077,
+   "name": "ptv-p02.l2.json",
+   "origin": "paratrimshika/data/ptv-p02.l2.json",
+   "role": "layer-l2",
+   "sha256": "4b6712365f0421df1a1820e7fe6b32a8bc89cdcc5d31f839052ffc804cfca3df",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 6078,
+   "name": "ptv-p02.l3.json",
+   "origin": "paratrimshika/data/ptv-p02.l3.json",
+   "role": "layer-l3",
+   "sha256": "6fb01113be1d4162a647aad2f612f29353504329a45d37b9a76ad377f4c2861e",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 6263,
+   "name": "ptv-p02.l4.json",
+   "origin": "paratrimshika/data/ptv-p02.l4.json",
+   "role": "layer-l4",
+   "sha256": "5c474ca4bfd5db67ecfff04aea97b864ecb7ba995580b8269bd441fdd89e8129",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 8732,
+   "name": "ptv-p02.t1.json",
+   "origin": "paratrimshika/data/ptv-p02.t1.json",
+   "role": "layer-t1",
+   "sha256": "a95f3053efb97515d0caac0a234468d209308e0a949831196fd58180c1e8a467",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1723,
+   "name": "proof-ptv-p02.json",
+   "origin": "paratrimshika/proof/proof-ptv-p02.json",
+   "role": "proof",
+   "sha256": "c653bfcafda3a0ccc81e5e3fcba97045daf5e28520d99b0f9ee16b7f7e810b7a"
+  }
+ ],
+ "assurance": {
+  "chunk_gate": "UNKNOWN",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "PASS",
+  "witness": "UNPINNED"
+ },
+ "caveats": [],
+ "chunk": {
+  "immutable_id": "pt:pid:paratrimshika:1e455db220ef",
+  "target": "ptv-p02",
+  "work": "paratrimshika"
+ },
+ "format": "trika-verify-pack/1",
+ "gaps": [
+  "identity:db"
+ ],
+ "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/paratrimshika-ptv-p02/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
+ "trace": {
+  "file": "traces/paratrimshika-ptv-p02.json",
+  "sha256": "1d0e1bc57bc41a072bbc6a146b7436528e30eae9dc8ba9490d589156100f811a"
+ },
+ "verdict": "PARTIAL",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
+}

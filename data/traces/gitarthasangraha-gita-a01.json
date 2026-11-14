@@ -1,0 +1,141 @@
+{
+ "assurance": {
+  "chunk_gate": "UNKNOWN",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "FAIL",
+  "witness": "UNPINNED"
+ },
+ "caveats": [],
+ "chunk": {
+  "immutable_id": "pt:pid:gitarthasangraha:348d065122da",
+  "target": "gita-a01",
+  "work": "gitarthasangraha"
+ },
+ "essays": {
+  "citing": [],
+  "projection_sha256": "359a59f33314ffff9ea9e2b4c3b0a4bcef8f4f59f4dabac3c7d03e92d95ebc41"
+ },
+ "formal": {
+  "status": "none",
+  "theorems": []
+ },
+ "format": "trika-trace/1",
+ "gaps": [
+  "layer:l3",
+  "layer:l4",
+  "identity:db"
+ ],
+ "identity": {
+  "db": "postgresql://patala:***@localhost:5432/openpatala",
+  "rows": {
+   "editions": [
+    {
+     "id": "gitarthasangraha:edition:1",
+     "title": "gitarthasangraha"
+    }
+   ],
+   "etexts": [
+    {
+     "artifact": "c2406eefca24bfc05cafee8c826aa96e95a8c7344a79210e6ba7557e931dbac1",
+     "id": "gitarthasangraha:etext:1",
+     "provider": "translation-work"
+    }
+   ],
+   "witnesses_total": 0
+  },
+  "status": "UNRESOLVED"
+ },
+ "layers": {
+  "argmap": {
+   "path": "gitarthasangraha/data/gita-a01.argmap.json",
+   "present": true,
+   "sha256": "c32c4786bf6a124353d45ae0dd2dff13060cf94f8ffafb9e96c5a4a03f711e23",
+   "status": "BOUND"
+  },
+  "c1": {
+   "path": "gitarthasangraha/data/gita-a01.c1.json",
+   "present": true,
+   "sha256": "ccec5fb04dfedc8f000fbe89486f61476afcb9cbcc8e9ec487ae03380fd29fa5",
+   "status": "BOUND"
+  },
+  "c2": {
+   "note": "C2 renders are optional (owner: existing C2 stays; waived)",
+   "present": false,
+   "status": "NOT-APPLICABLE"
+  },
+  "l0": {
+   "path": "gitarthasangraha/data/gita-a01.l0.json",
+   "present": true,
+   "sha256": "87ba6210cc60b311167f304f23dddc81073cf3b0ad97d5ff1ff38067a4f9a0dc",
+   "status": "BOUND"
+  },
+  "l2": {
+   "path": "gitarthasangraha/data/gita-a01.l2.json",
+   "present": true,
+   "sha256": "3246188001976d2cf25e9aa31e31370ad6bc99d521e165bcd9de7e78843c0912",
+   "status": "BOUND"
+  },
+  "l3": {
+   "present": false,
+   "status": "UNKNOWN"
+  },
+  "l4": {
+   "present": false,
+   "status": "UNKNOWN"
+  },
+  "t1": {
+   "path": "gitarthasangraha/data/gita-a01.t1.json",
+   "present": true,
+   "sha256": "2cd6d749f10a91d935401972323a249d794984fa181a65f950e5feba1f18d923",
+   "status": "BOUND"
+  }
+ },
+ "open_problems": [
+  "passage id absent from box DB"
+ ],
+ "produced_at": "2026-11-14T05:00:45+00:00",
+ "produced_by": {
+  "tool": "trace_bundle/1",
+  "trika_rev": "UNKNOWN"
+ },
+ "proofs": {
+  "chunk_gate": {
+   "note": "no GATE.json",
+   "status": "UNKNOWN"
+  },
+  "song_proof": {
+   "blocking": [],
+   "deterministic_gate": "PASS",
+   "file": "gitarthasangraha/proof/proof-gita-a01.json",
+   "sha256": "3c7cf17306a2056289e020178122bc21f526cc1a3ec6b07070ed96d2123d6d55",
+   "status": "PASS",
+   "tool": "proof_record v1 2026-11-01",
+   "warnings": 0
+  }
+ },
+ "source": {
+  "bytes_present": true,
+  "bytes_sha256": "348d065122da49f2776754b876bf1f7b5859d4bd80c5f750ebe8b95222ddb97b",
+  "edition": {
+   "label": null,
+   "status": "UNKNOWN"
+  },
+  "immutable_id": "pt:pid:gitarthasangraha:348d065122da",
+  "ledger": "gitarthasangraha/passages.jsonl",
+  "source_sha_file": null,
+  "verses": "7-54",
+  "witness": {
+   "id": null,
+   "status": "UNPINNED"
+  }
+ },
+ "verdict": "PARTIAL",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
+}

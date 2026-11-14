@@ -1,0 +1,112 @@
+{
+ "artifacts": [
+  {
+   "bytes": 952,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "45cc611b6384e2bd0e9eeef6be38f5f11f7d1668123e7e4b9d33048df36e9717"
+  },
+  {
+   "bytes": 6456,
+   "name": "deha-p01.argmap.json",
+   "origin": "dehastha/data/deha-p01.argmap.json",
+   "role": "layer-argmap",
+   "sha256": "6ae942f762f0729ef5febdf1eaf65048a28520380da5689d8c21bb7b52ea4758",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 3436,
+   "name": "deha-p01.c1.json",
+   "origin": "dehastha/data/deha-p01.c1.json",
+   "role": "layer-c1",
+   "sha256": "de1ec04deb76bf359a13160e551b95508e9f1049a3b1b18bea7e6be74dadcbb9",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 2990,
+   "name": "deha-p01.c2.json",
+   "origin": "dehastha/data/deha-p01.c2.json",
+   "role": "layer-c2",
+   "sha256": "77d4cd94d3fe92b39254f1db8847f5fc55e13eb95ff3329556ac952a753df70e",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 23800,
+   "name": "deha-p01.l0.json",
+   "origin": "dehastha/data/deha-p01.l0.json",
+   "role": "layer-l0",
+   "sha256": "e20780c8a68fbb45445c6c7c04742333ea1ebaf0ae88e3cc759ec9abb1efe282",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 4884,
+   "name": "deha-p01.l2.json",
+   "origin": "dehastha/data/deha-p01.l2.json",
+   "role": "layer-l2",
+   "sha256": "78e5f03b89e15f7a3910074d9bd881baecef46787829c2e1a2599299e70fde82",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 5559,
+   "name": "deha-p01.l3.json",
+   "origin": "dehastha/data/deha-p01.l3.json",
+   "role": "layer-l3",
+   "sha256": "c17e8e317b9834bdfd7984789c9b3bd9a0ff9284243fd93493801280a0df19bf",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 5537,
+   "name": "deha-p01.l4.json",
+   "origin": "dehastha/data/deha-p01.l4.json",
+   "role": "layer-l4",
+   "sha256": "c6d732e024d4fd338fe7dd3a111223fceeb18c6b8c83ce9f860c617bb6e3f9e5",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 7505,
+   "name": "deha-p01.t1.json",
+   "origin": "dehastha/data/deha-p01.t1.json",
+   "role": "layer-t1",
+   "sha256": "899c05d07c6a65b862edec332f9bfbd884076446dd80c518c2c766c7aa9ec7b8",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1723,
+   "name": "proof-deha-p01.json",
+   "origin": "dehastha/proof/proof-deha-p01.json",
+   "role": "proof",
+   "sha256": "579582f8028fb3f304012ce1abac9271f2322ca7b330c4e771fbbcfcb43749ea"
+  }
+ ],
+ "assurance": {
+  "chunk_gate": "UNKNOWN",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "PASS",
+  "witness": "UNPINNED"
+ },
+ "caveats": [],
+ "chunk": {
+  "immutable_id": "pt:pid:dehastha:45cc611b6384",
+  "target": "deha-p01",
+  "work": "dehastha"
+ },
+ "format": "trika-verify-pack/1",
+ "gaps": [
+  "identity:db"
+ ],
+ "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/dehastha-deha-p01/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
+ "trace": {
+  "file": "traces/dehastha-deha-p01.json",
+  "sha256": "d7c261460755c698b7336791c95880f1ee4cb2ad819c4d6d4d88ebd07b3ffc52"
+ },
+ "verdict": "PARTIAL",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
+}

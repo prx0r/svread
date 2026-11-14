@@ -1,0 +1,69 @@
+{
+ "artifacts": [
+  {
+   "bytes": 49054,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "61044fa8286b8c38cf44c495522e57ffdd726fb6c864ece6cd476f63a85d7ce2"
+  },
+  {
+   "bytes": 1914421,
+   "name": "chunk-v3-m-agama-dvitiyo-close-k12-20.l0.json",
+   "origin": "ipvv/data/chunk-v3-m-agama-dvitiyo-close-k12-20.l0.json",
+   "role": "layer-l0",
+   "sha256": "475026bdcb7406c364a99be63329efcca784ef216603fb01c83b01f16f7d7ecf",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 292248,
+   "name": "chunk-v3-m-agama-dvitiyo-close-k12-20.t1.json",
+   "origin": "ipvv/data/chunk-v3-m-agama-dvitiyo-close-k12-20.t1.json",
+   "role": "layer-t1",
+   "sha256": "fee0a93f155059a628c0e4b9d4941f86c4085e77f3746b3d5b5bb9cd5e484ba1",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1778,
+   "name": "proof-chunk-v3-m-agama-dvitiyo-close-k12-20.json",
+   "origin": "ipvv/proof/proof-chunk-v3-m-agama-dvitiyo-close-k12-20.json",
+   "role": "proof",
+   "sha256": "59a8e2e2ef2427c75b17648c2cb7539d19cc1119898a9a4311593e17756366b2"
+  }
+ ],
+ "assurance": {
+  "chunk_gate": "UNKNOWN",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "FAIL",
+  "witness": "UNPINNED"
+ },
+ "caveats": [],
+ "chunk": {
+  "immutable_id": "pt:pid:ipvv:61044fa8286b",
+  "target": "chunk-v3-m-agama-dvitiyo-close-k12-20",
+  "work": "ipvv"
+ },
+ "format": "trika-verify-pack/1",
+ "gaps": [
+  "layer:argmap",
+  "layer:l2",
+  "layer:c1",
+  "layer:l3",
+  "layer:l4",
+  "identity:db"
+ ],
+ "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/ipvv-chunk-v3-m-agama-dvitiyo-close-k12-20/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
+ "trace": {
+  "file": "traces/ipvv-chunk-v3-m-agama-dvitiyo-close-k12-20.json",
+  "sha256": "fae827239d7b3ef0c8d2c578ecc1f638120e07cfd53f1eb50e9aa63523b5610c"
+ },
+ "verdict": "PARTIAL",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
+}

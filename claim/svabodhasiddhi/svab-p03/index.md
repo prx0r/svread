@@ -1,6 +1,6 @@
-# svabodhasiddhi svab-p03 (20-28)
+# svabodhasiddhi svab-p03 (15-24)
 
-svabodhasiddhi svab-p03 (20-28) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+svabodhasiddhi svab-p03 (15-24) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
@@ -9,11 +9,16 @@ Canonical: https://svatantrya.net/claim/svabodhasiddhi/svab-p03/
 ## Passage (excerpt as hashed)
 
 ```
-grāhyagrahaṇasaṃskāratiraskāraikacetasām / yogināṃ svātmaniṣṭhānāṃ mokṣalakṣmīr na durlabhā labdhā svarūpaviśrāntir nirvṛttā kleśasantatiḥ / grāhyagrāhakatā bhagnā svarūpastho' smi saṃsthitaḥ abhedabodhasaṃbodhasvarūpānubhavasthitim / vyutthitaḥ sanniruddho vā labhate yaḥ sa tattvavit yasya sarvāsv avasthāsu svasthitir naiva lupyate / tasya kiṃ nāma kurvanti śāstrabhramaṇavibhramāḥ vigalitasadasadvikalpasadasadbhramajanitamohamuktātmā / jīvann api janamadhye vigatabhayaḥ sarvadā yogī nirastakaraṇo yena samādhiḥ sevitaḥ sakṛt / paraḥ sākṣātkṛtas tena caritārthena yoginā ahamātmany asambhinnaḥ saṃgṛhya svaprayatnataḥ / prabuddhaḥ syāt svaniṣṭhaḥ san yāvat sādāśivadyutiḥ nirastasarvārthaniraṃśavṛttir jñānī sakṛt svātmani labdhalābhaḥ / samyaṅnibodhaikaparaḥ svaniṣṭhaḥ svakañcukaṃ hanta jahāti yogī vāganubhavasadyuktir yasyāsti nirantaraṃ svasaṃvittau / tasyopadeśakaraṇaṃ yuktaṃ śiṣyeṣu bodhanaṃ samyak
+sarvadā suprabuddhas san paśyaty ātmānam ātmanā / draṣṭuḥ svarūpasaṃsthasya kim anyad avaśiṣyatesadaiva suprabuddhatvam etāvan manasaḥ kṣayaḥ / tatkṣayād yogināṃ samyaksākṣātkāro bhavaty alamparyāvṛttaḥ svasaṃvittau vartate yas tv abhedataḥ / sa samrāḍ yogayuktānām ajñānadhvāntabhāskaraḥsvarūpānubhavāhlādadaśātītendusaṃsthitiḥ / avāptavyaṃ kim astīha kṣīṇāntaḥkaraṇasya mesvaparijñaptiviśrāntī sudṛḍhe yasya susphuṭe / tasya vṛttivimuktasya bhavet kevalatācirātgrāhyagrahaṇasaṃskāratiraskāraikacetasām / yogināṃ svātmaniṣṭhānāṃ mokṣalakṣmīr na durlabhālabdhā svarūpaviśrāntir nirvṛttā kleśasantatiḥ / grāhyagrāhakatā bhagnā svarūpastho' smi saṃsthitaḥabhedabodhasaṃbodhasvarūpānubhavasthitim / vyutthitaḥ sanniruddho vā labhate yaḥ sa tattvavityasya sarvāsv avasthāsu svasthitir naiva lupyate / tasya kiṃ nāma kurvanti śāstrabhramaṇavibhramāḥvigalitasadasadvikalpasadasadbhramajanitamohamuktātmā / jīvann api janamadhye vigatabhayaḥ sarvadā yogī
 ```
 
 ## Reading (machine draft, verse-mapped)
 
+**svab-p03-v15** — Ever fully awake, he sees himself by himself; for the seer settled in his own form, what else is left?
+**svab-p03-v16** — To be always fully awake is for the mind to waste away; from that wasting, yogis truly see.
+**svab-p03-v17** — Turned back into self-awareness, with no twoness left — he is king among yogis, a sun against the dark of ignorance.
+**svab-p03-v18** — The moon pales before the joy of tasting your own nature; with the inner organ gone, what is there left for me to get?
+**svab-p03-v19** — Self-knowledge and rest, firm and bright, for whoever holds them; freed from the mind's whirl, aloneness comes soon.
 **svab-p03-v20** — For yogis grounded in themselves, whose single mind sweeps aside the traces of grasping and the grasped — fortune's release is easy.
 **svab-p03-v21** — Rest in my own form I have won, my sorrows ended, the split of grasped and grasper broken — I stand firm, abiding as I am.
 **svab-p03-v22** — Whether up and about or gathered inward, whoever wins that nondual, wakened taste of his own nature knows what is real.

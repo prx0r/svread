@@ -1,6 +1,6 @@
-# vbt vbt-p16 (152-161)
+# vbt vbt-p16 (151-160)
 
-vbt vbt-p16 (152-161) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+vbt vbt-p16 (151-160) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
@@ -9,11 +9,12 @@ Canonical: https://svatantrya.net/claim/vbt/vbt-p16/
 ## Passage (excerpt as hashed)
 
 ```
-svatantrānandacinmātrasāraḥ svātmā hi sarvataḥ | āveśanaṃ tatsvarūpe svātmanaḥ snānam īritam yair eva pūjyate dravyais tarpyate vā parāparaḥ | yaś caiva pūjakaḥ sarvaḥ sa evaikaḥ kva pūjanam vrajet prāṇo viśej jīva icchayā kuṭilākṛtiḥ | dīrghātmā sā mahādevī parakṣetram parāparā asyām anucaran tiṣṭhan mahānandamaye 'dhvare | tayā devyā samāviṣṭaḥ param bhairavam āpnuyāt ṣaṭśatāni divā rātrau sahasrāṇyekaviṃśatiḥ | japo devyāḥ samuddiṣṭaḥ sulabho durlabho jaḍaiḥ ity etat kathitaṃ devi paramāmṛtam uttamam | etac ca naiva kasyāpi prakāśyaṃ tu kadācana paraśiṣye khale krūre abhakte gurupādayoḥ | nirvikalpamatīnāṃ tu vīrāṇām unnatātmanām bhaktānāṃ guruvargasya dātavyaṃ nirviśaṅkayā | grāmo rājyam puraṃ deśaḥ putradārakuṭumbakam sarvam etat parityajya grāhyam etan mṛgekṣaṇe | kim ebhir asthirair devi sthiram param idaṃ dhanam | prāṇā api pradātavyā na deyaṃ paramāmṛtam śrī devī uvāca | devadeva māhadeva paritṛptāsmi śaṅkara | rudrayāmalatantrasya sāram adyāvadhāritam
+rudraśaktisamāveśas tat kṣetram bhāvanā parā | anyathā tasya tattvasya kā pūjā kāś ca tṛpyatisvatantrānandacinmātrasāraḥ svātmā hi sarvataḥ | āveśanaṃ tatsvarūpe svātmanaḥ snānam īritamyair eva pūjyate dravyais tarpyate vā parāparaḥ | yaś caiva pūjakaḥ sarvaḥ sa evaikaḥ kva pūjanamvrajet prāṇo viśej jīva icchayā kuṭilākṛtiḥ | dīrghātmā sā mahādevī parakṣetram parāparāasyām anucaran tiṣṭhan mahānandamaye 'dhvare | tayā devyā samāviṣṭaḥ param bhairavam āpnuyātṣaṭśatāni divā rātrau sahasrāṇyekaviṃśatiḥ | japo devyāḥ samuddiṣṭaḥ sulabho durlabho jaḍaiḥity etat kathitaṃ devi paramāmṛtam uttamam | etac ca naiva kasyāpi prakāśyaṃ tu kadācanaparaśiṣye khale krūre abhakte gurupādayoḥ | nirvikalpamatīnāṃ tu vīrāṇām unnatātmanāmbhaktānāṃ guruvargasya dātavyaṃ nirviśaṅkayā | grāmo rājyam puraṃ deśaḥ putradārakuṭumbakamsarvam etat parityajya grāhyam etan mṛgekṣaṇe | kim ebhir asthirair devi sthiram param idaṃ dhanam | prāṇā api pradātavyā na deyaṃ paramāmṛtam
 ```
 
 ## Reading (machine draft, verse-mapped)
 
+**vbt-p16-v151** — Rudra-power-penetration: that field — contemplation supreme: otherwise of it, of reality — what worship, and which is pleased?
 **vbt-p16-v152** — Free-bliss-consciousness-mere-essence — one's own self everywhere: entering in that form — one's own self's bath, declared.
 **vbt-p16-v153** — By which indeed is one worshipped, with materials pleased — or higher-lower: who indeed the worshipper — all he, the very one: where the worship?
 **vbt-p16-v154** — Breath may go, life may enter — by will, crooked-formed: long-formed she, the great goddess — other field, higher-lower.

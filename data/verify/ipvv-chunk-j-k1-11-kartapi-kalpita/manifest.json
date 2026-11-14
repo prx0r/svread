@@ -1,0 +1,90 @@
+{
+ "artifacts": [
+  {
+   "bytes": 9597,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "765288bf29f59cc906cb30992ab0ea904bf7cf4358d76c3a39c24f7a13f165c1"
+  },
+  {
+   "bytes": 8921,
+   "name": "chunk-j-k1-11-kartapi-kalpita.argmap.json",
+   "origin": "ipvv/data/chunk-j-k1-11-kartapi-kalpita.argmap.json",
+   "role": "layer-argmap",
+   "sha256": "81607d2f08c0be1295998b432a56bada84fb580fbce6ff98b2c47e15c5a7ea35",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 838,
+   "name": "chunk-j-k1-11-kartapi-kalpita.c1.json",
+   "origin": "ipvv/data/chunk-j-k1-11-kartapi-kalpita.c1.json",
+   "role": "layer-c1",
+   "sha256": "130448273da8e0c9c73a6919291bd352bbe8093d689faa481dbde781aa62b25a",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 371142,
+   "name": "chunk-j-k1-11-kartapi-kalpita.l0.json",
+   "origin": "ipvv/data/chunk-j-k1-11-kartapi-kalpita.l0.json",
+   "role": "layer-l0",
+   "sha256": "6e5bb3e272547653999c9375f09c5c7317780d11237777a3ae1e68e194650f56",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 9368,
+   "name": "chunk-j-k1-11-kartapi-kalpita.l2.json",
+   "origin": "ipvv/data/chunk-j-k1-11-kartapi-kalpita.l2.json",
+   "role": "layer-l2",
+   "sha256": "ddab2b7ae744d63212d95038ea4525370083c8b5d3ce885ddcc1373dcd9e1eaf",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 61359,
+   "name": "chunk-j-k1-11-kartapi-kalpita.t1.json",
+   "origin": "ipvv/data/chunk-j-k1-11-kartapi-kalpita.t1.json",
+   "role": "layer-t1",
+   "sha256": "1768af29e06a2a3a7fb1458deddc009ae526d26b17e4a2492a4f6d102d3dfa73",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1588,
+   "name": "proof-chunk-j-k1-11-kartapi-kalpita.json",
+   "origin": "ipvv/proof/proof-chunk-j-k1-11-kartapi-kalpita.json",
+   "role": "proof",
+   "sha256": "febad537b75377d589fbe4a1551eb6b694013e0724cae581e4cdea6d541f5c9c"
+  }
+ ],
+ "assurance": {
+  "chunk_gate": "UNKNOWN",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "FAIL",
+  "witness": "UNPINNED"
+ },
+ "caveats": [],
+ "chunk": {
+  "immutable_id": "pt:pid:ipvv:765288bf29f5",
+  "target": "chunk-j-k1-11-kartapi-kalpita",
+  "work": "ipvv"
+ },
+ "format": "trika-verify-pack/1",
+ "gaps": [
+  "layer:l3",
+  "layer:l4",
+  "identity:db"
+ ],
+ "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/ipvv-chunk-j-k1-11-kartapi-kalpita/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
+ "trace": {
+  "file": "traces/ipvv-chunk-j-k1-11-kartapi-kalpita.json",
+  "sha256": "d6e4e6b0d235bedcb45834e2108463934d83ccd1b54ffc3e0e56f46929b0b88c"
+ },
+ "verdict": "PARTIAL",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
+}

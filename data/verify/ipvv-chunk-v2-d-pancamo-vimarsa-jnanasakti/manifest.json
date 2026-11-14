@@ -1,0 +1,69 @@
+{
+ "artifacts": [
+  {
+   "bytes": 43266,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "55efc6d0f936099b4f25d1ed47e9e3ea1541596f0afcb53bbc445ff1122c59a5"
+  },
+  {
+   "bytes": 1757324,
+   "name": "chunk-v2-d-pancamo-vimarsa-jnanasakti.l0.json",
+   "origin": "ipvv/data/chunk-v2-d-pancamo-vimarsa-jnanasakti.l0.json",
+   "role": "layer-l0",
+   "sha256": "bfac7ab3ff9c6ee62de5bc60ef2a185f828f23ad8b211c74b609c5a9f64f3828",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 275551,
+   "name": "chunk-v2-d-pancamo-vimarsa-jnanasakti.t1.json",
+   "origin": "ipvv/data/chunk-v2-d-pancamo-vimarsa-jnanasakti.t1.json",
+   "role": "layer-t1",
+   "sha256": "ede598eb2da3d0e79869a04583ac1a29a4d3c379741a73293be60edf885128df",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1780,
+   "name": "proof-chunk-v2-d-pancamo-vimarsa-jnanasakti.json",
+   "origin": "ipvv/proof/proof-chunk-v2-d-pancamo-vimarsa-jnanasakti.json",
+   "role": "proof",
+   "sha256": "f061407c56b91e1b9c7d53ab3e85866dd5efab9ec238e0ee809556bd7a3a7530"
+  }
+ ],
+ "assurance": {
+  "chunk_gate": "UNKNOWN",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "FAIL",
+  "witness": "UNPINNED"
+ },
+ "caveats": [],
+ "chunk": {
+  "immutable_id": "pt:pid:ipvv:55efc6d0f936",
+  "target": "chunk-v2-d-pancamo-vimarsa-jnanasakti",
+  "work": "ipvv"
+ },
+ "format": "trika-verify-pack/1",
+ "gaps": [
+  "layer:argmap",
+  "layer:l2",
+  "layer:c1",
+  "layer:l3",
+  "layer:l4",
+  "identity:db"
+ ],
+ "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/ipvv-chunk-v2-d-pancamo-vimarsa-jnanasakti/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
+ "trace": {
+  "file": "traces/ipvv-chunk-v2-d-pancamo-vimarsa-jnanasakti.json",
+  "sha256": "fc590dfe43f77b32720c826a53d634fef0dd78e7d3740e79a5f4d13be3cd37ab"
+ },
+ "verdict": "PARTIAL",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
+}

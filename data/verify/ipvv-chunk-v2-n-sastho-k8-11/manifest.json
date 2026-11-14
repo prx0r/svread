@@ -1,0 +1,90 @@
+{
+ "artifacts": [
+  {
+   "bytes": 21942,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "d2c03f7196364e3534a19a46f672c6c7cc31cfe68061f94e120d73702e465c02"
+  },
+  {
+   "bytes": 27247,
+   "name": "chunk-v2-n-sastho-k8-11.argmap.json",
+   "origin": "ipvv/data/chunk-v2-n-sastho-k8-11.argmap.json",
+   "role": "layer-argmap",
+   "sha256": "bd86bc85869a4867976cacaaf0a1f73f55a22677d86586c5c4b09033bd36cf55",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 370,
+   "name": "chunk-v2-n-sastho-k8-11.c1.json",
+   "origin": "ipvv/data/chunk-v2-n-sastho-k8-11.c1.json",
+   "role": "layer-c1",
+   "sha256": "0d142ae7f2dbe4deb23212e74a144e44922c0cb03cd5fa7578419618346f46e9",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 784126,
+   "name": "chunk-v2-n-sastho-k8-11.l0.json",
+   "origin": "ipvv/data/chunk-v2-n-sastho-k8-11.l0.json",
+   "role": "layer-l0",
+   "sha256": "457a2523594d26a1fca1b2f79057bd98b8f571df367af590ac179e1091147647",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 27586,
+   "name": "chunk-v2-n-sastho-k8-11.l2.json",
+   "origin": "ipvv/data/chunk-v2-n-sastho-k8-11.l2.json",
+   "role": "layer-l2",
+   "sha256": "f4e4fccc5ca0337ec5e0e054636a45c2ad0e0b7b0eebeda18f769598f15347e0",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 133895,
+   "name": "chunk-v2-n-sastho-k8-11.t1.json",
+   "origin": "ipvv/data/chunk-v2-n-sastho-k8-11.t1.json",
+   "role": "layer-t1",
+   "sha256": "66a8bcbe439cdecfba51c5a3587c839c042bbe8f2bbc3903bd62009d2df3cec7",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1651,
+   "name": "proof-chunk-v2-n-sastho-k8-11.json",
+   "origin": "ipvv/proof/proof-chunk-v2-n-sastho-k8-11.json",
+   "role": "proof",
+   "sha256": "de16bf06dfb52310280b3e45325a495d392bee0d2aca566e4f4e248baf9fab6d"
+  }
+ ],
+ "assurance": {
+  "chunk_gate": "UNKNOWN",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "FAIL",
+  "witness": "UNPINNED"
+ },
+ "caveats": [],
+ "chunk": {
+  "immutable_id": "pt:pid:ipvv:d2c03f719636",
+  "target": "chunk-v2-n-sastho-k8-11",
+  "work": "ipvv"
+ },
+ "format": "trika-verify-pack/1",
+ "gaps": [
+  "layer:l3",
+  "layer:l4",
+  "identity:db"
+ ],
+ "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/ipvv-chunk-v2-n-sastho-k8-11/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
+ "trace": {
+  "file": "traces/ipvv-chunk-v2-n-sastho-k8-11.json",
+  "sha256": "75191c759935fc629c0b8017a9db8330a7515f75acd03fdd41c0ec84d318259d"
+ },
+ "verdict": "PARTIAL",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
+}

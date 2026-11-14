@@ -1,6 +1,6 @@
-# vbt vbt-p08 (72-81)
+# vbt vbt-p08 (71-80)
 
-vbt vbt-p08 (72-81) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+vbt vbt-p08 (71-80) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
@@ -9,11 +9,12 @@ Canonical: https://svatantrya.net/claim/vbt/vbt-p08/
 ## Passage (excerpt as hashed)
 
 ```
-jagdhipānakṛtollāsarasānandavijṛmbhaṇāt | bhāvayed bharitāvasthāṃ mahānandas tato bhavet gitādiviṣayāsvādāsamasaukhyaikatātmanaḥ | yoginas tanmayatvena manorūḍhes tadātmatā yatra yatra manas tuṣṭir manas tatraiva dhārayet | tatra tatra parānandasvārūpaṃ sampravartate anāgatāyāṃ nidrāyām praṇaṣṭe bāhyagocare | sāvasthā manasā gamyā parā devī prakāśate tejasā sūryadīpāder ākāśe śabalīkṛte | dṛṣṭir niveśyā tatraiva svātmarūpam prakāśate karaṅkiṇyā krodhanayā bhairavyā lelihānayā | khecaryā dṛṣṭikāle ca parāvāptiḥ prakāśate mṛdvāsane sphijaikena hastapādau nirāśrayam | nidhāya tatprasaṅgena parā pūrṇā matir bhavet upaviśyāsane samyag bāhū kṛtvārdhakuñcitau | kakṣavyomni manaḥ kurvan śamam āyāti tallayāt sthūlarūpasya bhāvasya stabdhāṃ dṛṣṭiṃ nipātya ca | acireṇa nirādhāraṃ manaḥ kṛtvā śivaṃ vrajet madhyajihve sphāritāsye madhye nikṣipya cetanām | hoccāraṃ manasā kurvaṃs tataḥ śānte pralīyate
+ānande mahati prāpte dṛṣṭe vā bāndhave cirāt | ānandam udgataṃ dhyātvā tallayas tanmanā bhavetjagdhipānakṛtollāsarasānandavijṛmbhaṇāt | bhāvayed bharitāvasthāṃ mahānandas tato bhavetgitādiviṣayāsvādāsamasaukhyaikatātmanaḥ | yoginas tanmayatvena manorūḍhes tadātmatāyatra yatra manas tuṣṭir manas tatraiva dhārayet | tatra tatra parānandasvārūpaṃ sampravartateanāgatāyāṃ nidrāyām praṇaṣṭe bāhyagocare | sāvasthā manasā gamyā parā devī prakāśatetejasā sūryadīpāder ākāśe śabalīkṛte | dṛṣṭir niveśyā tatraiva svātmarūpam prakāśatekaraṅkiṇyā krodhanayā bhairavyā lelihānayā | khecaryā dṛṣṭikāle ca parāvāptiḥ prakāśatemṛdvāsane sphijaikena hastapādau nirāśrayam | nidhāya tatprasaṅgena parā pūrṇā matir bhavetupaviśyāsane samyag bāhū kṛtvārdhakuñcitau | kakṣavyomni manaḥ kurvan śamam āyāti tallayātsthūlarūpasya bhāvasya stabdhāṃ dṛṣṭiṃ nipātya ca | acireṇa nirādhāraṃ manaḥ kṛtvā śivaṃ vrajet
 ```
 
 ## Reading (machine draft, verse-mapped)
 
+**vbt-p08-v71** — In joy, in greatness, when it is won — seen or a kinsman long after: bliss risen, having meditated it, dissolved in that — of that mind may be.
 **vbt-p08-v72** — From eating and drinking, the swelling of joy, bliss-blooming: should be fancied the filled state — great bliss then may be.
 **vbt-p08-v73** — From tasting objects such as song — happiness not shared, one-selfness: of the yogin, by absorbedness, mounted in mind — in that selfness.
 **vbt-p08-v74** — Wherever the mind is content, right there the mind should be held: there, there — the own-form of supreme bliss proceeds forth.

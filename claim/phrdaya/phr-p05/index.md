@@ -9,12 +9,16 @@ Canonical: https://svatantrya.net/claim/phrdaya/phr-p05/
 ## Passage (excerpt as hashed)
 
 ```
-madhyavikāsāc cidānandalābhaḥ
+madhyavikāsāc cidānandalābhaḥ || 17 || vikalpakṣayaśaktisaṃkocavikāsavāhacchedādyantakoṭinibhālanādaya
+iha upāyāḥ || 18 || samādhisaṃskāravati vyutthāne bhūyo bhūyaḥ
+cidaikyāmarśān nityoditasamādhilābhaḥ || 19 || sarvasargasaṃhārakārinijasaṃviddevatācakreśvaratāpraptir
+bhavatīti śivam || 20 ||
 ```
 
 ## Reading (machine draft, verse-mapped)
 
 **phr-p05-v17** — From the middle's opening — knowing-bliss won.
+**phr-p05-v19** — From recalling oneness with knowing — samādhi ever risen.
 
 ## Claims
 

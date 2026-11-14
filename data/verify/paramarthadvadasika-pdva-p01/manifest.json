@@ -1,0 +1,112 @@
+{
+ "artifacts": [
+  {
+   "bytes": 1448,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "e5cbffa330844a08ceacbc593ad76939b6e6cc8a6e5525d3320115e0e9bba555"
+  },
+  {
+   "bytes": 8245,
+   "name": "pdva-p01.argmap.json",
+   "origin": "paramarthadvadasika/data/pdva-p01.argmap.json",
+   "role": "layer-argmap",
+   "sha256": "d25ae6c797aef59c05e1830e50b3376a10ad99ece2f4fbda1485f370e6d89654",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 3648,
+   "name": "pdva-p01.c1.json",
+   "origin": "paramarthadvadasika/data/pdva-p01.c1.json",
+   "role": "layer-c1",
+   "sha256": "59b26438be65b3515eb9602218f6c660c0bd99bd25d1db2a151141b0025656ae",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 3755,
+   "name": "pdva-p01.c2.json",
+   "origin": "paramarthadvadasika/data/pdva-p01.c2.json",
+   "role": "layer-c2",
+   "sha256": "e5120f5265e0674ad2a93217ce9382596ff5dc429c8189b71fda05424ad55fce",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 52123,
+   "name": "pdva-p01.l0.json",
+   "origin": "paramarthadvadasika/data/pdva-p01.l0.json",
+   "role": "layer-l0",
+   "sha256": "182054767ea26e4e768c441fa782afff549f2455f1ace2c435ccd189dfe571e1",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 7781,
+   "name": "pdva-p01.l2.json",
+   "origin": "paramarthadvadasika/data/pdva-p01.l2.json",
+   "role": "layer-l2",
+   "sha256": "8680989d49fbd8a764d8ef54d69379fda5eb2940e2000fc2732b334fd6345d50",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 8212,
+   "name": "pdva-p01.l3.json",
+   "origin": "paramarthadvadasika/data/pdva-p01.l3.json",
+   "role": "layer-l3",
+   "sha256": "32a16e80797b1485352c378ee7c5d5fa1122561428ae2007a784fcbacb694fee",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 8272,
+   "name": "pdva-p01.l4.json",
+   "origin": "paramarthadvadasika/data/pdva-p01.l4.json",
+   "role": "layer-l4",
+   "sha256": "ea4b395174697f5a50d9ea2c61b408ddbe309931a86fa86e3443878c1bb5ceed",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 13220,
+   "name": "pdva-p01.t1.json",
+   "origin": "paramarthadvadasika/data/pdva-p01.t1.json",
+   "role": "layer-t1",
+   "sha256": "e28899df4471e006f24292292c932433b240e7cfa78976bb4b456e1e2d3f49d4",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1736,
+   "name": "proof-pdva-p01.json",
+   "origin": "paramarthadvadasika/proof/proof-pdva-p01.json",
+   "role": "proof",
+   "sha256": "9b27b40cf1009cd62f839f1704225a84d1de71c393524d2379f4514e57a0df5f"
+  }
+ ],
+ "assurance": {
+  "chunk_gate": "UNKNOWN",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "PASS",
+  "witness": "UNPINNED"
+ },
+ "caveats": [],
+ "chunk": {
+  "immutable_id": "pt:pid:paramarthadvadasika:e5cbffa33084",
+  "target": "pdva-p01",
+  "work": "paramarthadvadasika"
+ },
+ "format": "trika-verify-pack/1",
+ "gaps": [
+  "identity:db"
+ ],
+ "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/paramarthadvadasika-pdva-p01/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
+ "trace": {
+  "file": "traces/paramarthadvadasika-pdva-p01.json",
+  "sha256": "03d037545aa2ab78a7a3672d6fec840ddf56fde17d35fb6970003c07cefc47b1"
+ },
+ "verdict": "PARTIAL",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
+}

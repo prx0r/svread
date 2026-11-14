@@ -1,10 +1,10 @@
 {
  "artifacts": [
   {
-   "bytes": 489,
+   "bytes": 1034,
    "name": "source.txt",
    "role": "source-bytes",
-   "sha256": "a49aa9ef4d0055065969ac8eab624a4b9e56bc116b6db5fb72cd969033fb6b60"
+   "sha256": "896fcfb3f41ed746d7ef49c2e8c0df1363578bb42f2bd91aa1e3344d894103b3"
   },
   {
    "bytes": 7723,
@@ -95,18 +95,20 @@
   "chunk_gate BLOCKED: ABSTENTION"
  ],
  "chunk": {
-  "immutable_id": "pt:pid:ptvm:a49aa9ef4d00",
+  "immutable_id": "pt:pid:ptvmadhyama:896fcfb3f41e",
   "target": "ptvm-p01",
   "work": "ptvmadhyama"
  },
  "format": "trika-verify-pack/1",
- "gaps": [],
+ "gaps": [
+  "identity:db"
+ ],
  "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/ptvmadhyama-ptvm-p01/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
  "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
  "trace": {
   "file": "traces/ptvmadhyama-ptvm-p01.json",
-  "sha256": "276b4be5aac3a52cb84cbee80890eadf38a77193d3c74170ab1c4a23058f8458"
+  "sha256": "87bfbc9da103e186e40f65cbd6fb1d6a49befe82b307f995bb830b8256c23a78"
  },
- "verdict": "COMPLETE",
+ "verdict": "PARTIAL",
  "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
 }

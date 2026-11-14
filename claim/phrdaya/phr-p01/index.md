@@ -9,12 +9,15 @@ Canonical: https://svatantrya.net/claim/phrdaya/phr-p01/
 ## Passage (excerpt as hashed)
 
 ```
-citiḥ svatantrā viśvasiddhihetuḥ
+citiḥ svatantrā viśvasiddhihetuḥ || 1 || svecchayā svabhittau viśvam unmīlayati || 2 || tan nānā anurūpagrāhyagrāhakabhedāt || 3 || citisaṃkocātmā cetano 'pi saṃkucitaviśvamayaḥ || 4 ||
 ```
 
 ## Reading (machine draft, verse-mapped)
 
 **phr-p01-v01** — Consciousness stands free — cause of the world's proving.
+**phr-p01-v02** — By her own will, on her own ground, she opens the world.
+**phr-p01-v03** — That grows manifold through fit perceivers and perceived dividing.
+**phr-p01-v04** — A contraction of knowing, yet a knower even so, clothed in a contracted world.
 
 ## Claims
 

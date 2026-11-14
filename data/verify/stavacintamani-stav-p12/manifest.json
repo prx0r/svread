@@ -1,10 +1,10 @@
 {
  "artifacts": [
   {
-   "bytes": 1068,
+   "bytes": 1059,
    "name": "source.txt",
    "role": "source-bytes",
-   "sha256": "b55f76480b48c18f895839c76a7885667bf9318eaf96a7355edbca10386a8f81"
+   "sha256": "986cace348e7f01668f73ad75299d3cd04c55ddeb95535605f25efeb47688b1a"
   },
   {
    "bytes": 9585,
@@ -95,18 +95,20 @@
   "chunk_gate BLOCKED: COVERAGE,ABSTENTION"
  ],
  "chunk": {
-  "immutable_id": "pt:pid:stav:b55f76480b48",
+  "immutable_id": "pt:pid:stavacintamani:986cace348e7",
   "target": "stav-p12",
   "work": "stavacintamani"
  },
  "format": "trika-verify-pack/1",
- "gaps": [],
+ "gaps": [
+  "identity:db"
+ ],
  "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/stavacintamani-stav-p12/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
  "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
  "trace": {
   "file": "traces/stavacintamani-stav-p12.json",
-  "sha256": "d0bcb694a0d5ad87384ccf99680fa1f04fe30675431696386cbe6c839758f0e3"
+  "sha256": "3ffbd8edf1ab72942c81d52e52ea65cf8aa575b110119e9163beb78fdd5f0add"
  },
- "verdict": "COMPLETE",
+ "verdict": "PARTIAL",
  "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
 }

@@ -1,6 +1,6 @@
-# spanda span-p03 (20-3)
+# spanda span-p03 (14-19)
 
-spanda span-p03 (20-3) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+spanda span-p03 (14-19) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
@@ -9,12 +9,17 @@ Canonical: https://svatantrya.net/claim/spanda/span-p03/
 ## Passage (excerpt as hashed)
 
 ```
-aprabudhadhiyas tv ete svasthitisthaganodyatāḥ | pātayanti duruttāre ghore saṃsāravartmani ataḥ satatam udyuktaḥ spandatattvaviviktaye | jāgrad eva nijam bhāvam acireṇādhigacchati atikruddhaḥ prahṛṣṭo vā kiṃ karomīti vā mṛśan | dhāvan va yat padaṃ gacchet tatra spandaḥ pratiṣṭhitaḥ yām avasthāṃ samālambya yad ayam mama vakṣyati | tadavaśyaṃ kariṣye 'ham iti saṃkalpya tiṣṭhati tām aśrityordhvamārgeṇa candrasūryāv ubhāv api | sauṣumne 'dhvanyastamito hitvā brahmā.ṅdagocaram tadā tasmin mahāvyomni pralīnaśaśibhāskare | sauṣuptapadavan mūḍhaḥ prabuddhaḥ syād anāvṛtaḥ dvitīyo niḥṣyandaḥ tadākramya balam mantrāḥ sarvajñābalaśālinaḥ | pravartante 'dhikārāya karaṇānīva dehinām tatraiva sampralīyante śāntarūpā nirañjanāḥ | sahārādhakacittena tenaite śivadharmiṇaḥ yasmāt sarvamayo jīvaḥ sarvabhāvasamudbhavāt | tatsaṃvedanarūpeṇa tādātmyapratipattitaḥ
+avasthāyugalaṃ cātra kāryakartṛtvaśabditam | kāryatā kṣayiṇī tatra kartṛtvam punar akṣayamkāryonmukhaḥ prayatno yaḥ kevalaṃ so 'tra lupyate | tasmin lupte vilupto 'smīty abudhaḥ pratipadyatena tu yo 'ntarmukho bhāvah sarvajñātvaguṇāspadam | tasya lopaḥ kadācit syād anyasyānupalambhanāttasyopalabdhiḥ satataṃ tripadāvyabhicāriṇī | nityaṃ syāt suprabuddhasya tadādyante parasya tujñānajñeyasvarūpiṇyā śaktyā paramayā yutaḥ | padadvaye vibhur bhāti tadanyatra tu cinmayaḥguṇādispandaniḥṣyandāḥ sāmānyaspandasaṃśrayāt | labdhātmalābhaḥ satataṃ syur jñasyāparipanthinaḥ
 ```
 
-## Reading
+## Reading (machine draft, verse-mapped)
 
-Withheld. no pack L2 entry maps to this passage excerpt (verse-level mapping required, none found)
+**span-p03-v14** — State-pair, called effect-doer-ness; effect-ness waning there, doer-ness again unwaning.
+**span-p03-v15** — Whatever mere effort faces effect is lost here; when lost, 'I am utterly lost' — so the unwise holds.
+**span-p03-v16** — But who inward-facing, seat of all-knowingness: his loss never ever, from not perceiving other.
+**span-p03-v17** — His perception ever, unfailing in three states; ever may it be of the fully awake — at beginning and end, but of the other.
+**span-p03-v18** — Whose form is knowing and knowable, yoked by supreme power: in two states the pervader shines, elsewhere consciousness-made.
+**span-p03-v19** — Spanda-flows beginning with qualities, from resting in common spanda — who got self-getting ever may they be, of the unopposed knower.
 
 ## Claims
 

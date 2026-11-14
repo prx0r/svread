@@ -1,10 +1,10 @@
 {
  "artifacts": [
   {
-   "bytes": 1120,
+   "bytes": 1117,
    "name": "source.txt",
    "role": "source-bytes",
-   "sha256": "8e3c2a0ed6faf12cb0cfd9774512e609ad79cec70d41a278ee6b393f73aa0042"
+   "sha256": "7e5030ef0c4ae8d71f82b8f14fd3526744f3dc34fc2c2d62977be0d7898dc07d"
   },
   {
    "bytes": 8184,
@@ -95,18 +95,20 @@
   "chunk_gate BLOCKED: ABSTENTION"
  ],
  "chunk": {
-  "immutable_id": "pt:pid:vbt:8e3c2a0ed6fa",
+  "immutable_id": "pt:pid:vbt:7e5030ef0c4a",
   "target": "vbt-p09",
   "work": "vbt"
  },
  "format": "trika-verify-pack/1",
- "gaps": [],
+ "gaps": [
+  "identity:db"
+ ],
  "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/vbt-vbt-p09/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
  "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
  "trace": {
   "file": "traces/vbt-vbt-p09.json",
-  "sha256": "150b690fc2490a3f9d9f7a1ecfb54fe5c2504716b3a61e80a71093d0169523c3"
+  "sha256": "6eb2468c2f2d952d5990840801e7079be7ad6653b51a4686b0672c5b41ac2583"
  },
- "verdict": "COMPLETE",
+ "verdict": "PARTIAL",
  "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
 }

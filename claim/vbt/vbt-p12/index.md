@@ -1,6 +1,6 @@
-# vbt vbt-p12 (112-121)
+# vbt vbt-p12 (111-120)
 
-vbt vbt-p12 (112-121) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+vbt vbt-p12 (111-120) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
@@ -9,11 +9,12 @@ Canonical: https://svatantrya.net/claim/vbt/vbt-p12/
 ## Passage (excerpt as hashed)
 
 ```
-ādhāreṣv athavā 'śaktyā 'jñānāc cittalayena vā | jātaśaktisamāveśakṣobhānte bhairavaṃ vapuḥ sampradāyam imam devi śṛṇu samyag vadāmy aham | kaivalyaṃ jāyate sadyo netrayoḥ stabdhamātrayoḥ saṃkocaṃ karṇayoḥ kṛtvā hy adhodvāre tathaiva ca | anackam ahalaṃ dhyāyan viśed brahma sanātanam kūpādike mahāgarte sthitvopari nirīkṣaṇāt | avikalpamateḥ samyak sadyas cittalayaḥ sphuṭam yatra yatra mano yāti bāhye vābhyantare 'pi vā | tatra tatra śivāvāsthā vyāpakatvāt kva yāsyati yatra yatrākṣamārgeṇa caitanyaṃ vyajyate vibhoḥ | tasya tanmātradharmitvāc cillayād bharitātmatā kṣutādyante bhaye śoke gahvare vā raṇād drute | kutūhalekṣudhādyante brahmasattāmayī daśā vastuṣu smaryamāṇeṣu dṛṣṭe deśe manas tyajet | svaśarīraṃ nirādhāraṃ kṛtvā prasarati prabhuḥ kvacid vastuni vinyasya śanair dṛṣṭiṃ nivartayet | taj jñānaṃ cittasahitaṃ devi śūnyālāyo bhavet bhaktyudrekād viraktasya yādṛśī jāyate matiḥ | sā śaktiḥ śāṅkarī nityam bhavayet tāṃ tataḥ śivaḥ
+bhrāntvā bhrāntvā śarīreṇa tvaritam bhuvi pātanāt | kṣobhaśaktivirāmeṇa parā saṃjāyate daśāādhāreṣv athavā 'śaktyā 'jñānāc cittalayena vā | jātaśaktisamāveśakṣobhānte bhairavaṃ vapuḥsampradāyam imam devi śṛṇu samyag vadāmy aham | kaivalyaṃ jāyate sadyo netrayoḥ stabdhamātrayoḥsaṃkocaṃ karṇayoḥ kṛtvā hy adhodvāre tathaiva ca | anackam ahalaṃ dhyāyan viśed brahma sanātanamkūpādike mahāgarte sthitvopari nirīkṣaṇāt | avikalpamateḥ samyak sadyas cittalayaḥ sphuṭamyatra yatra mano yāti bāhye vābhyantare 'pi vā | tatra tatra śivāvāsthā vyāpakatvāt kva yāsyatiyatra yatrākṣamārgeṇa caitanyaṃ vyajyate vibhoḥ | tasya tanmātradharmitvāc cillayād bharitātmatākṣutādyante bhaye śoke gahvare vā raṇād drute | kutūhalekṣudhādyante brahmasattāmayī daśāvastuṣu smaryamāṇeṣu dṛṣṭe deśe manas tyajet | svaśarīraṃ nirādhāraṃ kṛtvā prasarati prabhuḥkvacid vastuni vinyasya śanair dṛṣṭiṃ nivartayet | taj jñānaṃ cittasahitaṃ devi śūnyālāyo bhavet
 ```
 
 ## Reading (machine draft, verse-mapped)
 
+**vbt-p12-v111** — Having whirled, whirled — by the body swiftly, falling to earth: by the ceasing of agitation-power, the supreme state is born.
 **vbt-p12-v112** — On supports or by power, by knowing, or from mind-dissolving: born at power-penetration's end — the Bhairava form.
 **vbt-p12-v113** — This tradition, O Goddess, hear — rightly I tell: even freedom is born at once, when the eyes are unwinkingly fixed.
 **vbt-p12-v114** — Contraction of the ears having been made — at the lower gate likewise: unsmeared, unploughed, meditating, one may enter eternal brahman.

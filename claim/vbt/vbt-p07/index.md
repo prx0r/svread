@@ -1,6 +1,6 @@
-# vbt vbt-p07 (62-71)
+# vbt vbt-p07 (61-70)
 
-vbt vbt-p07 (62-71) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+vbt vbt-p07 (61-70) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
@@ -9,11 +9,12 @@ Canonical: https://svatantrya.net/claim/vbt/vbt-p07/
 ## Passage (excerpt as hashed)
 
 ```
-bhāve tyakte niruddhā cin naiva bhāvāntaraṃ vrajet | tadā tanmadhyabhāvena vikasatyati bhāvanā sarvaṃ dehaṃ cinmayaṃ hi jagad vā paribhāvayet | yugapan nirvikalpena manasā paramodayaḥ vāyudvayasya saṃghaṭṭād antar vā bahir antataḥ | yogī samatvavijñānasamudgamanabhājanam sarvaṃ jagat svadehaṃ vā svānandabharitaṃ smaret | yugapat svāmṛtenaiva parānandamayo bhavet kuhanena prayogeṇa sadya eva mṛgekṣaṇe | samudeti mahānando yena tattvaṃ prakāśate sarvasrotonibandhena prāṇaśaktyordhvayā śanaiḥ | pipīlasparśavelāyām prathate paramaṃ sukham vahner viṣasya madhye tu cittaṃ sukhamayaṃ kṣipet | kevalaṃ vāyupūrṇaṃ vā smarānandena yujyate śaktisaṃgamasaṃkṣubdhaśaktyāveśāvasānikam | yat sukham brahmatattvasya tat sukhaṃ svākyam ucyate lehanāmanthanākoṭaiḥ strīsukhasya bharāt smṛteḥ | śaktyabhāve 'pi deveśi bhaved ānandasamplavaḥ ānande mahati prāpte dṛṣṭe vā bāndhave cirāt | ānandam udgataṃ dhyātvā tallayas tanmanā bhavet
+ubhayor bhāvayor jñāne dhyātvā madhyaṃ samāśrayet | yugapac ca dvayaṃ tyaktvā madhye tattvam prakāśatebhāve tyakte niruddhā cin naiva bhāvāntaraṃ vrajet | tadā tanmadhyabhāvena vikasatyati bhāvanāsarvaṃ dehaṃ cinmayaṃ hi jagad vā paribhāvayet | yugapan nirvikalpena manasā paramodayaḥvāyudvayasya saṃghaṭṭād antar vā bahir antataḥ | yogī samatvavijñānasamudgamanabhājanamsarvaṃ jagat svadehaṃ vā svānandabharitaṃ smaret | yugapat svāmṛtenaiva parānandamayo bhavetkuhanena prayogeṇa sadya eva mṛgekṣaṇe | samudeti mahānando yena tattvaṃ prakāśatesarvasrotonibandhena prāṇaśaktyordhvayā śanaiḥ | pipīlasparśavelāyām prathate paramaṃ sukhamvahner viṣasya madhye tu cittaṃ sukhamayaṃ kṣipet | kevalaṃ vāyupūrṇaṃ vā smarānandena yujyateśaktisaṃgamasaṃkṣubdhaśaktyāveśāvasānikam | yat sukham brahmatattvasya tat sukhaṃ svākyam ucyatelehanāmanthanākoṭaiḥ strīsukhasya bharāt smṛteḥ | śaktyabhāve 'pi deveśi bhaved ānandasamplavaḥ
 ```
 
 ## Reading (machine draft, verse-mapped)
 
+**vbt-p07-v61** — Of the two, of the two states, in knowing having meditated — the middle should be resorted to: at once, with both left, in the middle reality shines forth.
 **vbt-p07-v62** — When the state is abandoned, the restrained consciousness does not go to any other state: then, in that middle-being, contemplation expands exceedingly.
 **vbt-p07-v63** — All body consciousness-made — or the world indeed, fancy fully: at once, by undivided mind, the supreme rise.
 **vbt-p07-v64** — Of the two winds, from their clashing — inside or outside, at the limit: the yogin, of the rising of evenness-knowing, becomes the vessel of offering.

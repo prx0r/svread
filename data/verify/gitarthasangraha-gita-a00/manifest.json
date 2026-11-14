@@ -1,0 +1,104 @@
+{
+ "artifacts": [
+  {
+   "bytes": 2292,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "b02a5f848140847135bb74b5fed0a5ee25f3a3b990fd534410ca852bd90742b3"
+  },
+  {
+   "bytes": 6418,
+   "name": "gita-a00.argmap.json",
+   "origin": "gitarthasangraha/data/gita-a00.argmap.json",
+   "role": "layer-argmap",
+   "sha256": "1faf9e0d9491e5310db8b8d5a77778056c475d466bc344790d9a25063c034cfe",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 3335,
+   "name": "gita-a00.c1.json",
+   "origin": "gitarthasangraha/data/gita-a00.c1.json",
+   "role": "layer-c1",
+   "sha256": "ac5a2c71713db3b39717101b3c907c5d029fdc06c487b1a9d7931757833a6ef9",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 23135,
+   "name": "gita-a00.l0.json",
+   "origin": "gitarthasangraha/data/gita-a00.l0.json",
+   "role": "layer-l0",
+   "sha256": "15d57a96a3848faeac4a0726edf5d7021f9ff5a5e54649e29d63c913f02711cc",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 4354,
+   "name": "gita-a00.l2.json",
+   "origin": "gitarthasangraha/data/gita-a00.l2.json",
+   "role": "layer-l2",
+   "sha256": "21f488520762e0e69f4aaa045fa970ebaa85583d2d362b2f0e4102e283be7743",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 5154,
+   "name": "gita-a00.l3.json",
+   "origin": "gitarthasangraha/data/gita-a00.l3.json",
+   "role": "layer-l3",
+   "sha256": "3f078de5c4e55be60c30672230924790d75dfa8961a0fa906351c5be45504834",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 5278,
+   "name": "gita-a00.l4.json",
+   "origin": "gitarthasangraha/data/gita-a00.l4.json",
+   "role": "layer-l4",
+   "sha256": "61092344802d5a3ee34e7739a6893297d9bd8b45144a392419fdc5dff88f2996",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 7066,
+   "name": "gita-a00.t1.json",
+   "origin": "gitarthasangraha/data/gita-a00.t1.json",
+   "role": "layer-t1",
+   "sha256": "9f570b78ecd083897fbd2ec1c65a9aa7d6a7e3095f397a8543c30ddbc5f2b2e5",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1941,
+   "name": "proof-gita-a00.json",
+   "origin": "gitarthasangraha/proof/proof-gita-a00.json",
+   "role": "proof",
+   "sha256": "8a41275aa270bc6f95ed41282beff77b98b0ab42a5f7d29f5775634efd21b7e6"
+  }
+ ],
+ "assurance": {
+  "chunk_gate": "UNKNOWN",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "PASS",
+  "witness": "UNPINNED"
+ },
+ "caveats": [],
+ "chunk": {
+  "immutable_id": "pt:pid:gitarthasangraha:b02a5f848140",
+  "target": "gita-a00",
+  "work": "gitarthasangraha"
+ },
+ "format": "trika-verify-pack/1",
+ "gaps": [
+  "identity:db"
+ ],
+ "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/gitarthasangraha-gita-a00/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
+ "trace": {
+  "file": "traces/gitarthasangraha-gita-a00.json",
+  "sha256": "8f95604bdf9681bb7f0ac4b58433dd9b7dd0dae3dc5c7cc9d2c4d216d058386a"
+ },
+ "verdict": "PARTIAL",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
+}

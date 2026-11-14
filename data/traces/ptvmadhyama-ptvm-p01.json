@@ -16,7 +16,7 @@
   "chunk_gate BLOCKED: ABSTENTION"
  ],
  "chunk": {
-  "immutable_id": "pt:pid:ptvm:a49aa9ef4d00",
+  "immutable_id": "pt:pid:ptvmadhyama:896fcfb3f41e",
   "target": "ptvm-p01",
   "work": "ptvmadhyama"
  },
@@ -29,7 +29,9 @@
   "theorems": []
  },
  "format": "trika-trace/1",
- "gaps": [],
+ "gaps": [
+  "identity:db"
+ ],
  "identity": {
   "db": "postgresql://patala:***@localhost:5432/openpatala",
   "rows": {
@@ -46,13 +48,9 @@
      "provider": "translation-work"
     }
    ],
-   "passage": {
-    "citation_value": "ptvm-p01",
-    "work_id": "ptvmadhyama"
-   },
    "witnesses_total": 0
   },
-  "status": "BOUND"
+  "status": "UNRESOLVED"
  },
  "layers": {
   "argmap": {
@@ -104,7 +102,14 @@
    "status": "BOUND"
   }
  },
- "open_problems": [],
+ "open_problems": [
+  "passage id absent from box DB"
+ ],
+ "produced_at": "2026-11-14T05:06:36+00:00",
+ "produced_by": {
+  "tool": "trace_bundle/1",
+  "trika_rev": "UNKNOWN"
+ },
  "proofs": {
   "chunk_gate": {
    "blocking": [
@@ -133,12 +138,12 @@
  },
  "source": {
   "bytes_present": true,
-  "bytes_sha256": "a49aa9ef4d0055065969ac8eab624a4b9e56bc116b6db5fb72cd969033fb6b60",
+  "bytes_sha256": "896fcfb3f41ed746d7ef49c2e8c0df1363578bb42f2bd91aa1e3344d894103b3",
   "edition": {
    "label": null,
    "status": "UNKNOWN"
   },
-  "immutable_id": "pt:pid:ptvm:a49aa9ef4d00",
+  "immutable_id": "pt:pid:ptvmadhyama:896fcfb3f41e",
   "ledger": "ptvmadhyama/passages.jsonl",
   "source_sha_file": null,
   "verses": "1-9",
@@ -147,6 +152,6 @@
    "status": "UNPINNED"
   }
  },
- "verdict": "COMPLETE",
+ "verdict": "PARTIAL",
  "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
 }

@@ -1,0 +1,69 @@
+{
+ "artifacts": [
+  {
+   "bytes": 30400,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "5430e0359c0cdd9a99c4cd49d4002162c28f8bd4d02bdc6bda08b94ebba2686c"
+  },
+  {
+   "bytes": 1135700,
+   "name": "chunk-v3-f-kriya-trtiyo-close.l0.json",
+   "origin": "ipvv/data/chunk-v3-f-kriya-trtiyo-close.l0.json",
+   "role": "layer-l0",
+   "sha256": "2833f8ea2e334ad6a4cf171fd019c9d2853b99c36225ee92c1300f7bb96033af",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 184110,
+   "name": "chunk-v3-f-kriya-trtiyo-close.t1.json",
+   "origin": "ipvv/data/chunk-v3-f-kriya-trtiyo-close.t1.json",
+   "role": "layer-t1",
+   "sha256": "0f7f95cda43a0a1aaed3a7933e9b713b10142041139abb26ae54b180e09d1dfd",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1706,
+   "name": "proof-chunk-v3-f-kriya-trtiyo-close.json",
+   "origin": "ipvv/proof/proof-chunk-v3-f-kriya-trtiyo-close.json",
+   "role": "proof",
+   "sha256": "2c0e658fa2db2949180b6750f84d67a8bcb35a7fde497b2607f93669060d721c"
+  }
+ ],
+ "assurance": {
+  "chunk_gate": "UNKNOWN",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "FAIL",
+  "witness": "UNPINNED"
+ },
+ "caveats": [],
+ "chunk": {
+  "immutable_id": "pt:pid:ipvv:5430e0359c0c",
+  "target": "chunk-v3-f-kriya-trtiyo-close",
+  "work": "ipvv"
+ },
+ "format": "trika-verify-pack/1",
+ "gaps": [
+  "layer:argmap",
+  "layer:l2",
+  "layer:c1",
+  "layer:l3",
+  "layer:l4",
+  "identity:db"
+ ],
+ "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/ipvv-chunk-v3-f-kriya-trtiyo-close/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
+ "trace": {
+  "file": "traces/ipvv-chunk-v3-f-kriya-trtiyo-close.json",
+  "sha256": "371add78a59465929c49da632493bb28089402a8777595b8d9dd397baf686b55"
+ },
+ "verdict": "PARTIAL",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
+}

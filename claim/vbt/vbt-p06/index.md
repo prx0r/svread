@@ -1,6 +1,6 @@
-# vbt vbt-p06 (52-61)
+# vbt vbt-p06 (51-60)
 
-vbt vbt-p06 (52-61) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+vbt vbt-p06 (51-60) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
@@ -9,11 +9,12 @@ Canonical: https://svatantrya.net/claim/vbt/vbt-p06/
 ## Passage (excerpt as hashed)
 
 ```
-kālāgninā kālapadād utthitena svakam puram | pluṣṭam vicintayed ante śāntābhāsas tadā bhavet evam eva jagat sarvaṃ dagdhaṃ dhyātvā vikalpataḥ | ananyacetasaḥ puṃsaḥ pumbhāvaḥ paramo bhavet svadehe jagato vāpi sūkṣmasūkṣmatarāṇi ca | tattvāni yāni nilayaṃ dhyātvānte vyajyate parā pināṃ ca durbalāṃ śaktiṃ dhyātvā dvādaśagocare | praviśya hṛdaye dhyāyan muktaḥ svātantryam āpnuyāt bhuvanādhvādirūpeṇa cintayet kramaśo 'khilam | sthūlasūkṣmaparasthityā yāvad ante manolayaḥ asya sarvasya viśvasya paryanteṣu samantataḥ | adhvaprakriyayā tattvaṃ śaivaṃ dhyatvā mahodayaḥ viśvam etan mahādevi śūnyabhūtaṃ vicintayet | tatraiva ca mano līnaṃ tatas tallayabhājanam ghatādibhājane dṛṣṭim bhittis tyaktvā vinikṣipet | tallayaṃ tatkṣaṇād gatvā tallayāt tanmayo bhavet nirvṛkṣagiribhittyādideśe dṛṣṭiṃ vinikṣipet | vilīne mānase bhāve vṛttikṣiṇaḥ prajāyate ubhayor bhāvayor jñāne dhyātvā madhyaṃ samāśrayet | yugapac ca dvayaṃ tyaktvā madhye tattvam prakāśate
+yathā tathā yatra tatra dvādaśānte manaḥ kṣipet || pratikṣaṇaṃ kṣīṇavṛtter vailakṣaṇyaṃ dinair bhavetkālāgninā kālapadād utthitena svakam puram | pluṣṭam vicintayed ante śāntābhāsas tadā bhavetevam eva jagat sarvaṃ dagdhaṃ dhyātvā vikalpataḥ | ananyacetasaḥ puṃsaḥ pumbhāvaḥ paramo bhavetsvadehe jagato vāpi sūkṣmasūkṣmatarāṇi ca | tattvāni yāni nilayaṃ dhyātvānte vyajyate parāpināṃ ca durbalāṃ śaktiṃ dhyātvā dvādaśagocare | praviśya hṛdaye dhyāyan muktaḥ svātantryam āpnuyātbhuvanādhvādirūpeṇa cintayet kramaśo 'khilam | sthūlasūkṣmaparasthityā yāvad ante manolayaḥasya sarvasya viśvasya paryanteṣu samantataḥ | adhvaprakriyayā tattvaṃ śaivaṃ dhyatvā mahodayaḥviśvam etan mahādevi śūnyabhūtaṃ vicintayet | tatraiva ca mano līnaṃ tatas tallayabhājanamghatādibhājane dṛṣṭim bhittis tyaktvā vinikṣipet | tallayaṃ tatkṣaṇād gatvā tallayāt tanmayo bhavetnirvṛkṣagiribhittyādideśe dṛṣṭiṃ vinikṣipet | vilīne mānase bhāve vṛttikṣiṇaḥ prajāyate
 ```
 
 ## Reading (machine draft, verse-mapped)
 
+**vbt-p06-v51** — Just so, where there — at the twelve's end, the mind should be cast: moment by moment, of wasted turning, the strangeness drops away in days.
 **vbt-p06-v52** — By the time-fire, arisen from the time-place — one's own city should be thought burnt; at the end, calm-shining, then it may be.
 **vbt-p06-v53** — Thus, indeed, the whole world burnt — having meditated, away from fancy: in the non-other mind of the man, manliness supreme may be.
 **vbt-p06-v54** — In one's own body, the world's or even the minute-minuter things and realities — their abiding contemplated at the end, the supreme is manifested.

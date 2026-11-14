@@ -1,6 +1,6 @@
-# vbt vbt-p14 (132-141)
+# vbt vbt-p14 (131-140)
 
-vbt vbt-p14 (132-141) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+vbt vbt-p14 (131-140) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
@@ -9,11 +9,12 @@ Canonical: https://svatantrya.net/claim/vbt/vbt-p14/
 ## Passage (excerpt as hashed)
 
 ```
-nityo vibhur nirādhāro vyāpakaś cākhilādhipaḥ | śabdān pratikṣaṇaṃ dhyāyan kṛtārtho 'rthānurūpataḥ atattvam indrajālābham idaṃ sarvam avasthitam | kiṃ tattvam indrajālasya iti dārḍhyāc chamaṃ vrajet ātmano nirvikārasya kva jñānaṃ kva ca vā kriyā | jñānāyattā bahirbhāvā ataḥ śūnyam idaṃ jagat na me bandho na mokṣo me bhītasyaitā vibhīṣikāḥ | pratibimbam idam buddher jaleṣv iva vivasvataḥ indriyadvārakaṃ sarvaṃ sukhaduḥkhādisaṃgamam | itīndriyāṇi saṃtyajya svasthaḥ svātmani vartate jñānaprakāśakaṃ sarvaṃ sarveṇātmā prakāśakaḥ | ekam ekasvabhāvatvāt jñānaṃ jñeyaṃ vibhāvyate mānasaṃ cetanā śaktir ātmā ceti catuṣṭayam | yadā priye parikṣīṇaṃ tadā tad bhairavaṃ vapuḥ nistaraṅgopadeśānāṃ śatam uktaṃ samāsataḥ | dvādaśābhyadhikaṃ devi yaj jñātvā jñānavij janaḥ atra caikatame yukto jāyate bhairavaḥ svayam | vācā karoti karmāṇi śāpānugrahakārakaḥ ajarāmaratām eti so 'ṇimādiguṇānvitaḥ | yoginīnām priyo devi sarvamelāpakādhipaḥ
+ahaṃ mamedam ityādi pratipattiprasaṅgataḥ | nirādhāre mano yāti taddhyānapreraṇāc chamīnityo vibhur nirādhāro vyāpakaś cākhilādhipaḥ | śabdān pratikṣaṇaṃ dhyāyan kṛtārtho 'rthānurūpataḥatattvam indrajālābham idaṃ sarvam avasthitam | kiṃ tattvam indrajālasya iti dārḍhyāc chamaṃ vrajetātmano nirvikārasya kva jñānaṃ kva ca vā kriyā | jñānāyattā bahirbhāvā ataḥ śūnyam idaṃ jagatna me bandho na mokṣo me bhītasyaitā vibhīṣikāḥ | pratibimbam idam buddher jaleṣv iva vivasvataḥindriyadvārakaṃ sarvaṃ sukhaduḥkhādisaṃgamam | itīndriyāṇi saṃtyajya svasthaḥ svātmani vartatejñānaprakāśakaṃ sarvaṃ sarveṇātmā prakāśakaḥ | ekam ekasvabhāvatvāt jñānaṃ jñeyaṃ vibhāvyatemānasaṃ cetanā śaktir ātmā ceti catuṣṭayam | yadā priye parikṣīṇaṃ tadā tad bhairavaṃ vapuḥnistaraṅgopadeśānāṃ śatam uktaṃ samāsataḥ | dvādaśābhyadhikaṃ devi yaj jñātvā jñānavij janaḥatra caikatame yukto jāyate bhairavaḥ svayam | vācā karoti karmāṇi śāpānugrahakārakaḥ
 ```
 
 ## Reading (machine draft, verse-mapped)
 
+**vbt-p14-v131** — 'I', 'mine', 'this' and such — from coming to conviction: in supportless mind it goes — from that meditation's impulse, calm.
 **vbt-p14-v132** — Eternal, all-pervading, supportless, pervasive, and lord of all: words moment by moment meditated — aim done according to meaning.
 **vbt-p14-v133** — Non-reality, Indra-net-shine — this all standing: what reality of the Indra-net? Thus from firmness, calm may go.
 **vbt-p14-v134** — Of self, unwavering — where knowing, where action? Knowing-dependent outer states: hence void, this world.

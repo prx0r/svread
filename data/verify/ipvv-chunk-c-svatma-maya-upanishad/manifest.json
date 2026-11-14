@@ -1,0 +1,69 @@
+{
+ "artifacts": [
+  {
+   "bytes": 41247,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "bf44d79eb59433294b9bde485739c6c25fb23c5a7731449e73a62b811ab10ebe"
+  },
+  {
+   "bytes": 1621914,
+   "name": "chunk-c-svatma-maya-upanishad.l0.json",
+   "origin": "ipvv/data/chunk-c-svatma-maya-upanishad.l0.json",
+   "role": "layer-l0",
+   "sha256": "a5eaef3b89469753398aa85700c1cd2ba5c4b3ebf2bf30ff48708e606c3d68a0",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 263470,
+   "name": "chunk-c-svatma-maya-upanishad.t1.json",
+   "origin": "ipvv/data/chunk-c-svatma-maya-upanishad.t1.json",
+   "role": "layer-t1",
+   "sha256": "f164459f05a98cf3c3d401515867fdb972b13afcf5a4c885716ba510561dca61",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1706,
+   "name": "proof-chunk-c-svatma-maya-upanishad.json",
+   "origin": "ipvv/proof/proof-chunk-c-svatma-maya-upanishad.json",
+   "role": "proof",
+   "sha256": "7dccd57109bcaa4a59f43394f9cf3c19ada28eee66aaa04bb32d81d1e581ae1c"
+  }
+ ],
+ "assurance": {
+  "chunk_gate": "UNKNOWN",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "FAIL",
+  "witness": "UNPINNED"
+ },
+ "caveats": [],
+ "chunk": {
+  "immutable_id": "pt:pid:ipvv:bf44d79eb594",
+  "target": "chunk-c-svatma-maya-upanishad",
+  "work": "ipvv"
+ },
+ "format": "trika-verify-pack/1",
+ "gaps": [
+  "layer:argmap",
+  "layer:l2",
+  "layer:c1",
+  "layer:l3",
+  "layer:l4",
+  "identity:db"
+ ],
+ "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/ipvv-chunk-c-svatma-maya-upanishad/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
+ "trace": {
+  "file": "traces/ipvv-chunk-c-svatma-maya-upanishad.json",
+  "sha256": "b527d0b7a232537f5d91299d419df559d0abc88a5cecb31da6a076c30dfd6736"
+ },
+ "verdict": "PARTIAL",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
+}

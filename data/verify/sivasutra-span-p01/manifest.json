@@ -1,0 +1,112 @@
+{
+ "artifacts": [
+  {
+   "bytes": 177,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "14c63e031af27da0f993408976804894e7b8b38dd3641e33251f1725fb61812f"
+  },
+  {
+   "bytes": 3143,
+   "name": "span-p01.argmap.json",
+   "origin": "sivasutra/data/span-p01.argmap.json",
+   "role": "layer-argmap",
+   "sha256": "66b6468c5e51e5bdc6fea50884222d8d6c8e3b1bf89e40c1d417b24d4b3d7d40",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 2943,
+   "name": "span-p01.c1.json",
+   "origin": "sivasutra/data/span-p01.c1.json",
+   "role": "layer-c1",
+   "sha256": "f70bbe895447c6b739ff99ad0c29bd04074a16b67426aecd1b15e797f8a0e2f2",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1369,
+   "name": "span-p01.c2.json",
+   "origin": "sivasutra/data/span-p01.c2.json",
+   "role": "layer-c2",
+   "sha256": "e9391370ca2022f8e482cb205c7f34d87c7e87b54ee4d57efc3f06113279abb0",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 5520,
+   "name": "span-p01.l0.json",
+   "origin": "sivasutra/data/span-p01.l0.json",
+   "role": "layer-l0",
+   "sha256": "b2b33a310e1658671fe4f12eb567395612a58be2375925084e787d7d0d3dca2c",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 2300,
+   "name": "span-p01.l2.json",
+   "origin": "sivasutra/data/span-p01.l2.json",
+   "role": "layer-l2",
+   "sha256": "f042d64d4f2bde10004dc1c7c7d73a2667d45864eea9bbf39fb947e9d8f563e8",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 2402,
+   "name": "span-p01.l3.json",
+   "origin": "sivasutra/data/span-p01.l3.json",
+   "role": "layer-l3",
+   "sha256": "216fbe52dcdd9211868f89d60c333333b564df846e4ad4ed462324f48018290f",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 2545,
+   "name": "span-p01.l4.json",
+   "origin": "sivasutra/data/span-p01.l4.json",
+   "role": "layer-l4",
+   "sha256": "053f5321458d46da62b5506379222079e05a0b81c080e44e1f878369f0c0dbb7",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 2616,
+   "name": "span-p01.t1.json",
+   "origin": "sivasutra/data/span-p01.t1.json",
+   "role": "layer-t1",
+   "sha256": "61768342978ff5ebed7c4b1dc207d53c524588c7406d21670b351bd728c931fd",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1722,
+   "name": "proof-span-p01.json",
+   "origin": "sivasutra/proof/proof-span-p01.json",
+   "role": "proof",
+   "sha256": "c32817d6449a01f9f637783ede601a803f987a22e948c01dc09a9bddf16bc17b"
+  }
+ ],
+ "assurance": {
+  "chunk_gate": "UNKNOWN",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "PASS",
+  "witness": "UNPINNED"
+ },
+ "caveats": [],
+ "chunk": {
+  "immutable_id": "pt:pid:sivasutra:14c63e031af2",
+  "target": "span-p01",
+  "work": "sivasutra"
+ },
+ "format": "trika-verify-pack/1",
+ "gaps": [
+  "identity:db"
+ ],
+ "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/sivasutra-span-p01/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
+ "trace": {
+  "file": "traces/sivasutra-span-p01.json",
+  "sha256": "a96dca1ee20c9050c241bbbf2ebd0f50b518d9bbb8d7db4d665d9e65064b4be0"
+ },
+ "verdict": "PARTIAL",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
+}

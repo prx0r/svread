@@ -1,0 +1,112 @@
+{
+ "artifacts": [
+  {
+   "bytes": 1029,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "fddde4fab4ad016e12966a5a353e00f1f3082b43bf402842801d5cfa3e4f245d"
+  },
+  {
+   "bytes": 6557,
+   "name": "rpa-p02.argmap.json",
+   "origin": "rahasyapanchadashika/data/rpa-p02.argmap.json",
+   "role": "layer-argmap",
+   "sha256": "baadb34ea24219e8f9bd4110474206a1a872ddc7778a4b3308b555fd3e33d2a4",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 3886,
+   "name": "rpa-p02.c1.json",
+   "origin": "rahasyapanchadashika/data/rpa-p02.c1.json",
+   "role": "layer-c1",
+   "sha256": "05a937eb217e80ee60aa33c29cefbd0e0ed8f026ebfd17786349b4ba818d1939",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 4230,
+   "name": "rpa-p02.c2.json",
+   "origin": "rahasyapanchadashika/data/rpa-p02.c2.json",
+   "role": "layer-c2",
+   "sha256": "013b4e084989b3c4a8ed2eb02d37ccade3c3f9a1089fab8be1a91fe2618a2907",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 26580,
+   "name": "rpa-p02.l0.json",
+   "origin": "rahasyapanchadashika/data/rpa-p02.l0.json",
+   "role": "layer-l0",
+   "sha256": "af4c748dad07ac8e0945aa36ce0388efaa555538fc0ced67e452a65790dd9a30",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 5038,
+   "name": "rpa-p02.l2.json",
+   "origin": "rahasyapanchadashika/data/rpa-p02.l2.json",
+   "role": "layer-l2",
+   "sha256": "71618da59d3bac40707443dd689234ba8d06da5d30806c4cc5ac240b1fe9549c",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 5913,
+   "name": "rpa-p02.l3.json",
+   "origin": "rahasyapanchadashika/data/rpa-p02.l3.json",
+   "role": "layer-l3",
+   "sha256": "bfcbae4a3fb51a50c50b5b498fc953123f80071e96d3c08fd74cbd10e575ea3c",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 5841,
+   "name": "rpa-p02.l4.json",
+   "origin": "rahasyapanchadashika/data/rpa-p02.l4.json",
+   "role": "layer-l4",
+   "sha256": "eba50f7f44a72cd433b88e4a8d3d537ca8da291e9959906414bfc14e129cb8be",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 8222,
+   "name": "rpa-p02.t1.json",
+   "origin": "rahasyapanchadashika/data/rpa-p02.t1.json",
+   "role": "layer-t1",
+   "sha256": "3433e4ec15ed4c999287c25de8ec3302fb500b523f295a5e2eb6fc5a50d2510a",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1729,
+   "name": "proof-rpa-p02.json",
+   "origin": "rahasyapanchadashika/proof/proof-rpa-p02.json",
+   "role": "proof",
+   "sha256": "9b5154a82ca513a85abb8f1e8756234dc24a8bc491f5fd52d30509a3197a9f2c"
+  }
+ ],
+ "assurance": {
+  "chunk_gate": "UNKNOWN",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "PASS",
+  "witness": "UNPINNED"
+ },
+ "caveats": [],
+ "chunk": {
+  "immutable_id": "pt:pid:rahasyapanchadashika:fddde4fab4ad",
+  "target": "rpa-p02",
+  "work": "rahasyapanchadashika"
+ },
+ "format": "trika-verify-pack/1",
+ "gaps": [
+  "identity:db"
+ ],
+ "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/rahasyapanchadashika-rpa-p02/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
+ "trace": {
+  "file": "traces/rahasyapanchadashika-rpa-p02.json",
+  "sha256": "affa45cc3e12ff900093cfa77d2d9615b3727e0438f3dbbacf39bda7bfd3b5cd"
+ },
+ "verdict": "PARTIAL",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
+}

@@ -1,0 +1,112 @@
+{
+ "artifacts": [
+  {
+   "bytes": 1086,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "2f0a392d95cfa4a515ba34da990afddec87be9912745a493572e13ba79b0c30e"
+  },
+  {
+   "bytes": 8451,
+   "name": "mpa-p02.argmap.json",
+   "origin": "mahopadeshavimshatika/data/mpa-p02.argmap.json",
+   "role": "layer-argmap",
+   "sha256": "1cb83c0e57eae5a3be4a4d89544c394d3cb0911e990a67c03ce394fc5f41af68",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 3726,
+   "name": "mpa-p02.c1.json",
+   "origin": "mahopadeshavimshatika/data/mpa-p02.c1.json",
+   "role": "layer-c1",
+   "sha256": "b2f5c3a14d67db29493e58aa2d8d47cfaf8886522ca507a6b375b0a16f770fd6",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 4408,
+   "name": "mpa-p02.c2.json",
+   "origin": "mahopadeshavimshatika/data/mpa-p02.c2.json",
+   "role": "layer-c2",
+   "sha256": "7fd59697da27c52f6781c2c5e6672bda44800d5aa82b2afc80ee0f989079dc0e",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 33861,
+   "name": "mpa-p02.l0.json",
+   "origin": "mahopadeshavimshatika/data/mpa-p02.l0.json",
+   "role": "layer-l0",
+   "sha256": "3dd015fe72fa9c05ee2901628a183168c4cd193c117cb7171579650abad9c9d0",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 6046,
+   "name": "mpa-p02.l2.json",
+   "origin": "mahopadeshavimshatika/data/mpa-p02.l2.json",
+   "role": "layer-l2",
+   "sha256": "e4e4edb3fcf9e7f155c56bee31fd2978b5ee1250d6d0f736e4ad690e88eecf66",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 6896,
+   "name": "mpa-p02.l3.json",
+   "origin": "mahopadeshavimshatika/data/mpa-p02.l3.json",
+   "role": "layer-l3",
+   "sha256": "d43912a94f6ce497c28797235c590ee3723bebfff0b37846bf1cbf32e31480a7",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 7116,
+   "name": "mpa-p02.l4.json",
+   "origin": "mahopadeshavimshatika/data/mpa-p02.l4.json",
+   "role": "layer-l4",
+   "sha256": "47f95f8f6bc1d17879ccb158bba6a8df68c5e48be3fabfdeb543f74177aa3a9c",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 9967,
+   "name": "mpa-p02.t1.json",
+   "origin": "mahopadeshavimshatika/data/mpa-p02.t1.json",
+   "role": "layer-t1",
+   "sha256": "79d425f5112a0ae7387f2b97006b710884c8e511037591c23fd0e1b08277d714",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1739,
+   "name": "proof-mpa-p02.json",
+   "origin": "mahopadeshavimshatika/proof/proof-mpa-p02.json",
+   "role": "proof",
+   "sha256": "d3c09aab4ec2223cc8c66c6034aa8d5c767d1d84d9993fec2982cd9ce956aee0"
+  }
+ ],
+ "assurance": {
+  "chunk_gate": "UNKNOWN",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "PASS",
+  "witness": "UNPINNED"
+ },
+ "caveats": [],
+ "chunk": {
+  "immutable_id": "pt:pid:mahopadeshavimshatika:2f0a392d95cf",
+  "target": "mpa-p02",
+  "work": "mahopadeshavimshatika"
+ },
+ "format": "trika-verify-pack/1",
+ "gaps": [
+  "identity:db"
+ ],
+ "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/mahopadeshavimshatika-mpa-p02/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
+ "trace": {
+  "file": "traces/mahopadeshavimshatika-mpa-p02.json",
+  "sha256": "32accf258aa4b36db779ef4ad0926c4c31ca870caae0a6d41a7988dfba789dc0"
+ },
+ "verdict": "PARTIAL",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
+}

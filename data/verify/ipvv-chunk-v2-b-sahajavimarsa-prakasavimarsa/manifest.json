@@ -1,0 +1,69 @@
+{
+ "artifacts": [
+  {
+   "bytes": 40666,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "74e79fcfcd7c290b6d42e851ec0c508d4eaf7b7e74a6671f63e8fa3adb3e60f6"
+  },
+  {
+   "bytes": 1669486,
+   "name": "chunk-v2-b-sahajavimarsa-prakasavimarsa.l0.json",
+   "origin": "ipvv/data/chunk-v2-b-sahajavimarsa-prakasavimarsa.l0.json",
+   "role": "layer-l0",
+   "sha256": "c36e109793d819689657642325a99c63bb03ccfa59b295069e4d4f42031a4ec7",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 257940,
+   "name": "chunk-v2-b-sahajavimarsa-prakasavimarsa.t1.json",
+   "origin": "ipvv/data/chunk-v2-b-sahajavimarsa-prakasavimarsa.t1.json",
+   "role": "layer-t1",
+   "sha256": "52e58af3fddbf5c9d33edc7ca825cc7c4eea59f75e6b14914ba15c1f663a0fa1",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1796,
+   "name": "proof-chunk-v2-b-sahajavimarsa-prakasavimarsa.json",
+   "origin": "ipvv/proof/proof-chunk-v2-b-sahajavimarsa-prakasavimarsa.json",
+   "role": "proof",
+   "sha256": "8237522e1f0dfcf187b87db34b77e568f2acdd420a02a7b6578cb4238af8eaf1"
+  }
+ ],
+ "assurance": {
+  "chunk_gate": "UNKNOWN",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "FAIL",
+  "witness": "UNPINNED"
+ },
+ "caveats": [],
+ "chunk": {
+  "immutable_id": "pt:pid:ipvv:74e79fcfcd7c",
+  "target": "chunk-v2-b-sahajavimarsa-prakasavimarsa",
+  "work": "ipvv"
+ },
+ "format": "trika-verify-pack/1",
+ "gaps": [
+  "layer:argmap",
+  "layer:l2",
+  "layer:c1",
+  "layer:l3",
+  "layer:l4",
+  "identity:db"
+ ],
+ "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/ipvv-chunk-v2-b-sahajavimarsa-prakasavimarsa/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
+ "trace": {
+  "file": "traces/ipvv-chunk-v2-b-sahajavimarsa-prakasavimarsa.json",
+  "sha256": "b1e9b7db7ab05cd8b57c00e0832f3bf52601adf09e199273955e6df5a77592a8"
+ },
+ "verdict": "PARTIAL",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
+}

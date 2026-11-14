@@ -1,6 +1,6 @@
-# vbt vbt-p03 (22-31)
+# vbt vbt-p03 (21-30)
 
-vbt vbt-p03 (22-31) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+vbt vbt-p03 (21-30) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
@@ -9,11 +9,12 @@ Canonical: https://svatantrya.net/claim/vbt/vbt-p03/
 ## Passage (excerpt as hashed)
 
 ```
-śrī devy uvāca | devadeva triśūlāṅka kapālakṛtabhūṣaṇa | digdeśakālaśūnyā ca vyapadeśavivarjitā yāvasthā bharitākārā bhairavasyopalabhyate | kair upāyair mukhaṃ tasya parā devi katham bhavet | yathā samyag ahaṃ vedmi tathā me brūhi bhairava bhairava uvāca | ūrdhve prāṇo hy adho jīvo visargātmā paroccaret | utpattidvitayasthāne bharaṇād bharitā sthitiḥ maruto 'ntar bahir vāpi viyadyugmānivartanāt | bhairavyā bhairavasyettham bhairavi vyajyate vapuḥ na vrajen na viśec chaktir marudrūpā vikāsite | nirvikalpatayā madhye tayā bhairavarūpatā kumbhitā recitā vāpi pūritā vā yadā bhavet | tadante śāntanāmāsau śaktyā śāntaḥ prakāśate āmūlāt kiraṇābhāsāṃ sūkṣmāt sūkṣmatarātmikam | cintayet tāṃ dviṣaṭkānte śyāmyantīm bhairavodayaḥ udgacchantīṃ taḍitrūpām praticakraṃ kramāt kramam | ūrdhvaṃ muṣṭitrayaṃ yāvat tāvad ante mahodayaḥ kramadvādaśakaṃ samyag dvādaśākṣarabheditam | sthūlasūkṣmaparasthityā muktvā muktvāntataḥ śivaḥ tayāpūryāśu mūrdhāntaṃ bhaṅktvā bhrūkṣepasetunā | nirvikalpaṃ manaḥ kṛtvā sarvordhve sarvagodgamaḥ
+yathālokena dīpasya kiraṇair bhāskarasya ca | jñāyate digvibhāgādi tadvac chaktyā śivaḥ priyedevadeva triśūlāṅka kapālakṛtabhūṣaṇa | digdeśakālaśūnyā ca vyapadeśavivarjitāyāvasthā bharitākārā bhairavasyopalabhyate | kair upāyair mukhaṃ tasya parā devi katham bhavet | yathā samyag ahaṃ vedmi tathā me brūhi bhairavaūrdhve prāṇo hy adho jīvo visargātmā paroccaret | utpattidvitayasthāne bharaṇād bharitā sthitiḥmaruto 'ntar bahir vāpi viyadyugmānivartanāt | bhairavyā bhairavasyettham bhairavi vyajyate vapuḥna vrajen na viśec chaktir marudrūpā vikāsite | nirvikalpatayā madhye tayā bhairavarūpatākumbhitā recitā vāpi pūritā vā yadā bhavet | tadante śāntanāmāsau śaktyā śāntaḥ prakāśateāmūlāt kiraṇābhāsāṃ sūkṣmāt sūkṣmatarātmikam | cintayet tāṃ dviṣaṭkānte śyāmyantīm bhairavodayaḥudgacchantīṃ taḍitrūpām praticakraṃ kramāt kramam | ūrdhvaṃ muṣṭitrayaṃ yāvat tāvad ante mahodayaḥkramadvādaśakaṃ samyag dvādaśākṣarabheditam | sthūlasūkṣmaparasthityā muktvā muktvāntataḥ śivaḥ
 ```
 
 ## Reading (machine draft, verse-mapped)
 
+**vbt-p03-v21** — Just as by the world-light of a lamp, by rays, and of the sun, direction and division and the rest are known — so by power, Śiva is known, O dear.
 **vbt-p03-v22** — God of gods, marked with the trident, adorned with the skull: void of direction, place and time — and free of designation.
 **vbt-p03-v23** — What is that full-formed state of Bhairava, and by what means does its door open, O supreme Goddess? Tell me as you rightly know it, Bhairava.
 **vbt-p03-v24** — Breath above, life below, and the emission-natured one should utter forth: at the two arising places, filled from filling, standing.

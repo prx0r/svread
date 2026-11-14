@@ -9,12 +9,18 @@ Canonical: https://svatantrya.net/claim/phrdaya/phr-p04/
 ## Passage (excerpt as hashed)
 
 ```
-cetanapadādhyārohāt citiḥ
+tatparijñāne cittam eva antarmukhībhāvena
+cetanapadādhyārohāt citiḥ || 13 || citivahnir arohapade channo 'pi mātrayā
+meyendhanaṃ pluṣyati || 14 || balalābhe viśvam ātmasātkaroti || 15 || cidānandalābhe dehādiṣu cetyamāneṣv api
+cidaikātmyapratipattidārḍhyaṃ jīvanmuktiḥ || 16 ||
 ```
 
 ## Reading (machine draft, verse-mapped)
 
 **phr-p04-v13** — By climbing to knowing's seat — knowing.
+**phr-p04-v14** — It burns knowables for fuel.
+**phr-p04-v15** — Grown strong, it makes the world its own.
+**phr-p04-v16** — Holding oneness with knowing fast — freedom while living.
 
 ## Claims
 

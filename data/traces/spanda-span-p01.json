@@ -16,7 +16,7 @@
   "chunk_gate BLOCKED: ABSTENTION,CITATION_GROUNDING"
  ],
  "chunk": {
-  "immutable_id": "pt:pid:span:152f7b778685",
+  "immutable_id": "pt:pid:spanda:e59fd8e2e8db",
   "target": "span-p01",
   "work": "spanda"
  },
@@ -57,7 +57,9 @@
   ]
  },
  "format": "trika-trace/1",
- "gaps": [],
+ "gaps": [
+  "identity:db"
+ ],
  "identity": {
   "db": "postgresql://patala:***@localhost:5432/openpatala",
   "rows": {
@@ -74,13 +76,9 @@
      "provider": "translation-work"
     }
    ],
-   "passage": {
-    "citation_value": "span-p01",
-    "work_id": "spanda"
-   },
    "witnesses_total": 0
   },
-  "status": "BOUND"
+  "status": "UNRESOLVED"
  },
  "layers": {
   "argmap": {
@@ -132,7 +130,14 @@
    "status": "BOUND"
   }
  },
- "open_problems": [],
+ "open_problems": [
+  "passage id absent from box DB"
+ ],
+ "produced_at": "2026-11-14T05:06:38+00:00",
+ "produced_by": {
+  "tool": "trace_bundle/1",
+  "trika_rev": "UNKNOWN"
+ },
  "proofs": {
   "chunk_gate": {
    "blocking": [
@@ -162,20 +167,20 @@
  },
  "source": {
   "bytes_present": true,
-  "bytes_sha256": "152f7b7786857da7fe1e6ef074d7415c23126c6c8dd72f0b4c0ce38488f5af7a",
+  "bytes_sha256": "e59fd8e2e8dba0534788b74ba15b5547330f8ec5a0ddbe1c1ad5d15426ad0878",
   "edition": {
    "label": "GRETIL (Vasugupta Spandakarika)",
    "status": "CANDIDATE-WORK"
   },
-  "immutable_id": "pt:pid:span:152f7b778685",
+  "immutable_id": "pt:pid:spanda:e59fd8e2e8db",
   "ledger": "spanda/passages.jsonl",
   "source_sha_file": null,
-  "verses": "2-10",
+  "verses": "1-6",
   "witness": {
    "id": null,
    "status": "UNPINNED"
   }
  },
- "verdict": "COMPLETE",
+ "verdict": "PARTIAL",
  "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
 }

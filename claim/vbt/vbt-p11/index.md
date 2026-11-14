@@ -1,6 +1,6 @@
-# vbt vbt-p11 (102-111)
+# vbt vbt-p11 (101-110)
 
-vbt vbt-p11 (102-111) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+vbt vbt-p11 (101-110) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
@@ -9,11 +9,12 @@ Canonical: https://svatantrya.net/claim/vbt/vbt-p11/
 ## Passage (excerpt as hashed)
 
 ```
-indrajālamayaṃ viśvaṃ vyastaṃ vā citrakarmavat | bhramad vā dhyāyataḥ sarvam paśyataś ca sukhodgamaḥ na cittaṃ nikṣiped duḥkhe na sukhe vā parikṣipet | bhairavi jñāyatāṃ madhye kiṃ tattvam avaśiṣyate vihāya nijadehasthaṃ sarvatrāsmīti bhāvayan | dṛḍhena manasā dṛṣṭyā nānyekṣiṇyā sukhī bhavet ghaṭādau yac ca vijñānam icchādyaṃ vā mamāntare | naiva sarvagataṃ jātam bhāvayan iti sarvagaḥ grāhyagrāhakasaṃvittiḥ sāmānyā sarvadehinām | yogināṃ tu viśeṣo =B9sti sambandhe sāvadhānatā svavad anyaśarīre =B9pi saṃvittim anubhāvayet | apekṣāṃ svaśarīrasya tyaktvā vyāpī dinair bhavet nirādhāraṃ manaḥ kṛtvā vikalpān na vikalpayet | tadātmaparamātmatve bhairavo mṛgalocane sarvajñaḥ sarvakartā ca vyāpakaḥ parameśvaraḥ | sa evāhaṃ śaivadharmā iti dārḍhyāc chivo bhavet jalasyevormayo vahner jvālābhaṅgyaḥ prabhā raveḥ | mamaiva bhairavasyaitā viśvabhaṅgyo vibheditāḥ bhrāntvā bhrāntvā śarīreṇa tvaritam bhuvi pātanāt | kṣobhaśaktivirāmeṇa parā saṃjāyate daśā
+kāmakrodhalobhamohamadamātsaryagocare | buddhiṃ nistimitāṃ kṛtvā tat tattvam avaśiṣyateindrajālamayaṃ viśvaṃ vyastaṃ vā citrakarmavat | bhramad vā dhyāyataḥ sarvam paśyataś ca sukhodgamaḥna cittaṃ nikṣiped duḥkhe na sukhe vā parikṣipet | bhairavi jñāyatāṃ madhye kiṃ tattvam avaśiṣyatevihāya nijadehasthaṃ sarvatrāsmīti bhāvayan | dṛḍhena manasā dṛṣṭyā nānyekṣiṇyā sukhī bhavetghaṭādau yac ca vijñānam icchādyaṃ vā mamāntare | naiva sarvagataṃ jātam bhāvayan iti sarvagaḥgrāhyagrāhakasaṃvittiḥ sāmānyā sarvadehinām | yogināṃ tu viśeṣo =B9sti sambandhe sāvadhānatāsvavad anyaśarīre =B9pi saṃvittim anubhāvayet | apekṣāṃ svaśarīrasya tyaktvā vyāpī dinair bhavetnirādhāraṃ manaḥ kṛtvā vikalpān na vikalpayet | tadātmaparamātmatve bhairavo mṛgalocanesarvajñaḥ sarvakartā ca vyāpakaḥ parameśvaraḥ | sa evāhaṃ śaivadharmā iti dārḍhyāc chivo bhavetjalasyevormayo vahner jvālābhaṅgyaḥ prabhā raveḥ | mamaiva bhairavasyaitā viśvabhaṅgyo vibheditāḥ
 ```
 
 ## Reading (machine draft, verse-mapped)
 
+**vbt-p11-v101** — In the range of lust, anger, greed, delusion, pride and envy — intellect uncaused having been made, that reality remains.
 **vbt-p11-v102** — The world, Indra-net-made, cast — or picture-work-like; whirling, or the meditating one's all: and seeing — joy upsurges.
 **vbt-p11-v103** — Not into pain should the mind be cast, not into joy, nor scattered about: O Bhairavī — in the middle, what reality remains may be known.
 **vbt-p11-v104** — Having left the own-body-standing, contemplating everywhere-I-am-thus: with firm mind, by a gaze not seeing elsewhere — happy may he be.

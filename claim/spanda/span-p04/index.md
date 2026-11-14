@@ -1,6 +1,6 @@
-# spanda span-p04 (4-6)
+# spanda span-p04 (20-25)
 
-spanda span-p04 (4-6) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+spanda span-p04 (20-25) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
@@ -9,12 +9,17 @@ Canonical: https://svatantrya.net/claim/spanda/span-p04/
 ## Passage (excerpt as hashed)
 
 ```
-tasmāc chabdārthacintāsu na sāvasthā na yā śivaḥ | bhoktaiva bhogyabhāvena sadā sarvatra saṃsthitaḥ iti vā yasya saṃvittiḥ krīḍātvenākhilaṃ jagat | sa paśyan satataṃ yukto jīvanmukto na saṃśayaḥ ayam evodayas tasya dhyeyasya dhyāyicetasi | tadātmatāsamāpattir icchataḥ sādhakasya yā iyam evāmṛtaprāptir ayam evātmano grahaḥ | iyaṃ nirvāṇa-dīkṣā ca śivasadbhāvadāyini tṛtīyo niḥṣyandaḥ yathecchābhyarthito dhātā jāgrato 'rthān hṛdi sthitān somasūryodayaṃ kṛtvā sampādayati dehinaḥ || 1 | tathā svapne 'py abhīṣṭārthān praṇayasyānatikramāt | nityaṃ sphuṭataraṃ madhye sthito 'vaśyaṃ prakāśayet anyathā tu svatantrā syāt sṛṣṭis taddharmakatvataḥ | satataṃ laukikasyeva jāgratsvapnapadadvaye yathā hi artho 'sphuṭo dṛṣṭaḥ sāvadhāne 'pi cetasi | bhūyaḥ sphuṭataro bhāti svabalodyogabhāvitaḥ tathā yat paramārthena yena yatra yathā sthitam | tat tathā balam ākramya na cirāt sampravartate durbalo 'pi tadākramya yataḥ kārye pravartate | ācchādayed bubhukṣāṃ ca tathā yo 'ti bubhukṣitaḥ
+aprabudhadhiyas tv ete svasthitisthaganodyatāḥ | pātayanti duruttāre ghore saṃsāravartmaniataḥ satatam udyuktaḥ spandatattvaviviktaye | jāgrad eva nijam bhāvam acireṇādhigacchatiatikruddhaḥ prahṛṣṭo vā kiṃ karomīti vā mṛśan | dhāvan va yat padaṃ gacchet tatra spandaḥ pratiṣṭhitaḥyām avasthāṃ samālambya yad ayam mama vakṣyati | tadavaśyaṃ kariṣye 'ham iti saṃkalpya tiṣṭhatitām aśrityordhvamārgeṇa candrasūryāv ubhāv api | sauṣumne 'dhvanyastamito hitvā brahmā.ṅdagocaramtadā tasmin mahāvyomni pralīnaśaśibhāskare | sauṣuptapadavan mūḍhaḥ prabuddhaḥ syād anāvṛtaḥ
 ```
 
-## Reading
+## Reading (machine draft, verse-mapped)
 
-Withheld. no pack L2 entry maps to this passage excerpt (verse-level mapping required, none found)
+**span-p04-v20** — Of unawakened minds, eager to cover self-standing — they cast down on the hard-to-cross, terrible wandering road.
+**span-p04-v21** — Hence ever striving for spanda-reality discerning: waking indeed, the own state soon attains.
+**span-p04-v22** — Angry, thrilled, or what shall I do — or pondering, running: whatever step it takes, there spanda is established.
+**span-p04-v23** — Which state seized, whatever this one tells me — that I will do: thus resolved, he stands.
+**span-p04-v24** — Her, by resorting to the upper path, moon and sun both — in suṣumnā set, brahma-egg-range left.
+**span-p04-v25** — Then in that great sky, moon and sun dissolved — like deep-sleep: deluded or awakened may be uncovered.
 
 ## Claims
 

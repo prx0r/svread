@@ -1,0 +1,90 @@
+{
+ "artifacts": [
+  {
+   "bytes": 89491,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "71e50a1a79407c7f9e42c5fde90a9cebca3f2c1a6699a10e132435784e5b74a7"
+  },
+  {
+   "bytes": 174186,
+   "name": "ssv-u3.argmap.json",
+   "origin": "sivasutravimarsini/data/ssv-u3.argmap.json",
+   "role": "layer-argmap",
+   "sha256": "1dbb02fd9539070f7e71b8c496d623239424ac015a391b88386e0a042d440d28",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 674,
+   "name": "ssv-u3.c1.json",
+   "origin": "sivasutravimarsini/data/ssv-u3.c1.json",
+   "role": "layer-c1",
+   "sha256": "2ff070f2bda5fffa4f1936d0471ba1652738e06b34387109d7cf4c5f519e1b68",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 2121706,
+   "name": "ssv-u3.l0.json",
+   "origin": "sivasutravimarsini/data/ssv-u3.l0.json",
+   "role": "layer-l0",
+   "sha256": "912831dc4bd931428aa9af7e30f720455fc1df80d3f1a9e2f0b5dfc4b19253c4",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 238535,
+   "name": "ssv-u3.l2.json",
+   "origin": "sivasutravimarsini/data/ssv-u3.l2.json",
+   "role": "layer-l2",
+   "sha256": "46c6a793d85a128fd8fb43372f0804daf7eef4e340590abf49b6254d5ce41e72",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 780370,
+   "name": "ssv-u3.t1.json",
+   "origin": "sivasutravimarsini/data/ssv-u3.t1.json",
+   "role": "layer-t1",
+   "sha256": "69de4dd15502b835ac119f46592983a5e48892e6a670355f9210261f2f854c4f",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1524,
+   "name": "proof-ssv-u3.json",
+   "origin": "sivasutravimarsini/proof/proof-ssv-u3.json",
+   "role": "proof",
+   "sha256": "4743a1d59c66a8be43da7986467f9010ab7a3f4f5fab1a05bfb498af786fe5d9"
+  }
+ ],
+ "assurance": {
+  "chunk_gate": "UNKNOWN",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "FAIL",
+  "witness": "UNPINNED"
+ },
+ "caveats": [],
+ "chunk": {
+  "immutable_id": "pt:pid:sivasutravimarsini:71e50a1a7940",
+  "target": "ssv-u3",
+  "work": "sivasutravimarsini"
+ },
+ "format": "trika-verify-pack/1",
+ "gaps": [
+  "layer:l3",
+  "layer:l4",
+  "identity:db"
+ ],
+ "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/sivasutravimarsini-ssv-u3/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
+ "trace": {
+  "file": "traces/sivasutravimarsini-ssv-u3.json",
+  "sha256": "48ce28bd25ba7f6f632d4e417b6aa28e2d97be71f6efffcc2c63ce415fa543db"
+ },
+ "verdict": "PARTIAL",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
+}

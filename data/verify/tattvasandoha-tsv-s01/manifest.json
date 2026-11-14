@@ -1,0 +1,90 @@
+{
+ "artifacts": [
+  {
+   "bytes": 5687,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "3d33df434d637a214838c925c050cdc1bf02ff0a5d4b9de949ab47fa8633a48e"
+  },
+  {
+   "bytes": 20545,
+   "name": "tsv-s01.argmap.json",
+   "origin": "tattvasandoha/data/tsv-s01.argmap.json",
+   "role": "layer-argmap",
+   "sha256": "9db527669b4afc62c71646367e9b177d62d81186d6a517cd9adac522fe8c383e",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 541,
+   "name": "tsv-s01.c1.json",
+   "origin": "tattvasandoha/data/tsv-s01.c1.json",
+   "role": "layer-c1",
+   "sha256": "da88c9e15fbc97c0bd816fc552af9eaae6576a15d63195725e5cb51f8595ec75",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 82090,
+   "name": "tsv-s01.l0.json",
+   "origin": "tattvasandoha/data/tsv-s01.l0.json",
+   "role": "layer-l0",
+   "sha256": "f4c551a9055a242673931b1307a9858970a2f4de8db3eabb87ca3b4e4323e20a",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 16824,
+   "name": "tsv-s01.l2.json",
+   "origin": "tattvasandoha/data/tsv-s01.l2.json",
+   "role": "layer-l2",
+   "sha256": "9852f5edb190ef5ae08a35a5a6c95fff63dd5f53dffb455af972022dfee6c8fc",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 43293,
+   "name": "tsv-s01.t1.json",
+   "origin": "tattvasandoha/data/tsv-s01.t1.json",
+   "role": "layer-t1",
+   "sha256": "436cf603b9dc4a79eac38f1668bd899342e00b93e6d7ad96318926bc6013a8d9",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1523,
+   "name": "proof-tsv-s01.json",
+   "origin": "tattvasandoha/proof/proof-tsv-s01.json",
+   "role": "proof",
+   "sha256": "dec27308375b1556185d199c90a81c5ee5475a37578d1c2995f17fe71ce40e7e"
+  }
+ ],
+ "assurance": {
+  "chunk_gate": "UNKNOWN",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "FAIL",
+  "witness": "UNPINNED"
+ },
+ "caveats": [],
+ "chunk": {
+  "immutable_id": "pt:pid:tattvasandoha:3d33df434d63",
+  "target": "tsv-s01",
+  "work": "tattvasandoha"
+ },
+ "format": "trika-verify-pack/1",
+ "gaps": [
+  "layer:l3",
+  "layer:l4",
+  "identity:db"
+ ],
+ "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/tattvasandoha-tsv-s01/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
+ "trace": {
+  "file": "traces/tattvasandoha-tsv-s01.json",
+  "sha256": "3272664b630df793017f8c4cb47eec85e360f86291b790fcb1e38a39ceef4051"
+ },
+ "verdict": "PARTIAL",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
+}

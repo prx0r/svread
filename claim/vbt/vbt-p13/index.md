@@ -1,6 +1,6 @@
-# vbt vbt-p13 (122-131)
+# vbt vbt-p13 (121-130)
 
-vbt vbt-p13 (122-131) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+vbt vbt-p13 (121-130) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
@@ -9,11 +9,12 @@ Canonical: https://svatantrya.net/claim/vbt/vbt-p13/
 ## Passage (excerpt as hashed)
 
 ```
-vastvantare vedyamāne sarvavastuṣu śūnyatā | tām eva manasā dhyātvā vidito 'pi praśāmyati kiṃcijjñair yā smṛtā śuddhiḥ sā śuddhiḥ śambhudarśane | na śucir hy aśucis tasmān nirvikalpaḥ sukhī bhavet sarvatra bhairavo bhāvaḥ sāmānyeṣv api gocaraḥ | na ca tadvyatirekteṇa paro 'stīty advayā gatiḥ samaḥ śatrau ca mitre ca samo mānāvamānayoḥ || brahmaṇaḥ paripūrṇatvāt iti jñātvā sukhī bhavet na dveṣam bhāvayet kvāpi na rāgam bhāvayet kvacit | rāgadveṣavinirmuktau madhye brahma prasarpati yad avedyaṃ yad agrāhyaṃ yac chūnyaṃ yad abhāvagam | tat sarvam bhairavam bhāvyaṃ tadante bodhasambhavaḥ nitye nirāśraye śūnye vyāpake kalanojjhite | bāhyākāśe manaḥ kṛtvā nirākāśaṃ samāviśet yatra yatra mano yāti tat tat tenaiva tatkṣaṇam | parityajyānavasthityā nistaraṅgas tato bhavet bhayā sarvaṃ ravayati sarvado vyāpako 'khile | iti bhairavaśabdasya santatoccāraṇāc chivaḥ ahaṃ mamedam ityādi pratipattiprasaṅgataḥ | nirādhāre mano yāti taddhyānapreraṇāc chamī
+bhaktyudrekād viraktasya yādṛśī jāyate matiḥ | sā śaktiḥ śāṅkarī nityam bhavayet tāṃ tataḥ śivaḥvastvantare vedyamāne sarvavastuṣu śūnyatā | tām eva manasā dhyātvā vidito 'pi praśāmyatikiṃcijjñair yā smṛtā śuddhiḥ sā śuddhiḥ śambhudarśane | na śucir hy aśucis tasmān nirvikalpaḥ sukhī bhavetsarvatra bhairavo bhāvaḥ sāmānyeṣv api gocaraḥ | na ca tadvyatirekteṇa paro 'stīty advayā gatiḥsamaḥ śatrau ca mitre ca samo mānāvamānayoḥ || brahmaṇaḥ paripūrṇatvāt iti jñātvā sukhī bhavetna dveṣam bhāvayet kvāpi na rāgam bhāvayet kvacit | rāgadveṣavinirmuktau madhye brahma prasarpatiyad avedyaṃ yad agrāhyaṃ yac chūnyaṃ yad abhāvagam | tat sarvam bhairavam bhāvyaṃ tadante bodhasambhavaḥnitye nirāśraye śūnye vyāpake kalanojjhite | bāhyākāśe manaḥ kṛtvā nirākāśaṃ samāviśetyatra yatra mano yāti tat tat tenaiva tatkṣaṇam | parityajyānavasthityā nistaraṅgas tato bhavetbhayā sarvaṃ ravayati sarvado vyāpako 'khile | iti bhairavaśabdasya santatoccāraṇāc chivaḥ
 ```
 
 ## Reading (machine draft, verse-mapped)
 
+**vbt-p13-v121** — From the excess of devotion, of the dispassionate one — as which the mind arises: she, power, Śaṅkara's — always should contemplate her; then Śiva.
 **vbt-p13-v122** — In things inside, being known — in all things, voidness: her indeed, by mind meditated — known even, becomes calm.
 **vbt-p13-v123** — By slightly knowing which is remembered purity — that purity in Śambhu's view: not pure, nor impure therefore — thought-free, happy may he be.
 **vbt-p13-v124** — Everywhere Bhairava's state — even in common things, the object: not apart from that higher thus — the nondual going.
