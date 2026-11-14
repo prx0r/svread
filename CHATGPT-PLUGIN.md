@@ -1,6 +1,6 @@
 # ChatGPT plugins — per-function MCP hosts (2026-11-12)
 
-Status: **live**. Ten small hosts replaced the one 198-tool firehose
+Status: **live**. Ten small hosts replaced the one 210-tool firehose
 (ChatGPT degrades past ~50 tools and doesn't paginate `tools/list`).
 Each host is systemd-owned, survives reboots, served through the one
 `tunnel svatantrya-mcp` with per-host DNS + ingress.
@@ -34,7 +34,7 @@ Bearer token (owner only, never in repo): `sudo grep MCP_TOKEN /etc/svatantrya-m
 Call `workspace__estate_index` on the console host (or read
 `https://svatantrya.net/data/estate-index.json`). One JSON with:
 
-- `counts` — 2,051 works, 268 translated songs, 44 certificates, 198 tools
+- `counts` — 2,051 works, 268 translated songs, 44 certificates, 210 tools (live 2026-11-14)
 - `repos` — what each of the 13 trees is and where to start
 - `data` — every Sanskrit asset and **the MCP tool that reaches it**
 - `docs` — what to read for rules, Lean limits, deployment
@@ -57,13 +57,13 @@ curl -s -o /dev/null -w '%{http_code}\n' -X POST https://mcp.sanskrit.help/mcp \
 # 401 = auth working
 ```
 
-## What is exposed (198 tools, 7 servers)
+## What is exposed (210 tools, 7 servers)
 
 | Server | Tools | What ChatGPT can do |
 |---|---|---|
-| `scholar` | 38 | passages + hash-checked evidence, wheels, certificates, essays, sources, decisions, reviews |
+| `scholar` | 41 | passages + hash-checked evidence, wheels, certificates, essays, sources, decisions, reviews |
 | `openpatala` | 5 | resolve a work, search the bibliography, full dossier, frontier, health |
-| `federation` | 109 | the trika-x gateway: formal evidence, treeka, bridges, cross-repo navigation |
+| `federation` | 112 | the trika-x gateway: formal evidence, treeka, bridges, cross-repo navigation |
 | `bookfactory` | 22 | read lanes, theses, templates, entries, decisions, gate checks |
 | `videofactory` | 18 | lanes, units, render-gate status |
 | `aoc` | 20 | carousel factory: status, validate, review, receipts (writes are gated) |
