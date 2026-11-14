@@ -80,7 +80,7 @@ every child behind the gateway is a stdio script (see `mcp/gateway/servers-*.jso
 
 Core (`MASTERPLAN3`, `PROGRESS-REPORT`, `EXTERNAL-STRATEGY`, `MCP-INTEGRATION`,
 trika-x `MASTER-PLAN/MASTERPLAN2/STATUS`, translation-work
-`NORTHSTAR/CANONICAL/LAYERS`) and satellites (nibbanahelp `ROADMAP/HANDOVER`,
+`NORTHSTAR/CANONICAL/LAYERS`) and satellites (the personal lane `ROADMAP/HANDOVER`,
 sanskrithelp `AGENTS/HANDOVER`/Bruno synthesis, satsang `BRIEF/OPEN-THREADS`)
 agree: **read-first narrow surface, machine-proposes/human-disposes,
 BLOCKED≠PASS, provenance envelope, never expose federation wholesale.**
