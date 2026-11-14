@@ -24,7 +24,6 @@ name + URL → auth per row → Create as a plugin → Install → `@name` in ch
 | essay | `https://essay.svatantrya.net/mcp` | static bearer (owner token) | 24 essay workflow |
 | books | `https://books.svatantrya.net/mcp` | static bearer (owner token) | 22 book factory |
 | video | `https://video.svatantrya.net/mcp` | static bearer (owner token) | 18 video factory |
-| nibbana | `https://nibbana.svatantrya.net/mcp` | static bearer (owner token), **private — never list** | 4 relay/teacher |
 
 Bearer token (owner only, never in repo): `sudo grep MCP_TOKEN /etc/svatantrya-mcp.env`.
 `https://mcp.sanskrit.help/mcp` stays the owner console (full 198, bearer).
@@ -163,11 +162,11 @@ svatantrya-mcp`, then update the connector.
    auth + RFC 9728 discovery (`/.well-known/oauth-protected-resource`,
    `WWW-Authenticate` challenges). Missing: a real authorization server
    (Google upstream, `offline_access`, per-tool `securitySchemes`). Bearer hosts
-   stay owner-only until then — nibbana especially.
+   stay owner-only until then.
 3. **Directory submission (public plugins only: index/sanskrit/practice/formal/
    translate).** Needs: domain verification, 5 positive + 3 negative test cases
    per plugin, reviewer-usable demo (public hosts need no creds), and the
-   OAuth step above for anything with writes. Nibbana is never submitted.
+   OAuth step above for anything with writes.
 4. **Remaining builds:** `treeka` frontier polish, tutor voice/audio job ids,
    `hxrmxs`/`rag` reference tools on the tutor host, edge Worker migration for
    the 5 read hosts so the box isn't load-bearing.

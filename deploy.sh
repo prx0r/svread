@@ -14,4 +14,7 @@ PY
 python3 tools/emit_index_meta.py
 python3 scripts/release_manifest.py --write
 export CLOUDFLARE_API_TOKEN="$(cat /root/.cf-api-token)"
-wrangler pages deploy . --project-name svread "$@"
+STAGED_SITE="$(mktemp -d)"
+trap 'rm -rf "$STAGED_SITE"' EXIT
+python3 tools/stage_public_site.py "$STAGED_SITE"
+wrangler pages deploy "$STAGED_SITE" --project-name svread "$@"

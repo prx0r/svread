@@ -88,13 +88,6 @@ PLUGINS = [
      "auth": "bearer", "access": "owner", "tools": 18,
      "tests": ["What video projects exist?",
                "What is the render-gate status?"]},
-    {"id": "nibbana", "name": "Nibbana Relay (private)",
-     "tagline": "Diary relay + decode review. Never listed.",
-     "desc": "Relay lived experience with provenance (never advice); review decode proposals. Owner journal only.",
-     "auth": "bearer", "access": "private — owner only, never in any directory",
-     "tools": 4,
-     "tests": ["Relay what the diary says about restlessness",
-               "Show day 1 decode rows"]},
 ]
 
 BUNDLES = [
@@ -186,7 +179,7 @@ def build_html() -> str:
         '<p>Start with the three bundles: <strong>Svatantrya</strong> is everything '
         'public in one install; <strong>Studio</strong> and <strong>Factory</strong> '
         'are the owner rooms. Below them, the same tools split per function for '
-        'agents and power users (Nibbana Relay is private and never listed). '
+        'agents and power users. '
         'Machine-readable spec: <a href="plugins.json">plugins.json</a>.</p>'
         + ''.join(bcards) +
         '<h2>Per-function hosts (granular; same tools, split up)</h2>'
@@ -229,7 +222,7 @@ def build_json() -> dict:
         'origin': ORIGIN,
         'install': ('Start with the bundles: Svatantrya (everything public, no auth), '
                     'Studio + Factory (owner token). Per-function hosts below for '
-                    'agents and power users; nibbana is private and never listed.'),
+                    'agents and power users.'),
         'bundles': [
             {'id': p['id'], 'name': p['name'], 'url': url(p['id']),
              'tagline': p['tagline'], 'description': p['desc'],
@@ -247,7 +240,7 @@ def build_json() -> dict:
         },
         'directory_status': ('Not yet submitted. Public five are submission-ready '
                              'pending domain verification + reviewer test runs; '
-                             'owner four stay unlisted; nibbana is never submitted.'),
+                             'owner four stay unlisted.'),
         'pages': {'human': f'{ORIGIN}/plugins/',
                   'markdown': f'{ORIGIN}/plugins/index.md'},
     }
