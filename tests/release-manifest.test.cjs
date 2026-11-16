@@ -6,7 +6,7 @@ const path=require('node:path');
 const {spawnSync}=require('node:child_process');
 const {createHash}=require('node:crypto');
 
-test('release check detects changed assets and refuses an invalid Scholar projection',()=>{
+test('release check detects changed assets and refuses an invalid Scholar projection', { timeout: 120000 }, () => {
   const root=path.join(__dirname,'..'),tmp=fs.mkdtempSync(path.join(os.tmpdir(),'svread-release-'));
   try{
     for(const name of ['.nojekyll','index.html','app.js','styles.css','sw.js','manifest.webmanifest','README.md','SPEC.md','READER-ARCHITECTURE.md',

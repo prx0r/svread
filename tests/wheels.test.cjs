@@ -146,7 +146,13 @@ test('karaka wheel: six relationships, honest examples', () => {
   }
   const cp = require('node:child_process');
   const vendorPath = path.join(ROOT, 'vendor/sanskrit-bruno-wheels/data.js');
-  const cur = JSON.parse(cp.execFileSync('node',
+  // Box may be bun-only (no `node` binary; CI has node 22). Fall back to the
+  // current runtime, which supports `node -e`-compatible eval (bun --eval).
+  const NODE = (() => {
+    try { cp.execFileSync('node', ['--version'], { stdio: 'ignore' }); return 'node'; }
+    catch { return process.execPath; }
+  })();
+  const cur = JSON.parse(cp.execFileSync(NODE,
     ['-e', 'console.log(JSON.stringify(require(process.argv[1])))', vendorPath],
     { encoding: 'utf8' }));
   const curForms = new Set();

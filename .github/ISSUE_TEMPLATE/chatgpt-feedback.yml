@@ -1,0 +1,29 @@
+name: ChatGPT surface report
+description: Paste back a ChatGPT MCP-surface probe (see CHATGPT-FEEDBACK.md).
+title: "chatgpt-surface: "
+labels: ["chatgpt-feedback"]
+body:
+  - type: textarea
+    id: report
+    attributes:
+      label: Probe report
+      description: Paste the filled §3 template from CHATGPT-FEEDBACK.md and nothing else.
+      placeholder: |
+        ## ChatGPT surface report — <date UTC>
+        P1 param-p01 evidence: [PASS/FAIL] …
+        P2 tal-a01 gap: [GAP-CONFIRMED/UNEXPECTED-PASS/FAIL] …
+        P3 formal trace: [PASS/FAIL] …
+        P4 claim HTML: [PASS/FAIL] …
+        P5 ghat hold: [HOLD-HONORED/P0-LEAK]
+        Unclear: …
+        Verdict: [LEGIT / LEGIT-WITH-NOTES / NOT-LEGIT]
+    validations:
+      required: true
+  - type: input
+    id: tested-url
+    attributes:
+      label: Which deployment did you test?
+      description: prod (svatantrya.net) or a branch URL — local-only fixes differ until deployed.
+      placeholder: https://svatantrya.net
+    validations:
+      required: false
