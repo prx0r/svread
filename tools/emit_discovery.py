@@ -147,6 +147,7 @@ def build_llms(pushing: dict, biblio: dict, sanskrit: dict) -> str:
         f"- One-URL answers (no registration, no JS: fetch a form, get verdict + derivation + scripture): {ORIGIN}/a/<form>/ — index {ORIGIN}/a/index.json",
         f"- Harness master prompt (how a tutor model uses the site): {ORIGIN}/data/wheels/HARNESS.md",
         f"- Wheel datasets (word/sentence/trika/karaka constructors): {ORIGIN}/data/wheels/word.json, sentence.json, trika.json, karaka.json",
+        f"- Simple Sentence Wheel pack (Ashram Core 20: 20-word lexicon, 10 roots x 3 tenses, 5 rings, levels 1.1-1.4 + preliminaries 0.1-0.4, 323 + 96 cards; curated, unreviewed): {ORIGIN}/data/wheels/simple-sentence/ · contract {ORIGIN}/data/wheels/simple-sentence/data/wheel_contract.json · master prompt {ORIGIN}/data/wheels/simple-sentence/MASTER_CHATGPT_PROMPT.md",
         f"- Generative compose dataset (9,507 enumerated wheel states over 60 levels, HOLD-gated, server-scored; study order + prereqs): {ORIGIN}/data/wheels/compose.json · provenance {ORIGIN}/data/wheels/compose-provenance.json",
         f"- Four-wheel pack dataset (2,512 pack states: 6 content packs x 4 master wheels; decompose + multi-wheel dialogue): {ORIGIN}/data/wheels/compose-packs.json · map {ORIGIN}/data/wheels/wheelmap.json",
         f"- Vidyut mechanical check of compose verbs (DERIVABLE vs review queue): {ORIGIN}/data/wheels/compose-check.json",

@@ -1,0 +1,195 @@
+{
+  "wheel_id": "simple_sentence_ashram_v1",
+  "name": "सरलवाक्यचक्रम् / Simple Sentence Wheel",
+  "product_contract": "Wheel × Level × Pack × five dependent rings × learner state",
+  "pack": "ashram-core-20",
+  "preliminaries": [
+    "0.1 lexical recognition",
+    "0.2 verb meaning and principal forms",
+    "0.3 controlled simple recall",
+    "0.4 readiness mixed check"
+  ],
+  "rings": [
+    {
+      "index": 1,
+      "id": "agent",
+      "purpose": "Speaker or referent; controls person/number",
+      "baseline": [
+        "अहम्",
+        "त्वम्",
+        "गुरुः",
+        "शिष्यः"
+      ],
+      "constraints": "Level 1 starts 1sg, 3sg; 2sg at level 1.3. Respectful bhavān/bhavatī later, with 3rd-person agreement."
+    },
+    {
+      "index": 2,
+      "id": "predicate",
+      "purpose": "Semantically licensed verbal root and tense",
+      "baseline": [
+        "path",
+        "likh",
+        "vad",
+        "drsh",
+        "shru",
+        "gam",
+        "pa",
+        "khad",
+        "kr",
+        "da"
+      ],
+      "constraints": "Verb agrees with ring 1; present/imperfect/future from explicit inventory, no fabricated forms."
+    },
+    {
+      "index": 3,
+      "id": "theme",
+      "purpose": "Licensed object/theme or NONE",
+      "baseline": [
+        "NONE",
+        "book",
+        "sanskrit",
+        "letter",
+        "water",
+        "fruit"
+      ],
+      "constraints": "Filter by each root.object_ids; movement roots take destination rather than object; optional recipient for give."
+    },
+    {
+      "index": 4,
+      "id": "setting",
+      "purpose": "Time and place expression",
+      "baseline": [
+        "NONE",
+        "अद्य",
+        "ह्यः",
+        "श्वः",
+        "आश्रमे",
+        "कक्षे",
+        "उद्याने"
+      ],
+      "constraints": "Time may be absent; if yesterday/tomorrow chosen, tense must match; location only valid for setting."
+    },
+    {
+      "index": 5,
+      "id": "relation_or_question",
+      "purpose": "Recipient, instrument, source, possessor or permitted question transformation",
+      "baseline": [
+        "NONE",
+        "शिष्याय",
+        "लेखन्या",
+        "पात्रात्",
+        "स्वपात्रात्",
+        "कदा",
+        "कुत्र",
+        "कस्मै"
+      ],
+      "constraints": "Dative only for giving; pen instrument for writing; source from vessel for drinking/giving; question operators require licensed answer slots."
+    }
+  ],
+  "levels": [
+    {
+      "id": "1.1",
+      "name": "Who does what?",
+      "active": [
+        "agent",
+        "predicate",
+        "theme"
+      ],
+      "tense": [
+        "present"
+      ],
+      "persons": [
+        "first_sg",
+        "third_sg"
+      ],
+      "skills": [
+        "recognize subject",
+        "select verb",
+        "add one compatible object"
+      ],
+      "minimum_practice": 12
+    },
+    {
+      "id": "1.2",
+      "name": "Actions, objects and places",
+      "active": [
+        "agent",
+        "predicate",
+        "theme",
+        "setting"
+      ],
+      "tense": [
+        "present"
+      ],
+      "persons": [
+        "first_sg",
+        "third_sg"
+      ],
+      "skills": [
+        "all ten roots",
+        "destination vs location",
+        "basic locative forms"
+      ],
+      "minimum_practice": 16
+    },
+    {
+      "id": "1.3",
+      "name": "Three tenses, people and questions",
+      "active": [
+        "agent",
+        "predicate",
+        "theme",
+        "setting",
+        "relation_or_question"
+      ],
+      "tense": [
+        "present",
+        "imperfect",
+        "future"
+      ],
+      "persons": [
+        "first_sg",
+        "second_sg",
+        "third_sg"
+      ],
+      "skills": [
+        "first/second/third singular",
+        "adya/hyaḥ/śvaḥ",
+        "when/where/what questions"
+      ],
+      "minimum_practice": 24
+    },
+    {
+      "id": "1.4",
+      "name": "Complete ashram scenes",
+      "active": [
+        "agent",
+        "predicate",
+        "theme",
+        "setting",
+        "relation_or_question"
+      ],
+      "tense": [
+        "present",
+        "imperfect",
+        "future"
+      ],
+      "persons": [
+        "first_sg",
+        "second_sg",
+        "third_sg"
+      ],
+      "skills": [
+        "giving to recipient",
+        "instrumental",
+        "source",
+        "possession",
+        "mixed questions",
+        "multi-component sentence"
+      ],
+      "minimum_practice": 30
+    }
+  ],
+  "extension_policy": "Separate future wheel or 2.x bridge for dual/plural, passive, relative-correlative, compounds. Not silently inserted into 1.1–1.4.",
+  "source_status": "CURATED educational data; not a formally verified morphology engine or a certified textbook extract."
+}
