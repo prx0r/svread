@@ -112,3 +112,10 @@ test('compose server has no owner default in per-user tools', () => {
   assert.match(s, /compare_digest/, 'token compare is constant-time');
   assert.match(s, /token_sha/, 'only the token hash is stored');
 });
+
+test('practice instructions disambiguate tutor vs compose level systems', () => {
+  const cfg = JSON.parse(R('mcp/gateway/servers-practice.json'));
+  assert.match(cfg.instructions, /TWO LEVEL SYSTEMS/i, 'names the two systems');
+  assert.match(cfg.instructions, /1\.1 = Introductions/, 'compose 1.1 is Introductions');
+  assert.match(cfg.instructions, /Level 1 = \\s*Bases|Level 1 = Bases/, 'tutor Level 1 is Bases');
+});
