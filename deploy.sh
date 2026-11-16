@@ -21,6 +21,23 @@ fi
 STAGED_SITE="$(mktemp -d)"
 trap 'rm -rf "$STAGED_SITE"' EXIT
 python3 tools/stage_public_site.py "$STAGED_SITE"
+# Post-stage guard (2026-11-16 incident): Pages deploys are atomic, so any live
+# asset missing from the staged tree is DELETED in production. Refuse to deploy
+# if a critical page or the claim page count regressed.
+python3 - "$STAGED_SITE" <<'PY'
+import pathlib, sys
+staged = pathlib.Path(sys.argv[1])
+critical = ['index.html', 'app.js', 'styles.css', 'sw.js', 'essay.html',
+            'essay-workshop.js', 'essay-workshop.css', 'llms.txt',
+            'sitemap.xml', 'ai-catalog.json', '_redirects']
+missing = [f for f in critical if not (staged / f).is_file()]
+claims = len(list(staged.glob('claim/*/*/index.html')))
+if missing:
+    sys.exit(f'REFUSING deploy: critical assets missing from staged tree: {missing}')
+if claims < 900:
+    sys.exit(f'REFUSING deploy: claim pages regressed to {claims} (< 900)')
+print(f"staged guard ok: {len(list(staged.rglob('*')))} files, {claims} claim pages")
+PY
 # wrangler shim is broken on bun-only boxes (/usr/local/bin/wrangler needs node);
 # prefer a working wrangler, fall back to bunx.
 if command -v wrangler >/dev/null 2>&1 && wrangler --version >/dev/null 2>&1; then
