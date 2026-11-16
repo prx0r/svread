@@ -92,8 +92,26 @@ const IAST_DEVA = (()=>{
   }
   return {convert};
 })();
-function cleanSA(s){ return (s||'').replace(/^# Text\s*/,'').replace(/\s+/g,' ').trim(); }
-function cleanEN(s){ return (s||'').replace(/^#+\s*[^\n]*\n/,'').replace(/\s*\/\/\s*\S+\s*$/,'').trim(); }
+function cleanSA(s){ return (s||'').replace(/^# Text\s*/,'').replace(/[ \t\f\v\r]+/g,' ').replace(/\n{3,}/g,'\n\n').trim(); }
+/* Display-only paratext strip (bytes stay in data/ for hashing): edition
+   pagination markers like "(page 7)" and line-break hyphens from OCR/PDF
+   sources. Mid-line hyphens (svācchandyam-yat) are real text and are kept. */
+function displaySA(s){
+  return String(s||'')
+    .replace(/[ \t]*\(page\s+\d+\)[ \t]*/gi,' ')
+    .replace(/-\r?\n[ \t]*/g,'')
+    .replace(/[\u00AD\u2011]/g,'');
+}
+function cleanEN(s){
+  s = (s||'').replace(/^#+\s*[^\n]*\n/,'').replace(/\s*\/\/\s*\S+\s*$/,'');
+  /* Generation metadata that leaked into pack L2 text: a leading
+     "`pilot_Vxx_ARGUMENT_MAP.md`. Dyczkowski-mode.*" line, sometimes after a
+     truncated fragment. Drop that line only; real prose never carries it. */
+  s = s.replace(/^[^\n]*(?:ARGUMENT_MAP\.md|Dyczkowski-mode)[^\n]*\n+/,'');
+  /* machine verse markers the reader supplies itself: [chunk-a-...-v1] */
+  s = s.replace(/(^|\n)[ \t]*\[[A-Za-z0-9][A-Za-z0-9._-]*-v\d+\][ \t]*/g, '$1');
+  return s.trim();
+}
 function rich(s){
   return esc(s).replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>')
     .replace(/(^|[\s(])\*([^*\n]+)\*/g, '$1<i>$2</i>');
@@ -171,7 +189,17 @@ function safeReaderVerse(v){
   const sa=v.sa||v.sanskrit||'';
   if(isReaderPass(v))return {...v,sa};
   return {id:v.id||v.chunk||'',chunk:v.chunk||v.id||'',sa,gate:v.gate||'BLOCKED',
+    blocking:Array.isArray(v.blocking)?v.blocking.filter(x=>typeof x==='string'):[],
     model:v.model||'',date:v.date||'',source_issue:v.source_issue||'',source_complete:!!v.source_complete};
+}
+/* One voice for every withheld-English surface (reader lanes, jump list,
+   chat context): gate + blocking reasons + a way forward. Never Sanskrit. */
+function withheldEN(v){
+  const blocks=(v.blocking||[]).filter(Boolean);
+  return (v.source_issue?`<div class="milestone">${esc(v.source_issue)}</div>`:'')
+    + `<div class="milestone">English is withheld for this verse (gate ${esc(v.gate||'BLOCKED')}) — Sanskrit only.`
+    + (blocks.length?` <span class="mut">(${esc(blocks.join(', '))})</span>`:'')
+    + ` <a href="?work=${esc(WORK)}&view=scholar">Open in Scholar</a></div>`;
 }
 
 function engLaneId(){
@@ -233,75 +261,87 @@ const VDEF = {
 
 function saWords(v, iast, vix){
   const VI = (vix!=null) ? vix : (v.n-1);
-  const raw = cleanSA(v.sa||'');
-  const tokens = raw.split(/\s+/).filter(Boolean);
+  /* Prose chunks carry real paragraph breaks; verse lines are unaffected.
+     Word order and the global word index are preserved across paragraphs so
+     karaoke/artifact alignment (ART_REL, KAR) keeps working. */
+  const raw = displaySA(cleanSA(v.sa||''));
+  const groups = raw.split(/\n\s*\n/).map(p=>p.trim()).filter(Boolean);
+  const paras = groups.length?groups:[raw];
   const punctuation = w=>/^[\u0964\u0965.,|;:]+$/.test(w);
-  const words = tokens.filter(w=>!punctuation(w));
-  const shown = iast ? words : words.map(w=>/^\[lacuna\]$/i.test(w)?w:IAST_DEVA.convert(w));
-  const keepPunctuation = rendered=>{let i=0;return tokens.map(w=>punctuation(w)?esc(iast?w:IAST_DEVA.convert(w)):rendered[i++]).join(' ');};
+  const segs=[]; let j0=0;
+  for(const p of paras){
+    const toks=p.split(/\s+/).filter(Boolean);
+    const wds=toks.filter(w=>!punctuation(w));
+    const sho=iast?wds:wds.map(w=>/^\[lacuna\]$/i.test(w)?w:IAST_DEVA.convert(w));
+    segs.push({toks,wds,sho,j0}); j0+=wds.length;
+  }
+  const keepPunct=(toks,sho)=>{let i=0;return toks.map(w=>punctuation(w)?esc(iast?w:IAST_DEVA.convert(w)):sho[i++]).join(' ');};
   const roLine = iast ? '' : `<div class="ro">${esc(raw)}</div>`;
 
   // ---- compiled path (preferred): no matching, no karaoke dependency.
   // The artifact gives each verse word a list of [t0,t1] slots. Split the
   // verse's own glyphs into that many pieces so text stays exact.
   const relA = ART_REL[VI];
+  const cutAt = (str, k) => {
+    if(k <= 1 || str.length <= 1) return [str];
+    const out = []; let prev = 0;
+    for(let i=1;i<k;i++){
+      const at = Math.round(str.length * i / k);
+      if(at <= prev || at >= str.length) continue;
+      out.push(str.slice(prev, at)); prev = at;
+    }
+    out.push(str.slice(prev));
+    return out;
+  };
   if(relA && relA.size && !iast){
-    const cutAt = (str, k) => {
-      if(k <= 1 || str.length <= 1) return [str];
-      const out = []; let prev = 0;
-      for(let i=1;i<k;i++){
-        const at = Math.round(str.length * i / k);
-        if(at <= prev || at >= str.length) continue;
-        out.push(str.slice(prev, at)); prev = at;
-      }
-      out.push(str.slice(prev));
-      return out;
-    };
-    return `<div class="sa">` + keepPunctuation(shown.map((w,j)=>{
-      const sy = relA.get(j);
+    const body = segs.map(s=>`<div class="sap">` + keepPunct(s.toks, s.sho.map((w,k)=>{
+      const j=s.j0+k, sy = relA.get(j);
       if(sy && sy.length){
         const parts = cutAt(w, Math.min(sy.length, Math.max(1, w.length)));
         const times = sy.length === parts.length ? sy
                     : parts.map((_,i)=>sy[Math.min(sy.length-1, Math.floor(i*sy.length/parts.length))]);
         const inner = parts.map((p,i)=>
           `<span class="w syl" data-t0="${times[i][0]}" data-t1="${times[i][1]}" data-i="${VI}">${esc(p)}</span>`).join('');
-        return `<span class="kword" data-w="${esc(words[j])}" data-v="${esc(v.id)}">${inner}</span>`;
+        return `<span class="kword" data-w="${esc(s.wds[k])}" data-v="${esc(v.id)}">${inner}</span>`;
       }
-      return `<span class="w" data-w="${esc(words[j])}" data-v="${esc(v.id)}">${esc(w)}</span>`;
-    })) + `</div>` + roLine;
+      return `<span class="w" data-w="${esc(s.wds[k])}" data-v="${esc(v.id)}">${esc(w)}</span>`;
+    })) + `</div>`).join('');
+    return `<div class="sa">${body}</div>` + roLine;
   }
 
   // ---- live karaoke match (works without an artifact)
   const kw = KAR && KAR.words[VI];
   if(kw && kw.length){
     const nf = x => (x||'').replace(/\u0902$/, '\u092e\u094d');
-    return `<div class="sa">` + keepPunctuation(shown.map((w,j)=>{
+    const body = segs.map(s=>`<div class="sap">` + keepPunct(s.toks, s.sho.map((w,k)=>{
+      const j=s.j0+k;
       const candidate=kw[j]||{};
-      const kk=candidate.r===words[j]?candidate:{};
+      const kk=candidate.r===s.wds[k]?candidate:{};
       const t = (kk.t0!=null) ? ` data-t0="${kk.t0}" data-t1="${kk.t1}" data-i="${VI}"` : '';
       const syl = (kk.sslice && kk.sslice.length) ? kk.sslice : kk.syls;
       if(syl && syl.length && nf(syl.map(x=>x.d).join('')) === nf(w)){
         const inner = syl.map(x=>
           `<span class="w syl" data-t0="${x.t0}" data-t1="${x.t1}" data-i="${VI}">${esc(x.d)}</span>`).join('');
-        return `<span class="kword" data-w="${esc(words[j])}" data-v="${esc(v.id)}">${inner}</span>`;
+        return `<span class="kword" data-w="${esc(s.wds[k])}" data-v="${esc(v.id)}">${inner}</span>`;
       }
-      return `<span class="w" data-w="${esc(words[j])}" data-v="${esc(v.id)}"${t}>${esc(w)}</span>`;
-    })) + `</div>` + (!iast ? `<div class="ro">${esc(raw)}</div>` : '');
+      return `<span class="w" data-w="${esc(s.wds[k])}" data-v="${esc(v.id)}"${t}>${esc(w)}</span>`;
+    })) + `</div>`).join('');
+    return `<div class="sa">${body}</div>` + (!iast ? `<div class="ro">${esc(raw)}</div>` : '');
   }
 
   // ---- nothing timed: plain text
-  return `<div class="sa">` + keepPunctuation(shown.map((w,j)=>
-    `<span class="w" data-w="${esc(words[j])}" data-v="${esc(v.id)}" data-i="${VI}">${esc(w)}</span>`))
-    + `</div>` + roLine;
+  const body = segs.map(s=>`<div class="sap">` + keepPunct(s.toks, s.sho.map((w,k)=>
+    `<span class="w" data-w="${esc(s.wds[k])}" data-v="${esc(v.id)}" data-i="${VI}">${esc(w)}</span>`)) + `</div>`).join('');
+  return `<div class="sa">${body}</div>` + roLine;
 }
+
 function verseText(v, vid, col, vix){
   const raw = cleanSA(v.sa||'');
   const pass = isReaderPass(v);
   const issue=v.source_issue?`<div class="milestone">${esc(v.source_issue)}</div>`:'';
   if(vid==='sa-deva') return saWords(v, false, vix)+issue;
   if(vid==='sa-iast') return saWords(v, true, vix)+issue;
-  if(!pass) return saWords(v, false, vix)+issue
-    + `<div class="milestone">English withheld — gate ${esc(v.gate||'BLOCKED')}</div>`;
+  if(!pass) return withheldEN(v);
   if(vid==='l1') return `<div class="enp">${esc(cleanEN(v.l1||v.l2||''))}</div>`;
   if(vid==='l2'){
     const t = esc(cleanEN(v.l2||v.l1||''));

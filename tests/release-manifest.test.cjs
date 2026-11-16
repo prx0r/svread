@@ -11,7 +11,8 @@ test('release check detects changed assets and refuses an invalid Scholar projec
   try{
     for(const name of ['.nojekyll','index.html','app.js','styles.css','sw.js','manifest.webmanifest','README.md','SPEC.md','READER-ARCHITECTURE.md',
       'scholar-voice.js','scholar-workspace-ui.js','SCHOLAR-PRIVACY.md','PUSHING-LAB.md','PUSHING-NEXT.md','PUSHING-RESEARCH.md','pushing.html','pushing.css','pushing-core.js','pushing-ui.js','wheels.html','wheels.js','journey.js','SANSKRIT-MEMORY-ENGINE-THESIS.md','vendor','a','data','align','scripts','mcp','claim','work','chain','about','cite',
-      'llms.txt','llms-full.txt','ai-catalog.json','sitemap.xml','robots.txt'])
+      'llms.txt','llms-full.txt','ai-catalog.json','sitemap.xml','robots.txt',
+      'essay.html','essay-workshop.js','essay-workshop.css','CHATGPT-FEEDBACK.md'])
       fs.cpSync(path.join(root,name),path.join(tmp,name),{recursive:true});
     fs.mkdirSync(path.join(tmp,'tools'));
     for(const file of ['lingua.py','site_assets.py'])
