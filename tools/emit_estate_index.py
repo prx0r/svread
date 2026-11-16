@@ -62,6 +62,8 @@ DATASETS = [
      '6 karakas'),
     ('wheels-simple-sentence', 'data/wheels/simple-sentence/', 'file read',
      'Ashram Core 20 pack: 20-word lexicon, 10 roots x 3 tenses, 5 rings, 1.1-1.4 + prelims; curated, unreviewed, not drill-wired'),
+    ('wheels-intro-spine', 'data/wheels/intro-spine.json', 'file read',
+     'the tight generative intro: prelims -> words -> sentences -> relations -> scenes, 7 vibhaktis mapped; curated, unreviewed'),
     ('gate-pools', 'data/wheels/gates.json', 'worker /api/wheel/gate/start',
      'word L1=6 L2=4 L3=8 L4=20; sentence L1=4 L2=10 L3=9'),
     ('harness', 'data/wheels/harness.json', 'scholar__wheel_harness',
