@@ -389,13 +389,66 @@ def show(level: str = "1.1", index: int = 0) -> dict:
 
 # ---------------------------------------------------------------- per-user
 
+def _prereqs_for(level: str) -> list:
+    for o in _load()['curriculum']['study_order']:
+        if o['id'] == level:
+            return list(o.get('prerequisites') or [])
+    return []
+
+
+def _remaining(user_id: str, level: str) -> int:
+    """Servable items in level not yet mastered twice (same rule drill uses
+    to retire items: seen>0 and right>=2). HOLD rows never count."""
+    c = _db()
+    try:
+        mast = {r[0]: (r[1], r[2]) for r in c.execute(
+            "SELECT item_id, seen, right FROM mastery WHERE user_id = ?", (user_id,))}
+    finally:
+        c.close()
+    n = 0
+    for r in _rows_for(level):
+        seen, right = mast.get(_item_id(r), (0, 0))
+        if not (seen > 0 and right >= 2):
+            n += 1
+    return n
+
+
+def _check_ready(level: str, user_id: str) -> dict:
+    missing = []
+    for p in _prereqs_for(level):
+        left = _remaining(user_id, p)
+        if left > 0:
+            missing.append({"level": p, "remaining": left})
+    if missing:
+        return {"status": "BLOCKED", "level": level,
+                "rule": "preliminaries first — every prerequisite level mastered twice",
+                "missing": missing,
+                "next": missing[0]["level"]}
+    return {"status": "GO", "level": level,
+            "message": "preliminaries complete — drill() is open"}
+
+
+@mcp.tool()
+def ready(level: str = "", user_id: str = "owner") -> dict:
+    """Preliminary gate: cleared to drill this level? Every prerequisite
+    level in the study order must be complete (each servable item mastered
+    twice). Read-only; BLOCKED names exactly what's missing."""
+    if not level:
+        return {"error": "pass a level id, e.g. level='3.1'"}
+    return _check_ready(level, user_id)
+
+
 @mcp.tool()
 def drill(level: str = "1.1", user_id: str = "owner", n: int = 5,
           seed: int | None = None) -> dict:
     """Deal n fresh drill items for a level. Deterministic: the same
     (user_id, level, seed) deals the same items; seed defaults to an hourly
     bucket so retries replay. Excludes HOLD levels and mastered items; weights
-    weak items first. Returns prompts only — answers stay server-side."""
+    weak items first. Returns prompts only — answers stay server-side.
+    Enforces the preliminary gate: prerequisite levels must be complete first."""
+    gate = _check_ready(level, user_id)
+    if gate.get("status") == "BLOCKED":
+        return gate
     d = _load()
     rows = [r for r in d['rows'] if r['level'] == level and r['review'] != 'HOLD']
     if not rows:

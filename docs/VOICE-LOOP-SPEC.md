@@ -83,8 +83,9 @@ enumerated states. ~80 lines, reuses the normaliser and the dataset.
 1. **Numbers wheel** — the engine already emits numerals (`saptaviṃśatiḥ`,
    `viṃśatiḥ`, `triṃśat`). Add a `numbers` family (1–100, ordinals, counting
    objects) using the same 5-ring contract; zero new machinery.
-2. **Wire compose into the public bundle** — 2 tools (`drill`, `progress`) on
-   `mcp.svatantrya.net`; the rest behind Studio (bearer).
+2. **Wire compose into the public bundle** — 3 tools (`ready`, `drill`,
+   `progress`) on `mcp.svatantrya.net` (`ready` is the vocab-preliminary gate;
+   drill refuses locked levels); the rest behind Studio (bearer).
 3. **Audio on every compose line** — lines already carry `dev/roman/en/role`;
    pipe through existing edge TTS so "listen" works offline-ish.
 4. **Certificates reuse** — the 44 grammar certificates + `wheel_verify`
