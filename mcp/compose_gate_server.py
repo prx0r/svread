@@ -26,6 +26,7 @@ import json
 import os
 import random
 import re
+import secrets
 import sqlite3
 import sys
 import time
@@ -73,7 +74,107 @@ def _db() -> sqlite3.Connection:
                       ('result_json', 'TEXT'), ('answers_json', 'TEXT')):
         if col not in have:
             c.execute(f'ALTER TABLE sessions ADD COLUMN {col} {decl}')
+    # scoped learner tokens: anonymous, per-conversation, never the shared owner
+    c.execute("""CREATE TABLE IF NOT EXISTS learners (
+        id TEXT PRIMARY KEY, token_sha TEXT NOT NULL UNIQUE,
+        created_at INTEGER NOT NULL, last_seen INTEGER NOT NULL,
+        calls INTEGER NOT NULL DEFAULT 0, label TEXT)""")
     return c
+
+
+# ---- scoped learner identity (public writes without OAuth, fail-closed) ----
+MAX_LEARNERS_PER_DAY = int(os.environ.get("COMPOSE_MAX_LEARNERS_PER_DAY", "500"))
+MAX_CALLS_PER_LEARNER_DAY = int(os.environ.get("COMPOSE_MAX_CALLS_PER_LEARNER_DAY", "400"))
+
+
+def _sha(token: str) -> str:
+    return hashlib.sha256((token or "").encode("utf-8")).hexdigest()
+
+
+def _mint_learner(label: str = "") -> dict:
+    """Create one anonymous learner and return its id + token ONCE.
+
+    The token is never stored in clear (only its sha256). The caller keeps it
+    for the conversation; losing it means starting a fresh learner, which is
+    honest (progress is per-learner)."""
+    now = int(time.time())
+    c = _db()
+    try:
+        today = c.execute("SELECT COUNT(*) FROM learners WHERE created_at >= ?",
+                          (now - 86400,)).fetchone()[0]
+        if today >= MAX_LEARNERS_PER_DAY:
+            return {"status": "BLOCKED",
+                    "error": f"daily learner cap reached ({MAX_LEARNERS_PER_DAY})",
+                    "retry": "tomorrow"}
+        lid = "L" + uuid.uuid4().hex[:16]
+        token = "svl_" + secrets.token_urlsafe(32)
+        c.execute("INSERT INTO learners (id,token_sha,created_at,last_seen,calls,label)"
+                  " VALUES (?,?,?,?,0,?)", (lid, _sha(token), now, now, (label or "")[:80]))
+        c.commit()
+    finally:
+        c.close()
+    return {"status": "OK", "learner": lid, "token": token,
+            "keep": "store this token for the whole conversation; pass learner+token to drill/submit/progress",
+            "privacy": "anonymous: only per-item seen/right counts are stored, no name, no email",
+            "quota": {"calls_per_day": MAX_CALLS_PER_LEARNER_DAY}}
+
+
+def _resolve_learner(learner: str, token: str, user_id: str = "") -> tuple[str | None, dict | None]:
+    """Return (learner_id, None) or (None, error). Fail-closed.
+
+    Rules:
+      - owner access requires COMPOSE_OWNER_TOKEN and a matching token (env-held);
+      - everyone else must present a valid learner+token from learner_start();
+      - there is no path where a caller gets the owner's rows by default."""
+    owner_token = os.environ.get("COMPOSE_OWNER_TOKEN", "")
+    allow_owner = os.environ.get("COMPOSE_ALLOW_OWNER", "") == "1"
+    if user_id == "owner":
+        if owner_token and token and secrets.compare_digest(_sha(token), _sha(owner_token)):
+            return "owner", None
+        if allow_owner and not owner_token:
+            # trusted process only: the Studio unit sets COMPOSE_ALLOW_OWNER=1.
+            # Public hosts never set it, so 'owner' is unreachable from outside.
+            return "owner", None
+        return None, {"status": "BLOCKED",
+                      "error": "owner tools need COMPOSE_OWNER_TOKEN or COMPOSE_ALLOW_OWNER=1; public callers must use learner_start()"}
+    if not learner or not token:
+        return None, {"status": "BLOCKED",
+                      "error": "learner token required — call learner_start() first",
+                      "rule": "writes are per-learner and fail-closed; never the shared owner"}
+    sha = _sha(token)
+    now = int(time.time())
+    c = _db()
+    try:
+        row = c.execute("SELECT token_sha, calls, last_seen FROM learners WHERE id = ?",
+                        (learner,)).fetchone()
+        if not row or not secrets.compare_digest(row[0], sha):
+            return None, {"status": "BLOCKED", "error": "unknown learner or bad token"}
+        if now - row[2] > 86400:
+            # reset the daily quota window lazily
+            c.execute("UPDATE learners SET calls = 0, last_seen = ? WHERE id = ?", (now, learner))
+            calls = 0
+        else:
+            calls = row[1]
+        if calls >= MAX_CALLS_PER_LEARNER_DAY:
+            return None, {"status": "BLOCKED",
+                          "error": f"daily call cap reached ({MAX_CALLS_PER_LEARNER_DAY})",
+                          "retry": "tomorrow"}
+        c.execute("UPDATE learners SET calls = calls + 1, last_seen = ? WHERE id = ?",
+                  (now, learner))
+        c.commit()
+        return learner, None
+    finally:
+        c.close()
+
+
+@mcp.tool()
+def learner_start(label: str = "") -> dict:
+    """Mint an anonymous learner session: returns {learner, token}. Keep the
+    token; pass learner+token to drill/submit/review/progress. No account, no
+    email; only per-item mastery counts are stored, scoped to this learner.
+    Daily caps apply. This is the only way to write progress from a public
+    host (the shared owner is never reachable this way)."""
+    return _mint_learner(label)
 
 
 def _item_id(row: dict) -> str:
@@ -429,23 +530,32 @@ def _check_ready(level: str, user_id: str) -> dict:
 
 
 @mcp.tool()
-def ready(level: str = "", user_id: str = "owner") -> dict:
+def ready(level: str = "", learner: str = "", token: str = "",
+          user_id: str = "") -> dict:
     """Preliminary gate: cleared to drill this level? Every prerequisite
     level in the study order must be complete (each servable item mastered
-    twice). Read-only; BLOCKED names exactly what's missing."""
+    twice). Read-only over state, but it reads YOUR state, so it needs the
+    learner token (or owner token). BLOCKED names exactly what's missing."""
     if not level:
         return {"error": "pass a level id, e.g. level='3.1'"}
-    return _check_ready(level, user_id)
+    uid, err = _resolve_learner(learner, token, user_id)
+    if err:
+        return err
+    return _check_ready(level, uid)
 
 
 @mcp.tool()
-def drill(level: str = "1.1", user_id: str = "owner", n: int = 5,
-          seed: int | None = None) -> dict:
+def drill(level: str = "1.1", learner: str = "", token: str = "",
+          user_id: str = "", n: int = 5, seed: int | None = None) -> dict:
     """Deal n fresh drill items for a level. Deterministic: the same
     (user_id, level, seed) deals the same items; seed defaults to an hourly
     bucket so retries replay. Excludes HOLD levels and mastered items; weights
     weak items first. Returns prompts only — answers stay server-side.
     Enforces the preliminary gate: prerequisite levels must be complete first."""
+    uid, err = _resolve_learner(learner, token, user_id)
+    if err:
+        return err
+    user_id = uid
     gate = _check_ready(level, user_id)
     if gate.get("status") == "BLOCKED":
         return gate
@@ -504,10 +614,14 @@ def drill(level: str = "1.1", user_id: str = "owner", n: int = 5,
 
 @mcp.tool()
 def submit(session_id: str = "", answers: list | None = None,
-           user_id: str = "owner") -> dict:
+           learner: str = "", token: str = "", user_id: str = "") -> dict:
     """Score a drill session. answers: [{item_ref, text}]. Normalized exact
     match against dev or roman. Idempotent: an identical retry returns the
-    same receipt."""
+    same receipt. Needs the learner token that opened the drill."""
+    uid, err = _resolve_learner(learner, token, user_id)
+    if err:
+        return err
+    user_id = uid
     c = _db()
     try:
         row = c.execute("SELECT user_id,level,receipt,items_json,key_json,used,"
@@ -561,9 +675,13 @@ def submit(session_id: str = "", answers: list | None = None,
 
 
 @mcp.tool()
-def review(user_id: str = "owner", n: int = 5) -> dict:
+def review(learner: str = "", token: str = "", user_id: str = "", n: int = 5) -> dict:
     """Replay the hard ones: lowest-accuracy seen items first, HOLD excluded.
     Returns prompts (no answers). Start a scored session with drill()."""
+    uid, err = _resolve_learner(learner, token, user_id)
+    if err:
+        return err
+    user_id = uid
     d = _load()
     by_id = {_item_id(r): r for r in d['rows'] if r['review'] != 'HOLD'}
     c = _db()
@@ -581,8 +699,12 @@ def review(user_id: str = "owner", n: int = 5) -> dict:
 
 
 @mcp.tool()
-def progress(user_id: str = "owner") -> dict:
+def progress(learner: str = "", token: str = "", user_id: str = "") -> dict:
     """Mastery summary: seen/right per level. Server-side truth."""
+    uid, err = _resolve_learner(learner, token, user_id)
+    if err:
+        return err
+    user_id = uid
     d = _load()
     lvl_of = {_item_id(r): r['level'] for r in d['rows']}
     c = _db()
@@ -607,11 +729,15 @@ def progress(user_id: str = "owner") -> dict:
 # so a spoken attempt can be located in the level lattice.
 
 @mcp.tool()
-def session_start(level: str = "", user_id: str = "owner", n: int = 3,
-                  seed: int | None = None) -> dict:
+def session_start(level: str = "", learner: str = "", token: str = "",
+                  user_id: str = "", n: int = 3, seed: int | None = None) -> dict:
     """Start a warm-up session. If level is empty, uses the study-order next
     level. Deals n items and returns a teacher brief (target rings, English
     prompts, Sanskrit-first policy). Deterministic per (user, level, seed)."""
+    uid, err = _resolve_learner(learner, token, user_id)
+    if err:
+        return err
+    user_id = uid
     if not level:
         order = _load()['curriculum']['study_order']
         level = order[0]['id']
@@ -636,9 +762,13 @@ def session_start(level: str = "", user_id: str = "owner", n: int = 3,
 
 @mcp.tool()
 def session_check(utterance: str = "", item_ref: str = "", session_id: str = "",
-                  user_id: str = "owner") -> dict:
+                  learner: str = "", token: str = "", user_id: str = "") -> dict:
     """Check one spoken/written attempt. Returns ok / near / no, the expected
     roman form, and which ring most likely went wrong. Server-side key only."""
+    uid, err = _resolve_learner(learner, token, user_id)
+    if err:
+        return err
+    user_id = uid
     c = _db()
     try:
         row = c.execute("SELECT user_id,level,key_json FROM sessions WHERE id=?",
@@ -678,7 +808,8 @@ def session_check(utterance: str = "", item_ref: str = "", session_id: str = "",
 
 
 @mcp.tool()
-def session_end(session_id: str = "", user_id: str = "owner") -> dict:
+def session_end(session_id: str = "", learner: str = "", token: str = "",
+                user_id: str = "") -> dict:
     """Close a session: mastery summary for the level + the next study-order
     level to try."""
     c = _db()

@@ -88,3 +88,27 @@ test('level 1 teaching block matches word.json exactly (no drift)', () => {
     assert.ok(dataIast.has(m), `L1 does not teach unlisted base ${m}`);
   }
 });
+
+test('practice host exposes learner-gated writes, never owner', () => {
+  const cfg = JSON.parse(R('mcp/gateway/servers-practice.json'));
+  const open = cfg.open_tools || [];
+  for (const t of ['compose__learner_start', 'compose__drill', 'compose__submit',
+                   'compose__progress', 'compose__ready']) {
+    assert.ok(open.includes(t), `${t} open on practice host`);
+  }
+  const compose = cfg.servers.compose;
+  assert.ok(compose, 'compose server wired on practice host');
+  assert.ok(compose.tools_allow.every((t) => t.startsWith('compose__')), 'compose tools only');
+  assert.match(cfg.instructions, /learner_start/, 'instructions tell the model to mint a learner');
+  assert.match(cfg.instructions, /SESSION-PROTOCOL/, 'instructions load the protocol first');
+});
+
+test('compose server has no owner default in per-user tools', () => {
+  const s = R('mcp/compose_gate_server.py');
+  assert.equal((s.match(/user_id: str = "owner"/g) || []).length, 0,
+    'no per-user tool defaults to the shared owner');
+  assert.match(s, /def learner_start/, 'learner_start exists');
+  assert.match(s, /COMPOSE_ALLOW_OWNER/, 'owner path is env-gated');
+  assert.match(s, /compare_digest/, 'token compare is constant-time');
+  assert.match(s, /token_sha/, 'only the token hash is stored');
+});
