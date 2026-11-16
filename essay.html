@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Essay Workshop · Svatantrya</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="essay-workshop.css">
+  <script src="essay-workshop.js" defer></script>
+</head>
+<body class="essay-page">
+<header><nav>
+  <a class="brand" href="./">स्वतन्त्र</a>
+  <ul>
+    <li><a href="./">Library</a></li>
+    <li><a href="?view=scholar">Scholar</a></li>
+    <li><a href="pushing.html">Pushing Lab</a></li>
+    <li><a href="essay.html" class="on">Essay</a></li>
+  </ul>
+</nav></header>
+<main class="ew">
+  <div class="ew-intro">
+    <p class="eyebrow">ASSEMBLAGE, NOT GENERATION</p>
+    <h1>Essay Workshop<span class="period">.</span></h1>
+    <p class="lede">Pick the ground, review the literature, make a plan, state your reading. The draft is assembled from those slots. Then you read it, push back, and the enquiry sharpens the next revision.</p>
+    <p id="ew-auth" class="ew-note">Checking account…</p>
+  </div>
+
+  <section class="ew-panel">
+    <h2>1 · Literature review</h2>
+    <p class="ew-note">Metadata only — full texts stay off the public site. Select what this paper must answer; add why in your own words.</p>
+    <div id="ew-lit" class="ew-cards"></div>
+    <label for="ew-lit-note">What this paper must do with the literature</label>
+    <textarea id="ew-lit-note" rows="3" placeholder="e.g. Hoffman's FBT theorem is the strongest modern objection to veridical perception; Abhinavagupta must be shown not to be a veridicalist."></textarea>
+  </section>
+
+  <section class="ew-panel">
+    <h2>2 · Ground and plan</h2>
+    <div class="ew-row">
+      <label>Ground <select id="ew-work"></select></label>
+      <label>Mode <select id="ew-mode"><option value="single">Single tradition</option><option value="comparative">Comparative</option></select></label>
+      <label>Words <input id="ew-words" type="number" min="800" max="8000" value="3000"></label>
+      <label>Verses <input id="ew-verse-limit" type="number" min="1" max="93" value="22"></label>
+    </div>
+    <label>Title <input id="ew-title" type="text" value="Causality Is Agency"></label>
+    <label>Angle / thesis you want earned <textarea id="ew-angle" rows="2" placeholder="e.g. Being and consciousness are not rival primaries: esse names what cit does."></textarea></label>
+    <button id="ew-plan" class="ewbtn">Build plan</button>
+    <div id="ew-plan-out" class="ew-out"></div>
+  </section>
+
+  <section class="ew-panel">
+    <h2>3 · Your enquiry (the pushing)</h2>
+    <p class="ew-note">This is where you do the work. Write the argument, the objection, the line you think is weak. It becomes the enquiry the assembly must answer. Open the <a href="pushing.html">Pushing Lab</a> if you want the tree.</p>
+    <textarea id="ew-enquiry" rows="6" placeholder="I think the crux is that Aquinas' esse is a principle of intelligibility, while Abhinavagupta's cit is a principle of agency. If so, the comparison is not being vs consciousness but two senses of 'first'."></textarea>
+    <button id="ew-add-arg" class="ewbtn quiet">Add to enquiry log</button>
+    <ol id="ew-log" class="ew-log"></ol>
+  </section>
+
+  <section class="ew-panel">
+    <h2>4 · Assemble the draft</h2>
+    <p class="ew-note">The assembler receives only the plan, the selected ground, the literature metadata and your enquiry. It may not invent Sanskrit or citations. If the live assembler is not configured, it prepares the exact packet for you to run.</p>
+    <button id="ew-assemble" class="ewbtn">Assemble</button>
+    <button id="ew-copy" class="ewbtn quiet">Copy packet</button>
+    <p id="ew-status" class="ew-status" role="status"></p>
+    <textarea id="ew-packet" rows="12" readonly placeholder="The assembly packet appears here."></textarea>
+    <div id="ew-draft-wrap" hidden>
+      <h3>Assembled draft</h3>
+      <textarea id="ew-draft" rows="18"></textarea>
+      <div class="ew-row">
+        <button id="ew-save" class="ewbtn">Save to Scholar</button>
+        <button id="ew-sharpen" class="ewbtn quiet">Sharpen with my enquiry</button>
+      </div>
+      <p id="ew-save-status" class="ew-status"></p>
+      <h3>Scorecard vs the gold standard</h3>
+      <div id="ew-score" class="ew-out">Assemble or paste a draft, then score it.</div>
+    </div>
+  </section>
+</main>
+</body>
+</html>

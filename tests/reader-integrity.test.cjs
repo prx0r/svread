@@ -56,7 +56,7 @@ test('blocked English is removed from every exported row and cannot reach audio'
   const safe=reader.safeReaderVerse(raw);
   assert.equal(safe.sa,'śivaḥ');assert.doesNotMatch(JSON.stringify(safe),/secret/);
   assert.equal(reader.isReaderPass({gate:'PASS',l1:'   ',l2:''}),false);
-  assert.match(reader.verseText(safe,'l2','L',0),/English withheld/);
+  assert.match(reader.verseText(safe,'l2','L',0),/English is withheld/);
   await assert.rejects(reader.readUrlFor(raw,'en'),/withheld/);assert.equal(calls,0);
   const pass={id:'p-v02',sa:'śivaḥ',gate:'PASS',l2:'A public reading'};
   assert.match(reader.verseText(pass,'l4','R',1),/showing English translation \(L2\)/);
