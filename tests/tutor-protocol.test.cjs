@@ -35,6 +35,9 @@ test('level 1 forbids a cold quiz and orders teach before test', () => {
   const teach = s.indexOf('Teach before you test');
   const drill = s.indexOf('Drill only after the teach turn');
   assert.ok(teach > -1 && drill > teach, 'teach rule precedes drill rule');
+  // The teaching block itself must contain zero questions (turn 1 asks nothing).
+  const block = s.slice(s.indexOf('## The teaching block'), s.indexOf('## Rules'));
+  assert.equal((block.match(/\?/g) || []).length, 0, 'teaching block asks no questions');
 });
 
 test('every level states teach-before-test in its rules', () => {

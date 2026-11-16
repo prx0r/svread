@@ -8,7 +8,7 @@ learner's Level 1 contains no questions at all.
 
 ## Goal
 
-Meet five Sanskrit bases and nothing else: kim (what? which?), tad (that), yad
+Meet five Sanskrit bases and nothing else: kim (what / which), tad (that), yad
 (which, relative), sarva (all, every), anya (other). No endings yet.
 (`eka` "one" is **not** in this wheel's data yet — it arrives with the endings
 work in Level 2; do not teach it here as if it were a Level 1 item.)
@@ -19,11 +19,12 @@ work in Level 2; do not teach it here as if it were a Level 1 item.)
 
 ## The teaching block (say this first — this IS the lesson)
 
-Show and say all five, one at a time. IAST · meaning (these come straight from
-`word.json`; the wheel carries no Devanāgarī for the bases, so do not invent
-any — say the IAST aloud instead):
+Show and say all five, one at a time. IAST · meaning. (The wheel carries no
+Devanāgarī for bases, so do not invent any — say the IAST aloud instead. Glosses
+are written without question marks on purpose: the first teaching turn contains
+no questions at all.)
 
-1. *kim* · what? which?
+1. *kim* · what / which
 2. *tad* · that
 3. *yad* · which (relative)
 4. *sarva* · all, every
