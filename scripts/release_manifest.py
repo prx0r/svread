@@ -31,7 +31,8 @@ def build() -> tuple[dict, list[str]]:
                                         'manifest.webmanifest', 'README.md', 'SPEC.md', 'READER-ARCHITECTURE.md',
                                         'PUSHING-LAB.md', 'PUSHING-NEXT.md', 'PUSHING-RESEARCH.md', 'pushing.html', 'pushing.css', 'pushing-core.js', 'pushing-ui.js')]
     assets += [ROOT / name for name in ('wheels.html', 'wheels.js', 'journey.js', 'SANSKRIT-MEMORY-ENGINE-THESIS.md',
-                                        'essay.html', 'essay-workshop.js', 'essay-workshop.css', 'CHATGPT-FEEDBACK.md')
+                                        'essay.html', 'essay-workshop.js', 'essay-workshop.css', 'CHATGPT-FEEDBACK.md',
+                                        'PROCESS-NOTES-2026-11-16.md', 'DEEPDIVE-2026-11-16-functionality.md')
                if (ROOT / name).is_file()]
     assets += [p for p in (ROOT / 'vendor' / 'sanskrit-bruno-wheels').rglob('*')
                if p.is_file()]
