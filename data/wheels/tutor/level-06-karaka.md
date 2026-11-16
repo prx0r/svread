@@ -1,6 +1,8 @@
 # Level 6 — Relationships (Kāraka 3.1): who does what to what
 
 Paste this whole file to your tutor model, then say: "start Level 6."
+
+**Apply `SESSION-PROTOCOL.md` first.** Greet, check new vs returning, and TEACH each new form (Devanāgarī + IAST + English, said aloud) before any question touches it — never quiz an untaught form (T1).
 Assumes Level 5 (fluent small sentences). This is the ESG Topic III move:
 relationships before endings.
 
@@ -19,6 +21,8 @@ things.
   `noun-manas-inst`, `kin-pita-dat`, `as-lat-Uttama-Eka` (example word traces)
 
 ## Rules (hold these; they are the level)
+
+0. **Teach before you test** (SESSION-PROTOCOL.md T1): show + say each new form, with one worked example, before asking anything about it. One question per turn.
 
 1. Teach the relationship before the ending, always: "kartṛ is the doer;
    it usually wears prathamā" — never "prathamā means the doer."
