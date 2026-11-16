@@ -115,6 +115,9 @@ header nav{background:var(--g800);color:#fff}
 /* ---------- text proper ---------- */
 .text{font-family:var(--serif);overflow-wrap:break-word;-webkit-overflow-wrap:break-word}
 .text .sa{font-family:var(--deva);font-size:var(--sa-size);line-height:1.8}
+/* prose-chunk paragraphs (multi-paragraph sa keeps its breaks; single-line verses are unaffected) */
+.text .sa .sap{margin:0 0 .7em}
+.text .sa .sap:last-child{margin-bottom:0}
 .text .ro{font-size:.9em;font-style:italic;color:var(--g600);margin:.1rem 0 .6rem}
 .text .enp{font-size:var(--en-size);line-height:1.6}
 .text .verse{margin:0 0 1.4em;position:relative;padding-right:1.9rem}
