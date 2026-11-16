@@ -547,7 +547,8 @@ def ready(level: str = "", learner: str = "", token: str = "",
 @mcp.tool()
 def drill(level: str = "1.1", learner: str = "", token: str = "",
           user_id: str = "", n: int = 5, seed: int | None = None) -> dict:
-    """Deal n fresh drill items for a level. Deterministic: the same
+    """Deal n fresh drill items for a level. NOTE: `level` is a COMPOSE level id
+    (e.g. 1.1 = Introductions in this 60-level ladder), not a tutor Level 1-6. Deterministic: the same
     (user_id, level, seed) deals the same items; seed defaults to an hourly
     bucket so retries replay. Excludes HOLD levels and mastered items; weights
     weak items first. Returns prompts only — answers stay server-side.
