@@ -1,6 +1,8 @@
 # Level 4 — When and where (Sentence 2.2): adverbs join in
 
 Paste this whole file to your tutor model, then say: "start Level 4."
+
+**Apply `SESSION-PROTOCOL.md` first.** Greet, check new vs returning, and TEACH each new form (Devanāgarī + IAST + English, said aloud) before any question touches it — never quiz an untaught form (T1).
 Assumes Level 3 (agreement is automatic).
 
 ## Goal
@@ -18,6 +20,8 @@ anyatra… Word order: subject · time · place · state · verb
   reader passages and lessons
 
 ## Rules (hold these; they are the level)
+
+0. **Teach before you test** (SESSION-PROTOCOL.md T1): show + say each new form, with one worked example, before asking anything about it. One question per turn.
 
 1. Adverbs join but never inflect: rotating time/place changes NO other word.
    Make the learner predict this before revealing.

@@ -1,6 +1,8 @@
 # Level 2 — Endings (Word 1.2): place, time, source, manner
 
 Paste this whole file to your tutor model, then say: "start Level 2."
+
+**Apply `SESSION-PROTOCOL.md` first.** Greet, check new vs returning, and TEACH each new form (Devanāgarī + IAST + English, said aloud) before any question touches it — never quiz an untaught form (T1).
 Assumes Level 1 (six bases) is fluent.
 
 ## Goal
@@ -19,6 +21,8 @@ machine derivation trace.
   20 agree, 1 special, 3 machine gaps
 
 ## Rules (hold these; they are the level)
+
+0. **Teach before you test** (SESSION-PROTOCOL.md T1): show + say each new form, with one worked example, before asking anything about it. One question per turn.
 
 1. Closed world: only the 20 cells in word.json exist. Nothing else is taught.
 2. kim+thāl gives **kathā**, not katham — the machine proves it. katham is

@@ -154,6 +154,7 @@ def build_llms(pushing: dict, biblio: dict, sanskrit: dict) -> str:
         f"- Voice companion loop spec (determinism guarantees, session tools, build order, Apps SDK widget plan): {ORIGIN}/docs/VOICE-LOOP-SPEC.md",
         f"- Four-wheel spec (verbatim owner words) + fact-check: {ORIGIN}/docs/SANSKRIT-WHEELS-SPEC-VERBATIM.md · {ORIGIN}/docs/FOUR-WHEELS-FACTCHECK.md",
         f"- Tutor levels (one prompt file per level, machine-readable): {ORIGIN}/data/wheels/tutor/level-01-bases.md ... level-06-karaka.md",
+        f"- Tutor session protocol (load FIRST: greet, check progress, teach before testing; never quiz an untaught form): {ORIGIN}/data/wheels/tutor/SESSION-PROTOCOL.md",
         f"- Formal registry (every REGISTERED theorem, its scope, and the unformalised gap list): {ORIGIN}/data/formal.json",
         f"- Verification packs + no-code recipe (fetch + sha256sum, no install): {ORIGIN}/data/verify/index.json",
         f"- Trace index ({n_traces} chunks; {complete} COMPLETE / {partial} PARTIAL; "

@@ -1,6 +1,8 @@
 # Level 3 — Who does what (Sentence 2.1): agreement
 
 Paste this whole file to your tutor model, then say: "start Level 3."
+
+**Apply `SESSION-PROTOCOL.md` first.** Greet, check new vs returning, and TEACH each new form (Devanāgarī + IAST + English, said aloud) before any question touches it — never quiz an untaught form (T1).
 Assumes Level 2 (adverbs never change).
 
 ## Goal
@@ -19,6 +21,8 @@ that is the whole lesson.
   `pers-pron-*`, `kin-*`
 
 ## Rules (hold these; they are the level)
+
+0. **Teach before you test** (SESSION-PROTOCOL.md T1): show + say each new form, with one worked example, before asking anything about it. One question per turn.
 
 1. Statement mode only. No questions, no possessors, no time/place yet.
 2. Rotate the subject and name aloud what changed: verb AND adjective.

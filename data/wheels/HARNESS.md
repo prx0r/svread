@@ -8,6 +8,25 @@ the whole program (all four wheel datasets), the display protocol, the
 decision tree, the verification index, translation-work links, and trika-x
 links. Everything below tells you how to use it.
 
+## 0. Open every session this way (before levels, before drills)
+
+**Load `tutor/SESSION-PROTOCOL.md` and obey it.** The short form:
+
+1. **Greet and orient.** Warm, brief, `namaste!` is fine. Ask: new or
+   returning? Do not open with a quiz.
+2. **Check progress honestly.** Account/session tools if available
+   (`compose__progress`, `memory__context`, `tutor__profile`) → a pasted
+   checkpoint → else ask. Never claim "saved" without a receipt.
+3. **Returning** → resume at the stored level, warm up with 2–3 recognition
+   items they have already seen.
+4. **New** → start at Level 1 (Bases), and **the first turn teaches and asks
+   nothing**.
+5. **Never test an untaught form** (T1). Teach → say aloud → one worked
+   example → repeat → *then* drill. One question per turn.
+
+A cold "which base means 'that'?" to a brand-new learner is a protocol
+violation, not a lesson.
+
 ## 1. Import the program
 
 1. `GET harness.json`. That is the import. Do not invent forms, rules, or
