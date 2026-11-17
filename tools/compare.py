@@ -40,7 +40,11 @@ SWARM = TRIKA / "formal-trika" / "swarm"
 TW = Path("/root/translation-work")
 DATA = ROOT / "data" / "xmodel" / "comparisons.json"
 
-VERDICTS = ("fit", "partial", "incompatible")
+VERDICTS = ("fit", "partial", "incompatible", "not-comparable")
+# Marr-level / scope discipline from Yan et al. (2026, Biological Cybernetics):
+# an "incompatible" verdict is only allowed when both sides answer the SAME
+# explanatory question. A different scope is not a contradiction.
+SCOPES = ("same", "different")
 
 
 class Bad(Exception):
@@ -88,6 +92,18 @@ def check_record(c: dict, keys: set, seen: set) -> list:
             f.append(f"missing {k}")
     if c.get("verdict") not in VERDICTS:
         f.append(f"verdict not in {VERDICTS}")
+    if c.get("scope") not in SCOPES:
+        f.append(f"scope not in {SCOPES}")
+    if c.get("verdict") == "incompatible" and c.get("scope") != "same":
+        f.append("incompatible verdict but scope is not 'same' "
+                 "(use not-comparable or name the shared question)")
+    if c.get("verdict") == "not-comparable" and not (c.get("scope_difference") or "").strip():
+        f.append("not-comparable without scope_difference")
+    if not c.get("shared_tools"):
+        f.append("no shared_tools (name the formal tools the comparison needs)")
+    tr = c.get("tractability") or {}
+    if not tr.get("ours") or not tr.get("theirs"):
+        f.append("tractability needs both sides")
     if c.get("verdict") == "incompatible" and not (c.get("obstruction") or "").strip():
         f.append("incompatible without a named obstruction")
     if c.get("verdict") == "fit" and not (c.get("fit_basis") or "").strip():
@@ -128,7 +144,10 @@ def check_all() -> int:
     by = {}
     for c in rows:
         by[c.get("verdict")] = by.get(c.get("verdict"), 0) + 1
-    print(f"compare: {len(rows) - bad}/{len(rows)} pass type logic  {by}")
+    scope = {}
+    for c in rows:
+        scope[c.get("scope")] = scope.get(c.get("scope"), 0) + 1
+    print(f"compare: {len(rows) - bad}/{len(rows)} pass type logic  {by}  scope={scope}")
     return 0 if bad == 0 else 1
 
 

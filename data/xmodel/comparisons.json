@@ -39,7 +39,17 @@
    "verdict": "partial",
    "verdict_reason": "Shares the prover and the recognition doctrine, but the ontologies of self are formally opposed (one self vs contracted self) and the methods are incommensurable (axiomatic theology vs finite enumeration). Complementary in exactly one place: they name recognition as a limitation; we make it a theorem.",
    "what_it_means": "A paper can argue that 'recognition adds nothing' is formalisable without axioms, and that the Advaita axiomatisation's stated limitation is an artefact of its method, not of the doctrine.",
-   "chunk": "paramarthasara:param-p04"
+   "chunk": "paramarthasara:param-p04",
+   "scope": "same",
+   "shared_tools": [
+    "Lean 4",
+    "axiomatic derivation",
+    "master theorem"
+   ],
+   "tractability": {
+    "ours": "O(n) enumeration (`by decide`) over finite tables",
+    "theirs": "axiomatic derivation over 129 axioms"
+   }
   },
   {
    "id": "navya-nyaya-cubical",
@@ -78,7 +88,18 @@
    "verdict": "partial",
    "verdict_reason": "Same medium, different object: a language vs an ontology. Neither can be reduced to the other. The transferable contribution is the named 'autoformalization gap', which trika-x has in the form core:0 / frontier:139.",
    "what_it_means": "Sets the methodological bar trika-x must answer: what is your soundness claim? Honest answer: there is none; there is a non-vacuity claim (the instrument bites).",
-   "chunk": "paramarthasara:param-p04"
+   "chunk": "paramarthasara:param-p04",
+   "scope": "different",
+   "shared_tools": [
+    "cubical type theory",
+    "typed absence",
+    "involutive negation"
+   ],
+   "tractability": {
+    "ours": "O(n) enumeration (`by decide`) over finite tables",
+    "theirs": "type checking + metatheory (soundness, faithfulness)"
+   },
+   "scope_difference": "The two address different explanatory questions: theirs explains what makes a state/quality conscious or valenced; trika-x describes the structure of self-positioning. A level/scope difference is not a contradiction."
   },
   {
    "id": "madhyamaka-modal-catuskoti-lean",
@@ -117,7 +138,17 @@
    "obstruction": "Classical decidability vs paraconsistent non-classical valuation. `decide` presupposes a decidable classical proposition; the catuskoti's fourth lemma (neither) is not such a proposition. Encoding it in trika-x would require replacing the proof core, not adding a table.",
    "verdict_reason": "Structurally incompatible at the level of logic, not of doctrine. The tension is real and useful: it shows Trika's affirmative ontology buys classical tractability at the price of being unable to represent 'neither'.",
    "what_it_means": "Any comparative paper must state that trika-x cannot represent the fourth lemma, and that this is a design commitment of the affirmative ontology, not an oversight.",
-   "chunk": "paramarthasara:param-p04"
+   "chunk": "paramarthasara:param-p04",
+   "scope": "same",
+   "shared_tools": [
+    "Lean 4",
+    "modal logic",
+    "paraconsistent valuation"
+   ],
+   "tractability": {
+    "ours": "O(n) enumeration (`by decide`) over finite tables",
+    "theirs": "model construction over Kripke frames"
+   }
   },
   {
    "id": "vaisesika-generative-ontology",
@@ -156,7 +187,16 @@
    "verdict": "partial",
    "verdict_reason": "Complementary boundary theories: their punctuator is a single general separator; our kancuka are five typed restrictions. Neither subsumes the other without losing what it encodes.",
    "what_it_means": "A precise comparison of 'boundary' across Vaisesika and Trika: vi-sesa/punctuator vs kancuka. This is a genuine contribution and needs no new formalism.",
-   "chunk": "paramarthasara:param-p04"
+   "chunk": "paramarthasara:param-p04",
+   "scope": "same",
+   "shared_tools": [
+    "graph grammar",
+    "category assignment by form"
+   ],
+   "tractability": {
+    "ours": "O(n) enumeration (`by decide`) over finite tables",
+    "theirs": "grammar generation + sampled interpretation (~10k graphs)"
+   }
   },
   {
    "id": "sunyata-category-theory",
@@ -189,7 +229,17 @@
    "obstruction": "No morphisms. Yoneda requires a category: objects plus composable arrows. trika-x defines inductive types and a restricting function, but no composition law, so 'objects are their relations' cannot even be stated, let alone proved.",
    "verdict_reason": "The comparison is structurally impossible as stated because the trika-x side is not a category. It could become possible only by building a category whose arrows are the stipulated pairings — a different project.",
    "what_it_means": "A clear negative result: do not claim a category-theoretic reading of trika-x without defining the arrows. The obstruction is named, so the paper can say exactly why.",
-   "chunk": "paramarthasara:param-p04"
+   "chunk": "paramarthasara:param-p04",
+   "scope": "same",
+   "shared_tools": [
+    "category theory",
+    "universal properties",
+    "Yoneda"
+   ],
+   "tractability": {
+    "ours": "O(n) enumeration (`by decide`) over finite tables",
+    "theirs": "informal categorical reasoning"
+   }
   },
   {
    "id": "nagarjuna-lean-verification-boundary",
@@ -223,7 +273,17 @@
    "fit_basis": "Method agreement: both declare the interpretive layer unverified and both refuse to promote a mapping to a proof. This is the only comparison in the set that is a methodological fit rather than a doctrinal mapping.",
    "verdict_reason": "Agreement at the level of verification discipline, disagreement at the level of content. A joint methodological claim is available: 'two independent Lean encodings of Indian philosophy both place the interpretive layer outside the kernel.'",
    "what_it_means": "Use this as the methodological ally in the paper. It licenses the trika-x discipline of tiers + MODEL_CHECKED scope as an established practice, not a local quirk.",
-   "chunk": "paramarthasara:param-p04"
+   "chunk": "paramarthasara:param-p04",
+   "scope": "same",
+   "shared_tools": [
+    "Lean 4",
+    "sequence algebra",
+    "explicit verification boundary"
+   ],
+   "tractability": {
+    "ours": "O(n) enumeration (`by decide`) over finite tables",
+    "theirs": "axiom-free Lean proofs over a finite alphabet"
+   }
   },
   {
    "id": "hot-higher-order-thought",
@@ -257,11 +317,21 @@
      "matters": "whether selfhood is explained or presupposed: a model built from HOTs vs an unconstructed self-grasp"
     }
    ],
-   "verdict": "incompatible",
+   "verdict": "not-comparable",
    "obstruction": "Different objects of quantification: HOT is a predicate on mental states; trika-x has no state-consciousness layer and no meta-representation relation. Encoding HOT would require adding a state ontology that the affirmative Trika account does not contain.",
    "verdict_reason": "Not refuted, not reduced: the comparison cannot even be stated in one signature. The useful residue is the direct contradiction on additivity if one forces the mapping.",
    "what_it_means": "A paper can say precisely why HOT and Trika cannot be compared head-on, and why 'recognition adds nothing' is not a HOT variant.",
-   "chunk": "paramarthasara:param-p04"
+   "chunk": "paramarthasara:param-p04",
+   "scope": "different",
+   "shared_tools": [
+    "state ontology",
+    "meta-representation relation"
+   ],
+   "tractability": {
+    "ours": "O(n) enumeration (`by decide`) over finite tables",
+    "theirs": "not formalised; conceptual"
+   },
+   "scope_difference": "The two address different explanatory questions: theirs explains what makes a state/quality conscious or valenced; trika-x describes the structure of self-positioning. A level/scope difference is not a contradiction."
   },
   {
    "id": "iit-integrated-information",
@@ -294,7 +364,17 @@
    "obstruction": "No causal graph and no irreducibility measure. Phi is defined over a system's transition probabilities; trika-x defines lists and a restricting function with no dynamics, so Phi is not merely uncomputed but undefined here.",
    "verdict_reason": "Structurally incompatible as formal objects, while agreeing at the level of a slogan ('structure matters'). The slogan is not a comparison.",
    "what_it_means": "Trika-x cannot enter IIT's quantitative arena without a dynamics layer; any IIT comparison must be at the level of theoretical commitments, and say so.",
-   "chunk": "paramarthasara:param-p04"
+   "chunk": "paramarthasara:param-p04",
+   "scope": "same",
+   "shared_tools": [
+    "Markov kernel",
+    "conditional independence",
+    "irreducibility measure (Phi)"
+   ],
+   "tractability": {
+    "ours": "O(n) enumeration (`by decide`) over finite tables",
+    "theirs": "exponential in the worst case (search over cuts and subsets)"
+   }
   },
   {
    "id": "gwt-global-workspace",
@@ -326,7 +406,17 @@
    "obstruction": "No competition, no capacity limit, no broadcast. GWT's central term (global availability under competition) has no definiens in trika-x, whose ordering is stipulated, not produced by a mechanism.",
    "verdict_reason": "The ordering resemblance is a trap: an ordered field is not a workspace. Naming the missing mechanism keeps the comparison honest.",
    "what_it_means": "Useful as a contrast case in the paper: why an ordering is not an architecture.",
-   "chunk": "paramarthasara:param-p04"
+   "chunk": "paramarthasara:param-p04",
+   "scope": "same",
+   "shared_tools": [
+    "competition",
+    "capacity bound",
+    "broadcast"
+   ],
+   "tractability": {
+    "ours": "O(n) enumeration (`by decide`) over finite tables",
+    "theirs": "simulation of workspace architectures"
+   }
   },
   {
    "id": "qri-valence-symmetry",
@@ -355,10 +445,71 @@
      "matters": "a count of rasas is not a valence model"
     }
    ],
-   "verdict": "incompatible",
+   "verdict": "not-comparable",
    "obstruction": "No space, no metric, no valence function. QRI's central object is a symmetry in a qualia space; trika-x has a finite inventory of aesthetic modes and no geometry to embed them in.",
    "verdict_reason": "The comparison is tempting because both are about aesthetic quality, but 'nine rasas' and 'valence geometry' are different kinds of object.",
    "what_it_means": "A clear negative result that prevents the paper from claiming a formal valence theory it does not have.",
+   "chunk": "paramarthasara:param-p04",
+   "scope": "different",
+   "shared_tools": [
+    "qualia space",
+    "symmetry group",
+    "valence function"
+   ],
+   "tractability": {
+    "ours": "O(n) enumeration (`by decide`) over finite tables",
+    "theirs": "not formalised in a proof assistant"
+   },
+   "scope_difference": "The two address different explanatory questions: theirs explains what makes a state/quality conscious or valenced; trika-x describes the structure of self-positioning. A level/scope difference is not a contradiction."
+  },
+  {
+   "id": "pcm-projective-perspective",
+   "their": "The Projective Consciousness Model (Rudrauf, Williford and colleagues): conscious experience as a world model transformed by a projective transformation, S = T ∘ R, with viewpoint changes acting as collineations in PGL(4,R)",
+   "their_kind": "geometric + active-inference model of perspectival experience",
+   "their_anchor": "Williford, Bennequin, Friston & Rudrauf (2018) Front. Psychol. 9:2571; Rudrauf et al. (2023) Brain Sci. 13(10):1435; Rudrauf & Pansu (preprint) 'Why the PCM must be true' (verified 2026-11-17)",
+   "our_anchor": [
+    "Inexternalism.lean :: mode_switch_preserves_content",
+    "Inexternalism.lean :: recognise_preserves_content"
+   ],
+   "shared": [
+    "a content/positioning separation: a fixed world-model R plus a perspective T applied to it",
+    "change is a transformation of access, not a change of content",
+    "experience is perspectival by construction"
+   ],
+   "disparities": [
+    {
+     "axis": "generality",
+     "their": "T ranges over PGL(4,R); the group is derived from four perceptual postulates (central projection, coherent updating, minimal gauge, normative control)",
+     "ours": "sigma has exactly two values, asserted, not derived",
+     "matters": "this is the strongest mapping in the set and the clearest gap: our flip is the two-element degenerate case of their group action"
+    },
+    {
+     "axis": "derivation",
+     "their": "RP^3 and PGL(4,R) are necessary given P1-P4",
+     "ours": "two positionings are stipulated (tier H, owner framework)",
+     "matters": "they prove a necessity claim; we assert a two-valued structure, so ours is weaker and more general"
+    },
+    {
+     "axis": "formality",
+     "their": "continuous geometry plus active inference, not machine-checked",
+     "ours": "machine-checked but finite and discrete",
+     "matters": "complementary: their structure, our kernel check"
+    }
+   ],
+   "verdict": "partial",
+   "verdict_reason": "The best mapping in the corpus: S = T o R is exactly the content/positioning separation that mode_switch_preserves_content encodes. It stays partial because sigma is two-valued and stipulated while T is a continuous group derived from premises.",
+   "what_it_means": "The upgrade path is explicit: generalise sigma to a group action on the field, recover the two-valued flip as the degenerate case, and prove content invariance for the action. That would change this verdict to fit and strengthen both sides.",
+   "scope": "same",
+   "shared_tools": [
+    "projective geometry",
+    "group action PGL(4,R)",
+    "active inference",
+    "Bayesian inference"
+   ],
+   "tractability": {
+    "ours": "O(n) enumeration over finite tables",
+    "theirs": "continuous optimisation / matrix group computations"
+   },
    "chunk": "paramarthasara:param-p04"
   }
  ]
