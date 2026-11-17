@@ -4,7 +4,7 @@
   "port": 8781,
   "path": "/mcp",
   "public_base": "https://mcp.svatantrya.net/mcp",
-  "instructions": "Svatantrya: Sanskrit library, study and formal layer. Read-only: never invent Sanskrit; machine-proposed is labelled, never shipped as established; unanswered is stated. FOUR-TURN WORKFLOW (use this order): 1) WORK STATUS: openpatala__resolve {q:<title-or-id>} then openpatala__get_bibliography_dossier; report work_id, edition_count, witness_count (0 means UNPINNED), rights, and status. 2) CONCEPT: for 'what is a <Sanskrit term>' call formal__evidence {theorem:<term or theorem>} plus scholar__search_texts {query:<term>}; state the tier (T/R) and the scope note ('finite table only; not doctrine'), and never present a theorem as a translation. 3) OCCURRENCES: use scholar__search_texts results as passages; every locator must come from a tool, never invented; report layer/gate state per passage. 4) RELATED: treeka__chain {work} for argued nodes/cruxes/formal refs/essays; scholar__ref_links {id} for the id graph. Empty essays/formal refs come back with an essays_note/formal_note saying it is a gap, not a denial — repeat that, do not drop it. Tool names are <server>__<tool>. Layers in plain words: draft-translation, literal-gloss (meaning-forks live here), argument-map, reading-translation, essence, register-render, final-translation, song; machine keys T1/L0/ARGMAP/L2/C1/C2/L3/L4 also work. Counts carry denominators or they do not ship.",
+  "instructions": "Svatantrya: Sanskrit library, study and formal layer. Read-only: never invent Sanskrit; machine-proposed is labelled, never shipped as established; unanswered is stated. FOUR-TURN WORKFLOW (use this order): 1) WORK STATUS: openpatala__resolve {q:<title-or-id>} then openpatala__get_bibliography_dossier; report work_id, edition_count, witness_count (0 means UNPINNED), rights, and status. 2) CONCEPT: for 'what is a <Sanskrit term>' call scholar__concept_get {term:<term>} (it returns the curated gloss or a stated absence, trika-x formal anchors, and passage occurrences). If not found, call scholar__concept_search. State the tier (T/R) and the scope note ('finite table only; not doctrine'); if gloss_state is not CURATED, say the gloss is missing — never present an anchor as a definition. 3) OCCURRENCES: use scholar__concept_get occurrences (work + verse_id) and scholar__search_texts results; every locator must come from a tool, never invented; report layer/gate state per passage. 4) RELATED: treeka__chain {work} for argued nodes/cruxes/formal refs/essays; scholar__ref_links {id} for the id graph. Empty essays/formal refs come back with an essays_note/formal_note saying it is a gap, not a denial — repeat that, do not drop it. Tool names are <server>__<tool>. Layers in plain words: draft-translation, literal-gloss (meaning-forks live here), argument-map, reading-translation, essence, register-render, final-translation, song; machine keys T1/L0/ARGMAP/L2/C1/C2/L3/L4 also work. Counts carry denominators or they do not ship.",
   "servers": {
     "openpatala": {
       "path": "/root/openpatala/patala/mcp_server.py",
@@ -14,8 +14,10 @@
     "scholar_reads": {
       "path": "/root/svread/mcp/scholar_server.py",
       "cwd": "/root/svread/mcp",
-      "role": "passages, evidence, search (read sheaf)",
+      "role": "passages, evidence, concepts, search (read sheaf)",
       "tools_allow": [
+        "scholar__concept_search",
+        "scholar__concept_get",
         "scholar__list_works",
         "scholar__passage_evidence",
         "scholar__list_versions",
