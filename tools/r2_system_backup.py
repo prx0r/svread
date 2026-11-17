@@ -63,11 +63,22 @@ PART = 64 * 1024 * 1024
 
 def env():
     e = {}
-    for line in open('/root/.r2-env'):
-        line = line.strip()
-        if line and '=' in line and not line.startswith('#'):
-            k, v = line.split('=', 1)
-            e[k.strip()] = v.strip()
+    try:
+        for line in open('/root/.r2-env'):
+            line = line.strip()
+            if line and '=' in line and not line.startswith('#'):
+                k, v = line.split('=', 1)
+                e[k.strip()] = v.strip()
+    except OSError:
+        pass
+    # Fall back to process env for the S3-compatible R2 credentials (never
+    # write secrets to .r2-env). Populate from the vault, e.g.:
+    #   R2_ENDPOINT=CLOUDFLARE_R2_ENDPOINT
+    #   R2_ACCESS_KEY_ID=CLOUDFLARE_R2_S3_ACCESS_KEY
+    #   R2_SECRET_ACCESS_KEY=CLOUDFLARE_R2_S3_SECRET_KEY
+    for k in ('R2_ENDPOINT', 'R2_ACCESS_KEY_ID', 'R2_SECRET_ACCESS_KEY'):
+        if not e.get(k) and os.environ.get(k):
+            e[k] = os.environ[k]
     return e
 
 
@@ -121,7 +132,12 @@ def upload_part(s3, uid, key, num, data):
 
 def stream_tar_gz(s3, name: str, path: Path, key: str) -> tuple[str, int]:
     """tar czf - (excl. junk) -> R2 multipart. Returns (sha256, bytes)."""
-    args = ['tar', 'czf', '-'] + TAR_EXCLUDES + ['-C', str(path.parent), path.name]
+    # Live repos change under the read: GNU tar exits 1 ("file changed as we
+    # read it") while still producing a valid archive of what it read. Silence
+    # that warning; accept rc in {0,1}. Hard errors (2) still abort.
+    args = (['tar', 'czf', '-', '--warning=no-file-changed',
+             '--warning=no-file-removed'] + TAR_EXCLUDES +
+            ['-C', str(path.parent), path.name])
     proc = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
     uid = s3.create_multipart_upload(Bucket=BUCKET, Key=key)['UploadId']
     h = hashlib.sha256()
@@ -159,12 +175,14 @@ def stream_tar_gz(s3, name: str, path: Path, key: str) -> tuple[str, int]:
         proc.stdout.close()
         proc.wait()
         pool.shutdown()
-    if proc.returncode != 0:
+    if proc.returncode not in (0, 1):
         try:
             s3.abort_multipart_upload(Bucket=BUCKET, Key=key, UploadId=uid)
         except Exception:
             pass
         raise RuntimeError(f'tar exited {proc.returncode} — upload aborted, no manifest')
+    # rc==1 is tolerated: files changed while being read (live loop); the
+    # archive is complete for the bytes it read and its sha256 is recorded.
     s3.complete_multipart_upload(
         Bucket=BUCKET, Key=key, UploadId=uid,
         MultipartUpload={'Parts': [{'PartNumber': n, 'ETag': etags[n]}
