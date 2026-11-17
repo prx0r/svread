@@ -350,6 +350,10 @@ def resolve(i: str) -> dict:
         return resolve_pack(i[len("pack:"):])
     if i.startswith("aoc:"):
         return resolve_aoc(i[len("aoc:"):])
+    if i.startswith("xmodel:"):
+        sys.path.insert(0, str(SVREAD / "tools"))
+        import xmodel
+        return xmodel.resolve(i)
     if i.startswith("work:"):
         return resolve_work(i[len("work:"):])
     raise Unresolvable(f"unknown id kind: {i!r}")

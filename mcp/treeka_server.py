@@ -24,21 +24,41 @@ def _load() -> dict:
     return _cache["data"]
 
 
+def _annotate(entry: dict, counts: dict) -> dict:
+    """Never return a silent empty list. A missing association is a stated gap."""
+    if entry is None:
+        return entry
+    out = dict(entry)
+    if not out.get("essays"):
+        out["essays"] = []
+        out["essays_note"] = (
+            "no essay bound to this passage — a gap, not a denial "
+            f"(corpus essayless: {counts.get('essayless', 'unknown')})")
+    if out.get("formal_reference") is False:
+        out["formal_note"] = (
+            "no registry theorem references this passage "
+            f"(corpus no_formal_reference: {counts.get('no_formal_reference', 'unknown')})")
+    return out
+
+
 @mcp.tool()
 def chain(work: str, locator: str = "") -> dict:
     """Full treeka chain for one work (or one work:locator): passages, argued
     nodes, cruxes, formal refs, essays, bridge state. Use when tracing what
-    exists for a work and what is missing."""
+    exists for a work and what is missing. Empty essays/formal refs are
+    annotated as gaps, never returned as silent empties."""
     d = _load()
     works = d.get("works", {})
+    counts = d.get("counts", {})
     if locator:
         key = f"{work}:{locator}"
         entry = works.get(key)
-        return {"key": key, "entry": entry,
+        return {"key": key, "entry": _annotate(entry, counts),
                 "note": "null entry means no treeka row, never that the tradition lacks it"}
-    rows = {k: v for k, v in works.items() if k.split(":")[0] == work}
+    rows = {k: _annotate(v, counts) for k, v in works.items()
+            if k.split(":")[0] == work}
     return {"work": work, "rows": len(rows), "entries": rows,
-            "counts": d.get("counts", {})}
+            "counts": counts}
 
 
 @mcp.tool()

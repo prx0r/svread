@@ -522,11 +522,78 @@ def wheel_harness(a):
             'pronunciation': h['pronunciation'], 'trika': h['trika'],
             'note': 'Full datasets + pack index: fetch data/wheels/harness.json (101KB, one fetch). This tool returns the map, not the territory.'}
 
+
+_CONCEPTS = None
+def _concepts():
+    global _CONCEPTS
+    if _CONCEPTS is None:
+        try:
+            _CONCEPTS = json.loads((ROOT/'data/concepts/index.json').read_text(encoding='utf-8'))
+        except FileNotFoundError:
+            raise ValueError('Concept index not built (tools/emit_concepts.py --write)')
+    return _CONCEPTS
+
+def _fold(x):
+    import unicodedata
+    x = unicodedata.normalize('NFD', x or '')
+    return ''.join(c for c in x if not unicodedata.combining(c)).casefold().strip()
+
+def concept_get(a):
+    q = a.get('term') or a.get('id') or ''
+    if not isinstance(q, str) or not q.strip():
+        raise ValueError('term required (e.g. kancuka)')
+    d = _concepts(); cards = d.get('concepts') or []
+    key = _fold(q).replace(' ', '-')
+    hit = next((c for c in cards if c['id'] == key), None)
+    if hit is None:
+        hit = next((c for c in cards if _fold(c.get('iast') or '') == _fold(q)), None)
+    if hit is None:
+        near = [c['id'] for c in cards if _fold(q)[:4] and _fold(c['id']).startswith(_fold(q)[:4])][:10]
+        return {'term': q, 'found': False, 'near_matches': near,
+                'note': 'no concept entry; a miss is not a denial — unknown terms are not invented'}
+    out = dict(hit)
+    lim = a.get('occurrence_limit')
+    lim = 25 if lim is None else max(0, int(lim))
+    out['occurrences'] = out.get('occurrences', [])[:lim]
+    out['occurrences_truncated'] = (out.get('occurrence_count', 0) > len(out['occurrences']))
+    by_id = {c['id']: c for c in cards}
+    out['related_concepts'] = [
+        {'id': r, 'term': (by_id.get(_fold(r).replace(' ', '-')) or {}).get('term'),
+         'gloss_state': (by_id.get(_fold(r).replace(' ', '-')) or {}).get('gloss_state', 'NO_ENTRY')}
+        for r in (out.get('related') or [])][:20]
+    out['counts'] = {'concepts_total': d.get('counts', {}).get('concepts'),
+                     'curated_gloss': d.get('counts', {}).get('curated_gloss')}
+    if out.get('gloss_state') != 'CURATED':
+        out['warning'] = ('No curated gloss exists for this term. The formal anchors and '
+                          'occurrences below are structural evidence only; do not present '
+                          'them as a definition.')
+    return out
+
+def concept_search(a):
+    q = a.get('query') or ''
+    if not isinstance(q, str) or not q.strip():
+        raise ValueError('query required')
+    d = _concepts(); qf = _fold(q); lim = int(a.get('limit') or 10)
+    scored = []
+    for c in d.get('concepts') or []:
+        hay = _fold(' '.join([c.get('id',''), c.get('term',''), c.get('iast',''),
+                              c.get('definition') or '']))
+        if qf and qf in hay:
+            scored.append((c['gloss_state'] == 'CURATED', c.get('occurrence_count', 0), c['id'],
+                           c.get('term'), c.get('definition'), c['gloss_state']))
+    scored.sort(key=lambda t: (-int(t[0]), -t[1], t[2]))
+    return {'query': q, 'total': len(scored),
+            'results': [{'id': s[2], 'term': s[3], 'definition': s[4],
+                         'gloss_state': s[5]} for s in scored[:max(0, lim)]],
+            'note': 'Concept-first: call concept_get for the full card (formal anchors + occurrences).'}
+
 def call(name,a):
     if not isinstance(a,dict): raise ValueError('Arguments must be an object')
     if name=='list_works':
         index=json.loads((ROOT/'data/scholar/index.json').read_text(encoding='utf-8'))
         return {'works':sorted(index), 'note':'Bundled projections; Ghaṭakarpara is withheld pending source repair.'}
+    if name=='concept_get': return concept_get(a)
+    if name=='concept_search': return concept_search(a)
     if name=='passage_evidence': return evidence(a)
     if name=='list_versions': return versions(a)
     if name=='compare_versions': return compare_versions(a)
@@ -632,6 +699,8 @@ S= lambda props, required=[]: {'type':'object','properties':props,'required':req
 T={'type':'string'}
 TOOLS=[
  ('list_works','List available bundled Scholar projections.',S({})),
+ ('concept_get','Concept card: curated gloss (or stated absence), trika-x formal anchors, and passage occurrences.',S({'term':T,'occurrence_limit':{'type':'integer','minimum':0}},['term'])),
+ ('concept_search','Find concept ids by term or definition words.',S({'query':T,'limit':{'type':'integer','minimum':1}},['query'])),
  ('passage_evidence','Read hash-checked Sanskrit and editorial layers for a passage.',S({'work':T,'target':T},['work','target'])),
  ('list_versions','List stored versions for an exact passage and layer.',S({'work':T,'target':T,'layer':T},['work','target','layer'])),
  ('compare_versions','Compare two hash-checked versions for an exact passage and layer.',S({'work':T,'target':T,'layer':T,'left':T,'right':T},['work','target','layer','left','right'])),
