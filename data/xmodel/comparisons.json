@@ -335,7 +335,7 @@
    "id": "hot-higher-order-thought",
    "their": "Higher-Order Thought theory (Rosenthal): a state is conscious iff accompanied by a higher-order representation of it",
    "their_kind": "philosophical theory of state consciousness",
-   "their_anchor": "Rosenthal, 'A Theory of Consciousness' (standard reference; not re-verified in this session)",
+   "their_anchor": "Rosenthal: a mental state is conscious iff accompanied by a HOT to the effect that one is in that state; HOTs are distinct, typically unconscious states (reportability + fineness-of-grain arguments). Verified from Rosenthal's texts (davidrosenthal.org) and Scholarpedia, 2026-11-17.",
    "our_anchor": [
     "Recognition.lean :: recognition_adds_nothing"
    ],
@@ -346,7 +346,7 @@
    "disparities": [
     {
      "axis": "object",
-     "their": "quantifies over mental STATES: what makes a state conscious",
+     "their": "quantifies over mental STATES: a state is conscious iff accompanied by a distinct, usually unconscious HOT",
      "ours": "quantifies over SELF-POSITIONING: what changes in recognition",
      "matters": "the theories do not range over the same entities; a state-level predicate has no counterpart in trika-x"
     },
@@ -380,17 +380,18 @@
    "scope_difference": "The two address different explanatory questions: theirs explains what makes a state/quality conscious or valenced; trika-x describes the structure of self-positioning. A level/scope difference is not a contradiction.",
    "citation": {
     "sources": [
-     "standard references (Rosenthal); not re-fetched this session"
+     "davidrosenthal.org DR-Cn-Mcogn.pdf + DR-HO-Theories-Handbook.pdf",
+     "Scholarpedia Higher-order theories of consciousness"
     ],
     "verified": "2026-11-17",
-    "method": "standard"
+    "method": "multi-source"
    }
   },
   {
    "id": "iit-integrated-information",
    "their": "Integrated Information Theory (Tononi et al.): consciousness is integrated information, Phi, over a causal system",
    "their_kind": "mathematical theory of consciousness",
-   "their_anchor": "Tononi 2008; Tononi, Boly, Massimini & Koch, IIT 3.0 (standard references; not re-verified in this session)",
+   "their_anchor": "IIT 3.0/4.0 as formulated in Sergeant-Perthuis et al., 'Integrated Information Theory (IIT) with Simple Maths' (HAL hal-04531404, 2024): Markov kernels, the cut (product of local kernels), phi as inf-over-cuts divergence, Phi as max/sum. Full definitional content verified 2026-11-17.",
    "our_anchor": [
     "Kancuka.lean :: pairings_distinct",
     "Kancuka.lean :: count_5"
@@ -415,7 +416,7 @@
    ],
    "verdict": "incompatible",
    "obstruction": "No causal graph and no irreducibility measure. Phi is defined over a system's transition probabilities; trika-x defines lists and a restricting function with no dynamics, so Phi is not merely uncomputed but undefined here.",
-   "verdict_reason": "Structurally incompatible as formal objects, while agreeing at the level of a slogan ('structure matters'). The slogan is not a comparison.",
+   "verdict_reason": "Same scope — what makes a system conscious — with a named missing signature: no Markov kernel, no cut, no divergence, no Phi. PARTIAL UPGRADE RECORDED 2026-11-17: our Cuttable.lean is exactly the phi = 0 base case of their construction — where the cut kernel equals the full kernel for every partition, the divergence D is 0, so little-phi vanishes by their Definition 7. What is missing is everything else: stochastic kernels (ours are deterministic), a divergence measure, the max over purviews (psi), and big-Phi itself. The verdict stays incompatible because a base case is not the theory, but the gap is now measured in their terms, not ours.",
    "what_it_means": "Trika-x cannot enter IIT's quantitative arena without a dynamics layer; any IIT comparison must be at the level of theoretical commitments, and say so.",
    "chunk": "paramarthasara:param-p04",
    "scope": "same",
@@ -430,10 +431,10 @@
    },
    "citation": {
     "sources": [
-     "Kirchhoff et al. 2018 PMC5805980; standard references; not re-fetched"
+     "HAL hal-04531404 'IIT with Simple Maths' (definitions 1-7, eq. 16-20)"
     ],
     "verified": "2026-11-17",
-    "method": "standard"
+    "method": "fetched-primary"
    }
   },
   {
@@ -572,8 +573,8 @@
     }
    ],
    "verdict": "partial",
-   "verdict_reason": "The strongest mapping in the corpus: S = T o R is exactly the content/positioning separation that mode_switch_preserves_content and act_preserves_content encode. PROVED in this release: the action group of a two-positioning model is exactly Z/2 (z2_closed, z2_assoc, z2_selfinv), the flip is its generator, and involution is derived from the group law (flip_squared_is_identity_op). It stays partial because Z/2 is the degenerate case of PGL(4,R), not the group itself; the continuity gap is named, not bridged.",
-   "what_it_means": "The upgrade path is explicit: generalise sigma to a group action on the field, recover the two-valued flip as the degenerate case, and prove content invariance for the action. That would change this verdict to fit and strengthen both sides.",
+   "verdict_reason": "The strongest mapping in the corpus: S = T o R is exactly the content/positioning separation. PROVED in this release: the action group of a two-positioning model is exactly Z/2 (z2_closed, z2_assoc, z2_selfinv); the flip is its generator (generator_agrees_on_positioning); involution is derived from 1+1=0 (flip_squared_is_identity_op); dynamics and action are jointly checked on one carrier (testbed_joint). It stays partial because Z/2 is the degenerate case of PGL(4,R), not the group itself; continuity — and the derivation of the group from perceptual postulates — is named, not bridged.",
+   "what_it_means": "The upgrade path is half-built: the discrete skeleton (group laws, generator, joint testbed) is machine-checked. What remains is the continuous group and its derivation from postulates. Do not claim the fit until then.",
    "scope": "same",
    "shared_tools": [
     "projective geometry",
