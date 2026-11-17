@@ -556,6 +556,11 @@ def concept_get(a):
     lim = 25 if lim is None else max(0, int(lim))
     out['occurrences'] = out.get('occurrences', [])[:lim]
     out['occurrences_truncated'] = (out.get('occurrence_count', 0) > len(out['occurrences']))
+    by_id = {c['id']: c for c in cards}
+    out['related_concepts'] = [
+        {'id': r, 'term': (by_id.get(_fold(r).replace(' ', '-')) or {}).get('term'),
+         'gloss_state': (by_id.get(_fold(r).replace(' ', '-')) or {}).get('gloss_state', 'NO_ENTRY')}
+        for r in (out.get('related') or [])][:20]
     out['counts'] = {'concepts_total': d.get('counts', {}).get('concepts'),
                      'curated_gloss': d.get('counts', {}).get('curated_gloss')}
     if out.get('gloss_state') != 'CURATED':

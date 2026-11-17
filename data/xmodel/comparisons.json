@@ -1,0 +1,229 @@
+{
+ "format": "svatantrya.xmodel-comparisons/1",
+ "note": "Trika-x against existing formalisations of Indian philosophy and consciousness. Verdicts are structural: fit | partial | incompatible. An 'incompatible' verdict MUST name the precise obstruction — never 'does not fit' as a gesture. Every 'their_anchor' is a published artefact (web-checked 2026-11-17); re-verify before citing in a paper.",
+ "comparisons": [
+  {
+   "id": "advaita-lean-axiomatic",
+   "their": "Advaita Vedanta: A Formal Axiomatization (Lean 4, scherf/Advaita) — 129 primitive axioms, 10 modules, master theorems TatTvamAsi + ThreeStateAnalysis",
+   "their_kind": "axiomatic formalisation in Lean 4",
+   "their_anchor": "github.com/matthew-scherf/Advaita (README, retrieved 2026-11-17)",
+   "our_anchor": [
+    "Recognition.lean :: recognition_adds_nothing",
+    "Kancuka.lean :: pairings_distinct"
+   ],
+   "shared": [
+    "same proof assistant (Lean 4)",
+    "same target doctrine family (non-dual Kashmir/Advaita Shaiva-Vedantic)",
+    "recognition/moksa as non-production of a new state"
+   ],
+   "disparities": [
+    {
+     "axis": "method",
+     "their": "129 primitive axioms; theorems derived from them",
+     "ours": "finite tables; 332 `by decide` propositions; no axioms about the absolute",
+     "matters": "their theorems hold inside an assumed theology; ours hold inside an enumerated model"
+    },
+    {
+     "axis": "self",
+     "their": "one witness-self; ego is superimposition (adhyasa); A4 makes Atman = Brahman an axiom",
+     "ours": "self contracts through five named coverings; identity is never lost but is restricted",
+     "matters": "opposite formal treatment of plurality: error to be sublated vs real contraction"
+    },
+    {
+     "axis": "recognition",
+     "their": "listed under 'what the formalization CANNOT capture': moksa is recognition, not a new state",
+     "ours": "proved: recognition_adds_nothing, recognition_preserves_content",
+     "matters": "the single sharpest disparity: they call it unformalizable; we formalise it and they are the ones with axioms"
+    }
+   ],
+   "verdict": "partial",
+   "verdict_reason": "Shares the prover and the recognition doctrine, but the ontologies of self are formally opposed (one self vs contracted self) and the methods are incommensurable (axiomatic theology vs finite enumeration). Complementary in exactly one place: they name recognition as a limitation; we make it a theorem.",
+   "what_it_means": "A paper can argue that 'recognition adds nothing' is formalisable without axioms, and that the Advaita axiomatisation's stated limitation is an artefact of its method, not of the doctrine.",
+   "chunk": "paramarthasara:param-p04"
+  },
+  {
+   "id": "navya-nyaya-cubical",
+   "their": "Cubical Type Theoretic Navya-Nyaya (arXiv:2605.12548, 2026) — CCHM De Morgan cubical type theory; seven core constructs; four signature theorems; soundness, conservativity, faithfulness",
+   "their_kind": "type-theoretic formalisation of a technical language",
+   "their_anchor": "arXiv:2605.12548 (abstract, retrieved 2026-11-17)",
+   "our_anchor": [
+    "Kancuka.lean :: count_5",
+    "AnswerKey.lean :: key_five_kancukas"
+   ],
+   "shared": [
+    "dependent type theory as the encoding medium",
+    "fidelity to Sanskrit technical vocabulary",
+    "explicit 'autoformalization gap' discipline"
+   ],
+   "disparities": [
+    {
+     "axis": "object",
+     "their": "the technical LANGUAGE of Navya-Nyaya (sambandha, avacchedaka, abhava, vyapti)",
+     "ours": "the STRUCTURE of Trika doctrine (coverings, tattvas, orderings)",
+     "matters": "they formalise how Naiyayikas speak; we formalise what Trikavadins count"
+    },
+    {
+     "axis": "metatheory",
+     "their": "soundness, conservativity, faithfulness, decidability, commentarial conservativity",
+     "ours": "no metatheoretic results; non-vacuity is established by 57 twin mutants",
+     "matters": "trika-x has no soundness theorem; its defence is that the checker refuses corruption"
+    },
+    {
+     "axis": "negation",
+     "their": "typed absence and involutive negation require cubical foundations",
+     "ours": "classical decidable propositions only",
+     "matters": "abhava has no counterpart in trika-x; adding it would force a logic change"
+    }
+   ],
+   "verdict": "partial",
+   "verdict_reason": "Same medium, different object: a language vs an ontology. Neither can be reduced to the other. The transferable contribution is the named 'autoformalization gap', which trika-x has in the form core:0 / frontier:139.",
+   "what_it_means": "Sets the methodological bar trika-x must answer: what is your soundness claim? Honest answer: there is none; there is a non-vacuity claim (the instrument bites).",
+   "chunk": "paramarthasara:param-p04"
+  },
+  {
+   "id": "madhyamaka-modal-catuskoti-lean",
+   "their": "The Modal Catuskoti: Formalizing Emptiness in Classical Modal Logic (Chapman 2026, Comparative Philosophy 17(2); Lean 4 repo rollofthedice/modal-catuskoti-lean)",
+   "their_kind": "modal + paraconsistent formalisation in Lean 4",
+   "their_anchor": "Comparative Philosophy 17(2):4-17, doi 10.31979/2151-6014(2026).170205; github.com/rollofthedice/modal-catuskoti-lean",
+   "our_anchor": [
+    "Conjuncts.lean :: recognition_unique",
+    "Avarana.lean :: partial_order_honest"
+   ],
+   "shared": [
+    "Lean 4 for an Indian philosophical doctrine",
+    "emptiness/absence as a formal object"
+   ],
+   "disparities": [
+    {
+     "axis": "logic",
+     "their": "modal extension of Belnap-Dunn four-valued semantics; non-classical object level",
+     "ours": "classical, decidable finite propositions; `by decide`",
+     "matters": "the catuskoti's fourth lemma is not decidable in the sense our proofs require"
+    },
+    {
+     "axis": "regress",
+     "their": "self-application produces a non-terminating regress treated as virtuous",
+     "ours": "ascent terminates at the top rung (terminal_no_successor)",
+     "matters": "structural opposition: open-ended analysis vs a closed ladder"
+    },
+    {
+     "axis": "target",
+     "their": "refutation of svabhava across all four lemmas",
+     "ours": "a positive inventory of what manifests",
+     "matters": "negative dialectic vs affirmative ontology"
+    }
+   ],
+   "verdict": "incompatible",
+   "obstruction": "Classical decidability vs paraconsistent non-classical valuation. `decide` presupposes a decidable classical proposition; the catuskoti's fourth lemma (neither) is not such a proposition. Encoding it in trika-x would require replacing the proof core, not adding a table.",
+   "verdict_reason": "Structurally incompatible at the level of logic, not of doctrine. The tension is real and useful: it shows Trika's affirmative ontology buys classical tractability at the price of being unable to represent 'neither'.",
+   "what_it_means": "Any comparative paper must state that trika-x cannot represent the fourth lemma, and that this is a design commitment of the affirmative ontology, not an oversight.",
+   "chunk": "paramarthasara:param-p04"
+  },
+  {
+   "id": "vaisesika-generative-ontology",
+   "their": "Generative Ontology of Vaisesika (Tavva & Singh, JOWO 2015) — graph grammar; the 'punctuator' as separator-and-connector; interpreter assigning categories by form alone",
+   "their_kind": "graph-grammar generative ontology",
+   "their_anchor": "CEUR-WS Vol-1517, JOWO-15 FOfAI paper 5",
+   "our_anchor": [
+    "Kancuka.lean :: pairings_distinct",
+    "Tattva.lean :: thirty_six"
+   ],
+   "shared": [
+    "category inventories",
+    "generative/enumerative construction",
+    "rarity of formal ontology in Indian philosophy"
+   ],
+   "disparities": [
+    {
+     "axis": "generation",
+     "their": "grammar generates potentially infinite graphs; interpretation by structure alone",
+     "ours": "finite inductive types; decide enumerates; no infinite generation",
+     "matters": "theirs is generative, ours is verificational"
+    },
+    {
+     "axis": "boundary",
+     "their": "punctuator separates and connects any two entities — a general boundary primitive",
+     "ours": "contraction is a named restriction of a named capacity; five kinds, not one primitive",
+     "matters": "one boundary primitive vs five typed restrictions"
+    },
+    {
+     "axis": "soundness",
+     "their": "soundness claimed inductively on ~10,000 sampled graphs, proof outstanding",
+     "ours": "no soundness claim; non-vacuity only",
+     "matters": "both are honest about the gap; the gaps differ"
+    }
+   ],
+   "verdict": "partial",
+   "verdict_reason": "Complementary boundary theories: their punctuator is a single general separator; our kancuka are five typed restrictions. Neither subsumes the other without losing what it encodes.",
+   "what_it_means": "A precise comparison of 'boundary' across Vaisesika and Trika: vi-sesa/punctuator vs kancuka. This is a genuine contribution and needs no new formalism.",
+   "chunk": "paramarthasara:param-p04"
+  },
+  {
+   "id": "sunyata-category-theory",
+   "their": "Category Theory and the Ontology of Sunyata (Roy & Posina 2024, Brill) — universal properties and the Yoneda lemma as emptiness; four-valued truth object as catuskoti",
+   "their_kind": "category-theoretic analogy (not a proof-assistant encoding)",
+   "their_anchor": "doi 10.1163/9789004691568_026",
+   "our_anchor": [
+    "Kancuka.lean :: pairings_distinct",
+    "TattvaInventory.lean :: named_tattvas_unique"
+   ],
+   "shared": [
+    "relational constitution of entities",
+    "non-redundancy of the inventory"
+   ],
+   "disparities": [
+    {
+     "axis": "formality",
+     "their": "uses established category theory; no machine-checked encoding",
+     "ours": "machine-checked finite tables; no morphisms defined",
+     "matters": "the analogy is unverified mathematics; ours is verified but not category-theoretic"
+    },
+    {
+     "axis": "identity",
+     "their": "objects are determined by relations (Yoneda)",
+     "ours": "entities are members of a non-redundant inventory; relations are stipulated pairings",
+     "matters": "relational identity vs enumerated membership"
+    }
+   ],
+   "verdict": "incompatible",
+   "obstruction": "No morphisms. Yoneda requires a category: objects plus composable arrows. trika-x defines inductive types and a restricting function, but no composition law, so 'objects are their relations' cannot even be stated, let alone proved.",
+   "verdict_reason": "The comparison is structurally impossible as stated because the trika-x side is not a category. It could become possible only by building a category whose arrows are the stipulated pairings — a different project.",
+   "what_it_means": "A clear negative result: do not claim a category-theoretic reading of trika-x without defining the arrows. The obstruction is named, so the paper can say exactly why.",
+   "chunk": "paramarthasara:param-p04"
+  },
+  {
+   "id": "nagarjuna-lean-verification-boundary",
+   "their": "Nagarjuna's Empty Vessel: A Lean 4 Axiom-Free Formal Encoding in ZCSG (Fujimoto / Rei-AIOS, Zenodo 2026) — declares a verification boundary: Lean verifies combinatorics; the mapping to Madhyamaka is interpretive and NOT verified",
+   "their_kind": "Lean 4 encoding with an explicit verification boundary",
+   "their_anchor": "doi 10.5281/zenodo.20838891 (v0.4, 2026-06-25)",
+   "our_anchor": [
+    "Avarana.lean :: partial_order_honest",
+    "Recognition.lean :: recognition_adds_nothing"
+   ],
+   "shared": [
+    "Lean 4",
+    "explicit separation of the machine-checked layer from the interpretive layer",
+    "refusal to let the mapping masquerade as proof"
+   ],
+   "disparities": [
+    {
+     "axis": "object",
+     "their": "a sequence algebra (ZcsgSeq) with a reversal involution and a 3-state classifier",
+     "ours": "doctrinal inventories and orderings from source passages",
+     "matters": "synthetic combinatorics vs source-bound structures"
+    },
+    {
+     "axis": "source binding",
+     "their": "concepts mapped post hoc to Madhyamaka; no per-passage span binding claimed",
+     "ours": "every T claim binds an exact span + digest + edition",
+     "matters": "trika-x is stronger on provenance, weaker on metatheory"
+    }
+   ],
+   "verdict": "fit",
+   "fit_basis": "Method agreement: both declare the interpretive layer unverified and both refuse to promote a mapping to a proof. This is the only comparison in the set that is a methodological fit rather than a doctrinal mapping.",
+   "verdict_reason": "Agreement at the level of verification discipline, disagreement at the level of content. A joint methodological claim is available: 'two independent Lean encodings of Indian philosophy both place the interpretive layer outside the kernel.'",
+   "what_it_means": "Use this as the methodological ally in the paper. It licenses the trika-x discipline of tiers + MODEL_CHECKED scope as an established practice, not a local quirk.",
+   "chunk": "paramarthasara:param-p04"
+  }
+ ]
+}
