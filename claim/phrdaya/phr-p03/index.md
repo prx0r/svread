@@ -9,11 +9,14 @@ Canonical: https://svatantrya.net/claim/phrdaya/phr-p03/
 ## Passage (excerpt as hashed)
 
 ```
-cidvat tac chaktisaṃkocāt malāvṛtaḥ saṃsārī
+cidvat tac chaktisaṃkocāt malāvṛtaḥ saṃsārī || 9 || tathāpi tadvat pañcakṛtyāni karoti || 10 || ābhāsanaraktivimarśanabījāvasthāpanavilāpanatas
+tāni || 11 || tadaparijñāne svaśaktibhir vyāmohitatā
+saṃsāritvam || 12 ||
 ```
 
 ## Reading (machine draft, verse-mapped)
 
+**phr-p03-v10** — Yet even so, likewise, it does the five acts.
 **phr-p03-v09** — Like knowing, yet by tightened power impure — stained, it wanders.
 
 ## Claims

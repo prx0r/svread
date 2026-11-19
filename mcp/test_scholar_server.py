@@ -181,4 +181,18 @@ class TestMcp(unittest.TestCase):
         self.assertIn('l0', verse['layers'])
         self.assertTrue(rs[2]['result']['isError'])
         self.assertTrue(rs[3]['result']['isError'])
+    def test_search_chunks_and_topics_are_answer_ready(self):
+        rs=run([tool(1,'search_chunks',{'query':'puryastaka','top_k':20}),
+                tool(2,'topic_get',{'term':'city of eight'}),
+                tool(3,'topic_get',{'term':'no-such-topic-xyz'}),
+                tool(4,'search_chunks',{})])
+        sc=content(rs[0])
+        self.assertGreaterEqual(sc['total'],1)
+        works={r['work'] for r in sc['records']}
+        self.assertIn('tantrasara-a13',works)
+        tg=content(rs[1])
+        self.assertTrue(tg['found']); self.assertEqual(tg['id'],'puryastaka')
+        self.assertTrue(any(c['tier']=='T' for c in tg['content']['claims']))
+        self.assertFalse(content(rs[2])['found'])
+        self.assertTrue(rs[3]['result']['isError'])
 if __name__=='__main__': unittest.main()

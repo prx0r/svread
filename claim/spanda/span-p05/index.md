@@ -1,6 +1,6 @@
-# spanda span-p05 (7-15)
+# spanda span-p05 (KSTS 39-47)
 
-spanda span-p05 (7-15) links incomplete (5 gaps named); no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+spanda span-p05 (KSTS 39-47) links incomplete (5 gaps named); no formal theorems bound. Chunk gate BLOCKED; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 

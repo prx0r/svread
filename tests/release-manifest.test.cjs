@@ -3,18 +3,24 @@ const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const os=require('node:os');
 const path=require('node:path');
-const {spawnSync}=require('node:child_process');
+const {spawnSync,execFileSync}=require('node:child_process');
 const {createHash}=require('node:crypto');
 
 test('release check detects changed assets and refuses an invalid Scholar projection', { timeout: 120000 }, () => {
   const root=path.join(__dirname,'..'),tmp=fs.mkdtempSync(path.join(os.tmpdir(),'svread-release-'));
   try{
     for(const name of ['.nojekyll','index.html','app.js','styles.css','sw.js','manifest.webmanifest','README.md','SPEC.md','READER-ARCHITECTURE.md',
-      'scholar-voice.js','scholar-workspace-ui.js','SCHOLAR-PRIVACY.md','PUSHING-LAB.md','PUSHING-NEXT.md','PUSHING-RESEARCH.md','pushing.html','pushing.css','pushing-core.js','pushing-ui.js','wheels.html','wheels.js','journey.js','SANSKRIT-MEMORY-ENGINE-THESIS.md','vendor','a','data','align','scripts','mcp','claim','work','chain','about','cite',
+      'scholar-voice.js','scholar-workspace-ui.js','SCHOLAR-PRIVACY.md','PUSHING-LAB.md','PUSHING-NEXT.md','PUSHING-RESEARCH.md','pushing.html','pushing.css','pushing-core.js','pushing-ui.js','wheels.html','wheels.js','journey.js','SANSKRIT-MEMORY-ENGINE-THESIS.md','vendor','a','data','align','scripts','mcp','claim','work','chain','about','cite','topics',
       'llms.txt','llms-full.txt','ai-catalog.json','sitemap.xml','robots.txt',
       'essay.html','essay-workshop.js','essay-workshop.css','CHATGPT-FEEDBACK.md',
       'PROCESS-NOTES-2026-11-16.md','DEEPDIVE-2026-11-16-functionality.md'])
       fs.cpSync(path.join(root,name),path.join(tmp,name),{recursive:true});
+    const offGit=path.join(tmp,'data/scholar/ipvv.json');if(fs.existsSync(offGit))fs.rmSync(offGit);
+    // Simulate a clean clone: drop files the repo does not track, so the tmp
+    // tree matches what a git-tracked manifest fingerprints.
+    const tracked=new Set(execFileSync('git',['-C',root,'ls-files'],{encoding:'utf8'}).split('\n').filter(Boolean));
+    const prune=(dir)=>{for(const e of fs.readdirSync(dir,{withFileTypes:true})){const p=path.join(dir,e.name),rel=path.relative(tmp,p).split(path.sep).join('/');if(e.isDirectory()){prune(p);}else if(!tracked.has(rel)){fs.rmSync(p);}}};
+    prune(tmp);
     fs.mkdirSync(path.join(tmp,'tools'));
     for(const file of ['lingua.py','site_assets.py'])
       fs.copyFileSync(path.join(root,'tools',file),path.join(tmp,'tools',file));

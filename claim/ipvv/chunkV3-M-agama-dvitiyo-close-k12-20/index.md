@@ -1,6 +1,6 @@
 # ipvv chunkV3-M-agama-dvitiyo-close-k12-20 (M00022:10000-10886)
 
-ipvv chunkV3-M-agama-dvitiyo-close-k12-20 (M00022:10000-10886) links incomplete (2 gaps named); no formal theorems bound. Chunk gate passes; no witness verified.
+ipvv chunkV3-M-agama-dvitiyo-close-k12-20 (M00022:10000-10886) links incomplete (2 gaps named); counts REGISTERED without a per-declaration run. Chunk gate passes; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
@@ -976,6 +976,14 @@ fourth, the fire-form, the free consciousness-self.
 |---|---|---|
 | Link completeness | FAIL (2 gaps named) | assurance.trace_links_present + gaps |
 | Human review | UNREVIEWED (machine rendering; no human sign-off) | assurance.review |
+| SubtleBody.lean :: trikaA_count | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
+| SubtleBody.lean :: trikaB_count | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
+| SubtleBody.lean :: same_cardinality | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
+| SubtleBody.lean :: not_same_partition | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
+| SubtleBody.lean :: partitions_disjoint | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
+| SubtleBody.lean :: eight_is_not_one_eight | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
+| SubtleBody.lean :: trikaA_expanded_count | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
+| SubtleBody.lean :: expanded_differs | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
 | Deterministic chunk gate | PASS (none) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

@@ -9,12 +9,15 @@ Canonical: https://svatantrya.net/claim/phrdaya/phr-p02/
 ## Passage (excerpt as hashed)
 
 ```
-cittam
+citir eva cetanapadād avarūḍhā cetyasaṃkocinī
+cittam || 5 || tanmayo māyāpramātā || 6 || sa caiko dvirūpas trimayaś caturātmā
+saptapañcakasvabhāvaḥ || 7 || tadbhūmikāḥ sarvadarśanasthitayaḥ || 8 ||
 ```
 
-## Reading
+## Reading (machine draft, verse-mapped)
 
-Withheld. no pack L2 entry maps to this passage excerpt (verse-level mapping required, none found)
+**phr-p02-v07** — Seven pentads its nature.
+**phr-p02-v08** — Stages on that — every philosophy's standing-ground.
 
 ## Claims
 

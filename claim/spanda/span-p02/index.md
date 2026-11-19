@@ -1,6 +1,6 @@
-# spanda span-p02 (11-19)
+# spanda span-p02 (KSTS 7-13)
 
-spanda span-p02 (11-19) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+spanda span-p02 (KSTS 7-13) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 

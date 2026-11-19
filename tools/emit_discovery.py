@@ -146,6 +146,8 @@ def build_llms(pushing: dict, biblio: dict, sanskrit: dict) -> str:
         f"- Scholar projections: {ORIGIN}/data/scholar/<work>.json (versions, essays, reviews, signoffs, projection_sha256)",
         f"- UNREVIEWED previews ({n_preview_works} works, {n_preview_chunks} chunks; machine-proposed, gates unchanged): {ORIGIN}/data/preview/<work>.json — index {ORIGIN}/data/preview/index.json",
         f"- Readability audit (catalogue vs retrievable text, per work, with status to quote): {ORIGIN}/data/readability.json",
+        f"- Instant lexical search over EVERY chunk and level (Sanskrit-aware; diacritics optional): {ORIGIN}/data/search-index/records.jsonl · meta {ORIGIN}/data/search-index/meta.json · MCP tool search_chunks",
+        f"- Topic pages (answer-first, tier + verbatim evidence; e.g. the City of Eight / subtle body): {ORIGIN}/topics/ · {ORIGIN}/data/topics/index.json · MCP tools topic_get/topic_list",
         "- Catalogue is not text: a listed work may carry Sanskrit excerpts with English withheld (BLOCKED). 'Readable now' means verified English in data/<work>.json; 'preview' means UNREVIEWED machine prose with gates unchanged. Quote the status line from data/readability.json.",
         "- IPVV note: the Isvarapratyabhijnavivrtivimarsini is catalogued (49 chunks, Sanskrit excerpts + claim pages, gates PASS, verdict PARTIAL on l3/l4 gaps) with 46/49 verified English in https://svatantrya.net/data/ipvv.json, a 3-chunk UNREVIEWED preview in https://svatantrya.net/data/preview/ipvv.json (cite WITH the UNREVIEWED caveat), and the full machine-proposed projection (t1/l0/argmap/l2/c1, 0 reviews) in https://svatantrya.net/data/scholar/ipvv.json — cite WITH the machine-proposed caveat, never as verified translation. Chunk locators (e.g. chunkA-svatyandya) resolve via scholar__passage_evidence {work: ipvv, target}. Its 49 T1.md prose drafts live in translation-work (not on this site).",
         f"- Pushing digest ({pushing['count']} live questions + hound verdicts): {ORIGIN}/data/pushing.json",
@@ -242,6 +244,8 @@ def build_llms_full(biblio: dict) -> str:
              f"- Cite: {ORIGIN}/cite/ — stable-URL policy, status words",
              f"- Plugins: {ORIGIN}/plugins/ — every ChatGPT plugin + agent CLI (spec: plugins/plugins.json). Satsang MCP: https://mcp.tantrafiles.xyz/mcp",
              f"- Compose (generative wheels): study order, next level, drills are server-scored with receipts. Voice loop: session_start/check/end. Four wheels + packs explorer with decompose/dialogue/why_change. Spec: {ORIGIN}/docs/VOICE-LOOP-SPEC.md",
+             f"- Topic pages (answer-first, tiers + verbatim evidence): {ORIGIN}/topics/ (index {ORIGIN}/data/topics/index.json)",
+             f"- Search every chunk and level (lexical, Sanskrit-aware): {ORIGIN}/data/search-index/records.jsonl (MCP tool search_chunks)",
 
              ""]
     for w in sorted(works):
@@ -316,6 +320,13 @@ def build_sitemap() -> str:
         for e in idx.get("lessons", []):
             if e.get("html"):
                 urls.append(f"data/sanskrit/{e['html']}")
+    except (OSError, ValueError):
+        pass
+    try:
+        tidx = json.loads((ROOT / "data" / "topics" / "index.json").read_text())
+        urls.append("topics/")
+        for k in sorted((tidx.get("topics") or {})):
+            urls.append(f"topics/{k}/")
     except (OSError, ValueError):
         pass
     try:

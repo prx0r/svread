@@ -7,6 +7,11 @@ import claims as claim_table
 import search as corpus_search
 try:
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent / 'tools'))
+    import search_chunks as chunk_search
+except ImportError:
+    chunk_search = None
+try:
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent / 'tools'))
     import lingua as lingua_resolver
 except ImportError:
     lingua_resolver = None
@@ -160,6 +165,75 @@ def _song_evidence(d, work, chunk):
             'l4_craft': (d.get('l4_craft', {}) or {}).get(chunk, []),
             'projection_sha256': d['projection_sha256'],
             'warning': 'Bundled snapshot; hashes establish integrity, not philological correctness or human review.'}
+
+
+_TOPICS = None
+
+
+def _topics():
+    global _TOPICS
+    if _TOPICS is None:
+        try:
+            _TOPICS = json.loads((ROOT/'data/topics/index.json').read_text(encoding='utf-8'))
+        except FileNotFoundError:
+            raise ValueError('Topic index not built (tools/emit_topics.py)')
+    return _TOPICS
+
+
+def _topic_src(tid):
+    if not isinstance(tid, str) or not re.fullmatch(r'[a-z0-9][a-z0-9-]{0,63}', tid):
+        raise ValueError('Invalid topic id')
+    p = ROOT/'topics'/(tid + '.json')
+    try:
+        return json.loads(p.read_text(encoding='utf-8'))
+    except FileNotFoundError:
+        raise ValueError('Unknown topic')
+
+
+def topic_list(a):
+    d = _topics()
+    return {'topics': [{'id': k, **v} for k, v in sorted((d.get('topics') or {}).items())],
+            'note': 'Answer-first pages with tiers + verbatim evidence; a miss is not a denial.'}
+
+
+def topic_get(a):
+    q = a.get('term') or a.get('id') or ''
+    if not isinstance(q, str) or not q.strip():
+        raise ValueError('term required (e.g. puryastaka)')
+    d = _topics()
+    topics = d.get('topics') or {}
+    if q in topics:
+        return {'id': q, 'found': True, 'page': topics[q].get('page'),
+                'content': _topic_src(q)}
+    qf = _fold(q)
+    for k, v in sorted(topics.items()):
+        names = [k, v.get('iast') or ''] + list(v.get('aliases') or [])
+        if any(_fold(n) == qf for n in names if n):
+            return {'id': k, 'found': True, 'page': v.get('page'), 'content': _topic_src(k)}
+    near = [k for k in sorted(topics) if _fold(q)[:4] and _fold(k).startswith(_fold(q)[:4])][:10]
+    return {'term': q, 'found': False, 'near_matches': near,
+            'note': 'no topic page; a miss is not a denial — the term may still occur in the corpus'}
+
+
+def search_chunks_tool(a):
+    if chunk_search is None:
+        raise ValueError('Lexical search module unavailable')
+    q = a.get('query')
+    if not isinstance(q, str) or not q.strip():
+        raise ValueError('query required')
+    layers = a.get('layers')
+    if isinstance(layers, str):
+        layers = [x.strip() for x in layers.split(',') if x.strip()]
+    if layers is not None and not isinstance(layers, list):
+        raise ValueError('layers must be a list or comma string')
+    work = a.get('work')
+    if work is not None and (not isinstance(work, str) or not WORK.fullmatch(work)):
+        raise ValueError('Invalid work ID')
+    top = a.get('top_k', a.get('top', 10))
+    top = 10 if top is None else int(top)
+    if top < 1 or top > 50:
+        raise ValueError('top_k must be 1..50')
+    return chunk_search.search(q, work=work, layers=layers, top=top)
 
 
 def evidence(a, data=None):
@@ -692,6 +766,9 @@ def call(name,a):
     if name=='list_works':
         index=json.loads((ROOT/'data/scholar/index.json').read_text(encoding='utf-8'))
         return {'works':sorted(index), 'note':'Bundled projections; Ghaṭakarpara is withheld pending source repair.'}
+    if name=='search_chunks': return search_chunks_tool(a)
+    if name=='topic_get': return topic_get(a)
+    if name=='topic_list': return topic_list(a)
     if name=='concept_get': return concept_get(a)
     if name=='concept_search': return concept_search(a)
     if name=='passage_evidence': return evidence(a)
@@ -825,6 +902,9 @@ TOOLS=[
  ('save_document','Save a private draft with expected_revision; conflicts are rejected.',S({'document_id':T,'document':{'type':'object'}},['document_id','document'])),
  ('request_review','Request private review of an exact saved revision.',S({'document_id':T,'reviewer_id':T,'revision':{'type':'integer'}},['document_id','reviewer_id','revision'])),
  ('draft_with_qwen','Request an agent draft; the Scholar API requires explicit consent and configured quotas.',S({'work':T,'target':T,'layer':T,'kind':T,'instruction':T,'consent_to_ai':{'type':'boolean'},'use_style':{'type':'boolean'},'style_example_ids':{'type':'array','items':T},'decision_ids':{'type':'array','items':T},'source_ids':{'type':'array','items':T},'scholar_essays':{'type':'array','items':S({'work':T,'essay_id':T},['work','essay_id']),'maxItems':3},'review_ids':{'type':'array','items':T},'document_id':T,'revision':{'type':'integer'}},['work','target','layer','kind','instruction','consent_to_ai'])),
+ ('search_chunks','Instant lexical search over EVERY chunk and EVERY level we hold (source,t1,l0,argmap,l2,c1,l3,l4,t1-doc,preview). Diacritic-insensitive: an ASCII query matches IAST (puryastaka finds puryaṣṭaka). Ranks level analyses above raw source; returns matched context + pointers. No network.',S({'query':T,'work':T,'layers':{'type':'array','items':T},'top_k':{'type':'integer'}},['query'])),
+ ('topic_get','Answer-first curated topic page (e.g. puryastaka = the city of eight / subtle body): thesis, tier, verbatim Sanskrit, our translation, which levels exist.',S({'term':T,'id':T})),
+ ('topic_list','List curated topic pages.',S({})),
  ('search_texts','Semantic search over the gate-labeled corpus (passages, probes, essays, themes). BLOCKED English is never returned.',S({'query':T,'work':T,'kind':T,'top_k':{'type':'integer'},'gates':{'type':'array','items':T}},['query'])),
  ('text_themes','Themes evidence for a work or ref: labels, core claims, certificates, members.',S({'work':T,'ref':T,'query':T})),
   ('audit_draft','Check markers and quotes against same-paragraph sources. Supplied sources are not authenticated and claim support is not assessed. Returns a content-hash receipt.',S({'text':T,'refs':{'type':'array','items':{'type':'object'}},'sources':{'type':'object'},'identity':T,'model':T},['text'])),

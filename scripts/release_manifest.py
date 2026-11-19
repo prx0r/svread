@@ -13,6 +13,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 MANIFEST = ROOT / 'data' / 'release-manifest.json'
+# Large scholar projections kept off-git (GitHub 100MB/file limit). Pinned by
+# sha+bytes in data/scholar/index.json; never fingerprinted as an asset.
+OFF_GIT_PROJECTIONS = {'data/scholar/ipvv.json'}
 sys.path.insert(0, str(ROOT / 'tools'))
 from site_assets import is_public_asset
 
@@ -42,7 +45,7 @@ def build() -> tuple[dict, list[str]]:
     assets += [ROOT / 'tools' / 'lingua.py']
     assets += [p for p in (ROOT / '.github' / 'workflows').glob('*') if p.is_file()]
     assets += [p for folder in ('a', 'data', 'align', 'scripts', 'mcp', 'claim',
-                                'work', 'chain', 'about', 'cite')
+                                'work', 'chain', 'about', 'cite', 'topics')
                for p in (ROOT / folder).rglob('*')
                if p.is_file() and p != MANIFEST and '__pycache__' not in p.parts and not p.name.endswith('.pyc')]
     assets += [ROOT / name for name in ('llms.txt', 'llms-full.txt',
@@ -61,7 +64,8 @@ def build() -> tuple[dict, list[str]]:
         # not the asset hash list — so fresh clones reproduce this manifest.
         assets = [p for p in assets if p.relative_to(ROOT).as_posix() in _tracked]
     files = {p.relative_to(ROOT).as_posix(): sha(p.read_bytes()) for p in sorted(assets)
-             if is_public_asset(p.relative_to(ROOT).as_posix())}
+             if is_public_asset(p.relative_to(ROOT).as_posix())
+             and p.relative_to(ROOT).as_posix() not in OFF_GIT_PROJECTIONS}
     works, missing_editions = 0, []
     for path in sorted((ROOT / 'data').glob('*.json')):
         if path == MANIFEST:
@@ -109,7 +113,9 @@ def build() -> tuple[dict, list[str]]:
     for path in sorted(projection_dir.glob('*.json')):
         if path.name == 'index.json':
             continue
-        is_tracked = True if tracked_scholar is None else (f'scholar/{path.name}' in tracked_scholar)
+        is_tracked = (True if tracked_scholar is None else (f'scholar/{path.name}' in tracked_scholar))
+        if f'data/scholar/{path.name}' in OFF_GIT_PROJECTIONS:
+            is_tracked = False
         doc = json.loads(path.read_text(encoding='utf-8'))
         recorded = doc.get('projection_sha256')
         body = {key: value for key, value in doc.items() if key != 'projection_sha256'}

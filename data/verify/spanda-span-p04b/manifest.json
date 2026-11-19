@@ -1,0 +1,70 @@
+{
+ "artifacts": [
+  {
+   "bytes": 1398,
+   "name": "source.txt",
+   "role": "source-bytes",
+   "sha256": "e6fc5ef740c995cb17bfca37761e1dab896e7b4b5fd941f3e5bfa1e44bce3b9f"
+  },
+  {
+   "bytes": 7149,
+   "name": "ARGMAP.md",
+   "origin": "spanda/ARGMAP.md",
+   "role": "layer-argmap",
+   "sha256": "717c913bbb244678083505cb0793663ff84e19a1c969e6ab27103620cb2b37a5",
+   "status": "BOUND-WORK-MD"
+  },
+  {
+   "bytes": 8545,
+   "name": "L2.md",
+   "origin": "spanda/L2.md",
+   "role": "layer-l2",
+   "sha256": "64a550bdd3ffa825d928cf6e2f5f51fd852db8c594607dc30050cf709a9c635f",
+   "status": "BOUND-WORK-MD"
+  },
+  {
+   "bytes": 2820,
+   "name": "T1.md",
+   "origin": "spanda/T1.md",
+   "role": "layer-t1",
+   "sha256": "29558ccfe0c981dfe39f0409e9d59e82dd1f9938e0e513cd20e0dceef8677369",
+   "status": "BOUND-WORK-MD"
+  }
+ ],
+ "assurance": {
+  "chunk_gate": "UNKNOWN",
+  "formal_run": "UNBOUND",
+  "formal_run_note": "registry references only; no per-declaration run digest bound",
+  "publication": "NOT_AUTHORIZED",
+  "publication_note": "human sign-off required; never automatic",
+  "review": "UNREVIEWED",
+  "review_note": "no review decision bound to this trace",
+  "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
+  "source_span_verified": "UNKNOWN",
+  "trace_links_present": "FAIL",
+  "witness": "UNPINNED"
+ },
+ "caveats": [],
+ "chunk": {
+  "immutable_id": "pt:pid:spanda:9facf5e96b49",
+  "target": "span-p04b",
+  "work": "spanda"
+ },
+ "format": "trika-verify-pack/1",
+ "gaps": [
+  "layer:l0",
+  "layer:c1",
+  "layer:l3",
+  "layer:l4",
+  "identity:db",
+  "proofs:song"
+ ],
+ "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/spanda-span-p04b/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
+ "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
+ "trace": {
+  "file": "traces/spanda-span-p04b.json",
+  "sha256": "96a57447bb51d39c40806dcc378ea85218a6a0151037ec165369a8685cd62d4e"
+ },
+ "verdict": "PARTIAL",
+ "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
+}
