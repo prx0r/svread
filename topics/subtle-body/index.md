@@ -53,14 +53,14 @@ Having worshipped sound, touch, taste, smell, the two forms, the I-maker and min
 work `tantraloka-a24` · chunk `tal-a24-p02` · layers: source, t1, l0, argmap, l2, c1, l3, l4
 _Verbatim; English is our L2 (machine-proposed, UNREVIEWED). The list is compressed and does not spell out all eight names._
 
-## [X] Medhananda reports the prāṇa-based formula as Abhinavagupta's subtle body, citing the ĪPVV.
+## [X] Medhananda's study corroborates the prāṇa-based formula; the primary witness is our ĪPVV passage above, not the monograph.
 ### None — 
 > None
 
 the subtle body, the City of Eight here includes the five vital breaths plus the two groups of sense organs
 
 *External source:* Swami Medhananda, 'Abhinavagupta's Panentheism in Dialogue with Contemporary Neuroscience', in Göcke & Medhananda (eds), Panentheism in Indian and Western Thought (2023), ~p.13; citing Abhinavagupta 1985a 3:282 and Torella, ĪPK 2002, p.132 v.1.6.4. (not in our corpus; not re-verified here).
-_Secondary source; quoted briefly from the cloned reading copy. Its Sanskrit witnesses are the ones bound above._
+_Secondary corroboration (quoted briefly). The argument does not depend on it: the same formula is attested verbatim in ĪPVV chunkV3-M and bound to SubtleBody.lean._
 
 ## [X] Advaita Vedānta's subtle body has 17 components (5 prāṇas + 5 jñānendriyas + 5 karmendriyas + manas + buddhi) or 19 (adding ahaṃkāra and citta).
 ### None — 
