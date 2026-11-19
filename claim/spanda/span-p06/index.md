@@ -1,6 +1,6 @@
 # spanda span-p06 (KSTS 48-52+prasasti)
 
-spanda span-p06 (KSTS 48-52+prasasti) links incomplete (5 gaps named); no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+spanda span-p06 (KSTS 48-52+prasasti) links incomplete (5 gaps named); counts REGISTERED without a per-declaration run. Chunk gate BLOCKED; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
@@ -22,6 +22,9 @@ Withheld. legacy markdown rendering (section-level, not verse-mapped to this pas
 |---|---|---|
 | Link completeness | FAIL (5 gaps named) | assurance.trace_links_present + gaps |
 | Human review | UNREVIEWED (machine rendering; no human sign-off) | assurance.review |
+| SubtleBodyCorpus.lean :: B_count | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
+| SubtleBodyCorpus.lean :: three_formulas_eight | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
+| SubtleBodyCorpus.lean :: B_C_same_count | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
 | Deterministic chunk gate | BLOCKED (ABSTENTION) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

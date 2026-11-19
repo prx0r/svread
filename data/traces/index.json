@@ -1,5 +1,5 @@
 {
- "count": 910,
+ "count": 913,
  "entries": [
   {
    "caveats": [],
@@ -1248,7 +1248,7 @@
     "layer:l4"
    ],
    "immutable_id": "pt:pid:ipvv:f97439905c09",
-   "sha256": "7cdbe908b554f54f9ab0904aa3ffd19eac0669098211a9760fe114e164b8567c",
+   "sha256": "455c506e3630f31b4d20587b9f9d734240ee75b18acd8e54e5da86afd18575cc",
    "target": "chunkV3-M-agama-dvitiyo-close-k12-20",
    "theorems": [
     "SubtleBody.lean :: trikaA_count",
@@ -1258,7 +1258,12 @@
     "SubtleBody.lean :: partitions_disjoint",
     "SubtleBody.lean :: eight_is_not_one_eight",
     "SubtleBody.lean :: trikaA_expanded_count",
-    "SubtleBody.lean :: expanded_differs"
+    "SubtleBody.lean :: expanded_differs",
+    "SubtleBodyCorpus.lean :: A_count",
+    "SubtleBodyCorpus.lean :: three_formulas_eight",
+    "SubtleBodyCorpus.lean :: A_disjoint_B",
+    "SubtleBodyCorpus.lean :: A_disjoint_C",
+    "SubtleBodyCorpus.lean :: city_units"
    ],
    "verdict": "PARTIAL",
    "work": "ipvv"
@@ -2782,6 +2787,61 @@
    "work": "sivasutra"
   },
   {
+   "caveats": [],
+   "file": "traces/sivasutravimarsini-ssv-u1.json",
+   "gaps": [
+    "layer:l3",
+    "layer:l4",
+    "identity:db"
+   ],
+   "immutable_id": "pt:pid:sivasu:3b88dff7204a",
+   "sha256": "acef2cc19613cbc28629029a2032348564961cb2a48b22581366cf9f27fce74c",
+   "target": "ssv-u1",
+   "theorems": [],
+   "verdict": "PARTIAL",
+   "work": "sivasutravimarsini"
+  },
+  {
+   "caveats": [],
+   "file": "traces/sivasutravimarsini-ssv-u2.json",
+   "gaps": [
+    "layer:l3",
+    "layer:l4",
+    "identity:db"
+   ],
+   "immutable_id": "pt:pid:sivasu:330de3e61a05",
+   "sha256": "1ac897700cd07915822f0ee59ed76439d09adee2250519172e94a4df49ac2542",
+   "target": "ssv-u2",
+   "theorems": [],
+   "verdict": "PARTIAL",
+   "work": "sivasutravimarsini"
+  },
+  {
+   "caveats": [],
+   "file": "traces/sivasutravimarsini-ssv-u3.json",
+   "gaps": [
+    "layer:l3",
+    "layer:l4",
+    "identity:db"
+   ],
+   "immutable_id": "pt:pid:sivasu:71e50a1a7940",
+   "sha256": "9395e4dd68b7c67550cf15dd48668c71934efe90aea7cc22c9a3e8054d68260c",
+   "target": "ssv-u3",
+   "theorems": [
+    "SubtleBodyCorpus.lean :: C_count",
+    "SubtleBodyCorpus.lean :: three_formulas_eight",
+    "SubtleBodyCorpus.lean :: B_C_same_count",
+    "SubtleBodyCorpus.lean :: B_C_different_vocabulary",
+    "SubtleBodyCorpus.lean :: A_disjoint_C",
+    "SubtleBodyCorpus.lean :: guna_inner_same_count",
+    "SubtleBodyCorpus.lean :: gunas_distinct",
+    "SubtleBodyCorpus.lean :: guna_inner_not_identical",
+    "SubtleBodyCorpus.lean :: gross_not_carried"
+   ],
+   "verdict": "PARTIAL",
+   "work": "sivasutravimarsini"
+  },
+  {
    "caveats": [
     "chunk_gate BLOCKED: ABSTENTION,CITATION_GROUNDING"
    ],
@@ -2887,9 +2947,13 @@
     "proofs:song"
    ],
    "immutable_id": "pt:pid:span:d5c0c9f34e03",
-   "sha256": "970d813864abbcbdad24d5bb55d87e720dd243b9d0f0f14571caa1e0963f4870",
+   "sha256": "82dabb65155cf543e536af2fd719c9af67f541b618671d570331b4c59a268ddf",
    "target": "span-p06",
-   "theorems": [],
+   "theorems": [
+    "SubtleBodyCorpus.lean :: B_count",
+    "SubtleBodyCorpus.lean :: three_formulas_eight",
+    "SubtleBodyCorpus.lean :: B_C_same_count"
+   ],
    "verdict": "PARTIAL",
    "work": "spanda"
   },
@@ -9514,10 +9578,12 @@
     "proofs:song"
    ],
    "immutable_id": "pt:pid:tal:tantraloka-a15024",
-   "sha256": "9cbf8d371b3e547d17c83990ac6dd1523b75bf7ef7bb4432bc666e40c76e4346",
+   "sha256": "a884f27c423aaa08f8cfb8ffea20d032436d9ea2e6b3c41c711873f78831bfc8",
    "target": "tal-a15-p24",
    "theorems": [
-    "Puryastaka.lean :: body_is_ahamta"
+    "Puryastaka.lean :: body_is_ahamta",
+    "SubtleBodyCorpus.lean :: liberation_drops_bodyness",
+    "SubtleBodyCorpus.lean :: liberation_keeps_units"
    ],
    "verdict": "PARTIAL",
    "work": "tantraloka-a15"
@@ -11758,11 +11824,13 @@
     "proofs:song"
    ],
    "immutable_id": "pt:pid:tal:tantraloka-a24002",
-   "sha256": "968a1b11d88fff15a5d092b585401c052e975a46728f88c54712202c6a6d7a9b",
+   "sha256": "97b58bf645ee6032fc3c64b0e943933a24fbea65ee9edd55d2804e3ee02ff8b4",
    "target": "tal-a24-p02",
    "theorems": [
     "Puryastaka.lean :: constituents_eight",
-    "SubtleBody.lean :: trikaB_count"
+    "SubtleBody.lean :: trikaB_count",
+    "SubtleBodyCorpus.lean :: B_count",
+    "SubtleBodyCorpus.lean :: inner_distinct"
    ],
    "verdict": "PARTIAL",
    "work": "tantraloka-a24"
@@ -11780,10 +11848,11 @@
     "proofs:song"
    ],
    "immutable_id": "pt:pid:tal:tantraloka-a24003",
-   "sha256": "79ad4f330ca5cefb9664f8916f808a893c7207d5e7dc87650b3be931255c80c7",
+   "sha256": "b710dba494407991a1e3f7250fde1be81a3581aea3cf81887af357ef70eb42c4",
    "target": "tal-a24-p03",
    "theorems": [
-    "Puryastaka.lean :: no_transmigration_without_body"
+    "Puryastaka.lean :: no_transmigration_without_body",
+    "SubtleBodyCorpus.lean :: migration_at_subtle"
    ],
    "verdict": "PARTIAL",
    "work": "tantraloka-a24"
@@ -12960,7 +13029,7 @@
     "proofs:song"
    ],
    "immutable_id": "pt:pid:tal:tantraloka-a29001",
-   "sha256": "22d43b1ee9c0879ed67732c218f31884ae6de5f7cf7ac6bb1543c851f1fecbae",
+   "sha256": "9935f48022f2d195a308c4de6d257a9c330b35698e03a7942f998c8f6f71f424",
    "target": "tal-a29-p01",
    "theorems": [],
    "verdict": "PARTIAL",
@@ -12979,7 +13048,7 @@
     "proofs:song"
    ],
    "immutable_id": "pt:pid:tal:tantraloka-a29002",
-   "sha256": "08f24310fef2d9fcdcecb8ee97b27e006df0784eeec3366cc2a256512377ec20",
+   "sha256": "e1db826a9ef1883e49a4aed86d0a22957f99a09cd5dda202175525888618df65",
    "target": "tal-a29-p02",
    "theorems": [],
    "verdict": "PARTIAL",
@@ -12998,7 +13067,7 @@
     "proofs:song"
    ],
    "immutable_id": "pt:pid:tal:tantraloka-a29003",
-   "sha256": "d7b374b1def108f8b4e00783b1556e3bffe9729da5c3c34eeeac34ed79123cfc",
+   "sha256": "760e04f764a09df0fe15e5767c3c3050d7b1aa642f9721369c7d92096cd5aab1",
    "target": "tal-a29-p03",
    "theorems": [],
    "verdict": "PARTIAL",
@@ -13017,7 +13086,7 @@
     "proofs:song"
    ],
    "immutable_id": "pt:pid:tal:tantraloka-a29004",
-   "sha256": "26b4cf6fe569b534b1a4ea53ff833c216b3271ae6bd2b8a3f4de636d30d35157",
+   "sha256": "eb3b6d7acf7c92ae5d0af321769984af61b9285f8302d20e9657d1203e5ec919",
    "target": "tal-a29-p04",
    "theorems": [],
    "verdict": "PARTIAL",
@@ -13036,7 +13105,7 @@
     "proofs:song"
    ],
    "immutable_id": "pt:pid:tal:tantraloka-a29005",
-   "sha256": "c518ccab97dcdd301ebd92f35fe3fbbc336b110bcbdb44472bae6c23982cd7cd",
+   "sha256": "53216dd29f6a9e98e4a506759142947016287d397c8324dde1941f582868851a",
    "target": "tal-a29-p05",
    "theorems": [],
    "verdict": "PARTIAL",
@@ -13055,7 +13124,7 @@
     "proofs:song"
    ],
    "immutable_id": "pt:pid:tal:tantraloka-a29006",
-   "sha256": "33e0ab6be2cbb472b36de95055e6819174392122d758a40e4b00ad12336d41f2",
+   "sha256": "a776472a85a60ae6c48b54a8e76652b9f985ef525385a6a297a937a80f616540",
    "target": "tal-a29-p06",
    "theorems": [],
    "verdict": "PARTIAL",
@@ -13074,7 +13143,7 @@
     "proofs:song"
    ],
    "immutable_id": "pt:pid:tal:tantraloka-a29007",
-   "sha256": "310b6c4b2c9cae5f1325a8299b10c20b351a08f0deaa64ae24fb7fd13e71c7b2",
+   "sha256": "1f0baf4b128383c20735fe52b02492d73785ef74f5a1cb03531c65de1d2bdb1c",
    "target": "tal-a29-p07",
    "theorems": [],
    "verdict": "PARTIAL",
@@ -13093,7 +13162,7 @@
     "proofs:song"
    ],
    "immutable_id": "pt:pid:tal:tantraloka-a29008",
-   "sha256": "ca0ce085d41db18b7c12d518232f61bc8fab4d7595c37f13cc46aea06b70d350",
+   "sha256": "dd34c2effb9578a6d2925ff086f667953919b9bbd7fe5cba1e7869b55a516934",
    "target": "tal-a29-p08",
    "theorems": [],
    "verdict": "PARTIAL",
@@ -13112,7 +13181,7 @@
     "proofs:song"
    ],
    "immutable_id": "pt:pid:tal:tantraloka-a29009",
-   "sha256": "38e3e421d28539be44a6ad11e6e2d01d315c67a8f077dc74304a432e50f0a77f",
+   "sha256": "4a6cacc3af705661e97a4404550de5fac7fe10ca808ad4618c1e59eca00208f2",
    "target": "tal-a29-p09",
    "theorems": [],
    "verdict": "PARTIAL",
@@ -13131,7 +13200,7 @@
     "proofs:song"
    ],
    "immutable_id": "pt:pid:tal:tantraloka-a29010",
-   "sha256": "cde646761042c89639286e4cdb49d28cb736f99cc5604094d229500c341ec195",
+   "sha256": "6dc48707d9c0e249345d78a9e2a6269148010df72efe50b9a6189649144f7532",
    "target": "tal-a29-p10",
    "theorems": [],
    "verdict": "PARTIAL",
@@ -13150,7 +13219,7 @@
     "proofs:song"
    ],
    "immutable_id": "pt:pid:tal:tantraloka-a29011",
-   "sha256": "aaca9d89c8e500881f8493ac9884ae13b623610a28ea3e88a9b5a5f30dc86395",
+   "sha256": "12c5d3ac6f409e016ce6554e0a98db0cb80fd9d9c6d0c754f8dce6c2862ba87f",
    "target": "tal-a29-p11",
    "theorems": [],
    "verdict": "PARTIAL",
@@ -13169,7 +13238,7 @@
     "proofs:song"
    ],
    "immutable_id": "pt:pid:tal:tantraloka-a29012",
-   "sha256": "598ff4c3e4b35673460c0fa772e83a559017b27be7332a1e1022f4674326c0d5",
+   "sha256": "d1b3105ced24ead38da8929f16ae8eff123ff8785ff47e58b38528d6c80443ea",
    "target": "tal-a29-p12",
    "theorems": [],
    "verdict": "PARTIAL",
@@ -13188,7 +13257,7 @@
     "proofs:song"
    ],
    "immutable_id": "pt:pid:tal:tantraloka-a29013",
-   "sha256": "04163606c17bfe2fcabdfa6374706a4d092527b28713f26150d781cc1d64ef1a",
+   "sha256": "121b24ee5c35296c27c41286a2e1bf51735b4e4895e33076720ac816460f6a72",
    "target": "tal-a29-p13",
    "theorems": [],
    "verdict": "PARTIAL",
@@ -13207,7 +13276,7 @@
     "proofs:song"
    ],
    "immutable_id": "pt:pid:tal:tantraloka-a29014",
-   "sha256": "ade6385b278283afd3700b26c681f66a93dff82a6dfc3a09f6e725d6c1206231",
+   "sha256": "ec4dac38fe64ef402cca05ccae8b9fd2dc24dd7384b53c86279e71b10378da44",
    "target": "tal-a29-p14",
    "theorems": [],
    "verdict": "PARTIAL",
@@ -13226,7 +13295,7 @@
     "proofs:song"
    ],
    "immutable_id": "pt:pid:tal:tantraloka-a29015",
-   "sha256": "11d9491ad17b399dd8e0e3a7d7699007090d6163a95729db925af92405485dea",
+   "sha256": "ed711678034fce51e860be36a712e72c93ff22ad6bcf093c2b3913e6b9510d5a",
    "target": "tal-a29-p15",
    "theorems": [],
    "verdict": "PARTIAL",
@@ -13245,7 +13314,7 @@
     "proofs:song"
    ],
    "immutable_id": "pt:pid:tal:tantraloka-a29016",
-   "sha256": "a0c64bfb4113bb6a8c2d69e4bd19f8f42c67986e547af792465a3608172ee78b",
+   "sha256": "984f23ec73748686aeec6a2a449d1c5329b5f0539829029ba213cf0287db3780",
    "target": "tal-a29-p16",
    "theorems": [],
    "verdict": "PARTIAL",
@@ -13264,7 +13333,7 @@
     "proofs:song"
    ],
    "immutable_id": "pt:pid:tal:tantraloka-a29017",
-   "sha256": "048038545e65690d2258e968917e01045f18dda35b62f4f027aea024a2e97859",
+   "sha256": "66388a21abffd2b0a3393de805f4d8b3d16187157136d943aa4d489d17ef1548",
    "target": "tal-a29-p17",
    "theorems": [],
    "verdict": "PARTIAL",
@@ -13283,7 +13352,7 @@
     "proofs:song"
    ],
    "immutable_id": "pt:pid:tal:tantraloka-a29018",
-   "sha256": "f6768b4440de798d563710d70c5d43ef743d99c24abea958c666eb79542b12ca",
+   "sha256": "83afa0de7d3b225480e311fbed765417b1a4d39781724228727cdb529e8e7004",
    "target": "tal-a29-p18",
    "theorems": [],
    "verdict": "PARTIAL",
@@ -13302,7 +13371,7 @@
     "proofs:song"
    ],
    "immutable_id": "pt:pid:tal:tantraloka-a29019",
-   "sha256": "7c04bc0b1bcab068c4c46b3290c20ab4be750e92d0b5f274a2d89263ba23dede",
+   "sha256": "a783c4dca2f9e4f4f381602852d4e8f36b34b8336ca54d43955fc0313cec068d",
    "target": "tal-a29-p19",
    "theorems": [],
    "verdict": "PARTIAL",
@@ -13321,7 +13390,7 @@
     "proofs:song"
    ],
    "immutable_id": "pt:pid:tal:tantraloka-a29020",
-   "sha256": "0b716541df0e57aa889e54bc99d052298d25fb7e1ab4212081c795d796dae4f9",
+   "sha256": "4ed54f6b975ed5e4bf9a28f960f86181bfe5a08974b55f908b42e5506ca029ba",
    "target": "tal-a29-p20",
    "theorems": [],
    "verdict": "PARTIAL",
@@ -13340,7 +13409,7 @@
     "proofs:song"
    ],
    "immutable_id": "pt:pid:tal:tantraloka-a29021",
-   "sha256": "473a4b61365a6cdc5bc46ca14bdae34acc2e6ffdfc34c73f939fd8fb1209e387",
+   "sha256": "9a6fc06dd0a8d655fa25afc01397707967fdaf27c77ae4a863a951c46c77edeb",
    "target": "tal-a29-p21",
    "theorems": [],
    "verdict": "PARTIAL",
@@ -13359,7 +13428,7 @@
     "proofs:song"
    ],
    "immutable_id": "pt:pid:tal:tantraloka-a29022",
-   "sha256": "31d0b81fb9b08e449d38ac4cd45f3e24b90e83cf80b97e38fff4b118ca7596f9",
+   "sha256": "39ab880655b356a41f3b67129dc764f1d4ca9cc9ebd8aa97695c6aabeec592a3",
    "target": "tal-a29-p22",
    "theorems": [],
    "verdict": "PARTIAL",
@@ -13378,7 +13447,7 @@
     "proofs:song"
    ],
    "immutable_id": "pt:pid:tal:tantraloka-a29023",
-   "sha256": "d395e28fa1d6d4562fb330e7d2a687ff6ddd4980f9337c2066b0d9233fe1314f",
+   "sha256": "a224c598d2c1281c12337e67c0e1c7f74dbd5c86b5974ad90f9661c2e1aee37a",
    "target": "tal-a29-p23",
    "theorems": [],
    "verdict": "PARTIAL",
@@ -13397,7 +13466,7 @@
     "proofs:song"
    ],
    "immutable_id": "pt:pid:tal:tantraloka-a29024",
-   "sha256": "65a99ba2fe9d634044a2dee948e70ef1cae7d27bb8f4f24a6d395acf56e4257f",
+   "sha256": "7107b2c69dffee6c21c193c54211c4098acf62172d05d53e272d7e0e0b4c07be",
    "target": "tal-a29-p24",
    "theorems": [],
    "verdict": "PARTIAL",
@@ -13416,7 +13485,7 @@
     "proofs:song"
    ],
    "immutable_id": "pt:pid:tal:tantraloka-a29025",
-   "sha256": "5b5833d6b0a8ecba8d1d64d2327be426d077983bab1b169e4bf58b5b006f44d9",
+   "sha256": "1b24a177597d9c9137ffa7541d6beb7ebc55ca4c13b4101b8b0dde94c7bc65b6",
    "target": "tal-a29-p25",
    "theorems": [],
    "verdict": "PARTIAL",
@@ -13435,7 +13504,7 @@
     "proofs:song"
    ],
    "immutable_id": "pt:pid:tal:tantraloka-a29026",
-   "sha256": "e983ed39153d392d0738da8efbe7a611a42f09141e67f55ea919e50ba3ab55b2",
+   "sha256": "6827af8171818c3ed712585e855bddc7bff81d9dd18f895e3fff91920c1235fb",
    "target": "tal-a29-p26",
    "theorems": [],
    "verdict": "PARTIAL",
@@ -13454,9 +13523,15 @@
     "proofs:song"
    ],
    "immutable_id": "pt:pid:tal:tantraloka-a29027",
-   "sha256": "fa44e1b08bfb01ac80b6cbf67ed7369b88e401fbd7a115a4b3131e2e2a03ed26",
+   "sha256": "47122c0c2c1490a871d464c00a1b070b1dedd2c4e4a35f361f4623c688616b05",
    "target": "tal-a29-p27",
-   "theorems": [],
+   "theorems": [
+    "SubtleBodyCorpus.lean :: three_levels",
+    "SubtleBodyCorpus.lean :: levels_distinct",
+    "SubtleBodyCorpus.lean :: migration_at_subtle",
+    "SubtleBodyCorpus.lean :: pinda_not_carried",
+    "SubtleBodyCorpus.lean :: exactly_one_carried"
+   ],
    "verdict": "PARTIAL",
    "work": "tantraloka-a29"
   },
@@ -13473,7 +13548,7 @@
     "proofs:song"
    ],
    "immutable_id": "pt:pid:tal:tantraloka-a29028",
-   "sha256": "53b36f80bb3dcfd1b9bfd286c9ba75f1e5932ccef8a92b443933ad073d9ae5a6",
+   "sha256": "de48678f2a3e744e5b8e31d570c15108cc34174e8f05c84f689efbe12bbf1399",
    "target": "tal-a29-p28",
    "theorems": [],
    "verdict": "PARTIAL",
@@ -13492,7 +13567,7 @@
     "proofs:song"
    ],
    "immutable_id": "pt:pid:tal:tantraloka-a29029",
-   "sha256": "541d5f85eaa190c38a3075bfd5781cb283337ae708c8e7fe24ff54bdb6adf960",
+   "sha256": "26279a22d44c61924d7cfe06651c7f41b03b3ccae0e141ecdefde6e8cfbd339b",
    "target": "tal-a29-p29",
    "theorems": [],
    "verdict": "PARTIAL",
@@ -13511,7 +13586,7 @@
     "proofs:song"
    ],
    "immutable_id": "pt:pid:tal:tantraloka-a29030",
-   "sha256": "5e204af8271447cba75ecec15e83a04f42c52a0a43a2db3829517a85cb81bf86",
+   "sha256": "d41880a2ba27d129d651380091726d4178e595fceee94961fbc8709428b3c387",
    "target": "tal-a29-p30",
    "theorems": [],
    "verdict": "PARTIAL",
@@ -15940,6 +16015,6 @@
  "note": "Each file is a trika-trace/1 bundle: source bytes -> layers -> proofs -> formal theorems -> citing essays, hash-pinned. Re-verify with trika-x formal-trika/tools/trace_bundle.py --verify. COMPLETE means every applicable hop resolved; PARTIAL names its gaps and never hides them.",
  "verdicts": {
   "COMPLETE": 231,
-  "PARTIAL": 679
+  "PARTIAL": 682
  }
 }

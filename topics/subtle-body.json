@@ -47,6 +47,14 @@
     "8"
    ],
    [
+    "Trika C — puryaṣṭaka (tanmātra + guṇas; Śivasūtravimarśinī)",
+    "5 tanmātras",
+    "—",
+    "guṇatraya: rajas→manas, tamas→ahaṃkāra, sattva→buddhi",
+    "8",
+    "8"
+   ],
+   [
     "Advaita Vedānta — sūkṣmaśarīra (17)",
     "5 prāṇas",
     "jñānendriya + karmendriya (2 groups of 5)",
@@ -210,13 +218,61 @@
    "note": "This is the 'rigid definition' the comparison needs: prāṇa = (role, count), not a bare word. Two systems can agree on five and disagree on what a prāṇa is."
   },
   {
-   "claim": "The formal model proves: same cardinality, disjoint partitions, and the expanded count differs (18 vs 8); Vedānta 19 = Trika A expanded + citta.",
+   "claim": "A third formulation appears in Śivasūtravimarśinī: five tanmātras + the three guṇas = eight, and this puryaṣṭaka is the subtle body and the cause of the gross.",
+   "tier": "T",
+   "evidence": [
+    {
+     "label": "Śivasūtravimarśinī (Kṣemarāja) — guṇa formula",
+     "work": "sivasutravimarsini",
+     "target": "ssv-u3",
+     "verses": "ad SS 3.4 / puryaṣṭaka passage",
+     "quote_iast": "tanmātrapañcakaṃ guṇatrayamiti sthūlaśarīrakāraṇabhūtamaṣṭakaṃ yat saṃniviṣṭaṃ tanmukhyaṃ puryaṣṭakaṃ",
+     "quote_en": "the five tanmātras together with the three guṇas — that eightfold [thing] which is the cause of the gross body — that is the principal puryaṣṭaka.",
+     "translation_note": "Verbatim. The text maps rajas→manas, tamas→ahaṃkāra, sattva→buddhi in the preceding words; the model does not identify the kinds, only their number.",
+     "layers": [
+      "source",
+      "t1",
+      "l0",
+      "argmap",
+      "l2",
+      "c1"
+     ]
+    }
+   ],
+   "note": "This is why 'eight' cannot be read off the word alone: three vocabularies, one count."
+  },
+  {
+   "claim": "Tantrāloka 29 gives a three-level body schema — piṇḍa (para/kalātmā), the subtle puryaṣṭaka, and the outer gross body — and only the subtle one is carried.",
+   "tier": "T",
+   "evidence": [
+    {
+     "label": "Tantrāloka 29.261–270",
+     "work": "tantraloka-a29",
+     "target": "tal-a29-p27",
+     "verses": "29.261–270",
+     "quote_iast": "piṇḍaḥ paraḥ kalātmā sūkṣmaḥ puryaṣṭako bahiḥ sthūlaḥ",
+     "quote_en": "the piṇḍa is the supreme, the kalā-self; the subtle is the puryaṣṭaka; the gross is outside.",
+     "translation_note": "Verbatim. English is our gloss.",
+     "layers": [
+      "source",
+      "t1",
+      "l0",
+      "argmap",
+      "l2",
+      "c1"
+     ]
+    }
+   ],
+   "note": "Carried: the subtle body (Gītārthasaṅgraha on BG 15.8: the jīva departs 'puryaṣṭakena saha'; ŚSV: the gross is dropped). The model encodes exactly one carrier."
+  },
+  {
+   "claim": "The formal model proves: all three formulas count eight, B and C differ in vocabulary though not count, A's kinds are disjoint from both, three body levels exist and exactly one is carried, and liberation drops ahaṃtā while keeping the units.",
    "tier": "R",
    "evidence": [
     {
      "external": true,
-     "citation": "trika-x formal-trika/control/SubtleBody.lean: same_cardinality, not_same_partition, partitions_disjoint, eight_is_not_one_eight, expanded_differs, vedanta19_adds_citta, vedanta_17_19_gap; run by control/run.sh with a must-fail twin.",
-     "quote_en": "eight equals eight in number, but the partitions have no kind in common",
+     "citation": "trika-x formal-trika/control/SubtleBody.lean + SubtleBodyCorpus.lean: same_cardinality, partitions_disjoint, eight_is_not_one_eight, vedanta19_adds_citta, prana_role_differs; A_count, B_count, C_count, B_C_different_vocabulary, A_disjoint_B/C, guna_inner_same_count, three_levels, exactly_one_carried, liberation_drops_bodyness; run by control/run.sh with must-fail twins.",
+     "quote_en": "three formulas, one count; three levels, one carrier",
      "translation_note": "Model-only: the theorems are about the stipulated decompositions, not about doctrine truth."
     }
    ]
@@ -262,6 +318,28 @@
   "external": {
    "layers": [],
    "status": "Vedānta/Vivekananda sources are cited, not held in the Sanskrit corpus"
+  },
+  "sivasutravimarsini/ssv-u3": {
+   "layers": [
+    "source",
+    "t1",
+    "l0",
+    "argmap",
+    "l2",
+    "c1"
+   ],
+   "status": "the guṇa formula; machine-bound to SubtleBodyCorpus.lean"
+  },
+  "tantraloka-a29/tal-a29-p27": {
+   "layers": [
+    "source",
+    "t1",
+    "l0",
+    "argmap",
+    "l2",
+    "c1"
+   ],
+   "status": "the three-level body schema; machine-bound to SubtleBodyCorpus.lean"
   }
  },
  "search": {

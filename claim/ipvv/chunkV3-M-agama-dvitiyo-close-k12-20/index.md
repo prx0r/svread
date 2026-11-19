@@ -984,6 +984,11 @@ fourth, the fire-form, the free consciousness-self.
 | SubtleBody.lean :: eight_is_not_one_eight | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
 | SubtleBody.lean :: trikaA_expanded_count | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
 | SubtleBody.lean :: expanded_differs | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
+| SubtleBodyCorpus.lean :: A_count | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
+| SubtleBodyCorpus.lean :: three_formulas_eight | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
+| SubtleBodyCorpus.lean :: A_disjoint_B | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
+| SubtleBodyCorpus.lean :: A_disjoint_C | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
+| SubtleBodyCorpus.lean :: city_units | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
 | Deterministic chunk gate | PASS (none) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

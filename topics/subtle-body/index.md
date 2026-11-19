@@ -10,6 +10,7 @@ Canonical: https://svatantrya.net/topics/subtle-body/
 |---|---|---|---|---|---|
 | Trika A — puryaṣṭaka (prāṇa-based; ĪPVV; Medhananda) | 5 prāṇas (apāna, prāṇa, udāna, samāna, vyāna) | buddhīndriya + karmendriya (2 groups) | antaḥkaraṇa (1 group: manas, buddhi, ahaṃkāra) | 8 | 18 |
 | Trika B — puryaṣṭaka (tanmātra-based; TĀ 24.19; Paramārthasāra trad.) | 5 tanmātras (śabda, sparśa, rūpa, rasa, gandha) | — | manas + buddhi + ahaṃkāra | 8 | 8 |
+| Trika C — puryaṣṭaka (tanmātra + guṇas; Śivasūtravimarśinī) | 5 tanmātras | — | guṇatraya: rajas→manas, tamas→ahaṃkāra, sattva→buddhi | 8 | 8 |
 | Advaita Vedānta — sūkṣmaśarīra (17) | 5 prāṇas | jñānendriya + karmendriya (2 groups of 5) | manas + buddhi | 17 | 17 |
 | Advaita Vedānta — sūkṣmaśarīra (19) | 5 prāṇas | jñānendriya + karmendriya (2 groups of 5) | manas + buddhi + ahaṃkāra + citta | 19 | 19 |
 | Vivekananda — liṅga/sūkṣmaśarīra | prāṇas | indriyas | manas + buddhi + ahaṃkāra | — | not numbered in the cited passages |
@@ -91,13 +92,35 @@ _R-tier synthesis: the model records the stipulated roles; it does not adjudicat
 
 This is the 'rigid definition' the comparison needs: prāṇa = (role, count), not a bare word. Two systems can agree on five and disagree on what a prāṇa is.
 
-## [R] The formal model proves: same cardinality, disjoint partitions, and the expanded count differs (18 vs 8); Vedānta 19 = Trika A expanded + citta.
+## [T] A third formulation appears in Śivasūtravimarśinī: five tanmātras + the three guṇas = eight, and this puryaṣṭaka is the subtle body and the cause of the gross.
+### Śivasūtravimarśinī (Kṣemarāja) — guṇa formula — ad SS 3.4 / puryaṣṭaka passage
+> tanmātrapañcakaṃ guṇatrayamiti sthūlaśarīrakāraṇabhūtamaṣṭakaṃ yat saṃniviṣṭaṃ tanmukhyaṃ puryaṣṭakaṃ
+
+the five tanmātras together with the three guṇas — that eightfold [thing] which is the cause of the gross body — that is the principal puryaṣṭaka.
+
+work `sivasutravimarsini` · chunk `ssv-u3` · layers: source, t1, l0, argmap, l2, c1
+_Verbatim. The text maps rajas→manas, tamas→ahaṃkāra, sattva→buddhi in the preceding words; the model does not identify the kinds, only their number._
+
+This is why 'eight' cannot be read off the word alone: three vocabularies, one count.
+
+## [T] Tantrāloka 29 gives a three-level body schema — piṇḍa (para/kalātmā), the subtle puryaṣṭaka, and the outer gross body — and only the subtle one is carried.
+### Tantrāloka 29.261–270 — 29.261–270
+> piṇḍaḥ paraḥ kalātmā sūkṣmaḥ puryaṣṭako bahiḥ sthūlaḥ
+
+the piṇḍa is the supreme, the kalā-self; the subtle is the puryaṣṭaka; the gross is outside.
+
+work `tantraloka-a29` · chunk `tal-a29-p27` · layers: source, t1, l0, argmap, l2, c1
+_Verbatim. English is our gloss._
+
+Carried: the subtle body (Gītārthasaṅgraha on BG 15.8: the jīva departs 'puryaṣṭakena saha'; ŚSV: the gross is dropped). The model encodes exactly one carrier.
+
+## [R] The formal model proves: all three formulas count eight, B and C differ in vocabulary though not count, A's kinds are disjoint from both, three body levels exist and exactly one is carried, and liberation drops ahaṃtā while keeping the units.
 ### None — 
 > None
 
-eight equals eight in number, but the partitions have no kind in common
+three formulas, one count; three levels, one carrier
 
-*External source:* trika-x formal-trika/control/SubtleBody.lean: same_cardinality, not_same_partition, partitions_disjoint, eight_is_not_one_eight, expanded_differs, vedanta19_adds_citta, vedanta_17_19_gap; run by control/run.sh with a must-fail twin. (not in our corpus; not re-verified here).
+*External source:* trika-x formal-trika/control/SubtleBody.lean + SubtleBodyCorpus.lean: same_cardinality, partitions_disjoint, eight_is_not_one_eight, vedanta19_adds_citta, prana_role_differs; A_count, B_count, C_count, B_C_different_vocabulary, A_disjoint_B/C, guna_inner_same_count, three_levels, exactly_one_carried, liberation_drops_bodyness; run by control/run.sh with must-fail twins. (not in our corpus; not re-verified here).
 _Model-only: the theorems are about the stipulated decompositions, not about doctrine truth._
 
 ## Caveats

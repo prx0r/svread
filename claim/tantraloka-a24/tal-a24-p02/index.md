@@ -24,6 +24,8 @@ Withheld. legacy markdown rendering (section-level, not verse-mapped to this pas
 | Human review | UNREVIEWED (machine rendering; no human sign-off) | assurance.review |
 | Puryastaka.lean :: constituents_eight | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
 | SubtleBody.lean :: trikaB_count | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
+| SubtleBodyCorpus.lean :: B_count | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
+| SubtleBodyCorpus.lean :: inner_distinct | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
 | Deterministic chunk gate | BLOCKED (ABSTENTION) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |
