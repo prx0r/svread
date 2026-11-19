@@ -1,6 +1,6 @@
 {
  "assurance": {
-  "chunk_gate": "BLOCKED",
+  "chunk_gate": "PASS",
   "formal_run": "UNBOUND",
   "formal_run_note": "registry references only; no per-declaration run digest bound",
   "publication": "NOT_AUTHORIZED",
@@ -12,9 +12,7 @@
   "trace_links_present": "FAIL",
   "witness": "UNPINNED"
  },
- "caveats": [
-  "chunk_gate BLOCKED: PROOF_NOT_RUN"
- ],
+ "caveats": [],
  "chunk": {
   "immutable_id": "pt:pid:ipvv:1c8b0fcf15a4",
   "target": "chunkV3-L-agama-dvitiyo-k1-11",
@@ -22,7 +20,7 @@
  },
  "essays": {
   "citing": [],
-  "projection_sha256": "4bf816c9a66f3685409fc5a7d90218aa10ca5623db3b63c5552838db6326aa98"
+  "projection_sha256": "77216dffa7fbf20365c34a44a6f943d7d9d98134def598b4274af3a91386aa35"
  },
  "formal": {
   "status": "none",
@@ -30,13 +28,8 @@
  },
  "format": "trika-trace/1",
  "gaps": [
-  "layer:t1",
-  "layer:l0",
-  "layer:argmap",
-  "layer:c1",
   "layer:l3",
-  "layer:l4",
-  "proofs:song"
+  "layer:l4"
  ],
  "identity": {
   "db": "postgresql://patala:***@localhost:5432/openpatala",
@@ -64,12 +57,16 @@
  },
  "layers": {
   "argmap": {
-   "present": false,
-   "status": "UNKNOWN"
+   "path": "ipvv/data/chunk-v3-l-agama-dvitiyo-k1-11.argmap.json",
+   "present": true,
+   "sha256": "998c997763d718dd9e0c4d2871145ca60c01ccef6b549320994f3d6510909b5d",
+   "status": "BOUND"
   },
   "c1": {
-   "present": false,
-   "status": "UNKNOWN"
+   "path": "ipvv/data/chunk-v3-l-agama-dvitiyo-k1-11.c1.json",
+   "present": true,
+   "sha256": "b4ef8ef71936914507289428deea97d5d0034bb3f0d7da2de874d43ad2632c28",
+   "status": "BOUND"
   },
   "c2": {
    "note": "C2 renders are optional (owner: existing C2 stays; waived)",
@@ -77,13 +74,15 @@
    "status": "NOT-APPLICABLE"
   },
   "l0": {
-   "present": false,
-   "status": "UNKNOWN"
+   "path": "ipvv/data/chunk-v3-l-agama-dvitiyo-k1-11.l0.json",
+   "present": true,
+   "sha256": "2c7b93d02a5871301d747f8d561c53f29c32563cfffdfb8a9117f24795a81984",
+   "status": "BOUND"
   },
   "l2": {
-   "path": "ipvv/data/chunkV3-L-agama-dvitiyo-k1-11.l2.json",
+   "path": "ipvv/data/chunk-v3-l-agama-dvitiyo-k1-11.l2.json",
    "present": true,
-   "sha256": "7467bb9be63135d93465b2d99e48795f22ac82b29490f4315f4fe6e58e1d34ea",
+   "sha256": "a92126e3159a693527627b92cc0b5d35173dff510ba51ca12f0d0e71c877c753",
    "status": "BOUND"
   },
   "l3": {
@@ -95,26 +94,31 @@
    "status": "UNKNOWN"
   },
   "t1": {
-   "present": false,
-   "status": "UNKNOWN"
+   "path": "ipvv/data/chunk-v3-l-agama-dvitiyo-k1-11.t1.json",
+   "present": true,
+   "sha256": "fa6f117c4d9703bcc28c3e418e8e655aa5203fb3ee324c33da9c4b6cdd5baad5",
+   "status": "BOUND"
   }
  },
  "open_problems": [],
  "proofs": {
   "chunk_gate": {
-   "blocking": [
-    "PROOF_NOT_RUN"
-   ],
+   "blocking": [],
    "checks_pass": {
-    "PROOF_NOT_RUN": false
+    "PROOF_RECORD": true
    },
-   "deterministic_gate": "BLOCKED",
-   "entry_sha256": "87d8c96794944262ccbe43035aa39e6a0669843e14f64b98faf382e7e20e495e",
-   "status": "BLOCKED"
+   "deterministic_gate": "PASS",
+   "entry_sha256": "4f40b297dc27e324e788e6440ec04abef86a3176557552a5860098853b09245b",
+   "status": "PASS"
   },
   "song_proof": {
-   "note": "no proof file",
-   "status": "UNKNOWN"
+   "blocking": [],
+   "deterministic_gate": "PASS",
+   "file": "ipvv/proof/proof-chunk-v3-l-agama-dvitiyo-k1-11.json",
+   "sha256": "b475ab088a9583ba98a984f47c623f2c20382941da9d7f7b313507536a20c8e3",
+   "status": "PASS",
+   "tool": "proof_record v1 2026-11-01",
+   "warnings": 0
   }
  },
  "source": {

@@ -1,6 +1,6 @@
 {
  "assurance": {
-  "chunk_gate": "BLOCKED",
+  "chunk_gate": "PASS",
   "formal_run": "UNBOUND",
   "formal_run_note": "registry references only; no per-declaration run digest bound",
   "publication": "NOT_AUTHORIZED",
@@ -12,9 +12,7 @@
   "trace_links_present": "FAIL",
   "witness": "UNPINNED"
  },
- "caveats": [
-  "chunk_gate BLOCKED: PROOF_NOT_RUN"
- ],
+ "caveats": [],
  "chunk": {
   "immutable_id": "pt:pid:ipvv:5b225fdbeb52",
   "target": "chunkJ-k1.11-kartapi-kalpita",
@@ -22,7 +20,7 @@
  },
  "essays": {
   "citing": [],
-  "projection_sha256": "4bf816c9a66f3685409fc5a7d90218aa10ca5623db3b63c5552838db6326aa98"
+  "projection_sha256": "77216dffa7fbf20365c34a44a6f943d7d9d98134def598b4274af3a91386aa35"
  },
  "formal": {
   "status": "none",
@@ -30,14 +28,8 @@
  },
  "format": "trika-trace/1",
  "gaps": [
-  "layer:t1",
-  "layer:l0",
-  "layer:argmap",
-  "layer:l2",
-  "layer:c1",
   "layer:l3",
-  "layer:l4",
-  "proofs:song"
+  "layer:l4"
  ],
  "identity": {
   "db": "postgresql://patala:***@localhost:5432/openpatala",
@@ -65,12 +57,16 @@
  },
  "layers": {
   "argmap": {
-   "present": false,
-   "status": "UNKNOWN"
+   "path": "ipvv/data/chunk-j-k1-11-kartapi-kalpita.argmap.json",
+   "present": true,
+   "sha256": "81607d2f08c0be1295998b432a56bada84fb580fbce6ff98b2c47e15c5a7ea35",
+   "status": "BOUND"
   },
   "c1": {
-   "present": false,
-   "status": "UNKNOWN"
+   "path": "ipvv/data/chunk-j-k1-11-kartapi-kalpita.c1.json",
+   "present": true,
+   "sha256": "130448273da8e0c9c73a6919291bd352bbe8093d689faa481dbde781aa62b25a",
+   "status": "BOUND"
   },
   "c2": {
    "note": "C2 renders are optional (owner: existing C2 stays; waived)",
@@ -78,12 +74,16 @@
    "status": "NOT-APPLICABLE"
   },
   "l0": {
-   "present": false,
-   "status": "UNKNOWN"
+   "path": "ipvv/data/chunk-j-k1-11-kartapi-kalpita.l0.json",
+   "present": true,
+   "sha256": "6e5bb3e272547653999c9375f09c5c7317780d11237777a3ae1e68e194650f56",
+   "status": "BOUND"
   },
   "l2": {
-   "present": false,
-   "status": "UNKNOWN"
+   "path": "ipvv/data/chunk-j-k1-11-kartapi-kalpita.l2.json",
+   "present": true,
+   "sha256": "ddab2b7ae744d63212d95038ea4525370083c8b5d3ce885ddcc1373dcd9e1eaf",
+   "status": "BOUND"
   },
   "l3": {
    "present": false,
@@ -94,26 +94,31 @@
    "status": "UNKNOWN"
   },
   "t1": {
-   "present": false,
-   "status": "UNKNOWN"
+   "path": "ipvv/data/chunk-j-k1-11-kartapi-kalpita.t1.json",
+   "present": true,
+   "sha256": "1768af29e06a2a3a7fb1458deddc009ae526d26b17e4a2492a4f6d102d3dfa73",
+   "status": "BOUND"
   }
  },
  "open_problems": [],
  "proofs": {
   "chunk_gate": {
-   "blocking": [
-    "PROOF_NOT_RUN"
-   ],
+   "blocking": [],
    "checks_pass": {
-    "PROOF_NOT_RUN": false
+    "PROOF_RECORD": true
    },
-   "deterministic_gate": "BLOCKED",
-   "entry_sha256": "87d8c96794944262ccbe43035aa39e6a0669843e14f64b98faf382e7e20e495e",
-   "status": "BLOCKED"
+   "deterministic_gate": "PASS",
+   "entry_sha256": "4db7f8583010ab3a956fd3a5942e916c110a79a813d51937ed6e670fed4ab9dc",
+   "status": "PASS"
   },
   "song_proof": {
-   "note": "no proof file",
-   "status": "UNKNOWN"
+   "blocking": [],
+   "deterministic_gate": "PASS",
+   "file": "ipvv/proof/proof-chunk-j-k1-11-kartapi-kalpita.json",
+   "sha256": "febad537b75377d589fbe4a1551eb6b694013e0724cae581e4cdea6d541f5c9c",
+   "status": "PASS",
+   "tool": "proof_record v1 2026-11-01",
+   "warnings": 0
   }
  },
  "source": {

@@ -107,6 +107,13 @@ def build_llms(pushing: dict, biblio: dict, sanskrit: dict) -> str:
     n_traces, tr_verdicts = trace_stats()
     complete = tr_verdicts.get("COMPLETE", 0)
     partial = tr_verdicts.get("PARTIAL", 0)
+    preview_idx = load_json(OUT / "preview" / "index.json") \
+        if (OUT / "preview" / "index.json").exists() else {"works": {}}
+    n_preview_works = len(preview_idx.get("works", {}) or {})
+    n_preview_chunks = sum(
+        (w.get("n_preview", 0) or 0)
+        for w in (preview_idx.get("works", {}) or {}).values()
+        if isinstance(w, dict))
     lines = [
         "# Svatantrya Reader (svread)",
         "",
@@ -135,8 +142,12 @@ def build_llms(pushing: dict, biblio: dict, sanskrit: dict) -> str:
         f"- Bibliography mirror ({mirror_n} local-mirror works absent from the authority file, pending authority sync): {ORIGIN}/data/biblio-mirror.json — also merged into {ORIGIN}/?view=biblio with a mirror badge",
         f"- Layer index (which of t1/l0/argmap/l2/l3/l4/c1/c2 exist per song, with file hashes, verse ids, registry status): {ORIGIN}/data/layers-index.json — ask ChatGPT to show the stack and the forks",
         f"- Sanskrit lessons index + rule boxes: {ORIGIN}/data/sanskrit/index.json",
-        f"- Per-work reader bundle: {ORIGIN}/data/<work>.json (55+ works; originals, layers, hashes)",
+        f"- Per-work reader bundle: {ORIGIN}/data/<work>.json ({readable} works; originals, layers, hashes)",
         f"- Scholar projections: {ORIGIN}/data/scholar/<work>.json (versions, essays, reviews, signoffs, projection_sha256)",
+        f"- UNREVIEWED previews ({n_preview_works} works, {n_preview_chunks} chunks; machine-proposed, gates unchanged): {ORIGIN}/data/preview/<work>.json — index {ORIGIN}/data/preview/index.json",
+        f"- Readability audit (catalogue vs retrievable text, per work, with status to quote): {ORIGIN}/data/readability.json",
+        "- Catalogue is not text: a listed work may carry Sanskrit excerpts with English withheld (BLOCKED). 'Readable now' means verified English in data/<work>.json; 'preview' means UNREVIEWED machine prose with gates unchanged. Quote the status line from data/readability.json.",
+        "- IPVV note: the Isvarapratyabhijnavivrtivimarsini is catalogued (49 chunks, Sanskrit excerpts + claim pages, gates PASS, verdict PARTIAL on l3/l4 gaps) with 46/49 verified English in https://svatantrya.net/data/ipvv.json, a 3-chunk UNREVIEWED preview in https://svatantrya.net/data/preview/ipvv.json (cite WITH the UNREVIEWED caveat), and the full machine-proposed projection (t1/l0/argmap/l2/c1, 0 reviews) in https://svatantrya.net/data/scholar/ipvv.json — cite WITH the machine-proposed caveat, never as verified translation. Chunk locators (e.g. chunkA-svatyandya) resolve via scholar__passage_evidence {work: ipvv, target}. Its 49 T1.md prose drafts live in translation-work (not on this site).",
         f"- Pushing digest ({pushing['count']} live questions + hound verdicts): {ORIGIN}/data/pushing.json",
         f"- Sanskrit lessons (rendered pages): {ORIGIN}/data/sanskrit/site/lesson-01.html ... lesson-10.html",
         f"- Grammar pack (Vidyut machine derivations for wheel forms, unreviewed): {ORIGIN}/data/grammar/wheel-pack.json",
@@ -222,6 +233,11 @@ def build_llms_full(biblio: dict) -> str:
              "",
              "This file is for agents; Google ignores it (measured, 2026).",
              "",
+             "Catalogue is not text: a listed work may carry Sanskrit excerpts "
+             "with English withheld (BLOCKED). Check data/readability.json for "
+             "the per-work status, and data/preview/<work>.json for UNREVIEWED "
+             "machine previews (gates unchanged).",
+             "",
              f"- About: {ORIGIN}/about/ — what is claimed, rights, contact",
              f"- Cite: {ORIGIN}/cite/ — stable-URL policy, status words",
              f"- Plugins: {ORIGIN}/plugins/ — every ChatGPT plugin + agent CLI (spec: plugins/plugins.json). Satsang MCP: https://mcp.tantrafiles.xyz/mcp",
@@ -253,6 +269,12 @@ def build_ai_catalog(n_traces: int) -> dict:
                        "+ artifacts; recompute with sha256sum",
         "claim_page": f"{ORIGIN}/claim/<work>/<target>/ "
                       "(answer-first verdict, excerpt, claim table, hashes)",
+        "preview_index": f"{ORIGIN}/data/preview/index.json "
+                         "(UNREVIEWED machine previews where verified English "
+                         "is withheld; gates unchanged)",
+        "readability": f"{ORIGIN}/data/readability.json "
+                       "(catalogue vs retrievable text per work; quote the "
+                       "status line)",
         "wheels": f"{ORIGIN}/wheels.html (word/sentence/karaka/Trika constructors, levels 1-6, drill)",
         "tutor_levels": f"{ORIGIN}/data/wheels/tutor/level-01-bases.md ... level-06-karaka.md "
                         "(one prompt file per level: goal, data URLs, closed-world rules, drills)",

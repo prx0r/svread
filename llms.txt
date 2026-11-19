@@ -18,8 +18,12 @@
 - Bibliography mirror (0 local-mirror works absent from the authority file, pending authority sync): https://svatantrya.net/data/biblio-mirror.json — also merged into https://svatantrya.net/?view=biblio with a mirror badge
 - Layer index (which of t1/l0/argmap/l2/l3/l4/c1/c2 exist per song, with file hashes, verse ids, registry status): https://svatantrya.net/data/layers-index.json — ask ChatGPT to show the stack and the forks
 - Sanskrit lessons index + rule boxes: https://svatantrya.net/data/sanskrit/index.json
-- Per-work reader bundle: https://svatantrya.net/data/<work>.json (55+ works; originals, layers, hashes)
+- Per-work reader bundle: https://svatantrya.net/data/<work>.json (88 works; originals, layers, hashes)
 - Scholar projections: https://svatantrya.net/data/scholar/<work>.json (versions, essays, reviews, signoffs, projection_sha256)
+- UNREVIEWED previews (8 works, 55 chunks; machine-proposed, gates unchanged): https://svatantrya.net/data/preview/<work>.json — index https://svatantrya.net/data/preview/index.json
+- Readability audit (catalogue vs retrievable text, per work, with status to quote): https://svatantrya.net/data/readability.json
+- Catalogue is not text: a listed work may carry Sanskrit excerpts with English withheld (BLOCKED). 'Readable now' means verified English in data/<work>.json; 'preview' means UNREVIEWED machine prose with gates unchanged. Quote the status line from data/readability.json.
+- IPVV note: the Isvarapratyabhijnavivrtivimarsini is catalogued (49 chunks, Sanskrit excerpts + claim pages, gates PASS, verdict PARTIAL on l3/l4 gaps) with 46/49 verified English in https://svatantrya.net/data/ipvv.json, a 3-chunk UNREVIEWED preview in https://svatantrya.net/data/preview/ipvv.json (cite WITH the UNREVIEWED caveat), and the full machine-proposed projection (t1/l0/argmap/l2/c1, 0 reviews) in https://svatantrya.net/data/scholar/ipvv.json — cite WITH the machine-proposed caveat, never as verified translation. Chunk locators (e.g. chunkA-svatyandya) resolve via scholar__passage_evidence {work: ipvv, target}. Its 49 T1.md prose drafts live in translation-work (not on this site).
 - Pushing digest (115 live questions + hound verdicts): https://svatantrya.net/data/pushing.json
 - Sanskrit lessons (rendered pages): https://svatantrya.net/data/sanskrit/site/lesson-01.html ... lesson-10.html
 - Grammar pack (Vidyut machine derivations for wheel forms, unreviewed): https://svatantrya.net/data/grammar/wheel-pack.json

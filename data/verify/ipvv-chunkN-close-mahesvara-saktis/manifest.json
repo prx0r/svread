@@ -7,16 +7,55 @@
    "sha256": "e8174c34ac520d1e693f80fe8de58f0e11a34c9c93c74ccffe6e3f45878316d7"
   },
   {
-   "bytes": 3196,
-   "name": "chunkN-close-mahesvara-saktis.l2.json",
-   "origin": "ipvv/data/chunkN-close-mahesvara-saktis.l2.json",
-   "role": "layer-l2",
-   "sha256": "71f0d96c9e5ef047d0592b1904e3e35456478cdce18bb3d9210d5b52f44c7a0c",
+   "bytes": 61001,
+   "name": "chunk-n-close-mahesvara-saktis.argmap.json",
+   "origin": "ipvv/data/chunk-n-close-mahesvara-saktis.argmap.json",
+   "role": "layer-argmap",
+   "sha256": "cef6f36558de6cc0290da4eb676787020d80325bb2cfbbf394ea1048143ca1db",
    "status": "BOUND"
+  },
+  {
+   "bytes": 382,
+   "name": "chunk-n-close-mahesvara-saktis.c1.json",
+   "origin": "ipvv/data/chunk-n-close-mahesvara-saktis.c1.json",
+   "role": "layer-c1",
+   "sha256": "9ffd721d08e251f10d2e57bbe8bfb0cbfc8f23eaddaf4bc8bb44594c2ae15085",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1715331,
+   "name": "chunk-n-close-mahesvara-saktis.l0.json",
+   "origin": "ipvv/data/chunk-n-close-mahesvara-saktis.l0.json",
+   "role": "layer-l0",
+   "sha256": "571ad6cb63562851508a4aca46fb389173af10baa1c608fa96dfa9c91d1470d8",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 60195,
+   "name": "chunk-n-close-mahesvara-saktis.l2.json",
+   "origin": "ipvv/data/chunk-n-close-mahesvara-saktis.l2.json",
+   "role": "layer-l2",
+   "sha256": "5ee240f40ddd1b304cee6ac12f38c478d4257db4f440121c8e2c4a913d9048e8",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 279016,
+   "name": "chunk-n-close-mahesvara-saktis.t1.json",
+   "origin": "ipvv/data/chunk-n-close-mahesvara-saktis.t1.json",
+   "role": "layer-t1",
+   "sha256": "c2ea7590fa4bdcfb91d3cf881acf4a34735b18d24a02abb25588235d926bde8a",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1715,
+   "name": "proof-chunk-n-close-mahesvara-saktis.json",
+   "origin": "ipvv/proof/proof-chunk-n-close-mahesvara-saktis.json",
+   "role": "proof",
+   "sha256": "6e8d768374079c3fb0ea0f39b7ebde30fe81cf611afcc7c24f7509391e11d5d3"
   }
  ],
  "assurance": {
-  "chunk_gate": "BLOCKED",
+  "chunk_gate": "PASS",
   "formal_run": "UNBOUND",
   "formal_run_note": "registry references only; no per-declaration run digest bound",
   "publication": "NOT_AUTHORIZED",
@@ -28,9 +67,7 @@
   "trace_links_present": "FAIL",
   "witness": "UNPINNED"
  },
- "caveats": [
-  "chunk_gate BLOCKED: PROOF_NOT_RUN"
- ],
+ "caveats": [],
  "chunk": {
   "immutable_id": "pt:pid:ipvv:8c652bfd72be",
   "target": "chunkN-close-mahesvara-saktis",
@@ -38,19 +75,14 @@
  },
  "format": "trika-verify-pack/1",
  "gaps": [
-  "layer:t1",
-  "layer:l0",
-  "layer:argmap",
-  "layer:c1",
   "layer:l3",
-  "layer:l4",
-  "proofs:song"
+  "layer:l4"
  ],
  "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/ipvv-chunkN-close-mahesvara-saktis/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
  "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
  "trace": {
   "file": "traces/ipvv-chunkN-close-mahesvara-saktis.json",
-  "sha256": "61a002314e130294a013c90f18cf041ea7b3a0eaf30b969f92e309dccdf3dcfb"
+  "sha256": "4a5b5063e5a9b75fdc3222d809dc57cea84f000108271a3de21bde99fb7cf0cb"
  },
  "verdict": "PARTIAL",
  "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."

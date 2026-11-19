@@ -1,6 +1,6 @@
 {
  "assurance": {
-  "chunk_gate": "BLOCKED",
+  "chunk_gate": "PASS",
   "formal_run": "UNBOUND",
   "formal_run_note": "registry references only; no per-declaration run digest bound",
   "publication": "NOT_AUTHORIZED",
@@ -12,9 +12,7 @@
   "trace_links_present": "FAIL",
   "witness": "UNPINNED"
  },
- "caveats": [
-  "chunk_gate BLOCKED: PROOF_NOT_RUN"
- ],
+ "caveats": [],
  "chunk": {
   "immutable_id": "pt:pid:ipvv:aad4bfd27078",
   "target": "chunkV3-P-tattva-caturtho-close-k1-3",
@@ -22,7 +20,7 @@
  },
  "essays": {
   "citing": [],
-  "projection_sha256": "4bf816c9a66f3685409fc5a7d90218aa10ca5623db3b63c5552838db6326aa98"
+  "projection_sha256": "77216dffa7fbf20365c34a44a6f943d7d9d98134def598b4274af3a91386aa35"
  },
  "formal": {
   "status": "none",
@@ -30,14 +28,8 @@
  },
  "format": "trika-trace/1",
  "gaps": [
-  "layer:t1",
-  "layer:l0",
-  "layer:argmap",
-  "layer:l2",
-  "layer:c1",
   "layer:l3",
-  "layer:l4",
-  "proofs:song"
+  "layer:l4"
  ],
  "identity": {
   "db": "postgresql://patala:***@localhost:5432/openpatala",
@@ -65,12 +57,16 @@
  },
  "layers": {
   "argmap": {
-   "present": false,
-   "status": "UNKNOWN"
+   "path": "ipvv/data/chunk-v3-p-tattva-caturtho-close-k1-3.argmap.json",
+   "present": true,
+   "sha256": "c6afbf7040e9c97a69196a610743f2c065e559a4fc082c33eb712e2697b9d9ee",
+   "status": "BOUND"
   },
   "c1": {
-   "present": false,
-   "status": "UNKNOWN"
+   "path": "ipvv/data/chunk-v3-p-tattva-caturtho-close-k1-3.c1.json",
+   "present": true,
+   "sha256": "8da25eb4df187bf41dba5bb7930964fda40c436547b8df3f8222d449ae2479c8",
+   "status": "BOUND"
   },
   "c2": {
    "note": "C2 renders are optional (owner: existing C2 stays; waived)",
@@ -78,12 +74,16 @@
    "status": "NOT-APPLICABLE"
   },
   "l0": {
-   "present": false,
-   "status": "UNKNOWN"
+   "path": "ipvv/data/chunk-v3-p-tattva-caturtho-close-k1-3.l0.json",
+   "present": true,
+   "sha256": "64b9cd3632c7ef866f8b259ee314718020fc12296170480c10ebb45326a75c04",
+   "status": "BOUND"
   },
   "l2": {
-   "present": false,
-   "status": "UNKNOWN"
+   "path": "ipvv/data/chunk-v3-p-tattva-caturtho-close-k1-3.l2.json",
+   "present": true,
+   "sha256": "bf197f0e0440b59136c4504c31f570aef1ae47e8cfc858c26f44947b12b01b00",
+   "status": "BOUND"
   },
   "l3": {
    "present": false,
@@ -94,26 +94,31 @@
    "status": "UNKNOWN"
   },
   "t1": {
-   "present": false,
-   "status": "UNKNOWN"
+   "path": "ipvv/data/chunk-v3-p-tattva-caturtho-close-k1-3.t1.json",
+   "present": true,
+   "sha256": "16d4fb6b4dc832c04902fc1226cdecc1682c1148347a6ab4674f32bddc7d3d6b",
+   "status": "BOUND"
   }
  },
  "open_problems": [],
  "proofs": {
   "chunk_gate": {
-   "blocking": [
-    "PROOF_NOT_RUN"
-   ],
+   "blocking": [],
    "checks_pass": {
-    "PROOF_NOT_RUN": false
+    "PROOF_RECORD": true
    },
-   "deterministic_gate": "BLOCKED",
-   "entry_sha256": "87d8c96794944262ccbe43035aa39e6a0669843e14f64b98faf382e7e20e495e",
-   "status": "BLOCKED"
+   "deterministic_gate": "PASS",
+   "entry_sha256": "0c6dad8f3f19d74a75c8925a1c93a75ea4411b33a00fa7b491f50253bdac4bff",
+   "status": "PASS"
   },
   "song_proof": {
-   "note": "no proof file",
-   "status": "UNKNOWN"
+   "blocking": [],
+   "deterministic_gate": "PASS",
+   "file": "ipvv/proof/proof-chunk-v3-p-tattva-caturtho-close-k1-3.json",
+   "sha256": "6f2a82dd08c5af0b121ecf81a166921a1d08c7c5e955195cb857a8433f15a32f",
+   "status": "PASS",
+   "tool": "proof_record v1 2026-11-01",
+   "warnings": 0
   }
  },
  "source": {

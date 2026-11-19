@@ -68,12 +68,112 @@ def _review_summary(d, work, target, song):
             'default': 'UNREVIEWED'}
 
 
+def _norm_key(s):
+    return re.sub(r'[^a-z0-9]', '', s.lower())
+
+
+def _resolve_song_key(d, chunk):
+    """Chunk locator -> song key used inside originals/stack_hashes.
+
+    Exact match first; otherwise a single alphanumeric-normalised match
+    (ipvv chunk locators are capitalised and dehyphenated next to their
+    lowercase hyphenated songs: chunkA-... vs chunk-a-...). Zero or
+    ambiguous matches fail closed."""
+    keys = set((d.get('originals', {}) or {}).get('c1', {}) or {})
+    keys |= set(d.get('stack_hashes', {}) or {})
+    for layer_rows in (d.get('originals', {}) or {}).values():
+        if isinstance(layer_rows, dict):
+            for k in layer_rows:
+                if isinstance(k, str) and (k == chunk or k.startswith(chunk + '-v')):
+                    keys.add(re.sub(r'-v\d+$', '', k))
+    if chunk in keys:
+        return chunk
+    ci = sorted({k for k in keys if isinstance(k, str) and _norm_key(k) == _norm_key(chunk)})
+    if len(ci) == 1:
+        return ci[0]
+    return None
+
+
+def _verify_pack_source(work, chunk):
+    """Hash-checked Sanskrit excerpt for a chunk from its verify pack."""
+    pack = ROOT / 'data' / 'verify' / f'{work}-{chunk}'
+    try:
+        man = json.loads((pack / 'manifest.json').read_text(encoding='utf-8'))
+        raw = (pack / 'source.txt').read_bytes()
+    except (OSError, ValueError):
+        raise ValueError('Passage unavailable or withheld')
+    art = next((x for x in man.get('artifacts', []) or []
+                if isinstance(x, dict) and x.get('name') == 'source.txt'), None)
+    if art is None or art.get('sha256') != hashlib.sha256(raw).hexdigest():
+        raise ValueError('Verify-pack source mismatch')
+    try:
+        text = raw.decode('utf-8')
+    except UnicodeDecodeError:
+        raise ValueError('Verify-pack source is not UTF-8')
+    if not text.strip():
+        raise ValueError('Passage unavailable or withheld')
+    return text, art.get('sha256', '')
+
+
+def _song_evidence(d, work, chunk):
+    """Evidence for a chunk-level locator (target == song).
+
+    Verse-keyed layers (t1/l0/argmap/l2/...) are assembled from every row
+    whose verse id belongs to the resolved song; song layers (c1/c2) by
+    song key. Sanskrit comes from the verify pack (hash-checked). Every
+    collected row is hash-verified against original_hashes, exactly like
+    the verse path. Empty assembly fails closed."""
+    song_key = _resolve_song_key(d, chunk)
+    if song_key is None:
+        raise ValueError('Passage unavailable or withheld')
+    layers, layer_hashes = {}, {}
+    for layer in ('t1', 'l0', 'argmap', 'l2', 'l3', 'l4'):
+        rows = {}
+        for k, v in ((d.get('originals', {}) or {}).get(layer, {}) or {}).items():
+            if k == song_key or (isinstance(k, str) and k.startswith(song_key + '-v')):
+                expected = (d.get('original_hashes', {}) or {}).get(layer, {}).get(k)
+                if hashlib.sha256(canonical(v)).hexdigest() != expected:
+                    raise ValueError('Layer hash mismatch')
+                rows[k] = v
+        if rows:
+            layers[layer] = rows
+            layer_hashes[layer] = {k: (d.get('original_hashes', {}) or {}).get(layer, {}).get(k) for k in rows}
+    for layer in ('c1', 'c2'):
+        v = (d.get('originals', {}) or {}).get(layer, {}).get(song_key)
+        if v is not None:
+            expected = (d.get('original_hashes', {}) or {}).get(layer, {}).get(song_key)
+            if hashlib.sha256(canonical(v)).hexdigest() != expected:
+                raise ValueError('Layer hash mismatch')
+            layers[layer] = v
+            layer_hashes[layer] = expected
+    if not layers:
+        raise ValueError('Passage unavailable or withheld')
+    text, ssha = _verify_pack_source(work, chunk)
+    return {'work': work, 'target': chunk, 'song': song_key, 'granularity': 'song',
+            'source': {'text': text,
+                       'source_file': f'data/verify/{work}-{chunk}/source.txt',
+                       'source_sha256': ssha,
+                       'note': 'Verify-pack excerpt (hash-checked); edition span per trace. Full volume lives in translation-work, not on this site.'},
+            'layers': layers, 'layer_sha256': layer_hashes,
+            'stack_sha256': (d.get('stack_hashes', {}) or {}).get(song_key),
+            'review_state': _review_summary(d, work, chunk, song_key),
+            'l4_craft': (d.get('l4_craft', {}) or {}).get(chunk, []),
+            'projection_sha256': d['projection_sha256'],
+            'warning': 'Bundled snapshot; hashes establish integrity, not philological correctness or human review.'}
+
+
 def evidence(a, data=None):
     work, target = a.get('work'), a.get('target')
     if not isinstance(target, str) or not IDENT.fullmatch(target): raise ValueError('Invalid target ID')
     d = data if data is not None else projection(work); song = re.sub(r'-v\d+$', '', target)
-    if song in d.get('withheld_songs', []) or not d.get('source_verses', {}).get(target) or not d.get('originals', {}).get('t1', {}).get(target):
+    if song in d.get('withheld_songs', []):
         raise ValueError('Passage unavailable or withheld')
+    src = (d.get('source_verses', {}) or {}).get(target)
+    t1row = (d.get('originals', {}) or {}).get('t1', {}).get(target)
+    if src is None or t1row is None:
+        if target != song:
+            raise ValueError('Passage unavailable or withheld')
+        return _song_evidence(d, work, target)
     layers = {}
     layer_hashes = {}
     for layer in ('t1','l0','argmap','l2','c1','l3','l4','c2'):
@@ -522,11 +622,78 @@ def wheel_harness(a):
             'pronunciation': h['pronunciation'], 'trika': h['trika'],
             'note': 'Full datasets + pack index: fetch data/wheels/harness.json (101KB, one fetch). This tool returns the map, not the territory.'}
 
+
+_CONCEPTS = None
+def _concepts():
+    global _CONCEPTS
+    if _CONCEPTS is None:
+        try:
+            _CONCEPTS = json.loads((ROOT/'data/concepts/index.json').read_text(encoding='utf-8'))
+        except FileNotFoundError:
+            raise ValueError('Concept index not built (tools/emit_concepts.py --write)')
+    return _CONCEPTS
+
+def _fold(x):
+    import unicodedata
+    x = unicodedata.normalize('NFD', x or '')
+    return ''.join(c for c in x if not unicodedata.combining(c)).casefold().strip()
+
+def concept_get(a):
+    q = a.get('term') or a.get('id') or ''
+    if not isinstance(q, str) or not q.strip():
+        raise ValueError('term required (e.g. kancuka)')
+    d = _concepts(); cards = d.get('concepts') or []
+    key = _fold(q).replace(' ', '-')
+    hit = next((c for c in cards if c['id'] == key), None)
+    if hit is None:
+        hit = next((c for c in cards if _fold(c.get('iast') or '') == _fold(q)), None)
+    if hit is None:
+        near = [c['id'] for c in cards if _fold(q)[:4] and _fold(c['id']).startswith(_fold(q)[:4])][:10]
+        return {'term': q, 'found': False, 'near_matches': near,
+                'note': 'no concept entry; a miss is not a denial — unknown terms are not invented'}
+    out = dict(hit)
+    lim = a.get('occurrence_limit')
+    lim = 25 if lim is None else max(0, int(lim))
+    out['occurrences'] = out.get('occurrences', [])[:lim]
+    out['occurrences_truncated'] = (out.get('occurrence_count', 0) > len(out['occurrences']))
+    by_id = {c['id']: c for c in cards}
+    out['related_concepts'] = [
+        {'id': r, 'term': (by_id.get(_fold(r).replace(' ', '-')) or {}).get('term'),
+         'gloss_state': (by_id.get(_fold(r).replace(' ', '-')) or {}).get('gloss_state', 'NO_ENTRY')}
+        for r in (out.get('related') or [])][:20]
+    out['counts'] = {'concepts_total': d.get('counts', {}).get('concepts'),
+                     'curated_gloss': d.get('counts', {}).get('curated_gloss')}
+    if out.get('gloss_state') != 'CURATED':
+        out['warning'] = ('No curated gloss exists for this term. The formal anchors and '
+                          'occurrences below are structural evidence only; do not present '
+                          'them as a definition.')
+    return out
+
+def concept_search(a):
+    q = a.get('query') or ''
+    if not isinstance(q, str) or not q.strip():
+        raise ValueError('query required')
+    d = _concepts(); qf = _fold(q); lim = int(a.get('limit') or 10)
+    scored = []
+    for c in d.get('concepts') or []:
+        hay = _fold(' '.join([c.get('id',''), c.get('term',''), c.get('iast',''),
+                              c.get('definition') or '']))
+        if qf and qf in hay:
+            scored.append((c['gloss_state'] == 'CURATED', c.get('occurrence_count', 0), c['id'],
+                           c.get('term'), c.get('definition'), c['gloss_state']))
+    scored.sort(key=lambda t: (-int(t[0]), -t[1], t[2]))
+    return {'query': q, 'total': len(scored),
+            'results': [{'id': s[2], 'term': s[3], 'definition': s[4],
+                         'gloss_state': s[5]} for s in scored[:max(0, lim)]],
+            'note': 'Concept-first: call concept_get for the full card (formal anchors + occurrences).'}
+
 def call(name,a):
     if not isinstance(a,dict): raise ValueError('Arguments must be an object')
     if name=='list_works':
         index=json.loads((ROOT/'data/scholar/index.json').read_text(encoding='utf-8'))
         return {'works':sorted(index), 'note':'Bundled projections; Ghaṭakarpara is withheld pending source repair.'}
+    if name=='concept_get': return concept_get(a)
+    if name=='concept_search': return concept_search(a)
     if name=='passage_evidence': return evidence(a)
     if name=='list_versions': return versions(a)
     if name=='compare_versions': return compare_versions(a)
@@ -632,6 +799,8 @@ S= lambda props, required=[]: {'type':'object','properties':props,'required':req
 T={'type':'string'}
 TOOLS=[
  ('list_works','List available bundled Scholar projections.',S({})),
+ ('concept_get','Concept card: curated gloss (or stated absence), trika-x formal anchors, and passage occurrences.',S({'term':T,'occurrence_limit':{'type':'integer','minimum':0}},['term'])),
+ ('concept_search','Find concept ids by term or definition words.',S({'query':T,'limit':{'type':'integer','minimum':1}},['query'])),
  ('passage_evidence','Read hash-checked Sanskrit and editorial layers for a passage.',S({'work':T,'target':T},['work','target'])),
  ('list_versions','List stored versions for an exact passage and layer.',S({'work':T,'target':T,'layer':T},['work','target','layer'])),
  ('compare_versions','Compare two hash-checked versions for an exact passage and layer.',S({'work':T,'target':T,'layer':T,'left':T,'right':T},['work','target','layer','left','right'])),

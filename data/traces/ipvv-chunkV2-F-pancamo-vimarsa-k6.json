@@ -1,6 +1,6 @@
 {
  "assurance": {
-  "chunk_gate": "BLOCKED",
+  "chunk_gate": "PASS",
   "formal_run": "UNBOUND",
   "formal_run_note": "registry references only; no per-declaration run digest bound",
   "publication": "NOT_AUTHORIZED",
@@ -12,9 +12,7 @@
   "trace_links_present": "FAIL",
   "witness": "UNPINNED"
  },
- "caveats": [
-  "chunk_gate BLOCKED: PROOF_NOT_RUN"
- ],
+ "caveats": [],
  "chunk": {
   "immutable_id": "pt:pid:ipvv:77c9877ab106",
   "target": "chunkV2-F-pancamo-vimarsa-k6",
@@ -22,7 +20,7 @@
  },
  "essays": {
   "citing": [],
-  "projection_sha256": "4bf816c9a66f3685409fc5a7d90218aa10ca5623db3b63c5552838db6326aa98"
+  "projection_sha256": "77216dffa7fbf20365c34a44a6f943d7d9d98134def598b4274af3a91386aa35"
  },
  "formal": {
   "status": "none",
@@ -30,13 +28,8 @@
  },
  "format": "trika-trace/1",
  "gaps": [
-  "layer:t1",
-  "layer:l0",
-  "layer:argmap",
-  "layer:c1",
   "layer:l3",
-  "layer:l4",
-  "proofs:song"
+  "layer:l4"
  ],
  "identity": {
   "db": "postgresql://patala:***@localhost:5432/openpatala",
@@ -64,12 +57,16 @@
  },
  "layers": {
   "argmap": {
-   "present": false,
-   "status": "UNKNOWN"
+   "path": "ipvv/data/chunk-v2-f-pancamo-vimarsa-k6.argmap.json",
+   "present": true,
+   "sha256": "e8814b74c208ae46e4f09e3348207a0ac358f2ee07bb438df516386d8869e901",
+   "status": "BOUND"
   },
   "c1": {
-   "present": false,
-   "status": "UNKNOWN"
+   "path": "ipvv/data/chunk-v2-f-pancamo-vimarsa-k6.c1.json",
+   "present": true,
+   "sha256": "63c3a4e9217550c023a428718b19a734fd78da512193b8d06c60f757fc6ca3ee",
+   "status": "BOUND"
   },
   "c2": {
    "note": "C2 renders are optional (owner: existing C2 stays; waived)",
@@ -77,13 +74,15 @@
    "status": "NOT-APPLICABLE"
   },
   "l0": {
-   "present": false,
-   "status": "UNKNOWN"
+   "path": "ipvv/data/chunk-v2-f-pancamo-vimarsa-k6.l0.json",
+   "present": true,
+   "sha256": "a5cffa937c7d7d7c5b39c7dc4035a845a84102fbcc5785ffb161d2af83ecc89f",
+   "status": "BOUND"
   },
   "l2": {
-   "path": "ipvv/data/chunkV2-F-pancamo-vimarsa-k6.l2.json",
+   "path": "ipvv/data/chunk-v2-f-pancamo-vimarsa-k6.l2.json",
    "present": true,
-   "sha256": "e97e572af5d3aa9e1bc49bd731c2ca05e139abfbdc9afe6a0c9649e1daa76885",
+   "sha256": "6712ec1b96640fd9922dbeee2ba739a7a6809a9546e68d798a4ded27435269c4",
    "status": "BOUND"
   },
   "l3": {
@@ -95,26 +94,31 @@
    "status": "UNKNOWN"
   },
   "t1": {
-   "present": false,
-   "status": "UNKNOWN"
+   "path": "ipvv/data/chunk-v2-f-pancamo-vimarsa-k6.t1.json",
+   "present": true,
+   "sha256": "46168dd7e779c7e88bd41c60bef9f73cc21144101a7981f9182de46d20da1964",
+   "status": "BOUND"
   }
  },
  "open_problems": [],
  "proofs": {
   "chunk_gate": {
-   "blocking": [
-    "PROOF_NOT_RUN"
-   ],
+   "blocking": [],
    "checks_pass": {
-    "PROOF_NOT_RUN": false
+    "PROOF_RECORD": true
    },
-   "deterministic_gate": "BLOCKED",
-   "entry_sha256": "87d8c96794944262ccbe43035aa39e6a0669843e14f64b98faf382e7e20e495e",
-   "status": "BLOCKED"
+   "deterministic_gate": "PASS",
+   "entry_sha256": "eb4c9a1b01b4c9685b3f6dcc5c697d306214b92005916e09856215dbf0b91500",
+   "status": "PASS"
   },
   "song_proof": {
-   "note": "no proof file",
-   "status": "UNKNOWN"
+   "blocking": [],
+   "deterministic_gate": "PASS",
+   "file": "ipvv/proof/proof-chunk-v2-f-pancamo-vimarsa-k6.json",
+   "sha256": "ead485d3bace8abb16e3f57d422750548c7e428d0e5a97753bdb7d72cf9f4ecd",
+   "status": "PASS",
+   "tool": "proof_record v1 2026-11-01",
+   "warnings": 0
   }
  },
  "source": {

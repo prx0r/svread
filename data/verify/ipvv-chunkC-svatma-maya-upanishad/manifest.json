@@ -7,16 +7,55 @@
    "sha256": "bf44d79eb59433294b9bde485739c6c25fb23c5a7731449e73a62b811ab10ebe"
   },
   {
-   "bytes": 3526,
-   "name": "chunkC-svatma-maya-upanishad.l2.json",
-   "origin": "ipvv/data/chunkC-svatma-maya-upanishad.l2.json",
-   "role": "layer-l2",
-   "sha256": "7e64d6d5441f303390552c799d23cc1fe528738b398a53bde91f9ee4675ef0dc",
+   "bytes": 55903,
+   "name": "chunk-c-svatma-maya-upanishad.argmap.json",
+   "origin": "ipvv/data/chunk-c-svatma-maya-upanishad.argmap.json",
+   "role": "layer-argmap",
+   "sha256": "f161440560c90662fcbe6a6a30fa402d6807f895f186dfc265a9783d002f3a36",
    "status": "BOUND"
+  },
+  {
+   "bytes": 487,
+   "name": "chunk-c-svatma-maya-upanishad.c1.json",
+   "origin": "ipvv/data/chunk-c-svatma-maya-upanishad.c1.json",
+   "role": "layer-c1",
+   "sha256": "46a8796405904a5fc1d38906d40253d4caf504b1c12709b25da577a77907e687",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1621914,
+   "name": "chunk-c-svatma-maya-upanishad.l0.json",
+   "origin": "ipvv/data/chunk-c-svatma-maya-upanishad.l0.json",
+   "role": "layer-l0",
+   "sha256": "a5eaef3b89469753398aa85700c1cd2ba5c4b3ebf2bf30ff48708e606c3d68a0",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 54779,
+   "name": "chunk-c-svatma-maya-upanishad.l2.json",
+   "origin": "ipvv/data/chunk-c-svatma-maya-upanishad.l2.json",
+   "role": "layer-l2",
+   "sha256": "36cf6ce5786f1500becc24e977b7ae8b3c0a97d8dab44280b728eb226d44bbdc",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 263470,
+   "name": "chunk-c-svatma-maya-upanishad.t1.json",
+   "origin": "ipvv/data/chunk-c-svatma-maya-upanishad.t1.json",
+   "role": "layer-t1",
+   "sha256": "f164459f05a98cf3c3d401515867fdb972b13afcf5a4c885716ba510561dca61",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1706,
+   "name": "proof-chunk-c-svatma-maya-upanishad.json",
+   "origin": "ipvv/proof/proof-chunk-c-svatma-maya-upanishad.json",
+   "role": "proof",
+   "sha256": "7dccd57109bcaa4a59f43394f9cf3c19ada28eee66aaa04bb32d81d1e581ae1c"
   }
  ],
  "assurance": {
-  "chunk_gate": "BLOCKED",
+  "chunk_gate": "PASS",
   "formal_run": "UNBOUND",
   "formal_run_note": "registry references only; no per-declaration run digest bound",
   "publication": "NOT_AUTHORIZED",
@@ -28,9 +67,7 @@
   "trace_links_present": "FAIL",
   "witness": "UNPINNED"
  },
- "caveats": [
-  "chunk_gate BLOCKED: PROOF_NOT_RUN"
- ],
+ "caveats": [],
  "chunk": {
   "immutable_id": "pt:pid:ipvv:cab68738d18e",
   "target": "chunkC-svatma-maya-upanishad",
@@ -38,19 +75,14 @@
  },
  "format": "trika-verify-pack/1",
  "gaps": [
-  "layer:t1",
-  "layer:l0",
-  "layer:argmap",
-  "layer:c1",
   "layer:l3",
-  "layer:l4",
-  "proofs:song"
+  "layer:l4"
  ],
  "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/ipvv-chunkC-svatma-maya-upanishad/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
  "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
  "trace": {
   "file": "traces/ipvv-chunkC-svatma-maya-upanishad.json",
-  "sha256": "6ce311d3e6118a91db06327a06e9ddf30cdd67d23a0571bab5d668b93f6d18bc"
+  "sha256": "4ae024cffd1252ed0588e8622f9dd378d8d9547c18bc061724c55ed827167e8c"
  },
  "verdict": "PARTIAL",
  "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
