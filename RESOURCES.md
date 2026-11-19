@@ -56,7 +56,9 @@ away. Secrets are referenced by path only, never by value.
   `10.1093/oxfordhb/9780197549889.001.0001`): local PDF on the box; all 45
   chapters extracted page-faithful to
   `/home/box/Downloads/Oxford_Tantric_extracts/all_chapters/` (+ `MANIFEST.json`).
-  Copyright — stays off-git. Reading map and relevance ranking:
+  Copyright — stays off-git (private R2 mirror:
+  `r2:research-datasets/oxford-handbook-tantric-studies/2024/`, 48 files,
+  SHA-256 verified 2026-11-19). Reading map and relevance ranking:
   `endgame/sanskrithelp/SECONDARY-SOURCES-OHT-2024.md`. Ch. 31 (Ben Williams,
   phonematic emanation) is the key secondary source for the Mālinī/Mātṛkā lane.
 

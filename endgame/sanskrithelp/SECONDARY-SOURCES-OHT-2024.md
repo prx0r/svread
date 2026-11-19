@@ -17,6 +17,7 @@
 | DOI | `10.1093/oxfordhb/9780197549889.001.0001` |
 | Pages | 1,273 (45 chapters + intro, glossary, index) |
 | Local full text | `/home/box/Downloads/Oxford_Tantric_extracts/all_chapters/` + `MANIFEST.json` (PDF → page-faithful `pdftotext -layout`, one file per chapter, printed pages in the manifest) |
+| R2 copy (private) | `r2:research-datasets/oxford-handbook-tantric-studies/2024/` — 45 chapter `.txt` + `MANIFEST.json` + `ohbts-2024-chapters.tar.gz` + `SHA256SUMS`; verified 48/48, SHA-256 round-trip OK 2026-11-19 |
 
 **Why the chapter text is not in this repo.** The book is in copyright. The extracted
 `.txt` corpus stays **off-git on the box** (path above); this note quotes only short
@@ -242,5 +243,6 @@ with the critical edition named.
 ---
 
 *Endnote: chapter text extracted 2026-11-19 from the box PDF (1,273 pp., OUP 2024) to
-`/home/box/Downloads/Oxford_Tantric_extracts/all_chapters/`. Manifest records printed
-and PDF page ranges for re-verification.*
+`/home/box/Downloads/Oxford_Tantric_extracts/all_chapters/`, then copied to private R2
+`r2:research-datasets/oxford-handbook-tantric-studies/2024/` (48 files, SHA-256 checked).
+Manifest records printed and PDF page ranges for re-verification.*
