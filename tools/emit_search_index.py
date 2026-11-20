@@ -17,8 +17,11 @@ reads):
 
 Output (deterministic bytes):
   data/search-index/meta.json     counts, per-work/layer coverage, input hashes
-  data/search-index/records.jsonl one JSON per unit: folded `text` for matching,
-                                  display `snippet`, pointers, gate, status
+  data/search-index/records/<work>.jsonl  one JSON per unit, sharded by work
+                                  (Pages caps single files at 25 MiB):
+                                  folded `text` for matching, display `snippet`,
+                                  pointers, gate, status
+  data/search-index/shards.json   work -> shard file, sha256, counts
 
 Never invents text. Never promotes a label: a translation document is labelled
 t1-doc, a preview UNREVIEWED, a canonical layer by its code + gate.
@@ -335,7 +338,26 @@ def build():
         w = cov.setdefault(r["work"], {"records": 0, "layers": {}})
         w["records"] += 1
         w["layers"][r["layer"]] = w["layers"].get(r["layer"], 0) + 1
-    blob = "\n".join(json.dumps(r, ensure_ascii=False, sort_keys=True) for r in records) + "\n"
+    # Sharded by work (Pages refuses single files >25 MiB; the monolith hit
+    # 31 MiB). One small file per work + a manifest; the reader merges them.
+    shards: dict[str, str] = {}
+    by_work: dict[str, list] = {}
+    for r in records:
+        by_work.setdefault(r["work"], []).append(r)
+    for work in sorted(by_work):
+        shards[work] = "\n".join(
+            json.dumps(r, ensure_ascii=False, sort_keys=True)
+            for r in by_work[work]) + "\n"
+    shards_index = {
+        "format": "svread-search-shards/1",
+        "note": ("Per-work lexical shards (same rows the monolith held). "
+                 "Fetch shards.json, then only the works you need. "
+                 "MCP search_chunks merges them server-side."),
+        "works": {w: {"file": f"records/{w}.jsonl",
+                      "sha256": sha(shards[w].encode()),
+                      "records": len(by_work[w])}
+                  for w in sorted(by_work)},
+    }
     meta = {
         "format": FORMAT,
         "note": ("Lexical, offline index over every chunk and every level we "
@@ -346,11 +368,12 @@ def build():
         "counts": {"records": len(records), "works": len(cov),
                    "by_layer": {l: sum(1 for r in records if r["layer"] == l)
                                 for l in sorted({r["layer"] for r in records})}},
-        "records_sha256": sha(blob.encode()),
         "inputs_sha256": {k: v for k, v in sorted(inputs.items())},
         "works": cov,
     }
-    return {"records": blob, "meta": json.dumps(meta, ensure_ascii=False, sort_keys=True, indent=1) + "\n"}, "", meta
+    return {"shards": shards,
+            "shards_index": json.dumps(shards_index, ensure_ascii=False, sort_keys=True, indent=1) + "\n",
+            "meta": json.dumps(meta, ensure_ascii=False, sort_keys=True, indent=1) + "\n"}, "", meta
 
 
 def main() -> int:
@@ -362,8 +385,10 @@ def main() -> int:
         print(f"emit_search_index: {err}", file=sys.stderr)
         return 2
     assert built is not None
-    arts = {"data/search-index/records.jsonl": built["records"],
-            "data/search-index/meta.json": built["meta"]}
+    arts = {f"data/search-index/records/{w}.jsonl": blob
+            for w, blob in built["shards"].items()}
+    arts["data/search-index/shards.json"] = built["shards_index"]
+    arts["data/search-index/meta.json"] = built["meta"]
     if a.check:
         ok = True
         for name, blob in arts.items():
