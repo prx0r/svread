@@ -47,13 +47,18 @@ test('traces published, all verify, index honest', () => {
 test('llms.txt claims are measured, not inflated', () => {
   const llms = fs.readFileSync(path.join(ROOT, 'llms.txt'), 'utf8');
   const b = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'biblio.json'), 'utf8'));
-  const readable = b.works.filter(w => w.has_reader).length;
-  const withPass = b.works.filter(w => w.passages > 0).length;
-  assert.ok(llms.includes(`${readable} readable now`), 'readable count is measured');
-  assert.ok(llms.includes(`${withPass} with passage ledgers`), 'passage count measured');
+  const read = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'readability.json'), 'utf8'));
+  const bundle = b.works.filter(w => w.has_reader).length;
+  const verified = read.counts.fully_verified;
+  // Honest split: the bundle count is stated, AND the verified-English count is
+  // stated separately, so a reader cannot mistake a bundle for readable text.
+  assert.ok(llms.includes(`${bundle} works have a reader bundle`), 'bundle count is measured');
+  assert.ok(llms.includes(`${verified} with verified English`), 'verified count is measured');
+  assert.ok(llms.includes(`${b.counts.works}-work bibliography`), 'biblio count is measured');
   assert.ok(!/101 Sanskrit works with layered translations/.test(llms), 'old overclaim gone');
   assert.ok(llms.includes('/data/traces/index.json'), 'trace index linked');
   assert.ok(llms.includes('formal__gaps'), 'formal tool family named');
+  assert.ok(llms.includes('readability_status'), 'first-call tool named');
 });
 
 const EMITTERS = [

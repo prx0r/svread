@@ -191,7 +191,11 @@ def build():
     inputs: dict[str, str] = {}
     if not TW.is_dir():
         return None, "translation-work checkout not found", {}
-    for wd in sorted(TW.iterdir()):
+    try:
+        workdirs = sorted(TW.iterdir())
+    except OSError:
+        return None, "translation-work checkout not readable", {}
+    for wd in workdirs:
         if not wd.is_dir() or wd.name.startswith("."):
             continue
         work = wd.name

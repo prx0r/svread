@@ -81,17 +81,31 @@ def target_text(work: str, target: str) -> str | None:
     return work_text(work)
 
 
+def _tw_readable() -> bool:
+    try:
+        if not TW.is_dir():
+            return False
+        next(iter(TW.iterdir()), None)
+        return True
+    except OSError:
+        return False
+
+
 def check_quotes(t: dict) -> list[str]:
     """Every quote_iast must appear verbatim in its work's held Sanskrit.
-    Skipped (not failed) when the translation-work checkout is absent."""
-    if not TW.is_dir():
+    Skipped (not failed) when the translation-work checkout is absent or
+    unreadable (e.g. a CI runner without access to /root)."""
+    if not _tw_readable():
         return []
     errs = []
     for c in t.get("claims", []):
         for e in c.get("evidence", []):
             if e.get("external"):
                 continue
-            text = target_text(e.get("work", ""), e.get("target", ""))
+            try:
+                text = target_text(e.get("work", ""), e.get("target", ""))
+            except OSError:
+                return []
             if text is None:
                 errs.append(f"{e.get('work')}: work not found for verbatim check")
                 continue

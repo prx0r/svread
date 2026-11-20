@@ -7,7 +7,15 @@ const { execFileSync } = require('node:child_process');
 const ROOT = path.join(__dirname, '..');
 const py = (args) => execFileSync('python3', args, { cwd: ROOT, encoding: 'utf8' });
 
-test('search index and topic pages are deterministic', () => {
+function twReadable() {
+  // Sibling checkouts may exist but be unreadable on a non-root CI runner;
+  // the emitters skip in that case (PR #7 P1), so the test must too.
+  try { fs.readdirSync(process.env.TRANSLATION_WORK || '/root/translation-work'); return true; }
+  catch { return false; }
+}
+
+test('search index and topic pages are deterministic', (t) => {
+  if (!twReadable()) return t.skip('needs a readable translation-work checkout');
   assert.match(py(['tools/emit_search_index.py', '--check']), /GREEN/);
   assert.match(py(['tools/emit_topics.py', '--check']), /GREEN/);
 });
