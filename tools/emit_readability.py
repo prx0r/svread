@@ -56,18 +56,32 @@ def main() -> int:
     biblio = load(ROOT / "data" / "biblio.json", {}) or {}
     bib_rows = {w.get("id") or w.get("work"): w for w in (biblio.get("works") or [])
                 if isinstance(w, dict)}
+    # The audited universe is traces + scholar projections + reader bundles.
+    # A work with a served bundle (biblio has_reader) must appear even when
+    # it has no traces or projection yet — otherwise the audit undercounts
+    # what the reader can actually serve (svacchandatantra precedent).
+    bundle_works = {wid for wid, w in bib_rows.items() if w.get("has_reader")}
 
     works: dict[str, dict] = {}
-    for work in sorted(set(list(by_work) + list(scholar_idx))):
+    for work in sorted(set(list(by_work) + list(scholar_idx) + list(bundle_works))):
         tlist = by_work.get(work, [])
         verdicts = {}
         for e in tlist:
             v = e.get("verdict") or "UNKNOWN"
             verdicts[v] = verdicts.get(v, 0) + 1
         bundle = load(ROOT / "data" / f"{work}.json", None)
-        if isinstance(bundle, dict) and isinstance(bundle.get("chunks"), list):
-            n = len(bundle["chunks"])
-            n_pass = sum(1 for c in bundle["chunks"]
+        # Two bundle schemas coexist and both serve the reader (app.js reads
+        # chunks and verses): the chunk index ({chunks:[...]}) and the full
+        # verse bundle ({verses:[...]}). A bundle exists if either is non-empty.
+        rows = []
+        if isinstance(bundle, dict):
+            if isinstance(bundle.get("chunks"), list) and bundle["chunks"]:
+                rows = bundle["chunks"]
+            elif isinstance(bundle.get("verses"), list) and bundle["verses"]:
+                rows = bundle["verses"]
+        if rows:
+            n = len(rows)
+            n_pass = sum(1 for c in rows
                          if isinstance(c, dict) and (c.get("l2") or "").strip())
             bundle_info = {"exists": True, "n": n, "n_pass": n_pass}
         else:

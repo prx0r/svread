@@ -11,7 +11,12 @@ def _load():
     spec = importlib.util.spec_from_file_location(
         "treeka_server", HERE / "treeka_server.py")
     mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
+    try:
+        spec.loader.exec_module(mod)
+    except ModuleNotFoundError as e:
+        # Optional server dependency (fastmcp) not installed here;
+        # skip instead of failing (PR #7 P1 skip policy).
+        raise unittest.SkipTest(f"treeka server dependency missing: {e}")
     return mod
 
 
