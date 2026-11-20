@@ -39,6 +39,31 @@ def projection(work):
         raise ValueError('Projection hash or work ID mismatch')
     return d
 
+def _withhold_note(work):
+    """Plain-language reason a work's verified text is not exposed (BLOCKED != broken)."""
+    try:
+        r = (json.loads((ROOT / 'data/readability.json').read_text(encoding='utf-8')).get('works') or {}).get(work) or {}
+    except (OSError, ValueError):
+        return ''
+    parts = []
+    if r.get('status'):
+        parts.append(str(r['status']))
+    sch = r.get('scholar') or {}
+    if 'versions' in sch:
+        parts.append(f"{sch.get('versions')} published version(s)")
+    verd = (r.get('traces') or {}).get('verdicts') or {}
+    if verd:
+        parts.append('trace verdicts: ' + ', '.join(f'{k}×{v}' for k, v in verd.items()))
+    if r.get('preview') is not None:
+        parts.append('machine preview ' + ('available' if r.get('preview') else 'absent'))
+    return '; '.join(parts)
+
+
+def _raise_withheld(work, detail='Passage unavailable or withheld'):
+    note = _withhold_note(work)
+    raise ValueError(detail + (' — ' + note if note else ''))
+
+
 def _review_summary(d, work, target, song):
     """Per-target review state, from recorded reviews/signoffs only.
 
@@ -215,6 +240,38 @@ def topic_get(a):
             'note': 'no topic page; a miss is not a denial — the term may still occur in the corpus'}
 
 
+def preview_read(a):
+    """Read the UNREVIEWED machine-proposed preview (data/preview/<work>.json).
+
+    This is what the site already serves with a rights caveat. It is never
+    evidence: gates are unchanged and the verified bundle stays authoritative.
+    """
+    work = a.get('work')
+    if not isinstance(work, str) or not WORK.fullmatch(work):
+        raise ValueError('Invalid work ID')
+    target = a.get('target')
+    if target is not None and (not isinstance(target, str) or not IDENT.fullmatch(target)):
+        raise ValueError('Invalid target ID')
+    p = ROOT / 'data' / 'preview' / (work + '.json')
+    try:
+        d = json.loads(p.read_text(encoding='utf-8'))
+    except FileNotFoundError:
+        raise ValueError('No machine preview for this work (the verified bundle may be authoritative)')
+    chunks = d.get('chunks') or []
+    if isinstance(chunks, dict):
+        chunks = list(chunks.values())
+    if target:
+        chunks = [c for c in chunks if isinstance(c, dict) and
+                  (c.get('target') == target or c.get('chunk') == target or c.get('song') == target)]
+        if not chunks:
+            raise ValueError('Target not in this preview')
+    return {'work': work, 'status': d.get('status'),
+            'gate_summary': d.get('gate_summary'), 'rights': d.get('rights'),
+            'provenance': d.get('provenance'), 'n': len(chunks), 'chunks': chunks,
+            'warning': ('UNREVIEWED machine-proposed English; gates unchanged. The verified '
+                        'bundle is the authority. Never present this as a verified translation.')}
+
+
 def search_chunks_tool(a):
     if chunk_search is None:
         raise ValueError('Lexical search module unavailable')
@@ -241,13 +298,16 @@ def evidence(a, data=None):
     if not isinstance(target, str) or not IDENT.fullmatch(target): raise ValueError('Invalid target ID')
     d = data if data is not None else projection(work); song = re.sub(r'-v\d+$', '', target)
     if song in d.get('withheld_songs', []):
-        raise ValueError('Passage unavailable or withheld')
+        _raise_withheld(work, 'Song withheld pending source repair')
     src = (d.get('source_verses', {}) or {}).get(target)
     t1row = (d.get('originals', {}) or {}).get('t1', {}).get(target)
     if src is None or t1row is None:
         if target != song:
-            raise ValueError('Passage unavailable or withheld')
-        return _song_evidence(d, work, target)
+            _raise_withheld(work, 'No verified verse projection for this target')
+        try:
+            return _song_evidence(d, work, target)
+        except ValueError as exc:
+            _raise_withheld(work, str(exc))
     layers = {}
     layer_hashes = {}
     for layer in ('t1','l0','argmap','l2','c1','l3','l4','c2'):
@@ -772,6 +832,7 @@ def call(name,a):
     if name=='concept_get': return concept_get(a)
     if name=='concept_search': return concept_search(a)
     if name=='passage_evidence': return evidence(a)
+    if name=='preview_read': return preview_read(a)
     if name=='list_versions': return versions(a)
     if name=='compare_versions': return compare_versions(a)
     if name=='vidyut_candidates': return vidyut_candidates(a)
@@ -864,11 +925,14 @@ def call(name,a):
     if name=='translation_forks': return translation_forks(a)
     if name in ('resolve_ref','ref_links'):
         if lingua_resolver is None: raise ValueError('Shared-language resolver unavailable')
-        ident(a.get('id'))
+        i = a.get('id')
+        ident(i)
+        if isinstance(i, str) and ':' not in i and WORK.fullmatch(i):
+            i = 'work:' + i
         if name=='resolve_ref':
-            try: return lingua_resolver.resolve(a.get('id'))
+            try: return lingua_resolver.resolve(i)
             except lingua_resolver.Unresolvable as e: raise ValueError(str(e))
-        try: return {'id':a.get('id'),'links':lingua_resolver.links(a.get('id'))}
+        try: return {'id':i,'links':lingua_resolver.links(i)}
         except lingua_resolver.Unresolvable as e: raise ValueError(str(e))
     raise ValueError('Unknown tool')
 
@@ -879,6 +943,7 @@ TOOLS=[
  ('concept_get','Concept card: curated gloss (or stated absence), trika-x formal anchors, and passage occurrences.',S({'term':T,'occurrence_limit':{'type':'integer','minimum':0}},['term'])),
  ('concept_search','Find concept ids by term or definition words.',S({'query':T,'limit':{'type':'integer','minimum':1}},['query'])),
  ('passage_evidence','Read hash-checked Sanskrit and editorial layers for a passage.',S({'work':T,'target':T},['work','target'])),
+ ('preview_read','Read the UNREVIEWED machine-proposed English preview for a work (or one target), with gates, rights and provenance. Never evidence: the verified bundle is the authority.',S({'work':T,'target':T},['work'])),
  ('list_versions','List stored versions for an exact passage and layer.',S({'work':T,'target':T,'layer':T},['work','target','layer'])),
  ('compare_versions','Compare two hash-checked versions for an exact passage and layer.',S({'work':T,'target':T,'layer':T,'left':T,'right':T},['work','target','layer','left','right'])),
  ('vidyut_candidates','Generate unreviewed transliteration and optional metre candidates from a bundled passage.',S({'work':T,'target':T,'scheme':{'type':'string','enum':['iast','devanagari']},'meter':{'type':'boolean'}},['work','target'])),

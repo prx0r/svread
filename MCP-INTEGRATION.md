@@ -91,3 +91,37 @@ ChatGPT ──HTTPS──▶ mcp.svatantrya.net/mcp   (or Secure MCP Tunnel)
 | Legacy ipvv `/mcp` | superseded; leave inert until the bridge lands |
 
 Order: bridge + selftest → tunnel → read sheaf live → OAuth → write sheaf.
+
+## 7. Host ↔ sheaf map (2026-11-20)
+
+The MCP estate is **sharded by host**, not one monolith. A reader connection
+sees only its host's allowlist. This is why a work can be catalogued yet look
+absent from a given endpoint (BLOCKED ≠ broken).
+
+| Host | Servers | What it exposes | Auth |
+|---|---|---|---|
+| `sanskrit.svatantrya.net` | scholar (read) | 18 read tools: evidence, preview, lexical + semantic search, topics, concepts, layers, forks, wheels-adjacent reads | none |
+| `essay.svatantrya.net` | scholar (write) | 31 tools: drafts, sources, citations, claim audits, review packets **plus** the read tools | bearer (owner) |
+| `practice.svatantrya.net` | scholar, progress, compose | wheels + learner session (`compose__*`) | mixed; `open_tools` listed |
+| `index.svatantrya.net` | openpatala | identity resolve/bundle/search/frontier/health | none |
+| `mcp.svatantrya.net` | openpatala, scholar_reads, scholar_wheels, federation, treeka, translate, compose | superset gateway | mixed |
+| `formal` host | treeka/federation | `formal__*`, `federation__*` (112 tools) | none |
+| books / video / factory | bookfactory, videofactory, aoc, sleepdraw | production lanes (books, video, carousels, journeys) | bearer |
+
+**Decision (todo 9):** formal/treeka witness tools stay on the formal host,
+not the reading host. The reader may cite a trace URL; it must not imply that a
+machine theorem is a reading. A read-only formal bridge is a later option, not a
+default.
+
+**Reflection gate:** `tools/check_mcp_reflection.py` (wired as
+`tests/test_mcp_reflection.py`) fails when a gateway allowlists a tool the
+server does not advertise. Run it whenever a tool or allowlist changes.
+
+**Preview rule:** a work with `verified English` withheld may still expose its
+`UNREVIEWED` machine preview via `scholar__preview_read`, carrying the same
+rights banner the site uses. Preview is never evidence; gates are unchanged.
+
+**Trace verdicts (todo 6):** `ipvv` traces are `PARTIAL` because `l3`/`l4`
+(final-translation / register-render) are absent (`gaps: ["layer:l3","layer:l4"]`).
+That is honest and must not be flipped to `COMPLETE` without producing those
+layers. Do not auto-promote.
