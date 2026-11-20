@@ -1,6 +1,6 @@
-# spanda span-p03 (20-3)
+# spanda span-p03 (KSTS 14-19)
 
-spanda span-p03 (20-3) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+spanda span-p03 (KSTS 14-19) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 

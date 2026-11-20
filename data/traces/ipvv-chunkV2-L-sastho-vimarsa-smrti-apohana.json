@@ -1,6 +1,6 @@
 {
  "assurance": {
-  "chunk_gate": "BLOCKED",
+  "chunk_gate": "PASS",
   "formal_run": "UNBOUND",
   "formal_run_note": "registry references only; no per-declaration run digest bound",
   "publication": "NOT_AUTHORIZED",
@@ -12,9 +12,7 @@
   "trace_links_present": "FAIL",
   "witness": "UNPINNED"
  },
- "caveats": [
-  "chunk_gate BLOCKED: PROOF_NOT_RUN"
- ],
+ "caveats": [],
  "chunk": {
   "immutable_id": "pt:pid:ipvv:c94153f929f7",
   "target": "chunkV2-L-sastho-vimarsa-smrti-apohana",
@@ -22,7 +20,7 @@
  },
  "essays": {
   "citing": [],
-  "projection_sha256": "4bf816c9a66f3685409fc5a7d90218aa10ca5623db3b63c5552838db6326aa98"
+  "projection_sha256": "77216dffa7fbf20365c34a44a6f943d7d9d98134def598b4274af3a91386aa35"
  },
  "formal": {
   "status": "none",
@@ -30,13 +28,8 @@
  },
  "format": "trika-trace/1",
  "gaps": [
-  "layer:t1",
-  "layer:l0",
-  "layer:argmap",
-  "layer:c1",
   "layer:l3",
-  "layer:l4",
-  "proofs:song"
+  "layer:l4"
  ],
  "identity": {
   "db": "postgresql://patala:***@localhost:5432/openpatala",
@@ -64,12 +57,16 @@
  },
  "layers": {
   "argmap": {
-   "present": false,
-   "status": "UNKNOWN"
+   "path": "ipvv/data/chunk-v2-l-sastho-vimarsa-smrti-apohana.argmap.json",
+   "present": true,
+   "sha256": "fcbaf130714386236e83367d24df30c284c9fb0facc24dbc0555ba9d4ef12e86",
+   "status": "BOUND"
   },
   "c1": {
-   "present": false,
-   "status": "UNKNOWN"
+   "path": "ipvv/data/chunk-v2-l-sastho-vimarsa-smrti-apohana.c1.json",
+   "present": true,
+   "sha256": "b45e0495c6446bb4eb94ae6b6ac36826e83eaec458050a2e0f6ec7bf4cc78c75",
+   "status": "BOUND"
   },
   "c2": {
    "note": "C2 renders are optional (owner: existing C2 stays; waived)",
@@ -77,13 +74,15 @@
    "status": "NOT-APPLICABLE"
   },
   "l0": {
-   "present": false,
-   "status": "UNKNOWN"
+   "path": "ipvv/data/chunk-v2-l-sastho-vimarsa-smrti-apohana.l0.json",
+   "present": true,
+   "sha256": "6b5910bd3a9119d9eea146d747a915200a030d3c7e2a69b8b19ecb967ec6057b",
+   "status": "BOUND"
   },
   "l2": {
-   "path": "ipvv/data/chunkV2-L-sastho-vimarsa-smrti-apohana.l2.json",
+   "path": "ipvv/data/chunk-v2-l-sastho-vimarsa-smrti-apohana.l2.json",
    "present": true,
-   "sha256": "c9ab1b75074447175763c417a052322d6de2c1706711b1b51c3d9f633c7e34d2",
+   "sha256": "16d769e1d071b4c425c94e16ffcb08794d1f283b65882a663d95b847907bc65b",
    "status": "BOUND"
   },
   "l3": {
@@ -95,34 +94,39 @@
    "status": "UNKNOWN"
   },
   "t1": {
-   "present": false,
-   "status": "UNKNOWN"
+   "path": "ipvv/data/chunk-v2-l-sastho-vimarsa-smrti-apohana.t1.json",
+   "present": true,
+   "sha256": "3c1121fae31c544d040733fce79365235be7290ce7ec590b2416f08c316a8c69",
+   "status": "BOUND"
   }
  },
  "open_problems": [],
  "proofs": {
   "chunk_gate": {
-   "blocking": [
-    "PROOF_NOT_RUN"
-   ],
+   "blocking": [],
    "checks_pass": {
-    "PROOF_NOT_RUN": false
+    "PROOF_RECORD": true
    },
-   "deterministic_gate": "BLOCKED",
-   "entry_sha256": "87d8c96794944262ccbe43035aa39e6a0669843e14f64b98faf382e7e20e495e",
-   "status": "BLOCKED"
+   "deterministic_gate": "PASS",
+   "entry_sha256": "7f0a2587b44705198bf681152f4a11b6761ecf5cbdafe0d4be80a46284c74c3a",
+   "status": "PASS"
   },
   "song_proof": {
-   "note": "no proof file",
-   "status": "UNKNOWN"
+   "blocking": [],
+   "deterministic_gate": "PASS",
+   "file": "ipvv/proof/proof-chunk-v2-l-sastho-vimarsa-smrti-apohana.json",
+   "sha256": "47531090a1aaa7fb9da59a9e2b205d3d794b3f02dd88a14c3595a67860c4e437",
+   "status": "PASS",
+   "tool": "proof_record v1 2026-11-01",
+   "warnings": 0
   }
  },
  "source": {
   "bytes_present": true,
   "bytes_sha256": "976c56804ad9e2413b68ab9af4839d98820bd0e0218f00afcef10e45d8d16bec",
   "edition": {
-   "label": null,
-   "status": "UNKNOWN"
+   "label": "Mukhabodha M00020/21/22 (IPVV vols 1-3) + Torella IPK (base)",
+   "status": "CANDIDATE-WORK"
   },
   "immutable_id": "pt:pid:ipvv:c94153f929f7",
   "ledger": "ipvv/passages.jsonl",

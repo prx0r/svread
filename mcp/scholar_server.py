@@ -7,6 +7,11 @@ import claims as claim_table
 import search as corpus_search
 try:
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent / 'tools'))
+    import search_chunks as chunk_search
+except ImportError:
+    chunk_search = None
+try:
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent / 'tools'))
     import lingua as lingua_resolver
 except ImportError:
     lingua_resolver = None
@@ -33,6 +38,31 @@ def projection(work):
     if d.get('work') != work or claimed != hashlib.sha256(canonical({k:v for k,v in d.items() if k != 'projection_sha256'})).hexdigest():
         raise ValueError('Projection hash or work ID mismatch')
     return d
+
+def _withhold_note(work):
+    """Plain-language reason a work's verified text is not exposed (BLOCKED != broken)."""
+    try:
+        r = (json.loads((ROOT / 'data/readability.json').read_text(encoding='utf-8')).get('works') or {}).get(work) or {}
+    except (OSError, ValueError):
+        return ''
+    parts = []
+    if r.get('status'):
+        parts.append(str(r['status']))
+    sch = r.get('scholar') or {}
+    if 'versions' in sch:
+        parts.append(f"{sch.get('versions')} published version(s)")
+    verd = (r.get('traces') or {}).get('verdicts') or {}
+    if verd:
+        parts.append('trace verdicts: ' + ', '.join(f'{k}×{v}' for k, v in verd.items()))
+    if r.get('preview') is not None:
+        parts.append('machine preview ' + ('available' if r.get('preview') else 'absent'))
+    return '; '.join(parts)
+
+
+def _raise_withheld(work, detail='Passage unavailable or withheld'):
+    note = _withhold_note(work)
+    raise ValueError(detail + (' — ' + note if note else ''))
+
 
 def _review_summary(d, work, target, song):
     """Per-target review state, from recorded reviews/signoffs only.
@@ -68,12 +98,240 @@ def _review_summary(d, work, target, song):
             'default': 'UNREVIEWED'}
 
 
+def _norm_key(s):
+    return re.sub(r'[^a-z0-9]', '', s.lower())
+
+
+def _resolve_song_key(d, chunk):
+    """Chunk locator -> song key used inside originals/stack_hashes.
+
+    Exact match first; otherwise a single alphanumeric-normalised match
+    (ipvv chunk locators are capitalised and dehyphenated next to their
+    lowercase hyphenated songs: chunkA-... vs chunk-a-...). Zero or
+    ambiguous matches fail closed."""
+    keys = set((d.get('originals', {}) or {}).get('c1', {}) or {})
+    keys |= set(d.get('stack_hashes', {}) or {})
+    for layer_rows in (d.get('originals', {}) or {}).values():
+        if isinstance(layer_rows, dict):
+            for k in layer_rows:
+                if isinstance(k, str) and (k == chunk or k.startswith(chunk + '-v')):
+                    keys.add(re.sub(r'-v\d+$', '', k))
+    if chunk in keys:
+        return chunk
+    ci = sorted({k for k in keys if isinstance(k, str) and _norm_key(k) == _norm_key(chunk)})
+    if len(ci) == 1:
+        return ci[0]
+    return None
+
+
+def _verify_pack_source(work, chunk):
+    """Hash-checked Sanskrit excerpt for a chunk from its verify pack."""
+    pack = ROOT / 'data' / 'verify' / f'{work}-{chunk}'
+    try:
+        man = json.loads((pack / 'manifest.json').read_text(encoding='utf-8'))
+        raw = (pack / 'source.txt').read_bytes()
+    except (OSError, ValueError):
+        raise ValueError('Passage unavailable or withheld')
+    art = next((x for x in man.get('artifacts', []) or []
+                if isinstance(x, dict) and x.get('name') == 'source.txt'), None)
+    if art is None or art.get('sha256') != hashlib.sha256(raw).hexdigest():
+        raise ValueError('Verify-pack source mismatch')
+    try:
+        text = raw.decode('utf-8')
+    except UnicodeDecodeError:
+        raise ValueError('Verify-pack source is not UTF-8')
+    if not text.strip():
+        raise ValueError('Passage unavailable or withheld')
+    return text, art.get('sha256', '')
+
+
+def _song_evidence(d, work, chunk):
+    """Evidence for a chunk-level locator (target == song).
+
+    Verse-keyed layers (t1/l0/argmap/l2/...) are assembled from every row
+    whose verse id belongs to the resolved song; song layers (c1/c2) by
+    song key. Sanskrit comes from the verify pack (hash-checked). Every
+    collected row is hash-verified against original_hashes, exactly like
+    the verse path. Empty assembly fails closed."""
+    song_key = _resolve_song_key(d, chunk)
+    if song_key is None:
+        raise ValueError('Passage unavailable or withheld')
+    layers, layer_hashes = {}, {}
+    for layer in ('t1', 'l0', 'argmap', 'l2', 'l3', 'l4'):
+        rows = {}
+        for k, v in ((d.get('originals', {}) or {}).get(layer, {}) or {}).items():
+            if k == song_key or (isinstance(k, str) and k.startswith(song_key + '-v')):
+                expected = (d.get('original_hashes', {}) or {}).get(layer, {}).get(k)
+                if hashlib.sha256(canonical(v)).hexdigest() != expected:
+                    raise ValueError('Layer hash mismatch')
+                rows[k] = v
+        if rows:
+            layers[layer] = rows
+            layer_hashes[layer] = {k: (d.get('original_hashes', {}) or {}).get(layer, {}).get(k) for k in rows}
+    for layer in ('c1', 'c2'):
+        v = (d.get('originals', {}) or {}).get(layer, {}).get(song_key)
+        if v is not None:
+            expected = (d.get('original_hashes', {}) or {}).get(layer, {}).get(song_key)
+            if hashlib.sha256(canonical(v)).hexdigest() != expected:
+                raise ValueError('Layer hash mismatch')
+            layers[layer] = v
+            layer_hashes[layer] = expected
+    if not layers:
+        raise ValueError('Passage unavailable or withheld')
+    text, ssha = _verify_pack_source(work, chunk)
+    return {'work': work, 'target': chunk, 'song': song_key, 'granularity': 'song',
+            'source': {'text': text,
+                       'source_file': f'data/verify/{work}-{chunk}/source.txt',
+                       'source_sha256': ssha,
+                       'note': 'Verify-pack excerpt (hash-checked); edition span per trace. Full volume lives in translation-work, not on this site.'},
+            'layers': layers, 'layer_sha256': layer_hashes,
+            'stack_sha256': (d.get('stack_hashes', {}) or {}).get(song_key),
+            'review_state': _review_summary(d, work, chunk, song_key),
+            'l4_craft': (d.get('l4_craft', {}) or {}).get(chunk, []),
+            'projection_sha256': d['projection_sha256'],
+            'warning': 'Bundled snapshot; hashes establish integrity, not philological correctness or human review.'}
+
+
+_TOPICS = None
+
+
+def _topics():
+    global _TOPICS
+    if _TOPICS is None:
+        try:
+            _TOPICS = json.loads((ROOT/'data/topics/index.json').read_text(encoding='utf-8'))
+        except FileNotFoundError:
+            raise ValueError('Topic index not built (tools/emit_topics.py)')
+    return _TOPICS
+
+
+def _topic_src(tid):
+    if not isinstance(tid, str) or not re.fullmatch(r'[a-z0-9][a-z0-9-]{0,63}', tid):
+        raise ValueError('Invalid topic id')
+    p = ROOT/'topics'/(tid + '.json')
+    try:
+        return json.loads(p.read_text(encoding='utf-8'))
+    except FileNotFoundError:
+        raise ValueError('Unknown topic')
+
+
+def topic_list(a):
+    d = _topics()
+    return {'topics': [{'id': k, **v} for k, v in sorted((d.get('topics') or {}).items())],
+            'note': 'Answer-first pages with tiers + verbatim evidence; a miss is not a denial.'}
+
+
+def topic_get(a):
+    q = a.get('term') or a.get('id') or ''
+    if not isinstance(q, str) or not q.strip():
+        raise ValueError('term required (e.g. puryastaka)')
+    d = _topics()
+    topics = d.get('topics') or {}
+    if q in topics:
+        return {'id': q, 'found': True, 'page': topics[q].get('page'),
+                'content': _topic_src(q)}
+    qf = _fold(q)
+    for k, v in sorted(topics.items()):
+        names = [k, v.get('iast') or ''] + list(v.get('aliases') or [])
+        if any(_fold(n) == qf for n in names if n):
+            return {'id': k, 'found': True, 'page': v.get('page'), 'content': _topic_src(k)}
+    near = [k for k in sorted(topics) if _fold(q)[:4] and _fold(k).startswith(_fold(q)[:4])][:10]
+    return {'term': q, 'found': False, 'near_matches': near,
+            'note': 'no topic page; a miss is not a denial — the term may still occur in the corpus'}
+
+
+def readability_status(a):
+    """Honest catalogue: which works are readable, partial, withheld, preview-only.
+
+    One call that answers 'how many works can I actually read?' without a client
+    conflating forked versions with readable text.
+    """
+    try:
+        d = json.loads((ROOT / 'data' / 'readability.json').read_text(encoding='utf-8'))
+    except FileNotFoundError:
+        raise ValueError('Readability index not built (tools/emit_readability.py)')
+    work = a.get('work')
+    if work is not None:
+        if not isinstance(work, str) or not WORK.fullmatch(work):
+            raise ValueError('Invalid work ID')
+        rec = (d.get('works') or {}).get(work)
+        if rec is None:
+            raise ValueError('Unknown work in the catalogue')
+        return {'work': work, **rec}
+    return {'format': d.get('format'), 'counts': d.get('counts'),
+            'gaps': d.get('gaps'), 'note': d.get('note'),
+            'status_by_work': {k: v.get('status') for k, v in (d.get('works') or {}).items()},
+            'warning': "'readable now' means verified English in the reader bundle; catalogue listing is not text."}
+
+
+def preview_read(a):
+    """Read the UNREVIEWED machine-proposed preview (data/preview/<work>.json).
+
+    This is what the site already serves with a rights caveat. It is never
+    evidence: gates are unchanged and the verified bundle stays authoritative.
+    """
+    work = a.get('work')
+    if not isinstance(work, str) or not WORK.fullmatch(work):
+        raise ValueError('Invalid work ID')
+    target = a.get('target')
+    if target is not None and (not isinstance(target, str) or not IDENT.fullmatch(target)):
+        raise ValueError('Invalid target ID')
+    p = ROOT / 'data' / 'preview' / (work + '.json')
+    try:
+        d = json.loads(p.read_text(encoding='utf-8'))
+    except FileNotFoundError:
+        raise ValueError('No machine preview for this work (the verified bundle may be authoritative)')
+    chunks = d.get('chunks') or []
+    if isinstance(chunks, dict):
+        chunks = list(chunks.values())
+    if target:
+        chunks = [c for c in chunks if isinstance(c, dict) and
+                  (c.get('target') == target or c.get('chunk') == target or c.get('song') == target)]
+        if not chunks:
+            raise ValueError('Target not in this preview')
+    return {'work': work, 'status': d.get('status'),
+            'gate_summary': d.get('gate_summary'), 'rights': d.get('rights'),
+            'provenance': d.get('provenance'), 'n': len(chunks), 'chunks': chunks,
+            'warning': ('UNREVIEWED machine-proposed English; gates unchanged. The verified '
+                        'bundle is the authority. Never present this as a verified translation.')}
+
+
+def search_chunks_tool(a):
+    if chunk_search is None:
+        raise ValueError('Lexical search module unavailable')
+    q = a.get('query')
+    if not isinstance(q, str) or not q.strip():
+        raise ValueError('query required')
+    layers = a.get('layers')
+    if isinstance(layers, str):
+        layers = [x.strip() for x in layers.split(',') if x.strip()]
+    if layers is not None and not isinstance(layers, list):
+        raise ValueError('layers must be a list or comma string')
+    work = a.get('work')
+    if work is not None and (not isinstance(work, str) or not WORK.fullmatch(work)):
+        raise ValueError('Invalid work ID')
+    top = a.get('top_k', a.get('top', 10))
+    top = 10 if top is None else int(top)
+    if top < 1 or top > 50:
+        raise ValueError('top_k must be 1..50')
+    return chunk_search.search(q, work=work, layers=layers, top=top)
+
+
 def evidence(a, data=None):
     work, target = a.get('work'), a.get('target')
     if not isinstance(target, str) or not IDENT.fullmatch(target): raise ValueError('Invalid target ID')
     d = data if data is not None else projection(work); song = re.sub(r'-v\d+$', '', target)
-    if song in d.get('withheld_songs', []) or not d.get('source_verses', {}).get(target) or not d.get('originals', {}).get('t1', {}).get(target):
-        raise ValueError('Passage unavailable or withheld')
+    if song in d.get('withheld_songs', []):
+        _raise_withheld(work, 'Song withheld pending source repair')
+    src = (d.get('source_verses', {}) or {}).get(target)
+    t1row = (d.get('originals', {}) or {}).get('t1', {}).get(target)
+    if src is None or t1row is None:
+        if target != song:
+            _raise_withheld(work, 'No verified verse projection for this target')
+        try:
+            return _song_evidence(d, work, target)
+        except ValueError as exc:
+            _raise_withheld(work, str(exc))
     layers = {}
     layer_hashes = {}
     for layer in ('t1','l0','argmap','l2','c1','l3','l4','c2'):
@@ -522,12 +780,84 @@ def wheel_harness(a):
             'pronunciation': h['pronunciation'], 'trika': h['trika'],
             'note': 'Full datasets + pack index: fetch data/wheels/harness.json (101KB, one fetch). This tool returns the map, not the territory.'}
 
+
+_CONCEPTS = None
+def _concepts():
+    global _CONCEPTS
+    if _CONCEPTS is None:
+        try:
+            _CONCEPTS = json.loads((ROOT/'data/concepts/index.json').read_text(encoding='utf-8'))
+        except FileNotFoundError:
+            raise ValueError('Concept index not built (tools/emit_concepts.py --write)')
+    return _CONCEPTS
+
+def _fold(x):
+    import unicodedata
+    x = unicodedata.normalize('NFD', x or '')
+    return ''.join(c for c in x if not unicodedata.combining(c)).casefold().strip()
+
+def concept_get(a):
+    q = a.get('term') or a.get('id') or ''
+    if not isinstance(q, str) or not q.strip():
+        raise ValueError('term required (e.g. kancuka)')
+    d = _concepts(); cards = d.get('concepts') or []
+    key = _fold(q).replace(' ', '-')
+    hit = next((c for c in cards if c['id'] == key), None)
+    if hit is None:
+        hit = next((c for c in cards if _fold(c.get('iast') or '') == _fold(q)), None)
+    if hit is None:
+        near = [c['id'] for c in cards if _fold(q)[:4] and _fold(c['id']).startswith(_fold(q)[:4])][:10]
+        return {'term': q, 'found': False, 'near_matches': near,
+                'note': 'no concept entry; a miss is not a denial — unknown terms are not invented'}
+    out = dict(hit)
+    lim = a.get('occurrence_limit')
+    lim = 25 if lim is None else max(0, int(lim))
+    out['occurrences'] = out.get('occurrences', [])[:lim]
+    out['occurrences_truncated'] = (out.get('occurrence_count', 0) > len(out['occurrences']))
+    by_id = {c['id']: c for c in cards}
+    out['related_concepts'] = [
+        {'id': r, 'term': (by_id.get(_fold(r).replace(' ', '-')) or {}).get('term'),
+         'gloss_state': (by_id.get(_fold(r).replace(' ', '-')) or {}).get('gloss_state', 'NO_ENTRY')}
+        for r in (out.get('related') or [])][:20]
+    out['counts'] = {'concepts_total': d.get('counts', {}).get('concepts'),
+                     'curated_gloss': d.get('counts', {}).get('curated_gloss')}
+    if out.get('gloss_state') != 'CURATED':
+        out['warning'] = ('No curated gloss exists for this term. The formal anchors and '
+                          'occurrences below are structural evidence only; do not present '
+                          'them as a definition.')
+    return out
+
+def concept_search(a):
+    q = a.get('query') or ''
+    if not isinstance(q, str) or not q.strip():
+        raise ValueError('query required')
+    d = _concepts(); qf = _fold(q); lim = int(a.get('limit') or 10)
+    scored = []
+    for c in d.get('concepts') or []:
+        hay = _fold(' '.join([c.get('id',''), c.get('term',''), c.get('iast',''),
+                              c.get('definition') or '']))
+        if qf and qf in hay:
+            scored.append((c['gloss_state'] == 'CURATED', c.get('occurrence_count', 0), c['id'],
+                           c.get('term'), c.get('definition'), c['gloss_state']))
+    scored.sort(key=lambda t: (-int(t[0]), -t[1], t[2]))
+    return {'query': q, 'total': len(scored),
+            'results': [{'id': s[2], 'term': s[3], 'definition': s[4],
+                         'gloss_state': s[5]} for s in scored[:max(0, lim)]],
+            'note': 'Concept-first: call concept_get for the full card (formal anchors + occurrences).'}
+
 def call(name,a):
     if not isinstance(a,dict): raise ValueError('Arguments must be an object')
     if name=='list_works':
         index=json.loads((ROOT/'data/scholar/index.json').read_text(encoding='utf-8'))
-        return {'works':sorted(index), 'note':'Bundled projections; Ghaṭakarpara is withheld pending source repair.'}
+        return {'works':sorted(index), 'note':'Bundled projections. Call readability_status for which works are readable, partial, preview-only or withheld; Ghaṭakarpara is withheld pending source repair.'}
+    if name=='search_chunks': return search_chunks_tool(a)
+    if name=='topic_get': return topic_get(a)
+    if name=='topic_list': return topic_list(a)
+    if name=='concept_get': return concept_get(a)
+    if name=='concept_search': return concept_search(a)
     if name=='passage_evidence': return evidence(a)
+    if name=='preview_read': return preview_read(a)
+    if name=='readability_status': return readability_status(a)
     if name=='list_versions': return versions(a)
     if name=='compare_versions': return compare_versions(a)
     if name=='vidyut_candidates': return vidyut_candidates(a)
@@ -620,11 +950,14 @@ def call(name,a):
     if name=='translation_forks': return translation_forks(a)
     if name in ('resolve_ref','ref_links'):
         if lingua_resolver is None: raise ValueError('Shared-language resolver unavailable')
-        ident(a.get('id'))
+        i = a.get('id')
+        ident(i)
+        if isinstance(i, str) and ':' not in i and WORK.fullmatch(i):
+            i = 'work:' + i
         if name=='resolve_ref':
-            try: return lingua_resolver.resolve(a.get('id'))
+            try: return lingua_resolver.resolve(i)
             except lingua_resolver.Unresolvable as e: raise ValueError(str(e))
-        try: return {'id':a.get('id'),'links':lingua_resolver.links(a.get('id'))}
+        try: return {'id':i,'links':lingua_resolver.links(i)}
         except lingua_resolver.Unresolvable as e: raise ValueError(str(e))
     raise ValueError('Unknown tool')
 
@@ -632,7 +965,11 @@ S= lambda props, required=[]: {'type':'object','properties':props,'required':req
 T={'type':'string'}
 TOOLS=[
  ('list_works','List available bundled Scholar projections.',S({})),
+ ('concept_get','Concept card: curated gloss (or stated absence), trika-x formal anchors, and passage occurrences.',S({'term':T,'occurrence_limit':{'type':'integer','minimum':0}},['term'])),
+ ('concept_search','Find concept ids by term or definition words.',S({'query':T,'limit':{'type':'integer','minimum':1}},['query'])),
  ('passage_evidence','Read hash-checked Sanskrit and editorial layers for a passage.',S({'work':T,'target':T},['work','target'])),
+ ('preview_read','Read the UNREVIEWED machine-proposed English preview for a work (or one target), with gates, rights and provenance. Never evidence: the verified bundle is the authority.',S({'work':T,'target':T},['work'])),
+ ('readability_status','Honest catalogue of what is actually retrievable: counts and per-work status (readable / partial / preview / withheld), or one work with its full audit. Catalogue listing is not text.',S({'work':T})),
  ('list_versions','List stored versions for an exact passage and layer.',S({'work':T,'target':T,'layer':T},['work','target','layer'])),
  ('compare_versions','Compare two hash-checked versions for an exact passage and layer.',S({'work':T,'target':T,'layer':T,'left':T,'right':T},['work','target','layer','left','right'])),
  ('vidyut_candidates','Generate unreviewed transliteration and optional metre candidates from a bundled passage.',S({'work':T,'target':T,'scheme':{'type':'string','enum':['iast','devanagari']},'meter':{'type':'boolean'}},['work','target'])),
@@ -656,6 +993,9 @@ TOOLS=[
  ('save_document','Save a private draft with expected_revision; conflicts are rejected.',S({'document_id':T,'document':{'type':'object'}},['document_id','document'])),
  ('request_review','Request private review of an exact saved revision.',S({'document_id':T,'reviewer_id':T,'revision':{'type':'integer'}},['document_id','reviewer_id','revision'])),
  ('draft_with_qwen','Request an agent draft; the Scholar API requires explicit consent and configured quotas.',S({'work':T,'target':T,'layer':T,'kind':T,'instruction':T,'consent_to_ai':{'type':'boolean'},'use_style':{'type':'boolean'},'style_example_ids':{'type':'array','items':T},'decision_ids':{'type':'array','items':T},'source_ids':{'type':'array','items':T},'scholar_essays':{'type':'array','items':S({'work':T,'essay_id':T},['work','essay_id']),'maxItems':3},'review_ids':{'type':'array','items':T},'document_id':T,'revision':{'type':'integer'}},['work','target','layer','kind','instruction','consent_to_ai'])),
+ ('search_chunks','Instant lexical search over EVERY chunk and EVERY level we hold (source,t1,l0,argmap,l2,c1,l3,l4,t1-doc,preview). Diacritic-insensitive: an ASCII query matches IAST (puryastaka finds puryaṣṭaka). Ranks level analyses above raw source; returns matched context + pointers. No network.',S({'query':T,'work':T,'layers':{'type':'array','items':T},'top_k':{'type':'integer'}},['query'])),
+ ('topic_get','Answer-first curated topic page (e.g. puryastaka = the city of eight / subtle body): thesis, tier, verbatim Sanskrit, our translation, which levels exist.',S({'term':T,'id':T})),
+ ('topic_list','List curated topic pages.',S({})),
  ('search_texts','Semantic search over the gate-labeled corpus (passages, probes, essays, themes). BLOCKED English is never returned.',S({'query':T,'work':T,'kind':T,'top_k':{'type':'integer'},'gates':{'type':'array','items':T}},['query'])),
  ('text_themes','Themes evidence for a work or ref: labels, core claims, certificates, members.',S({'work':T,'ref':T,'query':T})),
   ('audit_draft','Check markers and quotes against same-paragraph sources. Supplied sources are not authenticated and claim support is not assessed. Returns a content-hash receipt.',S({'text':T,'refs':{'type':'array','items':{'type':'object'}},'sources':{'type':'object'},'identity':T,'model':T},['text'])),

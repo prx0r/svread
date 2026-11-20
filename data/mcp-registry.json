@@ -30,7 +30,7 @@
     "status": "SUPERSEDED 2026-11-12 by per-function hosts (this file, hosts key). Mixed auth live on practice; per-tool OAuth still not built."
   },
   "format": "svatantrya.mcp-registry/1",
-  "note": "Every MCP server in the estate, probed live (initialize -> tools/list). The federation gateway is the single entry point; children are also directly runnable. ipvv worker /mcp is legacy (protocol 2024-11-05) and superseded by the bridge plan. | 2026-11-14: tools 198->210 measured live (scholar 38->41, federation 109->112).",
+  "note": "Every MCP server in the estate, probed live (initialize -> tools/list). The federation gateway is the single entry point; children are also directly runnable. ipvv worker /mcp is legacy (protocol 2024-11-05) and superseded by the bridge plan. | 2026-11-14: tools 198->210 measured live (scholar 38->41, federation 109->112). | 2026-11-20: scholar 41->47 measured live (preview_read, search_chunks, topic_get/list, concept_get/search added to the reader allowlist).",
   "servers": [
     {
       "name": "svread-scholar",
@@ -39,7 +39,11 @@
       "status": "live-local",
       "tools": [
         "list_works",
+        "concept_get",
+        "concept_search",
         "passage_evidence",
+        "preview_read",
+        "readability_status",
         "list_versions",
         "compare_versions",
         "vidyut_candidates",
@@ -63,6 +67,9 @@
         "save_document",
         "request_review",
         "draft_with_qwen",
+        "search_chunks",
+        "topic_get",
+        "topic_list",
         "search_texts",
         "text_themes",
         "audit_draft",
@@ -73,14 +80,14 @@
         "wheel_lookup",
         "wheel_verify",
         "wheel_level",
-        "wheel_certificate",
-        "resolve_ref",
-        "ref_links",
         "layers_index",
         "passage_layers",
-        "translation_forks"
+        "translation_forks",
+        "wheel_certificate",
+        "resolve_ref",
+        "ref_links"
       ],
-      "tools_count": 41,
+      "tools_count": 48,
       "transport": "stdio"
     },
     {

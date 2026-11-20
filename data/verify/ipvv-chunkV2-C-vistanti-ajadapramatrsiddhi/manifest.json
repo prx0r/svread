@@ -7,16 +7,55 @@
    "sha256": "ce34058cb8ea74ab2b639628e0643d593770a8cbba86f065bc1bbe3784643181"
   },
   {
-   "bytes": 3266,
-   "name": "chunkV2-C-vistanti-ajadapramatrsiddhi.l2.json",
-   "origin": "ipvv/data/chunkV2-C-vistanti-ajadapramatrsiddhi.l2.json",
-   "role": "layer-l2",
-   "sha256": "19e8b0b6cd18450606aaad28bfc2b302c22b4e8640cdbc2d772864e64bd13143",
+   "bytes": 56835,
+   "name": "chunk-v2-c-vistanti-ajadapramatrsiddhi.argmap.json",
+   "origin": "ipvv/data/chunk-v2-c-vistanti-ajadapramatrsiddhi.argmap.json",
+   "role": "layer-argmap",
+   "sha256": "9fea0bee88d4ac68c88d8de3d1234cc87970bffa60fd8d7a99f3dc664b0bebff",
    "status": "BOUND"
+  },
+  {
+   "bytes": 544,
+   "name": "chunk-v2-c-vistanti-ajadapramatrsiddhi.c1.json",
+   "origin": "ipvv/data/chunk-v2-c-vistanti-ajadapramatrsiddhi.c1.json",
+   "role": "layer-c1",
+   "sha256": "1696fe067af3a35499d574a8990e78ad5746df7b0cbc617ee666b05a05dfd40a",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1548180,
+   "name": "chunk-v2-c-vistanti-ajadapramatrsiddhi.l0.json",
+   "origin": "ipvv/data/chunk-v2-c-vistanti-ajadapramatrsiddhi.l0.json",
+   "role": "layer-l0",
+   "sha256": "62f4010a8c8a50048491e87f887ccc710b1d6164dbb1df3b5a4552d93ef31200",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 56594,
+   "name": "chunk-v2-c-vistanti-ajadapramatrsiddhi.l2.json",
+   "origin": "ipvv/data/chunk-v2-c-vistanti-ajadapramatrsiddhi.l2.json",
+   "role": "layer-l2",
+   "sha256": "7c5fe90b0826848f0312414be6de4197685d5d6805fb277fdfd7af7af9bd87cb",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 242700,
+   "name": "chunk-v2-c-vistanti-ajadapramatrsiddhi.t1.json",
+   "origin": "ipvv/data/chunk-v2-c-vistanti-ajadapramatrsiddhi.t1.json",
+   "role": "layer-t1",
+   "sha256": "5a61e9b39c7b142de9b9ebd2db7557cbd4e9afbd8340f404354e39c39131daeb",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1787,
+   "name": "proof-chunk-v2-c-vistanti-ajadapramatrsiddhi.json",
+   "origin": "ipvv/proof/proof-chunk-v2-c-vistanti-ajadapramatrsiddhi.json",
+   "role": "proof",
+   "sha256": "75bbd8f2e7e68f76fae560bc52ef07ac862521ab5cf91310626d8cb01834ae53"
   }
  ],
  "assurance": {
-  "chunk_gate": "BLOCKED",
+  "chunk_gate": "PASS",
   "formal_run": "UNBOUND",
   "formal_run_note": "registry references only; no per-declaration run digest bound",
   "publication": "NOT_AUTHORIZED",
@@ -28,9 +67,7 @@
   "trace_links_present": "FAIL",
   "witness": "UNPINNED"
  },
- "caveats": [
-  "chunk_gate BLOCKED: PROOF_NOT_RUN"
- ],
+ "caveats": [],
  "chunk": {
   "immutable_id": "pt:pid:ipvv:55d2fd8d1703",
   "target": "chunkV2-C-vistanti-ajadapramatrsiddhi",
@@ -38,19 +75,14 @@
  },
  "format": "trika-verify-pack/1",
  "gaps": [
-  "layer:t1",
-  "layer:l0",
-  "layer:argmap",
-  "layer:c1",
   "layer:l3",
-  "layer:l4",
-  "proofs:song"
+  "layer:l4"
  ],
  "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/ipvv-chunkV2-C-vistanti-ajadapramatrsiddhi/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
  "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
  "trace": {
   "file": "traces/ipvv-chunkV2-C-vistanti-ajadapramatrsiddhi.json",
-  "sha256": "4ceb51b1e7c5850cee31522cfc43c10cf005198d7da1a5bd560995b914800224"
+  "sha256": "fd4eee01a937aa91e3ad19c8c627f1f61a1495e1b70a36ed8b6be1b5cded5090"
  },
  "verdict": "PARTIAL",
  "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."

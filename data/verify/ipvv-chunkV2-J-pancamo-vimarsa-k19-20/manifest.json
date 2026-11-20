@@ -7,16 +7,55 @@
    "sha256": "3666ad7390db9d91c7b035db50b96bff6ba3683f567b9991550189890f7bcec0"
   },
   {
-   "bytes": 3048,
-   "name": "chunkV2-J-pancamo-vimarsa-k19-20.l2.json",
-   "origin": "ipvv/data/chunkV2-J-pancamo-vimarsa-k19-20.l2.json",
-   "role": "layer-l2",
-   "sha256": "1762314e77af699c8f3cd688ae79e61538ba44e3d2d672dfaa0e5b1de81cb363",
+   "bytes": 65984,
+   "name": "chunk-v2-j-pancamo-vimarsa-k19-20.argmap.json",
+   "origin": "ipvv/data/chunk-v2-j-pancamo-vimarsa-k19-20.argmap.json",
+   "role": "layer-argmap",
+   "sha256": "2102fe263e8017b39ee03d06cbcc07c17572d0e727d8b9b4187da7f78ad9692b",
    "status": "BOUND"
+  },
+  {
+   "bytes": 491,
+   "name": "chunk-v2-j-pancamo-vimarsa-k19-20.c1.json",
+   "origin": "ipvv/data/chunk-v2-j-pancamo-vimarsa-k19-20.c1.json",
+   "role": "layer-c1",
+   "sha256": "928d6b64af17ddf4b26ed9cac702627e54568c5cb854cf031252058dd378f559",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1870312,
+   "name": "chunk-v2-j-pancamo-vimarsa-k19-20.l0.json",
+   "origin": "ipvv/data/chunk-v2-j-pancamo-vimarsa-k19-20.l0.json",
+   "role": "layer-l0",
+   "sha256": "8c0acd29ed68667a129374dcbf7f7c483995d98f637d39127874344f81b7adc8",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 65539,
+   "name": "chunk-v2-j-pancamo-vimarsa-k19-20.l2.json",
+   "origin": "ipvv/data/chunk-v2-j-pancamo-vimarsa-k19-20.l2.json",
+   "role": "layer-l2",
+   "sha256": "6e906f85e6e52a57493548224e91dd1980bee0eba7ecfbb7ac695e0731248fe0",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 291531,
+   "name": "chunk-v2-j-pancamo-vimarsa-k19-20.t1.json",
+   "origin": "ipvv/data/chunk-v2-j-pancamo-vimarsa-k19-20.t1.json",
+   "role": "layer-t1",
+   "sha256": "0e88f9eefb6de884876ae718c73c4d75661dc3c47f2bcdb95745b156dc91e851",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1742,
+   "name": "proof-chunk-v2-j-pancamo-vimarsa-k19-20.json",
+   "origin": "ipvv/proof/proof-chunk-v2-j-pancamo-vimarsa-k19-20.json",
+   "role": "proof",
+   "sha256": "389bd0ba1cb99ae1017eb3948f00839694148d46d88f834c4f7d6412a9488147"
   }
  ],
  "assurance": {
-  "chunk_gate": "BLOCKED",
+  "chunk_gate": "PASS",
   "formal_run": "UNBOUND",
   "formal_run_note": "registry references only; no per-declaration run digest bound",
   "publication": "NOT_AUTHORIZED",
@@ -28,9 +67,7 @@
   "trace_links_present": "FAIL",
   "witness": "UNPINNED"
  },
- "caveats": [
-  "chunk_gate BLOCKED: PROOF_NOT_RUN"
- ],
+ "caveats": [],
  "chunk": {
   "immutable_id": "pt:pid:ipvv:1c2f79595028",
   "target": "chunkV2-J-pancamo-vimarsa-k19-20",
@@ -38,19 +75,14 @@
  },
  "format": "trika-verify-pack/1",
  "gaps": [
-  "layer:t1",
-  "layer:l0",
-  "layer:argmap",
-  "layer:c1",
   "layer:l3",
-  "layer:l4",
-  "proofs:song"
+  "layer:l4"
  ],
  "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/ipvv-chunkV2-J-pancamo-vimarsa-k19-20/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
  "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
  "trace": {
   "file": "traces/ipvv-chunkV2-J-pancamo-vimarsa-k19-20.json",
-  "sha256": "37ec57102d827221e04751d65c1f82692ebb04fbe916b084f296b1a4387f4906"
+  "sha256": "9c37bcdc648d8c8f2716a146acab45167d56af6483d366fcf1715c61b0f600e4"
  },
  "verdict": "PARTIAL",
  "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."

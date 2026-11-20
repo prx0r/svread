@@ -13,6 +13,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 MANIFEST = ROOT / 'data' / 'release-manifest.json'
+# Large scholar projections kept off-git (GitHub 100MB/file limit). Pinned by
+# sha+bytes in data/scholar/index.json; never fingerprinted as an asset.
+OFF_GIT_PROJECTIONS = {'data/scholar/ipvv.json'}
 sys.path.insert(0, str(ROOT / 'tools'))
 from site_assets import is_public_asset
 
@@ -42,14 +45,27 @@ def build() -> tuple[dict, list[str]]:
     assets += [ROOT / 'tools' / 'lingua.py']
     assets += [p for p in (ROOT / '.github' / 'workflows').glob('*') if p.is_file()]
     assets += [p for folder in ('a', 'data', 'align', 'scripts', 'mcp', 'claim',
-                                'work', 'chain', 'about', 'cite')
+                                'work', 'chain', 'about', 'cite', 'topics')
                for p in (ROOT / folder).rglob('*')
                if p.is_file() and p != MANIFEST and '__pycache__' not in p.parts and not p.name.endswith('.pyc')]
     assets += [ROOT / name for name in ('llms.txt', 'llms-full.txt',
                                         'ai-catalog.json', 'sitemap.xml',
                                         'robots.txt') if (ROOT / name).is_file()]
+    try:
+        import subprocess as _sp
+        _ls = _sp.run(['git', '-C', str(ROOT), 'ls-files'],
+                      capture_output=True, text=True, timeout=60)
+        _tracked = set(_ls.stdout.splitlines()) if _ls.returncode == 0 else None
+    except Exception:
+        _tracked = None  # no git here (tarball): fingerprint every file on disk
+    if _tracked is not None:
+        # Off-git large files (e.g. data/scholar/ipvv.json, GitHub 100MB
+        # limit) ship with deploys but are pinned via the scholar index,
+        # not the asset hash list — so fresh clones reproduce this manifest.
+        assets = [p for p in assets if p.relative_to(ROOT).as_posix() in _tracked]
     files = {p.relative_to(ROOT).as_posix(): sha(p.read_bytes()) for p in sorted(assets)
-             if is_public_asset(p.relative_to(ROOT).as_posix())}
+             if is_public_asset(p.relative_to(ROOT).as_posix())
+             and p.relative_to(ROOT).as_posix() not in OFF_GIT_PROJECTIONS}
     works, missing_editions = 0, []
     for path in sorted((ROOT / 'data').glob('*.json')):
         if path == MANIFEST:
@@ -86,15 +102,35 @@ def build() -> tuple[dict, list[str]]:
                 errors.append(f'{path.name}: {passage}: no source text')
     projection_dir = ROOT / 'data' / 'scholar'
     projection_index = json.loads((projection_dir / 'index.json').read_text(encoding='utf-8'))
-    projected = {}
+    try:
+        import subprocess as _sp2
+        _ls2 = _sp2.run(['git', '-C', str(ROOT), 'ls-files', 'data/scholar'],
+                        capture_output=True, text=True, timeout=30)
+        tracked_scholar = {'/'.join(p.split('/')[1:]) for p in _ls2.stdout.splitlines()} if _ls2.returncode == 0 else None
+    except Exception:
+        tracked_scholar = None  # no git here (tarball): every file on disk is checked
+    projected, external = {}, {}
     for path in sorted(projection_dir.glob('*.json')):
         if path.name == 'index.json':
             continue
+        is_tracked = (True if tracked_scholar is None else (f'scholar/{path.name}' in tracked_scholar))
+        if f'data/scholar/{path.name}' in OFF_GIT_PROJECTIONS:
+            is_tracked = False
         doc = json.loads(path.read_text(encoding='utf-8'))
         recorded = doc.get('projection_sha256')
         body = {key: value for key, value in doc.items() if key != 'projection_sha256'}
         if doc.get('work') != path.stem or recorded != sha(canonical(body)):
             errors.append(f'{path.name}: projection hash or work ID mismatch')
+        if not is_tracked:
+            # Large projection stored off-git (GitHub 100MB/file limit): the
+            # committed scholar index pins its sha+bytes. Anyone holding the
+            # file verifies with: emit_scholar --work <stem>, then compare.
+            idx = projection_index.get(path.stem, {}) if isinstance(projection_index, dict) else {}
+            if idx.get('projection_sha256') != recorded or idx.get('bytes') != path.stat().st_size:
+                errors.append(f'{path.name}: off-git projection not pinned by the scholar index')
+                continue
+            external[path.stem] = {'projection_sha256': recorded, 'bytes': path.stat().st_size}
+            continue
         originals, hashes = doc.get('originals', {}), doc.get('original_hashes', {})
         if path.stem == 'ghatakarpara' and (
             any(doc.get('originals', {}).values()) or
@@ -120,9 +156,19 @@ def build() -> tuple[dict, list[str]]:
         projected[path.stem] = {'projection_sha256': recorded,
                                 'schema_version': contract.get('structural_schema_version'),
                                 'schema_sha256': contract.get('structural_schema_snapshot_sha256')}
-    if not isinstance(projection_index, dict) or set(projection_index) != set(projected):
-        errors.append('Scholar index does not match the bundled projections')
+    if not isinstance(projection_index, dict):
+        errors.append('Scholar index is not an object')
+        projection_index = {}
+    for stem in sorted(set(projection_index) - set(projected) - set(external)):
+        idx = projection_index.get(stem, {})
+        if not isinstance(idx, dict) or not idx.get('projection_sha256') or not idx.get('bytes'):
+            errors.append(f'{stem}: scholar index entry with no bundled or pinned projection')
+            continue
+        # Pinned in the committed index but no file here (fresh clone):
+        # recorded as external, unverified this run.
+        external[stem] = {'projection_sha256': idx['projection_sha256'], 'bytes': idx['bytes']}
     return {'format': 'svread-bundled-release/1', 'assets': files, 'scholar_projections': projected,
+            'scholar_projections_external': external,
             'work_count': works, 'works_without_recorded_edition': missing_editions}, errors
 
 
@@ -147,7 +193,8 @@ def main() -> int:
         print('FAIL: bundled release manifest is missing or stale; run with --write', file=sys.stderr)
         return 1
     print(f"PASS: {len(manifest['assets'])} asset hashes, {manifest['work_count']} works, "
-          f"{len(manifest['scholar_projections'])} Scholar projections")
+          f"{len(manifest['scholar_projections'])} Scholar projections "
+          f"(+{len(manifest.get('scholar_projections_external', {}))} external)")
     print(f"INFO: {len(manifest['works_without_recorded_edition'])} works have no named source edition; see the manifest")
     return 0
 

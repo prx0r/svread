@@ -7,16 +7,55 @@
    "sha256": "4a6625ba6c5041f8e2da5132251b9c34c03fb52abc3a516f52c08cd3d6ca0948"
   },
   {
-   "bytes": 4436,
-   "name": "chunkV3-J-agama-prathamo-k1-7.l2.json",
-   "origin": "ipvv/data/chunkV3-J-agama-prathamo-k1-7.l2.json",
-   "role": "layer-l2",
-   "sha256": "83e4f10013300c00207c5ed5d2399eb78a119b06be1d803a5e17a2d6feaf107e",
+   "bytes": 57846,
+   "name": "chunk-v3-j-agama-prathamo-k1-7.argmap.json",
+   "origin": "ipvv/data/chunk-v3-j-agama-prathamo-k1-7.argmap.json",
+   "role": "layer-argmap",
+   "sha256": "c58253ab04fb7454c4541c841c2e5cd78dbc274a8ec2877dfac913a02ed15c83",
    "status": "BOUND"
+  },
+  {
+   "bytes": 701,
+   "name": "chunk-v3-j-agama-prathamo-k1-7.c1.json",
+   "origin": "ipvv/data/chunk-v3-j-agama-prathamo-k1-7.c1.json",
+   "role": "layer-c1",
+   "sha256": "15691611f0df5f7d201381cd08bd58441e97326c9b33deb234189fe21264ea5b",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1584973,
+   "name": "chunk-v3-j-agama-prathamo-k1-7.l0.json",
+   "origin": "ipvv/data/chunk-v3-j-agama-prathamo-k1-7.l0.json",
+   "role": "layer-l0",
+   "sha256": "086eeef17c2b51e759e0eb199f56aa034e3afb6004f1ff193063c8073d4b70e1",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 56431,
+   "name": "chunk-v3-j-agama-prathamo-k1-7.l2.json",
+   "origin": "ipvv/data/chunk-v3-j-agama-prathamo-k1-7.l2.json",
+   "role": "layer-l2",
+   "sha256": "ec284cfd613805e458525750655cdf79580fa257b6e6e556115e994a5401cecc",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 252580,
+   "name": "chunk-v3-j-agama-prathamo-k1-7.t1.json",
+   "origin": "ipvv/data/chunk-v3-j-agama-prathamo-k1-7.t1.json",
+   "role": "layer-t1",
+   "sha256": "5c05758f09facb038f7b0d51666708aebd94064cf74f64835479710b6eeea33f",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1714,
+   "name": "proof-chunk-v3-j-agama-prathamo-k1-7.json",
+   "origin": "ipvv/proof/proof-chunk-v3-j-agama-prathamo-k1-7.json",
+   "role": "proof",
+   "sha256": "66c3470e05a0cf66ccd6f9be13b2826a3208a4bf821611460ff00c627e0ba294"
   }
  ],
  "assurance": {
-  "chunk_gate": "BLOCKED",
+  "chunk_gate": "PASS",
   "formal_run": "UNBOUND",
   "formal_run_note": "registry references only; no per-declaration run digest bound",
   "publication": "NOT_AUTHORIZED",
@@ -28,9 +67,7 @@
   "trace_links_present": "FAIL",
   "witness": "UNPINNED"
  },
- "caveats": [
-  "chunk_gate BLOCKED: PROOF_NOT_RUN"
- ],
+ "caveats": [],
  "chunk": {
   "immutable_id": "pt:pid:ipvv:7c8c91e90508",
   "target": "chunkV3-J-agama-prathamo-k1-7",
@@ -38,19 +75,14 @@
  },
  "format": "trika-verify-pack/1",
  "gaps": [
-  "layer:t1",
-  "layer:l0",
-  "layer:argmap",
-  "layer:c1",
   "layer:l3",
-  "layer:l4",
-  "proofs:song"
+  "layer:l4"
  ],
  "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/ipvv-chunkV3-J-agama-prathamo-k1-7/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
  "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
  "trace": {
   "file": "traces/ipvv-chunkV3-J-agama-prathamo-k1-7.json",
-  "sha256": "b129ef338628bb75424172c1226d0ed7b64e311d798f07a9f8879ec6ec6d398d"
+  "sha256": "17907243149f7e75c224605434f50dc56c44b55c7d57b3cb98a8ce58c5dc9148"
  },
  "verdict": "PARTIAL",
  "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."

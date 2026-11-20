@@ -96,3 +96,20 @@ external review; it delivered) · `PLAN-VERIFIED-RUNTIME.md` ·
 - Never auto-publish, auto-sign, or auto-promote. Humans hold those.
 - When a doc stops being true, add a status banner (see the historical docs)
   rather than deleting it — provenance is part of the product.
+
+---
+
+## MCP reflection (2026-11-20)
+
+The public MCP surface is sharded by host; each host allowlists a subset of
+`mcp/scholar_server.py`. Full host↔sheaf map and the preview rule live in
+[`MCP-INTEGRATION.md`](../MCP-INTEGRATION.md) §7.
+
+- **Gate:** `python3 tools/check_mcp_reflection.py` — fails if a gateway
+  allowlists a tool the server does not advertise. Wrapped by
+  `tests/test_mcp_reflection.py`.
+- **Preview:** `scholar__preview_read` returns the site's `UNREVIEWED` machine
+  English with its rights banner; it is never evidence.
+- **Work status:** `scholar__resolve_ref <work>` (bare id now accepted) returns
+  passages, counts, projection + openpatala, and withheld passages explain *why*
+  (versions, trace verdicts, preview availability).

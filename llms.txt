@@ -1,12 +1,18 @@
 # Svatantrya Reader (svread)
 
-> Machine-readable Trika Shaivism library. Measured state: 0 works in our translation pipeline, 94 with passage ledgers, 88 readable now, 55 with a scholar projection, 8 with formalised chunks. Layered translations use T1 (literal gloss), L0 (morphology), ARGMAP (argument), L2 (reading), C1 (essence), L3 (final), L4 (song). Also: 10 Learn Sanskrit lessons, a 2051-work bibliography with translation links, live Q&A enquiries, and a scholar workspace.
+> Machine-readable Trika Shaivism library. **Start here (agents):** 94 works catalogued; 40 with verified English you can retrieve now; 8 preview-only (UNREVIEWED); 49 withheld/partial (1 withheld by the reader). 55 have a scholar projection, 8 have formalised chunks, 913 trace bundles (231 COMPLETE / 682 PARTIAL). Layers: T1 literal gloss, L0 morphology, ARGMAP argument, L2 reading, C1 essence, L3 final, L4 song. Also: 10 Learn Sanskrit lessons, a 2051-work bibliography with translation links, live Q&A enquiries, and a scholar workspace.
+
+## Start here (agents) — one call tells you what is readable
+
+- **First call:** MCP `readability_status` (no args) → counts + per-work status; `readability_status {work}` → one work's full audit. Static fallback: https://svatantrya.net/data/readability.json. Do not infer readability from a work merely being listed — catalogue is not text.
+- **Then read:** `search_texts` (semantic, gate-filtered; BLOCKED English never returned) or `search_chunks` (every layer, diacritics optional) → `passage_evidence {work, target}` for the full hash-checked stack.
+- **Withheld ≠ broken:** when text is blocked, `passage_evidence` states why (published versions, trace verdicts, preview availability). `preview_read` returns the UNREVIEWED machine English WITH its rights caveat — never evidence.
 
 ## Views (single-page app; these URLs load the view)
 
-- Reader (browse; 88 works currently have a reader bundle): https://svatantrya.net/
+- Reader (browse; 89 works have a reader bundle — Sanskrit + workspace; 40 have verified English): https://svatantrya.net/
 - Sanskrit lessons (10, Learn/Decode/Recognise tabs): https://svatantrya.net/?view=sanskrit
-- Bibliography index (2051 works + 0 mirror, 0 lost/unverified): https://svatantrya.net/?view=biblio
+- Bibliography index (2051 works + 224 mirror, 0 lost/unverified): https://svatantrya.net/?view=biblio
 - Scholar hub (per work, ?work=<id>&view=scholar): drafts, review, signoff, DOI
 - Pushing Lab (live enquiries): https://svatantrya.net/pushing.html
 - Memory wheels (word/sentence/Trika constructors, machine-derived forms): https://svatantrya.net/wheels.html
@@ -15,11 +21,17 @@
 ## Data (fetchable JSON, hash-pinned in data/release-manifest.json)
 
 - Bibliography (works, editions, translations+links, lost with basis, formal coverage): https://svatantrya.net/data/biblio.json
-- Bibliography mirror (0 local-mirror works absent from the authority file, pending authority sync): https://svatantrya.net/data/biblio-mirror.json — also merged into https://svatantrya.net/?view=biblio with a mirror badge
+- Bibliography mirror (224 local-mirror works absent from the authority file, pending authority sync): https://svatantrya.net/data/biblio-mirror.json — also merged into https://svatantrya.net/?view=biblio with a mirror badge
 - Layer index (which of t1/l0/argmap/l2/l3/l4/c1/c2 exist per song, with file hashes, verse ids, registry status): https://svatantrya.net/data/layers-index.json — ask ChatGPT to show the stack and the forks
 - Sanskrit lessons index + rule boxes: https://svatantrya.net/data/sanskrit/index.json
-- Per-work reader bundle: https://svatantrya.net/data/<work>.json (55+ works; originals, layers, hashes)
+- Per-work reader bundle: https://svatantrya.net/data/<work>.json (89 works; originals, layers, hashes — verified English only where readability says so)
 - Scholar projections: https://svatantrya.net/data/scholar/<work>.json (versions, essays, reviews, signoffs, projection_sha256)
+- UNREVIEWED previews (8 works, 55 chunks; machine-proposed, gates unchanged): https://svatantrya.net/data/preview/<work>.json — index https://svatantrya.net/data/preview/index.json
+- Readability audit (catalogue vs retrievable text, per work, with status to quote): https://svatantrya.net/data/readability.json
+- Instant lexical search over EVERY chunk and level (Sanskrit-aware; diacritics optional): https://svatantrya.net/data/search-index/records.jsonl · meta https://svatantrya.net/data/search-index/meta.json · MCP tool search_chunks
+- Topic pages (answer-first, tier + verbatim evidence; e.g. the City of Eight / subtle body): https://svatantrya.net/topics/ · https://svatantrya.net/data/topics/index.json · MCP tools topic_get/topic_list
+- Catalogue is not text: a listed work may carry Sanskrit excerpts with English withheld (BLOCKED). 'Readable now' means verified English in data/<work>.json; 'preview' means UNREVIEWED machine prose with gates unchanged. Quote the status line from data/readability.json.
+- IPVV note: the Isvarapratyabhijnavivrtivimarsini is catalogued (49 chunks, Sanskrit excerpts + claim pages, gates PASS, verdict PARTIAL on l3/l4 gaps) with 46/49 verified English in https://svatantrya.net/data/ipvv.json, a 3-chunk UNREVIEWED preview in https://svatantrya.net/data/preview/ipvv.json (cite WITH the UNREVIEWED caveat), and the full machine-proposed projection (t1/l0/argmap/l2/c1, 0 reviews) in https://svatantrya.net/data/scholar/ipvv.json — cite WITH the machine-proposed caveat, never as verified translation. Chunk locators (e.g. chunkA-svatyandya) resolve via scholar__passage_evidence {work: ipvv, target}. Its 49 T1.md prose drafts live in translation-work (not on this site).
 - Pushing digest (115 live questions + hound verdicts): https://svatantrya.net/data/pushing.json
 - Sanskrit lessons (rendered pages): https://svatantrya.net/data/sanskrit/site/lesson-01.html ... lesson-10.html
 - Grammar pack (Vidyut machine derivations for wheel forms, unreviewed): https://svatantrya.net/data/grammar/wheel-pack.json
@@ -40,7 +52,7 @@
 - Tutor session protocol (load FIRST: greet, check progress, teach before testing; never quiz an untaught form): https://svatantrya.net/data/wheels/tutor/SESSION-PROTOCOL.md
 - Formal registry (every REGISTERED theorem, its scope, and the unformalised gap list): https://svatantrya.net/data/formal.json
 - Verification packs + no-code recipe (fetch + sha256sum, no install): https://svatantrya.net/data/verify/index.json
-- Trace index (909 chunks; 236 COMPLETE / 673 PARTIAL; per-chunk source->layers->proofs->theorems->essays, hash-pinned): https://svatantrya.net/data/traces/index.json
+- Trace index (913 chunks; 231 COMPLETE / 682 PARTIAL; per-chunk source->layers->proofs->theorems->essays, hash-pinned): https://svatantrya.net/data/traces/index.json
 - Trace bundles (one JSON per chunk, trika-trace/1, re-verifiable): https://svatantrya.net/data/traces/<work>-<target>.json
 - Claim pages (one pre-rendered HTML page per chunk: answer-first verdict, passage excerpt, claim table, limits, hashes, verify steps): https://svatantrya.net/claim/<work>/<target>/ — start at a work index https://svatantrya.net/work/<work>/
 - This llms.txt is for agents; Google ignores it (measured, 2026). For citation, use a claim page URL.

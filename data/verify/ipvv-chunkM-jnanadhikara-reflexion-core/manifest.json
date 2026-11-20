@@ -7,16 +7,55 @@
    "sha256": "0e2027fc91ff8d3d67d81dd735920425e07072cfeecc002b7e7abce636d10d07"
   },
   {
-   "bytes": 3227,
-   "name": "chunkM-jnanadhikara-reflexion-core.l2.json",
-   "origin": "ipvv/data/chunkM-jnanadhikara-reflexion-core.l2.json",
-   "role": "layer-l2",
-   "sha256": "45fd5bc4c1317e8807644b59f131964d68dea228fb757fef0ef866d901014a28",
+   "bytes": 75560,
+   "name": "chunk-m-jnanadhikara-reflexion-core.argmap.json",
+   "origin": "ipvv/data/chunk-m-jnanadhikara-reflexion-core.argmap.json",
+   "role": "layer-argmap",
+   "sha256": "68628fae200b4e02a2bcb7e7b697870d8b82ee4ef19d2ee0f0d054a124b15674",
    "status": "BOUND"
+  },
+  {
+   "bytes": 871,
+   "name": "chunk-m-jnanadhikara-reflexion-core.c1.json",
+   "origin": "ipvv/data/chunk-m-jnanadhikara-reflexion-core.c1.json",
+   "role": "layer-c1",
+   "sha256": "614d19869833c57763512dfc6eaa470198e4d0df04742790b2b00398a68586ee",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 2052263,
+   "name": "chunk-m-jnanadhikara-reflexion-core.l0.json",
+   "origin": "ipvv/data/chunk-m-jnanadhikara-reflexion-core.l0.json",
+   "role": "layer-l0",
+   "sha256": "73493cb8e23dc9c32954146d531ea140fb61ff8c8b0a576534fdd00276a71eeb",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 74637,
+   "name": "chunk-m-jnanadhikara-reflexion-core.l2.json",
+   "origin": "ipvv/data/chunk-m-jnanadhikara-reflexion-core.l2.json",
+   "role": "layer-l2",
+   "sha256": "1dff2313a5ebd42366a9f9b4d8f9f9a030a8a28e6408eb7d1e9b605e00b9cf01",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 318377,
+   "name": "chunk-m-jnanadhikara-reflexion-core.t1.json",
+   "origin": "ipvv/data/chunk-m-jnanadhikara-reflexion-core.t1.json",
+   "role": "layer-t1",
+   "sha256": "deae021193760161c3157b6668c8f16103acafd5cdf182f1394d83ae271885f3",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1762,
+   "name": "proof-chunk-m-jnanadhikara-reflexion-core.json",
+   "origin": "ipvv/proof/proof-chunk-m-jnanadhikara-reflexion-core.json",
+   "role": "proof",
+   "sha256": "7b52e1f867a590bfdaf6f9c389d9c54ab684911136dbbbed3a7eb77e4f179297"
   }
  ],
  "assurance": {
-  "chunk_gate": "BLOCKED",
+  "chunk_gate": "PASS",
   "formal_run": "UNBOUND",
   "formal_run_note": "registry references only; no per-declaration run digest bound",
   "publication": "NOT_AUTHORIZED",
@@ -28,9 +67,7 @@
   "trace_links_present": "FAIL",
   "witness": "UNPINNED"
  },
- "caveats": [
-  "chunk_gate BLOCKED: PROOF_NOT_RUN"
- ],
+ "caveats": [],
  "chunk": {
   "immutable_id": "pt:pid:ipvv:1c5f25051297",
   "target": "chunkM-jnanadhikara-reflexion-core",
@@ -38,19 +75,14 @@
  },
  "format": "trika-verify-pack/1",
  "gaps": [
-  "layer:t1",
-  "layer:l0",
-  "layer:argmap",
-  "layer:c1",
   "layer:l3",
-  "layer:l4",
-  "proofs:song"
+  "layer:l4"
  ],
  "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/ipvv-chunkM-jnanadhikara-reflexion-core/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
  "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
  "trace": {
   "file": "traces/ipvv-chunkM-jnanadhikara-reflexion-core.json",
-  "sha256": "00bf86c62c39945c3f54c1d85538c4df9a31c981e5b09e6e14006e6a570c9213"
+  "sha256": "874948e14ec222eaa9b295ea22baedb107b10e5b98c9271c6d41a7b09d110801"
  },
  "verdict": "PARTIAL",
  "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."

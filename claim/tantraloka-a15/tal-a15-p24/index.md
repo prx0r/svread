@@ -1,6 +1,6 @@
 # tantraloka-a15 tal-a15-p24 (15.231-15.240)
 
-tantraloka-a15 tal-a15-p24 (15.231-15.240) links incomplete (5 gaps named); no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+tantraloka-a15 tal-a15-p24 (15.231-15.240) links incomplete (5 gaps named); counts REGISTERED without a per-declaration run. Chunk gate BLOCKED; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
@@ -22,6 +22,9 @@ Withheld. legacy markdown rendering (section-level, not verse-mapped to this pas
 |---|---|---|
 | Link completeness | FAIL (5 gaps named) | assurance.trace_links_present + gaps |
 | Human review | UNREVIEWED (machine rendering; no human sign-off) | assurance.review |
+| Puryastaka.lean :: body_is_ahamta | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
+| SubtleBodyCorpus.lean :: liberation_drops_bodyness | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
+| SubtleBodyCorpus.lean :: liberation_keeps_units | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
 | Deterministic chunk gate | BLOCKED (ABSTENTION) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

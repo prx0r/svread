@@ -1,6 +1,6 @@
 {
  "assurance": {
-  "chunk_gate": "BLOCKED",
+  "chunk_gate": "PASS",
   "formal_run": "UNBOUND",
   "formal_run_note": "registry references only; no per-declaration run digest bound",
   "publication": "NOT_AUTHORIZED",
@@ -12,9 +12,7 @@
   "trace_links_present": "FAIL",
   "witness": "UNPINNED"
  },
- "caveats": [
-  "chunk_gate BLOCKED: PROOF_NOT_RUN"
- ],
+ "caveats": [],
  "chunk": {
   "immutable_id": "pt:pid:ipvv:64678ac92bc1",
   "target": "chunkI-k1.9-1.10-kriya-karyakarana",
@@ -22,7 +20,7 @@
  },
  "essays": {
   "citing": [],
-  "projection_sha256": "4bf816c9a66f3685409fc5a7d90218aa10ca5623db3b63c5552838db6326aa98"
+  "projection_sha256": "77216dffa7fbf20365c34a44a6f943d7d9d98134def598b4274af3a91386aa35"
  },
  "formal": {
   "status": "none",
@@ -30,13 +28,8 @@
  },
  "format": "trika-trace/1",
  "gaps": [
-  "layer:t1",
-  "layer:l0",
-  "layer:argmap",
-  "layer:c1",
   "layer:l3",
-  "layer:l4",
-  "proofs:song"
+  "layer:l4"
  ],
  "identity": {
   "db": "postgresql://patala:***@localhost:5432/openpatala",
@@ -64,12 +57,16 @@
  },
  "layers": {
   "argmap": {
-   "present": false,
-   "status": "UNKNOWN"
+   "path": "ipvv/data/chunk-i-k1-9-1-10-kriya-karyakarana.argmap.json",
+   "present": true,
+   "sha256": "273ee576a88db82c6914f0009c8a27e68ade8a3a73fa179b0e521c4af358ed10",
+   "status": "BOUND"
   },
   "c1": {
-   "present": false,
-   "status": "UNKNOWN"
+   "path": "ipvv/data/chunk-i-k1-9-1-10-kriya-karyakarana.c1.json",
+   "present": true,
+   "sha256": "2f503c6961c1ae77394564fb075b2f2d8338247acc48f9259856df530beee163",
+   "status": "BOUND"
   },
   "c2": {
    "note": "C2 renders are optional (owner: existing C2 stays; waived)",
@@ -77,13 +74,15 @@
    "status": "NOT-APPLICABLE"
   },
   "l0": {
-   "present": false,
-   "status": "UNKNOWN"
+   "path": "ipvv/data/chunk-i-k1-9-1-10-kriya-karyakarana.l0.json",
+   "present": true,
+   "sha256": "26cd70c8d2cd24a0a62b7b97714cdfcdbd6e3c6780d5f7a240cf890efaace0e0",
+   "status": "BOUND"
   },
   "l2": {
-   "path": "ipvv/data/chunkI-k1.9-1.10-kriya-karyakarana.l2.json",
+   "path": "ipvv/data/chunk-i-k1-9-1-10-kriya-karyakarana.l2.json",
    "present": true,
-   "sha256": "8424c4ea620153b7e0b732b20c027c8f33a52153ef37793ad9a41cdc43dfe98d",
+   "sha256": "c44f2de86ae74cc93d6c3eb3264a369e0e9daac43e0ef2b10ca82674cfc337e6",
    "status": "BOUND"
   },
   "l3": {
@@ -95,34 +94,39 @@
    "status": "UNKNOWN"
   },
   "t1": {
-   "present": false,
-   "status": "UNKNOWN"
+   "path": "ipvv/data/chunk-i-k1-9-1-10-kriya-karyakarana.t1.json",
+   "present": true,
+   "sha256": "049b3d4ace8adb7fc4738222855d0d4479a183015d8b3fd117cb2d63fbf40650",
+   "status": "BOUND"
   }
  },
  "open_problems": [],
  "proofs": {
   "chunk_gate": {
-   "blocking": [
-    "PROOF_NOT_RUN"
-   ],
+   "blocking": [],
    "checks_pass": {
-    "PROOF_NOT_RUN": false
+    "PROOF_RECORD": true
    },
-   "deterministic_gate": "BLOCKED",
-   "entry_sha256": "87d8c96794944262ccbe43035aa39e6a0669843e14f64b98faf382e7e20e495e",
-   "status": "BLOCKED"
+   "deterministic_gate": "PASS",
+   "entry_sha256": "2544ef40008166bbd05fbe027e680856d5cd02e1325c0697214aaed0354cf35d",
+   "status": "PASS"
   },
   "song_proof": {
-   "note": "no proof file",
-   "status": "UNKNOWN"
+   "blocking": [],
+   "deterministic_gate": "PASS",
+   "file": "ipvv/proof/proof-chunk-i-k1-9-1-10-kriya-karyakarana.json",
+   "sha256": "f7db2cd6ba54a29cd87830e89ec8836b934856031d68c95718ab7fd3b71c0d8c",
+   "status": "PASS",
+   "tool": "proof_record v1 2026-11-01",
+   "warnings": 0
   }
  },
  "source": {
   "bytes_present": true,
   "bytes_sha256": "9ecbcb822233c9cfda030e36eb9c4dc8ea995b8f4510fd941815f6b2ce990aee",
   "edition": {
-   "label": null,
-   "status": "UNKNOWN"
+   "label": "Mukhabodha M00020/21/22 (IPVV vols 1-3) + Torella IPK (base)",
+   "status": "CANDIDATE-WORK"
   },
   "immutable_id": "pt:pid:ipvv:64678ac92bc1",
   "ledger": "ipvv/passages.jsonl",

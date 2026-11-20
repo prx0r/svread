@@ -1,6 +1,6 @@
-# spanda span-p04 (4-6)
+# spanda span-p04 (KSTS 20-25)
 
-spanda span-p04 (4-6) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+spanda span-p04 (KSTS 20-25) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 

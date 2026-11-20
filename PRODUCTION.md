@@ -100,6 +100,11 @@ python3 tools/emit_biblio.py            # needs DB (skips in CI by design)
 python3 tools/emit_formal.py
 python3 tools/emit_claim_pages.py --dry-run   # counts only
 python3 tools/emit_claim_pages.py             # 909 claim + md + 87 work + chain
+python3 tools/emit_previews.py          # UNREVIEWED previews where verified English withheld (lane-clean)
+python3 tools/emit_readability.py       # catalogue-vs-text audit (data/readability.json)
+python3 tools/emit_search_index.py      # lexical index over every chunk+level (data/search-index/)
+python3 tools/emit_topics.py            # answer-first topic pages (topics/<id>/, data/topics/)
+python3 tools/emit_source_map.py        # refresh ledger hashes in source-map.json (preserves mappings)
 python3 tools/emit_grammar.py             # Vidyut pack + scripture links (needs vidyut 0.4.0 + kosha)
 python3 tools/emit_certificates.py        # trace-pinning certificates (needs wheel-pack.json)
 python3 tools/check_curated.py            # curated-vs-machine crosscheck (needs node + vidyut)

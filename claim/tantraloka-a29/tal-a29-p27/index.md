@@ -1,6 +1,6 @@
 # tantraloka-a29 tal-a29-p27 (29.261-29.270)
 
-tantraloka-a29 tal-a29-p27 (29.261-29.270) links incomplete (5 gaps named); no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+tantraloka-a29 tal-a29-p27 (29.261-29.270) links incomplete (5 gaps named); counts REGISTERED without a per-declaration run. Chunk gate BLOCKED; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
@@ -22,6 +22,11 @@ Withheld. legacy markdown rendering (section-level, not verse-mapped to this pas
 |---|---|---|
 | Link completeness | FAIL (5 gaps named) | assurance.trace_links_present + gaps |
 | Human review | UNREVIEWED (machine rendering; no human sign-off) | assurance.review |
+| SubtleBodyCorpus.lean :: three_levels | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
+| SubtleBodyCorpus.lean :: levels_distinct | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
+| SubtleBodyCorpus.lean :: migration_at_subtle | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
+| SubtleBodyCorpus.lean :: pinda_not_carried | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
+| SubtleBodyCorpus.lean :: exactly_one_carried | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
 | Deterministic chunk gate | BLOCKED (ABSTENTION) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

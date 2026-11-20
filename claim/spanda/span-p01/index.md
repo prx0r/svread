@@ -1,6 +1,6 @@
-# spanda span-p01 (2-10)
+# spanda span-p01 (KSTS 1-6)
 
-spanda span-p01 (2-10) passes link checks; counts REGISTERED without a per-declaration run. Chunk gate BLOCKED; no witness verified.
+spanda span-p01 (KSTS 1-6) passes link checks; counts REGISTERED without a per-declaration run. Chunk gate BLOCKED; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 

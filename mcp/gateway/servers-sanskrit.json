@@ -4,7 +4,7 @@
   "port": 8772,
   "path": "/mcp",
   "public_base": "https://sanskrit.svatantrya.net/mcp",
-  "instructions": "Svatantrya Sanskrit reader. Use scholar__search_texts to find passages, scholar__passage_evidence with work and target for the hash-checked Sanskrit plus editorial layers. scholar__list_works lists what has a bundle. Read-only: never invent Sanskrit, a form not in the corpus does not render. Layers are named in plain words: draft-translation, literal-gloss (meaning-forks live here), argument-map, reading-translation, essence, register-render, final-translation, song; machine keys T1/L0/ARGMAP/L2/C1/C2/L3/L4 also work.",
+  "instructions": "Svatantrya Sanskrit reader \u2014 ChatGPT-first. START HERE: call scholar__readability_status (no args) for counts + per-work status, then scholar__search_texts (semantic, gate-filtered) or scholar__search_chunks (every layer, diacritics optional), then scholar__passage_evidence {work,target} for the hash-checked Sanskrit + editorial layers. scholar__list_works lists bundles \u2014 catalogue is not text. scholar__preview_read returns UNREVIEWED machine English with its rights caveat; never evidence. Withheld text states why (versions, trace verdicts, preview availability); never invent Sanskrit, a form not in the corpus does not render. Layers in plain words: draft-translation, literal-gloss (forks live here), argument-map, reading-translation, essence, register-render, final-translation, song; keys T1/L0/ARGMAP/L2/C1/C2/L3/L4 also work.",
   "servers": {
     "scholar": {
       "path": "/root/svread/mcp/scholar_server.py",
@@ -22,7 +22,14 @@
         "scholar__vidyut_candidates",
         "scholar__layers_index",
         "scholar__passage_layers",
-        "scholar__translation_forks"
+        "scholar__translation_forks",
+        "scholar__preview_read",
+        "scholar__search_chunks",
+        "scholar__topic_get",
+        "scholar__topic_list",
+        "scholar__concept_get",
+        "scholar__concept_search",
+        "scholar__readability_status"
       ]
     }
   }

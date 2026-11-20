@@ -7,16 +7,55 @@
    "sha256": "84c1d5d2eb92fb7cbde79de1c39c110a49ce6008ddb9c39d19e3371adbb16f3d"
   },
   {
-   "bytes": 3888,
-   "name": "chunkV3-I-kriya-caturtho-close-k20-21.l2.json",
-   "origin": "ipvv/data/chunkV3-I-kriya-caturtho-close-k20-21.l2.json",
-   "role": "layer-l2",
-   "sha256": "cbbd760ef9fddfaf62a8a384d5bc8c5f9bdbe1bdead77056dba80829657b018c",
+   "bytes": 44912,
+   "name": "chunk-v3-i-kriya-caturtho-close-k20-21.argmap.json",
+   "origin": "ipvv/data/chunk-v3-i-kriya-caturtho-close-k20-21.argmap.json",
+   "role": "layer-argmap",
+   "sha256": "3303c564889f4e32156557fd3401b91132c39d266d58e11ac3123f5a9e2cfed1",
    "status": "BOUND"
+  },
+  {
+   "bytes": 603,
+   "name": "chunk-v3-i-kriya-caturtho-close-k20-21.c1.json",
+   "origin": "ipvv/data/chunk-v3-i-kriya-caturtho-close-k20-21.c1.json",
+   "role": "layer-c1",
+   "sha256": "2a580fdaccb1ab7ddbfb5ab55ebc5cd9fccd6f86a7dc13407224eabdf662a64a",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1121642,
+   "name": "chunk-v3-i-kriya-caturtho-close-k20-21.l0.json",
+   "origin": "ipvv/data/chunk-v3-i-kriya-caturtho-close-k20-21.l0.json",
+   "role": "layer-l0",
+   "sha256": "c5fcdb2a40fb0314e7bd33630c3362522ec2943d12b2d9ad6966b4ba3d8349a4",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 44351,
+   "name": "chunk-v3-i-kriya-caturtho-close-k20-21.l2.json",
+   "origin": "ipvv/data/chunk-v3-i-kriya-caturtho-close-k20-21.l2.json",
+   "role": "layer-l2",
+   "sha256": "df1084f0c2eea14125783aaae3c3d1ecff1ea0b0e7cd3a3808e8a1cb6f4785a1",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 170107,
+   "name": "chunk-v3-i-kriya-caturtho-close-k20-21.t1.json",
+   "origin": "ipvv/data/chunk-v3-i-kriya-caturtho-close-k20-21.t1.json",
+   "role": "layer-t1",
+   "sha256": "fd80e9be07325b6bcbf99ac3155b5f9d194b0999341dd1e03acbdee3a95dc913",
+   "status": "BOUND"
+  },
+  {
+   "bytes": 1787,
+   "name": "proof-chunk-v3-i-kriya-caturtho-close-k20-21.json",
+   "origin": "ipvv/proof/proof-chunk-v3-i-kriya-caturtho-close-k20-21.json",
+   "role": "proof",
+   "sha256": "d63d18118984575b578a17ad3503186f9fd26493a33d4c4bcd129bea717a225a"
   }
  ],
  "assurance": {
-  "chunk_gate": "BLOCKED",
+  "chunk_gate": "PASS",
   "formal_run": "UNBOUND",
   "formal_run_note": "registry references only; no per-declaration run digest bound",
   "publication": "NOT_AUTHORIZED",
@@ -28,9 +67,7 @@
   "trace_links_present": "FAIL",
   "witness": "UNPINNED"
  },
- "caveats": [
-  "chunk_gate BLOCKED: PROOF_NOT_RUN"
- ],
+ "caveats": [],
  "chunk": {
   "immutable_id": "pt:pid:ipvv:1d53daf62e05",
   "target": "chunkV3-I-kriya-caturtho-close-k20-21",
@@ -38,19 +75,14 @@
  },
  "format": "trika-verify-pack/1",
  "gaps": [
-  "layer:t1",
-  "layer:l0",
-  "layer:argmap",
-  "layer:c1",
   "layer:l3",
-  "layer:l4",
-  "proofs:song"
+  "layer:l4"
  ],
  "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/ipvv-chunkV3-I-kriya-caturtho-close-k20-21/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
  "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
  "trace": {
   "file": "traces/ipvv-chunkV3-I-kriya-caturtho-close-k20-21.json",
-  "sha256": "9b0d311d839297492997be7c6015aa25cbae275eb00acd5c007f024913bbac38"
+  "sha256": "8d2bd3a983778d96309b08421f8b79ce079d24b236e786cba9e96466b04ea3cf"
  },
  "verdict": "PARTIAL",
  "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."

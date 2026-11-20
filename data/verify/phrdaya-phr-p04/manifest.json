@@ -1,10 +1,10 @@
 {
  "artifacts": [
   {
-   "bytes": 30,
+   "bytes": 313,
    "name": "source.txt",
    "role": "source-bytes",
-   "sha256": "aad7c58ddb7b9dfa308c0c2175fccf8d4efd2b233e27af2b7fd2c14cf84086da"
+   "sha256": "cfdca5029c423ba1000f714099d4939004b657177ff7ff4c66b65b5065e93601"
   },
   {
    "bytes": 3354,
@@ -93,18 +93,20 @@
  },
  "caveats": [],
  "chunk": {
-  "immutable_id": "pt:pid:phrdaya:004",
+  "immutable_id": "pt:pid:phr:cfdca5029c42",
   "target": "phr-p04",
   "work": "phrdaya"
  },
  "format": "trika-verify-pack/1",
- "gaps": [],
+ "gaps": [
+  "identity:db"
+ ],
  "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/phrdaya-phr-p04/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
  "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
  "trace": {
   "file": "traces/phrdaya-phr-p04.json",
-  "sha256": "ece86217b783333c71be6b68429f3beb05d4f0a65be026a0e8a7dad66e9ae65d"
+  "sha256": "5e7b38e53e8ffdfff341cbe3352245f1920e1dc668cac974d8d2c08e155886a8"
  },
- "verdict": "COMPLETE",
+ "verdict": "PARTIAL",
  "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
 }

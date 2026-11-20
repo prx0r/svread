@@ -1,6 +1,6 @@
 {
  "assurance": {
-  "chunk_gate": "BLOCKED",
+  "chunk_gate": "PASS",
   "formal_run": "UNBOUND",
   "formal_run_note": "registry references only; no per-declaration run digest bound",
   "publication": "NOT_AUTHORIZED",
@@ -12,9 +12,7 @@
   "trace_links_present": "FAIL",
   "witness": "UNPINNED"
  },
- "caveats": [
-  "chunk_gate BLOCKED: PROOF_NOT_RUN"
- ],
+ "caveats": [],
  "chunk": {
   "immutable_id": "pt:pid:ipvv:cab68738d18e",
   "target": "chunkC-svatma-maya-upanishad",
@@ -22,7 +20,7 @@
  },
  "essays": {
   "citing": [],
-  "projection_sha256": "4bf816c9a66f3685409fc5a7d90218aa10ca5623db3b63c5552838db6326aa98"
+  "projection_sha256": "77216dffa7fbf20365c34a44a6f943d7d9d98134def598b4274af3a91386aa35"
  },
  "formal": {
   "status": "none",
@@ -30,13 +28,8 @@
  },
  "format": "trika-trace/1",
  "gaps": [
-  "layer:t1",
-  "layer:l0",
-  "layer:argmap",
-  "layer:c1",
   "layer:l3",
-  "layer:l4",
-  "proofs:song"
+  "layer:l4"
  ],
  "identity": {
   "db": "postgresql://patala:***@localhost:5432/openpatala",
@@ -64,12 +57,16 @@
  },
  "layers": {
   "argmap": {
-   "present": false,
-   "status": "UNKNOWN"
+   "path": "ipvv/data/chunk-c-svatma-maya-upanishad.argmap.json",
+   "present": true,
+   "sha256": "f161440560c90662fcbe6a6a30fa402d6807f895f186dfc265a9783d002f3a36",
+   "status": "BOUND"
   },
   "c1": {
-   "present": false,
-   "status": "UNKNOWN"
+   "path": "ipvv/data/chunk-c-svatma-maya-upanishad.c1.json",
+   "present": true,
+   "sha256": "46a8796405904a5fc1d38906d40253d4caf504b1c12709b25da577a77907e687",
+   "status": "BOUND"
   },
   "c2": {
    "note": "C2 renders are optional (owner: existing C2 stays; waived)",
@@ -77,13 +74,15 @@
    "status": "NOT-APPLICABLE"
   },
   "l0": {
-   "present": false,
-   "status": "UNKNOWN"
+   "path": "ipvv/data/chunk-c-svatma-maya-upanishad.l0.json",
+   "present": true,
+   "sha256": "a5eaef3b89469753398aa85700c1cd2ba5c4b3ebf2bf30ff48708e606c3d68a0",
+   "status": "BOUND"
   },
   "l2": {
-   "path": "ipvv/data/chunkC-svatma-maya-upanishad.l2.json",
+   "path": "ipvv/data/chunk-c-svatma-maya-upanishad.l2.json",
    "present": true,
-   "sha256": "7e64d6d5441f303390552c799d23cc1fe528738b398a53bde91f9ee4675ef0dc",
+   "sha256": "36cf6ce5786f1500becc24e977b7ae8b3c0a97d8dab44280b728eb226d44bbdc",
    "status": "BOUND"
   },
   "l3": {
@@ -95,34 +94,39 @@
    "status": "UNKNOWN"
   },
   "t1": {
-   "present": false,
-   "status": "UNKNOWN"
+   "path": "ipvv/data/chunk-c-svatma-maya-upanishad.t1.json",
+   "present": true,
+   "sha256": "f164459f05a98cf3c3d401515867fdb972b13afcf5a4c885716ba510561dca61",
+   "status": "BOUND"
   }
  },
  "open_problems": [],
  "proofs": {
   "chunk_gate": {
-   "blocking": [
-    "PROOF_NOT_RUN"
-   ],
+   "blocking": [],
    "checks_pass": {
-    "PROOF_NOT_RUN": false
+    "PROOF_RECORD": true
    },
-   "deterministic_gate": "BLOCKED",
-   "entry_sha256": "87d8c96794944262ccbe43035aa39e6a0669843e14f64b98faf382e7e20e495e",
-   "status": "BLOCKED"
+   "deterministic_gate": "PASS",
+   "entry_sha256": "ee659e5ab1b28bd7f0619914362afbbface6ea9952097ab9527fc02b1e51ab71",
+   "status": "PASS"
   },
   "song_proof": {
-   "note": "no proof file",
-   "status": "UNKNOWN"
+   "blocking": [],
+   "deterministic_gate": "PASS",
+   "file": "ipvv/proof/proof-chunk-c-svatma-maya-upanishad.json",
+   "sha256": "7dccd57109bcaa4a59f43394f9cf3c19ada28eee66aaa04bb32d81d1e581ae1c",
+   "status": "PASS",
+   "tool": "proof_record v1 2026-11-01",
+   "warnings": 0
   }
  },
  "source": {
   "bytes_present": true,
   "bytes_sha256": "bf44d79eb59433294b9bde485739c6c25fb23c5a7731449e73a62b811ab10ebe",
   "edition": {
-   "label": null,
-   "status": "UNKNOWN"
+   "label": "Mukhabodha M00020/21/22 (IPVV vols 1-3) + Torella IPK (base)",
+   "status": "CANDIDATE-WORK"
   },
   "immutable_id": "pt:pid:ipvv:cab68738d18e",
   "ledger": "ipvv/passages.jsonl",
