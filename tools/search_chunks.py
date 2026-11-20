@@ -1,15 +1,9 @@
 #!/usr/bin/env python3
-"""search_chunks.py — instant lexical search over data/search-index/records.jsonl.
+"""search_chunks.py — instant lexical search over data/search-index/records/.
 
-    python3 tools/search_chunks.py "puryaṣṭaka"
-    python3 tools/search_chunks.py "city of eight" --work tantrasara-a13
-    python3 tools/search_chunks.py "subtle body" --layers l2,c1 --top 5
-    python3 tools/search_chunks.py "ahantā" --json
-
-Matching is diacritic/case-insensitive (ṣ=s, ā=a): ASCII queries hit IAST.
-Ranks exact phrase > all terms (prefix) > any term, then by layer priority
-(level analyses before raw source). Groups results by work so the caller sees
-which levels contain a hit. No network, no embeddings, stdlib only.
+    Per-work shards (one small .jsonl per work + shards.json manifest), merged
+    at load. The old monolith data/search-index/records.jsonl is still read as
+    a fallback where present. stdlib only, no network.
 """
 from __future__ import annotations
 
@@ -21,6 +15,7 @@ import unicodedata
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+SHARDS = ROOT / "data" / "search-index" / "records"
 RECORDS = ROOT / "data" / "search-index" / "records.jsonl"
 LAYER_RANK = {"c1": 0, "l2": 1, "argmap": 2, "l3": 3, "l4": 4, "t1": 5, "l0": 6,
               "preview": 7, "t1-doc": 8, "source": 9}
@@ -64,10 +59,24 @@ _CACHE = None
 def load():
     global _CACHE
     if _CACHE is None:
+        recs = []
         try:
-            _CACHE = [json.loads(l) for l in RECORDS.read_text(encoding="utf-8").splitlines() if l.strip()]
+            shard_files = sorted(SHARDS.glob("*.jsonl")) if SHARDS.is_dir() else []
         except OSError:
-            raise ValueError(f"search index missing at {RECORDS} (run tools/emit_search_index.py)")
+            shard_files = []
+        try:
+            if shard_files:
+                for f in shard_files:
+                    recs.extend(json.loads(l) for l in
+                                f.read_text(encoding="utf-8").splitlines() if l.strip())
+            elif RECORDS.exists():
+                recs = [json.loads(l) for l in
+                        RECORDS.read_text(encoding="utf-8").splitlines() if l.strip()]
+        except OSError:
+            recs = []
+        if not recs:
+            raise ValueError(f"search index missing under {SHARDS} (run tools/emit_search_index.py)")
+        _CACHE = recs
     return _CACHE
 
 

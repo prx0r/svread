@@ -167,7 +167,7 @@ def claim_html(c: dict) -> str:
                          f'work <code>{esc(w)}</code> · chunk <code>{esc(tgt)}</code> · '
                          f'layers held: {esc(", ".join(e.get("layers", [])) or "none recorded")}</p>')
             parts.append(f'<p class="links"><a href="{ORIGIN}/work/{esc(w)}/">work index</a> · '
-                         f'<a href="{ORIGIN}/data/search-index/records.jsonl">search index</a> · '
+                         f'<a href="{ORIGIN}/data/search-index/shards.json">search index</a> · '
                          f'<a href="{ORIGIN}/data/{esc(w)}.json">reader bundle</a></p>')
         if e.get("translation_note"):
             parts.append(f'<p class="note">{esc(e["translation_note"])}</p>')

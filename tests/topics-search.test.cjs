@@ -63,7 +63,7 @@ test('topic page is answer-first with tier + verbatim evidence', () => {
 
 test('topics + search are discoverable by agents', () => {
   const llms = fs.readFileSync(path.join(ROOT, 'llms.txt'), 'utf8');
-  assert.match(llms, /\/data\/search-index\/records\.jsonl/);
+  assert.match(llms, /\/data\/search-index\/shards\.json/);
   assert.match(llms, /\/topics\//);
   assert.match(llms, /search_chunks/);
   const sm = fs.readFileSync(path.join(ROOT, 'sitemap.xml'), 'utf8');
