@@ -1,6 +1,80 @@
 {
  "about": "https://svatantrya.net/about/about.json (verbatim mission + four goals, structured)",
  "answer_index": "https://svatantrya.net/a/index.json (one static page per form: /a/<slug>/ = finished answer)",
+ "capabilities": {
+  "counts": {
+   "fully_verified": 40,
+   "with_preview": 8,
+   "withheld": 1,
+   "withheld_or_partial": 48,
+   "works": 93
+  },
+  "mcp_hosts": {
+   "books": {
+    "role": "books.svatantrya.net",
+    "url": "https://books.svatantrya.net/mcp"
+   },
+   "essay": {
+    "role": "essay.svatantrya.net",
+    "url": "https://essay.svatantrya.net/mcp"
+   },
+   "factory": {
+    "role": "factory.svatantrya.net",
+    "url": "https://factory.svatantrya.net/mcp"
+   },
+   "formal": {
+    "role": "formal.svatantrya.net",
+    "url": "https://formal.svatantrya.net/mcp"
+   },
+   "index": {
+    "role": "index.svatantrya.net",
+    "url": "https://index.svatantrya.net/mcp"
+   },
+   "nibbana": {
+    "role": "nibbana.svatantrya.net",
+    "url": "https://nibbana.svatantrya.net/mcp"
+   },
+   "practice": {
+    "role": "practice.svatantrya.net - wheels, certificates and per-learner drills. Reads are open; writes need a scoped anonymous learner token from compose__learner_start (no account, no email). The shared owner is never reachable from this host.",
+    "url": "https://practice.svatantrya.net/mcp"
+   },
+   "sanskrit": {
+    "role": "sanskrit.svatantrya.net",
+    "url": "https://sanskrit.svatantrya.net/mcp"
+   },
+   "studio": {
+    "role": "studio.svatantrya.net",
+    "url": "https://studio.svatantrya.net/mcp"
+   },
+   "svatantrya": {
+    "role": "mcp.svatantrya.net",
+    "url": "https://mcp.svatantrya.net/mcp"
+   },
+   "translate": {
+    "role": "translate.svatantrya.net",
+    "url": "https://translate.svatantrya.net/mcp"
+   },
+   "tutor": {
+    "role": "tutor.svatantrya.net",
+    "url": "https://tutor.svatantrya.net/mcp"
+   },
+   "video": {
+    "role": "video.svatantrya.net",
+    "url": "https://video.svatantrya.net/mcp"
+   }
+  },
+  "note": "verified English counts works whose reader bundle passes; previews are UNREVIEWED; catalogue is not text.",
+  "tool_counts": {
+   "aoc": 20,
+   "bookfactory": 22,
+   "openpatala": 5,
+   "sleepdraw": 3,
+   "svread-scholar": 48,
+   "translation-work": 16,
+   "trika-x-federation": 112,
+   "videofactory": 18
+  }
+ },
  "claim_page": "https://svatantrya.net/claim/<work>/<target>/ (answer-first verdict, excerpt, claim table, hashes)",
  "counts": {
   "traces": 913
@@ -12,6 +86,12 @@
  "origin": "https://svatantrya.net",
  "preview_index": "https://svatantrya.net/data/preview/index.json (UNREVIEWED machine previews where verified English is withheld; gates unchanged)",
  "readability": "https://svatantrya.net/data/readability.json (catalogue vs retrievable text per work; quote the status line)",
+ "start_here": {
+  "first_call": "MCP tool readability_status (no args) -> counts + per-work status; readability_status {work} -> one work.",
+  "static_fallback": "https://svatantrya.net/data/readability.json",
+  "then_read": "search_texts (semantic, gate-filtered) or search_chunks (all layers) -> passage_evidence {work, target}.",
+  "withheld_rule": "Blocked text is reported, not faked; preview_read returns UNREVIEWED machine English with its rights caveat."
+ },
  "trace_bundle": "https://svatantrya.net/data/traces/<work>-<target>.json (trika-trace/1: source->layers->proofs->theorems->essays)",
  "trace_index": "https://svatantrya.net/data/traces/index.json",
  "tutor_levels": "https://svatantrya.net/data/wheels/tutor/level-01-bases.md ... level-06-karaka.md (one prompt file per level: goal, data URLs, closed-world rules, drills)",

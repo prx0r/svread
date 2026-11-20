@@ -22,6 +22,13 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 FORMAT = "svread-readability/1"
 
+# Works the reader itself refuses (see projection() in mcp/scholar_server.py).
+# Their bundle may look complete, but the live API withholds them; the audit
+# must say so rather than report a text that cannot be retrieved.
+WITHHELD = {
+    "ghatakarpara": "source alignment needs upstream repair",
+}
+
 
 def load(p: Path, default=None):
     try:
@@ -72,7 +79,9 @@ def main() -> int:
                              if p.is_dir()) if claim_dir.is_dir() else []
         has_preview = work in preview_works
         bib = bib_rows.get(work, {})
-        if bundle_info["exists"] and bundle_info["n_pass"] >= bundle_info["n"] \
+        if work in WITHHELD:
+            status = f"withheld by the reader: {WITHHELD[work]}"
+        elif bundle_info["exists"] and bundle_info["n_pass"] >= bundle_info["n"] \
                 and bundle_info["n"] > 0:
             status = (f"readable now: {bundle_info['n_pass']}/{bundle_info['n']} "
                       f"passages with verified English")
@@ -100,13 +109,14 @@ def main() -> int:
             "work_page": work_page,
             "claim_pages": len(claim_pages),
             "preview": has_preview,
+            "withheld": work in WITHHELD,
             "biblio": {"has_reader": bool(bib.get("has_reader")),
                        "passages": bool(bib.get("passages")),
                        "has_projection": bool(bib.get("has_projection"))} if bib else {},
             "status": status,
         }
     gaps = sorted([w for w, r in works.items()
-                   if r["bundle"]["n_pass"] < r["bundle"]["n"]])
+                   if w in WITHHELD or r["bundle"]["n_pass"] < r["bundle"]["n"]])
     doc = {
         "format": FORMAT,
         "note": ("catalogue is not text: a listed work may carry Sanskrit "
@@ -115,10 +125,12 @@ def main() -> int:
                  "UNREVIEWED machine prose in data/preview/<work>.json with "
                  "gates unchanged. Verify by re-hashing trace + pack bytes."),
         "counts": {"works": len(works),
-                   "fully_verified": sum(1 for r in works.values()
-                                         if r["bundle"]["exists"] and r["bundle"]["n"] > 0
+                   "fully_verified": sum(1 for w, r in works.items()
+                                         if w not in WITHHELD
+                                         and r["bundle"]["exists"] and r["bundle"]["n"] > 0
                                          and r["bundle"]["n_pass"] >= r["bundle"]["n"]),
                    "with_preview": sum(1 for r in works.values() if r["preview"]),
+                   "withheld": sum(1 for w in works if w in WITHHELD),
                    "withheld_or_partial": len(gaps)},
         "gaps": gaps,
         "works": works,

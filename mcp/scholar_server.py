@@ -240,6 +240,30 @@ def topic_get(a):
             'note': 'no topic page; a miss is not a denial — the term may still occur in the corpus'}
 
 
+def readability_status(a):
+    """Honest catalogue: which works are readable, partial, withheld, preview-only.
+
+    One call that answers 'how many works can I actually read?' without a client
+    conflating forked versions with readable text.
+    """
+    try:
+        d = json.loads((ROOT / 'data' / 'readability.json').read_text(encoding='utf-8'))
+    except FileNotFoundError:
+        raise ValueError('Readability index not built (tools/emit_readability.py)')
+    work = a.get('work')
+    if work is not None:
+        if not isinstance(work, str) or not WORK.fullmatch(work):
+            raise ValueError('Invalid work ID')
+        rec = (d.get('works') or {}).get(work)
+        if rec is None:
+            raise ValueError('Unknown work in the catalogue')
+        return {'work': work, **rec}
+    return {'format': d.get('format'), 'counts': d.get('counts'),
+            'gaps': d.get('gaps'), 'note': d.get('note'),
+            'status_by_work': {k: v.get('status') for k, v in (d.get('works') or {}).items()},
+            'warning': "'readable now' means verified English in the reader bundle; catalogue listing is not text."}
+
+
 def preview_read(a):
     """Read the UNREVIEWED machine-proposed preview (data/preview/<work>.json).
 
@@ -825,7 +849,7 @@ def call(name,a):
     if not isinstance(a,dict): raise ValueError('Arguments must be an object')
     if name=='list_works':
         index=json.loads((ROOT/'data/scholar/index.json').read_text(encoding='utf-8'))
-        return {'works':sorted(index), 'note':'Bundled projections; Ghaṭakarpara is withheld pending source repair.'}
+        return {'works':sorted(index), 'note':'Bundled projections. Call readability_status for which works are readable, partial, preview-only or withheld; Ghaṭakarpara is withheld pending source repair.'}
     if name=='search_chunks': return search_chunks_tool(a)
     if name=='topic_get': return topic_get(a)
     if name=='topic_list': return topic_list(a)
@@ -833,6 +857,7 @@ def call(name,a):
     if name=='concept_search': return concept_search(a)
     if name=='passage_evidence': return evidence(a)
     if name=='preview_read': return preview_read(a)
+    if name=='readability_status': return readability_status(a)
     if name=='list_versions': return versions(a)
     if name=='compare_versions': return compare_versions(a)
     if name=='vidyut_candidates': return vidyut_candidates(a)
@@ -944,6 +969,7 @@ TOOLS=[
  ('concept_search','Find concept ids by term or definition words.',S({'query':T,'limit':{'type':'integer','minimum':1}},['query'])),
  ('passage_evidence','Read hash-checked Sanskrit and editorial layers for a passage.',S({'work':T,'target':T},['work','target'])),
  ('preview_read','Read the UNREVIEWED machine-proposed English preview for a work (or one target), with gates, rights and provenance. Never evidence: the verified bundle is the authority.',S({'work':T,'target':T},['work'])),
+ ('readability_status','Honest catalogue of what is actually retrievable: counts and per-work status (readable / partial / preview / withheld), or one work with its full audit. Catalogue listing is not text.',S({'work':T})),
  ('list_versions','List stored versions for an exact passage and layer.',S({'work':T,'target':T,'layer':T},['work','target','layer'])),
  ('compare_versions','Compare two hash-checked versions for an exact passage and layer.',S({'work':T,'target':T,'layer':T,'left':T,'right':T},['work','target','layer','left','right'])),
  ('vidyut_candidates','Generate unreviewed transliteration and optional metre candidates from a bundled passage.',S({'work':T,'target':T,'scheme':{'type':'string','enum':['iast','devanagari']},'meter':{'type':'boolean'}},['work','target'])),

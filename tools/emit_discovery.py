@@ -114,21 +114,42 @@ def build_llms(pushing: dict, biblio: dict, sanskrit: dict) -> str:
         (w.get("n_preview", 0) or 0)
         for w in (preview_idx.get("works", {}) or {}).values()
         if isinstance(w, dict))
+    read = load_json(OUT / "readability.json") or {}
+    rc = read.get("counts", {}) or {}
+    verified = rc.get("fully_verified", 0)
+    withheld_partial = rc.get("withheld_or_partial", 0)
+    n_withheld = rc.get("withheld", 0)
+    catalogue_works = rc.get("works", 0)
     lines = [
         "# Svatantrya Reader (svread)",
         "",
-        f"> Machine-readable Trika Shaivism library. Measured state: "
-        f"{ours} works in our translation pipeline, {with_pass} with "
-        f"passage ledgers, {readable} readable now, {projected} with a "
-        f"scholar projection, {formal} with formalised chunks. Layered "
-        f"translations use T1 (literal gloss), L0 (morphology), ARGMAP "
-        f"(argument), L2 (reading), C1 (essence), L3 (final), L4 (song). "
-        f"Also: 10 Learn Sanskrit lessons, a {works}-work bibliography with "
-        f"translation links, live Q&A enquiries, and a scholar workspace.",
+        f"> Machine-readable Trika Shaivism library. **Start here (agents):** "
+        f"{catalogue_works} works catalogued; {verified} with verified English "
+        f"you can retrieve now; {n_preview_works} preview-only (UNREVIEWED); "
+        f"{withheld_partial} withheld/partial ({n_withheld} withheld by the reader). "
+        f"{projected} have a scholar projection, {formal} have formalised chunks, "
+        f"{n_traces} trace bundles ({complete} COMPLETE / {partial} PARTIAL). "
+        f"Layers: T1 literal gloss, L0 morphology, ARGMAP argument, L2 reading, "
+        f"C1 essence, L3 final, L4 song. Also: 10 Learn Sanskrit lessons, a "
+        f"{works}-work bibliography with translation links, live Q&A enquiries, "
+        f"and a scholar workspace.",
+        "",
+        "## Start here (agents) — one call tells you what is readable",
+        "",
+        f"- **First call:** MCP `readability_status` (no args) → counts + per-work status; "
+        f"`readability_status {{work}}` → one work's full audit. Static fallback: "
+        f"{ORIGIN}/data/readability.json. Do not infer readability from a work merely "
+        f"being listed — catalogue is not text.",
+        f"- **Then read:** `search_texts` (semantic, gate-filtered; BLOCKED English never "
+        f"returned) or `search_chunks` (every layer, diacritics optional) → "
+        f"`passage_evidence {{work, target}}` for the full hash-checked stack.",
+        "- **Withheld ≠ broken:** when text is blocked, `passage_evidence` states why "
+        "(published versions, trace verdicts, preview availability). `preview_read` "
+        "returns the UNREVIEWED machine English WITH its rights caveat — never evidence.",
         "",
         "## Views (single-page app; these URLs load the view)",
         "",
-        f"- Reader (browse; {readable} works currently have a reader bundle): {ORIGIN}/",
+        f"- Reader (browse; {readable} works have a reader bundle — Sanskrit + workspace; {verified} have verified English): {ORIGIN}/",
         f"- Sanskrit lessons (10, Learn/Decode/Recognise tabs): {ORIGIN}/?view=sanskrit",
         f"- Bibliography index ({works} works + {mirror_n} mirror, {lost} lost/unverified): {ORIGIN}/?view=biblio",
         "- Scholar hub (per work, ?work=<id>&view=scholar): drafts, review, signoff, DOI",
@@ -142,7 +163,7 @@ def build_llms(pushing: dict, biblio: dict, sanskrit: dict) -> str:
         f"- Bibliography mirror ({mirror_n} local-mirror works absent from the authority file, pending authority sync): {ORIGIN}/data/biblio-mirror.json — also merged into {ORIGIN}/?view=biblio with a mirror badge",
         f"- Layer index (which of t1/l0/argmap/l2/l3/l4/c1/c2 exist per song, with file hashes, verse ids, registry status): {ORIGIN}/data/layers-index.json — ask ChatGPT to show the stack and the forks",
         f"- Sanskrit lessons index + rule boxes: {ORIGIN}/data/sanskrit/index.json",
-        f"- Per-work reader bundle: {ORIGIN}/data/<work>.json ({readable} works; originals, layers, hashes)",
+        f"- Per-work reader bundle: {ORIGIN}/data/<work>.json ({readable} works; originals, layers, hashes — verified English only where readability says so)",
         f"- Scholar projections: {ORIGIN}/data/scholar/<work>.json (versions, essays, reviews, signoffs, projection_sha256)",
         f"- UNREVIEWED previews ({n_preview_works} works, {n_preview_chunks} chunks; machine-proposed, gates unchanged): {ORIGIN}/data/preview/<work>.json — index {ORIGIN}/data/preview/index.json",
         f"- Readability audit (catalogue vs retrievable text, per work, with status to quote): {ORIGIN}/data/readability.json",
@@ -262,10 +283,41 @@ def build_llms_full(biblio: dict) -> str:
     return "\n".join(lines) + "\n"
 
 
+def mcp_hosts() -> dict:
+    """Derived from the gateway configs, never a hand list."""
+    out = {}
+    for p in sorted((ROOT / "mcp" / "gateway").glob("servers-*.json")):
+        d = load_json(p) or {}
+        if d.get("public_base"):
+            out[p.stem.replace("servers-", "")] = {
+                "url": d["public_base"],
+                "role": (d.get("note") or "").split("—")[0].strip(),
+            }
+    return out
+
+
 def build_ai_catalog(n_traces: int) -> dict:
+    read = load_json(OUT / "readability.json") or {}
+    reg = load_json(OUT / "mcp-registry.json") or {}
+    counts = read.get("counts", {}) or {}
+    tool_counts = {s.get("name"): s.get("tools_count")
+                   for s in (reg.get("servers") or []) if s.get("name")}
     return {
         "format": "svread-ai-catalog/1",
         "origin": ORIGIN,
+        "start_here": {
+            "first_call": "MCP tool readability_status (no args) -> counts + per-work status; readability_status {work} -> one work.",
+            "then_read": "search_texts (semantic, gate-filtered) or search_chunks (all layers) -> passage_evidence {work, target}.",
+            "withheld_rule": "Blocked text is reported, not faked; preview_read returns UNREVIEWED machine English with its rights caveat.",
+            "static_fallback": f"{ORIGIN}/data/readability.json",
+        },
+        "capabilities": {
+            "counts": counts,
+            "tool_counts": tool_counts,
+            "mcp_hosts": mcp_hosts(),
+            "note": "verified English counts works whose reader bundle passes; "
+                    "previews are UNREVIEWED; catalogue is not text.",
+        },
         "trace_index": f"{ORIGIN}/data/traces/index.json",
         "trace_bundle": f"{ORIGIN}/data/traces/<work>-<target>.json "
                         "(trika-trace/1: source->layers->proofs->theorems->essays)",
