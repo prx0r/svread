@@ -12,7 +12,13 @@
   "trace_links_present": "FAIL",
   "witness": "UNPINNED"
  },
- "caveats": [],
+ "caveats": [
+  "layer:t1=whole-song-span",
+  "layer:l0=whole-song-span",
+  "layer:argmap=whole-song-span",
+  "layer:l2=whole-song-span",
+  "layer:c1=whole-song-span"
+ ],
  "chunk": {
   "immutable_id": "pt:pid:ipvv:165115d8eb7d",
   "target": "chunkA-svatyandya",
@@ -28,14 +34,8 @@
  },
  "format": "trika-trace/1",
  "gaps": [
-  "layer:t1",
-  "layer:l0",
-  "layer:argmap",
-  "layer:l2",
-  "layer:c1",
   "layer:l3",
-  "layer:l4",
-  "proofs:song"
+  "layer:l4"
  ],
  "identity": {
   "db": "postgresql://patala:***@localhost:5432/openpatala",
@@ -63,12 +63,18 @@
  },
  "layers": {
   "argmap": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "ipvv/data/chunk-a-svatyandya.argmap.json",
+   "present": true,
+   "sha256": "58f8f22a1c7ccd72cd2f1d79534b8a9a3b06982517f22ff514d2daccb2ce1e0e",
+   "status": "BOUND-WHOLE-SONG"
   },
   "c1": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "ipvv/data/chunk-a-svatyandya.c1.json",
+   "present": true,
+   "sha256": "60dfa8aa2d7496d2516509f2c3b57950d269161ea54fb1c4bb264282aaa82212",
+   "status": "BOUND-WHOLE-SONG"
   },
   "c2": {
    "note": "C2 renders are optional (owner: existing C2 stays; waived)",
@@ -76,12 +82,18 @@
    "status": "NOT-APPLICABLE"
   },
   "l0": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "ipvv/data/chunk-a-svatyandya.l0.json",
+   "present": true,
+   "sha256": "ac301b9f2f5f1fa41f5f5c33eb64f9cb396be83fbe0c0c051c255786435141f7",
+   "status": "BOUND-WHOLE-SONG"
   },
   "l2": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "ipvv/data/chunk-a-svatyandya.l2.json",
+   "present": true,
+   "sha256": "9dbfb4244eca74e9865ee5ec25bf96cdbe102a9a1c25e1a0feb7cfe23564fd5a",
+   "status": "BOUND-WHOLE-SONG"
   },
   "l3": {
    "present": false,
@@ -92,8 +104,11 @@
    "status": "UNKNOWN"
   },
   "t1": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "ipvv/data/chunk-a-svatyandya.t1.json",
+   "present": true,
+   "sha256": "f2cf47a8b7f42b40877f604c2664f88c9c7904a093a88630763d661b8c13e4cc",
+   "status": "BOUND-WHOLE-SONG"
   }
  },
  "open_problems": [
@@ -110,8 +125,13 @@
    "status": "PASS"
   },
   "song_proof": {
-   "note": "no proof file",
-   "status": "UNKNOWN"
+   "blocking": [],
+   "deterministic_gate": "PASS",
+   "file": "ipvv/proof/proof-chunk-a-svatyandya.json",
+   "sha256": "0a57f68a99faec2f755f84a01e53c0fcacfbfd275a171f8bffb65b6eaed9b405",
+   "status": "PASS",
+   "tool": "proof_record v1 2026-11-01",
+   "warnings": 0
   }
  },
  "source": {

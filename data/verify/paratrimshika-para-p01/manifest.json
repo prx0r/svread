@@ -7,32 +7,79 @@
    "sha256": "152951291de76c38fa01041d4731058d22d733e1ef864e5fa335a14700cedb7d"
   },
   {
-   "bytes": 4047,
-   "name": "ARGMAP.md",
-   "origin": "paratrimshika/ARGMAP.md",
+   "bytes": 7937,
+   "name": "ptv-p01.argmap.json",
+   "origin": "paratrimshika/data/ptv-p01.argmap.json",
    "role": "layer-argmap",
-   "sha256": "e793a2daa1f6a85ecc371fe810e3e7ab22ecbbb2a126ec257f5933b10c6310c3",
-   "status": "BOUND-WORK-MD"
+   "sha256": "8a76287d740c7953fdaaf557373aaa323ebf143000c2b6d0bc36ece30706b84b",
+   "status": "BOUND-WHOLE-SONG"
   },
   {
-   "bytes": 5578,
-   "name": "L2.md",
-   "origin": "paratrimshika/L2.md",
+   "bytes": 3005,
+   "name": "ptv-p01.c1.json",
+   "origin": "paratrimshika/data/ptv-p01.c1.json",
+   "role": "layer-c1",
+   "sha256": "32af4126378f37fd92ba822dc0bcad87fce1323f3bbc125f0fca921260421220",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 3093,
+   "name": "ptv-p01.c2.json",
+   "origin": "paratrimshika/data/ptv-p01.c2.json",
+   "role": "layer-c2",
+   "sha256": "3ffee3e1a08c07a6622e6405ddcdc951db350df3b47828f82bec9d2b719f8cc0",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 37077,
+   "name": "ptv-p01.l0.json",
+   "origin": "paratrimshika/data/ptv-p01.l0.json",
+   "role": "layer-l0",
+   "sha256": "f079b1d4e7c8fc6c9308c62a9c5b3c5edf6c77252509162c384d931a348e9b90",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 5604,
+   "name": "ptv-p01.l2.json",
+   "origin": "paratrimshika/data/ptv-p01.l2.json",
    "role": "layer-l2",
-   "sha256": "75889ad3060a4393c57ab7e0719cc34c80f192c99099bb9a425d70e0093f1f5a",
-   "status": "BOUND-WORK-MD"
+   "sha256": "6c9aed66b5da88ecf451161892bfa1a941ce0fbe0b70dcc645895b9e2bb588aa",
+   "status": "BOUND-WHOLE-SONG"
   },
   {
-   "bytes": 8921,
-   "name": "T1.md",
-   "origin": "paratrimshika/T1.md",
+   "bytes": 6496,
+   "name": "ptv-p01.l3.json",
+   "origin": "paratrimshika/data/ptv-p01.l3.json",
+   "role": "layer-l3",
+   "sha256": "81090fcd0ad38f8aedf86170f94a2409cd259cc402256979097b101b2f1e4d21",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 6685,
+   "name": "ptv-p01.l4.json",
+   "origin": "paratrimshika/data/ptv-p01.l4.json",
+   "role": "layer-l4",
+   "sha256": "2ee0601f31c29e402e92c78005cf385252adf087ecb2b4614fc9a138c8971e50",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 9562,
+   "name": "ptv-p01.t1.json",
+   "origin": "paratrimshika/data/ptv-p01.t1.json",
    "role": "layer-t1",
-   "sha256": "f1a98fbbceb06c8d2ca34159ea365596643eab23aa011e672e797bffb84c5a7c",
-   "status": "BOUND-WORK-MD"
+   "sha256": "105338a772eb07cfcabafbfe5fe88cf20319c952fb0b379de4f311538ef60780",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 1723,
+   "name": "proof-ptv-p01.json",
+   "origin": "paratrimshika/proof/proof-ptv-p01.json",
+   "role": "proof",
+   "sha256": "2d1d44d8454366ddd9f939870e4011e1b50d0e0bb3bd4edf5ea94b0b678d30f5"
   }
  ],
  "assurance": {
-  "chunk_gate": "BLOCKED",
+  "chunk_gate": "PASS",
   "formal_run": "UNBOUND",
   "formal_run_note": "registry references only; no per-declaration run digest bound",
   "publication": "NOT_AUTHORIZED",
@@ -41,11 +88,18 @@
   "review_note": "no review decision bound to this trace",
   "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
   "source_span_verified": "UNKNOWN",
-  "trace_links_present": "FAIL",
+  "trace_links_present": "PASS",
   "witness": "UNPINNED"
  },
  "caveats": [
-  "chunk_gate BLOCKED: COVERAGE,ABSTENTION"
+  "layer:t1=whole-song-span",
+  "layer:l0=whole-song-span",
+  "layer:argmap=whole-song-span",
+  "layer:l2=whole-song-span",
+  "layer:c1=whole-song-span",
+  "layer:l3=whole-song-span",
+  "layer:l4=whole-song-span",
+  "layer:c2=whole-song-span"
  ],
  "chunk": {
   "immutable_id": "pt:pid:para:152951291de7",
@@ -53,19 +107,13 @@
   "work": "paratrimshika"
  },
  "format": "trika-verify-pack/1",
- "gaps": [
-  "layer:l0",
-  "layer:c1",
-  "layer:l3",
-  "layer:l4",
-  "proofs:song"
- ],
+ "gaps": [],
  "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/paratrimshika-para-p01/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
  "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
  "trace": {
   "file": "traces/paratrimshika-para-p01.json",
-  "sha256": "93aa49895cae08a212447fd8b89d49389944afd23a650d5a4b3a99781646e38e"
+  "sha256": "6b31b716d387807f71d899f3035d4f235f90e9a5eab1ef1733374c47125b6f9f"
  },
- "verdict": "PARTIAL",
+ "verdict": "COMPLETE",
  "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
 }

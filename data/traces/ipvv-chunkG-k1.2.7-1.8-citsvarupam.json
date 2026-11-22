@@ -12,7 +12,13 @@
   "trace_links_present": "FAIL",
   "witness": "UNPINNED"
  },
- "caveats": [],
+ "caveats": [
+  "layer:t1=whole-song-span",
+  "layer:l0=whole-song-span",
+  "layer:argmap=whole-song-span",
+  "layer:l2=whole-song-span",
+  "layer:c1=whole-song-span"
+ ],
  "chunk": {
   "immutable_id": "pt:pid:ipvv:7db619b2d4f2",
   "target": "chunkG-k1.2.7-1.8-citsvarupam",
@@ -28,14 +34,8 @@
  },
  "format": "trika-trace/1",
  "gaps": [
-  "layer:t1",
-  "layer:l0",
-  "layer:argmap",
-  "layer:l2",
-  "layer:c1",
   "layer:l3",
-  "layer:l4",
-  "proofs:song"
+  "layer:l4"
  ],
  "identity": {
   "db": "postgresql://patala:***@localhost:5432/openpatala",
@@ -63,12 +63,18 @@
  },
  "layers": {
   "argmap": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "ipvv/data/chunk-g-k1-2-7-1-8-citsvarupam.argmap.json",
+   "present": true,
+   "sha256": "28c2444e7d68bafb01e24b8f497ea131463e763237421c3850818540a44c0d09",
+   "status": "BOUND-WHOLE-SONG"
   },
   "c1": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "ipvv/data/chunk-g-k1-2-7-1-8-citsvarupam.c1.json",
+   "present": true,
+   "sha256": "73da37b7f0c33d3057d7c8ef514ffed998cb13c171237e816f405c48dc0587f9",
+   "status": "BOUND-WHOLE-SONG"
   },
   "c2": {
    "note": "C2 renders are optional (owner: existing C2 stays; waived)",
@@ -76,12 +82,18 @@
    "status": "NOT-APPLICABLE"
   },
   "l0": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "ipvv/data/chunk-g-k1-2-7-1-8-citsvarupam.l0.json",
+   "present": true,
+   "sha256": "3be30784bd47f9e9324bc69873ba261174eeb22c1dc8eba85f5311228b713c6e",
+   "status": "BOUND-WHOLE-SONG"
   },
   "l2": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "ipvv/data/chunk-g-k1-2-7-1-8-citsvarupam.l2.json",
+   "present": true,
+   "sha256": "e6c8652adac768e1b2900dcf224b62ab640a3526717c5ac9a38ac81f90179fc6",
+   "status": "BOUND-WHOLE-SONG"
   },
   "l3": {
    "present": false,
@@ -92,8 +104,11 @@
    "status": "UNKNOWN"
   },
   "t1": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "ipvv/data/chunk-g-k1-2-7-1-8-citsvarupam.t1.json",
+   "present": true,
+   "sha256": "05b0a2d827a5ce33db1bcedd9a1d17438d008fcefc11c5a905929813208c3461",
+   "status": "BOUND-WHOLE-SONG"
   }
  },
  "open_problems": [
@@ -110,8 +125,13 @@
    "status": "PASS"
   },
   "song_proof": {
-   "note": "no proof file",
-   "status": "UNKNOWN"
+   "blocking": [],
+   "deterministic_gate": "PASS",
+   "file": "ipvv/proof/proof-chunk-g-k1-2-7-1-8-citsvarupam.json",
+   "sha256": "98f97fca44fad9db5fbdec116ecf7fd45c6a3f6deeebc3c3d03c249a837a0d71",
+   "status": "PASS",
+   "tool": "proof_record v1 2026-11-01",
+   "warnings": 0
   }
  },
  "source": {

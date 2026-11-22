@@ -1,6 +1,6 @@
 {
  "assurance": {
-  "chunk_gate": "BLOCKED",
+  "chunk_gate": "PASS",
   "formal_run": "UNBOUND",
   "formal_run_note": "registry references only; no per-declaration run digest bound",
   "publication": "NOT_AUTHORIZED",
@@ -9,11 +9,18 @@
   "review_note": "no review decision bound to this trace",
   "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
   "source_span_verified": "UNKNOWN",
-  "trace_links_present": "FAIL",
+  "trace_links_present": "PASS",
   "witness": "UNPINNED"
  },
  "caveats": [
-  "chunk_gate BLOCKED: ABSTENTION"
+  "layer:t1=whole-song-span",
+  "layer:l0=whole-song-span",
+  "layer:argmap=whole-song-span",
+  "layer:l2=whole-song-span",
+  "layer:c1=whole-song-span",
+  "layer:l3=whole-song-span",
+  "layer:l4=whole-song-span",
+  "song_proof warnings: 1"
  ],
  "chunk": {
   "immutable_id": "pt:pid:tal:tantraloka-a22004",
@@ -29,13 +36,7 @@
   "theorems": []
  },
  "format": "trika-trace/1",
- "gaps": [
-  "layer:l0",
-  "layer:c1",
-  "layer:l3",
-  "layer:l4",
-  "proofs:song"
- ],
+ "gaps": [],
  "identity": {
   "db": "postgresql://patala:***@localhost:5432/openpatala",
   "rows": {
@@ -62,15 +63,18 @@
  },
  "layers": {
   "argmap": {
-   "note": "work-level markdown layer, not per-chunk JSON; bound to the work, not the chunk span",
-   "path": "tantraloka-a22/ARGMAP.md",
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "tantraloka-a22/data/tal-a22.argmap.json",
    "present": true,
-   "sha256": "0d9d24b93500a9e0498c838afb0028173aad5fddf4ca9660b742d3df5f67f7f7",
-   "status": "BOUND-WORK-MD"
+   "sha256": "843d230746bbad9423d1b94221f6c85c4f9fe6cd6db3158bd9a8f14ae3e2f099",
+   "status": "BOUND-WHOLE-SONG"
   },
   "c1": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "tantraloka-a22/data/tal-a22.c1.json",
+   "present": true,
+   "sha256": "9896cc085063c0311b5d895b0e9d284f98e7d10dd9ad77ab68aa4c64a3c89d7a",
+   "status": "BOUND-WHOLE-SONG"
   },
   "c2": {
    "note": "C2 renders are optional (owner: existing C2 stays; waived)",
@@ -78,30 +82,39 @@
    "status": "NOT-APPLICABLE"
   },
   "l0": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "tantraloka-a22/data/tal-a22.l0.json",
+   "present": true,
+   "sha256": "b6f0b60fc831d8aba6795b46c5de0043fb754b4692350337f414b3f14658a4cb",
+   "status": "BOUND-WHOLE-SONG"
   },
   "l2": {
-   "note": "work-level markdown layer, not per-chunk JSON; bound to the work, not the chunk span",
-   "path": "tantraloka-a22/L2.md",
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "tantraloka-a22/data/tal-a22.l2.json",
    "present": true,
-   "sha256": "d1d94a574042650b7fe81808fc31a230662962ad75c37a221c8a9d728385fb2e",
-   "status": "BOUND-WORK-MD"
+   "sha256": "b433d20d74d6416167b01abf48441f185b310130ef92f7e8f92f7f231f0bdcdb",
+   "status": "BOUND-WHOLE-SONG"
   },
   "l3": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "tantraloka-a22/data/tal-a22.l3.json",
+   "present": true,
+   "sha256": "1bee363abaa31da2ac72be2c8eab534a463400ea5bddfb24a72991699203b5d6",
+   "status": "BOUND-WHOLE-SONG"
   },
   "l4": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "tantraloka-a22/data/tal-a22.l4.json",
+   "present": true,
+   "sha256": "b3285873ba34cf9e64e1c0e03f1c5fb673ff39d1e986107cee1b5b5d440b663e",
+   "status": "BOUND-WHOLE-SONG"
   },
   "t1": {
-   "note": "work-level markdown layer, not per-chunk JSON; bound to the work, not the chunk span",
-   "path": "tantraloka-a22/T1.md",
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "tantraloka-a22/data/tal-a22.t1.json",
    "present": true,
-   "sha256": "fef3f3fe5482d7f37a3d73a4989685e0cfad104d6377014375c0d7e7d2c0ab87",
-   "status": "BOUND-WORK-MD"
+   "sha256": "27f69470b3bc0786c645a6d986cefccdbd55a8c96665e0a44709dc8825a353b5",
+   "status": "BOUND-WHOLE-SONG"
   }
  },
  "open_problems": [
@@ -109,23 +122,22 @@
  ],
  "proofs": {
   "chunk_gate": {
-   "blocking": [
-    "ABSTENTION"
-   ],
+   "blocking": [],
    "checks_pass": {
-    "ABSTENTION": false,
-    "CITATION_GROUNDING": true,
-    "COVERAGE": true,
-    "SOURCE_BINDING": true,
-    "TERM_CONSISTENCY": true
+    "PROOF_RECORD": true
    },
-   "deterministic_gate": "BLOCKED",
-   "entry_sha256": "a8de60ed869a0e9a2194a90dad414f4996f1f042cd19269ec56cd77ec9a04574",
-   "status": "BLOCKED"
+   "deterministic_gate": "PASS",
+   "entry_sha256": "b46f61cd0178ed557f3f82b3c22a60ebcd980e75df8e8acead8b70bae5aa7683",
+   "status": "PASS"
   },
   "song_proof": {
-   "note": "no proof file",
-   "status": "UNKNOWN"
+   "blocking": [],
+   "deterministic_gate": "PASS",
+   "file": "tantraloka-a22/proof/proof-tal-a22.json",
+   "sha256": "1fc962c7ded0a58dac50be73597e93c5babe9d452eaa78a349bda953fd0229c9",
+   "status": "PASS",
+   "tool": "proof_record v1 2026-11-01",
+   "warnings": 1
   }
  },
  "source": {
@@ -146,6 +158,6 @@
    "status": "UNPINNED"
   }
  },
- "verdict": "PARTIAL",
+ "verdict": "COMPLETE",
  "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
 }

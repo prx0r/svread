@@ -7,32 +7,79 @@
    "sha256": "a63f683385c93930e2628abf25328882deda2643230713e9e13c5af3cb1dd2e0"
   },
   {
-   "bytes": 8477,
-   "name": "ARGMAP.md",
-   "origin": "sivasutra/ARGMAP.md",
+   "bytes": 7804,
+   "name": "span-p07.argmap.json",
+   "origin": "sivasutra/data/span-p07.argmap.json",
    "role": "layer-argmap",
-   "sha256": "48fb6e8ad16915a020909337aa38808cb4e7f535cf65f50dc4122ed833849a75",
-   "status": "BOUND-WORK-MD"
+   "sha256": "da118d14afa2fe3a3e575ad13adef973ab742d6fba041ff599e49c090ecbf64a",
+   "status": "BOUND-WHOLE-SONG"
   },
   {
-   "bytes": 10862,
-   "name": "L2.md",
-   "origin": "sivasutra/L2.md",
+   "bytes": 2868,
+   "name": "span-p07.c1.json",
+   "origin": "sivasutra/data/span-p07.c1.json",
+   "role": "layer-c1",
+   "sha256": "17baf2e548faabf68948ac5ed8a4b0e2a0ee93e1398d54dc05b308206e362ae1",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 2161,
+   "name": "span-p07.c2.json",
+   "origin": "sivasutra/data/span-p07.c2.json",
+   "role": "layer-c2",
+   "sha256": "2a6bf40e375fdb4e92b32e40f2bcde5bf68bdce15d084f97c663f0eb17e16932",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 16805,
+   "name": "span-p07.l0.json",
+   "origin": "sivasutra/data/span-p07.l0.json",
+   "role": "layer-l0",
+   "sha256": "77711d8e00ab4c8e01313b9085a39cf8f23d39799378a60d334da33ae3df5519",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 4430,
+   "name": "span-p07.l2.json",
+   "origin": "sivasutra/data/span-p07.l2.json",
    "role": "layer-l2",
-   "sha256": "df07355b4201f8b5d145fabd55c3f7087ad1557a0313c777a928e02c39783227",
-   "status": "BOUND-WORK-MD"
+   "sha256": "209ffd205386b4a0ef7f9b52082c9d1bd47beb7950ba0fb163bdf55fd6b3d6ea",
+   "status": "BOUND-WHOLE-SONG"
   },
   {
-   "bytes": 6955,
-   "name": "T1.md",
-   "origin": "sivasutra/T1.md",
+   "bytes": 6333,
+   "name": "span-p07.l3.json",
+   "origin": "sivasutra/data/span-p07.l3.json",
+   "role": "layer-l3",
+   "sha256": "2d245a670e8e1f89deb1aae5f8afa0a78d413e1ecd68b7c72857a85997a2ac26",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 6652,
+   "name": "span-p07.l4.json",
+   "origin": "sivasutra/data/span-p07.l4.json",
+   "role": "layer-l4",
+   "sha256": "aadd3ba705510b0c62bf4ee13116b58f7364f26179c514a389e36b7265d1cc6b",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 7180,
+   "name": "span-p07.t1.json",
+   "origin": "sivasutra/data/span-p07.t1.json",
    "role": "layer-t1",
-   "sha256": "f4cf2474989dfab2e9a69b14266b703020e74ae9009533459151edb90f967ac5",
-   "status": "BOUND-WORK-MD"
+   "sha256": "58492afa1d610e1325b8abe865aa60f75a0bb8130954818334498e45c7307961",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 1731,
+   "name": "proof-span-p07.json",
+   "origin": "sivasutra/proof/proof-span-p07.json",
+   "role": "proof",
+   "sha256": "3ef8bddcc71bd494eb85188234d9380af31abe7e2ac122a96097edfeecabd7e4"
   }
  ],
  "assurance": {
-  "chunk_gate": "BLOCKED",
+  "chunk_gate": "PASS",
   "formal_run": "UNBOUND",
   "formal_run_note": "registry references only; no per-declaration run digest bound",
   "publication": "NOT_AUTHORIZED",
@@ -41,11 +88,18 @@
   "review_note": "no review decision bound to this trace",
   "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
   "source_span_verified": "UNKNOWN",
-  "trace_links_present": "FAIL",
+  "trace_links_present": "PASS",
   "witness": "UNPINNED"
  },
  "caveats": [
-  "chunk_gate BLOCKED: ABSTENTION"
+  "layer:t1=whole-song-span",
+  "layer:l0=whole-song-span",
+  "layer:argmap=whole-song-span",
+  "layer:l2=whole-song-span",
+  "layer:c1=whole-song-span",
+  "layer:l3=whole-song-span",
+  "layer:l4=whole-song-span",
+  "layer:c2=whole-song-span"
  ],
  "chunk": {
   "immutable_id": "pt:pid:sivs:a63f683385c9",
@@ -53,19 +107,13 @@
   "work": "sivasutra"
  },
  "format": "trika-verify-pack/1",
- "gaps": [
-  "layer:l0",
-  "layer:c1",
-  "layer:l3",
-  "layer:l4",
-  "proofs:song"
- ],
+ "gaps": [],
  "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/sivasutra-sivs-p07/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
  "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
  "trace": {
   "file": "traces/sivasutra-sivs-p07.json",
-  "sha256": "8405f196e65285b2dc1f78135b8592c39ccf9ec5886101b9532bf8f5d80ecadb"
+  "sha256": "e451c87d7e8e41f42fb8f1da5b2b63ea470120f4c3460c67181de7b17c3c3ad1"
  },
- "verdict": "PARTIAL",
+ "verdict": "COMPLETE",
  "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
 }

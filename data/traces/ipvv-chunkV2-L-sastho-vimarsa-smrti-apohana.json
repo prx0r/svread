@@ -12,7 +12,13 @@
   "trace_links_present": "FAIL",
   "witness": "UNPINNED"
  },
- "caveats": [],
+ "caveats": [
+  "layer:t1=whole-song-span",
+  "layer:l0=whole-song-span",
+  "layer:argmap=whole-song-span",
+  "layer:l2=whole-song-span",
+  "layer:c1=whole-song-span"
+ ],
  "chunk": {
   "immutable_id": "pt:pid:ipvv:c94153f929f7",
   "target": "chunkV2-L-sastho-vimarsa-smrti-apohana",
@@ -28,14 +34,8 @@
  },
  "format": "trika-trace/1",
  "gaps": [
-  "layer:t1",
-  "layer:l0",
-  "layer:argmap",
-  "layer:l2",
-  "layer:c1",
   "layer:l3",
-  "layer:l4",
-  "proofs:song"
+  "layer:l4"
  ],
  "identity": {
   "db": "postgresql://patala:***@localhost:5432/openpatala",
@@ -63,12 +63,18 @@
  },
  "layers": {
   "argmap": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "ipvv/data/chunk-v2-l-sastho-vimarsa-smrti-apohana.argmap.json",
+   "present": true,
+   "sha256": "fcbaf130714386236e83367d24df30c284c9fb0facc24dbc0555ba9d4ef12e86",
+   "status": "BOUND-WHOLE-SONG"
   },
   "c1": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "ipvv/data/chunk-v2-l-sastho-vimarsa-smrti-apohana.c1.json",
+   "present": true,
+   "sha256": "b45e0495c6446bb4eb94ae6b6ac36826e83eaec458050a2e0f6ec7bf4cc78c75",
+   "status": "BOUND-WHOLE-SONG"
   },
   "c2": {
    "note": "C2 renders are optional (owner: existing C2 stays; waived)",
@@ -76,12 +82,18 @@
    "status": "NOT-APPLICABLE"
   },
   "l0": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "ipvv/data/chunk-v2-l-sastho-vimarsa-smrti-apohana.l0.json",
+   "present": true,
+   "sha256": "6b5910bd3a9119d9eea146d747a915200a030d3c7e2a69b8b19ecb967ec6057b",
+   "status": "BOUND-WHOLE-SONG"
   },
   "l2": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "ipvv/data/chunk-v2-l-sastho-vimarsa-smrti-apohana.l2.json",
+   "present": true,
+   "sha256": "16d769e1d071b4c425c94e16ffcb08794d1f283b65882a663d95b847907bc65b",
+   "status": "BOUND-WHOLE-SONG"
   },
   "l3": {
    "present": false,
@@ -92,8 +104,11 @@
    "status": "UNKNOWN"
   },
   "t1": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "ipvv/data/chunk-v2-l-sastho-vimarsa-smrti-apohana.t1.json",
+   "present": true,
+   "sha256": "3c1121fae31c544d040733fce79365235be7290ce7ec590b2416f08c316a8c69",
+   "status": "BOUND-WHOLE-SONG"
   }
  },
  "open_problems": [
@@ -110,8 +125,13 @@
    "status": "PASS"
   },
   "song_proof": {
-   "note": "no proof file",
-   "status": "UNKNOWN"
+   "blocking": [],
+   "deterministic_gate": "PASS",
+   "file": "ipvv/proof/proof-chunk-v2-l-sastho-vimarsa-smrti-apohana.json",
+   "sha256": "47531090a1aaa7fb9da59a9e2b205d3d794b3f02dd88a14c3595a67860c4e437",
+   "status": "PASS",
+   "tool": "proof_record v1 2026-11-01",
+   "warnings": 0
   }
  },
  "source": {

@@ -1,6 +1,6 @@
 # ipvv chunkV3-P-tattva-caturtho-close-k1-3 (M00022:12263-12539)
 
-ipvv chunkV3-P-tattva-caturtho-close-k1-3 (M00022:12263-12539) links incomplete (8 gaps named); no formal theorems bound. Chunk gate passes; no witness verified.
+ipvv chunkV3-P-tattva-caturtho-close-k1-3 (M00022:12263-12539) links incomplete (2 gaps named); no formal theorems bound. Chunk gate passes; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
@@ -290,13 +290,13 @@ mabhinavaguptapādānām ||
 
 ## Reading
 
-Withheld. no verified L2 layer in this pack
+Withheld. no pack L2 entry maps to this passage excerpt (verse-level mapping required, none found)
 
 ## Claims
 
 | Claim | Status | Basis |
 |---|---|---|
-| Link completeness | FAIL (8 gaps named) | assurance.trace_links_present + gaps |
+| Link completeness | FAIL (2 gaps named) | assurance.trace_links_present + gaps |
 | Human review | UNREVIEWED (machine rendering; no human sign-off) | assurance.review |
 | Deterministic chunk gate | PASS (none) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |

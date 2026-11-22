@@ -12,7 +12,13 @@
   "trace_links_present": "FAIL",
   "witness": "UNPINNED"
  },
- "caveats": [],
+ "caveats": [
+  "layer:t1=whole-song-span",
+  "layer:l0=whole-song-span",
+  "layer:argmap=whole-song-span",
+  "layer:l2=whole-song-span",
+  "layer:c1=whole-song-span"
+ ],
  "chunk": {
   "immutable_id": "pt:pid:ipvv:3b074ddbaf3b",
   "target": "chunkV2-N-sastho-k8-11",
@@ -28,14 +34,8 @@
  },
  "format": "trika-trace/1",
  "gaps": [
-  "layer:t1",
-  "layer:l0",
-  "layer:argmap",
-  "layer:l2",
-  "layer:c1",
   "layer:l3",
-  "layer:l4",
-  "proofs:song"
+  "layer:l4"
  ],
  "identity": {
   "db": "postgresql://patala:***@localhost:5432/openpatala",
@@ -63,12 +63,18 @@
  },
  "layers": {
   "argmap": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "ipvv/data/chunk-v2-n-sastho-k8-11.argmap.json",
+   "present": true,
+   "sha256": "bd86bc85869a4867976cacaaf0a1f73f55a22677d86586c5c4b09033bd36cf55",
+   "status": "BOUND-WHOLE-SONG"
   },
   "c1": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "ipvv/data/chunk-v2-n-sastho-k8-11.c1.json",
+   "present": true,
+   "sha256": "0d142ae7f2dbe4deb23212e74a144e44922c0cb03cd5fa7578419618346f46e9",
+   "status": "BOUND-WHOLE-SONG"
   },
   "c2": {
    "note": "C2 renders are optional (owner: existing C2 stays; waived)",
@@ -76,12 +82,18 @@
    "status": "NOT-APPLICABLE"
   },
   "l0": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "ipvv/data/chunk-v2-n-sastho-k8-11.l0.json",
+   "present": true,
+   "sha256": "457a2523594d26a1fca1b2f79057bd98b8f571df367af590ac179e1091147647",
+   "status": "BOUND-WHOLE-SONG"
   },
   "l2": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "ipvv/data/chunk-v2-n-sastho-k8-11.l2.json",
+   "present": true,
+   "sha256": "f4e4fccc5ca0337ec5e0e054636a45c2ad0e0b7b0eebeda18f769598f15347e0",
+   "status": "BOUND-WHOLE-SONG"
   },
   "l3": {
    "present": false,
@@ -92,8 +104,11 @@
    "status": "UNKNOWN"
   },
   "t1": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "ipvv/data/chunk-v2-n-sastho-k8-11.t1.json",
+   "present": true,
+   "sha256": "66a8bcbe439cdecfba51c5a3587c839c042bbe8f2bbc3903bd62009d2df3cec7",
+   "status": "BOUND-WHOLE-SONG"
   }
  },
  "open_problems": [
@@ -110,8 +125,13 @@
    "status": "PASS"
   },
   "song_proof": {
-   "note": "no proof file",
-   "status": "UNKNOWN"
+   "blocking": [],
+   "deterministic_gate": "PASS",
+   "file": "ipvv/proof/proof-chunk-v2-n-sastho-k8-11.json",
+   "sha256": "de16bf06dfb52310280b3e45325a495d392bee0d2aca566e4f4e248baf9fab6d",
+   "status": "PASS",
+   "tool": "proof_record v1 2026-11-01",
+   "warnings": 0
   }
  },
  "source": {

@@ -7,32 +7,55 @@
    "sha256": "b4cd759fcbcaa4c8335bd36460609e11438b57825b1def1b4c97bd3fc1faad9c"
   },
   {
-   "bytes": 60860,
-   "name": "ARGMAP.md",
-   "origin": "tantraloka-a06/ARGMAP.md",
+   "bytes": 222805,
+   "name": "tal-a06.argmap.json",
+   "origin": "tantraloka-a06/data/tal-a06.argmap.json",
    "role": "layer-argmap",
-   "sha256": "e87918f97537570dd2b3caecad52e677d92ead0a5e56ebac957cfdbf75aae5a0",
-   "status": "BOUND-WORK-MD"
+   "sha256": "ba73d64117f748b1ad7491508e2f22cf084489fed8a6958eca6ed15eabd12a8c",
+   "status": "BOUND-WHOLE-SONG"
   },
   {
-   "bytes": 57077,
-   "name": "L2.md",
-   "origin": "tantraloka-a06/L2.md",
+   "bytes": 488,
+   "name": "tal-a06.c1.json",
+   "origin": "tantraloka-a06/data/tal-a06.c1.json",
+   "role": "layer-c1",
+   "sha256": "b9c23cc2399670f2891dc7aa2cebc5d257ad6761f2de5801b86b53b987405e13",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 721350,
+   "name": "tal-a06.l0.json",
+   "origin": "tantraloka-a06/data/tal-a06.l0.json",
+   "role": "layer-l0",
+   "sha256": "4ac9bb6c963ce8858bd1e77081728d3c74a5a4e23460f48763b6fb37ad67fbf3",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 143380,
+   "name": "tal-a06.l2.json",
+   "origin": "tantraloka-a06/data/tal-a06.l2.json",
    "role": "layer-l2",
-   "sha256": "81e1c5f31cdba68b9780f1aded2b83f843e23976a588e37a77e29d9f719c521f",
-   "status": "BOUND-WORK-MD"
+   "sha256": "563b122d869c9dd52acb7a3e1060f43f643cbd199adf501ba78858e10e59af3a",
+   "status": "BOUND-WHOLE-SONG"
   },
   {
-   "bytes": 29312,
-   "name": "T1.md",
-   "origin": "tantraloka-a06/T1.md",
+   "bytes": 301437,
+   "name": "tal-a06.t1.json",
+   "origin": "tantraloka-a06/data/tal-a06.t1.json",
    "role": "layer-t1",
-   "sha256": "5f59d808413c45d1b5eff842df6ab4f5e6dea7732802c94d5914c8242fcd042b",
-   "status": "BOUND-WORK-MD"
+   "sha256": "3c1526c625b36887214eeb4d015eb5a8b1957e180defc7053859a7ab6399d98a",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 1532,
+   "name": "proof-tal-a06.json",
+   "origin": "tantraloka-a06/proof/proof-tal-a06.json",
+   "role": "proof",
+   "sha256": "7e88ffd091f7a12cc4f83e199d3d3ac0999504df2e31a699e06d81ec70575ce6"
   }
  ],
  "assurance": {
-  "chunk_gate": "BLOCKED",
+  "chunk_gate": "PASS",
   "formal_run": "UNBOUND",
   "formal_run_note": "registry references only; no per-declaration run digest bound",
   "publication": "NOT_AUTHORIZED",
@@ -45,7 +68,11 @@
   "witness": "UNPINNED"
  },
  "caveats": [
-  "chunk_gate BLOCKED: ABSTENTION"
+  "layer:t1=whole-song-span",
+  "layer:l0=whole-song-span",
+  "layer:argmap=whole-song-span",
+  "layer:l2=whole-song-span",
+  "layer:c1=whole-song-span"
  ],
  "chunk": {
   "immutable_id": "pt:pid:tal:tantraloka-a06025",
@@ -54,17 +81,14 @@
  },
  "format": "trika-verify-pack/1",
  "gaps": [
-  "layer:l0",
-  "layer:c1",
   "layer:l3",
-  "layer:l4",
-  "proofs:song"
+  "layer:l4"
  ],
  "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/tantraloka-a06-tal-a06-p25/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
  "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
  "trace": {
   "file": "traces/tantraloka-a06-tal-a06-p25.json",
-  "sha256": "d9121c2196b4418710573f2334201f43c888e346b7a68bcd72502f2b18bc4f8a"
+  "sha256": "3c1f25d1779910a0764380c794e209a2791809ab90bffac264af95f57fd99c10"
  },
  "verdict": "PARTIAL",
  "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."

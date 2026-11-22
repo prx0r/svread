@@ -7,32 +7,55 @@
    "sha256": "8fee21b986e58c44612afab54a11822671471bf3fba0395d9d09131bf3f7accb"
   },
   {
-   "bytes": 85923,
-   "name": "ARGMAP.md",
-   "origin": "tantraloka-a13/ARGMAP.md",
+   "bytes": 325425,
+   "name": "tal-a13.argmap.json",
+   "origin": "tantraloka-a13/data/tal-a13.argmap.json",
    "role": "layer-argmap",
-   "sha256": "e7a210c2440d3a012d47445567e63ffed14f31810c7319b2cf3f7f65faeb41df",
-   "status": "BOUND-WORK-MD"
+   "sha256": "61083ee0d672b71943d0f5f71aefb08edde17e86a272b13fa785eaaf3eecac6b",
+   "status": "BOUND-WHOLE-SONG"
   },
   {
-   "bytes": 80259,
-   "name": "L2.md",
-   "origin": "tantraloka-a13/L2.md",
+   "bytes": 487,
+   "name": "tal-a13.c1.json",
+   "origin": "tantraloka-a13/data/tal-a13.c1.json",
+   "role": "layer-c1",
+   "sha256": "fc51db7e7f9bd0c0172a5176857df752a0e187f66f2fa04da3e1ee86f1fef800",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 1035734,
+   "name": "tal-a13.l0.json",
+   "origin": "tantraloka-a13/data/tal-a13.l0.json",
+   "role": "layer-l0",
+   "sha256": "6e31f36ff64831d629cdc2b2446bef5a85e7bf0fa2b8e42d2e6b2899ad4d38af",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 206613,
+   "name": "tal-a13.l2.json",
+   "origin": "tantraloka-a13/data/tal-a13.l2.json",
    "role": "layer-l2",
-   "sha256": "647694e02657982ad0340234b2d76edfea2e67f3bd587c2ed57c26809f820fe9",
-   "status": "BOUND-WORK-MD"
+   "sha256": "e00b16338d0fc2482c53f8a467cda90872cd63d28cbfd9e08ceb1f1b7a5dc423",
+   "status": "BOUND-WHOLE-SONG"
   },
   {
-   "bytes": 41306,
-   "name": "T1.md",
-   "origin": "tantraloka-a13/T1.md",
+   "bytes": 491908,
+   "name": "tal-a13.t1.json",
+   "origin": "tantraloka-a13/data/tal-a13.t1.json",
    "role": "layer-t1",
-   "sha256": "82bc3eeaf1d25539166ea1187efc53a166ddb626ecaf7531a65fce8e3b17455a",
-   "status": "BOUND-WORK-MD"
+   "sha256": "3d309cb7a1fa37025d824637b8772af6f38da9b32a3119f7550bda28c9ff8b17",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 1534,
+   "name": "proof-tal-a13.json",
+   "origin": "tantraloka-a13/proof/proof-tal-a13.json",
+   "role": "proof",
+   "sha256": "1b66e7ea53b8aad2fc02ef91016c862323f7364e4b6299cfd7f14bf841a9046d"
   }
  ],
  "assurance": {
-  "chunk_gate": "BLOCKED",
+  "chunk_gate": "PASS",
   "formal_run": "UNBOUND",
   "formal_run_note": "registry references only; no per-declaration run digest bound",
   "publication": "NOT_AUTHORIZED",
@@ -45,7 +68,11 @@
   "witness": "UNPINNED"
  },
  "caveats": [
-  "chunk_gate BLOCKED: ABSTENTION"
+  "layer:t1=whole-song-span",
+  "layer:l0=whole-song-span",
+  "layer:argmap=whole-song-span",
+  "layer:l2=whole-song-span",
+  "layer:c1=whole-song-span"
  ],
  "chunk": {
   "immutable_id": "pt:pid:tal:tantraloka-a13015",
@@ -54,17 +81,14 @@
  },
  "format": "trika-verify-pack/1",
  "gaps": [
-  "layer:l0",
-  "layer:c1",
   "layer:l3",
-  "layer:l4",
-  "proofs:song"
+  "layer:l4"
  ],
  "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/tantraloka-a13-tal-a13-p15/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
  "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
  "trace": {
   "file": "traces/tantraloka-a13-tal-a13-p15.json",
-  "sha256": "5d657c2226e36b5b2dbe02d04e1ac2c4c759cb70666efbe73d1eb42f97c73c66"
+  "sha256": "d9cb405e2ae0adf5cc8ae74742e0ede02b9314cdec66d5cfc68d92d351283eb9"
  },
  "verdict": "PARTIAL",
  "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."

@@ -12,7 +12,13 @@
   "trace_links_present": "FAIL",
   "witness": "UNPINNED"
  },
- "caveats": [],
+ "caveats": [
+  "layer:t1=whole-song-span",
+  "layer:l0=whole-song-span",
+  "layer:argmap=whole-song-span",
+  "layer:l2=whole-song-span",
+  "layer:c1=whole-song-span"
+ ],
  "chunk": {
   "immutable_id": "pt:pid:ipvv:64678ac92bc1",
   "target": "chunkI-k1.9-1.10-kriya-karyakarana",
@@ -28,14 +34,8 @@
  },
  "format": "trika-trace/1",
  "gaps": [
-  "layer:t1",
-  "layer:l0",
-  "layer:argmap",
-  "layer:l2",
-  "layer:c1",
   "layer:l3",
-  "layer:l4",
-  "proofs:song"
+  "layer:l4"
  ],
  "identity": {
   "db": "postgresql://patala:***@localhost:5432/openpatala",
@@ -63,12 +63,18 @@
  },
  "layers": {
   "argmap": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "ipvv/data/chunk-i-k1-9-1-10-kriya-karyakarana.argmap.json",
+   "present": true,
+   "sha256": "273ee576a88db82c6914f0009c8a27e68ade8a3a73fa179b0e521c4af358ed10",
+   "status": "BOUND-WHOLE-SONG"
   },
   "c1": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "ipvv/data/chunk-i-k1-9-1-10-kriya-karyakarana.c1.json",
+   "present": true,
+   "sha256": "2f503c6961c1ae77394564fb075b2f2d8338247acc48f9259856df530beee163",
+   "status": "BOUND-WHOLE-SONG"
   },
   "c2": {
    "note": "C2 renders are optional (owner: existing C2 stays; waived)",
@@ -76,12 +82,18 @@
    "status": "NOT-APPLICABLE"
   },
   "l0": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "ipvv/data/chunk-i-k1-9-1-10-kriya-karyakarana.l0.json",
+   "present": true,
+   "sha256": "26cd70c8d2cd24a0a62b7b97714cdfcdbd6e3c6780d5f7a240cf890efaace0e0",
+   "status": "BOUND-WHOLE-SONG"
   },
   "l2": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "ipvv/data/chunk-i-k1-9-1-10-kriya-karyakarana.l2.json",
+   "present": true,
+   "sha256": "c44f2de86ae74cc93d6c3eb3264a369e0e9daac43e0ef2b10ca82674cfc337e6",
+   "status": "BOUND-WHOLE-SONG"
   },
   "l3": {
    "present": false,
@@ -92,8 +104,11 @@
    "status": "UNKNOWN"
   },
   "t1": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "ipvv/data/chunk-i-k1-9-1-10-kriya-karyakarana.t1.json",
+   "present": true,
+   "sha256": "049b3d4ace8adb7fc4738222855d0d4479a183015d8b3fd117cb2d63fbf40650",
+   "status": "BOUND-WHOLE-SONG"
   }
  },
  "open_problems": [
@@ -110,8 +125,13 @@
    "status": "PASS"
   },
   "song_proof": {
-   "note": "no proof file",
-   "status": "UNKNOWN"
+   "blocking": [],
+   "deterministic_gate": "PASS",
+   "file": "ipvv/proof/proof-chunk-i-k1-9-1-10-kriya-karyakarana.json",
+   "sha256": "f7db2cd6ba54a29cd87830e89ec8836b934856031d68c95718ab7fd3b71c0d8c",
+   "status": "PASS",
+   "tool": "proof_record v1 2026-11-01",
+   "warnings": 0
   }
  },
  "source": {

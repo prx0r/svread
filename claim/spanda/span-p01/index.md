@@ -1,6 +1,6 @@
 # spanda span-p01 (KSTS 1-6)
 
-spanda span-p01 (KSTS 1-6) passes link checks; counts REGISTERED without a per-declaration run. Chunk gate BLOCKED; no witness verified.
+spanda span-p01 (KSTS 1-6) passes link checks; counts REGISTERED without a per-declaration run. Chunk gate passes; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
@@ -29,6 +29,6 @@ yatra sthitam idaṃ sarvaṃ kāryaṃ yasmāc ca nirgataṃ | tasyānāvṛtar
 | Spanda.lean :: acts_three | SPAN-PINNED, run UNBOUND (tier R) | trace formal; EVIDENCE registry reference only |
 | Spanda.lean :: glide_all | SPAN-PINNED, run UNBOUND (tier R) | trace formal; EVIDENCE registry reference only |
 | Spanda.lean :: phases_two | SPAN-PINNED, run UNBOUND (tier R) | trace formal; EVIDENCE registry reference only |
-| Deterministic chunk gate | BLOCKED (ABSTENTION, CITATION_GROUNDING) | proofs.chunk_gate |
+| Deterministic chunk gate | PASS (none) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

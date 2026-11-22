@@ -5,6 +5,53 @@
    "name": "source.txt",
    "role": "source-bytes",
    "sha256": "baaa2e20481230a25a06e6c7a034de96c249d1d025b2287c987c2b59639dd49e"
+  },
+  {
+   "bytes": 52790,
+   "name": "chunk-v2-m-sastho-vimarsa-k6-7.argmap.json",
+   "origin": "ipvv/data/chunk-v2-m-sastho-vimarsa-k6-7.argmap.json",
+   "role": "layer-argmap",
+   "sha256": "db7177ff24173b31325624ef87636feed4355769fca100cba00515a932def08d",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 553,
+   "name": "chunk-v2-m-sastho-vimarsa-k6-7.c1.json",
+   "origin": "ipvv/data/chunk-v2-m-sastho-vimarsa-k6-7.c1.json",
+   "role": "layer-c1",
+   "sha256": "f4ffaba96455b809531fa7a9d96d434118fdb836420569574f17be9f566466a4",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 1653315,
+   "name": "chunk-v2-m-sastho-vimarsa-k6-7.l0.json",
+   "origin": "ipvv/data/chunk-v2-m-sastho-vimarsa-k6-7.l0.json",
+   "role": "layer-l0",
+   "sha256": "384ed9c2a7e66f5a7f5d9d2e74f056820473c1637bde3e7e279fd54bb57f9406",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 52840,
+   "name": "chunk-v2-m-sastho-vimarsa-k6-7.l2.json",
+   "origin": "ipvv/data/chunk-v2-m-sastho-vimarsa-k6-7.l2.json",
+   "role": "layer-l2",
+   "sha256": "33eb27a7c223b308d49c66929b8f6e62e5364558cc825c8c276e3c5cdc884496",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 268778,
+   "name": "chunk-v2-m-sastho-vimarsa-k6-7.t1.json",
+   "origin": "ipvv/data/chunk-v2-m-sastho-vimarsa-k6-7.t1.json",
+   "role": "layer-t1",
+   "sha256": "7f0660766356891c2943e7a675c818a882e9635d29bedb76c9d0ad578587d321",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 1715,
+   "name": "proof-chunk-v2-m-sastho-vimarsa-k6-7.json",
+   "origin": "ipvv/proof/proof-chunk-v2-m-sastho-vimarsa-k6-7.json",
+   "role": "proof",
+   "sha256": "f837e1583919d8fe939e125d2f8649a649848b4ab4fe42f49de9eefc5ad27c1b"
   }
  ],
  "assurance": {
@@ -20,7 +67,13 @@
   "trace_links_present": "FAIL",
   "witness": "UNPINNED"
  },
- "caveats": [],
+ "caveats": [
+  "layer:t1=whole-song-span",
+  "layer:l0=whole-song-span",
+  "layer:argmap=whole-song-span",
+  "layer:l2=whole-song-span",
+  "layer:c1=whole-song-span"
+ ],
  "chunk": {
   "immutable_id": "pt:pid:ipvv:311635b7c8a8",
   "target": "chunkV2-M-sastho-vimarsa-k6-7",
@@ -28,20 +81,14 @@
  },
  "format": "trika-verify-pack/1",
  "gaps": [
-  "layer:t1",
-  "layer:l0",
-  "layer:argmap",
-  "layer:l2",
-  "layer:c1",
   "layer:l3",
-  "layer:l4",
-  "proofs:song"
+  "layer:l4"
  ],
  "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/ipvv-chunkV2-M-sastho-vimarsa-k6-7/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
  "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
  "trace": {
   "file": "traces/ipvv-chunkV2-M-sastho-vimarsa-k6-7.json",
-  "sha256": "6baa4576143ed95f89d9b99aaf10b268771670ebcd945aefd2fdef0a3faaa3f4"
+  "sha256": "b71b9ca7d3b205cbd4e08b4db884ff587170cd069d6e1d54f5068af8be294e22"
  },
  "verdict": "PARTIAL",
  "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."

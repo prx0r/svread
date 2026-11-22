@@ -1,6 +1,6 @@
 # vbt vbt-p02 (12-21)
 
-vbt vbt-p02 (12-21) passes link checks; counts REGISTERED without a per-declaration run. Chunk gate BLOCKED; no witness verified.
+vbt vbt-p02 (12-21) passes link checks; counts REGISTERED without a per-declaration run. Chunk gate passes; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
@@ -31,6 +31,6 @@ nādabindumayo vāpi na candrārdhanirodhikāḥ | na cakrakramasambhinno na ca 
 | Link completeness | PASS | assurance.trace_links_present + gaps |
 | Human review | UNREVIEWED (machine rendering; no human sign-off) | assurance.review |
 | Vbt.lean :: coords_three | SPAN-PINNED, run UNBOUND (tier R) | trace formal; EVIDENCE registry reference only |
-| Deterministic chunk gate | BLOCKED (ABSTENTION) | proofs.chunk_gate |
+| Deterministic chunk gate | PASS (none) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

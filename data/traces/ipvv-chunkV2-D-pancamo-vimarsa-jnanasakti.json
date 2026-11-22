@@ -12,7 +12,13 @@
   "trace_links_present": "FAIL",
   "witness": "UNPINNED"
  },
- "caveats": [],
+ "caveats": [
+  "layer:t1=whole-song-span",
+  "layer:l0=whole-song-span",
+  "layer:argmap=whole-song-span",
+  "layer:l2=whole-song-span",
+  "layer:c1=whole-song-span"
+ ],
  "chunk": {
   "immutable_id": "pt:pid:ipvv:62db0c4350bd",
   "target": "chunkV2-D-pancamo-vimarsa-jnanasakti",
@@ -28,14 +34,8 @@
  },
  "format": "trika-trace/1",
  "gaps": [
-  "layer:t1",
-  "layer:l0",
-  "layer:argmap",
-  "layer:l2",
-  "layer:c1",
   "layer:l3",
-  "layer:l4",
-  "proofs:song"
+  "layer:l4"
  ],
  "identity": {
   "db": "postgresql://patala:***@localhost:5432/openpatala",
@@ -63,12 +63,18 @@
  },
  "layers": {
   "argmap": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "ipvv/data/chunk-v2-d-pancamo-vimarsa-jnanasakti.argmap.json",
+   "present": true,
+   "sha256": "59467bb85807da1d2825739034b9d31d2bef3d77f53d0d131245e071fac42f63",
+   "status": "BOUND-WHOLE-SONG"
   },
   "c1": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "ipvv/data/chunk-v2-d-pancamo-vimarsa-jnanasakti.c1.json",
+   "present": true,
+   "sha256": "573e96d100e67d01d12795c676051c9d16054c39939650877842afaaf9a682af",
+   "status": "BOUND-WHOLE-SONG"
   },
   "c2": {
    "note": "C2 renders are optional (owner: existing C2 stays; waived)",
@@ -76,12 +82,18 @@
    "status": "NOT-APPLICABLE"
   },
   "l0": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "ipvv/data/chunk-v2-d-pancamo-vimarsa-jnanasakti.l0.json",
+   "present": true,
+   "sha256": "bfac7ab3ff9c6ee62de5bc60ef2a185f828f23ad8b211c74b609c5a9f64f3828",
+   "status": "BOUND-WHOLE-SONG"
   },
   "l2": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "ipvv/data/chunk-v2-d-pancamo-vimarsa-jnanasakti.l2.json",
+   "present": true,
+   "sha256": "98724587b0e331c47c1c207d94e35d2e844d81a62fc50b9cff609aa8533d942c",
+   "status": "BOUND-WHOLE-SONG"
   },
   "l3": {
    "present": false,
@@ -92,8 +104,11 @@
    "status": "UNKNOWN"
   },
   "t1": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "ipvv/data/chunk-v2-d-pancamo-vimarsa-jnanasakti.t1.json",
+   "present": true,
+   "sha256": "ede598eb2da3d0e79869a04583ac1a29a4d3c379741a73293be60edf885128df",
+   "status": "BOUND-WHOLE-SONG"
   }
  },
  "open_problems": [
@@ -110,8 +125,13 @@
    "status": "PASS"
   },
   "song_proof": {
-   "note": "no proof file",
-   "status": "UNKNOWN"
+   "blocking": [],
+   "deterministic_gate": "PASS",
+   "file": "ipvv/proof/proof-chunk-v2-d-pancamo-vimarsa-jnanasakti.json",
+   "sha256": "f061407c56b91e1b9c7d53ab3e85866dd5efab9ec238e0ee809556bd7a3a7530",
+   "status": "PASS",
+   "tool": "proof_record v1 2026-11-01",
+   "warnings": 0
   }
  },
  "source": {

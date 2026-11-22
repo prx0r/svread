@@ -1,6 +1,6 @@
 # svabodhasiddhi svab-p02 (11-19)
 
-svabodhasiddhi svab-p02 (11-19) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+svabodhasiddhi svab-p02 (11-19) passes link checks; no formal theorems bound. Chunk gate passes; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
@@ -25,6 +25,6 @@ svasaṃkalpaparāmarśād viśuddhajñānasaṃśrayāt / paramāhlādalābhāc
 |---|---|---|
 | Link completeness | PASS | assurance.trace_links_present + gaps |
 | Human review | UNREVIEWED (machine rendering; no human sign-off) | assurance.review |
-| Deterministic chunk gate | BLOCKED (ABSTENTION) | proofs.chunk_gate |
+| Deterministic chunk gate | PASS (none) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

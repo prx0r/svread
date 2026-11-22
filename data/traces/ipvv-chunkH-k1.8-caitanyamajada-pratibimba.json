@@ -12,7 +12,13 @@
   "trace_links_present": "FAIL",
   "witness": "UNPINNED"
  },
- "caveats": [],
+ "caveats": [
+  "layer:t1=whole-song-span",
+  "layer:l0=whole-song-span",
+  "layer:argmap=whole-song-span",
+  "layer:l2=whole-song-span",
+  "layer:c1=whole-song-span"
+ ],
  "chunk": {
   "immutable_id": "pt:pid:ipvv:05765be4afff",
   "target": "chunkH-k1.8-caitanyamajada-pratibimba",
@@ -28,14 +34,8 @@
  },
  "format": "trika-trace/1",
  "gaps": [
-  "layer:t1",
-  "layer:l0",
-  "layer:argmap",
-  "layer:l2",
-  "layer:c1",
   "layer:l3",
-  "layer:l4",
-  "proofs:song"
+  "layer:l4"
  ],
  "identity": {
   "db": "postgresql://patala:***@localhost:5432/openpatala",
@@ -63,12 +63,18 @@
  },
  "layers": {
   "argmap": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "ipvv/data/chunk-h-k1-8-caitanyamajada-pratibimba.argmap.json",
+   "present": true,
+   "sha256": "22b565579bdd0e2ded823cfe7f56671c7a54338f7cb698d30ee3378b040965f4",
+   "status": "BOUND-WHOLE-SONG"
   },
   "c1": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "ipvv/data/chunk-h-k1-8-caitanyamajada-pratibimba.c1.json",
+   "present": true,
+   "sha256": "551535ae769a3830b74409f3468d5ae49cd189834bf8315bb3bc4e6facd471ef",
+   "status": "BOUND-WHOLE-SONG"
   },
   "c2": {
    "note": "C2 renders are optional (owner: existing C2 stays; waived)",
@@ -76,12 +82,18 @@
    "status": "NOT-APPLICABLE"
   },
   "l0": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "ipvv/data/chunk-h-k1-8-caitanyamajada-pratibimba.l0.json",
+   "present": true,
+   "sha256": "6accfb730790adb7c0078ed1fb41353210beda0706817f9f4c657a8ee38dddf3",
+   "status": "BOUND-WHOLE-SONG"
   },
   "l2": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "ipvv/data/chunk-h-k1-8-caitanyamajada-pratibimba.l2.json",
+   "present": true,
+   "sha256": "9b30cc91b93e3ea2d1ea6ab8c380346ca061c19719ce482dda0136976e8db6fa",
+   "status": "BOUND-WHOLE-SONG"
   },
   "l3": {
    "present": false,
@@ -92,8 +104,11 @@
    "status": "UNKNOWN"
   },
   "t1": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "ipvv/data/chunk-h-k1-8-caitanyamajada-pratibimba.t1.json",
+   "present": true,
+   "sha256": "b203c7a2e1294976d77915ac87bfb97b2748ed8beb160ff62f2b20bf003af291",
+   "status": "BOUND-WHOLE-SONG"
   }
  },
  "open_problems": [
@@ -110,8 +125,13 @@
    "status": "PASS"
   },
   "song_proof": {
-   "note": "no proof file",
-   "status": "UNKNOWN"
+   "blocking": [],
+   "deterministic_gate": "PASS",
+   "file": "ipvv/proof/proof-chunk-h-k1-8-caitanyamajada-pratibimba.json",
+   "sha256": "21ba2ab7c75f4ff7f11515a3a92a3b381e2d34667fb0b95293d7a9316cd64196",
+   "status": "PASS",
+   "tool": "proof_record v1 2026-11-01",
+   "warnings": 0
   }
  },
  "source": {

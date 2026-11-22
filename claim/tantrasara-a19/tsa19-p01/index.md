@@ -1,6 +1,6 @@
 # tantrasara-a19 tsa19-p01 (19.1-19.7)
 
-tantrasara-a19 tsa19-p01 (19.1-19.7) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+tantrasara-a19 tsa19-p01 (19.1-19.7) passes link checks; no formal theorems bound. Chunk gate passes; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
@@ -28,6 +28,6 @@ tantrasāra, ekonaviṃśam āhnikam atha adharaśāsanasthānāṃ gurvantānā
 |---|---|---|
 | Link completeness | PASS | assurance.trace_links_present + gaps |
 | Human review | UNREVIEWED (machine rendering; no human sign-off) | assurance.review |
-| Deterministic chunk gate | BLOCKED (ABSTENTION, CITATION_GROUNDING) | proofs.chunk_gate |
+| Deterministic chunk gate | PASS (none) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

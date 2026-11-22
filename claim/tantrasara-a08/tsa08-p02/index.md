@@ -1,6 +1,6 @@
 # tantrasara-a08 tsa08-p02 (8.18-8.38)
 
-tantrasara-a08 tsa08-p02 (8.18-8.38) passes link checks; counts REGISTERED without a per-declaration run. Chunk gate BLOCKED; no witness verified.
+tantrasara-a08 tsa08-p02 (8.18-8.38) passes link checks; counts REGISTERED without a per-declaration run. Chunk gate passes; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
@@ -47,6 +47,6 @@ iyati sākṣāt śivaḥ kartā aśuddhaṃ punar adhvānam anantāparanāmāgh
 | Mala.lean :: count_3 | REGISTERED, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
 | Transitions.lean :: anava_stuck_exists | REGISTERED, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
 | Transitions.lean :: karma_loop_exists | REGISTERED, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
-| Deterministic chunk gate | BLOCKED (ABSTENTION, CITATION_GROUNDING) | proofs.chunk_gate |
+| Deterministic chunk gate | PASS (none) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

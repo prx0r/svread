@@ -1,6 +1,6 @@
 # tantrasara-a08 tsa08-p03 (8.39-8.64)
 
-tantrasara-a08 tsa08-p03 (8.39-8.64) passes link checks; counts REGISTERED without a per-declaration run. Chunk gate BLOCKED; no witness verified.
+tantrasara-a08 tsa08-p03 (8.39-8.64) passes link checks; counts REGISTERED without a per-declaration run. Chunk gate passes; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
@@ -56,6 +56,6 @@ māyāgarbhādhikāriṇas tu kasyacid īśvarasya prasādāt sarvakarmakṣaye 
 | KancukaCorr.lean :: corr_stall_kala | REGISTERED, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
 | Pramatr.lean :: seven | REGISTERED, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
 | TattvaInventory.lean :: maya_six_count | CONTEXT_ONLY, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
-| Deterministic chunk gate | BLOCKED (ABSTENTION, CITATION_GROUNDING) | proofs.chunk_gate |
+| Deterministic chunk gate | PASS (none) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

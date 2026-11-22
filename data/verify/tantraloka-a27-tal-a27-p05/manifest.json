@@ -7,32 +7,71 @@
    "sha256": "f0a0a201fa412cde01034fe172fd05aaaece6db430057c361cd3772058956107"
   },
   {
-   "bytes": 14203,
-   "name": "ARGMAP.md",
-   "origin": "tantraloka-a27/ARGMAP.md",
+   "bytes": 47254,
+   "name": "tal-a27.argmap.json",
+   "origin": "tantraloka-a27/data/tal-a27.argmap.json",
    "role": "layer-argmap",
-   "sha256": "e6ae2d85b233c75c956fbd6b46ba27f69daf05c7c86a59032e5e975507037caa",
-   "status": "BOUND-WORK-MD"
+   "sha256": "acb24271b5abb8c7784ae81549b759b5047dcf7eb6527032d37617c6fdb0c4cb",
+   "status": "BOUND-WHOLE-SONG"
   },
   {
-   "bytes": 13546,
-   "name": "L2.md",
-   "origin": "tantraloka-a27/L2.md",
+   "bytes": 22306,
+   "name": "tal-a27.c1.json",
+   "origin": "tantraloka-a27/data/tal-a27.c1.json",
+   "role": "layer-c1",
+   "sha256": "0e19706df3a25577e77c54cd60c116e040cec295577eca4c89e81959ea4b7f92",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 167621,
+   "name": "tal-a27.l0.json",
+   "origin": "tantraloka-a27/data/tal-a27.l0.json",
+   "role": "layer-l0",
+   "sha256": "c4ca91067b29e235fc8449a09324894521b353a5d570e61a43a66d01e62c7718",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 33039,
+   "name": "tal-a27.l2.json",
+   "origin": "tantraloka-a27/data/tal-a27.l2.json",
    "role": "layer-l2",
-   "sha256": "2be48350396c3baf3084ed30bab7cfe6f11604468f78c7d706767b185aa77e7c",
-   "status": "BOUND-WORK-MD"
+   "sha256": "3c6ec489c1b4cd53bef2f92b0eead218f10459e89493bf2cf2f7d2b9a80b2c28",
+   "status": "BOUND-WHOLE-SONG"
   },
   {
-   "bytes": 6963,
-   "name": "T1.md",
-   "origin": "tantraloka-a27/T1.md",
+   "bytes": 39240,
+   "name": "tal-a27.l3.json",
+   "origin": "tantraloka-a27/data/tal-a27.l3.json",
+   "role": "layer-l3",
+   "sha256": "c96e5ec3cb21247b55093d93894d6fab219d90c058b04025afac41032dce4d77",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 34579,
+   "name": "tal-a27.l4.json",
+   "origin": "tantraloka-a27/data/tal-a27.l4.json",
+   "role": "layer-l4",
+   "sha256": "255e3f8e3e505e230c6dfbe812ed8732aa67345875eb5472cc5b79a40923fc62",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 54248,
+   "name": "tal-a27.t1.json",
+   "origin": "tantraloka-a27/data/tal-a27.t1.json",
    "role": "layer-t1",
-   "sha256": "0380e0fd19adaba77a2f476811cd8c4984524acda6f3a31fc6d815196b3286bc",
-   "status": "BOUND-WORK-MD"
+   "sha256": "29c062a92b4352a21bccf0517d9ca0b85aff3c63bcda3905a40d3e26d97e6b10",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 1658,
+   "name": "proof-tal-a27.json",
+   "origin": "tantraloka-a27/proof/proof-tal-a27.json",
+   "role": "proof",
+   "sha256": "a08a427e77e5ba3e219cb41c5a4ee74593c22fabf8afbe7595d6711316e1698f"
   }
  ],
  "assurance": {
-  "chunk_gate": "BLOCKED",
+  "chunk_gate": "PASS",
   "formal_run": "UNBOUND",
   "formal_run_note": "registry references only; no per-declaration run digest bound",
   "publication": "NOT_AUTHORIZED",
@@ -41,11 +80,18 @@
   "review_note": "no review decision bound to this trace",
   "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
   "source_span_verified": "UNKNOWN",
-  "trace_links_present": "FAIL",
+  "trace_links_present": "PASS",
   "witness": "UNPINNED"
  },
  "caveats": [
-  "chunk_gate BLOCKED: ABSTENTION"
+  "layer:t1=whole-song-span",
+  "layer:l0=whole-song-span",
+  "layer:argmap=whole-song-span",
+  "layer:l2=whole-song-span",
+  "layer:c1=whole-song-span",
+  "layer:l3=whole-song-span",
+  "layer:l4=whole-song-span",
+  "song_proof warnings: 1"
  ],
  "chunk": {
   "immutable_id": "pt:pid:tal:tantraloka-a27005",
@@ -53,19 +99,13 @@
   "work": "tantraloka-a27"
  },
  "format": "trika-verify-pack/1",
- "gaps": [
-  "layer:l0",
-  "layer:c1",
-  "layer:l3",
-  "layer:l4",
-  "proofs:song"
- ],
+ "gaps": [],
  "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/tantraloka-a27-tal-a27-p05/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
  "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
  "trace": {
   "file": "traces/tantraloka-a27-tal-a27-p05.json",
-  "sha256": "ba75a839922f097b41b027c514612f6024462be89c8eaec1e17f050362df9429"
+  "sha256": "40d6532c13073c2e86ac249869a9aa5531618a865c6c227e582b53d0cb6e7b62"
  },
- "verdict": "PARTIAL",
+ "verdict": "COMPLETE",
  "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
 }
