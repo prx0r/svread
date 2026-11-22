@@ -5,53 +5,6 @@
    "name": "source.txt",
    "role": "source-bytes",
    "sha256": "9c2420cdfaba43d14792acbb90419fc3b34dffe94eba295a2d89e58ceb60c7ec"
-  },
-  {
-   "bytes": 48487,
-   "name": "chunk-v2-r-astamo-vimarsa.argmap.json",
-   "origin": "ipvv/data/chunk-v2-r-astamo-vimarsa.argmap.json",
-   "role": "layer-argmap",
-   "sha256": "652bafe8f83210b4d2c9b6c5614c2cb7d645ab41a3e41bfdc9140a5fffaa24f6",
-   "status": "BOUND"
-  },
-  {
-   "bytes": 531,
-   "name": "chunk-v2-r-astamo-vimarsa.c1.json",
-   "origin": "ipvv/data/chunk-v2-r-astamo-vimarsa.c1.json",
-   "role": "layer-c1",
-   "sha256": "5cf3323801c93e654c9304690c66badf2d0c64ed41fb2591d9e69d5604d82d47",
-   "status": "BOUND"
-  },
-  {
-   "bytes": 1767523,
-   "name": "chunk-v2-r-astamo-vimarsa.l0.json",
-   "origin": "ipvv/data/chunk-v2-r-astamo-vimarsa.l0.json",
-   "role": "layer-l0",
-   "sha256": "ee7f564e20a60afd590cb162e0bca04c26a75a1942d2fd1c74a0640fe762ee4e",
-   "status": "BOUND"
-  },
-  {
-   "bytes": 48195,
-   "name": "chunk-v2-r-astamo-vimarsa.l2.json",
-   "origin": "ipvv/data/chunk-v2-r-astamo-vimarsa.l2.json",
-   "role": "layer-l2",
-   "sha256": "f11c44b5e8818ef2bf201a7f5b0be1cd2e6883c323ad8dd9f7b7994aab280961",
-   "status": "BOUND"
-  },
-  {
-   "bytes": 283853,
-   "name": "chunk-v2-r-astamo-vimarsa.t1.json",
-   "origin": "ipvv/data/chunk-v2-r-astamo-vimarsa.t1.json",
-   "role": "layer-t1",
-   "sha256": "677255ac2c24556113eb6858a4edcd47140375222b6005ee6b3686a08aa41e32",
-   "status": "BOUND"
-  },
-  {
-   "bytes": 1670,
-   "name": "proof-chunk-v2-r-astamo-vimarsa.json",
-   "origin": "ipvv/proof/proof-chunk-v2-r-astamo-vimarsa.json",
-   "role": "proof",
-   "sha256": "24d354dfe370d3773c0f1f412350b59bd7e38054333e6236c8060e37ad186913"
   }
  ],
  "assurance": {
@@ -75,14 +28,20 @@
  },
  "format": "trika-verify-pack/1",
  "gaps": [
+  "layer:t1",
+  "layer:l0",
+  "layer:argmap",
+  "layer:l2",
+  "layer:c1",
   "layer:l3",
-  "layer:l4"
+  "layer:l4",
+  "proofs:song"
  ],
  "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/ipvv-chunkV2-R-astamo-vimarsa/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
  "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
  "trace": {
   "file": "traces/ipvv-chunkV2-R-astamo-vimarsa.json",
-  "sha256": "494b745e2cfebd35ad63c1014ce943bf762ff762a0d952d33ca96d279e13dffc"
+  "sha256": "37a13f41095d3f8614668693c12a086b4a730fe1b01df5c61d6eb96532d59ccc"
  },
  "verdict": "PARTIAL",
  "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."

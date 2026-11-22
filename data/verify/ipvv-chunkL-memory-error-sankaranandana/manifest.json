@@ -5,53 +5,6 @@
    "name": "source.txt",
    "role": "source-bytes",
    "sha256": "aa38fa15f1429013e7d229e44c11589ea56125409a0999e1a6741d6726d1b041"
-  },
-  {
-   "bytes": 60389,
-   "name": "chunk-l-memory-error-sankaranandana.argmap.json",
-   "origin": "ipvv/data/chunk-l-memory-error-sankaranandana.argmap.json",
-   "role": "layer-argmap",
-   "sha256": "ba0c1b677b97c9ebd44353fca4ffb4f17856c23a11d8375e8309db2c191b8573",
-   "status": "BOUND"
-  },
-  {
-   "bytes": 671,
-   "name": "chunk-l-memory-error-sankaranandana.c1.json",
-   "origin": "ipvv/data/chunk-l-memory-error-sankaranandana.c1.json",
-   "role": "layer-c1",
-   "sha256": "5efa3efd5be135ba8cee74eb5f124542e62518cd3b0b0d56e61e56656d340af1",
-   "status": "BOUND"
-  },
-  {
-   "bytes": 1687871,
-   "name": "chunk-l-memory-error-sankaranandana.l0.json",
-   "origin": "ipvv/data/chunk-l-memory-error-sankaranandana.l0.json",
-   "role": "layer-l0",
-   "sha256": "26a0d503d679c42c8575600c034e293cfee0c057b42edbcd4d1d2fbb04a95ecc",
-   "status": "BOUND"
-  },
-  {
-   "bytes": 59990,
-   "name": "chunk-l-memory-error-sankaranandana.l2.json",
-   "origin": "ipvv/data/chunk-l-memory-error-sankaranandana.l2.json",
-   "role": "layer-l2",
-   "sha256": "9fb75f884c080c2cdcaaf04de0835d3483beb6b818f0a7feaeff7d3edbf3a205",
-   "status": "BOUND"
-  },
-  {
-   "bytes": 260821,
-   "name": "chunk-l-memory-error-sankaranandana.t1.json",
-   "origin": "ipvv/data/chunk-l-memory-error-sankaranandana.t1.json",
-   "role": "layer-t1",
-   "sha256": "3a5f7c38710ccf0a76326fdcbb99cd622bca01616e16810d50fac6ce4401fc14",
-   "status": "BOUND"
-  },
-  {
-   "bytes": 1758,
-   "name": "proof-chunk-l-memory-error-sankaranandana.json",
-   "origin": "ipvv/proof/proof-chunk-l-memory-error-sankaranandana.json",
-   "role": "proof",
-   "sha256": "3b6a31ad97952e75a76f01860d1203b8f495a656af91d051f2010b15c830ba8d"
   }
  ],
  "assurance": {
@@ -75,14 +28,20 @@
  },
  "format": "trika-verify-pack/1",
  "gaps": [
+  "layer:t1",
+  "layer:l0",
+  "layer:argmap",
+  "layer:l2",
+  "layer:c1",
   "layer:l3",
-  "layer:l4"
+  "layer:l4",
+  "proofs:song"
  ],
  "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/ipvv-chunkL-memory-error-sankaranandana/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
  "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
  "trace": {
   "file": "traces/ipvv-chunkL-memory-error-sankaranandana.json",
-  "sha256": "4d0a902c2c8a8903f7716025f5e251c85125228bfc5c5a928ee617376edf3426"
+  "sha256": "8f12a3bb91f0c0aba10f013b5c25cf01e21a9c9ed60b85dd20b7415f462ebbfb"
  },
  "verdict": "PARTIAL",
  "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."

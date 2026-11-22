@@ -1,0 +1,252 @@
+# gitarthasangraha gita-a05 (222-251)
+
+gitarthasangraha gita-a05 (222-251) links incomplete (3 gaps named); no formal theorems bound. Chunk gate UNKNOWN; no witness verified.
+
+> Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
+
+Canonical: https://svatantrya.net/claim/gitarthasangraha/gita-a05/
+
+## Passage (excerpt as hashed)
+
+```
+atha pañcamo'dhyāyaḥ 
+
+arjuna uvāca 
+
+saṃnyāsaṃ karmaṇāṃ kṛṣṇa ! punaryogaṃ ca śaṃsasi | 
+yacchreyānetayorekastaṃ me brūhi viniścitam || 5-1 || 
+
+saṃnyāsaḥ pradhānaṃ punaryoga iti sasaṃśayasya praśnaḥ || 1 || 
+
+śrībhagavānuvāca 
+
+saṃnyāsaḥ karmayogaśca niḥśreyasakarāvubhau | tayostu 
+karmasaṃnyāsātkarmayogo viśiṣyate || 5-2 || 
+
+saṃnyāsaḥ karma ca-nātraiko'bhihitaḥ apitu ubhau saṃmilitau 
+niḥśreyasaṃ dattaḥ | yogena vinā saṃnyāso na saṃbhavatīti 
+yogasya viśeṣaḥ || 2 || 
+
+jñeyaḥ sa nityasaṃnyāsī yo na dveṣṭi na kāṅkṣati | nirdvandvo 
+hi mahābāho ! sukhaṃ bandhādvimucyate || 5-3 || 
+
+ataśca sa eva sārvakālikaḥ saṃnyāsī yena 
+manaso'bhilāṣapradveṣau saṃnyastau yato'sya 
+dvandvebhyaḥ-krodhamohādibhyo niṣkrāntā dhīḥ | sa sukhaṃ mucyata 
+eva || 3 || 
+
+sāṅkhyayogau pṛthagbālāḥ pravadanti na paṇḍitāḥ | 
+ekamapyāsthitaḥ samyagubhayorvindate phalam || 5-4 || 
+
+yatsāṅkhyaiḥ prāpyate sthānaṃ tadyogairanagamyate | ekaṃ 
+sāṅkhyaṃ ca yogaṃ ca yaḥ paśyati sa paśyati || 5-5 || 
+
+idaṃ sāṃkhyam ayaṃ ca yogaḥ-iti na bhedaḥ | etau hi 
+nityasaṃbaddhau | jñānaṃ na yogena binā | yogo'pi na tena vineti | 
+ata ekatvamanayoḥ || 5 || 
+
+saṃnyāsastu mahābāho duḥkhamāptumayogataḥ | yogayukto munirbrahma 
+na cireṇādhigacchati || 5-6 || 
+
+tuśabdo'vadhāraṇe bhinnakramaḥ | yogarahitasya saṃnyāsamāptuṃ 
+duḥkhameva-prāṅgītyā karmaṇāṃ duḥsaṃnyāsatvāt | yogibhistu 
+sulabhamevaitat-ityuktaṃ prāk || 6 || 
+
+yogayukto viśuddhātmā vijitātmā jitendriyaḥ | 
+sarvabhūtātmabhūtātmā kurvannapi na lipyate || 5-7 || 
+
+sarvabhūtānāmātmabhūta atmā yasva sa sarvamapi kurvāṇo na 
+lipyate-karaṇapratiṣedhārūḍhatvāt || 7 || 
+
+naiva kiñcitkaromīti yukto manyeta tattvavit | 
+paśyañśṛṇvanspṛśañjighrannaśnangacchanśvasansvapan || 5-8 || 
+
+pralapanvisṛjangṛhṇannunmiṣannimiṣannapi | 
+indriyāṇīndriyārtheṣu vartanta iti dhārayan || 5-9 || 
+
+brahmaṇyādhāya karmāṇi saṅgaṃ tyaktvā karoti yaḥ | lipyate na 
+sa pāpena padmapatramivāmbhasā || 5-10 || 
+
+ata eva darśanādīni kurvannapi asāvevaṃ 
+dhārayati-pratipattidārḍhyena 
+niścinute-cakṣurādīnāmindriyāṇāṃ yadi svaviṣayeṣu pravṛttiḥ 
+mama kimāyātam nahyanyakṛtena parasya lepaḥ-iti | tadeva brahmaṇi 
+karmaṇāṃ samarpaṇam | atra cihnamasya gatasaṃgatā | ato na lipyate 
+|| 10 || 
+
+kāyena manasā buddhyā kevalairindriyairapi | yoginaḥ karma kurvanti 
+saṅgaṃ tyaktvā''tmaśuddhaye || 5-11 || 
+
+yoginaśca kevalaiḥ-saṅgarahitaiḥ parasparānapekṣibhiśca 
+kāyādibhiḥ kurvanti karmāṇi saṅgābhāvāt || 11 || 
+
+yuktaḥ karmaphalaṃ tyaktvā śāntimāpnoti naiṣṭhikīm | ayuktaḥ 
+kāmakāreṇa phale sakto nibadhyate || 5-12 || 
+
+naiṣṭhikīm-apunarāvartinīm || 12 || 
+
+sarvakarmāṇi manasā saṃnyasyāste sukhaṃ vaśīm | navadvāre pure 
+dehī naiva kurvanna kārayan || 5-13 || 
+
+yathā veśmāntargatasya puṃso na gṛhagatairjīrṇatvādibhiryogaḥ 
+evaṃ mama cakṣurādicchidragavākṣanavakālaṅkṛtadehagehagatasya na 
+taddharmayogaḥ || 13 || 
+
+na kartṛtvaṃ na karmāṇi lokasya sṛjati prabhuḥ | na 
+karmaphalasaṃyogaṃ svabhāvastu pravartate || 5-14 || 
+
+eṣa ātmā na kiṃcitkasyacitkaroti | pravṛttistvasya 
+svabhāvamātraṃ na phalepsayā | tathāhi | saṃvedanātmano 
+bhagavataḥ prakāśānandasvātantryaparamārthasvabhāvasya 
+svabhāvamātrākṣiptasamastasṛṣṭisthitisaṃhṛtiprabandhasya 
+svasvabhāvānna manāgapyapāyo jātucit | iti na 
+kartravasthātiriktaṃ kartṛtvaṃ kiṃcit | tadabhāvātkāni karmāṇi 
+tad sattve kasya phalam ko vā karmaphalasaṃbandhaḥ | karmātra kriyā 
+| karmaphalamapi ca kriyāphalameva | tathāhi | 
+daṇḍacakraparivartanādikriyā nānyā | na ca sā 
+ghaṭaniṣpāditā-saṃvidantarvartitvāt | tasmāccetanaḥ svatantraḥ 
+parameśvara eva tathā tathā bhāti iti na tadvyatiriktaṃ 
+kriyātatphalādikamiti siddhāntaḥ || 14 || 
+
+ata eva kriyātatphalayorabhāve vidhiphalasyāpi nādṛṣṭakṛtatā 
+kācit-ityardhenābhidhāyārdhāntareṇa saṃsāriṇaḥ prati 
+tatsamarthanaṃ kartumāha 
+
+nādatte kasyacit pāpaṃ na caiva sukṛtaṃ vibhuḥ | 
+ajñānenāvṛtaṃ jñānaṃ tena muhyanti jantavaḥ || 5-15 || 
+
+pāpādīni naitatkṛtāni | kintu nijenājñānena kṛtāni 
+śaṅkayevāmṛte viṣam || 15 || 
+
+ata eva 
+
+jñānena tu tadajñānaṃ yeṣāṃ nāśitamātmanaḥ | 
+teṣāmādityavajjñānaṃ prakāśayati tatparam || 5-16 || 
+
+jñānena tu ajñāne nāśite jñānasya svaprakāśatvaṃ svataḥ 
+siddham yathā ādityasya tamasi naṣṭe | vinivartitāyāṃ hi 
+śaṅkāyāmamṛtamamṛtakāryaṃ svayameva karoti || 16 || 
+
+tacca tadgatabuddhimanasāṃ tyaktānyavyāpārāṇāṃ 
+ghaṭate-ityāśayaṃ prakaṭayitu-māha- 
+
+tadbuddhayastadātmānastanniṣṭhāstatparāyaṇāḥ | 
+gacchantyapunarāvṛttiṃ jñānanirdhautakalmaṣāḥ || 5-17 || 
+
+smaranto'pi muhustvetatspṛśanto'pi svakarmaṇi | saktā api na 
+sajjanti paṅke ravikarā iva || 5-18 || 
+
+yata evaṃ svabhāvastu pravartate iti ato dhvastājñānānāmitthaṃ 
+sthitirityāha- 
+
+vidyāvinayasampanne brāhmaṇe gavi hastini | śuni caiva śvapāke ca 
+paṇḍitāḥ samadarśinaḥ || 5-19 || 
+
+tathā caḥ teṣāṃ yogināṃ brāhmaṇe nedṛśī buddhiḥ-asya 
+śuśrūṣādināhaṃ puṇyavānbhaviṣyāmi-ityādi | gavi na 
+pāvanīyamityādi | hastini nārthādidhīḥ | śuni 
+nāpavitrāpakāritādiniścayaḥ | śvapāke ca na 
+pāpāpavitrādidhiṣaṇā | ata eva samaṃ paśyantīti natu 
+vyavaharanti | yaduktaṃ 
+
+ciddharmā sarvadeheṣu viśeṣo nāsti kutracit | ataśca tanmayaṃ 
+sarvaṃ bhāvayanbhavajijjanaḥ || (vi0 bhai0 100) 
+
+iti atrāpi bhāvayanniti-jñānasyaiveyaṃ dhāroktā || 19 || 
+
+tasya cetthaṃ saṃbhāvanetyāha- 
+
+na prahṛṣyet priyaṃ prāpya nodvijetprāpya cāpriyam | 
+sthirabuddhirasammūḍho brahmavid brahmaṇi sthitaḥ || 5-20 || 
+
+etasya samadarśinaḥ śatrumitrādivibhāgo'pi vyavahāramātra eva 
+nāntaḥ-brahmaniṣṭhatvāt || 20 || 
+
+bāhyasparśeṣvasaktātmā vindatyātmani yatsukham | sa 
+brahmayogayuktātmā sukhamavyamaśnute || 5-21 || 
+
+bāhyasparśe viṣayātmani saktiryasya nāsti || 21 || 
+
+sa hyevaṃ manyate-ityāha 
+
+ye hi saṃsparśajā bhogā duḥkhayonaya eva te | ādyantavantaḥ 
+kaunteya na teṣu ramate budhaḥ || 5-22 || 
+
+sa hyevaṃ bhāvayati-bāhyaviṣayajā bhogāḥ sarve 
+duḥkhakāraṇarūpāḥ tathāvidhā apyanityāḥ || 22 || 
+
+śaknotīhaiva yaḥ soḍhuṃ prākśarīravimocanāt | 
+kāmakrodhodbhavaṃ vegaṃ sa yuktaḥ sa sukhī mataḥ || 5-23 || 
+
+na caitadduḥśakaṃ-śarīrāntakālaṃ yāvat krodhakāmajo vegaḥ 
+kṣaṇamātraṃ yadi sahyate tadā ātyantikī sukhaprāptiḥ || 23 || 
+
+antaḥsukho'ntarārāmastathā'ntarjyotireva yaḥ | sa pārtha 
+paramaṃ yogaṃ brahmabhūto'dhigacchati || 5-24 || 
+
+atastasyāntareva bāhyānapekṣi sukham tatraiva ramate | tatra cāsya 
+prakāśaḥ | vyavahāre tu mūḍhatvamiva | uktaṃ ca-jaḍa eva vica 
+redavādamatiḥ (pa0 sā0 71) iti || 24 || 
+
+labhante brahmanirvāṇamṛṣayaḥ kṣīṇakalmaṣāḥ | chinnadvaidhā 
+yatātmānaḥ sarvabhūtahite ratāḥ || 5-25 || 
+
+etacca taiḥ prāpyaṃ yeṣāṃ bhedasaṃśayarūpau granthī vinaṣṭau 
+|| 25 || 
+
+kāmakrodhavimuktānāṃ yatīnāṃ yatacetasām | abhito 
+brahmanirvāṇaṃ vartate viditātmanām || 5-26 || 
+
+teṣāṃ sarvataḥ-sarvāsvavasthāsu brahmasattā pāramārthikī na 
+nirodhakālamapekṣate || 26 || 
+
+sparśānkṛtvā bahirbāhyāṃścakṣuścaivāntare bhruvoḥ | 
+prāṇāpānau samau kṛtvā nāsābhyantaracāriṇau || 5-27 || 
+
+bāhyasparśān bahiḥkṛtvā-anaṅgīkṛtya 
+bhruvoḥ-vāmadakṣiṇadṛṣṭyoḥ 
+krodharāgātmikayorantare-tadrahitesthānaviśeṣe 
+cakṣurūpalakṣitāni sarvendriyāṇi vidhāya 
+prāṇāpānau-dharmādharmau cittavṛttyabhyantare sāmyenāvasthāpya 
+nasate-kauṭilyenāsāmyena krodhādivaśādvyavaharati-iti nāsā 
+cittavṛttiḥ | etadeva bāhye || 27 || 
+
+yatendriyamanobuddhirmunirmokṣaparāyaṇaḥ | vigatecchābhayakrodho 
+yaḥ sadā mukta eva saḥ || 5-28 || 
+
+evaṃvidho yogī sarvavyavahārān vartayannapi mukta eva || 28 || 
+
+bhoktāraṃ yajñatapasāṃ sarvalokamaheśvaram | suhṛdaṃ 
+sarvabhūtānāṃ jñātvā māṃ śāntimṛcchati || 5-29 || 
+
+yajñaphaleṣu bhoktā-tyaktaphalatvāt | evaṃ tapaḥsu | īdṛśaṃ 
+bhagavattattvaṃ vidan yathātathāsthito'pi mucyata iti śivam || 29 
+|| 
+
+atra saṃgrahaślokaḥ 
+
+sarvāṇyevātra bhūtāni samatvenānupasyataḥ | 
+jaḍavadvyavahāro'pi mokṣāyaivāvakalpate || 5 || 
+
+iti 
+śrīmahāmāheśvarācāryavaryarājānakābhinavaguptapādaviracite 
+śrīmadbhagavadgītārthasaṃgrahe pañcamo'dhyāyaḥ || 5 || 
+
+```
+
+## Reading (machine draft, verse-mapped)
+
+**gita-a05-v17** — Those whose intellect and self are fixed there, devoted and focused, go to non-return, purified by knowledge from stain.
+**gita-a05-v04** — Fools call sankhya and yoga separate, but the wise do not; one who abides rightly obtains the fruit of both.
+**gita-a05-v08** — The knower of truth, though yoked, would not think, 'I do nothing at all,' while perceiving, hearing, touching, smelling, eating, moving, breathing, and sleeping.
+**gita-a05-v09** — Speaking, releasing, grasping, opening, and closing—even so, the senses function among sense-objects; holding thus.
+
+## Claims
+
+| Claim | Status | Basis |
+|---|---|---|
+| Link completeness | FAIL (3 gaps named) | assurance.trace_links_present + gaps |
+| Human review | UNREVIEWED (machine rendering; no human sign-off) | assurance.review |
+| Deterministic chunk gate | UNKNOWN (none) | proofs.chunk_gate |
+| Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
+| Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

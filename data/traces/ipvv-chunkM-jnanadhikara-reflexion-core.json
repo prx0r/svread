@@ -20,7 +20,7 @@
  },
  "essays": {
   "citing": [],
-  "projection_sha256": "77216dffa7fbf20365c34a44a6f943d7d9d98134def598b4274af3a91386aa35"
+  "projection_sha256": null
  },
  "formal": {
   "status": "none",
@@ -28,8 +28,14 @@
  },
  "format": "trika-trace/1",
  "gaps": [
+  "layer:t1",
+  "layer:l0",
+  "layer:argmap",
+  "layer:l2",
+  "layer:c1",
   "layer:l3",
-  "layer:l4"
+  "layer:l4",
+  "proofs:song"
  ],
  "identity": {
   "db": "postgresql://patala:***@localhost:5432/openpatala",
@@ -57,16 +63,12 @@
  },
  "layers": {
   "argmap": {
-   "path": "ipvv/data/chunk-m-jnanadhikara-reflexion-core.argmap.json",
-   "present": true,
-   "sha256": "68628fae200b4e02a2bcb7e7b697870d8b82ee4ef19d2ee0f0d054a124b15674",
-   "status": "BOUND"
+   "present": false,
+   "status": "UNKNOWN"
   },
   "c1": {
-   "path": "ipvv/data/chunk-m-jnanadhikara-reflexion-core.c1.json",
-   "present": true,
-   "sha256": "614d19869833c57763512dfc6eaa470198e4d0df04742790b2b00398a68586ee",
-   "status": "BOUND"
+   "present": false,
+   "status": "UNKNOWN"
   },
   "c2": {
    "note": "C2 renders are optional (owner: existing C2 stays; waived)",
@@ -74,16 +76,12 @@
    "status": "NOT-APPLICABLE"
   },
   "l0": {
-   "path": "ipvv/data/chunk-m-jnanadhikara-reflexion-core.l0.json",
-   "present": true,
-   "sha256": "73493cb8e23dc9c32954146d531ea140fb61ff8c8b0a576534fdd00276a71eeb",
-   "status": "BOUND"
+   "present": false,
+   "status": "UNKNOWN"
   },
   "l2": {
-   "path": "ipvv/data/chunk-m-jnanadhikara-reflexion-core.l2.json",
-   "present": true,
-   "sha256": "1dff2313a5ebd42366a9f9b4d8f9f9a030a8a28e6408eb7d1e9b605e00b9cf01",
-   "status": "BOUND"
+   "present": false,
+   "status": "UNKNOWN"
   },
   "l3": {
    "present": false,
@@ -94,13 +92,13 @@
    "status": "UNKNOWN"
   },
   "t1": {
-   "path": "ipvv/data/chunk-m-jnanadhikara-reflexion-core.t1.json",
-   "present": true,
-   "sha256": "deae021193760161c3157b6668c8f16103acafd5cdf182f1394d83ae271885f3",
-   "status": "BOUND"
+   "present": false,
+   "status": "UNKNOWN"
   }
  },
- "open_problems": [],
+ "open_problems": [
+  "no scholar projection for work"
+ ],
  "proofs": {
   "chunk_gate": {
    "blocking": [],
@@ -112,21 +110,16 @@
    "status": "PASS"
   },
   "song_proof": {
-   "blocking": [],
-   "deterministic_gate": "PASS",
-   "file": "ipvv/proof/proof-chunk-m-jnanadhikara-reflexion-core.json",
-   "sha256": "7b52e1f867a590bfdaf6f9c389d9c54ab684911136dbbbed3a7eb77e4f179297",
-   "status": "PASS",
-   "tool": "proof_record v1 2026-11-01",
-   "warnings": 0
+   "note": "no proof file",
+   "status": "UNKNOWN"
   }
  },
  "source": {
   "bytes_present": true,
   "bytes_sha256": "0e2027fc91ff8d3d67d81dd735920425e07072cfeecc002b7e7abce636d10d07",
   "edition": {
-   "label": "Mukhabodha M00020/21/22 (IPVV vols 1-3) + Torella IPK (base)",
-   "status": "CANDIDATE-WORK"
+   "label": null,
+   "status": "UNKNOWN"
   },
   "immutable_id": "pt:pid:ipvv:1c5f25051297",
   "ledger": "ipvv/passages.jsonl",

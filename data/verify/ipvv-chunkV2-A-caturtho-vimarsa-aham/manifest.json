@@ -5,53 +5,6 @@
    "name": "source.txt",
    "role": "source-bytes",
    "sha256": "a97ffe75a5d7fe0ae390e7f170ef9434cd25f144d78726200c82ce3370b436ac"
-  },
-  {
-   "bytes": 51636,
-   "name": "chunk-v2-a-caturtho-vimarsa-aham.argmap.json",
-   "origin": "ipvv/data/chunk-v2-a-caturtho-vimarsa-aham.argmap.json",
-   "role": "layer-argmap",
-   "sha256": "382cc08cab0cba0583e0c70de13619c3032a3a1c636835306f5e3c1a3fe59245",
-   "status": "BOUND"
-  },
-  {
-   "bytes": 654,
-   "name": "chunk-v2-a-caturtho-vimarsa-aham.c1.json",
-   "origin": "ipvv/data/chunk-v2-a-caturtho-vimarsa-aham.c1.json",
-   "role": "layer-c1",
-   "sha256": "662fd8da7e62d64f6c286e3e395af60d1d73a6794ce897b130f1665435fe9cb6",
-   "status": "BOUND"
-  },
-  {
-   "bytes": 1531694,
-   "name": "chunk-v2-a-caturtho-vimarsa-aham.l0.json",
-   "origin": "ipvv/data/chunk-v2-a-caturtho-vimarsa-aham.l0.json",
-   "role": "layer-l0",
-   "sha256": "01a4e902f290b114ffa21cedeba129273a1a8090749c142abe97414630f83d06",
-   "status": "BOUND"
-  },
-  {
-   "bytes": 51584,
-   "name": "chunk-v2-a-caturtho-vimarsa-aham.l2.json",
-   "origin": "ipvv/data/chunk-v2-a-caturtho-vimarsa-aham.l2.json",
-   "role": "layer-l2",
-   "sha256": "7cb9a36ffeb354c7f73f198c50bdbeea2c4f48bdf9559587c03dae49e7891215",
-   "status": "BOUND"
-  },
-  {
-   "bytes": 243733,
-   "name": "chunk-v2-a-caturtho-vimarsa-aham.t1.json",
-   "origin": "ipvv/data/chunk-v2-a-caturtho-vimarsa-aham.t1.json",
-   "role": "layer-t1",
-   "sha256": "5e369a2111e0f5cbda9c74f7efb10a69290d9a5eb5adcfd6c45fb84cdb28c381",
-   "status": "BOUND"
-  },
-  {
-   "bytes": 1733,
-   "name": "proof-chunk-v2-a-caturtho-vimarsa-aham.json",
-   "origin": "ipvv/proof/proof-chunk-v2-a-caturtho-vimarsa-aham.json",
-   "role": "proof",
-   "sha256": "7f0f9a0097bcc9be3a1b434c0e62bb84a3141ae85e5c2e38fab41b3e596bf1dd"
   }
  ],
  "assurance": {
@@ -75,14 +28,20 @@
  },
  "format": "trika-verify-pack/1",
  "gaps": [
+  "layer:t1",
+  "layer:l0",
+  "layer:argmap",
+  "layer:l2",
+  "layer:c1",
   "layer:l3",
-  "layer:l4"
+  "layer:l4",
+  "proofs:song"
  ],
  "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/ipvv-chunkV2-A-caturtho-vimarsa-aham/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
  "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
  "trace": {
   "file": "traces/ipvv-chunkV2-A-caturtho-vimarsa-aham.json",
-  "sha256": "ecab1a752b365c79945d814df7b42746ab6567f4e56c7eef36217f3003e47f78"
+  "sha256": "3bc80e57e931eb4f0a0f069f9a0180abcb9147bf2aa5df8ada29325862b1b0f9"
  },
  "verdict": "PARTIAL",
  "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."

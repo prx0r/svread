@@ -5,53 +5,6 @@
    "name": "source.txt",
    "role": "source-bytes",
    "sha256": "976c56804ad9e2413b68ab9af4839d98820bd0e0218f00afcef10e45d8d16bec"
-  },
-  {
-   "bytes": 79760,
-   "name": "chunk-v2-l-sastho-vimarsa-smrti-apohana.argmap.json",
-   "origin": "ipvv/data/chunk-v2-l-sastho-vimarsa-smrti-apohana.argmap.json",
-   "role": "layer-argmap",
-   "sha256": "fcbaf130714386236e83367d24df30c284c9fb0facc24dbc0555ba9d4ef12e86",
-   "status": "BOUND"
-  },
-  {
-   "bytes": 1086,
-   "name": "chunk-v2-l-sastho-vimarsa-smrti-apohana.c1.json",
-   "origin": "ipvv/data/chunk-v2-l-sastho-vimarsa-smrti-apohana.c1.json",
-   "role": "layer-c1",
-   "sha256": "b45e0495c6446bb4eb94ae6b6ac36826e83eaec458050a2e0f6ec7bf4cc78c75",
-   "status": "BOUND"
-  },
-  {
-   "bytes": 2044111,
-   "name": "chunk-v2-l-sastho-vimarsa-smrti-apohana.l0.json",
-   "origin": "ipvv/data/chunk-v2-l-sastho-vimarsa-smrti-apohana.l0.json",
-   "role": "layer-l0",
-   "sha256": "6b5910bd3a9119d9eea146d747a915200a030d3c7e2a69b8b19ecb967ec6057b",
-   "status": "BOUND"
-  },
-  {
-   "bytes": 79007,
-   "name": "chunk-v2-l-sastho-vimarsa-smrti-apohana.l2.json",
-   "origin": "ipvv/data/chunk-v2-l-sastho-vimarsa-smrti-apohana.l2.json",
-   "role": "layer-l2",
-   "sha256": "16d769e1d071b4c425c94e16ffcb08794d1f283b65882a663d95b847907bc65b",
-   "status": "BOUND"
-  },
-  {
-   "bytes": 304784,
-   "name": "chunk-v2-l-sastho-vimarsa-smrti-apohana.t1.json",
-   "origin": "ipvv/data/chunk-v2-l-sastho-vimarsa-smrti-apohana.t1.json",
-   "role": "layer-t1",
-   "sha256": "3c1121fae31c544d040733fce79365235be7290ce7ec590b2416f08c316a8c69",
-   "status": "BOUND"
-  },
-  {
-   "bytes": 1798,
-   "name": "proof-chunk-v2-l-sastho-vimarsa-smrti-apohana.json",
-   "origin": "ipvv/proof/proof-chunk-v2-l-sastho-vimarsa-smrti-apohana.json",
-   "role": "proof",
-   "sha256": "47531090a1aaa7fb9da59a9e2b205d3d794b3f02dd88a14c3595a67860c4e437"
   }
  ],
  "assurance": {
@@ -75,14 +28,20 @@
  },
  "format": "trika-verify-pack/1",
  "gaps": [
+  "layer:t1",
+  "layer:l0",
+  "layer:argmap",
+  "layer:l2",
+  "layer:c1",
   "layer:l3",
-  "layer:l4"
+  "layer:l4",
+  "proofs:song"
  ],
  "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/ipvv-chunkV2-L-sastho-vimarsa-smrti-apohana/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
  "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
  "trace": {
   "file": "traces/ipvv-chunkV2-L-sastho-vimarsa-smrti-apohana.json",
-  "sha256": "5785c02c3891dfb90bec8ba4c8fd80a4b12d5410e5d4e509aab96a23f4a52718"
+  "sha256": "e6d3a38d5d8c3f12e9af7db7b2ae7e942435ddb2206716e17720268a10e11ea0"
  },
  "verdict": "PARTIAL",
  "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."

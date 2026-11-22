@@ -1,6 +1,6 @@
 # ipvv chunkV3-B-kriya-dvitiyo-k1-7 (M00022:842-2055)
 
-ipvv chunkV3-B-kriya-dvitiyo-k1-7 (M00022:842-2055) links incomplete (2 gaps named); no formal theorems bound. Chunk gate passes; no witness verified.
+ipvv chunkV3-B-kriya-dvitiyo-k1-7 (M00022:842-2055) links incomplete (8 gaps named); no formal theorems bound. Chunk gate passes; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
@@ -1225,21 +1225,15 @@ kāre bhedābhedavimarśo dvitīyaḥ || 2 ||
 atha tṛtīyo vimarśaḥ |
 ```
 
-## Reading (machine draft, verse-mapped)
+## Reading
 
-**chunk-v3-b-kriya-dvitiyo-k1-7-v35** — The second vimarśa opens with a maṅgala and a seven-verse plan. The Lord's freedom, un-thwarted (apratihata), is to be established in the form of action-power (kriyāśakti): the action-relation and the related categories, which the external view cannot make fit, fit fully in this view. The first kārikā declares that the action, relation, universal, substance, direction, and time-cognitions are true — by stability and by use, as one-many-support.
-
-The commentary explains why. The action-cognition that arises elsewhere than from consciousness-essence is mere action-appearance, cut off by māyā-power; but the action-essence as object is true, because the reflexive awareness resting on it is stable, not uprooted by the refuter, and agrees with the intended action. The being, in performing object-action, accepts distinction-non-distinction. Its un-deviable own-form is the form (mūrti); what, by appearance-strength, makes the non-own-form into own-form, is the action (kriyā). So Caitra's body, though divided by place, time, and form, manifests as "that very, this," and "Caitra goes" is the action. The reflexive awareness continuing in this is never uprooted, and the village-attainment is unbroken object-action. In the double-moon consciousness, by contrast, the reflexive awareness is uprooted, and the object is untrue by deficiency of object-action use, even if it causes delight or excitement.
-
-The satya, asatya, and saṃvṛtisatya distinction is then drawn: the conventional-true is nothing of the general from its truth-ness, while the untrue is the double-moon and the like. The external action too is explained by action-power alone, so the external view's action is already accounted for. Stability is the always-helper; object-action use is the object-ness. The sūtra-meaning is brought in by joining the prior section with the other section, with the action taken as example.
-
-The commentary then examines whether object-action-doing-ness is the being-ness's own-form, marker, or near-marker. Own-form-ness is metaphorical: branch-possessing alone is tree-ness, a mere exclusion, and the unreal does not do object-action. Marker-ness is shown not to hold: the marker is the un-deviability, mutually; otherwise over-extension and under-extension would result. Although direct-manifestation-cognition and construction-less consciousness are not synonyms, being distinct exclusions, they are marker and marked by mutual non-deviation. The others — the knowns — are then taken up, and the slice breaks off mid-sentence.
+Withheld. no verified L2 layer in this pack
 
 ## Claims
 
 | Claim | Status | Basis |
 |---|---|---|
-| Link completeness | FAIL (2 gaps named) | assurance.trace_links_present + gaps |
+| Link completeness | FAIL (8 gaps named) | assurance.trace_links_present + gaps |
 | Human review | UNREVIEWED (machine rendering; no human sign-off) | assurance.review |
 | Deterministic chunk gate | PASS (none) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |

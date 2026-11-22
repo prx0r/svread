@@ -20,7 +20,7 @@
  },
  "essays": {
   "citing": [],
-  "projection_sha256": "77216dffa7fbf20365c34a44a6f943d7d9d98134def598b4274af3a91386aa35"
+  "projection_sha256": null
  },
  "formal": {
   "status": "none",
@@ -28,8 +28,14 @@
  },
  "format": "trika-trace/1",
  "gaps": [
+  "layer:t1",
+  "layer:l0",
+  "layer:argmap",
+  "layer:l2",
+  "layer:c1",
   "layer:l3",
-  "layer:l4"
+  "layer:l4",
+  "proofs:song"
  ],
  "identity": {
   "db": "postgresql://patala:***@localhost:5432/openpatala",
@@ -57,16 +63,12 @@
  },
  "layers": {
   "argmap": {
-   "path": "ipvv/data/chunk-v2-j-pancamo-vimarsa-k19-20.argmap.json",
-   "present": true,
-   "sha256": "2102fe263e8017b39ee03d06cbcc07c17572d0e727d8b9b4187da7f78ad9692b",
-   "status": "BOUND"
+   "present": false,
+   "status": "UNKNOWN"
   },
   "c1": {
-   "path": "ipvv/data/chunk-v2-j-pancamo-vimarsa-k19-20.c1.json",
-   "present": true,
-   "sha256": "928d6b64af17ddf4b26ed9cac702627e54568c5cb854cf031252058dd378f559",
-   "status": "BOUND"
+   "present": false,
+   "status": "UNKNOWN"
   },
   "c2": {
    "note": "C2 renders are optional (owner: existing C2 stays; waived)",
@@ -74,16 +76,12 @@
    "status": "NOT-APPLICABLE"
   },
   "l0": {
-   "path": "ipvv/data/chunk-v2-j-pancamo-vimarsa-k19-20.l0.json",
-   "present": true,
-   "sha256": "8c0acd29ed68667a129374dcbf7f7c483995d98f637d39127874344f81b7adc8",
-   "status": "BOUND"
+   "present": false,
+   "status": "UNKNOWN"
   },
   "l2": {
-   "path": "ipvv/data/chunk-v2-j-pancamo-vimarsa-k19-20.l2.json",
-   "present": true,
-   "sha256": "6e906f85e6e52a57493548224e91dd1980bee0eba7ecfbb7ac695e0731248fe0",
-   "status": "BOUND"
+   "present": false,
+   "status": "UNKNOWN"
   },
   "l3": {
    "present": false,
@@ -94,13 +92,13 @@
    "status": "UNKNOWN"
   },
   "t1": {
-   "path": "ipvv/data/chunk-v2-j-pancamo-vimarsa-k19-20.t1.json",
-   "present": true,
-   "sha256": "0e88f9eefb6de884876ae718c73c4d75661dc3c47f2bcdb95745b156dc91e851",
-   "status": "BOUND"
+   "present": false,
+   "status": "UNKNOWN"
   }
  },
- "open_problems": [],
+ "open_problems": [
+  "no scholar projection for work"
+ ],
  "proofs": {
   "chunk_gate": {
    "blocking": [],
@@ -112,21 +110,16 @@
    "status": "PASS"
   },
   "song_proof": {
-   "blocking": [],
-   "deterministic_gate": "PASS",
-   "file": "ipvv/proof/proof-chunk-v2-j-pancamo-vimarsa-k19-20.json",
-   "sha256": "389bd0ba1cb99ae1017eb3948f00839694148d46d88f834c4f7d6412a9488147",
-   "status": "PASS",
-   "tool": "proof_record v1 2026-11-01",
-   "warnings": 0
+   "note": "no proof file",
+   "status": "UNKNOWN"
   }
  },
  "source": {
   "bytes_present": true,
   "bytes_sha256": "3666ad7390db9d91c7b035db50b96bff6ba3683f567b9991550189890f7bcec0",
   "edition": {
-   "label": "Mukhabodha M00020/21/22 (IPVV vols 1-3) + Torella IPK (base)",
-   "status": "CANDIDATE-WORK"
+   "label": null,
+   "status": "UNKNOWN"
   },
   "immutable_id": "pt:pid:ipvv:1c2f79595028",
   "ledger": "ipvv/passages.jsonl",

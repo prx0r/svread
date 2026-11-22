@@ -1,0 +1,439 @@
+# gitarthasangraha gita-a03 (130-178)
+
+gitarthasangraha gita-a03 (130-178) links incomplete (3 gaps named); no formal theorems bound. Chunk gate UNKNOWN; no witness verified.
+
+> Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
+
+Canonical: https://svatantrya.net/claim/gitarthasangraha/gita-a03/
+
+## Passage (excerpt as hashed)
+
+```
+athaḥ tṛtīyo'dhyāyaḥ 
+
+jyāyasī cetkarmaṇaste matā buddhirjanārdana | tatkiṃ karmaṇi 
+ghore māṃ niyojayasi keśava ! || 3-1 || 
+
+vyāmiśreṇeva vākyena buddhiṃ mohayasīva me | tadekaṃ vada 
+niścitya yena śreyo'hamāpnuyām || 3-2 || 
+
+karma uktaṃ jñānaṃ ca | tatra na dvayoḥ prādhānyaṃ yuktam apitu 
+jñānasya | tadbalena kṣapaṇīyatvaṃ yadi karmaṇāṃ buddhiyukto 
+jahātīme ityādinayena mūlata eva tat karmaṇā kiṃ prayojanamiti 
+praśnābhiprāyaḥ || 2 || 
+
+śrībhagavāṃstūttaraṃ dadāti 
+
+loke'smindvividhā niṣṭhā purā proktā mayānagha | jñānayogena 
+sāṅkhyānāṃ karmayogena yoginām || 3-3 || 
+
+loke eṣā dvayī gatiḥ prasiddhā | sāṃkhyānāṃ jñānaṃ 
+pradhānaṃ yogināṃ ca karmeti | mayā tu saikaiva niṣṭhoktā 
+jñānakriyāmayatvātsaṃvittattvasyeti bhāvaḥ || 3 || 
+
+tathāhi- 
+
+na karmaṇāmanārambhānnaiṣkarmyaṃ puruṣo'śnute | na ca 
+saṃnyasanādeva siddhiṃ samadhigacchati || 3-4 || 
+
+na hi kaścitkṣaṇamapi jātu tiṣṭhatyakarmakṛt | kāryate 
+hyavaśaḥ karma sarvaḥ prakṛtijairguṇaiḥ || 3-5 || 
+
+jñānaṃ karmaṇā rahitaṃ na bhavati karma ca kauśalopetaṃ 
+jñānarahitaṃ na bhavati ityekameva vastu jñānakarmaṇī | tathā 
+coktaṃ 
+
+na kriyārahitaṃ jñānaṃ na jñānarahitā kriyā | 
+jñānakriyāviniṣpaśca ācāryaḥ paśupāśahā || 
+
+iti | tasmājjñānāntarvarti karmāparihāryam yataḥ paravaśa eva 
+kāyavāṅmanasāṃ parispandātmakatvāt avaśyaṃ kiṃcitkaroti || 5 
+|| 
+
+karmendriyāṇi saṃyamya ya āste manasā smaran | 
+indriyārthānvimūḍhātmā mūḍhācāraḥ sa ucyate || 3-6 || 
+
+karmendriyaiścainna karoti avaśyaṃ tarhi manasā karoti | pratyuta 
+mūḍhācāraḥ-mānasānāṃ karmaṇāmatyantamaparihāryatvāt || 6 || 
+
+yastvindriyāṇi manasā niyamyārabhate'rjuna | karmendriyaiḥ 
+karmayogamasaktaḥ sa viśiṣyate || 3-7 || 
+
+karmasu kriyamāṇeṣu na jñānahāniḥ-manaso'vyāpāre 
+yantrapuruṣavatkarmaṇaḥ kriyamāṇatvāt || 7 || 
+
+ataḥ 
+
+niyataṃ kuru karma tvaṃ karma jyāyo hyakarmaṇaḥ | śarīrayātrāpi 
+ca te na prasiddhyedakarmaṇaḥ || 3-8 || 
+
+niyataṃ-śāstrīyaṃ karma kuru śarīrayātrāmātrasyāpi 
+karmādhīnatvāt || 8 || 
+
+yataḥ 
+
+yajñārthātkarmaṇo'nyatra loko'yaṃ karmabandhanaḥ | tadarthaṃ 
+karma kaunteya muktasaṅgaḥ samācara || 3-9 || 
+
+yajñārthāt-avaśyakaraṇīyāt anyāni karmāṇi bandhakāni | 
+avaśya-kartavyaṃ muktaphalasaṅgatayā kriyamāṇaṃ na phaladam || 9 
+|| 
+
+sahayajñāḥ prajāḥ sṛṣṭvā purovāca prajāpatiḥ | anena 
+prasaviṣyadhvameṣa vo'stviṣṭakāmadhuk || 3-10 || 
+
+prajāpatiḥ-paramātmā prajāḥ sahaiva karmabhiḥ sasarja | uktaṃ ca 
+tena prajānāṃ karmabhya eva prasavaḥ santānaḥ etānyeva ceṣṭaṃ 
+saṃsāraṃ mokṣaṃ vā dāsyanti | saṅgātsaṃsāraṃ 
+muktasaṅgatvānmokṣam || 10 || 
+
+yatra yeṣāṃ mokṣaprādhānyaṃ taireva viṣayāḥ sevyā ityucyate 
+
+devānbhāvayatānena te devā bhāvayantu vaḥ | parasparaṃ 
+bhāvayantaḥ śreyaḥ paramavāpsyatha || 3-11 || 
+
+devāḥ-krīḍanaśīlā indriyavṛttayaḥ karaṇeśvaryo devatā 
+rahasyaśāstraprasiddhāḥ tā anena karmaṇā 
+tarpayata-yathāsaṃbhavaṃ viṣayānbhakṣayatetyarthaḥ | tṛptāśca 
+satyastā vo-yuṣmān ātmana eva svarūpamātrocitāpavargān 
+bhāvayantu-svātma-sthitiyogyatvāt | evamanavarataṃ 
+vyutthānasamādhisamayaparamparāyāmindriyatarpaṇatadātma-sādbhāva 
+lakṣaṇe parasparabhāvane sati śīghrameva paramaṃ 
+śreyaḥ-parasparabhedavigalanalakṣaṇaṃ brahma prāpsyatha || 11 || 
+
+na kevalamitthamapavarge yāvatsiddhilābhe'pyayaṃ mārga ityāha 
+
+iṣṭānkāmānhi vo devā dāsyante yajñabhāvitāḥ | 
+tairdattānapradāyaibhyo yo bhuṅkte stena eva saḥ || 3-12 || 
+
+yajñatarpitāni hīndriyāṇi sthitiṃ badhnanti yatra kvāpi 
+dhyeyādāviti | ata eva tadvyāpāre sati teṣāṃ viṣayāṇāṃ 
+smṛtisaṃkalpadhyānādinā bhāvāḥ-viṣayā indriyaireva dattāḥ 
+yadi teṣāmeva upabhogāya na dīyante tarhi stenatvaṃ-cauryaṃ syāt 
+chadmacāritvāt | uktaṃ hi pūrvameva bhagavatā mūḍhācāraḥ sa 
+ucyate iti | ato'yaṃ vākyārthaḥ-yaḥ sukhopāyaṃ siddhimapavargaṃ 
+vā prepsati tena indriyakautukanivṛtti-mātraphalatayaiva bhogā 
+yathopanatamāsevyā iti || 12 || 
+
+yajñaśiṣṭāśinaḥ santo mucyante sarvakilbiṣaiḥ | bhuñjate te 
+tvaghaṃ pāpā ye pacantyātmakāraṇāt || 3-13 || 
+
+avaśyakartavyatārūpaśāsanamahimāyātānbhogān ye'śnanti 
+avāntaravyāpāramātratayā ata eva ca 
+pṛthagphalatvābhāvāṅgatayā | atha 
+ca-indriyātmakadevagaṇatarpaṇalakṣaṇayajñāt 
+avaśiṣṭam-antaḥsārasvātmasthityānandalakṣaṇavighasaṃ 
+ye'śnanti-tatrārūḍhā bhavanti tadupādeyopāyatayā tu 
+viṣayabhogaṃ vāñchanti te sarvakilviṣaiḥ-śubhāśubhairmucyante | 
+ye tu ātmakāraṇāditi-avidyāvaśāt sthūlameva viṣayabhogaṃ 
+paratvena manvānāḥ ātmārthamidaṃ vayaṃ kurmaḥ-iti kurvate | ta 
+eva aghaṃ-śubhāśubhātmakaṃ labhante || 13 || 
+
+annād bhavanti bhūtāni parjanyādannasambhavaḥ | yajñād bhavati 
+parjanyo yajñaḥ karmasamudbhavaḥ || 3-14 || 
+
+karma brahmodbhavaṃ viddhi brahmākṣarasamudbhavam | tasmāt 
+sarvagataṃ brahma nityaṃ yajñe pratiṣṭhitam || 3-15 || 
+
+annāt-avibhāgabhogyasvabhāvāt 
+kathañcinmāyāvidyākālādyanekāparaparyāyāt bhūtāni vicitrāṇi 
+bhavanti | taccānnaṃ parjanyāt-avicchinnasaṃvitsvabhāvādātmanaḥ 
+bhoktṛtantrātmalābhatvādbhogyatāyāḥ | sa ca parjanyo-bhoktā 
+yajñāt bhogakriyāyattatvādbhoktṛtvasya | bhogakriyā ca 
+karmaṇaḥ-kriyāśaktisvātantryabalāt | tacca 
+svātantryam-avicchinnamapi 
+anavacchinnānantasvātantryapūrṇasamucchalanmaheśvarabhāvaparamātm 
+a-brahmasaṃsparśavaśāt | tacca ucchaladacchānācchāditaiśvaryaṃ 
+brahma-akṣarāt-praśāntāśeṣaiśvaryataraṅgātsaṃvinmātrāt | 
+ityevaṃ suvyavasthito'yaṃ yajñaḥ ṣaḍaraṃ cakraṃ vāhayan 
+arātrayasandhānādapavargam 
+arātrayatantraṇādvyavahāramāsūtrayati | iti 
+vidyāvidyollāsataraṅgasubhagaṃ brahma yajñe eva pratiṣṭhitam | 
+anye tu-annaṃ tāvadvīryalohitakrameṇa bhūtakāraṇam annaṃ ca 
+vṛṣṭidvāreṇa parjanyāt so'pi yajñāt yajñaḥ kriyātaḥ sā ca 
+jñānapūrvikā jñānamakṣarāt iti | apare tu-annam-adyamānaṃ 
+viṣayapañcakamāśritya bhūtāni-indriyāṇi 
+viṣayāścātmasphuritarūpāḥ | ata ātmaiva viṣayopabhogena | 
+poṣyate | ataśca sarvagataṃ brahma karmaṇi 
+pratiṣṭhitam-tanmayatvāttasya || 15 || 
+
+evaṃ pravartitaṃ cakraṃ nānuvartayatīha yaḥ | 
+aghāyurindriyārāmo moghaṃ pārtha sa jīvati || 3-16 || 
+
+yastvevaṃ nāṅgīkaroti sa pāpamayaḥ | yataḥ sa indriyeṣveva 
+ramate nātmani || 16 || 
+
+yaścātmaratireva syādātmatṛptaśca mānavaḥ | ātmanyeva ca 
+santuṣṭastasya kāryaṃ na vidyate || 3-17 || 
+
+naiva tasya kṛtenārtho nākṛteneha kaścana | na cāsya 
+sarvabhūteṣu kaścidarthavyapāśrayaḥ || 3-18 || 
+
+ātmaratestu-karmendriyavyāpāratayaiva kurvataḥ karaṇākaraṇeṣu 
+samatā | ata eva nāsau bhūteṣu kiṃcidātmaprayojanamapekṣya 
+nigrahānugrahau karoti apitu karaṇīyamidam-ityetāvatā || 18 || 
+
+karmaṇaiva hi saṃsiddhimāsthitā janakādayaḥ | lokasaṃgrahamevāpi 
+sampaśyankartumarhasi || 3-19 || 
+
+tadatra kurvatāmapi siddhau janakādayo dṛṣṭāntāḥ || 19 || 
+
+yadyadācarati śreṣṭhastattadevetaro janaḥ | sa yatpramāṇaṃ 
+kurute lokastadanuvartate || 3-20 || 
+
+na me pārthāsti kartavyaṃ triṣu lokeṣu kiñcana | 
+nānavāptamavāptavyaṃ pravarte'tha ca karmaṇi || 3-21 || 
+
+yadi hyahaṃ na varteyaṃ jātu karmaṇyatandritaḥ | mama 
+vartmānuvarteranmanuṣyāḥ pārtha sarvaśaḥ || 3-22 || 
+
+utsīdeyurime lokā na kuryāṃ karma cedaham | saṅkarasya ca kartā 
+syāmupahanyāmimāḥ prajāḥ || 3-23 || 
+
+tasmādasaktaḥ satataṃ kāryaṃ karma samācara | asakto 
+hyācarankarma paramāpnoti pūruṣaḥ || 3-24 || 
+
+saktāḥ karmaṇyavidvāṃso yathā kurvanti bhārata | 
+kuryādvidvāṃstathāsaktaścikīrṣurlokasaṃgraham || 3-25 || 
+
+prāptaprāpaṇīyasya paripūrṇamanaso'pi karmapravṛttau 
+lokānugrahaḥ prayojanam-ityatra śrībhagavānātmānameva 
+dṛṣṭāntamakaroti | tasmādasakta eva karaṇīyaṃ karma kuryāt | 
+kiṃca viditavedyaḥ | karma cet tyajet tallokānāṃ durbheda 
+evaikaprasiddhapakṣaśithilitāsthābandhatvenāprarūḍhilakṣaṇo 
+jāyate | yataḥ karmavāsanāṃ ca na moktuṃ śaknuvanti 
+jñānadhārāṃ ca nāśrayitum | atha ca śithilībhavanti || 25 || 
+
+yataste na samyagjñānena pūtāḥ ato buddherbhedanaṃ-vicālanaṃ 
+teṣāṃ paramo'nartha ityanugrahāya bhedayenna dhiyameṣām tadāha 
+
+na buddhibhedaṃ janayedajñānāṃ karmasaṅginām | joṣayet 
+sarvakarmāṇi vidvānyuktaḥ samācaran || 3-26 || 
+
+svayaṃ caivaṃ buddhyamānaḥ karmāṇi kuryāt | na ca lokānāṃ 
+buddhiṃ bhindyād || 26 || 
+
+ajñānamityuktaṃ tadajñatvaṃ darśayati 
+
+prakṛteḥ kriyamāṇāni guṇaiḥ karmāṇi bhāgaśaḥ | 
+ahaṅkāravimūḍhātmā kartāhamiti manyate || 3-27 || 
+
+prakṛtisaṃbandhibhirguṇaiḥ sattvādyaiḥ kila karmāṇi kriyante | 
+mūḍhaścāhaṃ kartetyadhyavasya mithyaivātmānaṃ badhnāti || 27 || 
+
+tattvavittu mahābāho guṇakarmavibhāgayoḥ | guṇā guṇeṣu vartanta 
+iti matvā na sajjate || 3-28 || 
+
+guṇakarmavibhāgatattvavittu prakṛtiḥ karoti mama 
+kimāyātam-ityātmānaṃ mocayati || 28 || 
+
+karmasaṅgināmityuktam tat karmasaṅgitvaṃ darśayati 
+
+prakṛterguṇasammūḍhāḥ sajjante guṇakarmasu | tānakṛtsnavido 
+mandānkṛtsnavinna vicālayet || 3-29 || 
+
+prakṛtisaṃbandhibhirguṇaiḥ satvādyaiḥ kṛteṣu karmaṣu mūḍhāḥ 
+sajjanti sattvādiguṇamāhātmyāt | tasmādyuktaḥ san juṣeta 
+karmāṇi ityuktam || 29 || 
+
+tatra katham iti sphuṭayati- 
+
+mayi sarvāṇi karmāṇi saṃnyasyādhyātmacetasā | nirāśīrnirmamo 
+bhūtvā yudhyasva vigatajvaraḥ || 3-30 || 
+
+mayi sarvāṇi karmāṇi nāhaṃ kartā-iti saṃnyasya svatantraḥ 
+parameśvara eva sarvakartā nāhaṃ kaścit-iti niścitya 
+lokānugrahaṃ cikīrṣurlokācāraṃ yuddhātmakamanutiṣṭha || 30 || 
+
+ye me matamidaṃ nityamanutiṣṭhanti mānavāḥ | 
+śraddhāvanto'nasūyanto mucyante sarvakarmabhiḥ || 3-31 || 
+
+etacca matamāśritya yaḥ kaścidyatkiṃcitkaroti tattasya na bandhakam 
+|| 31 || 
+
+ye tvetadabhyasūyanto nānuvartanti me matam | 
+sarvajñānavimūḍhāṃstānviddhi naṣṭānacetasaḥ || 3-32 || 
+
+etasmiṃstu jñāne ye na śraddhālavaste vinaṣṭāḥ-avirataṃ 
+janmamaraṇādibhayabhāvitatvāt || 32 || 
+
+sadṛśaṃ ceṣṭate svasyāḥ prakṛterjñānavānapi | prakṛtiṃ 
+yānti bhūtāni nigrahaḥ kiṃ kariṣyati || 3-33 || 
+
+yo'pi ca jñānī na tasya vyavahāre bhojanādau viparyāsaḥ kaścit 
+apitu so'pi sattvādyucitameva ceṣṭate | evameva jānan yato 
+bhūtānāṃ-pṛthivyādīnāṃ prakṛtau vilayaḥ ātmā cākartā 
+nityamuktaḥ iti kasya janmādinigrahaḥ || 33 || 
+
+kathaṃ tarhi bandhaḥ ? itthamucyate- 
+
+indriyasyendriyasyārthe rāgadveṣau vyavasthitau | tayorna 
+vaśamāgacchettau hyasya paripanthinau || 3-34 || 
+
+śreyān svadharmo viguṇaḥ paradharmātsvanuṣṭhitāt | svadharme 
+nidhanaṃ śreyaḥ paradharmodayādapiḥ || 3-35 || 
+
+saṃsārī ca prativiṣayaṃ rāgaṃ dveṣaṃ ca gṛhṇāti | yataḥ 
+karmāṇi ātmakartṛkāṇyeva vimūḍhatvādabhimanyate iti samamapi 
+bhojanādivyavahāraṃ kurvatorjñānisaṃsāriṇorastyayaṃ viśeṣaḥ 
+| ayaṃ naḥ siddhāntaḥ-sarvathā muktasaṃgasya svadharmacāriṇo 
+nāsti kaścitpuṇyapāpātmako bandhaḥ | svadharmo hi 
+hṛdayādanapāyī svarasanirūḍha eva | na tena kaścidapi rikto 
+janturjāyate-ityatyājyaḥ || 35 || 
+
+arjuna uvāca 
+
+atha kena prayukto'yaṃ pāpaṃ carati pūruṣaḥ | anicchamano'pi 
+balādākramyeva niyojitaḥ || 3-36 || 
+
+pāpaṃ pāpatayā vidannapi janaḥ kathaṃ tatra pravartate ? iti 
+praśnaḥ | asya praśnasyotthāne'yamāśayaḥ-svadharmo yadi 
+svahṛdayādanapāyitvādatyājyaḥ kathaṃ 
+tarhyadharmācaraṇameṣāmiti | ko'yaṃ svadharmo nāma yenārikto 
+jantuḥ-ityuktaṃ bhavati || 36 || 
+
+atrottaraṃ satyapi svadharme hṛdisthe āgantukāvaraṇakṛto'yaṃ 
+vilpavaḥ na tu tadabhāvakṛtaḥ-ityāśayena- 
+
+śrībhagavānuvāca 
+
+kāma eṣa krodha eṣa rajoguṇasamudbhavaḥ | mahāśano mahāpāpmā 
+viddhyenamiha vairiṇam || 3-37 || 
+
+dvābhyāmetacchabdābhyāmanayoratyantāvaiṣamyaṃ sūcyate etau ca 
+kāmakrodhau nityasaṃbandhināvanyonyāvinābhāvena vartete 
+ityekarūpatayaiva vyācaṣṭe | eṣa ca mahasya- 
+
+sukhasya aśano-grāsakārakaḥ mahataḥ pāpasya hetutvācca krodha eva 
+pāpadāyī | enaṃ ca vairiṇaṃ prājño jānīyāt || 37 || 
+
+nanu arthādyupaghātakaṃ jñātasvarūpaṃ ca vastu hātuṃ suśakaṃ 
+bhavet-ityabhiprāyeṇārjuna uvāca 
+
+bhavatyeṣa kathaṃ kṛṣṇa kathaṃ caiva vivardhate | kimātmakaḥ 
+kimācārastanmamācakṣva pṛcchataḥ || 3-38 || 
+
+asya cotpattau kiṃ kāraṇaṃ vardhane ca ko hetuḥ svarūpaṃ cāsya 
+kīdṛk utpannau rūḍhībhūtaśca kimācarati-kiṃ karoti ? iti 
+praśnāḥ || 38 || 
+
+atrottaraṃ- 
+
+śrībhagavānuvāca 
+
+eṣa sūkṣmaḥ paraḥ śatrurdehināmindriyaiḥ saha | sukhatantra 
+ivāsīno mohayanpārtha tiṣṭhati || 3-39 || 
+
+eṣa tāvatsūkṣmaḥ-utpattisamaye'lakṣya indriyeṣu | evaṃ ca 
+vartamānaḥ sukhaṃ tantrayitumivotpadyate vastutastu 
+duḥkhamohamayaḥ-tāmasatvāt | ata eva mohayan || 39 || 
+
+kāmakrodhamayo ghoraḥ stambhaharṣasamudbhavaḥ | 
+ahaṅkāro'bhimānātmā dustaraḥ pāpakarmabhiḥ || 3-40 || 
+
+stambhaḥ-kulādyabhimānaḥ tatkṛto yo harṣaḥ-ahamīdṛśaḥ-iti | 
+ata evāha-ahaṃkāra iti || 40 || 
+
+harṣamasya nivartyaiṣa śokamasya dadāti ca | bhayaṃ cāsya 
+karotyeṣa mohayaṃstu muhurmuhuḥ || 3-41 || 
+
+ata eva ca garvādvardhate'bhimānasvabhāvaḥ sukhabuddhiprakāreṇa 
+ca jāyate iti trayaḥ praśnāḥ parihṛtāḥ || 41 || 
+
+sa eṣa kaluṣī kṣudraśchidraprekṣī dhanañjaya | rajaḥpravṛtto 
+mohātmā manuṣyāṇāmupadravaḥ || 3-42 || 
+
+sa eṣa iti cchidrāṇi prekṣate-amunā cchidreṇāsyehalokaparalokau 
+nāśayāmi-iti | tathā ca mokṣadharmeṣu | 
+
+arjuna uvāca 
+
+yatkrodhano yajate yaddadāti yadvā tapastapyate yajjuhoti | 
+vaivasvatastaddharate'sya sarvaṃ moghaḥ śramo bhavati krodhanasya || 
+
+iti | rajasaḥ pravṛttastamorūpa ityarthaḥ || 42 || 
+
+dhūmenāvriyate vahniryathā''darśo malena ca | yatholvenāvṛto 
+garbhastathā nenāyamāvṛtaḥ || 3-43 || 
+
+dṛṣṭāntatrayeṇa durapasarpatvam akāryakaratvaṃ yugupsāspadatvaṃ 
+coktam | ayamiti-ātmā || 43 || 
+
+āvṛtaṃ jñānametena jñānino nityavairiṇā | kāmarūpeṇa 
+kaunteya duṣpūreṇānalena ca || 3-44 || 
+
+kāmarūpa icchāyāṃ yataścarati | analena ca-agnineva 
+pūrayitumaśakyena-dṛṣṭādṛṣṭadvayadāhakatvāt || 44 || 
+
+indriyāṇi mano buddhirasyādhiṣṭhānamucyate | etairvimohayatyeṣa 
+jñānamāvṛtya dehinam || 3-45 || 
+
+ādau indriyeṣu satsu tiṣṭhati | yathā cakṣuṣā śatrurdṛṣṭa 
+indriyapradeśe eva krodhamātmano janayati | tato manasi-saṃkalpe | 
+tato buddhau-niścaye | etadvāreṇa mohaṃ janayan jñānaṃ nāśayati 
+|| 45 || 
+
+asya nivāraṇe upāyamāha 
+
+tasmāttvamindriyāṇyādau niyamya bharatarṣabha | pāpmānaṃ 
+prajahīhyenaṃ jñānavijñānanāśanam || 3-46 || 
+
+tasmādādāvindriyāṇi niyamayet-krodhādikamindriyeṣu prathamaṃ na 
+gṛhṇīyāt | jñānaṃ-brahma vijñānaṃ ca-bhagavanmayīṃ kriyāṃ 
+nāśayati | hi-yataḥ ataḥ pāpmānaṃ krodhaṃ tyaja | 
+athavā-jñānena-manasā vijñānena-buddhyā ca nāśanaṃ-vāraṇaṃ 
+kṛtvā iti kriyāviśeṣaṇam indriyeṣūtpannaṃ saṃkalpe na 
+gṛhṇīyāt | saṃkalpitaṃ vā na niścinuyāditi tātparyam || 46 || 
+
+atra yuktiṃ ślokadvayenāha 
+
+indriyāṇi parāṇyāhurindriyebhyaḥ paraṃ manaḥ | manasastu parā 
+buddhiryo buddheḥ paratastu saḥ || 3-47 || 
+
+evaṃ buddheḥ paraṃ buddhvā saṃstabhyātmānamātmanā | jahi 
+śatruṃ mahābāho kāmarūpaṃ durāsadam || 3-48 || 
+
+yata indriyāṇi śatrulakṣaṇādviṣayādanyāni | 
+tebhyaścānyanmanaḥ | tasmādapi buddhervyatirekaḥ | buddherapi 
+yasyānyasvabhāvatvaṃ sa ātmā | evamindriyotpannena krodhena kathaṃ 
+manaso buddherātmano vā kṣobhaḥ ? iti paryālocayedityarthaḥ | 
+rahasyavidāṃ tvayamāśayaḥ-buddheryaḥ paratra vartate 
+paro'haṃkāraḥ-sarvamaham-ityabhedātmā sa khalu paramo'bhedaḥ | 
+ata eva ca paripūrṇasya khaṇḍanābhāvānna krodhādaya udayante | 
+ataḥ paramahaṃkāraṃ-parotsāhasaṃvidātmakaṃ gṛhītvā krodham 
+avidyātmānaṃ śatruṃ jahīti śivam || 48 || 
+
+atra saṃgrahaślokaḥ 
+
+ghanāni dārāndehaṃ ca yo'nyatvenādhigacchati | kiṃ nāma tasya 
+kurvanti krodhādyāścittavibhramāḥ || 3 || 
+
+iti 
+śrīmahāmāheśvarācāryavaryarājānakābhinavaguptapādaviracite 
+śrīmadbhagavadgītārthasaṃgrahe tṛtīyo'dhyāyaḥ || 3 || 
+
+```
+
+## Reading (machine draft, verse-mapped)
+
+**gita-a03-v01** — Now the third chapter: if your thought holds action superior, O Janardana, then why do you engage me in terrible action, O Kesava?
+**gita-a03-v14** — Beings arise from food, food from rain, rain from sacrifice, and sacrifice from action.
+**gita-a03-v17** — For a human who delights in the self and is self-satisfied, no duty remains.
+**gita-a03-v20** — Whatever the best person does, others do; whatever standard he sets, the world follows.
+**gita-a03-v21** — O Partha, I have no duty in the three worlds, nothing unattained to attain, yet I engage in action.
+**gita-a03-v22** — If I did not ever act unweariedly, people would follow my path in every way, O Partha.
+**gita-a03-v23** — These worlds would perish if I did not act; I would become maker of confusion and harm these beings.
+**gita-a03-v24** — Therefore, always perform duty unattached; for an unattached person performing action attains the supreme.
+**gita-a03-v34** — For each sense in its object, attraction and aversion are established; one should not come under their sway, for they are obstacles to him.
+**gita-a03-v04** — A person does not attain inaction by not beginning actions, nor does he attain perfection by renunciation alone.
+**gita-a03-v47** — Here the method is stated in two verses: the senses are called superior; beyond the senses is the mind; beyond the mind is intelligence; and beyond intelligence is he.
+
+## Claims
+
+| Claim | Status | Basis |
+|---|---|---|
+| Link completeness | FAIL (3 gaps named) | assurance.trace_links_present + gaps |
+| Human review | UNREVIEWED (machine rendering; no human sign-off) | assurance.review |
+| Deterministic chunk gate | UNKNOWN (none) | proofs.chunk_gate |
+| Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
+| Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

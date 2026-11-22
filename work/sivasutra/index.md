@@ -1,4 +1,4 @@
-# sivasutra — 8 claims
+# sivasutra — 9 claims
 
 Canonical: https://svatantrya.net/work/sivasutra/
 
@@ -10,3 +10,4 @@ Canonical: https://svatantrya.net/work/sivasutra/
 - [sivs-p06](https://svatantrya.net/claim/sivasutra/sivs-p06/) — PARTIAL — sivasutra sivs-p06 (3.21-3.30) links incomplete (5 gaps named); no formal theorems bound. Chunk gate BLOCKED; no witness verified.
 - [sivs-p07](https://svatantrya.net/claim/sivasutra/sivs-p07/) — PARTIAL — sivasutra sivs-p07 (3.31-3.40) links incomplete (5 gaps named); no formal theorems bound. Chunk gate BLOCKED; no witness verified.
 - [sivs-p08](https://svatantrya.net/claim/sivasutra/sivs-p08/) — PARTIAL — sivasutra sivs-p08 (3.41-3.45) links incomplete (5 gaps named); no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+- [span-p09](https://svatantrya.net/claim/sivasutra/span-p09/) — PARTIAL — sivasutra span-p09 (1.21-1.22) links incomplete (6 gaps named); no formal theorems bound. Chunk gate UNKNOWN; no witness verified.

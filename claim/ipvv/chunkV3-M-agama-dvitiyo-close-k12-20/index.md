@@ -1,6 +1,6 @@
 # ipvv chunkV3-M-agama-dvitiyo-close-k12-20 (M00022:10000-10886)
 
-ipvv chunkV3-M-agama-dvitiyo-close-k12-20 (M00022:10000-10886) links incomplete (2 gaps named); counts REGISTERED without a per-declaration run. Chunk gate passes; no witness verified.
+ipvv chunkV3-M-agama-dvitiyo-close-k12-20 (M00022:10000-10886) links incomplete (8 gaps named); no formal theorems bound. Chunk gate passes; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
@@ -898,97 +898,16 @@ vimarśo dvitīyaḥ || 2 ||
 samāptaśca ayamāgamārthasaṃgrahādhikāraḥ || 3 ||
 ```
 
-## Reading (machine draft, verse-mapped)
+## Reading
 
-**chunk-v3-m-agama-dvitiyo-close-k12-20-v46** — `pilot_V3M_ARGUMENT_MAP.md`. Dyczkowski-mode.*
-
-**The states of the bound knower, and the way to the fourth**
-
-The knower, at bottom, is nothing other than the free conscious agent — his agency, his awareness, and
-his consciousness-self are primary. But the bound knower does not live in that freedom. He lives in a
-round of states — waking, dream, and deep sleep — which are the very texture of his bondage. To
-understand these states, and which of them lead him to his true nature, is the concern of this closing
-part of the vimarśa.
-
-At the lowest extreme is the state of the void. In the emptiness — where the intellect and the rest are
-absent — the "I-ness" and the "agent-ness" are only words. This is the dissolved knower, the
-pralayākala, absorbed in the void, with only the barest trace of an "I." His is a sleep without even a
-dream.
-
-Above that, the vital breath (prāṇa) stirs: it is the inner operation that stimulates the senses, the
-life that links the self to the organs. And with the breath come the three great states. Deep sleep
-(suṣupta) is like dissolution — a resting in the mere void or in the breath, where consciousness is put
-to sleep by māyā and not awakened even by the limited agency (kalā) or the limited knowledge (vidyā).
-It has two grades: with the known (the vidyākalā, still touched by the māyā-stain) and without the
-known (the pralayākala, free of the stain). Its many forms — sleep from fatigue, fainting from shock,
-intoxication and madness from wine, and even samādhi, the sleep of the yogin won by effort — are all
-species of this one deep-sleep state.
-
-The dream (svapna) is different. In the dream the senses are fixed and still, yet one sees the beloved
-and reaches out to touch her. Here only the mind is active, drawing on the prior creation, and making a
-clear, vivid world of its own — a momentary creation of the Lord within the dreamer. But in its
-sense-object part the dream shares the common world; and the moment we wake, the dream's clarity is
-refuted. So the dream is the mind's own making, a clear-appearance that the waking refutes.
-
-The waking state (jāgrat) is the common creation — the firm, external world shared by all the knowers.
-The waking knower is one who has shaken off the delusion-causing sleep. And yet, even here, the dream-
-form persists within the waking: the five states interpenetrate, each containing traces of the others.
-It is the difference of the known, Abhinavagupta notes, that spins out these many states of the one
-knower-ness.
-
-Now the crucial point. These three states — waking, dream, deep sleep — are to be *abandoned* by the
-seeker of liberation. For they are bound up with the vital breaths, with the primary-ness of the
-prāṇa in the agent, and with the rise and fall of pleasure and pain. The seeker, seeing this, regards
-the whole threefold round as the sphere to be left behind. The breath and the out-breath (prāṇa and
-apāna) run through waking and sleep; the udāna goes upward through the middle; but beyond them all is
-the fourth — the turya — the state that goes beyond the three, of the fire-form, the pure consciousness
-that is the goal. It is into this fourth that the recognition leads the bound knower, out of the round
-of the three, into the freedom that was always his own.
-
-With this, the dvitīyo vimarśa of the āgamādhikāra — the analysis of the knowers, the stains, and the
-states — comes to its close. The bound soul has been fully mapped: its stains, its grades, its states,
-and its breaths. And the way out has been shown: through the recognition, from the three abandoned
-states to the fourth, the fire-form, the free consciousness-self.
-
-- **Preserved:** the primacy of agency/awareness/consciousness-self (k12); the void with the mere
-  word "I"/"agent" (k13, the pralayākala); the prāṇa as the inner operation stimulating the senses
-  (k14); suṣupta like dissolution, with/without the known, with/without the māyā-stain (k15); the
-  sleep's sub-kinds (fatigue, fainting, intoxication, samādhi); the dream as the mind's clear creation
-  refuted by waking (k16); the waking as the common firm creation shared by all (k17); the mutual
-  entry of the states; the three as to-be-abandoned, bound up with the prāṇa and pleasure/pain (k18);
-  the prāṇa/apāna/udāna and the turya as the fire-form going beyond (k19–20); the ||2||/||3||
-  colophons.
-- **Added (SUPPLIED, recoverable):** "Above that, the vital breath stirs" (the transition from the
-  void to the breath); "each containing traces of the others" (glosses the mutual entry of the states);
-  "out of the round of the three, into the freedom that was always his own" (states the recognition's
-  goal). Interpretive unpacking, not new doctrine.
-- **NOT resolved:** the full fivefold prāṇa enumeration (only prāṇa/apāna/udāna/turya are in the
-  verses; the full count is presupposed); the exact savedya/apavedya grades. Logged, not invented.
-
-**Verdict:** understood and readable. The dvitīyo vimarśa closes cleanly: the knower is the free
-conscious agent; his bound states (void, deep sleep, dream, waking) are mapped; the three great states
-are to be abandoned, bound up with the breaths and pleasure/pain; and the recognition leads him to the
-fourth, the fire-form, the free consciousness-self.
+Withheld. no verified L2 layer in this pack
 
 ## Claims
 
 | Claim | Status | Basis |
 |---|---|---|
-| Link completeness | FAIL (2 gaps named) | assurance.trace_links_present + gaps |
+| Link completeness | FAIL (8 gaps named) | assurance.trace_links_present + gaps |
 | Human review | UNREVIEWED (machine rendering; no human sign-off) | assurance.review |
-| SubtleBody.lean :: trikaA_count | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
-| SubtleBody.lean :: trikaB_count | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
-| SubtleBody.lean :: same_cardinality | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
-| SubtleBody.lean :: not_same_partition | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
-| SubtleBody.lean :: partitions_disjoint | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
-| SubtleBody.lean :: eight_is_not_one_eight | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
-| SubtleBody.lean :: trikaA_expanded_count | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
-| SubtleBody.lean :: expanded_differs | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
-| SubtleBodyCorpus.lean :: A_count | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
-| SubtleBodyCorpus.lean :: three_formulas_eight | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
-| SubtleBodyCorpus.lean :: A_disjoint_B | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
-| SubtleBodyCorpus.lean :: A_disjoint_C | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
-| SubtleBodyCorpus.lean :: city_units | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
 | Deterministic chunk gate | PASS (none) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

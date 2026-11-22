@@ -5,53 +5,6 @@
    "name": "source.txt",
    "role": "source-bytes",
    "sha256": "af496dee61857ee42802e274c4e9f00e6b1aa9a90c91b1b5d4bbf968f5dfe5cb"
-  },
-  {
-   "bytes": 46169,
-   "name": "chunk-d-memory-pramana.argmap.json",
-   "origin": "ipvv/data/chunk-d-memory-pramana.argmap.json",
-   "role": "layer-argmap",
-   "sha256": "307d74e0478c4eae78b3c17f2f82ddd0911b81e26bebbebfe070e86d5d4a3959",
-   "status": "BOUND"
-  },
-  {
-   "bytes": 530,
-   "name": "chunk-d-memory-pramana.c1.json",
-   "origin": "ipvv/data/chunk-d-memory-pramana.c1.json",
-   "role": "layer-c1",
-   "sha256": "98cee3c49c50ff94f81c6470b52689c0bd5c22527abe8e3fe19ee08ba7aa5a32",
-   "status": "BOUND"
-  },
-  {
-   "bytes": 1514115,
-   "name": "chunk-d-memory-pramana.l0.json",
-   "origin": "ipvv/data/chunk-d-memory-pramana.l0.json",
-   "role": "layer-l0",
-   "sha256": "58a6fd4fdf2439c47f585b313dce58574f5ac9e9fdf0eb7606ce4bea6f771c14",
-   "status": "BOUND"
-  },
-  {
-   "bytes": 45594,
-   "name": "chunk-d-memory-pramana.l2.json",
-   "origin": "ipvv/data/chunk-d-memory-pramana.l2.json",
-   "role": "layer-l2",
-   "sha256": "b7c5ce9df155d0b2ef4add3dccf8446d3651aa71ecb3e24ffcda0b5b6906bdc0",
-   "status": "BOUND"
-  },
-  {
-   "bytes": 266198,
-   "name": "chunk-d-memory-pramana.t1.json",
-   "origin": "ipvv/data/chunk-d-memory-pramana.t1.json",
-   "role": "layer-t1",
-   "sha256": "00f4f988d514ceb9a1582913d4d65095d15f17901836c011a279de8253f92b11",
-   "status": "BOUND"
-  },
-  {
-   "bytes": 1641,
-   "name": "proof-chunk-d-memory-pramana.json",
-   "origin": "ipvv/proof/proof-chunk-d-memory-pramana.json",
-   "role": "proof",
-   "sha256": "9107558877be4b06848c6ca8f3dff2210d5ce4f99f8b36919b9b7da1eb6a69ba"
   }
  ],
  "assurance": {
@@ -75,14 +28,20 @@
  },
  "format": "trika-verify-pack/1",
  "gaps": [
+  "layer:t1",
+  "layer:l0",
+  "layer:argmap",
+  "layer:l2",
+  "layer:c1",
   "layer:l3",
-  "layer:l4"
+  "layer:l4",
+  "proofs:song"
  ],
  "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/ipvv-chunkD-memory-pramana/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
  "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
  "trace": {
   "file": "traces/ipvv-chunkD-memory-pramana.json",
-  "sha256": "ebcbbfb2cb65c7cc7bcd1d94c4ebdf61f19948a97f01548889233fded1d38b89"
+  "sha256": "92e0f976b9ef4361899555ba8d751e8b12661ba7aed39cc4c7ce60df83a61f3a"
  },
  "verdict": "PARTIAL",
  "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."

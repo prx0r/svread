@@ -20,7 +20,7 @@
  },
  "essays": {
   "citing": [],
-  "projection_sha256": "77216dffa7fbf20365c34a44a6f943d7d9d98134def598b4274af3a91386aa35"
+  "projection_sha256": null
  },
  "formal": {
   "status": "none",
@@ -28,8 +28,14 @@
  },
  "format": "trika-trace/1",
  "gaps": [
+  "layer:t1",
+  "layer:l0",
+  "layer:argmap",
+  "layer:l2",
+  "layer:c1",
   "layer:l3",
-  "layer:l4"
+  "layer:l4",
+  "proofs:song"
  ],
  "identity": {
   "db": "postgresql://patala:***@localhost:5432/openpatala",
@@ -57,16 +63,12 @@
  },
  "layers": {
   "argmap": {
-   "path": "ipvv/data/chunk-f-upoddhata-k1-7.argmap.json",
-   "present": true,
-   "sha256": "4f6553ccf1f959dfeeb6f0f3b508c955809e449e759c4badc9870b469a77fbab",
-   "status": "BOUND"
+   "present": false,
+   "status": "UNKNOWN"
   },
   "c1": {
-   "path": "ipvv/data/chunk-f-upoddhata-k1-7.c1.json",
-   "present": true,
-   "sha256": "953e421b414aa9c35c6e95875ac7b695f8165e352b48043aadb9254d3f36619d",
-   "status": "BOUND"
+   "present": false,
+   "status": "UNKNOWN"
   },
   "c2": {
    "note": "C2 renders are optional (owner: existing C2 stays; waived)",
@@ -74,16 +76,12 @@
    "status": "NOT-APPLICABLE"
   },
   "l0": {
-   "path": "ipvv/data/chunk-f-upoddhata-k1-7.l0.json",
-   "present": true,
-   "sha256": "9e6151d010b8f82b4622a70fc16473e55e2696de397d660e6c9c4446fb536450",
-   "status": "BOUND"
+   "present": false,
+   "status": "UNKNOWN"
   },
   "l2": {
-   "path": "ipvv/data/chunk-f-upoddhata-k1-7.l2.json",
-   "present": true,
-   "sha256": "dc55d2eab738f9c10c03b76aedc16cb3b4ee8a83490354ccc907558ce9ddb109",
-   "status": "BOUND"
+   "present": false,
+   "status": "UNKNOWN"
   },
   "l3": {
    "present": false,
@@ -94,13 +92,13 @@
    "status": "UNKNOWN"
   },
   "t1": {
-   "path": "ipvv/data/chunk-f-upoddhata-k1-7.t1.json",
-   "present": true,
-   "sha256": "a10f8cc528aced853421cd461ba00de51ed8d51f9ea8d73fa03d5eb460743a90",
-   "status": "BOUND"
+   "present": false,
+   "status": "UNKNOWN"
   }
  },
- "open_problems": [],
+ "open_problems": [
+  "no scholar projection for work"
+ ],
  "proofs": {
   "chunk_gate": {
    "blocking": [],
@@ -112,21 +110,16 @@
    "status": "PASS"
   },
   "song_proof": {
-   "blocking": [],
-   "deterministic_gate": "PASS",
-   "file": "ipvv/proof/proof-chunk-f-upoddhata-k1-7.json",
-   "sha256": "009b4946d01dcc8ba958826a3947b37c2e98a9031f9961af4df2e89eab3d40b6",
-   "status": "PASS",
-   "tool": "proof_record v1 2026-11-01",
-   "warnings": 0
+   "note": "no proof file",
+   "status": "UNKNOWN"
   }
  },
  "source": {
   "bytes_present": true,
   "bytes_sha256": "d817d82a7e7f204c69de2c22cc30ad5235e931fc9460b3dde90f4fb6bf77ca02",
   "edition": {
-   "label": "Mukhabodha M00020/21/22 (IPVV vols 1-3) + Torella IPK (base)",
-   "status": "CANDIDATE-WORK"
+   "label": null,
+   "status": "UNKNOWN"
   },
   "immutable_id": "pt:pid:ipvv:1bb4e70c35b9",
   "ledger": "ipvv/passages.jsonl",

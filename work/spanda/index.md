@@ -8,4 +8,4 @@ Canonical: https://svatantrya.net/work/spanda/
 - [span-p04](https://svatantrya.net/claim/spanda/span-p04/) — COMPLETE — spanda span-p04 (KSTS 20-25) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
 - [span-p04b](https://svatantrya.net/claim/spanda/span-p04b/) — PARTIAL — spanda span-p04b (KSTS 26-38) links incomplete (6 gaps named); no formal theorems bound. Chunk gate UNKNOWN; no witness verified.
 - [span-p05](https://svatantrya.net/claim/spanda/span-p05/) — PARTIAL — spanda span-p05 (KSTS 39-47) links incomplete (5 gaps named); no formal theorems bound. Chunk gate BLOCKED; no witness verified.
-- [span-p06](https://svatantrya.net/claim/spanda/span-p06/) — PARTIAL — spanda span-p06 (KSTS 48-52+prasasti) links incomplete (5 gaps named); counts REGISTERED without a per-declaration run. Chunk gate BLOCKED; no witness verified.
+- [span-p06](https://svatantrya.net/claim/spanda/span-p06/) — PARTIAL — spanda span-p06 (KSTS 48-52+prasasti) links incomplete (5 gaps named); no formal theorems bound. Chunk gate BLOCKED; no witness verified.
