@@ -12,7 +12,7 @@
    "origin": "ipvv/data/chunk-v3-m-agama-dvitiyo-close-k12-20.argmap.json",
    "role": "layer-argmap",
    "sha256": "04e8e9df51acfc74d4d549e1cf6d7d71b92b39b1357961f71298add2d285dcc7",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   {
    "bytes": 625,
@@ -20,7 +20,7 @@
    "origin": "ipvv/data/chunk-v3-m-agama-dvitiyo-close-k12-20.c1.json",
    "role": "layer-c1",
    "sha256": "fd9ab2465659e589c1770380172d689dcf9fe57e12b0d88cb054065153b9ee20",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   {
    "bytes": 1914421,
@@ -28,7 +28,7 @@
    "origin": "ipvv/data/chunk-v3-m-agama-dvitiyo-close-k12-20.l0.json",
    "role": "layer-l0",
    "sha256": "475026bdcb7406c364a99be63329efcca784ef216603fb01c83b01f16f7d7ecf",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   {
    "bytes": 59456,
@@ -36,7 +36,7 @@
    "origin": "ipvv/data/chunk-v3-m-agama-dvitiyo-close-k12-20.l2.json",
    "role": "layer-l2",
    "sha256": "81a6d51a0e348d1be4146357e30b87dbd42c54d6f4851aa93944f1d2cd42391a",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   {
    "bytes": 292248,
@@ -44,7 +44,7 @@
    "origin": "ipvv/data/chunk-v3-m-agama-dvitiyo-close-k12-20.t1.json",
    "role": "layer-t1",
    "sha256": "fee0a93f155059a628c0e4b9d4941f86c4085e77f3746b3d5b5bb9cd5e484ba1",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   {
    "bytes": 1778,
@@ -67,7 +67,13 @@
   "trace_links_present": "FAIL",
   "witness": "UNPINNED"
  },
- "caveats": [],
+ "caveats": [
+  "layer:t1=whole-song-span",
+  "layer:l0=whole-song-span",
+  "layer:argmap=whole-song-span",
+  "layer:l2=whole-song-span",
+  "layer:c1=whole-song-span"
+ ],
  "chunk": {
   "immutable_id": "pt:pid:ipvv:f97439905c09",
   "target": "chunkV3-M-agama-dvitiyo-close-k12-20",
@@ -82,7 +88,7 @@
  "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
  "trace": {
   "file": "traces/ipvv-chunkV3-M-agama-dvitiyo-close-k12-20.json",
-  "sha256": "455c506e3630f31b4d20587b9f9d734240ee75b18acd8e54e5da86afd18575cc"
+  "sha256": "d64225b6375635b4bea83f0d40ee1925f906ff14a8caacf771c9707e54cd053e"
  },
  "verdict": "PARTIAL",
  "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."

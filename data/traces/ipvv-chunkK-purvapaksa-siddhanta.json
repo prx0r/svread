@@ -12,7 +12,13 @@
   "trace_links_present": "FAIL",
   "witness": "UNPINNED"
  },
- "caveats": [],
+ "caveats": [
+  "layer:t1=whole-song-span",
+  "layer:l0=whole-song-span",
+  "layer:argmap=whole-song-span",
+  "layer:l2=whole-song-span",
+  "layer:c1=whole-song-span"
+ ],
  "chunk": {
   "immutable_id": "pt:pid:ipvv:d91580075602",
   "target": "chunkK-purvapaksa-siddhanta",
@@ -20,7 +26,7 @@
  },
  "essays": {
   "citing": [],
-  "projection_sha256": "77216dffa7fbf20365c34a44a6f943d7d9d98134def598b4274af3a91386aa35"
+  "projection_sha256": null
  },
  "formal": {
   "status": "none",
@@ -57,16 +63,18 @@
  },
  "layers": {
   "argmap": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
    "path": "ipvv/data/chunk-k-purvapaksa-siddhanta.argmap.json",
    "present": true,
    "sha256": "f6ea79beade24c76372c7687f6694b152ff978cc92ce667111947feabe2201f5",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   "c1": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
    "path": "ipvv/data/chunk-k-purvapaksa-siddhanta.c1.json",
    "present": true,
    "sha256": "d6936449ee43dbd364f4997bf852dbebcbafc84f56393876a88da231138bcfe7",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   "c2": {
    "note": "C2 renders are optional (owner: existing C2 stays; waived)",
@@ -74,16 +82,18 @@
    "status": "NOT-APPLICABLE"
   },
   "l0": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
    "path": "ipvv/data/chunk-k-purvapaksa-siddhanta.l0.json",
    "present": true,
    "sha256": "00829bfdda8053e6dcbe5d47db7f7aabc6770378de623fc0b2c887a09a9b5142",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   "l2": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
    "path": "ipvv/data/chunk-k-purvapaksa-siddhanta.l2.json",
    "present": true,
    "sha256": "49545a17e06d2ca3c6ef52294b289d6f93eb1e8e44777e542ac0309dfc1c8dce",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   "l3": {
    "present": false,
@@ -94,13 +104,16 @@
    "status": "UNKNOWN"
   },
   "t1": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
    "path": "ipvv/data/chunk-k-purvapaksa-siddhanta.t1.json",
    "present": true,
    "sha256": "870e1188ac5fd1b9ccf303bb37a8f4e6a64283bd17fa67f1cf8f9c2738bfece0",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   }
  },
- "open_problems": [],
+ "open_problems": [
+  "no scholar projection for work"
+ ],
  "proofs": {
   "chunk_gate": {
    "blocking": [],
@@ -125,8 +138,8 @@
   "bytes_present": true,
   "bytes_sha256": "805e824019ea977e4fd8045cbdcdff82bd4f209ba63b13a7003e326be357c26e",
   "edition": {
-   "label": "Mukhabodha M00020/21/22 (IPVV vols 1-3) + Torella IPK (base)",
-   "status": "CANDIDATE-WORK"
+   "label": null,
+   "status": "UNKNOWN"
   },
   "immutable_id": "pt:pid:ipvv:d91580075602",
   "ledger": "ipvv/passages.jsonl",

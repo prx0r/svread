@@ -1,6 +1,6 @@
 # sivasutravimarsini ssv-u3 (33-77)
 
-sivasutravimarsini ssv-u3 (33-77) links incomplete (3 gaps named); counts REGISTERED without a per-declaration run. Chunk gate UNKNOWN; no witness verified.
+sivasutravimarsini ssv-u3 (33-77) links incomplete (3 gaps named); no formal theorems bound. Chunk gate UNKNOWN; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
@@ -2036,15 +2036,6 @@ kṛtiḥ śrīkṣemarājasya kṣemāyāstu vimarśinām |
 |---|---|---|
 | Link completeness | FAIL (3 gaps named) | assurance.trace_links_present + gaps |
 | Human review | UNREVIEWED (machine rendering; no human sign-off) | assurance.review |
-| SubtleBodyCorpus.lean :: C_count | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
-| SubtleBodyCorpus.lean :: three_formulas_eight | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
-| SubtleBodyCorpus.lean :: B_C_same_count | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
-| SubtleBodyCorpus.lean :: B_C_different_vocabulary | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
-| SubtleBodyCorpus.lean :: A_disjoint_C | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
-| SubtleBodyCorpus.lean :: guna_inner_same_count | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
-| SubtleBodyCorpus.lean :: gunas_distinct | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
-| SubtleBodyCorpus.lean :: guna_inner_not_identical | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
-| SubtleBodyCorpus.lean :: gross_not_carried | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
 | Deterministic chunk gate | UNKNOWN (none) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

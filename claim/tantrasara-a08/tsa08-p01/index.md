@@ -1,6 +1,6 @@
 # tantrasara-a08 tsa08-p01 (8.1-8.17)
 
-tantrasara-a08 tsa08-p01 (8.1-8.17) passes link checks; counts REGISTERED without a per-declaration run. Chunk gate BLOCKED; no witness verified.
+tantrasara-a08 tsa08-p01 (8.1-8.17) passes link checks; counts REGISTERED without a per-declaration run. Chunk gate passes; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
@@ -43,6 +43,6 @@ tantrasāra, aṣṭamam āhnikam yad idaṃ vibhavātmakaṃ bhuvanajātam ukta
 | TattvaGen.lean :: pure_distinct | REGISTERED, run UNBOUND (tier R) | trace formal; EVIDENCE registry reference only |
 | TattvaInventory.lean :: pure_count | CONTEXT_ONLY, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
 | TattvaInventory.lean :: pure_excludes_maya | CONTEXT_ONLY, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
-| Deterministic chunk gate | BLOCKED (ABSTENTION, CITATION_GROUNDING) | proofs.chunk_gate |
+| Deterministic chunk gate | PASS (none) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

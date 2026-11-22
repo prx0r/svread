@@ -12,7 +12,13 @@
   "trace_links_present": "FAIL",
   "witness": "UNPINNED"
  },
- "caveats": [],
+ "caveats": [
+  "layer:t1=whole-song-span",
+  "layer:l0=whole-song-span",
+  "layer:argmap=whole-song-span",
+  "layer:l2=whole-song-span",
+  "layer:c1=whole-song-span"
+ ],
  "chunk": {
   "immutable_id": "pt:pid:ipvv:5b225fdbeb52",
   "target": "chunkJ-k1.11-kartapi-kalpita",
@@ -20,7 +26,7 @@
  },
  "essays": {
   "citing": [],
-  "projection_sha256": "77216dffa7fbf20365c34a44a6f943d7d9d98134def598b4274af3a91386aa35"
+  "projection_sha256": null
  },
  "formal": {
   "status": "none",
@@ -57,16 +63,18 @@
  },
  "layers": {
   "argmap": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
    "path": "ipvv/data/chunk-j-k1-11-kartapi-kalpita.argmap.json",
    "present": true,
    "sha256": "81607d2f08c0be1295998b432a56bada84fb580fbce6ff98b2c47e15c5a7ea35",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   "c1": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
    "path": "ipvv/data/chunk-j-k1-11-kartapi-kalpita.c1.json",
    "present": true,
    "sha256": "130448273da8e0c9c73a6919291bd352bbe8093d689faa481dbde781aa62b25a",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   "c2": {
    "note": "C2 renders are optional (owner: existing C2 stays; waived)",
@@ -74,16 +82,18 @@
    "status": "NOT-APPLICABLE"
   },
   "l0": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
    "path": "ipvv/data/chunk-j-k1-11-kartapi-kalpita.l0.json",
    "present": true,
    "sha256": "6e5bb3e272547653999c9375f09c5c7317780d11237777a3ae1e68e194650f56",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   "l2": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
    "path": "ipvv/data/chunk-j-k1-11-kartapi-kalpita.l2.json",
    "present": true,
    "sha256": "ddab2b7ae744d63212d95038ea4525370083c8b5d3ce885ddcc1373dcd9e1eaf",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   "l3": {
    "present": false,
@@ -94,13 +104,16 @@
    "status": "UNKNOWN"
   },
   "t1": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
    "path": "ipvv/data/chunk-j-k1-11-kartapi-kalpita.t1.json",
    "present": true,
    "sha256": "1768af29e06a2a3a7fb1458deddc009ae526d26b17e4a2492a4f6d102d3dfa73",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   }
  },
- "open_problems": [],
+ "open_problems": [
+  "no scholar projection for work"
+ ],
  "proofs": {
   "chunk_gate": {
    "blocking": [],
@@ -125,8 +138,8 @@
   "bytes_present": true,
   "bytes_sha256": "765288bf29f59cc906cb30992ab0ea904bf7cf4358d76c3a39c24f7a13f165c1",
   "edition": {
-   "label": "Mukhabodha M00020/21/22 (IPVV vols 1-3) + Torella IPK (base)",
-   "status": "CANDIDATE-WORK"
+   "label": null,
+   "status": "UNKNOWN"
   },
   "immutable_id": "pt:pid:ipvv:5b225fdbeb52",
   "ledger": "ipvv/passages.jsonl",

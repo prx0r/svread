@@ -7,32 +7,55 @@
    "sha256": "f6378275c17be270e5fa0a3f96ef74413ae24945230397965c8a6d8c0911ab30"
   },
   {
-   "bytes": 104275,
-   "name": "ARGMAP.md",
-   "origin": "tantraloka-a28/ARGMAP.md",
+   "bytes": 422720,
+   "name": "tal-a28.argmap.json",
+   "origin": "tantraloka-a28/data/tal-a28.argmap.json",
    "role": "layer-argmap",
-   "sha256": "72292bdb11abb21e58ce5ece1eccd583e5d88ebe856110a67a51f950af2af2d0",
-   "status": "BOUND-WORK-MD"
+   "sha256": "91177f0ec7a38e4b1e709f382d346da8d9347e744bc62e14f0a795e623d4410d",
+   "status": "BOUND-WHOLE-SONG"
   },
   {
-   "bytes": 97477,
-   "name": "L2.md",
-   "origin": "tantraloka-a28/L2.md",
+   "bytes": 489,
+   "name": "tal-a28.c1.json",
+   "origin": "tantraloka-a28/data/tal-a28.c1.json",
+   "role": "layer-c1",
+   "sha256": "1ba73373d1862d571fd70ba5d15b77868d57e00899bc922f30ff5eff90c84f5b",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 1281309,
+   "name": "tal-a28.l0.json",
+   "origin": "tantraloka-a28/data/tal-a28.l0.json",
+   "role": "layer-l0",
+   "sha256": "487cea90e1ca21a5228b1c6cd0e07488e41c4c6ac56c31fb960b2879743f5fe1",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 258520,
+   "name": "tal-a28.l2.json",
+   "origin": "tantraloka-a28/data/tal-a28.l2.json",
    "role": "layer-l2",
-   "sha256": "0727e78c741fa76ba6a6f267b6762cdb5c4f9902c397e0e5f4a5f36ae97629ef",
-   "status": "BOUND-WORK-MD"
+   "sha256": "2cbcf7a404db5409c258428ec1a475a9deb6212a614c05d936c4f9092cf219db",
+   "status": "BOUND-WHOLE-SONG"
   },
   {
-   "bytes": 50139,
-   "name": "T1.md",
-   "origin": "tantraloka-a28/T1.md",
+   "bytes": 660128,
+   "name": "tal-a28.t1.json",
+   "origin": "tantraloka-a28/data/tal-a28.t1.json",
    "role": "layer-t1",
-   "sha256": "f1e83285f2b58dddfeb67906242973452fb66fdc4a113c7d55ec5ddf36d45440",
-   "status": "BOUND-WORK-MD"
+   "sha256": "db72c4e01bccbc29e8c637ba971a936efb992399ee1e2fb2ee8455c1b986e1b2",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 1532,
+   "name": "proof-tal-a28.json",
+   "origin": "tantraloka-a28/proof/proof-tal-a28.json",
+   "role": "proof",
+   "sha256": "1976e96bada3812d423f37bb06322e8497a432591ebc0773121ba1bce581ce9a"
   }
  ],
  "assurance": {
-  "chunk_gate": "BLOCKED",
+  "chunk_gate": "PASS",
   "formal_run": "UNBOUND",
   "formal_run_note": "registry references only; no per-declaration run digest bound",
   "publication": "NOT_AUTHORIZED",
@@ -45,7 +68,11 @@
   "witness": "UNPINNED"
  },
  "caveats": [
-  "chunk_gate BLOCKED: ABSTENTION"
+  "layer:t1=whole-song-span",
+  "layer:l0=whole-song-span",
+  "layer:argmap=whole-song-span",
+  "layer:l2=whole-song-span",
+  "layer:c1=whole-song-span"
  ],
  "chunk": {
   "immutable_id": "pt:pid:tal:tantraloka-a28028",
@@ -54,17 +81,14 @@
  },
  "format": "trika-verify-pack/1",
  "gaps": [
-  "layer:l0",
-  "layer:c1",
   "layer:l3",
-  "layer:l4",
-  "proofs:song"
+  "layer:l4"
  ],
  "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/tantraloka-a28-tal-a28-p28/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
  "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
  "trace": {
   "file": "traces/tantraloka-a28-tal-a28-p28.json",
-  "sha256": "f14ffa8e65e647ee9604610e2a157929dd0a3fc80f3a6bce1eea89907cbb195f"
+  "sha256": "e0e73997c4c7d9d3a90a721afa66ddbc25846fc5d17d50812836a1eac016a378"
  },
  "verdict": "PARTIAL",
  "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."

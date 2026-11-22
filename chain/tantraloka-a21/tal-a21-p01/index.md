@@ -4,7 +4,7 @@ Canonical: https://svatantrya.net/chain/tantraloka-a21/tal-a21-p01/
 
 | Field | Value |
 |---|---|
-| chunk_gate | BLOCKED |
+| chunk_gate | PASS |
 | formal_run | UNBOUND |
 | formal_run_note | registry references only; no per-declaration run digest bound |
 | publication | NOT_AUTHORIZED |
@@ -13,5 +13,5 @@ Canonical: https://svatantrya.net/chain/tantraloka-a21/tal-a21-p01/
 | review_note | no review decision bound to this trace |
 | source_span_note | ledger span is an excerpt; the edition volume is not hashed — span completeness unverified |
 | source_span_verified | UNKNOWN |
-| trace_links_present | FAIL |
+| trace_links_present | PASS |
 | witness | UNPINNED |

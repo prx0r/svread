@@ -1,6 +1,6 @@
 # tantraloka-a28 tal-a28-p42 (28.411-28.420)
 
-tantraloka-a28 tal-a28-p42 (28.411-28.420) links incomplete (5 gaps named); no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+tantraloka-a28 tal-a28-p42 (28.411-28.420) links incomplete (2 gaps named); no formal theorems bound. Chunk gate passes; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
@@ -12,16 +12,25 @@ Canonical: https://svatantrya.net/claim/tantraloka-a28/tal-a28-p42/
 [and]-sarvasmātkarmaṇo jālātsmṛtitattvakalāvidaḥ / tathāpi sthitirakṣārthaṃ kartavyaścodito vidhiḥ atattvavedino ye hi caryāmātraikaniṣṭhitāḥ / teṣāṃ dolāyite citte jñānahāniḥ prajāyate tasmādvikalparahitaḥ saṃvṛtyuparato yadi / śāstracaryāsadāyattaiḥ saṅkaraṃ tadvivarjayet saṅkaraṃ vā samanvicchetprāyaścittaṃ samācaret / yathā teṣāṃ na śāstrārthe dolārūḍhā matirbhavet yatsvayaṃ śivahastākhye vidhau saṃcoditaṃ purā / śataṃ japtvāsya cāstrasya mucyate strīvadhādṛte śaktināśānmahādoṣo narakaṃ śāśvataṃ priye / iti śrīratnamālāyāṃ samayollaṅghane kṛte kulajānāṃ samākhyātā niṣkṛtirduṣṭakartarī / śrīpūrve samayānāṃ tu śodhanāyoditaṃ yathā mālinī mātṛkā vāpi japyā lakṣatrayāntakam / pratiṣṭhitasya pūrāderdarśane@nadhikāriṇā prāyaścittaṃ prakartavyamiti śrībrahmayāmale / brahmaghno gurutalpastho vīradravyaharastathā devadravyahṛdākāraprahartā liṅgabhedakaḥ / nityādilopakṛdbhraṣṭasvakamātrāparicchadaḥ
 ```
 
-## Reading
+## Reading (machine draft, verse-mapped)
 
-Withheld. legacy markdown rendering (section-level, not verse-mapped to this passage)
+**tal-a28-v411** — For one who knows remembrance and its truth, liberation from the whole net of action is possible; nevertheless, the rite is enjoined as something to be done for the protection of order.
+**tal-a28-v412** — Those who do not know the truth and are devoted only to ritual conduct suffer a loss of knowledge when their minds begin to waver.
+**tal-a28-v413** — Therefore, if one is free from doubt, one should remain discreet and avoid causing confusion when among those who depend on scripture and ritual conduct.
+**tal-a28-v414** — If confusion of practice arises, one should seek and perform expiation, so that the minds of others do not become unsteady about the meaning of scripture.
+**tal-a28-v415** — In the rite called Shiva-hand it was formerly enjoined that, by reciting this weapon mantra a hundred times, one is freed, except in the case of killing a woman.
+**tal-a28-v416** — The revered Ratnamala says, O beloved, that when a vow is transgressed, the destruction of a woman is a great fault leading to everlasting hell.
+**tal-a28-v417** — For those born in the Kula, an expiation called the wicked knife has been declared; and in the revered earlier text, a purification of the vows is enjoined as follows.
+**tal-a28-v418** — If an installed sacred object and the like is seen by someone without authority, Malini or Matrika should be recited, up to three hundred thousand times.
+**tal-a28-v419** — In the revered Brahmayamala it is said that expiation must be performed by a killer of a brahmin, by one who violates the guru's bed, and likewise by one who steals the hero-substance.
+**tal-a28-v420** — Also included are one who takes the property of the gods or strikes a sacred form, one who breaks the linga, and one who neglects the daily rites and has fallen from his proper measure and equipment.
 
 ## Claims
 
 | Claim | Status | Basis |
 |---|---|---|
-| Link completeness | FAIL (5 gaps named) | assurance.trace_links_present + gaps |
+| Link completeness | FAIL (2 gaps named) | assurance.trace_links_present + gaps |
 | Human review | UNREVIEWED (machine rendering; no human sign-off) | assurance.review |
-| Deterministic chunk gate | BLOCKED (ABSTENTION) | proofs.chunk_gate |
+| Deterministic chunk gate | PASS (none) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

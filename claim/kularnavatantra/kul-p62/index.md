@@ -1,0 +1,27 @@
+# kularnavatantra kul-p62 (1526-1550)
+
+kularnavatantra kul-p62 (1526-1550) links incomplete (9 gaps named); no formal theorems bound. Chunk gate UNKNOWN; no witness verified.
+
+> Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
+
+Canonical: https://svatantrya.net/claim/kularnavatantra/kul-p62/
+
+## Passage (excerpt as hashed)
+
+```
+chittvā paraṃ padaṃ devi nayatyenamato guruḥ ācāryarūpamāsthāya dīkṣayā mokṣayet paśūn tathā devaśca mantraśca guruścaikārtha ucyate devamantragurūṇāñca pūjayā sadṛśaṃ phalam gururūpaṃ samādāya bhavapāśānnikṛntaye avicchinnaḥ sadā hṛṣṭahṛdayo gururucyate jyotivarṇāśramī yogī sa guruḥ kathitaḥ priye yo jānāti vidhānena sa guruḥ kathitaḥ priye vināyāsaṃ sthiro vāyuryasya syāt sa guruḥ priye tattattvaṃ viditaṃ yena sa guruḥ kulanāyike vedhañca ṣaḍvidhaṃ devi sa hi vedhakaro guruḥ śodhayed yaḥ ṣaḍadhvānaṃ sa guruḥ kathitaḥ priye yo vā samyagvijānāti sa guruḥ kathitaḥ priye yo vetti pañcakaṃ devi sa guruḥ kathitaḥ priye yo vā samyagvijānāti sa guruḥ kathitaḥ priye catuṣṭayaṃ vijānāti sa guruḥ kathitaḥ priye yo vetti parameśāni sa gururnāparaḥ priye trividhaṃ yo vijānāti sa guruḥ paramo mataḥ yo jānāti varārohe sa guruḥ kathitaḥ priye tritayaṃ yo vijānāti sa guruḥ kathitaḥ priye tattvato yo vijānāti sa guruḥ kathitaḥ priye yo viśodhayituṃ śaktaḥ sa guruḥ paramo mataḥ yo jānāti mahādevi sa guruḥ paramo mataḥ mūlabandhañca yo vetti sa guruḥ paramo mataḥ yo vijānāti tattvena sa guruḥ paramo mataḥ
+```
+
+## Reading
+
+Withheld. no verified L2 layer in this pack
+
+## Claims
+
+| Claim | Status | Basis |
+|---|---|---|
+| Link completeness | FAIL (9 gaps named) | assurance.trace_links_present + gaps |
+| Human review | UNREVIEWED (machine rendering; no human sign-off) | assurance.review |
+| Deterministic chunk gate | UNKNOWN (none) | proofs.chunk_gate |
+| Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
+| Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

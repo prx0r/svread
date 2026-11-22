@@ -126,6 +126,24 @@ def build_bundle(work: str, items: list[tuple[dict, dict, str]],
     return bundle, failures
 
 
+def bundle_has_layers(path: Path) -> bool:
+    """True if an existing reader bundle carries any layer text. Such a bundle
+    is lane-authored (rich l1/l3/l4/c1/argmap) and must not be touched. A
+    bundle whose every layer is empty (English withheld) is safe to regenerate
+    from verified packs — that is exactly how a stale BLOCKED gate is repaired.
+    An unreadable bundle is treated as carrying layers (never clobber)."""
+    try:
+        doc = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return True
+    for c in doc.get("chunks") or []:
+        if isinstance(c, dict) and any(
+                str(c.get(k) or "").strip()
+                for k in ("l1", "l2", "l3", "l4", "c1", "argmap")):
+            return True
+    return False
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true")
@@ -146,9 +164,16 @@ def main() -> int:
     failures: list[str] = []
     skipped = 0
     for work in sorted(by_work):
-        if (ROOT / "data" / f"{work}.json").exists():
+        existing = ROOT / "data" / f"{work}.json"
+        if not existing.exists():
+            # Creating a reader bundle for a work that never had one is a
+            # separate rollout (biblio has_reader + header hygiene). Here we
+            # only repair bundles that exist but carry no English.
             skipped += 1
-            continue  # never overwrite lane-authored bundles
+            continue
+        if bundle_has_layers(existing):
+            skipped += 1
+            continue  # never overwrite a lane-authored bundle that carries layers
         items = []
         ok = True
         for e in by_work[work]:

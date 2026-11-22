@@ -12,7 +12,13 @@
   "trace_links_present": "FAIL",
   "witness": "UNPINNED"
  },
- "caveats": [],
+ "caveats": [
+  "layer:t1=whole-song-span",
+  "layer:l0=whole-song-span",
+  "layer:argmap=whole-song-span",
+  "layer:l2=whole-song-span",
+  "layer:c1=whole-song-span"
+ ],
  "chunk": {
   "immutable_id": "pt:pid:ipvv:80f9c7f414ed",
   "target": "chunkD-memory-pramana",
@@ -20,7 +26,7 @@
  },
  "essays": {
   "citing": [],
-  "projection_sha256": "77216dffa7fbf20365c34a44a6f943d7d9d98134def598b4274af3a91386aa35"
+  "projection_sha256": null
  },
  "formal": {
   "status": "none",
@@ -57,16 +63,18 @@
  },
  "layers": {
   "argmap": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
    "path": "ipvv/data/chunk-d-memory-pramana.argmap.json",
    "present": true,
    "sha256": "307d74e0478c4eae78b3c17f2f82ddd0911b81e26bebbebfe070e86d5d4a3959",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   "c1": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
    "path": "ipvv/data/chunk-d-memory-pramana.c1.json",
    "present": true,
    "sha256": "98cee3c49c50ff94f81c6470b52689c0bd5c22527abe8e3fe19ee08ba7aa5a32",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   "c2": {
    "note": "C2 renders are optional (owner: existing C2 stays; waived)",
@@ -74,16 +82,18 @@
    "status": "NOT-APPLICABLE"
   },
   "l0": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
    "path": "ipvv/data/chunk-d-memory-pramana.l0.json",
    "present": true,
    "sha256": "58a6fd4fdf2439c47f585b313dce58574f5ac9e9fdf0eb7606ce4bea6f771c14",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   "l2": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
    "path": "ipvv/data/chunk-d-memory-pramana.l2.json",
    "present": true,
    "sha256": "b7c5ce9df155d0b2ef4add3dccf8446d3651aa71ecb3e24ffcda0b5b6906bdc0",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   "l3": {
    "present": false,
@@ -94,13 +104,16 @@
    "status": "UNKNOWN"
   },
   "t1": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
    "path": "ipvv/data/chunk-d-memory-pramana.t1.json",
    "present": true,
    "sha256": "00f4f988d514ceb9a1582913d4d65095d15f17901836c011a279de8253f92b11",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   }
  },
- "open_problems": [],
+ "open_problems": [
+  "no scholar projection for work"
+ ],
  "proofs": {
   "chunk_gate": {
    "blocking": [],
@@ -125,8 +138,8 @@
   "bytes_present": true,
   "bytes_sha256": "af496dee61857ee42802e274c4e9f00e6b1aa9a90c91b1b5d4bbf968f5dfe5cb",
   "edition": {
-   "label": "Mukhabodha M00020/21/22 (IPVV vols 1-3) + Torella IPK (base)",
-   "status": "CANDIDATE-WORK"
+   "label": null,
+   "status": "UNKNOWN"
   },
   "immutable_id": "pt:pid:ipvv:80f9c7f414ed",
   "ledger": "ipvv/passages.jsonl",

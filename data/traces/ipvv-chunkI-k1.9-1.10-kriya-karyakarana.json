@@ -12,7 +12,13 @@
   "trace_links_present": "FAIL",
   "witness": "UNPINNED"
  },
- "caveats": [],
+ "caveats": [
+  "layer:t1=whole-song-span",
+  "layer:l0=whole-song-span",
+  "layer:argmap=whole-song-span",
+  "layer:l2=whole-song-span",
+  "layer:c1=whole-song-span"
+ ],
  "chunk": {
   "immutable_id": "pt:pid:ipvv:64678ac92bc1",
   "target": "chunkI-k1.9-1.10-kriya-karyakarana",
@@ -20,7 +26,7 @@
  },
  "essays": {
   "citing": [],
-  "projection_sha256": "77216dffa7fbf20365c34a44a6f943d7d9d98134def598b4274af3a91386aa35"
+  "projection_sha256": null
  },
  "formal": {
   "status": "none",
@@ -57,16 +63,18 @@
  },
  "layers": {
   "argmap": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
    "path": "ipvv/data/chunk-i-k1-9-1-10-kriya-karyakarana.argmap.json",
    "present": true,
    "sha256": "273ee576a88db82c6914f0009c8a27e68ade8a3a73fa179b0e521c4af358ed10",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   "c1": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
    "path": "ipvv/data/chunk-i-k1-9-1-10-kriya-karyakarana.c1.json",
    "present": true,
    "sha256": "2f503c6961c1ae77394564fb075b2f2d8338247acc48f9259856df530beee163",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   "c2": {
    "note": "C2 renders are optional (owner: existing C2 stays; waived)",
@@ -74,16 +82,18 @@
    "status": "NOT-APPLICABLE"
   },
   "l0": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
    "path": "ipvv/data/chunk-i-k1-9-1-10-kriya-karyakarana.l0.json",
    "present": true,
    "sha256": "26cd70c8d2cd24a0a62b7b97714cdfcdbd6e3c6780d5f7a240cf890efaace0e0",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   "l2": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
    "path": "ipvv/data/chunk-i-k1-9-1-10-kriya-karyakarana.l2.json",
    "present": true,
    "sha256": "c44f2de86ae74cc93d6c3eb3264a369e0e9daac43e0ef2b10ca82674cfc337e6",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   "l3": {
    "present": false,
@@ -94,13 +104,16 @@
    "status": "UNKNOWN"
   },
   "t1": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
    "path": "ipvv/data/chunk-i-k1-9-1-10-kriya-karyakarana.t1.json",
    "present": true,
    "sha256": "049b3d4ace8adb7fc4738222855d0d4479a183015d8b3fd117cb2d63fbf40650",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   }
  },
- "open_problems": [],
+ "open_problems": [
+  "no scholar projection for work"
+ ],
  "proofs": {
   "chunk_gate": {
    "blocking": [],
@@ -125,8 +138,8 @@
   "bytes_present": true,
   "bytes_sha256": "9ecbcb822233c9cfda030e36eb9c4dc8ea995b8f4510fd941815f6b2ce990aee",
   "edition": {
-   "label": "Mukhabodha M00020/21/22 (IPVV vols 1-3) + Torella IPK (base)",
-   "status": "CANDIDATE-WORK"
+   "label": null,
+   "status": "UNKNOWN"
   },
   "immutable_id": "pt:pid:ipvv:64678ac92bc1",
   "ledger": "ipvv/passages.jsonl",

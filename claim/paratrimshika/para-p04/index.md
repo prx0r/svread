@@ -1,6 +1,6 @@
 # paratrimshika para-p04 (29-36)
 
-paratrimshika para-p04 (29-36) links incomplete (5 gaps named); no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+paratrimshika para-p04 (29-36) passes link checks; no formal theorems bound. Chunk gate passes; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
@@ -12,16 +12,23 @@ Canonical: https://svatantrya.net/claim/paratrimshika/para-p04/
 puṣpādikaṃ kramāt sarvaṃ liṅgaṃ vā stha.ṅdilaṃ ca vā | caturdaśābhijaptena puṣpeṇāsanakalpanā tatra sṛṣṭiṃ yajed vīraḥ punar evāsanaṃ tataḥ | sṛṣṭiṃ tu sampuṭīkṛtya paścād yajanam ārabhet sarvatattvasusampūrṇām sarvāvayavaśobhitām | yajed devīṃ mahābhāgā saptaviṃśatimantritām tataḥ sugandhipuṣpaiś ca yathāśaktyā samarcayet | pūjayet parayā bhaktyā svātmanaṃ ca nivedayet evaṃ yajanam ākhyātam agnikārye 'py ayaṃ vidhiḥ | kṛtapūjāvidhiḥ samyak smaran bījam prasiddhyati ādyantarahitam bījaṃ vikasat tithimadhyagam | hṛtpadmāntargataṃ dhyāyet somāṃśuṃ nityam abhyasyet yān yān kāmayate kāmāṃs tān tāñ cchīghram avāpnuyāt | ajñaḥ pratyakṣatām eti sarvajñatvaṃ na saṃśayaḥ evaṃ mantraphalāvaptir ity etad rudrayāmalam | etad abhyāsataḥ siddhiḥ sarvajñatvam avāpyate
 ```
 
-## Reading
+## Reading (machine draft, verse-mapped)
 
-Withheld. legacy markdown rendering (section-level, not verse-mapped to this passage)
+**ptv-p04-v29** — Flowers and all in order — liṅga or altar; with fourteen mutterings, a flower-seat made.
+**ptv-p04-v30** — There let the hero worship forthgoing, then the very seat again; casketed, let him begin the worship after.
+**ptv-p04-v31** — Full of all realities, graced with every limb — let the fortunate worship the goddess, twenty-seven-muttered.
+**ptv-p04-v32** — Then with fragrant flowers as able let him honor; with supreme devotion worship, and offer up himself.
+**ptv-p04-v33** — Thus the worship told — even in fire-rite this rule: who did the worship-rule, rightly remembering the seed, succeeds.
+**ptv-p04-v34** — Beginningless-endless seed, blossoming, gone mid-tithis — in the heart-lotus meditate the moon-ray, ever practise.
+**ptv-p04-v35** — Which desires he desires, them quickly may he win; though unknowing, he goes to direct sight — all-knowingness, no doubt.
+**ptv-p04-v36** — Thus mantra-fruit got — this Rudrayāmala; from this practice: fruition and all-knowingness are won.
 
 ## Claims
 
 | Claim | Status | Basis |
 |---|---|---|
-| Link completeness | FAIL (5 gaps named) | assurance.trace_links_present + gaps |
+| Link completeness | PASS | assurance.trace_links_present + gaps |
 | Human review | UNREVIEWED (machine rendering; no human sign-off) | assurance.review |
-| Deterministic chunk gate | BLOCKED (ABSTENTION) | proofs.chunk_gate |
+| Deterministic chunk gate | PASS (none) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

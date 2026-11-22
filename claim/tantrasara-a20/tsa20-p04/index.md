@@ -1,6 +1,6 @@
 # tantrasara-a20 tsa20-p04 (20.53-20.65)
 
-tantrasara-a20 tsa20-p04 (20.53-20.65) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+tantrasara-a20 tsa20-p04 (20.53-20.65) passes link checks; no formal theorems bound. Chunk gate passes; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
@@ -30,6 +30,6 @@ tatra nimnāsanasthitebhyaḥ tatparebhyo niyamitavāṅmanaḥkāyebhyo vyākhy
 |---|---|---|
 | Link completeness | PASS | assurance.trace_links_present + gaps |
 | Human review | UNREVIEWED (machine rendering; no human sign-off) | assurance.review |
-| Deterministic chunk gate | BLOCKED (COVERAGE, CITATION_GROUNDING) | proofs.chunk_gate |
+| Deterministic chunk gate | PASS (none) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

@@ -12,7 +12,7 @@
    "origin": "ipvv/data/chunk-c-svatma-maya-upanishad.argmap.json",
    "role": "layer-argmap",
    "sha256": "f161440560c90662fcbe6a6a30fa402d6807f895f186dfc265a9783d002f3a36",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   {
    "bytes": 487,
@@ -20,7 +20,7 @@
    "origin": "ipvv/data/chunk-c-svatma-maya-upanishad.c1.json",
    "role": "layer-c1",
    "sha256": "46a8796405904a5fc1d38906d40253d4caf504b1c12709b25da577a77907e687",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   {
    "bytes": 1621914,
@@ -28,7 +28,7 @@
    "origin": "ipvv/data/chunk-c-svatma-maya-upanishad.l0.json",
    "role": "layer-l0",
    "sha256": "a5eaef3b89469753398aa85700c1cd2ba5c4b3ebf2bf30ff48708e606c3d68a0",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   {
    "bytes": 54779,
@@ -36,7 +36,7 @@
    "origin": "ipvv/data/chunk-c-svatma-maya-upanishad.l2.json",
    "role": "layer-l2",
    "sha256": "36cf6ce5786f1500becc24e977b7ae8b3c0a97d8dab44280b728eb226d44bbdc",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   {
    "bytes": 263470,
@@ -44,7 +44,7 @@
    "origin": "ipvv/data/chunk-c-svatma-maya-upanishad.t1.json",
    "role": "layer-t1",
    "sha256": "f164459f05a98cf3c3d401515867fdb972b13afcf5a4c885716ba510561dca61",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   {
    "bytes": 1706,
@@ -67,7 +67,13 @@
   "trace_links_present": "FAIL",
   "witness": "UNPINNED"
  },
- "caveats": [],
+ "caveats": [
+  "layer:t1=whole-song-span",
+  "layer:l0=whole-song-span",
+  "layer:argmap=whole-song-span",
+  "layer:l2=whole-song-span",
+  "layer:c1=whole-song-span"
+ ],
  "chunk": {
   "immutable_id": "pt:pid:ipvv:cab68738d18e",
   "target": "chunkC-svatma-maya-upanishad",
@@ -82,7 +88,7 @@
  "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
  "trace": {
   "file": "traces/ipvv-chunkC-svatma-maya-upanishad.json",
-  "sha256": "6fb80bb72d16f510e2c18e84e05db00a732224f0f8fadb0adb4e384faa79aaa6"
+  "sha256": "36decaf65f39afa8c67267d9d9aaa4521337f1797a60beedb0674d10e23a164a"
  },
  "verdict": "PARTIAL",
  "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."

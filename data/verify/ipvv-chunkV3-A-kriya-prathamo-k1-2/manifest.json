@@ -12,7 +12,7 @@
    "origin": "ipvv/data/chunk-v3-a-kriya-prathamo-k1-2.argmap.json",
    "role": "layer-argmap",
    "sha256": "a83fe6c2f5cb9cf24cc18a9389301b020d17dbc4b2bc05f43e845bb2a8b455e3",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   {
    "bytes": 517,
@@ -20,7 +20,7 @@
    "origin": "ipvv/data/chunk-v3-a-kriya-prathamo-k1-2.c1.json",
    "role": "layer-c1",
    "sha256": "21e4c288ea75353acba1c12db148f95c216dda950b41c783d358cffe51f4b061",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   {
    "bytes": 1781407,
@@ -28,7 +28,7 @@
    "origin": "ipvv/data/chunk-v3-a-kriya-prathamo-k1-2.l0.json",
    "role": "layer-l0",
    "sha256": "ac6ada7da43a8c50e6d25de6fa447aae15bad6d735d0cc41259aaaf6c5e28476",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   {
    "bytes": 62468,
@@ -36,7 +36,7 @@
    "origin": "ipvv/data/chunk-v3-a-kriya-prathamo-k1-2.l2.json",
    "role": "layer-l2",
    "sha256": "850fe24ffec4bb1f0849c7e90e2b5371ed5eb16fdad9baf2afe04493507b81d4",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   {
    "bytes": 279595,
@@ -44,7 +44,7 @@
    "origin": "ipvv/data/chunk-v3-a-kriya-prathamo-k1-2.t1.json",
    "role": "layer-t1",
    "sha256": "8312a8c13a2b4c70b9b619e21b736eab2587808e8549fb90cb912f947ff03d20",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   {
    "bytes": 1715,
@@ -67,7 +67,13 @@
   "trace_links_present": "FAIL",
   "witness": "UNPINNED"
  },
- "caveats": [],
+ "caveats": [
+  "layer:t1=whole-song-span",
+  "layer:l0=whole-song-span",
+  "layer:argmap=whole-song-span",
+  "layer:l2=whole-song-span",
+  "layer:c1=whole-song-span"
+ ],
  "chunk": {
   "immutable_id": "pt:pid:ipvv:c4e80ddd7c72",
   "target": "chunkV3-A-kriya-prathamo-k1-2",
@@ -82,7 +88,7 @@
  "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
  "trace": {
   "file": "traces/ipvv-chunkV3-A-kriya-prathamo-k1-2.json",
-  "sha256": "4a80e8436d9929b74f4b469e3c91096b3a89f9ad919c41a9883f6bc7217b101e"
+  "sha256": "a7e9f8f4b7224b3da2f271dd9d51085496da23da8334247f6aadb381e8fac01d"
  },
  "verdict": "PARTIAL",
  "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."

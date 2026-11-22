@@ -1,6 +1,6 @@
 # tantraloka-a24 tal-a24-p03 (24.21-24.24)
 
-tantraloka-a24 tal-a24-p03 (24.21-24.24) links incomplete (5 gaps named); counts REGISTERED without a per-declaration run. Chunk gate BLOCKED; no witness verified.
+tantraloka-a24 tal-a24-p03 (24.21-24.24) passes link checks; no formal theorems bound. Chunk gate passes; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
@@ -12,18 +12,19 @@ Canonical: https://svatantrya.net/claim/tantraloka-a24/tal-a24-p03/
 [and]-puryaṣṭakasyābhāve ca na svarganarakādayaḥ / tathā kṛtvā na kartavyaṃ laukikaṃ kiṃcanāpi hi uktaṃ śrīmādhavakule śāsanastho mṛteṣvapi / piṇḍapātodakāsrvādi laukikaṃ parivarjayet śivaṃ saṃpūjya cakrārcāṃ yathāśakti samācaret / kramāttridaśamatriṃśatriṃśavatsaravāsare ityukto@ntyeṣṭiyāgo@yaṃ parameśvarabhāṣitaḥ
 ```
 
-## Reading
+## Reading (machine draft, verse-mapped)
 
-Withheld. legacy markdown rendering (section-level, not verse-mapped to this passage)
+**tal-a24-v21** — And with the puryaṣṭaka gone, no heaven, hell, and the rest; having done thus, nothing worldly at all is to be done indeed.
+**tal-a24-v22** — Said in the venerable Mādhavakula: established in the teaching, even for the dead, he should abandon piṇḍa-offerings, water, tears — the worldly.
+**tal-a24-v23** — Having fully worshipped Śiva, he should perform the wheel-worship according to capacity, in order on the memorial days.
+**tal-a24-v24** — Thus told is this funerary sacrifice, spoken by the Supreme Lord.
 
 ## Claims
 
 | Claim | Status | Basis |
 |---|---|---|
-| Link completeness | FAIL (5 gaps named) | assurance.trace_links_present + gaps |
+| Link completeness | PASS | assurance.trace_links_present + gaps |
 | Human review | UNREVIEWED (machine rendering; no human sign-off) | assurance.review |
-| Puryastaka.lean :: no_transmigration_without_body | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
-| SubtleBodyCorpus.lean :: migration_at_subtle | VERIFIED-QUOTE, run UNBOUND (tier T) | trace formal; EVIDENCE registry reference only |
-| Deterministic chunk gate | BLOCKED (ABSTENTION) | proofs.chunk_gate |
+| Deterministic chunk gate | PASS (none) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

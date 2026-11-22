@@ -7,32 +7,55 @@
    "sha256": "338931ee3bb0d675f629d5467e536ec02acb41ed08480124b40b0894b06b481c"
   },
   {
-   "bytes": 5316,
-   "name": "ARGMAP.md",
-   "origin": "tantraloka-a01/ARGMAP.md",
+   "bytes": 330763,
+   "name": "tal-a01.argmap.json",
+   "origin": "tantraloka-a01/data/tal-a01.argmap.json",
    "role": "layer-argmap",
-   "sha256": "ccc7f6b698ce45be9f27c0898ed55b77b14b6e5fb80ddae7f11d7f483a965e7b",
-   "status": "BOUND-WORK-MD"
+   "sha256": "c04bbe3a882d0eb1da550b3c3b24906d22ad2ca6d4f8b70adf744e81cfe7fdf1",
+   "status": "BOUND-WHOLE-SONG"
   },
   {
-   "bytes": 75545,
-   "name": "L2.md",
-   "origin": "tantraloka-a01/L2.md",
+   "bytes": 483,
+   "name": "tal-a01.c1.json",
+   "origin": "tantraloka-a01/data/tal-a01.c1.json",
+   "role": "layer-c1",
+   "sha256": "884646085e76e017646e39c119c876a657700d350e3297bc4d4caa84acae9ed2",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 928370,
+   "name": "tal-a01.l0.json",
+   "origin": "tantraloka-a01/data/tal-a01.l0.json",
+   "role": "layer-l0",
+   "sha256": "a7cb0996e15071198fe206404a9d46e637fb42b5e194c12e80575cd962ab9260",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 198401,
+   "name": "tal-a01.l2.json",
+   "origin": "tantraloka-a01/data/tal-a01.l2.json",
    "role": "layer-l2",
-   "sha256": "affac0b37b6a2dcd2703d009825b2732faf945dfd99236d0aef84a5719167fcd",
-   "status": "BOUND-WORK-MD"
+   "sha256": "ac9151d4971244f713a11c477fcf09f8ac439cdb45512465e8fb1841a7769e78",
+   "status": "BOUND-WHOLE-SONG"
   },
   {
-   "bytes": 38784,
-   "name": "T1.md",
-   "origin": "tantraloka-a01/T1.md",
+   "bytes": 416716,
+   "name": "tal-a01.t1.json",
+   "origin": "tantraloka-a01/data/tal-a01.t1.json",
    "role": "layer-t1",
-   "sha256": "0340225ca3aceee9e6444506cefa37a75938659f97272d53c8db0e735190288b",
-   "status": "BOUND-WORK-MD"
+   "sha256": "d13d00dbf0890c5fd300d55c4cf24552fbf7fd7599c6099c44611fb132814f54",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 1532,
+   "name": "proof-tal-a01.json",
+   "origin": "tantraloka-a01/proof/proof-tal-a01.json",
+   "role": "proof",
+   "sha256": "f8b9618819c1278f7e37d2443ad56a54360110fe0ccb3b5a070bc8a60b9dafcb"
   }
  ],
  "assurance": {
-  "chunk_gate": "BLOCKED",
+  "chunk_gate": "PASS",
   "formal_run": "UNBOUND",
   "formal_run_note": "registry references only; no per-declaration run digest bound",
   "publication": "NOT_AUTHORIZED",
@@ -45,7 +68,11 @@
   "witness": "UNPINNED"
  },
  "caveats": [
-  "chunk_gate BLOCKED: ABSTENTION"
+  "layer:t1=whole-song-span",
+  "layer:l0=whole-song-span",
+  "layer:argmap=whole-song-span",
+  "layer:l2=whole-song-span",
+  "layer:c1=whole-song-span"
  ],
  "chunk": {
   "immutable_id": "pt:pid:tal:tantraloka-a01029",
@@ -54,17 +81,14 @@
  },
  "format": "trika-verify-pack/1",
  "gaps": [
-  "layer:l0",
-  "layer:c1",
   "layer:l3",
-  "layer:l4",
-  "proofs:song"
+  "layer:l4"
  ],
  "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/tantraloka-a01-tal-a01-p29/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
  "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
  "trace": {
   "file": "traces/tantraloka-a01-tal-a01-p29.json",
-  "sha256": "d9c9066b694bc9859278b3d398b6f78e06fd09ae11c6874b68c6cc0132ceceaa"
+  "sha256": "776ed7a135385612f3999ce3e3ba37697c939c917ae341ef321889ec2aeaf67e"
  },
  "verdict": "PARTIAL",
  "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."

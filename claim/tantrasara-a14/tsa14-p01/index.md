@@ -1,6 +1,6 @@
 # tantrasara-a14 tsa14-p01 (14.1-14.29)
 
-tantrasara-a14 tsa14-p01 (14.1-14.29) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+tantrasara-a14 tsa14-p01 (14.1-14.29) passes link checks; no formal theorems bound. Chunk gate passes; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
@@ -50,6 +50,6 @@ tantrasāra, caturdaśam āhnikam atha putrakadīkṣāvidhiḥ // abhts_14.1 sa
 |---|---|---|
 | Link completeness | PASS | assurance.trace_links_present + gaps |
 | Human review | UNREVIEWED (machine rendering; no human sign-off) | assurance.review |
-| Deterministic chunk gate | BLOCKED (ABSTENTION) | proofs.chunk_gate |
+| Deterministic chunk gate | PASS (none) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

@@ -2,4 +2,4 @@
 
 Canonical: https://svatantrya.net/work/tantraloka-a34/
 
-- [tal-a34-p01](https://svatantrya.net/claim/tantraloka-a34/tal-a34-p01/) — PARTIAL — tantraloka-a34 tal-a34-p01 (34.1-34.4) links incomplete (5 gaps named); counts REGISTERED without a per-declaration run. Chunk gate BLOCKED; no witness verified.
+- [tal-a34-p01](https://svatantrya.net/claim/tantraloka-a34/tal-a34-p01/) — COMPLETE — tantraloka-a34 tal-a34-p01 (34.1-34.4) passes link checks; counts REGISTERED without a per-declaration run. Chunk gate passes; no witness verified.

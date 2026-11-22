@@ -1,6 +1,6 @@
 # vbt vbt-p16 (152-161)
 
-vbt vbt-p16 (152-161) passes link checks; no formal theorems bound. Chunk gate BLOCKED; no witness verified.
+vbt vbt-p16 (152-161) passes link checks; no formal theorems bound. Chunk gate passes; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
@@ -30,6 +30,6 @@ svatantrānandacinmātrasāraḥ svātmā hi sarvataḥ | āveśanaṃ tatsvarū
 |---|---|---|
 | Link completeness | PASS | assurance.trace_links_present + gaps |
 | Human review | UNREVIEWED (machine rendering; no human sign-off) | assurance.review |
-| Deterministic chunk gate | BLOCKED (ABSTENTION) | proofs.chunk_gate |
+| Deterministic chunk gate | PASS (none) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

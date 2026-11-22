@@ -12,7 +12,13 @@
   "trace_links_present": "FAIL",
   "witness": "UNPINNED"
  },
- "caveats": [],
+ "caveats": [
+  "layer:t1=whole-song-span",
+  "layer:l0=whole-song-span",
+  "layer:argmap=whole-song-span",
+  "layer:l2=whole-song-span",
+  "layer:c1=whole-song-span"
+ ],
  "chunk": {
   "immutable_id": "pt:pid:ipvv:32b73212ceee",
   "target": "chunkV2-H-pancamo-vimarsa-k11-13",
@@ -20,7 +26,7 @@
  },
  "essays": {
   "citing": [],
-  "projection_sha256": "77216dffa7fbf20365c34a44a6f943d7d9d98134def598b4274af3a91386aa35"
+  "projection_sha256": null
  },
  "formal": {
   "status": "none",
@@ -57,16 +63,18 @@
  },
  "layers": {
   "argmap": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
    "path": "ipvv/data/chunk-v2-h-pancamo-vimarsa-k11-13.argmap.json",
    "present": true,
    "sha256": "d40c0d4aa6fbead3d1a40b61182f8d941412215be04eab9cc215f37e1a1d2f9b",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   "c1": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
    "path": "ipvv/data/chunk-v2-h-pancamo-vimarsa-k11-13.c1.json",
    "present": true,
    "sha256": "91beb32c3784bc6243a2202fac6749da2fdcfaffc0ab7398e15b2328e5681d4e",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   "c2": {
    "note": "C2 renders are optional (owner: existing C2 stays; waived)",
@@ -74,16 +82,18 @@
    "status": "NOT-APPLICABLE"
   },
   "l0": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
    "path": "ipvv/data/chunk-v2-h-pancamo-vimarsa-k11-13.l0.json",
    "present": true,
    "sha256": "0311addf6166a8f161dc0e68bcb5d177c6d54df6abe4640dde734e4db0b716ab",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   "l2": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
    "path": "ipvv/data/chunk-v2-h-pancamo-vimarsa-k11-13.l2.json",
    "present": true,
    "sha256": "15927bcfe280583f2982bbc9bbf5bd9edfdc9c69ae6604c4ad877b5e2eedfdfa",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   "l3": {
    "present": false,
@@ -94,13 +104,16 @@
    "status": "UNKNOWN"
   },
   "t1": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
    "path": "ipvv/data/chunk-v2-h-pancamo-vimarsa-k11-13.t1.json",
    "present": true,
    "sha256": "2df5cdcc1c44818e33bb809e28f47e2f0157fd02249fa15b0a0f746b19646901",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   }
  },
- "open_problems": [],
+ "open_problems": [
+  "no scholar projection for work"
+ ],
  "proofs": {
   "chunk_gate": {
    "blocking": [],
@@ -125,8 +138,8 @@
   "bytes_present": true,
   "bytes_sha256": "65bbe5b9453a26d37864d918c4b6c53813f8b297808907b95cb30d42bbcf8522",
   "edition": {
-   "label": "Mukhabodha M00020/21/22 (IPVV vols 1-3) + Torella IPK (base)",
-   "status": "CANDIDATE-WORK"
+   "label": null,
+   "status": "UNKNOWN"
   },
   "immutable_id": "pt:pid:ipvv:32b73212ceee",
   "ledger": "ipvv/passages.jsonl",

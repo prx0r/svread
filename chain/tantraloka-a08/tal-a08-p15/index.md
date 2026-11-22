@@ -4,7 +4,7 @@ Canonical: https://svatantrya.net/chain/tantraloka-a08/tal-a08-p15/
 
 | Field | Value |
 |---|---|
-| chunk_gate | BLOCKED |
+| chunk_gate | PASS |
 | formal_run | UNBOUND |
 | formal_run_note | registry references only; no per-declaration run digest bound |
 | publication | NOT_AUTHORIZED |

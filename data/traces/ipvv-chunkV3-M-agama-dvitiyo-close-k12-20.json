@@ -12,7 +12,13 @@
   "trace_links_present": "FAIL",
   "witness": "UNPINNED"
  },
- "caveats": [],
+ "caveats": [
+  "layer:t1=whole-song-span",
+  "layer:l0=whole-song-span",
+  "layer:argmap=whole-song-span",
+  "layer:l2=whole-song-span",
+  "layer:c1=whole-song-span"
+ ],
  "chunk": {
   "immutable_id": "pt:pid:ipvv:f97439905c09",
   "target": "chunkV3-M-agama-dvitiyo-close-k12-20",
@@ -20,129 +26,11 @@
  },
  "essays": {
   "citing": [],
-  "projection_sha256": "77216dffa7fbf20365c34a44a6f943d7d9d98134def598b4274af3a91386aa35"
+  "projection_sha256": null
  },
  "formal": {
-  "status": "REGISTERED",
-  "theorems": [
-   {
-    "kind": "MODEL",
-    "run_bound": false,
-    "run_note": "registry reference only; no per-declaration run digest bound",
-    "status": "VERIFIED-QUOTE",
-    "theorem": "SubtleBody.lean :: trikaA_count",
-    "tier": "T",
-    "via": "t1"
-   },
-   {
-    "kind": "MODEL",
-    "run_bound": false,
-    "run_note": "registry reference only; no per-declaration run digest bound",
-    "status": "VERIFIED-QUOTE",
-    "theorem": "SubtleBody.lean :: trikaB_count",
-    "tier": "T",
-    "via": "t1"
-   },
-   {
-    "kind": "MODEL",
-    "run_bound": false,
-    "run_note": "registry reference only; no per-declaration run digest bound",
-    "status": "VERIFIED-QUOTE",
-    "theorem": "SubtleBody.lean :: same_cardinality",
-    "tier": "T",
-    "via": "t1"
-   },
-   {
-    "kind": "MODEL",
-    "run_bound": false,
-    "run_note": "registry reference only; no per-declaration run digest bound",
-    "status": "VERIFIED-QUOTE",
-    "theorem": "SubtleBody.lean :: not_same_partition",
-    "tier": "T",
-    "via": "t1"
-   },
-   {
-    "kind": "MODEL",
-    "run_bound": false,
-    "run_note": "registry reference only; no per-declaration run digest bound",
-    "status": "VERIFIED-QUOTE",
-    "theorem": "SubtleBody.lean :: partitions_disjoint",
-    "tier": "T",
-    "via": "t1"
-   },
-   {
-    "kind": "MODEL",
-    "run_bound": false,
-    "run_note": "registry reference only; no per-declaration run digest bound",
-    "status": "VERIFIED-QUOTE",
-    "theorem": "SubtleBody.lean :: eight_is_not_one_eight",
-    "tier": "T",
-    "via": "t1"
-   },
-   {
-    "kind": "MODEL",
-    "run_bound": false,
-    "run_note": "registry reference only; no per-declaration run digest bound",
-    "status": "VERIFIED-QUOTE",
-    "theorem": "SubtleBody.lean :: trikaA_expanded_count",
-    "tier": "T",
-    "via": "t1"
-   },
-   {
-    "kind": "MODEL",
-    "run_bound": false,
-    "run_note": "registry reference only; no per-declaration run digest bound",
-    "status": "VERIFIED-QUOTE",
-    "theorem": "SubtleBody.lean :: expanded_differs",
-    "tier": "T",
-    "via": "t1"
-   },
-   {
-    "kind": "MODEL",
-    "run_bound": false,
-    "run_note": "registry reference only; no per-declaration run digest bound",
-    "status": "VERIFIED-QUOTE",
-    "theorem": "SubtleBodyCorpus.lean :: A_count",
-    "tier": "T",
-    "via": "t1"
-   },
-   {
-    "kind": "MODEL",
-    "run_bound": false,
-    "run_note": "registry reference only; no per-declaration run digest bound",
-    "status": "VERIFIED-QUOTE",
-    "theorem": "SubtleBodyCorpus.lean :: three_formulas_eight",
-    "tier": "T",
-    "via": "t1"
-   },
-   {
-    "kind": "MODEL",
-    "run_bound": false,
-    "run_note": "registry reference only; no per-declaration run digest bound",
-    "status": "VERIFIED-QUOTE",
-    "theorem": "SubtleBodyCorpus.lean :: A_disjoint_B",
-    "tier": "T",
-    "via": "t1"
-   },
-   {
-    "kind": "MODEL",
-    "run_bound": false,
-    "run_note": "registry reference only; no per-declaration run digest bound",
-    "status": "VERIFIED-QUOTE",
-    "theorem": "SubtleBodyCorpus.lean :: A_disjoint_C",
-    "tier": "T",
-    "via": "t1"
-   },
-   {
-    "kind": "MODEL",
-    "run_bound": false,
-    "run_note": "registry reference only; no per-declaration run digest bound",
-    "status": "VERIFIED-QUOTE",
-    "theorem": "SubtleBodyCorpus.lean :: city_units",
-    "tier": "T",
-    "via": "t1"
-   }
-  ]
+  "status": "none",
+  "theorems": []
  },
  "format": "trika-trace/1",
  "gaps": [
@@ -175,16 +63,18 @@
  },
  "layers": {
   "argmap": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
    "path": "ipvv/data/chunk-v3-m-agama-dvitiyo-close-k12-20.argmap.json",
    "present": true,
    "sha256": "04e8e9df51acfc74d4d549e1cf6d7d71b92b39b1357961f71298add2d285dcc7",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   "c1": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
    "path": "ipvv/data/chunk-v3-m-agama-dvitiyo-close-k12-20.c1.json",
    "present": true,
    "sha256": "fd9ab2465659e589c1770380172d689dcf9fe57e12b0d88cb054065153b9ee20",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   "c2": {
    "note": "C2 renders are optional (owner: existing C2 stays; waived)",
@@ -192,16 +82,18 @@
    "status": "NOT-APPLICABLE"
   },
   "l0": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
    "path": "ipvv/data/chunk-v3-m-agama-dvitiyo-close-k12-20.l0.json",
    "present": true,
    "sha256": "475026bdcb7406c364a99be63329efcca784ef216603fb01c83b01f16f7d7ecf",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   "l2": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
    "path": "ipvv/data/chunk-v3-m-agama-dvitiyo-close-k12-20.l2.json",
    "present": true,
    "sha256": "81a6d51a0e348d1be4146357e30b87dbd42c54d6f4851aa93944f1d2cd42391a",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   "l3": {
    "present": false,
@@ -212,13 +104,16 @@
    "status": "UNKNOWN"
   },
   "t1": {
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
    "path": "ipvv/data/chunk-v3-m-agama-dvitiyo-close-k12-20.t1.json",
    "present": true,
    "sha256": "fee0a93f155059a628c0e4b9d4941f86c4085e77f3746b3d5b5bb9cd5e484ba1",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   }
  },
- "open_problems": [],
+ "open_problems": [
+  "no scholar projection for work"
+ ],
  "proofs": {
   "chunk_gate": {
    "blocking": [],
@@ -243,8 +138,8 @@
   "bytes_present": true,
   "bytes_sha256": "61044fa8286b8c38cf44c495522e57ffdd726fb6c864ece6cd476f63a85d7ce2",
   "edition": {
-   "label": "Mukhabodha M00020/21/22 (IPVV vols 1-3) + Torella IPK (base)",
-   "status": "CANDIDATE-WORK"
+   "label": null,
+   "status": "UNKNOWN"
   },
   "immutable_id": "pt:pid:ipvv:f97439905c09",
   "ledger": "ipvv/passages.jsonl",

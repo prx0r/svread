@@ -7,32 +7,55 @@
    "sha256": "3b9998d2a3071a054df880e0536e029ed641e907a1915c5fa0c641d3554d6c16"
   },
   {
-   "bytes": 148477,
-   "name": "ARGMAP.md",
-   "origin": "tantraloka-a15/ARGMAP.md",
+   "bytes": 622499,
+   "name": "tal-a15.argmap.json",
+   "origin": "tantraloka-a15/data/tal-a15.argmap.json",
    "role": "layer-argmap",
-   "sha256": "44f14a503058feb1f97939d6ebe4afe07c9eb69e77bebc466b4ea869cd934c20",
-   "status": "BOUND-WORK-MD"
+   "sha256": "ee65429e2d3171c14cc555d02ebee96713c114e4c022173b7541a8dfd79daa4a",
+   "status": "BOUND-WHOLE-SONG"
   },
   {
-   "bytes": 138763,
-   "name": "L2.md",
-   "origin": "tantraloka-a15/L2.md",
+   "bytes": 707,
+   "name": "tal-a15.c1.json",
+   "origin": "tantraloka-a15/data/tal-a15.c1.json",
+   "role": "layer-c1",
+   "sha256": "36dcdc504f27377fccf78c883411d268dbd4d04ef0fece4a6c9e6645052a9b29",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 1868044,
+   "name": "tal-a15.l0.json",
+   "origin": "tantraloka-a15/data/tal-a15.l0.json",
+   "role": "layer-l0",
+   "sha256": "e8845f985c34554f9399e135a116d48fb6ebc2532c8765352ead932856985feb",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 370285,
+   "name": "tal-a15.l2.json",
+   "origin": "tantraloka-a15/data/tal-a15.l2.json",
    "role": "layer-l2",
-   "sha256": "79a44bf73d38e6a91da1aefb65468ffae9a285da8d3ce818b4502fbab2cbded5",
-   "status": "BOUND-WORK-MD"
+   "sha256": "d49eb65d7036b348f92e5c348a8f2619e3875b68ee1c8c0f4f2484468d21db56",
+   "status": "BOUND-WHOLE-SONG"
   },
   {
-   "bytes": 71358,
-   "name": "T1.md",
-   "origin": "tantraloka-a15/T1.md",
+   "bytes": 854045,
+   "name": "tal-a15.t1.json",
+   "origin": "tantraloka-a15/data/tal-a15.t1.json",
    "role": "layer-t1",
-   "sha256": "7883705080c72ae61b1577bbca37982b84ac137c7a09c0f2aaf5678add394beb",
-   "status": "BOUND-WORK-MD"
+   "sha256": "3f9bbe79ab611c3ce0aa59cd347bba8c6c9110bf18c0852ec2ee7ce258e20768",
+   "status": "BOUND-WHOLE-SONG"
+  },
+  {
+   "bytes": 1532,
+   "name": "proof-tal-a15.json",
+   "origin": "tantraloka-a15/proof/proof-tal-a15.json",
+   "role": "proof",
+   "sha256": "e39badb01eb80e16860bf6c40c73a7efaadfe20884d1ac4f8b15a84459d65e16"
   }
  ],
  "assurance": {
-  "chunk_gate": "BLOCKED",
+  "chunk_gate": "PASS",
   "formal_run": "UNBOUND",
   "formal_run_note": "registry references only; no per-declaration run digest bound",
   "publication": "NOT_AUTHORIZED",
@@ -45,7 +68,11 @@
   "witness": "UNPINNED"
  },
  "caveats": [
-  "chunk_gate BLOCKED: ABSTENTION"
+  "layer:t1=whole-song-span",
+  "layer:l0=whole-song-span",
+  "layer:argmap=whole-song-span",
+  "layer:l2=whole-song-span",
+  "layer:c1=whole-song-span"
  ],
  "chunk": {
   "immutable_id": "pt:pid:tal:tantraloka-a15045",
@@ -54,17 +81,14 @@
  },
  "format": "trika-verify-pack/1",
  "gaps": [
-  "layer:l0",
-  "layer:c1",
   "layer:l3",
-  "layer:l4",
-  "proofs:song"
+  "layer:l4"
  ],
  "how_to_verify": "For each artifact: curl -s https://svatantrya.net/data/verify/tantraloka-a15-tal-a15-p45/<name> | sha256sum, then compare that hash with the same artifact's 'sha256' above and in the trace. If every artifact matches and the trace's recorded verdict/gaps agree with what you read, the chain is intact. A mismatch means the upstream bytes changed after the trace was made: treat the trace as stale, not the hash as wrong.",
  "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
  "trace": {
   "file": "traces/tantraloka-a15-tal-a15-p45.json",
-  "sha256": "9ef72d13a628864b1e2a489b6b5da3058af241c8fe11362534b9ab4d5cdb689f"
+  "sha256": "4f7fd7d53a9e54a6883c5a17d5db11477a4fb458d261f070b39bd7da6a475e6e"
  },
  "verdict": "PARTIAL",
  "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."

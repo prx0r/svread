@@ -12,7 +12,7 @@
    "origin": "ipvv/data/chunk-f-upoddhata-k1-7.argmap.json",
    "role": "layer-argmap",
    "sha256": "4f6553ccf1f959dfeeb6f0f3b508c955809e449e759c4badc9870b469a77fbab",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   {
    "bytes": 368,
@@ -20,7 +20,7 @@
    "origin": "ipvv/data/chunk-f-upoddhata-k1-7.c1.json",
    "role": "layer-c1",
    "sha256": "953e421b414aa9c35c6e95875ac7b695f8165e352b48043aadb9254d3f36619d",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   {
    "bytes": 1363004,
@@ -28,7 +28,7 @@
    "origin": "ipvv/data/chunk-f-upoddhata-k1-7.l0.json",
    "role": "layer-l0",
    "sha256": "9e6151d010b8f82b4622a70fc16473e55e2696de397d660e6c9c4446fb536450",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   {
    "bytes": 39415,
@@ -36,7 +36,7 @@
    "origin": "ipvv/data/chunk-f-upoddhata-k1-7.l2.json",
    "role": "layer-l2",
    "sha256": "dc55d2eab738f9c10c03b76aedc16cb3b4ee8a83490354ccc907558ce9ddb109",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   {
    "bytes": 232663,
@@ -44,7 +44,7 @@
    "origin": "ipvv/data/chunk-f-upoddhata-k1-7.t1.json",
    "role": "layer-t1",
    "sha256": "a10f8cc528aced853421cd461ba00de51ed8d51f9ea8d73fa03d5eb460743a90",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   {
    "bytes": 1643,
@@ -67,7 +67,13 @@
   "trace_links_present": "FAIL",
   "witness": "UNPINNED"
  },
- "caveats": [],
+ "caveats": [
+  "layer:t1=whole-song-span",
+  "layer:l0=whole-song-span",
+  "layer:argmap=whole-song-span",
+  "layer:l2=whole-song-span",
+  "layer:c1=whole-song-span"
+ ],
  "chunk": {
   "immutable_id": "pt:pid:ipvv:1bb4e70c35b9",
   "target": "chunkF-upoddhata-k1-7",
@@ -82,7 +88,7 @@
  "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
  "trace": {
   "file": "traces/ipvv-chunkF-upoddhata-k1-7.json",
-  "sha256": "a399474979bb8adaff59e97692fd637e5f6d3c8ee999a55780450dafc07fbfa9"
+  "sha256": "8b23e90fa3694ac6c43ba94bccb9fca76364316934a3aaabe52045161619ed4d"
  },
  "verdict": "PARTIAL",
  "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."

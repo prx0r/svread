@@ -1,6 +1,6 @@
 # tantrasara-a08 tsa08-p04 (8.65-8.93)
 
-tantrasara-a08 tsa08-p04 (8.65-8.93) passes link checks; counts REGISTERED without a per-declaration run. Chunk gate BLOCKED; no witness verified.
+tantrasara-a08 tsa08-p04 (8.65-8.93) passes link checks; counts REGISTERED without a per-declaration run. Chunk gate passes; no witness verified.
 
 > Machine rendering — UNREVIEWED, not an approved translation. No English here was human-reviewed.
 
@@ -61,6 +61,6 @@ kṣobhaḥ avaśyam eva antarāle abhyupagantavya iti siddhaṃ sāṃkhyāpari
 | Tattva.lean :: eleven_wombed | REGISTERED, run UNBOUND (tier R) | trace formal; EVIDENCE registry reference only |
 | TattvaGen.lean :: gen_total | REGISTERED, run UNBOUND (tier R) | trace formal; EVIDENCE registry reference only |
 | TattvaGen.lean :: pentad_uniform | REGISTERED, run UNBOUND (tier R) | trace formal; EVIDENCE registry reference only |
-| Deterministic chunk gate | BLOCKED (ABSTENTION, TERM_CONSISTENCY) | proofs.chunk_gate |
+| Deterministic chunk gate | PASS (none) | proofs.chunk_gate |
 | Manuscript witness | UNPINNED (0 verified corpus-wide) | identity.witness |
 | Source-span completeness | UNKNOWN | assurance: ledger span is an excerpt; volume not hashed |

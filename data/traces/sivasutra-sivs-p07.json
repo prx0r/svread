@@ -1,6 +1,6 @@
 {
  "assurance": {
-  "chunk_gate": "BLOCKED",
+  "chunk_gate": "PASS",
   "formal_run": "UNBOUND",
   "formal_run_note": "registry references only; no per-declaration run digest bound",
   "publication": "NOT_AUTHORIZED",
@@ -9,11 +9,18 @@
   "review_note": "no review decision bound to this trace",
   "source_span_note": "ledger span is an excerpt; the edition volume is not hashed — span completeness unverified",
   "source_span_verified": "UNKNOWN",
-  "trace_links_present": "FAIL",
+  "trace_links_present": "PASS",
   "witness": "UNPINNED"
  },
  "caveats": [
-  "chunk_gate BLOCKED: ABSTENTION"
+  "layer:t1=whole-song-span",
+  "layer:l0=whole-song-span",
+  "layer:argmap=whole-song-span",
+  "layer:l2=whole-song-span",
+  "layer:c1=whole-song-span",
+  "layer:l3=whole-song-span",
+  "layer:l4=whole-song-span",
+  "layer:c2=whole-song-span"
  ],
  "chunk": {
   "immutable_id": "pt:pid:sivs:a63f683385c9",
@@ -29,13 +36,7 @@
   "theorems": []
  },
  "format": "trika-trace/1",
- "gaps": [
-  "layer:l0",
-  "layer:c1",
-  "layer:l3",
-  "layer:l4",
-  "proofs:song"
- ],
+ "gaps": [],
  "identity": {
   "db": "postgresql://patala:***@localhost:5432/openpatala",
   "rows": {
@@ -66,68 +67,81 @@
  },
  "layers": {
   "argmap": {
-   "note": "work-level markdown layer, not per-chunk JSON; bound to the work, not the chunk span",
-   "path": "sivasutra/ARGMAP.md",
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "sivasutra/data/span-p07.argmap.json",
    "present": true,
-   "sha256": "48fb6e8ad16915a020909337aa38808cb4e7f535cf65f50dc4122ed833849a75",
-   "status": "BOUND-WORK-MD"
+   "sha256": "da118d14afa2fe3a3e575ad13adef973ab742d6fba041ff599e49c090ecbf64a",
+   "status": "BOUND-WHOLE-SONG"
   },
   "c1": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "sivasutra/data/span-p07.c1.json",
+   "present": true,
+   "sha256": "17baf2e548faabf68948ac5ed8a4b0e2a0ee93e1398d54dc05b308206e362ae1",
+   "status": "BOUND-WHOLE-SONG"
   },
   "c2": {
-   "note": "C2 renders are optional (owner: existing C2 stays; waived)",
-   "present": false,
-   "status": "NOT-APPLICABLE"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "sivasutra/data/span-p07.c2.json",
+   "present": true,
+   "sha256": "2a6bf40e375fdb4e92b32e40f2bcde5bf68bdce15d084f97c663f0eb17e16932",
+   "status": "BOUND-WHOLE-SONG"
   },
   "l0": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "sivasutra/data/span-p07.l0.json",
+   "present": true,
+   "sha256": "77711d8e00ab4c8e01313b9085a39cf8f23d39799378a60d334da33ae3df5519",
+   "status": "BOUND-WHOLE-SONG"
   },
   "l2": {
-   "note": "work-level markdown layer, not per-chunk JSON; bound to the work, not the chunk span",
-   "path": "sivasutra/L2.md",
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "sivasutra/data/span-p07.l2.json",
    "present": true,
-   "sha256": "df07355b4201f8b5d145fabd55c3f7087ad1557a0313c777a928e02c39783227",
-   "status": "BOUND-WORK-MD"
+   "sha256": "209ffd205386b4a0ef7f9b52082c9d1bd47beb7950ba0fb163bdf55fd6b3d6ea",
+   "status": "BOUND-WHOLE-SONG"
   },
   "l3": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "sivasutra/data/span-p07.l3.json",
+   "present": true,
+   "sha256": "2d245a670e8e1f89deb1aae5f8afa0a78d413e1ecd68b7c72857a85997a2ac26",
+   "status": "BOUND-WHOLE-SONG"
   },
   "l4": {
-   "present": false,
-   "status": "UNKNOWN"
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "sivasutra/data/span-p07.l4.json",
+   "present": true,
+   "sha256": "aadd3ba705510b0c62bf4ee13116b58f7364f26179c514a389e36b7265d1cc6b",
+   "status": "BOUND-WHOLE-SONG"
   },
   "t1": {
-   "note": "work-level markdown layer, not per-chunk JSON; bound to the work, not the chunk span",
-   "path": "sivasutra/T1.md",
+   "note": "chunk is a span of this song file; span-level binding needs a verse-range join",
+   "path": "sivasutra/data/span-p07.t1.json",
    "present": true,
-   "sha256": "f4cf2474989dfab2e9a69b14266b703020e74ae9009533459151edb90f967ac5",
-   "status": "BOUND-WORK-MD"
+   "sha256": "58492afa1d610e1325b8abe865aa60f75a0bb8130954818334498e45c7307961",
+   "status": "BOUND-WHOLE-SONG"
   }
  },
  "open_problems": [],
  "proofs": {
   "chunk_gate": {
-   "blocking": [
-    "ABSTENTION"
-   ],
+   "blocking": [],
    "checks_pass": {
-    "ABSTENTION": false,
-    "CITATION_GROUNDING": true,
-    "COVERAGE": true,
-    "SOURCE_BINDING": true,
-    "TERM_CONSISTENCY": true
+    "PROOF_RECORD": true
    },
-   "deterministic_gate": "BLOCKED",
-   "entry_sha256": "7911925f0aee61e95c489e1b3160cb47887dc5bccaa93a349fa0831664261cc2",
-   "status": "BLOCKED"
+   "deterministic_gate": "PASS",
+   "entry_sha256": "c59fb332f1f388681a2b52530a17042bf16607e42e0a214971df995f5e10617f",
+   "status": "PASS"
   },
   "song_proof": {
-   "note": "no proof file",
-   "status": "UNKNOWN"
+   "blocking": [],
+   "deterministic_gate": "PASS",
+   "file": "sivasutra/proof/proof-span-p07.json",
+   "sha256": "3ef8bddcc71bd494eb85188234d9380af31abe7e2ac122a96097edfeecabd7e4",
+   "status": "PASS",
+   "tool": "proof_record v1 2026-11-01",
+   "warnings": 0
   }
  },
  "source": {
@@ -146,6 +160,6 @@
    "status": "UNPINNED"
   }
  },
- "verdict": "PARTIAL",
+ "verdict": "COMPLETE",
  "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
 }

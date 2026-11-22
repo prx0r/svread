@@ -12,7 +12,7 @@
    "origin": "ipvv/data/chunk-v2-e-pancamo-jnanasakti-k5.argmap.json",
    "role": "layer-argmap",
    "sha256": "a27baeb2ad8c2fad584c449b09ac0d940b814aaff6be76c712876e34d715f82f",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   {
    "bytes": 1095,
@@ -20,7 +20,7 @@
    "origin": "ipvv/data/chunk-v2-e-pancamo-jnanasakti-k5.c1.json",
    "role": "layer-c1",
    "sha256": "b0d3a277d8c560c81b3a9d163f732f2ee495a01af0b0e99f7639c81e5a55bff5",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   {
    "bytes": 1831934,
@@ -28,7 +28,7 @@
    "origin": "ipvv/data/chunk-v2-e-pancamo-jnanasakti-k5.l0.json",
    "role": "layer-l0",
    "sha256": "de17421130c91a8e2abeca2880e9880651f77a3211cad3e987c2bc7ec1406771",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   {
    "bytes": 59960,
@@ -36,7 +36,7 @@
    "origin": "ipvv/data/chunk-v2-e-pancamo-jnanasakti-k5.l2.json",
    "role": "layer-l2",
    "sha256": "4d034c7f5989f77587b444d10530c8624f89f354bca4f6109cec522cf438fd53",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   {
    "bytes": 296124,
@@ -44,7 +44,7 @@
    "origin": "ipvv/data/chunk-v2-e-pancamo-jnanasakti-k5.t1.json",
    "role": "layer-t1",
    "sha256": "4e313cd55c51a7a23541598b2653c669748a27b0466c954c544aed2b33abedd4",
-   "status": "BOUND"
+   "status": "BOUND-WHOLE-SONG"
   },
   {
    "bytes": 1733,
@@ -67,7 +67,13 @@
   "trace_links_present": "FAIL",
   "witness": "UNPINNED"
  },
- "caveats": [],
+ "caveats": [
+  "layer:t1=whole-song-span",
+  "layer:l0=whole-song-span",
+  "layer:argmap=whole-song-span",
+  "layer:l2=whole-song-span",
+  "layer:c1=whole-song-span"
+ ],
  "chunk": {
   "immutable_id": "pt:pid:ipvv:5c87f8b03d9b",
   "target": "chunkV2-E-pancamo-jnanasakti-k5",
@@ -82,7 +88,7 @@
  "limits": "Matching bytes prove the trace and these files agree. They do NOT prove the translation is correct, that a human reviewed it, or that a witness exists (witnesses are UNPINNED). A formal theorem is REGISTERED unless a per-declaration run digest is bound; MODEL_CHECKED would require that binding and never extends beyond the stated finite model.",
  "trace": {
   "file": "traces/ipvv-chunkV2-E-pancamo-jnanasakti-k5.json",
-  "sha256": "c6f4c00d92e7d59fd93d58821cad95999c0318c4061ad349d82b68ed23525cbb"
+  "sha256": "e6c1ac3fa6d6fb130859eabde70706009ddaf64ebe16c917b704152a9ddd1e07"
  },
  "verdict": "PARTIAL",
  "verdict_scope": "links present only — see assurance, gaps, caveats. COMPLETE is not approval, proof, or witness verification."
