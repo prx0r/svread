@@ -60,6 +60,7 @@ Read in this order if you are new:
 | Doc | Use |
 |---|---|
 | `RESOURCES.md` | inventory of sources/tools consulted |
+| `endgame/sanskrithelp/SECONDARY-SOURCES-OHT-2024.md` | secondary-source map: *Oxford Handbook of Tantric Studies* (2024) → Mālinī/Mātṛkā + subtle-body lanes |
 | `SCHOLAR-ENDGAME-SPEC.md` / `SCHOLAR-ENDGAME-VISION.md` | the scholar/essay endgame design |
 | `SCHOLAR-WIRING-PLAN.md` / `SCHOLAR-RELEASE-MAP.md` | scholar build/launch history |
 | `TENSIONS-LINGUA-SPEC.md` / `TENSIONS-ENDGAME.md` | crux/tension language design |
